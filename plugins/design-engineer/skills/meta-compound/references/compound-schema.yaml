@@ -1,0 +1,286 @@
+# Design + Development Documentation Schema
+# Adapted from CORA's compound-engineering schema for design and development workflows.
+# This schema MUST be validated before writing any documentation file.
+
+required_fields:
+  activity:
+    type: string
+    description: "Name of the activity or skill that was performed"
+    examples:
+      - "problem-statement"
+      - "target-audience"
+      - "bias-audit"
+      - "frontend-implementation"
+      - "design-system-setup"
+
+  date:
+    type: string
+    pattern: '^\d{4}-\d{2}-\d{2}$'
+    description: "Date when this activity was completed (YYYY-MM-DD)"
+
+  phase:
+    type: enum
+    values:
+      - phase_1_discovery       # Big Idea, Problem Statement, Target Audience, Assumptions, Competitor Analysis, User Interviews
+      - phase_2_strategy        # StoryBrand, Business Plan, 6P Stories, Behavior Mapping, Psych Framework
+      - phase_3_definition      # MVP Requirements, Information Architecture
+      - phase_4_evaluation      # B.I.A.S. Audit, Journey Mapping, Communicating Decisions, Ethics Review, Product Assessment
+      - phase_5_dev_prep        # Prototyping, Design System, Development Planning
+      - phase_6_development     # Frontend Implementation, Backend Implementation, Integration
+      - phase_7_review          # Visual Review, Accessibility Audit, Psychology Audit, Status Tracking
+      - cross_phase             # Activities that span multiple phases (assumptions tracking, compound documentation)
+      - standalone              # One-off activities not tied to a specific phase
+    description: "Pipeline phase this activity belongs to"
+
+  deliverable_type:
+    type: enum
+    values:
+      # Research deliverables
+      - problem_statement       # Problem definition document
+      - target_audience         # User personas and audience analysis
+      - assumptions_doc         # Living assumptions tracker
+      - competitor_analysis     # Competitive research findings
+      - interview_findings      # User interview/survey results
+      - research_synthesis      # Combined research insights
+
+      # Strategy deliverables
+      - storybrand_canvas       # StoryBrand messaging framework
+      - business_plan           # Revenue model, market size, GTM
+      - story_6p                # 6P comic-style product story
+      - behavior_map            # BMap behavior analysis
+      - psych_variation         # Psych Framework evaluation
+
+      # Design deliverables
+      - mvp_requirements        # Feature prioritization and acceptance criteria
+      - information_architecture # Screen inventory, navigation, user flows
+      - prototype               # Interactive prototype or wireframes
+      - design_system           # Design tokens, components, patterns
+      - visual_design           # UI designs, mockups, Figma frames
+
+      # Development deliverables
+      - development_plan        # Implementation plan with tasks and estimates
+      - code_implementation     # Implemented feature or component
+      - api_design              # API endpoints, data models
+      - test_suite              # Test coverage for a feature
+      - deployment_config       # CI/CD, environment configuration
+
+      # Evaluation deliverables
+      - bias_audit              # B.I.A.S. Framework evaluation
+      - journey_map             # Customer journey with improvements
+      - accessibility_audit     # WCAG compliance review
+      - ethics_review           # Ethical design assessment
+      - product_assessment      # Comprehensive product review
+      - visual_review           # Implementation vs design comparison
+      - psychology_audit        # Psychology principles compliance
+
+      # Meta deliverables
+      - status_update           # Project status checkpoint
+      - decision_log            # Key decision documentation
+      - context_recovery        # Context restoration after compaction or session break
+      - lessons_learned         # What worked and what did not
+    description: "Type of deliverable produced or documented"
+
+  component:
+    type: enum
+    values:
+      # UX components
+      - ux_research             # User research activities
+      - ux_strategy             # Product strategy and positioning
+      - ux_design               # UX design decisions and flows
+      - ux_writing              # Microcopy, content strategy
+
+      # UI components
+      - ui_visual               # Visual design, aesthetics
+      - ui_components           # Design system components
+      - ui_interaction          # Interaction patterns, animations
+      - ui_accessibility        # Accessibility compliance
+
+      # Psychology components
+      - psych_cognitive         # Cognitive biases application
+      - psych_behavioral        # Behavior design (BMap, Psych Framework)
+      - psych_persuasion        # Persuasion principles (B.I.A.S.)
+      - psych_ethics            # Ethical design review
+
+      # Development components
+      - dev_frontend            # Frontend implementation
+      - dev_backend             # Backend implementation
+      - dev_design_system       # Code-first design system
+      - dev_infrastructure      # CI/CD, deployment, environments
+      - dev_testing             # Test suite, QA
+
+      # Project components
+      - project_planning        # Plans, requirements, architecture
+      - project_status          # Status tracking and updates
+      - project_context         # Context engineering and documentation
+    description: "Which component area was affected"
+
+  status:
+    type: enum
+    values:
+      - draft                   # Initial version, needs review
+      - in_progress             # Currently being worked on
+      - complete                # Finished and approved
+      - revised                 # Updated after initial completion
+      - superseded              # Replaced by a newer version
+      - blocked                 # Cannot proceed, waiting on dependency
+      - deferred                # Postponed to a later phase
+    description: "Current state of the deliverable"
+
+  severity:
+    type: enum
+    values:
+      - critical                # Blocks the entire project or phase
+      - high                    # Significantly affects deliverable quality or timeline
+      - medium                  # Affects specific activity but workarounds exist
+      - low                     # Minor note or edge case
+    description: "Impact level of this documentation entry"
+
+optional_fields:
+  tags:
+    type: array[string]
+    max_items: 8
+    description: "Searchable keywords (lowercase, hyphen-separated)"
+    examples:
+      - "persona"
+      - "mvp-scope"
+      - "design-tokens"
+      - "accessibility"
+      - "psychology"
+      - "context-engineering"
+
+  related_deliverables:
+    type: array[string]
+    description: "File paths or names of related deliverables"
+    examples:
+      - "project-docs/solutions/research/problem-statement-20260115.md"
+      - "project-docs/solutions/design/mvp-requirements-20260120.md"
+
+  tools_used:
+    type: array[string]
+    description: "Tools and MCPs used during this activity"
+    examples:
+      - "claude-projects"
+      - "claude-code"
+      - "cursor"
+      - "figma-mcp"
+      - "playwright-mcp"
+
+  token_note:
+    type: string
+    description: "Notes about token usage, compaction events, or context concerns"
+
+  superseded_by:
+    type: string
+    description: "Path to the document that replaces this one (when status is 'superseded')"
+
+  blocked_by:
+    type: string
+    description: "Description of what is blocking progress (when status is 'blocked')"
+
+  decisions:
+    type: array[string]
+    description: "Key decisions made during this activity"
+    examples:
+      - "Chose behavior-based personas over demographic-based"
+      - "Deferred payment integration to Phase 2"
+
+  failed_approaches:
+    type: array[string]
+    description: "Approaches that were tried and did not work"
+    examples:
+      - "Attempted to generate IA before completing user research -- too speculative"
+      - "Used generic persona template -- lacked product-specific motivation data"
+
+validation_rules:
+  - "activity must describe the specific work performed"
+  - "date must be in YYYY-MM-DD format"
+  - "phase must match one of the enum values"
+  - "deliverable_type must match one of the enum values"
+  - "component must match one of the enum values"
+  - "status must match one of the enum values"
+  - "severity must match one of the enum values"
+  - "tags should be lowercase, hyphen-separated"
+  - "failed_approaches should explain WHY the approach failed, not just name it"
+  - "decisions should include rationale, not just the choice"
+
+# Category mapping: deliverable_type -> directory
+category_mapping:
+  # Research
+  problem_statement: "project-docs/solutions/research/"
+  target_audience: "project-docs/solutions/research/"
+  assumptions_doc: "project-docs/solutions/research/"
+  competitor_analysis: "project-docs/solutions/research/"
+  interview_findings: "project-docs/solutions/research/"
+  research_synthesis: "project-docs/solutions/research/"
+
+  # Strategy
+  storybrand_canvas: "project-docs/solutions/strategy/"
+  business_plan: "project-docs/solutions/strategy/"
+  story_6p: "project-docs/solutions/strategy/"
+  behavior_map: "project-docs/solutions/strategy/"
+  psych_variation: "project-docs/solutions/strategy/"
+
+  # Design
+  mvp_requirements: "project-docs/solutions/design/"
+  information_architecture: "project-docs/solutions/design/"
+  prototype: "project-docs/solutions/design/"
+  design_system: "project-docs/solutions/design/"
+  visual_design: "project-docs/solutions/design/"
+
+  # Development
+  development_plan: "project-docs/solutions/development/"
+  code_implementation: "project-docs/solutions/development/"
+  api_design: "project-docs/solutions/development/"
+  test_suite: "project-docs/solutions/development/"
+  deployment_config: "project-docs/solutions/development/"
+
+  # Evaluation
+  bias_audit: "project-docs/solutions/evaluation/"
+  journey_map: "project-docs/solutions/evaluation/"
+  accessibility_audit: "project-docs/solutions/evaluation/"
+  ethics_review: "project-docs/solutions/evaluation/"
+  product_assessment: "project-docs/solutions/evaluation/"
+  visual_review: "project-docs/solutions/evaluation/"
+  psychology_audit: "project-docs/solutions/evaluation/"
+
+  # Meta
+  status_update: "project-docs/solutions/meta/"
+  decision_log: "project-docs/solutions/meta/"
+  context_recovery: "project-docs/solutions/meta/"
+  lessons_learned: "project-docs/solutions/meta/"
+
+# Example valid frontmatter:
+# ---
+# activity: problem-statement
+# date: 2026-01-15
+# phase: phase_1_discovery
+# deliverable_type: problem_statement
+# component: ux_research
+# status: complete
+# severity: high
+# tags: [problem-definition, user-needs, foundation]
+# related_deliverables:
+#   - "project-docs/solutions/research/target-audience-20260116.md"
+# tools_used: [claude-projects]
+# decisions:
+#   - "Focused on three core problems instead of five -- narrower scope enables faster validation"
+#   - "Chose behavioral problem framing over feature-based framing"
+# failed_approaches:
+#   - "Initially tried to define problems without target audience research -- too abstract, revised after completing personas"
+# ---
+#
+# Example status update frontmatter:
+# ---
+# activity: phase-1-completion
+# date: 2026-01-20
+# phase: phase_1_discovery
+# deliverable_type: status_update
+# component: project_status
+# status: complete
+# severity: medium
+# tags: [status, phase-completion, milestone]
+# token_note: "Main conversation at ~150k tokens, recommended fresh chat for Phase 2"
+# decisions:
+#   - "All Phase 1 deliverables approved, proceeding to Phase 2 Strategy"
+#   - "Deferred second round of user interviews to after MVP prototype"
+# ---
