@@ -1,0 +1,25 @@
+{
+  "name": "design-engineer-plugin",
+  "owner": {
+    "name": "Volodymyr Merlenko",
+    "url": "https://github.com/volomydyr"
+  },
+  "metadata": {
+    "description": "Plugin marketplace for design-engineering workflow tools",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "design-engineer",
+      "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 7 commands, and 48 skills.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Volodymyr Merlenko",
+        "url": "https://github.com/volomydyr"
+      },
+      "homepage": "https://github.com/volomydyr/design-engineer-plugin",
+      "tags": ["design-engineering", "ux-design", "product-psychology", "design-systems", "ai-development"],
+      "source": "./plugins/design-engineer"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "description": "Design-engineer plugin hooks for deliverable tracking and dependency management",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/check_deliverable_deps.py",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit|MultiEdit"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/session_dep_summary.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
