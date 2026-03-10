@@ -10,8 +10,8 @@ How to simplify information, reduce brain load, and make interaction intuitive.
 
 ## Reference Files
 
-- [Section 1 Principles](./references/section-1-principles.md) -- All 10 principles with definitions, UX applications, and good/bad examples
-- [Section 1 Case Studies](./references/section-1-case-studies.md) -- Adapted case studies showing principles in action
+- [Section 1 Principles](./references/section-1-principles.md) – All 10 principles with definitions, UX applications, and good/bad examples
+- [Section 1 Case Studies](./references/section-1-case-studies.md) – Adapted case studies showing principles in action
 
 ## Workflow
 
@@ -22,10 +22,10 @@ Ask the user what they want to evaluate against cognitive interaction principles
 **Ask the user:**
 > What would you like me to analyze against cognitive interaction principles?
 >
-> 1. **Figma frames** -- I will examine specific screens from your Figma file
-> 2. **Screenshots** -- share screenshots of the interface to review
-> 3. **Design description** -- describe the interface, flow, or feature in text
-> 4. **Live product** -- provide a URL and I will review the current state
+> 1. **Figma frames** – I will examine specific screens from your Figma file
+> 2. **Screenshots** – share screenshots of the interface to review
+> 3. **Design description** – describe the interface, flow, or feature in text
+> 4. **Live product** – provide a URL and I will review the current state
 
 Wait for the user's response before proceeding.
 
@@ -52,11 +52,11 @@ This file contains all 10 principles of cognitive interaction:
 
 For each principle, assess the design systematically:
 
-1. **State the principle** -- one sentence explaining what it means
-2. **Evaluate** -- does the design follow or violate this principle? Be specific about which elements or flows are affected
-3. **Severity** -- rate as Critical (breaks usability), Warning (degrades experience), or Passed (principle is well-applied)
-4. **Evidence** -- point to specific UI elements, flows, or patterns that demonstrate the finding
-5. **Recommendation** -- if there is a violation, provide a concrete suggestion with pros and cons
+1. **State the principle** – one sentence explaining what it means
+2. **Evaluate** – does the design follow or violate this principle? Be specific about which elements or flows are affected
+3. **Severity** – rate as Critical (breaks usability), Warning (degrades experience), or Passed (principle is well-applied)
+4. **Evidence** – point to specific UI elements, flows, or patterns that demonstrate the finding
+5. **Recommendation** – if there is a violation, provide a concrete suggestion with pros and cons
 
 Use these evaluation patterns for each principle:
 
@@ -131,7 +131,7 @@ Structure the output as follows:
 
 ### Detailed Findings
 
-#### [Principle Name] -- [Passed/Warning/Critical]
+#### [Principle Name] – [Passed/Warning/Critical]
 **What it means**: [One-sentence definition]
 **Finding**: [Specific observation about the design]
 **Evidence**: [Which elements or flows demonstrate this]
@@ -167,7 +167,7 @@ For each critical or warning finding, find the most relevant case study and expl
 
 Several principles in this section overlap with content from the 106 Cognitive Biases framework. The reference file merges these sources for a unified perspective:
 
-- **Cognitive Load** -- expanded with cognitive load theory (intrinsic, extraneous, germane) and practical reduction strategies
-- **Hick's Law** -- enriched with logarithmic decision-time relationship and category-based chunking strategies
-- **Fitts's Law** -- enhanced with the mathematical relationship between target size, distance, and acquisition time
-- **Progressive Disclosure** -- deepened with the concept of layered complexity and user expertise levels
+- **Cognitive Load** – expanded with cognitive load theory (intrinsic, extraneous, germane) and practical reduction strategies
+- **Hick's Law** – enriched with logarithmic decision-time relationship and category-based chunking strategies
+- **Fitts's Law** – enhanced with the mathematical relationship between target size, distance, and acquisition time
+- **Progressive Disclosure** – deepened with the concept of layered complexity and user expertise levels

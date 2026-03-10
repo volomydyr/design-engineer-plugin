@@ -1,4 +1,4 @@
-# Section 2: Visual Perception and Attention Focus -- Case Studies
+# Section 2: Visual Perception and Attention Focus – Case Studies
 
 Adapted case studies showing how visual perception and attention principles are applied in real products.
 
@@ -10,32 +10,32 @@ Adapted case studies showing how visual perception and attention principles are 
 
 A B2B SaaS platform needed to communicate critical account information to users: subscription renewals, usage limits approaching, security alerts, and feature announcements. The original design used a bright orange banner at the top of every page, styled with a gradient background, bold white text, and a prominent "X" close button. The banner followed the visual pattern of a traditional website advertisement.
 
-Analytics showed that only 8% of users interacted with these banners. Post-survey data revealed that 62% of users reported "never seeing" the banner notifications, even though they appeared on every page load. When subscriptions expired without action, users complained they had "no warning" -- despite the warning being displayed continuously for 14 days.
+Analytics showed that only 8% of users interacted with these banners. Post-survey data revealed that 62% of users reported "never seeing" the banner notifications, even though they appeared on every page load. When subscriptions expired without action, users complained they had "no warning" – despite the warning being displayed continuously for 14 days.
 
 ### Principles Applied
 
-- **Banner Blindness** -- the notification design triggered learned ad-filtering behavior
-- **Selective Attention** -- notifications appeared at the wrong time relative to user focus
-- **Contrast** -- the banner's bright styling paradoxically made it easier to ignore (more ad-like)
-- **Visual Anchors** -- the banner occupied a zone users had learned to skip
+- **Banner Blindness** – the notification design triggered learned ad-filtering behavior
+- **Selective Attention** – notifications appeared at the wrong time relative to user focus
+- **Contrast** – the banner's bright styling paradoxically made it easier to ignore (more ad-like)
+- **Visual Anchors** – the banner occupied a zone users had learned to skip
 
 ### The Solution
 
 The notification system was completely redesigned with three tiers:
 
-**Tier 1 -- Critical (security, expiring subscription):**
+**Tier 1 – Critical (security, expiring subscription):**
 - Displayed as an inline card within the user's main content area, not at the top of the page
 - Used the same typography as the rest of the interface (no bold gradients)
 - Included a subtle left border in red and a small shield icon
 - Appeared after the user completed their current task (respecting selective attention)
 - Could not be dismissed without acknowledging (clicking "Remind me later" or "Take action")
 
-**Tier 2 -- Important (usage approaching limits, billing updates):**
+**Tier 2 – Important (usage approaching limits, billing updates):**
 - Shown as a badge count on the relevant navigation item (e.g., a "1" badge on the Account tab)
 - When the user opened that section, the notification appeared as a contextual card near the relevant setting
 - Used a yellow left border and an info icon
 
-**Tier 3 -- Informational (new features, tips):**
+**Tier 3 – Informational (new features, tips):**
 - Appeared as a small dot indicator on the relevant feature
 - On first visit to that feature, a brief tooltip explained the update
 - No page-level notification at all
@@ -67,11 +67,11 @@ Analysis of the pricing page revealed several issues:
 
 ### Principles Applied
 
-- **Von Restorff Effect** -- the recommended plan needed to visually differ from others
-- **Centre-Stage Effect** -- the recommended plan needed to be in the center position
-- **Visual Hierarchy** -- the pricing page needed clearer visual weight distribution
-- **Serial Position Effect** -- plan ordering needed to account for primacy and recency positions
-- **Contrast** -- the CTA on the recommended plan needed higher visual contrast
+- **Von Restorff Effect** – the recommended plan needed to visually differ from others
+- **Centre-Stage Effect** – the recommended plan needed to be in the center position
+- **Visual Hierarchy** – the pricing page needed clearer visual weight distribution
+- **Serial Position Effect** – plan ordering needed to account for primacy and recency positions
+- **Contrast** – the CTA on the recommended plan needed higher visual contrast
 
 ### The Solution
 
@@ -122,12 +122,12 @@ Eye-tracking studies revealed that users scanned the first row, partially scanne
 
 ### Principles Applied
 
-- **Law of Similarity** -- cards for the same channel needed shared visual treatment
-- **Law of Pragnanz** -- the overall layout needed to resolve into a simpler visual pattern
-- **Visual Anchors** -- the dashboard needed clear anchor points to guide scanning
-- **Selective Attention** -- critical metrics needed prominence aligned with user goals
-- **Picture Superiority Effect** -- visual indicators needed to communicate status faster than numbers
-- **Serial Position Effect** -- the most important metrics needed to be at the beginning of the visual sequence
+- **Law of Similarity** – cards for the same channel needed shared visual treatment
+- **Law of Pragnanz** – the overall layout needed to resolve into a simpler visual pattern
+- **Visual Anchors** – the dashboard needed clear anchor points to guide scanning
+- **Selective Attention** – critical metrics needed prominence aligned with user goals
+- **Picture Superiority Effect** – visual indicators needed to communicate status faster than numbers
+- **Serial Position Effect** – the most important metrics needed to be at the beginning of the visual sequence
 
 ### The Solution
 
@@ -137,7 +137,7 @@ Eye-tracking studies revealed that users scanned the first row, partially scanne
 
 **Layout simplification (Pragnanz):**
 - Replaced the 3x6 flat grid with a structured layout: a top summary row + expandable channel sections
-- The top row showed 4 aggregate metrics (Total Revenue, Total Conversions, Total Traffic, Average Cost per Acquisition) as large, prominent cards -- the visual anchors for the page
+- The top row showed 4 aggregate metrics (Total Revenue, Total Conversions, Total Traffic, Average Cost per Acquisition) as large, prominent cards – the visual anchors for the page
 - Below, 5 collapsible channel sections contained the channel-specific metrics, organized with the highest-performing channel expanded by default
 
 **Visual status indicators (Picture Superiority):**

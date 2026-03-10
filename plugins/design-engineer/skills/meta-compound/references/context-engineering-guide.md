@@ -6,9 +6,9 @@ Best practices for maintaining context across sessions, surviving chat compactio
 
 ## Strategy 1: One Activity = One Chat
 
-Every conversation has a token limit. Claude allows about 200,000 tokens per chat -- roughly 140,000 words. That limit includes your messages, AI responses, attached files, and documents that AI creates. When you approach this limit, Claude starts losing context from earlier parts of the conversation.
+Every conversation has a token limit. Claude allows about 200,000 tokens per chat – roughly 140,000 words. That limit includes your messages, AI responses, attached files, and documents that AI creates. When you approach this limit, Claude starts losing context from earlier parts of the conversation.
 
-Claude has a "compact chat" feature -- when you hit 200k tokens, AI automatically compresses the earlier conversation and continues. This compaction is smart; it summarizes older messages more heavily and keeps recent ones mostly as they are. But you still lose some details.
+Claude has a "compact chat" feature – when you hit 200k tokens, AI automatically compresses the earlier conversation and continues. This compaction is smart; it summarizes older messages more heavily and keeps recent ones mostly as they are. But you still lose some details.
 
 **The rule: one activity should equal one chat.**
 
@@ -18,7 +18,7 @@ When you finish an activity (e.g., defining a problem statement, completing a B.
 
 1. Complete one activity per chat (e.g., write the Problem Statement document)
 2. When finished, save the deliverable to the project's knowledge by clicking the "Copy to project" button
-3. This must be done manually -- Claude cannot save files on its own, even if you ask it to and it claims it did
+3. This must be done manually – Claude cannot save files on its own, even if you ask it to and it claims it did
 4. Start a fresh chat for the next activity
 5. AI reads all your previous documents through project knowledge, starting with full context
 
@@ -78,7 +78,7 @@ Auto-compaction uses AI judgment to decide what matters. This creates specific r
 - **Hallucination trigger**: When AI loses context about what was already built, it may invent components or features that do not exist
 - **Repeated failures**: Failed approaches get compressed, leading AI to try them again
 
-Manual compaction avoids these risks by letting the human -- who knows what matters -- control what survives.
+Manual compaction avoids these risks by letting the human – who knows what matters – control what survives.
 
 ---
 
@@ -131,7 +131,7 @@ For a typical design + dev workflow:
 - Each sub-agent should receive only the context it needs, not the entire conversation history
 - Sub-agent results should be summarized before returning to the parent
 - If a sub-agent's work is saved to a file, the parent only needs the file path, not the full content
-- Four sub-agents is usually enough -- splitting further adds coordination overhead without proportional benefit
+- Four sub-agents is usually enough – splitting further adds coordination overhead without proportional benefit
 
 ---
 
@@ -143,7 +143,7 @@ The solution: keep a status file for AI to read at the start of every task.
 
 ### Setting up the status file
 
-Create a markdown file in the root of your project and call it `status.md`. The name is not critical -- what matters is that your AI tool knows where to find it and when to update it.
+Create a markdown file in the root of your project and call it `status.md`. The name is not critical – what matters is that your AI tool knows where to find it and when to update it.
 
 **For Claude Code:** Explain the status file as part of your workflow in the CLAUDE.md file. Tell the AI to read it at the start of every conversation and update it after every significant action.
 
@@ -173,7 +173,7 @@ Phase 2 Strategy - Step 1: StoryBrand Canvas
 
 ## What Has Not Worked
 - Generic persona templates lacked product-specific motivation data
-- Tried to define IA before research -- too speculative
+- Tried to define IA before research – too speculative
 
 ## Open Questions
 - Should onboarding flow include social proof? (test in prototype)
@@ -191,7 +191,7 @@ Phase 2 Strategy - Step 1: StoryBrand Canvas
 
 ### Keeping the status file accurate
 
-The AI can forget to update the status file even if global rules tell it to. Nudge AI from time to time. Ask it to update your status file after every big phase it completes -- basically after any complex prompt.
+The AI can forget to update the status file even if global rules tell it to. Nudge AI from time to time. Ask it to update your status file after every big phase it completes – basically after any complex prompt.
 
 If you are wondering why you need a separate document when you could write all project progress inside the global rules (CLAUDE.md): the answer is separation of concerns. It is better to use smaller, dedicated files for cases like this instead of keeping everything in one large CLAUDE.md, because otherwise the AI may ignore certain parts due to context limits.
 
@@ -237,13 +237,13 @@ project-root/
 
 ### Why separation matters
 
-- **CLAUDE.md** should contain only workflow rules and tool configuration -- not project status or deliverable content
+- **CLAUDE.md** should contain only workflow rules and tool configuration – not project status or deliverable content
 - **status.md** gives AI a quick snapshot of where the project stands without reading every deliverable
 - **deliverables/** contains the actual work products at full fidelity
 - **solutions/** contains compound documentation about HOW the work was done
 - **context/** contains living documents that change throughout the project
 
-Each file is small enough that AI can read it fully without context truncation. When AI needs the problem statement, it reads that specific file -- it does not need to parse through a 50-page combined document.
+Each file is small enough that AI can read it fully without context truncation. When AI needs the problem statement, it reads that specific file – it does not need to parse through a 50-page combined document.
 
 ### Cross-file references
 
@@ -263,11 +263,11 @@ When returning to a project after a break (new session, different day, team hand
 
 ### Recovery sequence
 
-1. **Read status.md** -- understand what phase the project is in, what was last completed, what is next
-2. **Read the latest compound entry** -- understand the most recent work in detail
-3. **Read relevant deliverables** -- only the deliverables needed for the current task
-4. **Check open questions** -- see if any blockers have been resolved
-5. **Proceed with the next step** -- AI now has sufficient context to continue
+1. **Read status.md** – understand what phase the project is in, what was last completed, what is next
+2. **Read the latest compound entry** – understand the most recent work in detail
+3. **Read relevant deliverables** – only the deliverables needed for the current task
+4. **Check open questions** – see if any blockers have been resolved
+5. **Proceed with the next step** – AI now has sufficient context to continue
 
 ### What to do after chat compaction
 

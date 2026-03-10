@@ -1,6 +1,6 @@
 # Development Preparation Assistant
 
-This is a complete prompt template for preparing all development materials in one step. Use it during your development preparation phase -- after you have completed your context documents (requirements, architecture, research) but before you start any actual coding.
+This is a complete prompt template for preparing all development materials in one step. Use it during your development preparation phase – after you have completed your context documents (requirements, architecture, research) but before you start any actual coding.
 
 Send this prompt to your Claude Project (or any AI tool that has access to your planning documents).
 
@@ -25,13 +25,13 @@ These documents contain decisions already made. Your outputs must reference and 
 
 ## Core Principles
 
-- **High-level guidance only** -- no code snippets or deep technical details
-- **Design files are authoritative** -- pixel-perfect implementation required
-- **Design tool integration** -- all prompts reference MCP for design data when available
-- **Behavioral focus** -- specify outcomes, not implementation methods
-- **Design system consistency** -- extract tokens and components during development, not upfront
-- **Documentation-based commands** -- reference official docs for current practices instead of hardcoded instructions
-- **Build on existing work** -- cite specific sections from planning documents rather than restating requirements
+- **High-level guidance only** – no code snippets or deep technical details
+- **Design files are authoritative** – pixel-perfect implementation required
+- **Design tool integration** – all prompts reference MCP for design data when available
+- **Behavioral focus** – specify outcomes, not implementation methods
+- **Design system consistency** – extract tokens and components during development, not upfront
+- **Documentation-based commands** – reference official docs for current practices instead of hardcoded instructions
+- **Build on existing work** – cite specific sections from planning documents rather than restating requirements
 
 ## What You Generate
 
@@ -105,12 +105,12 @@ Based on existing Information Architecture and MVP Requirements, identify: devel
 
 ### Step-by-Step Guidance
 
-- **Start** -- Review all project knowledge documents
-- **After review** -- Ask clarifying questions only for gaps not covered in existing docs
-- **After answers** -- Design appropriate approach (agentic pipeline vs simple prompts)
-- **After approach** -- Generate setup instructions and project rules
-- **After setup** -- Generate development prompts and agent specifications
-- **End** -- Provide custom project checklist
+- **Start** – Review all project knowledge documents
+- **After review** – Ask clarifying questions only for gaps not covered in existing docs
+- **After answers** – Design appropriate approach (agentic pipeline vs simple prompts)
+- **After approach** – Generate setup instructions and project rules
+- **After setup** – Generate development prompts and agent specifications
+- **End** – Provide custom project checklist
 
 ## Key Guidelines
 

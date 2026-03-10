@@ -1,4 +1,4 @@
-# Section 1: Fundamentals of Cognitive Interaction -- Case Studies
+# Section 1: Fundamentals of Cognitive Interaction – Case Studies
 
 Adapted case studies showing how cognitive interaction principles are applied in real products.
 
@@ -12,19 +12,19 @@ An e-commerce platform had a single-page checkout that displayed all fields simu
 
 ### Principles Applied
 
-- **Cognitive Load** -- the single page overwhelmed users with too much information at once
-- **Progressive Disclosure** -- information could be revealed in stages matching the user's progress
-- **Chunking** -- related fields needed to be grouped into logical steps
-- **Miller's Law** -- each step needed to stay within the 5-9 element limit
+- **Cognitive Load** – the single page overwhelmed users with too much information at once
+- **Progressive Disclosure** – information could be revealed in stages matching the user's progress
+- **Chunking** – related fields needed to be grouped into logical steps
+- **Miller's Law** – each step needed to stay within the 5-9 element limit
 
 ### The Solution
 
 The checkout was redesigned into a 4-step flow:
 
-1. **Shipping** (5 fields) -- name, address line 1, address line 2, city, postal code. Country and state pre-filled from account. A checkbox "Same as billing" eliminated 7 duplicate fields for most users.
-2. **Delivery** (3 options) -- Standard, Express, Next Day. Each option showed price and estimated date. The most popular option was pre-selected (smart default, applying Hick's Law).
-3. **Payment** (4 fields) -- card number (chunked as 4 groups of 4 digits), expiry, CVV, cardholder name. Saved payment methods shown as recognizable card icons (Recognition Over Recall).
-4. **Review** (read-only summary) -- all previous selections displayed for confirmation. Edit links next to each section for quick corrections.
+1. **Shipping** (5 fields) – name, address line 1, address line 2, city, postal code. Country and state pre-filled from account. A checkbox "Same as billing" eliminated 7 duplicate fields for most users.
+2. **Delivery** (3 options) – Standard, Express, Next Day. Each option showed price and estimated date. The most popular option was pre-selected (smart default, applying Hick's Law).
+3. **Payment** (4 fields) – card number (chunked as 4 groups of 4 digits), expiry, CVV, cardholder name. Saved payment methods shown as recognizable card icons (Recognition Over Recall).
+4. **Review** (read-only summary) – all previous selections displayed for confirmation. Edit links next to each section for quick corrections.
 
 A progress bar at the top showed the current step and remaining steps. Each step had a single primary action button ("Continue to Delivery", "Continue to Payment", "Place Order").
 
@@ -47,20 +47,20 @@ Breaking a complex task into steps is not just about visual cleanliness. It redu
 
 A project management mobile app had its primary actions (Create Task, Search, Notifications) in the top navigation bar. On modern phones with 6+ inch screens, these buttons were in the hardest-to-reach zone for one-handed use. User analytics showed that 72% of users held their phone in their right hand, and the most-used action (Create Task) required a full-thumb stretch or a second hand.
 
-Additionally, the dashboard showed all project metrics in a flat list: tasks completed, tasks overdue, team members, recent activity, upcoming deadlines, budget status, and risk indicators -- 7 separate cards with no grouping or hierarchy.
+Additionally, the dashboard showed all project metrics in a flat list: tasks completed, tasks overdue, team members, recent activity, upcoming deadlines, budget status, and risk indicators – 7 separate cards with no grouping or hierarchy.
 
 ### Principles Applied
 
-- **Fitts's Law** -- critical actions were placed far from the natural thumb position, making them slow and difficult to reach
-- **Law of Proximity** -- the flat dashboard treated all metrics as equally important and unrelated
-- **Visual Hierarchy** -- no visual differentiation between critical metrics (overdue tasks) and informational metrics (team member count)
-- **Chunking** -- the 7 metrics needed logical grouping
+- **Fitts's Law** – critical actions were placed far from the natural thumb position, making them slow and difficult to reach
+- **Law of Proximity** – the flat dashboard treated all metrics as equally important and unrelated
+- **Visual Hierarchy** – no visual differentiation between critical metrics (overdue tasks) and informational metrics (team member count)
+- **Chunking** – the 7 metrics needed logical grouping
 
 ### The Solution
 
 **Navigation redesign:**
 - Moved primary actions to a bottom navigation bar with 4 tabs (Dashboard, Tasks, Team, Settings)
-- Added a floating action button (FAB) for "Create Task" centered at the bottom -- the highest-frequency action got the easiest-to-reach position
+- Added a floating action button (FAB) for "Create Task" centered at the bottom – the highest-frequency action got the easiest-to-reach position
 - Search was integrated into each relevant tab (contextual search) rather than being a global button in the top bar
 - Notifications became a badge on the Dashboard tab icon, with the notification list accessible via a bottom sheet (swipe up)
 
@@ -78,7 +78,7 @@ Additionally, the dashboard showed all project metrics in a flat list: tasks com
 
 ### Takeaway
 
-Fitts's Law is not theoretical -- the physical distance between the user's thumb and an interactive element directly affects usage frequency. When paired with Proximity (grouping related items) and Visual Hierarchy (making urgent items visually dominant), the entire experience becomes more intuitive. The most important action should always be in the easiest-to-reach position.
+Fitts's Law is not theoretical – the physical distance between the user's thumb and an interactive element directly affects usage frequency. When paired with Proximity (grouping related items) and Visual Hierarchy (making urgent items visually dominant), the entire experience becomes more intuitive. The most important action should always be in the easiest-to-reach position.
 
 ---
 
@@ -86,17 +86,17 @@ Fitts's Law is not theoretical -- the physical distance between the user's thumb
 
 ### The Problem
 
-A SaaS application had a settings panel with 35 options displayed in a single scrollable list. Each option was a text label with a text input field -- no toggles, no dropdowns, no visual grouping. Users were expected to remember valid values (e.g., type "daily", "weekly", or "monthly" for email frequency). The settings page had the highest support ticket rate of any page in the product.
+A SaaS application had a settings panel with 35 options displayed in a single scrollable list. Each option was a text label with a text input field – no toggles, no dropdowns, no visual grouping. Users were expected to remember valid values (e.g., type "daily", "weekly", or "monthly" for email frequency). The settings page had the highest support ticket rate of any page in the product.
 
 New features added to the product over 2 years were announced only via email. Once users closed the email, there was no way to discover these features within the product itself.
 
 ### Principles Applied
 
-- **Recognition Over Recall** -- text input fields required users to remember valid values instead of showing them
-- **Hick's Law** -- 35 options in a flat list created decision paralysis
-- **Discoverability** -- new features had no in-product discovery mechanism
-- **Chunking** -- settings needed logical grouping
-- **Progressive Disclosure** -- not all settings needed to be visible at once
+- **Recognition Over Recall** – text input fields required users to remember valid values instead of showing them
+- **Hick's Law** – 35 options in a flat list created decision paralysis
+- **Discoverability** – new features had no in-product discovery mechanism
+- **Chunking** – settings needed logical grouping
+- **Progressive Disclosure** – not all settings needed to be visible at once
 
 ### The Solution
 
@@ -108,7 +108,7 @@ New features added to the product over 2 years were announced only via email. On
 **Input controls redesign:**
 - Replaced text inputs with appropriate controls: toggles for on/off settings, dropdown menus for multi-choice settings (email frequency: Daily / Weekly / Monthly), sliders for numeric ranges
 - Added preview text showing current value even when sections were collapsed
-- This applied Recognition Over Recall -- users could see and choose from valid options rather than guessing
+- This applied Recognition Over Recall – users could see and choose from valid options rather than guessing
 
 **Feature discovery:**
 - Added a small "New" badge next to recently-added settings, visible for 30 days after release

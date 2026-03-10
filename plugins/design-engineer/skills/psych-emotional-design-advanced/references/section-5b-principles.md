@@ -22,13 +22,13 @@ A free trial ends with "Your trial has expired. Subscribe for $29.99/month." No 
 
 We value things more when we feel ownership over them. In a classic mug experiment, people given a mug demanded roughly twice as much to sell it as others were willing to pay to buy the same mug.
 
-**Key research**: Duke University basketball ticket experiment -- students who won lottery tickets to games valued them at $2,400 on average, while students who did not win were willing to pay only $170. Ownership multiplied perceived value by 14x.
+**Key research**: Duke University basketball ticket experiment – students who won lottery tickets to games valued them at $2,400 on average, while students who did not win were willing to pay only $170. Ownership multiplied perceived value by 14x.
 
 **UX applications from 106 Biases**:
 
 - **Free trials with full access**: Let users create, customize, and invest during the trial. The more they build, the stronger the endowment.
-- **"Your" language**: "Your dashboard," "Your recommendations," "Your collection" -- possessive language reinforces ownership.
-- **Progress visualization**: Show users what they have accumulated -- learning streaks, content created, connections made.
+- **"Your" language**: "Your dashboard," "Your recommendations," "Your collection" – possessive language reinforces ownership.
+- **Progress visualization**: Show users what they have accumulated – learning streaks, content created, connections made.
 - **Loss-framed cancellation**: "You will lose access to your 47 saved items, 12 custom workflows, and 6 months of analytics history." This is the Endowment Effect meeting Loss Aversion.
 
 **Ethical checkpoint**: The endowment effect should highlight genuine value the user has created. Fabricating a sense of ownership over things the user never valued is manipulative.
@@ -37,7 +37,7 @@ We value things more when we feel ownership over them. In a classic mug experime
 
 ## Law 47: Fresh Start Effect
 
-**Definition**: People are more motivated to start new habits and achieve goals at "natural" beginning points -- a new year, month, or week.
+**Definition**: People are more motivated to start new habits and achieve goals at "natural" beginning points – a new year, month, or week.
 
 ### UX Application
 
@@ -75,7 +75,7 @@ Maintain balance between narrative and functionality so the story supports the m
 
 ### Good Example
 
-A budgeting app onboarding follows "Meet Alex" -- a character in a similar financial situation to the user. Each onboarding step shows Alex discovering a feature and its impact: "Alex found $200 in forgotten subscriptions. Let's check yours." The story makes abstract financial concepts concrete and personally relevant.
+A budgeting app onboarding follows "Meet Alex" – a character in a similar financial situation to the user. Each onboarding step shows Alex discovering a feature and its impact: "Alex found $200 in forgotten subscriptions. Let's check yours." The story makes abstract financial concepts concrete and personally relevant.
 
 ### Bad Example
 
@@ -83,7 +83,7 @@ A project management tool onboarding uses a fantasy narrative: "You are the comm
 
 ### From 106 Cognitive Biases: Storytelling Effect
 
-People remember stories better than facts alone. Neurological research shows that stories activate more regions of the brain -- not just language processing areas, but also areas responsible for experiencing the events described.
+People remember stories better than facts alone. Neurological research shows that stories activate more regions of the brain – not just language processing areas, but also areas responsible for experiencing the events described.
 
 **UX applications from 106 Biases**:
 
@@ -143,7 +143,7 @@ A file deletion dialog shows a preview of exactly what will be deleted, how many
 
 ### Bad Example
 
-A settings page has an "Apply Changes" button with no preview of what will change. Users must click the button to find out what happens -- and if the result is wrong, they need to undo and try again. Each action is a blind guess.
+A settings page has an "Apply Changes" button with no preview of what will change. Users must click the button to find out what happens – and if the result is wrong, they need to undo and try again. Each action is a blind guess.
 
 ### Feedforward Design Patterns
 

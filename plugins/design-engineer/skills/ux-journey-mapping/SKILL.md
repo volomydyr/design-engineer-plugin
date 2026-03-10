@@ -24,9 +24,9 @@ You should instead boil down your experiences to their top 5-8 moments. Your res
 
 ## Reference Files
 
-- [journey-elements.md](./references/journey-elements.md) -- 5 element types with definitions and examples
-- [journey-improvement-tactics.md](./references/journey-improvement-tactics.md) -- 4 improvement tactics with checklist
-- [journey-case-study.md](./references/journey-case-study.md) -- Brave Browser onboarding case study
+- [journey-elements.md](./references/journey-elements.md) – 5 element types with definitions and examples
+- [journey-improvement-tactics.md](./references/journey-improvement-tactics.md) – 4 improvement tactics with checklist
+- [journey-case-study.md](./references/journey-case-study.md) – Brave Browser onboarding case study
 
 ## Interaction Method
 
@@ -48,7 +48,7 @@ options:
     description: "Create a journey map for a product or feature from scratch"
   - label: "Improve an existing journey"
     description: "I already have a journey map or experience to optimize"
-  - label: "Both — map first, then improve"
+  - label: "Both – map first, then improve"
     description: "Walk me through the full process end to end"
 ```
 
@@ -103,7 +103,7 @@ Continue until you have 5-8 moments mapped. If the user is struggling, use these
 - **Break down broad steps.** If a moment feels too big, split it into smaller sub-journeys.
 - **Focus on emotional shifts.** Where does the user's feeling change significantly?
 
-Important: Remember that a Transition is a moment marking the start or end of a journey. It signals the "stops in a day" -- from the previous screen for a moment. In history, you could say that every step you do while walking is a Transition: from a place to another. But real Milestones in a day are things like "leaving your house", "arriving at the airport", "bumping into a random friend for lunch", etc.
+Important: Remember that a Transition is a moment marking the start or end of a journey. It signals the "stops in a day" – from the previous screen for a moment. In history, you could say that every step you do while walking is a Transition: from a place to another. But real Milestones in a day are things like "leaving your house", "arriving at the airport", "bumping into a random friend for lunch", etc.
 
 Focus on the most crucial Transitions from the perspective of the customer's motivations. Avoid getting lost in the micro-steps of your screens.
 
@@ -130,7 +130,7 @@ After presenting, ask:
 question: "Does this journey map capture the key moments accurately? What would you change?"
 header: "Journey Map Review"
 options:
-  - label: "Looks good — let's continue"
+  - label: "Looks good – let's continue"
     description: "The map captures the experience well"
   - label: "I want to adjust some moments"
     description: "Some elements need corrections"
@@ -150,21 +150,21 @@ Now that the journey is mapped, apply the 4 improvement tactics from [journey-im
 
 Briefly explain each tactic to the user:
 
-1. **Mark the Transition** -- Identify the most critical Transition and make it feel intentional, acknowledged, and smooth.
-2. **Elevate the Peak** -- Find ways to make the highest moment even more memorable and delightful.
-3. **Fill the Biggest Pit** -- Address the lowest moment to reduce friction, frustration, or confusion.
-4. **Reorder Important Steps** -- Rearrange steps strategically to leverage Hyperbolic Discounting and the Peak-End Rule.
+1. **Mark the Transition** – Identify the most critical Transition and make it feel intentional, acknowledged, and smooth.
+2. **Elevate the Peak** – Find ways to make the highest moment even more memorable and delightful.
+3. **Fill the Biggest Pit** – Address the lowest moment to reduce friction, frustration, or confusion.
+4. **Reorder Important Steps** – Rearrange steps strategically to leverage Hyperbolic Discounting and the Peak-End Rule.
 
 Before diving into specific improvements, share the key psychology behind these tactics:
 
 ### Peak-End Rule
-People do not evaluate an experience based on the average or a sum of all the micro-experiences. Specifically, your brain heavily weights the Peaks, the Pits, and the Transitions. You do not need to fix everything -- focus on these high-impact moments.
+People do not evaluate an experience based on the average or a sum of all the micro-experiences. Specifically, your brain heavily weights the Peaks, the Pits, and the Transitions. You do not need to fix everything – focus on these high-impact moments.
 
 ### Hyperbolic Discounting
 People prefer smaller, immediate rewards rather than larger, future ones. That is why it is often better for your product to deliver a smaller reward now (e.g., a preview of something important) instead of leaving your customers waiting.
 
 ### The ROI of Delight
-Studies have shown that delighting your "good" customers (i.e., those who are already engaged) drives approximately 9 times more revenue than focusing on satisfying your "average" customers. Delight is not decoration -- it has a significant return on investment.
+Studies have shown that delighting your "good" customers (i.e., those who are already engaged) drives approximately 9 times more revenue than focusing on satisfying your "average" customers. Delight is not decoration – it has a significant return on investment.
 
 ---
 
@@ -222,12 +222,12 @@ Save the final journey map and improvement plan to `{deliverables_path}/journeys
 
 The document should include:
 
-1. **Journey Overview** -- Product/feature name, target user, trigger, and desired end state
-2. **Journey Map** -- The 5-8 key moments table with element types and delight levels
-3. **Visual Arc Description** -- A text description of the emotional flow
-4. **Improvement Opportunities** (if applicable) -- Top 3 ideas with specific implementation notes
-5. **"In Real Life" Assessment** -- How the experience would feel as a real interaction
-6. **Next Steps** -- Recommended actions and which skill to run next
+1. **Journey Overview** – Product/feature name, target user, trigger, and desired end state
+2. **Journey Map** – The 5-8 key moments table with element types and delight levels
+3. **Visual Arc Description** – A text description of the emotional flow
+4. **Improvement Opportunities** (if applicable) – Top 3 ideas with specific implementation notes
+5. **"In Real Life" Assessment** – How the experience would feel as a real interaction
+6. **Next Steps** – Recommended actions and which skill to run next
 
 ---
 
@@ -241,9 +241,9 @@ The 6P Story you described in `ux-6p-stories` was probably an "ideal" scenario. 
 
 This skill enforces User > Docs > AI at every step:
 
-1. **User's direct input** always overrides everything -- their experience, their product, their call
+1. **User's direct input** always overrides everything – their experience, their product, their call
 2. **Existing documentation** (6P Stories, research, prior journey maps) informs suggestions
-3. **AI suggestions** fill gaps only when user and docs provide no guidance -- and are always presented as suggestions, not decisions
+3. **AI suggestions** fill gaps only when user and docs provide no guidance – and are always presented as suggestions, not decisions
 
 ---
 
@@ -251,6 +251,6 @@ This skill enforces User > Docs > AI at every step:
 
 After the journey map is complete, suggest:
 
-1. `ux-bias-framework` -- Apply the B.I.A.S. Framework to audit specific moments
-2. `ux-ethics-review` -- Ensure improvements are ethical and humane (optional but recommended)
-3. `ux-communicating-decisions` -- Prepare to present journey findings to stakeholders
+1. `ux-bias-framework` – Apply the B.I.A.S. Framework to audit specific moments
+2. `ux-ethics-review` – Ensure improvements are ethical and humane (optional but recommended)
+3. `ux-communicating-decisions` – Prepare to present journey findings to stakeholders

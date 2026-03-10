@@ -1,6 +1,6 @@
 # Product Assessment Checklist
 
-A step-by-step checklist to improve any customer experience. Work through each section in order -- each area builds on the insights from the previous one.
+A step-by-step checklist to improve any customer experience. Work through each section in order – each area builds on the insights from the previous one.
 
 ---
 
@@ -18,12 +18,12 @@ Get 5 customer answers for each of the 3 GEQs. You can either create a survey (e
 
 ### Research Motivations
 
-- [ ] Research your customers' motivations -- what are their hopes, pains, fears?
+- [ ] Research your customers' motivations – what are their hopes, pains, fears?
 - [ ] Identify the top 3 motivations that users have before, during, and after using your product
 
 ### Research Abilities
 
-- [ ] Research your customers' abilities -- how much time, money, physical and mental capacity, and practice does your customer have with the context surrounding your product?
+- [ ] Research your customers' abilities – how much time, money, physical and mental capacity, and practice does your customer have with the context surrounding your product?
 - [ ] Identify the scarcest ability resources at play before, during, and after using your product. The user's ability is a function of the scarcest of the five ability levers at that moment.
 
 ### Validate the Prompt
@@ -94,7 +94,7 @@ Then dive deeper into each step of the B.I.A.S. framework:
 - [ ] Are you providing clear feedback?
 - [ ] Do users feel reassured when taking action?
 - [ ] Are you showing signs that you care about users' outcome?
-- [ ] Are there any opportunities to delight on smaller interactions? (not just fancy animations -- simple humanity often delights)
+- [ ] Are there any opportunities to delight on smaller interactions? (not just fancy animations – simple humanity often delights)
 - [ ] Are you creating a positive relationship with users? (e.g., Are you the Shamwow guy or the holiday choral?)
 
 ---
@@ -105,14 +105,14 @@ The key to a great customer journey is to observe its key components.
 
 ### Journey Improvement Checklist
 
-- [ ] **What is the root cause of your biggest Jump?** -- Look for how that Jump relates to the context, the user motivations, etc.
-- [ ] **What is the root cause of your biggest Drop?** -- Pay attention not only to what is happening at that specific step, but slightly before it. Do not hesitate to revisit the Motivation, Ability, and Prompts from the Behavior Mapping and the B.I.A.S. Framework.
-- [ ] **How could you fill your Pit?** -- Is it the result of a slow downward slope or a sharp Drop? How could this be avoided?
-- [ ] **How could you elevate your Peak?** -- Think carefully about the customer's Motivations (Hopes, Fears, etc).
-- [ ] **How well did you mark the Transitions?** -- Is the clarity of the transition proportional to the importance of the milestone? Make sure users feel like every milestone is adequately celebrated.
-- [ ] **How might you reorder some steps?** -- Pay even more attention to what is happening around your Peaks, Pits, and Transitions. Could the experience be simpler and more memorable by shifting things around? The goal is to make sure users have enough psych to go through all the journey steps and still finish on a high note (Peak-End Rule).
-- [ ] **How might you leverage the customer's waiting periods?** -- How might those waiting periods be shortened or used as an opportunity to educate, reassure, or delight? (think: Labor Illusion Effect).
-- [ ] **The "In Real Life" test** -- If your experience is mainly digital, which part would feel the most awkward in its "real-life" equivalent? (e.g., the "postal clerk jerk" example)
+- [ ] **What is the root cause of your biggest Jump?** – Look for how that Jump relates to the context, the user motivations, etc.
+- [ ] **What is the root cause of your biggest Drop?** – Pay attention not only to what is happening at that specific step, but slightly before it. Do not hesitate to revisit the Motivation, Ability, and Prompts from the Behavior Mapping and the B.I.A.S. Framework.
+- [ ] **How could you fill your Pit?** – Is it the result of a slow downward slope or a sharp Drop? How could this be avoided?
+- [ ] **How could you elevate your Peak?** – Think carefully about the customer's Motivations (Hopes, Fears, etc).
+- [ ] **How well did you mark the Transitions?** – Is the clarity of the transition proportional to the importance of the milestone? Make sure users feel like every milestone is adequately celebrated.
+- [ ] **How might you reorder some steps?** – Pay even more attention to what is happening around your Peaks, Pits, and Transitions. Could the experience be simpler and more memorable by shifting things around? The goal is to make sure users have enough psych to go through all the journey steps and still finish on a high note (Peak-End Rule).
+- [ ] **How might you leverage the customer's waiting periods?** – How might those waiting periods be shortened or used as an opportunity to educate, reassure, or delight? (think: Labor Illusion Effect).
+- [ ] **The "In Real Life" test** – If your experience is mainly digital, which part would feel the most awkward in its "real-life" equivalent? (e.g., the "postal clerk jerk" example)
 
 ---
 

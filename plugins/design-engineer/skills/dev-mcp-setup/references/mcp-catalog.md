@@ -1,8 +1,8 @@
 # MCP Catalog
 
-MCPs (Model Context Protocol integrations) extend what AI can do beyond basic code generation. They connect your AI tool to other applications -- reading designs, fetching documentation, running browser tests, and more.
+MCPs (Model Context Protocol integrations) extend what AI can do beyond basic code generation. They connect your AI tool to other applications – reading designs, fetching documentation, running browser tests, and more.
 
-The rule of thumb: do not install everything you see on the web. Start with the essentials and add others only when you have a specific need. Having too many MCPs is similar to having too many agents -- it wastes time and creates confusion.
+The rule of thumb: do not install everything you see on the web. Start with the essentials and add others only when you have a specific need. Having too many MCPs is similar to having too many agents – it wastes time and creates confusion.
 
 ---
 
@@ -12,7 +12,7 @@ Install these first. They cover the two most critical needs for AI-assisted deve
 
 ### Context7
 
-**What it does:** Gives your AI tool access to up-to-date technical documentation for any framework or library. Large language models are trained on information up to a specific date, and everything after that date, AI does not know about. Technical documentation gets regularly updated, and there are situations when AI -- even the most powerful model -- still has knowledge based on outdated docs.
+**What it does:** Gives your AI tool access to up-to-date technical documentation for any framework or library. Large language models are trained on information up to a specific date, and everything after that date, AI does not know about. Technical documentation gets regularly updated, and there are situations when AI – even the most powerful model – still has knowledge based on outdated docs.
 
 **Why essential:** Reduces situations where AI hallucinates by providing current information. Without Context7, AI may suggest deprecated APIs, outdated patterns, or installation commands that no longer work.
 
@@ -29,13 +29,13 @@ Install these first. They cover the two most critical needs for AI-assisted deve
 
 ### Figma MCP (Official)
 
-**What it does:** Gives your AI tool design information from your frames in Figma. Not screenshots, but data from Dev Mode -- the same code that developers see when they review your UI before implementing it.
+**What it does:** Gives your AI tool design information from your frames in Figma. Not screenshots, but data from Dev Mode – the same code that developers see when they review your UI before implementing it.
 
 **Why essential:** Enables pixel-perfect implementation without manually describing every design detail. The MCP understands the technologies you use in your project and adapts the code accordingly (e.g., if you use a specific frontend framework, it provides code in that framework's patterns, not generic web code).
 
 **How to use it:**
 - Share a Figma frame link with AI and ask it to implement the design
-- Use it gradually -- smaller elements at a time produce much better results than complex full-page designs
+- Use it gradually – smaller elements at a time produce much better results than complex full-page designs
 - Start with functional code first (makes it work, even if ugly), then use Figma MCP to apply the correct styles
 
 **Best practice for design implementation:**
@@ -84,7 +84,7 @@ Install these only for specific use cases. Most projects will not need them.
 
 ### Remotion MCP
 
-**What it does:** Lets you create videos by talking to AI. You can give Claude Code a design and generate a polished animated video -- no video editing skills required.
+**What it does:** Lets you create videos by talking to AI. You can give Claude Code a design and generate a polished animated video – no video editing skills required.
 
 **When to install:** When you need to create product demos, feature showcases, or animated marketing content. Not needed for core development work.
 
@@ -103,7 +103,7 @@ Before making ANY architectural decision:
 1. Use Context7 to find the library documentation
 2. Get the official documentation for the topic
 3. Combine with existing codebase patterns to make informed decisions
-4. NEVER guess -- if documentation is unclear, ask the user
+4. NEVER guess – if documentation is unclear, ask the user
 ```
 
 ### In Agent Files

@@ -1,6 +1,6 @@
 # B.I.A.S. Case Study: DoorDash DashPass Prompt Redesign
 
-This case study walks through a complete B.I.A.S. Framework application on a real product screen -- the DoorDash DashPass subscription prompt. It demonstrates how each step builds on the previous one, transforming a screen that the brain blocks almost entirely into one that guides users smoothly toward a decision.
+This case study walks through a complete B.I.A.S. Framework application on a real product screen – the DoorDash DashPass subscription prompt. It demonstrates how each step builds on the previous one, transforming a screen that the brain blocks almost entirely into one that guides users smoothly toward a decision.
 
 ---
 
@@ -26,13 +26,13 @@ The original DashPass prompt triggered multiple blocking mechanisms:
 
 The Block redesign focused purely on making the screen passable by the brain's initial filters:
 
-1. **Shorter title for better scanning** -- The title was reduced to fewer words so the brain could process it in a single glance (reducing high-effort blocking).
-2. **Smaller sentences for better reading** -- Long explanatory paragraphs were broken into shorter, scannable sentences (reducing cognitive effort).
-3. **Less alarming color** -- The aggressive color scheme was toned down to reduce attention-grabbing noise, allowing the important elements to stand out through contrast rather than volume.
+1. **Shorter title for better scanning** – The title was reduced to fewer words so the brain could process it in a single glance (reducing high-effort blocking).
+2. **Smaller sentences for better reading** – Long explanatory paragraphs were broken into shorter, scannable sentences (reducing cognitive effort).
+3. **Less alarming color** – The aggressive color scheme was toned down to reduce attention-grabbing noise, allowing the important elements to stand out through contrast rather than volume.
 
 ### Key insight
 
-This first step is not about making the screen "persuasive" -- it is about making it *visible*. A screen that gets blocked never gets a chance to persuade. The Block redesign simply ensures the brain does not dismiss the content before processing it.
+This first step is not about making the screen "persuasive" – it is about making it *visible*. A screen that gets blocked never gets a chance to persuade. The Block redesign simply ensures the brain does not dismiss the content before processing it.
 
 **Note**: This is just the first step of the framework. The screen will go through 3 more iterations. It is not a final redesign.
 
@@ -48,15 +48,15 @@ After the Block redesign, the screen was no longer dismissed outright. But the i
 
 The Interpret redesign was a significant shift from the original prompt. The objective was to show upfront the biggest benefit of trying DashPass:
 
-1. **Led with benefits** -- Instead of describing what DashPass is, the redesign showed what the user gets: saving money. The primary message became about the user's benefit, not the product's features.
-2. **Reframed the value proposition** -- Rather than "Try DashPass, our delivery subscription," the message was reframed around what users actually care about: how much money they save on delivery fees.
-3. **Anchoring** -- By showing the amount already saved or the potential savings, users have a concrete reference point that makes the subscription cost feel small in comparison.
+1. **Led with benefits** – Instead of describing what DashPass is, the redesign showed what the user gets: saving money. The primary message became about the user's benefit, not the product's features.
+2. **Reframed the value proposition** – Rather than "Try DashPass, our delivery subscription," the message was reframed around what users actually care about: how much money they save on delivery fees.
+3. **Anchoring** – By showing the amount already saved or the potential savings, users have a concrete reference point that makes the subscription cost feel small in comparison.
 
 ### Key insight
 
-The power of re-framing cannot be overstated. The exact same product (DashPass subscription) can feel like an unwanted upsell or a money-saving opportunity depending entirely on how the message is framed. Different interpretations of a screen can drastically influence conversions or behaviors -- even just a few words of re-framing can make a massive difference.
+The power of re-framing cannot be overstated. The exact same product (DashPass subscription) can feel like an unwanted upsell or a money-saving opportunity depending entirely on how the message is framed. Different interpretations of a screen can drastically influence conversions or behaviors – even just a few words of re-framing can make a massive difference.
 
-**Alternative approaches**: Other Interpret principles could also work here. For example, Loss Aversion -- showing how much money the user has *lost* in delivery fees over the past month -- could be equally or more effective.
+**Alternative approaches**: Other Interpret principles could also work here. For example, Loss Aversion – showing how much money the user has *lost* in delivery fees over the past month – could be equally or more effective.
 
 ---
 
@@ -64,13 +64,13 @@ The power of re-framing cannot be overstated. The exact same product (DashPass s
 
 ### The challenge
 
-Since this is a single screen (not a multi-step flow), there was limited opportunity to "reduce friction" in the traditional sense (removing steps, splitting forms, etc.). The friction-reduction approach would involve splitting the prompt into multiple steps and using Commitment & Consistency -- but for this exercise, the focus was on nudges.
+Since this is a single screen (not a multi-step flow), there was limited opportunity to "reduce friction" in the traditional sense (removing steps, splitting forms, etc.). The friction-reduction approach would involve splitting the prompt into multiple steps and using Commitment & Consistency – but for this exercise, the focus was on nudges.
 
 ### What changed
 
 The Act redesign added a single, carefully placed nudge:
 
-1. **Social Proof** -- A simple statement showing that the user is not the only one benefiting from DashPass. Something like showing the number of active subscribers or savings achieved by other users.
+1. **Social Proof** – A simple statement showing that the user is not the only one benefiting from DashPass. Something like showing the number of active subscribers or savings achieved by other users.
 
 ### What did NOT change
 
@@ -78,7 +78,7 @@ Importantly, very little was added. The redesign resisted the temptation to pile
 
 ### Key insight
 
-Nudges must be used carefully to avoid Reactance. In this case, only Social Proof was used -- a single, subtle reassurance that others have made the same choice and benefited from it.
+Nudges must be used carefully to avoid Reactance. In this case, only Social Proof was used – a single, subtle reassurance that others have made the same choice and benefited from it.
 
 This restraint is critical. Adding Social Proof AND Scarcity AND a Curiosity Gap to the same screen would feel manipulative and trigger the exact Reactance that destroys trust. The best nudges feel like helpful information, not pressure.
 
@@ -94,8 +94,8 @@ The Store step considers what happens *after* someone taps "Try DashPass for 1 m
 
 The Store redesign combined two principles to maximize positive storage after the subscription action:
 
-1. **Reassurance** -- The confirmation screen was designed to make people feel like they made a good decision. Rather than a generic "Success!" message, the screen reinforced the specific benefits the user just secured, validating their choice.
-2. **Caring** -- The redesign offered free monthly reports to ensure the user always knows if they are getting the most out of the service. This demonstrates that DoorDash cares about the user's ongoing experience, not just the initial conversion.
+1. **Reassurance** – The confirmation screen was designed to make people feel like they made a good decision. Rather than a generic "Success!" message, the screen reinforced the specific benefits the user just secured, validating their choice.
+2. **Caring** – The redesign offered free monthly reports to ensure the user always knows if they are getting the most out of the service. This demonstrates that DoorDash cares about the user's ongoing experience, not just the initial conversion.
 
 ### Key insight
 
@@ -146,4 +146,4 @@ To run the same process on your own product:
 5. **Store**: What happens after the action? Does the user feel reassured, cared for, and confident?
 6. **Test**: Validate your redesign with real users
 
-The B.I.A.S. Framework can literally be used for any experience -- digital or in real life. The brain works the same way regardless of the medium.
+The B.I.A.S. Framework can literally be used for any experience – digital or in real life. The brain works the same way regardless of the medium.

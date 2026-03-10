@@ -6,7 +6,7 @@
 
 ### UX Application
 
-Flow state is characterized by smooth transitions between screens and actions, predictable interface behavior, and the absence of friction points. This approach is especially needed during form filling, content creation in editors, or onboarding -- anywhere you must not break the user's focus while they are concentrated on a task.
+Flow state is characterized by smooth transitions between screens and actions, predictable interface behavior, and the absence of friction points. This approach is especially needed during form filling, content creation in editors, or onboarding – anywhere you must not break the user's focus while they are concentrated on a task.
 
 For example, a sudden popup during a long form can ruin the experience and cause frustration. Build interactions so the process is smooth, engaging, and does not divert attention.
 
@@ -34,7 +34,7 @@ The reward must match the user's actions, remain appropriate and proportional, a
 
 ### Good Example
 
-A language learning app occasionally rewards completed lessons with bonus content -- sometimes a cultural fun fact, sometimes a mini-game, sometimes streak protection. The variety keeps daily practice interesting.
+A language learning app occasionally rewards completed lessons with bonus content – sometimes a cultural fun fact, sometimes a mini-game, sometimes streak protection. The variety keeps daily practice interesting.
 
 ### Bad Example
 
@@ -44,9 +44,9 @@ A shopping app sends constant "Surprise! 5% off!" notifications for items the us
 
 Variable rewards are one of the most powerful tools in product design. Nir Eyal's Hook Model identifies three types:
 
-- **Rewards of the Tribe** (social): Likes, comments, followers -- social validation that varies in quantity and quality
-- **Rewards of the Hunt** (resources): Scrolling feeds, deal-finding, search results -- the thrill of finding something valuable
-- **Rewards of the Self** (intrinsic): Leveling up, mastering a skill, completing a challenge -- personal accomplishment
+- **Rewards of the Tribe** (social): Likes, comments, followers – social validation that varies in quantity and quality
+- **Rewards of the Hunt** (resources): Scrolling feeds, deal-finding, search results – the thrill of finding something valuable
+- **Rewards of the Self** (intrinsic): Leveling up, mastering a skill, completing a challenge – personal accomplishment
 
 The unpredictability is key. Slot machines are compelling not because they pay out, but because you never know when. In ethical product design, apply the same variability to genuine rewards that serve the user.
 
@@ -76,7 +76,7 @@ A 15-step registration form shows only "Step 4 of 15" with no indication of how 
 
 ### From 106 Cognitive Biases: Goal Gradient Effect
 
-Research with coffee shop loyalty cards revealed a powerful insight: customers given a 12-stamp card with 2 stamps pre-filled completed the card faster than customers given a 10-stamp card with no pre-fills -- even though both required 10 purchases. The artificial head start created momentum.
+Research with coffee shop loyalty cards revealed a powerful insight: customers given a 12-stamp card with 2 stamps pre-filled completed the card faster than customers given a 10-stamp card with no pre-fills – even though both required 10 purchases. The artificial head start created momentum.
 
 **UX applications from 106 Biases**:
 
@@ -94,11 +94,11 @@ Research with coffee shop loyalty cards revealed a powerful insight: customers g
 
 This principle works on the basic human drive to fill knowledge gaps. In design, it creates mild intrigue that motivates users to act further: follow a link, finish reading an article, click a button, or explore functionality.
 
-It is important to maintain balance between intrigue and informativeness to avoid clickbait -- promises must match reality.
+It is important to maintain balance between intrigue and informativeness to avoid clickbait – promises must match reality.
 
 ### Good Example
 
-A fintech app onboarding shows "Your spending has a hidden pattern -- complete setup to discover it." The promise is specific, intriguing, and actually delivers personalized spending insights once setup is complete.
+A fintech app onboarding shows "Your spending has a hidden pattern – complete setup to discover it." The promise is specific, intriguing, and actually delivers personalized spending insights once setup is complete.
 
 ### Bad Example
 
@@ -106,7 +106,7 @@ A news app uses headlines like "You Won't Believe What Happened Next!" that lead
 
 ### From 106 Cognitive Biases: Curiosity Gap
 
-George Loewenstein's information gap theory explains that curiosity arises when we perceive a gap between what we know and what we want to know. This gap creates a feeling similar to an itch -- it demands to be scratched.
+George Loewenstein's information gap theory explains that curiosity arises when we perceive a gap between what we know and what we want to know. This gap creates a feeling similar to an itch – it demands to be scratched.
 
 **UX applications from 106 Biases**:
 
@@ -132,7 +132,7 @@ It is important to identify which functionality will create the greatest value f
 
 ### Good Example
 
-A project management tool guides new users to create their first task, assign it, and see it move through columns -- all within the first 3 minutes. The moment the task moves to "Done" is the Aha! Moment: the user sees the value of visual workflow management.
+A project management tool guides new users to create their first task, assign it, and see it move through columns – all within the first 3 minutes. The moment the task moves to "Done" is the Aha! Moment: the user sees the value of visual workflow management.
 
 ### Bad Example
 
@@ -168,7 +168,7 @@ From Nir Eyal's Hook Model, the Investment phase is where users put something in
 - **Learning investment**: Shortcuts mastered, workflows customized
 - **Financial investment**: Subscription paid, in-app purchases made
 
-Each investment increases switching cost and makes the product more valuable -- but only if the investment genuinely improves the user's experience.
+Each investment increases switching cost and makes the product more valuable – but only if the investment genuinely improves the user's experience.
 
 ---
 
@@ -184,7 +184,7 @@ Triggers must be timely, personalized, relevant, and appear at the moment when t
 
 ### Good Example
 
-A fitness app sends a push notification at 7am (the user's usual workout time) saying "Your 20-minute morning routine is ready" -- personalized, timely, and actionable with a single tap.
+A fitness app sends a push notification at 7am (the user's usual workout time) saying "Your 20-minute morning routine is ready" – personalized, timely, and actionable with a single tap.
 
 ### Bad Example
 
@@ -206,11 +206,11 @@ Successful products become so integrated into users' lives that interaction happ
 
 ### Good Example
 
-A note-taking app becomes the automatic response to "I need to remember this" through consistent reliability, instant capture, and seamless sync. Users open it reflexively -- no notification needed.
+A note-taking app becomes the automatic response to "I need to remember this" through consistent reliability, instant capture, and seamless sync. Users open it reflexively – no notification needed.
 
 ### Bad Example
 
-A meditation app relies entirely on push notifications and email reminders. Without external triggers, users forget it exists -- the app has failed to create internal trigger associations with stress or anxiety.
+A meditation app relies entirely on push notifications and email reminders. Without external triggers, users forget it exists – the app has failed to create internal trigger associations with stress or anxiety.
 
 ---
 
@@ -240,7 +240,7 @@ Named after psychologist Bluma Zeigarnik, who noticed that waiters remembered un
 
 - **Progress bars**: Showing incomplete progress (e.g., "Profile 60% complete") creates a mental open loop
 - **Saved drafts**: Email clients showing "1 draft" create Zeigarnik tension to either complete or delete
-- **Streaks**: Duolingo's streak counter is a perpetual open loop -- breaking the streak means losing progress
+- **Streaks**: Duolingo's streak counter is a perpetual open loop – breaking the streak means losing progress
 - **Unread indicators**: The red badge on app icons creates constant Zeigarnik tension
 
 **Ethical checkpoint**: Mild Zeigarnik tension motivates. Excessive open loops create anxiety. Design for helpful nudges, not stress.
@@ -271,14 +271,14 @@ A registration form accepts all input silently, then after clicking "Submit," sh
 
 Effective feedback loops have four components:
 
-1. **Evidence** -- the data showing what happened
-2. **Relevance** -- why it matters to the user
-3. **Consequence** -- what effect the action had
-4. **Action** -- what to do next
+1. **Evidence** – the data showing what happened
+2. **Relevance** – why it matters to the user
+3. **Consequence** – what effect the action had
+4. **Action** – what to do next
 
 **UX applications from 106 Biases**:
 
-- **Micro-interactions**: Button press animations, toggle switches, pull-to-refresh -- small confirmations that the system received input
+- **Micro-interactions**: Button press animations, toggle switches, pull-to-refresh – small confirmations that the system received input
 - **Progress indicators**: Upload progress, loading skeletons, step counters
 - **Inline validation**: Real-time form field validation as the user types
 - **Confirmation screens**: Order confirmations, sent message receipts, saved indicators

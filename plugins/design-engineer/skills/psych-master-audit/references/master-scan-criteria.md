@@ -21,7 +21,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 4: Miller's Law
 - **Look for (positive)**: Important information grouped in chunks of 5-9 elements, phone numbers grouped by digits, process steps limited to a manageable count
 - **Look for (violation)**: Lists exceeding 9 items without sub-grouping, navigation with 12+ ungrouped items, dense data without chunking
-- **Severity**: MEDIUM -- users can still function but retention and comprehension suffer
+- **Severity**: MEDIUM – users can still function but retention and comprehension suffer
 
 ### Law 8: Visual Hierarchy
 - **Look for (positive)**: Clear size/color/contrast differentiation between primary and secondary elements, main headings and CTAs visually dominant, secondary information visually recessive
@@ -47,7 +47,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 12: Banner Blindness
 - **Look for (positive)**: Important system messages integrated into main content flow, subtle visual accents for critical information, avoidance of ad-like formatting for functional content
 - **Look for (violation)**: Important information formatted as large colorful banners at the top of the page, system messages that visually resemble ads, critical alerts styled as promotional material
-- **Severity**: MEDIUM -- users will miss important information but can still complete tasks
+- **Severity**: MEDIUM – users will miss important information but can still complete tasks
 
 ### Law 14: Von Restorff Effect
 - **Look for (positive)**: CTAs visually distinct from surrounding elements, recommended pricing plan highlighted, key data points in tables emphasized, important messages stand out
@@ -62,7 +62,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 19: Serial Position Effect
 - **Look for (positive)**: Most important items placed at the beginning or end of lists and navigation, secondary items in the middle, visual pauses in long lists to create multiple anchoring points
 - **Look for (violation)**: Critical navigation items buried in the middle, most important option not first or last, long flat lists with no visual breaks
-- **Severity**: LOW -- affects optimization, not usability
+- **Severity**: LOW – affects optimization, not usability
 
 ---
 
@@ -73,7 +73,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 21: Loss Aversion
 - **Look for (positive)**: Messaging that highlights what users will lose by not acting (done ethically), urgency communicated for genuine limited offers, benefits framed in terms of what users keep or protect
 - **Look for (violation)**: No urgency or motivation on conversion pages, purely feature-based messaging with no loss framing, OR excessive/manipulative scarcity pressure
-- **Severity**: MEDIUM -- affects conversion but not usability
+- **Severity**: MEDIUM – affects conversion but not usability
 
 ### Law 25: Default Bias
 - **Look for (positive)**: Smart defaults that match the majority use case, pre-selected options that serve the user's interest, default settings that simplify the experience
@@ -83,7 +83,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 27: Social Proof
 - **Look for (positive)**: Real reviews, ratings, user counts, activity indicators, testimonials from relevant audience segments, specific numbers rather than vague claims
 - **Look for (violation)**: No social proof on decision-critical pages, fake or vague social proof ("thousands of happy customers" with no specifics), social proof from irrelevant audiences
-- **Severity**: MEDIUM -- significant on purchase/signup pages, lower elsewhere
+- **Severity**: MEDIUM – significant on purchase/signup pages, lower elsewhere
 
 ### Law 29: Framing
 - **Look for (positive)**: Information presented in the most meaningful context, positive framing for benefits ("8 out of 10 users see improvement"), comparisons that help users understand value
@@ -109,17 +109,17 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 33: Goal Gradient Effect
 - **Look for (positive)**: Progress bars or step indicators in multi-step processes, clear indication of how far the user has come and how far they have to go, tasks divided into visible smaller steps
 - **Look for (violation)**: Multi-step processes with no progress indication, forms with no step count, long processes where users cannot gauge completion
-- **Severity**: MEDIUM -- affects completion rates on longer flows
+- **Severity**: MEDIUM – affects completion rates on longer flows
 
 ### Law 35: Aha! Moment
 - **Look for (positive)**: Quick path to core value in onboarding, first meaningful interaction happens early, the user understands "why this product" within the first few steps
 - **Look for (violation)**: Long onboarding before any value is delivered, no clear moment where the product's value clicks, excessive setup before the first meaningful action
-- **Severity**: HIGH for products with onboarding flows -- directly impacts activation
+- **Severity**: HIGH for products with onboarding flows – directly impacts activation
 
 ### Law 39: Zeigarnik Effect
 - **Look for (positive)**: Incomplete tasks are visually indicated, users can see what they have not finished, progress is saved and visible on return, checklists show completion state
 - **Look for (violation)**: No indication of incomplete tasks, lost progress when users return, no visual reminder of where they left off
-- **Severity**: MEDIUM -- affects return engagement
+- **Severity**: MEDIUM – affects return engagement
 
 ### Law 40: Feedback Loop
 - **Look for (positive)**: Every user action receives clear feedback (visual change, sound, message), loading indicators, error messages appear immediately, button states change on interaction
@@ -135,7 +135,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 41: Peak-End Rule
 - **Look for (positive)**: Positive peak moments designed into the experience (celebration screens, success animations), strong positive endings (thank-you pages, confirmation experiences), emotional highlights at key milestones
 - **Look for (violation)**: Flat, emotionless experiences with no memorable moments, weak endings (generic "Done" text after purchase), negative peaks (frustrating errors) as the most memorable moments
-- **Severity**: MEDIUM -- affects brand perception and retention more than immediate usability
+- **Severity**: MEDIUM – affects brand perception and retention more than immediate usability
 
 ### Law 44: Labor Illusion
 - **Look for (positive)**: Loading states that show system activity (specific process steps, progress indicators), meaningful messages during wait times, intermediate stages visible during data processing
@@ -145,7 +145,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 45: IKEA Effect
 - **Look for (positive)**: Customization and personalization options, user-created content or configurations, workspace or profile personalization that increases ownership
 - **Look for (violation)**: Rigid, non-customizable experiences where personalization would increase value, no way for users to make the product "theirs"
-- **Severity**: LOW -- enhancement opportunity, not a usability issue
+- **Severity**: LOW – enhancement opportunity, not a usability issue
 
 ### Law 50: Feedforward
 - **Look for (positive)**: Previews of action results before committing (hover previews, live previews in editors), clear indication of what will happen when a button is pressed, preview states for destructive actions
@@ -161,7 +161,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 51: Tesler's Law
 - **Look for (positive)**: Complexity absorbed by the system (autofill, smart defaults, auto-detection), appropriate balance between automated and manual actions, complex backend work that simplifies the user-facing experience
 - **Look for (violation)**: Users forced to handle complexity the system could resolve, manual data entry where autofill is possible, technical details exposed unnecessarily
-- **Severity**: MEDIUM -- increases task time and cognitive load
+- **Severity**: MEDIUM – increases task time and cognitive load
 
 ### Law 52: Signifiers
 - **Look for (positive)**: Visual cues that indicate interactivity (underlines on links, shadows on buttons, cursor changes on hover), clear affordances on all interactive elements, consistent signifier patterns
@@ -171,7 +171,7 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 54: Occam's Razor
 - **Look for (positive)**: Simplest possible path to goal, minimal steps in flows, no decorative elements without function, forms that ask only necessary data
 - **Look for (violation)**: Unnecessary steps in flows, decorative complexity that adds no value, fields in forms that are not needed, overly complex filter systems where simple search would suffice
-- **Severity**: MEDIUM -- each unnecessary step reduces completion rates
+- **Severity**: MEDIUM – each unnecessary step reduces completion rates
 
 ### Law 56: Exit Points
 - **Look for (positive)**: Clear close/cancel/back buttons on every modal and process, ability to exit multi-step flows without losing progress, Escape key support, visible return paths
@@ -187,22 +187,22 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 61: Decoy Effect
 - **Look for (positive)**: Pricing pages with a strategically positioned middle option that makes the target option look more attractive, option comparison that naturally guides toward the best value
 - **Look for (violation)**: Pricing options that are confusingly similar, no clear "best value" option, equal visual weight on all pricing tiers
-- **Severity**: LOW -- optimization opportunity, not a usability issue
+- **Severity**: LOW – optimization opportunity, not a usability issue
 
 ### Law 65: Pareto Principle
 - **Look for (positive)**: The 20% of features that provide 80% of value are prominently accessible, key functions are not buried alongside rarely used features, interface prioritizes frequent actions
 - **Look for (violation)**: All features given equal prominence, frequently used actions buried alongside rarely used ones, feature bloat with no prioritization
-- **Severity**: MEDIUM -- affects efficiency and discoverability of key functions
+- **Severity**: MEDIUM – affects efficiency and discoverability of key functions
 
 ### Law 66: Commitment & Consistency
 - **Look for (positive)**: Gradual engagement ladder (free trial, then basic, then premium), small commitments before big asks, onboarding that builds investment step by step
 - **Look for (violation)**: Asking for large commitments upfront (create account before seeing value), no gradual engagement path, immediate paywall with no trial or preview
-- **Severity**: HIGH on signup and conversion flows -- directly impacts activation
+- **Severity**: HIGH on signup and conversion flows – directly impacts activation
 
 ### Law 67: Reciprocity
 - **Look for (positive)**: Value delivered before asking for commitment (free content, useful tools, helpful information), genuine value in free tier, helpful resources offered before registration gates
 - **Look for (violation)**: Asking for personal information before delivering any value, registration wall before any content preview, no free resources or samples
-- **Severity**: MEDIUM -- affects conversion and trust
+- **Severity**: MEDIUM – affects conversion and trust
 
 ---
 
@@ -218,17 +218,17 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 73: Group Attractiveness Effect
 - **Look for (positive)**: Related elements grouped into meaningful sets that reinforce each other, dashboard metrics grouped by data type, settings divided into logical blocks, spacing/borders/backgrounds creating clear groupings
 - **Look for (violation)**: Related items scattered across the interface, no meaningful grouping of related content, elements that should be together are separated
-- **Severity**: MEDIUM -- affects comprehension and scanning efficiency
+- **Severity**: MEDIUM – affects comprehension and scanning efficiency
 
 ### Law 79: Reactance
 - **Look for (positive)**: User always feels in control, opt-out is easy and visible, permission requests explain the benefit clearly, no manipulative copy on decline buttons
 - **Look for (violation)**: Aggressive subscription popups, dark pattern decline buttons ("No, I hate saving money"), forced newsletter signups, cookie walls with no explanation, no visible way to dismiss or opt out
-- **Severity**: HIGH if users feel coerced or manipulated -- causes distrust and abandonment
+- **Severity**: HIGH if users feel coerced or manipulated – causes distrust and abandonment
 
 ### Law 80: Self-Serving Bias
 - **Look for (positive)**: Success messages that celebrate the user's achievement, error messages that take responsibility ("We could not process this" instead of "You entered invalid data"), helpful recovery paths after failures
 - **Look for (violation)**: Error messages that blame the user, no celebration of successful task completion, system failures presented as user mistakes
-- **Severity**: MEDIUM -- affects emotional response and brand perception
+- **Severity**: MEDIUM – affects emotional response and brand perception
 
 ---
 
@@ -249,12 +249,12 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 88: Expectations Bias
 - **Look for (positive)**: Standard element placement (logo top-left, login top-right, search prominently placed), familiar patterns from widely used products, conventional navigation structures
 - **Look for (violation)**: Non-standard placement of common elements, novel navigation patterns without clear affordances, unconventional checkout or signup flows
-- **Severity**: MEDIUM -- users adapt but experience initial friction and may miss features
+- **Severity**: MEDIUM – users adapt but experience initial friction and may miss features
 
 ### Law 89: Negativity Bias
 - **Look for (positive)**: Auto-save on forms, undo capability for destructive actions, clear error messages with correction options, data preservation during errors, hints at critical interaction moments
 - **Look for (violation)**: Lost form data on errors, no undo for destructive actions, vague error messages with no recovery path, no auto-save on long forms
-- **Severity**: HIGH -- one negative experience outweighs many positive ones
+- **Severity**: HIGH – one negative experience outweighs many positive ones
 
 ---
 
@@ -265,17 +265,17 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 ### Law 92: Chronoception (Time Perception)
 - **Look for (positive)**: Progress indicators during loading, approximate wait time shown, meaningful messages during long operations, animations that make waits feel shorter, interesting content during necessary delays
 - **Look for (violation)**: Blank screens during loading, no progress feedback for operations over 2 seconds, static spinners with no context for long waits
-- **Severity**: MEDIUM -- affects perceived performance and user patience
+- **Severity**: MEDIUM – affects perceived performance and user patience
 
 ### Law 94: Halo Effect
 - **Look for (positive)**: High-quality visual design that creates trust, professional first impression at entry points (homepage, onboarding, landing pages), polished key contact points
 - **Look for (violation)**: Poor visual quality on first-impression screens, inconsistent design quality across the product, low-quality images or typography on key pages
-- **Severity**: MEDIUM -- first impressions transfer to overall product perception
+- **Severity**: MEDIUM – first impressions transfer to overall product perception
 
 ### Law 96: Familiarity Bias
 - **Look for (positive)**: Standard UI components and patterns, terminology and icons consistent with popular products in the same category, familiar interaction models
 - **Look for (violation)**: Custom UI components where standard ones would work, invented terminology for common concepts, unfamiliar interaction patterns
-- **Severity**: MEDIUM -- increases learning curve and reduces user confidence
+- **Severity**: MEDIUM – increases learning curve and reduces user confidence
 
 ### Law 100: Shaping
 - **Look for (positive)**: Gradual onboarding with positive reinforcement at each step, small victories celebrated before asking for bigger commitments, progressive complexity introduction
@@ -296,13 +296,13 @@ Quick-scan checklist for the psychology master audit. For each of the 10 section
 
 When time is limited, prioritize scanning in this order:
 
-1. **Section 1** (Cognitive Basics) -- affects every screen
-2. **Section 6** (Efficiency) -- affects every interaction
-3. **Section 9** (Cognitive Biases) -- catches invisible design team blind spots
-4. **Section 2** (Visual Perception) -- affects all visual elements
-5. **Section 4** (Engagement) -- affects retention flows
-6. **Section 3** (Decision-Making) -- affects conversion
-7. **Section 8** (Social Influence) -- affects trust and conversion
-8. **Section 5** (Emotional Design) -- affects brand and delight
-9. **Section 7** (Behavioral Economics) -- affects monetization
-10. **Section 10** (Time & Behavior) -- affects habit formation and polish
+1. **Section 1** (Cognitive Basics) – affects every screen
+2. **Section 6** (Efficiency) – affects every interaction
+3. **Section 9** (Cognitive Biases) – catches invisible design team blind spots
+4. **Section 2** (Visual Perception) – affects all visual elements
+5. **Section 4** (Engagement) – affects retention flows
+6. **Section 3** (Decision-Making) – affects conversion
+7. **Section 8** (Social Influence) – affects trust and conversion
+8. **Section 5** (Emotional Design) – affects brand and delight
+9. **Section 7** (Behavioral Economics) – affects monetization
+10. **Section 10** (Time & Behavior) – affects habit formation and polish

@@ -8,11 +8,11 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-A user persona helps you stay focused on who you are building the product for. Every time a new idea pops into your head, check it against the persona. This way, you avoid one of the most common traps -- building features instead of solving real needs.
+A user persona helps you stay focused on who you are building the product for. Every time a new idea pops into your head, check it against the persona. This way, you avoid one of the most common traps – building features instead of solving real needs.
 
 You can start with a proto-persona: your best guess of who the user is, even without solid data. Later, you refine it as you gather insights from surveys and user tests.
 
-There is no universal template for a persona -- the details always depend on your product. Still, focus on four categories:
+There is no universal template for a persona – the details always depend on your product. Still, focus on four categories:
 
 - **Background**: Their role, environment, and daily situation
 - **Behaviors**: How they act, make decisions, or approach the problem area
@@ -52,9 +52,9 @@ If the user has existing data, surveys, or persona drafts, ask them to share bef
 Before asking questions, briefly share how the target audience could be viewed from multiple angles:
 
 - **Demographic perspective**: Who might these people be in terms of role, experience, and context
-- **Behavioral perspective**: How they likely approach the problem area today -- their habits, tools, and decision patterns
-- **Motivational perspective**: What drives them -- career growth, efficiency, recognition, financial gain
-- **Barrier perspective**: What prevents them from solving the problem today -- lack of time, knowledge, motivation, or resources
+- **Behavioral perspective**: How they likely approach the problem area today – their habits, tools, and decision patterns
+- **Motivational perspective**: What drives them – career growth, efficiency, recognition, financial gain
+- **Barrier perspective**: What prevents them from solving the problem today – lack of time, knowledge, motivation, or resources
 
 Keep this to 2-3 sentences per perspective. Be honest about what is speculation versus what is grounded in shared data.
 
@@ -126,11 +126,11 @@ This skill enforces User > Docs > AI at every step:
 
 After the persona is finalized, suggest:
 
-1. `ux-assumptions` -- Document and categorize all assumptions about the user and product
-2. `ux-user-interviews` -- Design research to validate the persona with real users
+1. `ux-assumptions` – Document and categorize all assumptions about the user and product
+2. `ux-user-interviews` – Design research to validate the persona with real users
 
 ---
 
 ## Resource Files
 
-- [persona-framework.md](./references/persona-framework.md) -- Complete persona structure integrating BMap questions with practical product context
+- [persona-framework.md](./references/persona-framework.md) – Complete persona structure integrating BMap questions with practical product context

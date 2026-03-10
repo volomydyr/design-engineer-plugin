@@ -4,7 +4,7 @@
 
 The StoryBrand framework follows a seven-part narrative structure where the user is the hero, and your product is the guide. This canvas captures the complete messaging framework that can be applied to landing pages, marketing, email campaigns, product branding, website copy, and UX microcopy.
 
-The core principle: top brands do not talk about themselves. They talk about the user -- their problems, their struggles, and their transformation. The product is the path, not the protagonist.
+The core principle: top brands do not talk about themselves. They talk about the user – their problems, their struggles, and their transformation. The product is the path, not the protagonist.
 
 ---
 
@@ -25,7 +25,7 @@ State the hero's desire in one clear sentence. This must be something specific a
 | Why they want it | [Underlying motivation] |
 
 **Example:**
-> A mid-level designer who wants to systematically grow their skills so they can confidently apply for senior roles -- not just hope they are "ready someday."
+> A mid-level designer who wants to systematically grow their skills so they can confidently apply for senior roles – not just hope they are "ready someday."
 
 ---
 
@@ -49,7 +49,7 @@ The emotional struggle that accompanies the external problem. This is how the pr
 > [One sentence describing the internal feeling]
 
 **Example:**
-> They feel overwhelmed and guilty -- they know they should be learning, but the chaos makes it feel impossible to even start.
+> They feel overwhelmed and guilty – they know they should be learning, but the chaos makes it feel impossible to even start.
 
 ### 2.3 Philosophical Problem
 
@@ -77,7 +77,7 @@ Show that you understand the hero's pain. Write 1-2 sentences that prove you "ge
 
 ### 3.2 Authority
 
-Show that you can actually help. This is not bragging -- it is proof. Use one of these:
+Show that you can actually help. This is not bragging – it is proof. Use one of these:
 
 - Testimonials or user numbers (when available)
 - Methodology or framework (if your approach is unique)

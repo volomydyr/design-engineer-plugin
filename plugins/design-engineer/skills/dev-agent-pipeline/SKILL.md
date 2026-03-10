@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 Sub-agents run outside your main conversation in separate chats with separate token limits. This means the heavy work of analyzing context, implementing features, and auditing code happens without burning through your main conversation's 200,000 token budget.
 
-In practice, four agents are usually enough. Starting with twelve and refining down is a common experience -- maintaining too many agents is hard, and the main conversation forgets to run some of them or does it in the wrong order.
+In practice, four agents are usually enough. Starting with twelve and refining down is a common experience – maintaining too many agents is hard, and the main conversation forgets to run some of them or does it in the wrong order.
 
 ## Interaction Method
 
@@ -29,9 +29,9 @@ options:
   - label: "Full-stack application (frontend + backend)"
     description: "Needs both data layer and UI implementation agents"
   - label: "Frontend only"
-    description: "UI work with no backend -- can skip backend-implementer"
+    description: "UI work with no backend – can skip backend-implementer"
   - label: "Backend / API only"
-    description: "Data and logic with no UI -- can skip frontend-implementer"
+    description: "Data and logic with no UI – can skip frontend-implementer"
   - label: "Not sure yet"
     description: "Help me decide which agents I need"
 ```
@@ -43,14 +43,14 @@ options:
 Walk through the proven 4-agent pipeline pattern:
 
 ### Phase 1: Research and Analysis
-1. **Context Analyzer** runs first -- reads project status, audits existing code, checks available styles and components, fetches up-to-date documentation, and analyzes designs
+1. **Context Analyzer** runs first – reads project status, audits existing code, checks available styles and components, fetches up-to-date documentation, and analyzes designs
 2. Output: context summary + clarifying questions for the user
 3. User answers questions
 
 ### Phase 2: Planning (Wait for Approval)
 4. **Plan Creator** builds a detailed implementation plan based on context analysis and user answers
 5. Plan includes: summary, architectural decisions, files to create/modify, components to reuse vs. create, step-by-step approach, success criteria
-6. **Stop and wait** -- user must approve before any implementation begins
+6. **Stop and wait** – user must approve before any implementation begins
 
 ### Phase 3: Implementation (Only After Approval)
 7. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
@@ -127,9 +127,9 @@ A good practice is to ask AI to update documents and settings when the project h
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- their tech stack, their approval, their priorities
-2. **Project documentation** -- requirements and architecture drive agent behavior
-3. **AI suggestions** -- propose agent configurations based on proven patterns
+1. **User's direct input** – their tech stack, their approval, their priorities
+2. **Project documentation** – requirements and architecture drive agent behavior
+3. **AI suggestions** – propose agent configurations based on proven patterns
 
 ---
 
@@ -141,8 +141,8 @@ After the pipeline is set up, the user sends development prompts and the pipelin
 
 ## Resource Files
 
-- [context-analyzer.md](./references/agent-templates/context-analyzer.md) -- Adapted context analyzer agent template
-- [backend-implementer.md](./references/agent-templates/backend-implementer.md) -- Adapted backend implementer agent template
-- [frontend-implementer.md](./references/agent-templates/frontend-implementer.md) -- Adapted frontend implementer agent template
-- [design-system-auditor.md](./references/agent-templates/design-system-auditor.md) -- Adapted design system auditor agent template
-- [pipeline-guide.md](./references/pipeline-guide.md) -- How agents work together in practice with approval checkpoints
+- [context-analyzer.md](./references/agent-templates/context-analyzer.md) – Adapted context analyzer agent template
+- [backend-implementer.md](./references/agent-templates/backend-implementer.md) – Adapted backend implementer agent template
+- [frontend-implementer.md](./references/agent-templates/frontend-implementer.md) – Adapted frontend implementer agent template
+- [design-system-auditor.md](./references/agent-templates/design-system-auditor.md) – Adapted design system auditor agent template
+- [pipeline-guide.md](./references/pipeline-guide.md) – How agents work together in practice with approval checkpoints

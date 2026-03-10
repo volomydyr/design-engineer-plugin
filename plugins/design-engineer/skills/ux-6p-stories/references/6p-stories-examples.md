@@ -1,4 +1,4 @@
-# 6P Stories -- Examples and Patterns
+# 6P Stories – Examples and Patterns
 
 This reference contains examples of good and bad 6P Stories, adapted from real product case studies. Use these patterns to evaluate and improve 6P Stories.
 
@@ -23,10 +23,10 @@ Panel 6: User enters the apartment
 
 **Why this fails:**
 - Every panel describes an app interaction, not a human experience
-- There is zero emotion -- no excitement, no anxiety, no relief
+- There is zero emotion – no excitement, no anxiety, no relief
 - The story is about the PRODUCT, not the CUSTOMER
 - You cannot empathize with someone who is just tapping on screens
-- No struggles are shown -- it looks like everything goes perfectly
+- No struggles are shown – it looks like everything goes perfectly
 - No improvement opportunities are visible because no friction is depicted
 
 ### Bad Example Pattern #2: Too Abstract / No Specifics
@@ -43,7 +43,7 @@ Panel 6: Person is happy they arrived
 **Why this fails:**
 - Vague descriptions that could apply to literally any travel experience
 - "Has some trouble" and "figures it out" contain no specific insight
-- No emotional specificity -- just generic "happy" and "trouble"
+- No emotional specificity – just generic "happy" and "trouble"
 - Impossible to identify concrete improvement opportunities
 - The story does not teach you anything about what the customer actually goes through
 
@@ -76,11 +76,11 @@ Panel 6: First night
 ```
 
 **Why this works:**
-- **Starts with empathy** -- We feel the customer's fatigue, anticipation, confusion, and relief
-- **Captures emotions** -- Clear emotional arc: tired > anticipating > confused/anxious > pleasantly surprised > delighted > content
-- **Focuses on actions** -- Real-life context (airport, taxi, standing at door, walking neighborhood), not app screens
-- **Highlights struggles** -- Panel 3 shows genuine friction (cannot find the lockbox). This is where the emotional dip happens and where improvement opportunities live.
-- **Reveals improvement opportunities** -- The transition from Panel 2 to Panel 3 raises obvious questions: Could arrival instructions be clearer? Could there be a photo of the lockbox location? Could check-in be made easier?
+- **Starts with empathy** – We feel the customer's fatigue, anticipation, confusion, and relief
+- **Captures emotions** – Clear emotional arc: tired > anticipating > confused/anxious > pleasantly surprised > delighted > content
+- **Focuses on actions** – Real-life context (airport, taxi, standing at door, walking neighborhood), not app screens
+- **Highlights struggles** – Panel 3 shows genuine friction (cannot find the lockbox). This is where the emotional dip happens and where improvement opportunities live.
+- **Reveals improvement opportunities** – The transition from Panel 2 to Panel 3 raises obvious questions: Could arrival instructions be clearer? Could there be a photo of the lockbox location? Could check-in be made easier?
 
 ---
 
@@ -101,7 +101,7 @@ All panels have the same emotional tone (usually neutral or mildly positive). No
 **3. The Feature Demo**
 The story exists to show off the product's features rather than to understand the customer's needs.
 
-**How to fix:** Remove your product from the story entirely. Does the problem and the customer's journey still make sense? The story should work even WITHOUT your product -- that proves it is focused on the customer.
+**How to fix:** Remove your product from the story entirely. Does the problem and the customer's journey still make sense? The story should work even WITHOUT your product – that proves it is focused on the customer.
 
 **4. The Happy Path Only**
 Everything goes smoothly from start to finish. No obstacles, no confusion, no friction.
@@ -115,12 +115,12 @@ Trying to cover the entire customer lifecycle in 6 panels, resulting in enormous
 
 ### Indicators of a Strong 6P Story
 
-1. **You feel something** when you read it -- empathy, concern, frustration, relief
-2. **The struggle is specific** -- not "user has trouble" but "user stands at door in the rain, can't find the lockbox"
+1. **You feel something** when you read it – empathy, concern, frustration, relief
+2. **The struggle is specific** – not "user has trouble" but "user stands at door in the rain, can't find the lockbox"
 3. **At least one clear improvement opportunity** jumps out without needing analysis
-4. **A non-designer could understand it** -- the story is accessible to engineers, executives, support staff
-5. **The hero is a person**, not a user -- they have a context, a life, emotions beyond your product
-6. **The emotional arc has at least one dip** -- things get worse before they get better
+4. **A non-designer could understand it** – the story is accessible to engineers, executives, support staff
+5. **The hero is a person**, not a user – they have a context, a life, emotions beyond your product
+6. **The emotional arc has at least one dip** – things get worse before they get better
 
 ---
 
@@ -151,10 +151,10 @@ When reviewing a user's 6P Story, compare it against these patterns:
 The hero is still a PERSON, not a company. Pick one specific user (e.g., "the project manager who needs to create a report for Monday's meeting") and tell their story. B2B products often have richer struggle panels because the stakes (job performance, team coordination, deadlines) are higher.
 
 ### Consumer Apps
-Focus on the moment of need -- what triggers the customer to reach for your product? The context before they even open the app is often the most revealing panel.
+Focus on the moment of need – what triggers the customer to reach for your product? The context before they even open the app is often the most revealing panel.
 
 ### Physical Products / Services
 The blend of digital and physical interactions creates natural friction points that make excellent story material. Show the customer in both worlds.
 
 ### Developer Tools
-The hero is a developer with a specific technical problem. The emotions are real: frustration with broken builds, relief when tests pass, anxiety about deploying to production. Avoid making the story about code -- make it about the developer's experience.
+The hero is a developer with a specific technical problem. The emotions are real: frustration with broken builds, relief when tests pass, anxiety about deploying to production. Avoid making the story about code – make it about the developer's experience.

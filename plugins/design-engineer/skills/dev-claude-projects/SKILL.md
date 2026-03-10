@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-Before writing any code, you need a rich context for AI. Claude Projects is a workspace where you store files and rules that AI accesses in every future chat. The multi-chat workflow -- one activity per chat, deliverables saved between chats -- prevents context degradation and reduces hallucinations.
+Before writing any code, you need a rich context for AI. Claude Projects is a workspace where you store files and rules that AI accesses in every future chat. The multi-chat workflow – one activity per chat, deliverables saved between chats – prevents context degradation and reduces hallucinations.
 
 You can and should use Claude to set up Claude. Start with a blank project and use the first chat to create foundational documents together.
 
@@ -44,12 +44,12 @@ Guide the user through creating these documents in their first Claude Project ch
 
 ### Project Instructions (Global Rules)
 Rules that guide every future chat:
-- Project idea -- simple description of what the product is
-- Decision hierarchy -- User's experience (highest weight) > Project documentation > AI suggestions (lowest weight, most likely to contain mistakes)
-- Multi-chat workflow -- each activity gets its own chat, AI always checks the status tracker first
-- Document standards -- all documents in markdown, written simply, with executive summaries
-- Process for each step -- AI shares brief thoughts first, asks 7-10 strategic questions, works through problems together, creates documentation only after understanding well enough
-- Stay in scope -- never jump ahead, always focused on one step only
+- Project idea – simple description of what the product is
+- Decision hierarchy – User's experience (highest weight) > Project documentation > AI suggestions (lowest weight, most likely to contain mistakes)
+- Multi-chat workflow – each activity gets its own chat, AI always checks the status tracker first
+- Document standards – all documents in markdown, written simply, with executive summaries
+- Process for each step – AI shares brief thoughts first, asks 7-10 strategic questions, works through problems together, creates documentation only after understanding well enough
+- Stay in scope – never jump ahead, always focused on one step only
 
 ### Status Tracker
 Phase and step breakdown appropriate for the project type. Updated manually after each chat by copying the deliverable to project knowledge.
@@ -73,7 +73,7 @@ Walk through the rules from [multi-chat-workflow-rules.md](./references/multi-ch
 - **Between chats**: upload deliverables to project knowledge so the next chat has full context
 - **Starting new chats**: AI provides a brief prompt for each next chat (check tracker, follow rules, review knowledge, start with assumptions + questions)
 - **Step completion**: only when a final deliverable exists and the user explicitly says the step is complete
-- **Step scope discipline**: never ask about moving to the next step -- stay in the current step until the deliverable is ready
+- **Step scope discipline**: never ask about moving to the next step – stay in the current step until the deliverable is ready
 - **Revisiting**: can revisit and update previous step deliverables based on new knowledge, but never work on future steps
 
 ---
@@ -90,9 +90,9 @@ Teach the critical verification habit:
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- highest weight, least likely to be wrong
-2. **Project documentation** -- what has already been decided and written down
-3. **AI suggestions** -- lowest weight, most likely to contain mistakes
+1. **User's direct input** – highest weight, least likely to be wrong
+2. **Project documentation** – what has already been decided and written down
+3. **AI suggestions** – lowest weight, most likely to contain mistakes
 
 ---
 
@@ -104,5 +104,5 @@ After the Claude Project is set up, the user follows their status tracker throug
 
 ## Resource Files
 
-- [claude-project-setup-prompt.md](./references/claude-project-setup-prompt.md) -- Complete setup prompt template for initializing a Claude Project
-- [multi-chat-workflow-rules.md](./references/multi-chat-workflow-rules.md) -- Rules for the one-activity-per-chat workflow
+- [claude-project-setup-prompt.md](./references/claude-project-setup-prompt.md) – Complete setup prompt template for initializing a Claude Project
+- [multi-chat-workflow-rules.md](./references/multi-chat-workflow-rules.md) – Rules for the one-activity-per-chat workflow

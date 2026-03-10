@@ -6,7 +6,7 @@ This template provides a structured framework for building user interview and su
 
 ## Part 1: General Empathy Questions (GEQs)
 
-GEQs are designed to understand customers in their real context -- their environment, habits, frustrations, and workarounds. They are not about your product. They are about the person sitting in front of you.
+GEQs are designed to understand customers in their real context – their environment, habits, frustrations, and workarounds. They are not about your product. They are about the person sitting in front of you.
 
 ### Context Questions
 
@@ -30,7 +30,7 @@ These reveal what people actually do (not what they say they do).
 
 ### Emotional Questions
 
-These uncover the feelings behind behaviors -- the real drivers that quantitative data misses.
+These uncover the feelings behind behaviors – the real drivers that quantitative data misses.
 
 - "How does it feel when [problem] happens? What goes through your mind?"
 - "What is the most frustrating part of [current process]?"
@@ -49,7 +49,7 @@ These three questions are the backbone of any interview. Each one targets a spec
 
 **What it reveals:** Why users care. Their intrinsic motivation. The emotional outcome they are seeking.
 
-**Example for a learning app:** "If you had a magic wand and could instantly organize all your learning materials -- articles, videos, courses -- in one place, how would that change your life?"
+**Example for a learning app:** "If you had a magic wand and could instantly organize all your learning materials – articles, videos, courses – in one place, how would that change your life?"
 
 **Follow-ups:**
 - "What would you do differently if that was solved?"
@@ -98,7 +98,7 @@ Every product replaces something. Even if there is no direct competitor, users w
 
 ### Why This Matters
 
-Users do not compare your product to competitors in a vacuum. They compare it to their current state -- which might be a spreadsheet, a sticky note, a conversation with a friend, or simply ignoring the problem. Understanding what you truly replace helps you:
+Users do not compare your product to competitors in a vacuum. They compare it to their current state – which might be a spreadsheet, a sticky note, a conversation with a friend, or simply ignoring the problem. Understanding what you truly replace helps you:
 
 - Frame your value proposition accurately
 - Identify unexpected competitors (the spreadsheet, not the app)
@@ -113,10 +113,10 @@ When building surveys instead of interviews, adapt the framework above with thes
 
 ### Question Types (Priority Order)
 
-1. **Closed questions with prepared answers** (primary) -- people prefer clicking to typing; more will finish the form
-2. **Rating scales** (1-5 or 1-10) -- quick for participants, easy to analyze
-3. **Multiple-choice with "Other" option** -- captures unexpected answers without requiring full text
-4. **Open-ended questions** (2-3 maximum) -- use sparingly, only for questions where you genuinely cannot predict the answers
+1. **Closed questions with prepared answers** (primary) – people prefer clicking to typing; more will finish the form
+2. **Rating scales** (1-5 or 1-10) – quick for participants, easy to analyze
+3. **Multiple-choice with "Other" option** – captures unexpected answers without requiring full text
+4. **Open-ended questions** (2-3 maximum) – use sparingly, only for questions where you genuinely cannot predict the answers
 
 ### The Past-Not-Future Rule
 
@@ -135,16 +135,16 @@ The first approach gets you wishes. The second gets you evidence.
 
 A well-structured survey follows this flow:
 
-1. **Screening questions** (1-2) -- confirm the person matches your target audience
-2. **Context questions** (3-4) -- understand their current situation
-3. **Behavior questions** (3-5) -- what they actually do today
-4. **Preference/priority questions** (3-4) -- what matters most to them
-5. **Open-ended reflection** (1-2) -- capture anything you did not think to ask
-6. **Contact collection** (1) -- always end with "Would you be willing to participate in a short usability test? Leave your email if yes"
+1. **Screening questions** (1-2) – confirm the person matches your target audience
+2. **Context questions** (3-4) – understand their current situation
+3. **Behavior questions** (3-5) – what they actually do today
+4. **Preference/priority questions** (3-4) – what matters most to them
+5. **Open-ended reflection** (1-2) – capture anything you did not think to ask
+6. **Contact collection** (1) – always end with "Would you be willing to participate in a short usability test? Leave your email if yes"
 
 ### Platform
 
-Use Google Forms. It is free, simple, and exports to CSV format -- which is ideal for AI-powered analysis later.
+Use Google Forms. It is free, simple, and exports to CSV format – which is ideal for AI-powered analysis later.
 
 ### Targeting
 

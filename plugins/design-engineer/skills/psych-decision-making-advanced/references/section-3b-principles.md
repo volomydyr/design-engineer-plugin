@@ -6,7 +6,7 @@
 
 ### UX Application
 
-Use scarcity to create a sense of urgency or limitation, motivating users to act faster. In e-commerce interfaces, show remaining stock quantities or promotion countdown timers to encourage decision-making. This also works in booking services or subscriptions where you can show limited availability -- for example: "Last room at this hotel."
+Use scarcity to create a sense of urgency or limitation, motivating users to act faster. In e-commerce interfaces, show remaining stock quantities or promotion countdown timers to encourage decision-making. This also works in booking services or subscriptions where you can show limited availability – for example: "Last room at this hotel."
 
 **Critical warning**: Apply this principle responsibly. Artificial scarcity or false messages will erode trust in your product or brand. Only show scarcity signals that reflect reality.
 
@@ -22,7 +22,7 @@ An e-commerce site permanently displays "Only 3 left!" on every product regardle
 
 People place higher value on things that are scarce and lower value on things that are abundant. When something is rare or dwindling in availability, we perceive it as more valuable.
 
-**Key research**: In a classic cookie jar experiment, participants rated cookies as more desirable when there were only two left in the jar versus ten -- even though the cookies were identical.
+**Key research**: In a classic cookie jar experiment, participants rated cookies as more desirable when there were only two left in the jar versus ten – even though the cookies were identical.
 
 **UX applications from 106 Biases**:
 
@@ -30,7 +30,7 @@ People place higher value on things that are scarce and lower value on things th
 - **Exclusive access**: Products that limit who can join (invite-only, waitlists) leverage scarcity to increase perceived value. Early Gmail used invitation-only access to create massive demand.
 - **Countdown timers**: Flash sales with visible timers create temporal scarcity. Effective when honest; destructive to trust when timers reset.
 
-**Ethical checkpoint**: Is the scarcity real? If yes, showing it helps users. If fabricated, it is manipulation and will eventually backfire through Reactance -- users actively resisting your influence once they detect it.
+**Ethical checkpoint**: Is the scarcity real? If yes, showing it helps users. If fabricated, it is manipulation and will eventually backfire through Reactance – users actively resisting your influence once they detect it.
 
 ---
 
@@ -44,7 +44,7 @@ Social proof helps users make decisions based on others' experience. When someon
 
 Present social proof naturally and credibly: real reviews, accurate user counts, current ratings. Excessive use or fake data will undermine trust.
 
-The most effective social proof is relevant -- showing activity from a similar audience or people in the user's social circle.
+The most effective social proof is relevant – showing activity from a similar audience or people in the user's social circle.
 
 ### Good Example
 
@@ -56,9 +56,9 @@ A landing page shows "Millions of satisfied customers!" with no specific numbers
 
 ### From 106 Cognitive Biases: Social Proof
 
-We tend to look to the actions and choices of others to determine our own -- especially in situations of uncertainty. When we are unsure what to do, we assume the people around us have more knowledge of the situation.
+We tend to look to the actions and choices of others to determine our own – especially in situations of uncertainty. When we are unsure what to do, we assume the people around us have more knowledge of the situation.
 
-**Key research**: Hotel towel reuse experiment -- signs saying "75% of guests who stayed in this room reused their towels" increased compliance by 33% compared to generic environmental messages.
+**Key research**: Hotel towel reuse experiment – signs saying "75% of guests who stayed in this room reused their towels" increased compliance by 33% compared to generic environmental messages.
 
 **UX applications from 106 Biases**:
 
@@ -67,7 +67,7 @@ We tend to look to the actions and choices of others to determine our own -- esp
 - **Social media proof**: Displaying real social posts or share counts. More credible than curated testimonials because users know these are harder to fake.
 - **"People like you" signals**: Netflix's "Because you watched..." and Amazon's "Customers who bought this also bought..." leverage social proof from similar users.
 
-**Ethical checkpoint**: Are the social signals genuine? Fake reviews and inflated numbers are not just unethical -- they are increasingly detectable by users and regulators.
+**Ethical checkpoint**: Are the social signals genuine? Fake reviews and inflated numbers are not just unethical – they are increasingly detectable by users and regulators.
 
 ---
 
@@ -102,7 +102,7 @@ We have a strong tendency to comply with those in authority. Stanley Milgram's o
 - **Professional design quality**: A polished, professional interface itself signals authority and competence. Poor design signals the opposite.
 - **Media mentions**: "As featured in..." with recognized publication logos leverages the authority of established media brands.
 
-**Ethical checkpoint**: Is the authority genuine and relevant? A celebrity endorsement for a medical product is authority bias without actual authority -- this misleads users.
+**Ethical checkpoint**: Is the authority genuine and relevant? A celebrity endorsement for a medical product is authority bias without actual authority – this misleads users.
 
 ---
 
@@ -124,20 +124,20 @@ A subscription page frames pricing as "Less than a cup of coffee per day" instea
 
 ### Bad Example
 
-A cancellation flow frames the choice as "Keep my premium benefits" vs. "Lose all my data and progress" -- making the cancel option sound catastrophic when the user's data is actually preserved. This is manipulative framing that damages trust.
+A cancellation flow frames the choice as "Keep my premium benefits" vs. "Lose all my data and progress" – making the cancel option sound catastrophic when the user's data is actually preserved. This is manipulative framing that damages trust.
 
 ### From 106 Cognitive Biases: Framing
 
 We draw different conclusions from the same information depending on how it is presented. The way options are framed can significantly influence our decisions, even when the underlying facts are identical.
 
-**Key research**: Tversky and Kahneman's disease problem -- when a treatment was framed as "saves 200 out of 600 people," 72% chose it. When the same treatment was framed as "400 people will die," only 22% chose it.
+**Key research**: Tversky and Kahneman's disease problem – when a treatment was framed as "saves 200 out of 600 people," 72% chose it. When the same treatment was framed as "400 people will die," only 22% chose it.
 
 **UX applications from 106 Biases**:
 
 - **Positive framing for features**: "Free shipping on orders over $50" (positive) vs. "$7.99 shipping fee on orders under $50" (negative). Same policy, different perception.
-- **Loss vs. gain framing**: "Save $120/year with annual billing" (gain) vs. "You're losing $120/year on monthly billing" (loss). Loss framing is stronger but riskier -- it can feel manipulative.
+- **Loss vs. gain framing**: "Save $120/year with annual billing" (gain) vs. "You're losing $120/year on monthly billing" (loss). Loss framing is stronger but riskier – it can feel manipulative.
 - **Progress framing**: Showing "3 of 5 steps complete" (progress) vs. "2 steps remaining" (remaining work). Both are true; the progress frame feels more motivating.
-- **Percentage vs. absolute numbers**: "90% satisfaction rate" vs. "9 out of 10 users satisfied" -- absolute numbers often feel more concrete and trustworthy.
+- **Percentage vs. absolute numbers**: "90% satisfaction rate" vs. "9 out of 10 users satisfied" – absolute numbers often feel more concrete and trustworthy.
 
 **Ethical checkpoint**: Is the frame helping users understand reality, or distorting it? Positive framing that highlights genuine benefits is ethical. Framing that hides downsides or exaggerates risks of not buying is manipulation.
 
@@ -183,7 +183,7 @@ We favor recent and available information over past information. The availabilit
 ## Principle Interactions
 
 ### Scarcity + Social Proof
-These two principles are frequently combined: "Only 3 left -- 47 people are viewing this right now." This is one of the most powerful persuasion combinations in e-commerce. It is also one of the most abused. When the signals are genuine, this combination genuinely helps users make timely decisions. When fabricated, it is a textbook dark pattern.
+These two principles are frequently combined: "Only 3 left – 47 people are viewing this right now." This is one of the most powerful persuasion combinations in e-commerce. It is also one of the most abused. When the signals are genuine, this combination genuinely helps users make timely decisions. When fabricated, it is a textbook dark pattern.
 
 ### Framing + Authority
 How an expert presents information matters as much as who presents it. A doctor saying "This treatment has a 90% success rate" (positive frame + authority) is more persuasive than "This treatment fails in 10% of cases" (negative frame + authority). Designers should consider both the messenger and the message frame.
@@ -203,4 +203,4 @@ All five principles in this section carry Reactance risk. Reactance occurs when 
 - Negative reviews mentioning "pushy," "manipulative," or "fake urgency"
 - Cart abandonment after aggressive scarcity or social proof tactics
 
-**Prevention**: Use genuine signals, provide genuine opt-outs, never make users feel trapped, and always ensure the user benefits -- not just the business.
+**Prevention**: Use genuine signals, provide genuine opt-outs, never make users feel trapped, and always ensure the user benefits – not just the business.

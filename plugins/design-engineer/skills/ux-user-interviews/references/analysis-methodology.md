@@ -6,7 +6,7 @@ This document describes the dual-analysis approach for interpreting user researc
 
 ## Why Dual Analysis
 
-AI is excellent at spotting patterns across large datasets in minutes rather than hours. But it has a critical flaw: it confidently fills in gaps with made-up information when given room to do so. If you share your conclusions first, AI will confirm them -- even when the data does not support them.
+AI is excellent at spotting patterns across large datasets in minutes rather than hours. But it has a critical flaw: it confidently fills in gaps with made-up information when given room to do so. If you share your conclusions first, AI will confirm them – even when the data does not support them.
 
 Your human analysis catches context and nuance that AI misses. AI analysis catches volume-based patterns that humans overlook. Neither is sufficient alone. Combined, they produce the most reliable insights.
 
@@ -47,9 +47,9 @@ Write a document that includes:
 
 - **Your top 3-5 key findings** (in order of importance to you)
 - **Supporting evidence** for each finding (specific responses or behaviors)
-- **Surprises** -- things you did not expect
-- **Concerns** -- findings that worry you or challenge your assumptions
-- **Questions** -- new questions that emerged from the data
+- **Surprises** – things you did not expect
+- **Concerns** – findings that worry you or challenge your assumptions
+- **Questions** – new questions that emerged from the data
 
 **Do NOT share this document with AI yet.**
 
@@ -78,16 +78,16 @@ Present these instructions to AI:
 
 1. **Organize the raw data** into clean, readable tables and charts
 2. **Identify patterns** in participant behavior and responses
-3. **Compare findings against the project's assumptions and hypotheses** -- determine which were confirmed, which were disproven, which need more data
-4. **Flag any concerning patterns** -- things that suggest the product idea may need significant changes
+3. **Compare findings against the project's assumptions and hypotheses** – determine which were confirmed, which were disproven, which need more data
+4. **Flag any concerning patterns** – things that suggest the product idea may need significant changes
 5. **Provide key insights** with specific next-step recommendations
-6. **Cite specific data points** for every claim -- no generalizations without evidence
+6. **Cite specific data points** for every claim – no generalizations without evidence
 
 ### Verification Step
 
 When AI makes a claim, ask it to provide the specific quotes or data points that support it. Then search for those exact data points in your raw results. If you cannot find them, AI probably invented them.
 
-This verification is essential. AI will confidently state things like "research proves users prefer quarterly payments" when the data only shows "users dislike monthly subscriptions" -- which is not the same claim at all.
+This verification is essential. AI will confidently state things like "research proves users prefer quarterly payments" when the data only shows "users dislike monthly subscriptions" – which is not the same claim at all.
 
 ---
 

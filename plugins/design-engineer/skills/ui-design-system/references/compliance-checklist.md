@@ -51,7 +51,7 @@ This checklist is used to audit code for design system compliance. Every item mu
 ## 5. Component Architecture
 
 - [ ] All views follow single responsibility principle
-- [ ] No view body exceeds 50 lines -- extract subviews for complex layouts
+- [ ] No view body exceeds 50 lines – extract subviews for complex layouts
 - [ ] No duplicated styling logic across files
 - [ ] Repeated UI patterns extracted into reusable components
 - [ ] Components consume semantic aliases, never raw token values
@@ -112,7 +112,7 @@ This checklist is used to audit code for design system compliance. Every item mu
 ### How to Run the Audit
 
 1. **Read and analyze** all implemented frontend code
-2. **Identify violations** -- hardcoded values, monolithic views, duplicated logic, inconsistent patterns
+2. **Identify violations** – hardcoded values, monolithic views, duplicated logic, inconsistent patterns
 3. **Check existing design system** for available styles and components
 4. **Implement fixes** by replacing violations with proper design system usage
 5. **Create missing design system elements** when needed (modifiers, extensions, constants)
@@ -131,9 +131,9 @@ The audit is complete when:
 ### Audit Report Format
 
 For each violation found, document:
-- **File** -- path to the file containing the violation
-- **Line** -- specific line or range
-- **Violation type** -- which checklist category (color, typography, spacing, etc.)
-- **Current code** -- the offending code
-- **Correct code** -- the compliant replacement
-- **Status** -- fixed or pending
+- **File** – path to the file containing the violation
+- **Line** – specific line or range
+- **Violation type** – which checklist category (color, typography, spacing, etc.)
+- **Current code** – the offending code
+- **Correct code** – the compliant replacement
+- **Status** – fixed or pending

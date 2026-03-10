@@ -142,7 +142,7 @@ Testing everything at once is too complex for both you and respondents. Key prin
 - Test 3-5 hypotheses per research round, not all at once
 - When asking about behavior, always ask about the past, not the future. "Have you used..." beats "Would you use..."
 - After each round, update this document: mark confirmed, invalidated, and inconclusive hypotheses
-- New hypotheses are added continuously -- this is never a "done" document
+- New hypotheses are added continuously – this is never a "done" document
 
 ---
 

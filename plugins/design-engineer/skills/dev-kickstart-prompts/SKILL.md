@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 When you open a new project in an IDE, you are looking at a blank folder. If you are new to programming, it is hard to understand how to begin. Kick-start prompts are starting messages you send to your AI coding tool to set everything up.
 
-The rule of thumb: do not overcomplicate them. Avoid deep technical details or code snippets. These prompts should be high-level references that point to your context documents -- the files from your planning activities placed into the project folder.
+The rule of thumb: do not overcomplicate them. Avoid deep technical details or code snippets. These prompts should be high-level references that point to your context documents – the files from your planning activities placed into the project folder.
 
 ## Interaction Method
 
@@ -52,11 +52,11 @@ question: "Which AI coding tool will you use?"
 header: "Development Tool"
 options:
   - label: "Claude Code (terminal)"
-    description: "Anthropic's CLI tool -- supports agents, skills, MCPs"
+    description: "Anthropic's CLI tool – supports agents, skills, MCPs"
   - label: "Cursor"
     description: "AI-powered IDE with built-in code generation"
   - label: "Claude Code inside Cursor's terminal"
-    description: "Best of both worlds -- Cursor's IDE with Claude Code's capabilities"
+    description: "Best of both worlds – Cursor's IDE with Claude Code's capabilities"
   - label: "Other IDE"
     description: "Windsurf, Kiro, or another AI-assisted editor"
 ```
@@ -108,9 +108,9 @@ Present the generated prompts to the user for review. Each prompt should:
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- their tool preference, their project priorities
-2. **Existing documentation** -- prompts reference real documents, not assumptions
-3. **AI suggestions** -- propose prompt structure and sequence
+1. **User's direct input** – their tool preference, their project priorities
+2. **Existing documentation** – prompts reference real documents, not assumptions
+3. **AI suggestions** – propose prompt structure and sequence
 
 ---
 
@@ -122,5 +122,5 @@ After kick-start prompts are generated, the user begins development. Suggest `de
 
 ## Resource Files
 
-- [kickstart-template.md](./references/kickstart-template.md) -- Template structure for IDE-agnostic kick-start prompts
-- [dev-prep-assistant.md](./references/dev-prep-assistant.md) -- Complete Development Preparation Assistant methodology
+- [kickstart-template.md](./references/kickstart-template.md) – Template structure for IDE-agnostic kick-start prompts
+- [dev-prep-assistant.md](./references/dev-prep-assistant.md) – Complete Development Preparation Assistant methodology

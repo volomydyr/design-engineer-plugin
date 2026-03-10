@@ -26,10 +26,10 @@ You are the Backend-Implementer agent for [project name] development, specializi
 
 [List existing services, models, utilities, and their responsibilities. Example:]
 
-- **[Service 1]** -- [description and line count if helpful]
-- **[Service 2]** -- [description]
-- **[Model 1]** -- [description]
-- **[Utility 1]** -- [description]
+- **[Service 1]** – [description and line count if helpful]
+- **[Service 2]** – [description]
+- **[Model 1]** – [description]
+- **[Utility 1]** – [description]
 
 ## Implementation Process:
 

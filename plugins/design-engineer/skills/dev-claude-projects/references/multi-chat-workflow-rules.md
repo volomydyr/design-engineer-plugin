@@ -2,9 +2,9 @@
 
 ## The Core Problem
 
-Claude allows about 200,000 tokens per chat -- roughly 140,000 words. That limit includes your messages, AI responses, attached files, and documents that AI creates. When you approach this limit, Claude starts losing context from earlier parts of the conversation.
+Claude allows about 200,000 tokens per chat – roughly 140,000 words. That limit includes your messages, AI responses, attached files, and documents that AI creates. When you approach this limit, Claude starts losing context from earlier parts of the conversation.
 
-Claude has a "compact chat" feature -- when you hit 200k tokens, AI automatically compresses the earlier conversation and continues. This compaction is pretty smart: it summarizes older messages more heavily and keeps recent ones mostly as they are. But you still lose some details.
+Claude has a "compact chat" feature – when you hit 200k tokens, AI automatically compresses the earlier conversation and continues. This compaction is pretty smart: it summarizes older messages more heavily and keeps recent ones mostly as they are. But you still lose some details.
 
 The solution: one activity should equal one chat.
 
@@ -24,14 +24,14 @@ Each step in your project gets its own dedicated chat. When you finish an activi
 
 When a step is complete:
 1. Copy the final deliverable to the project's knowledge by clicking the "Copy to project" button (or equivalent in your tool)
-2. This must be done manually -- Claude cannot save files on its own, even if you ask it to and it claims it did
+2. This must be done manually – Claude cannot save files on its own, even if you ask it to and it claims it did
 3. Verify the document appears in your project knowledge before starting the next chat
 
 ### Rule 3: Start Each Chat with Context
 
 Every new chat should begin with AI:
 1. Checking the project status tracker to understand current progress
-2. Following the complete global rules -- not ignoring any parts
+2. Following the complete global rules – not ignoring any parts
 3. Reviewing all project knowledge documents
 4. Sharing brief initial thoughts about the current step's deliverable
 5. Asking 7-10 strategic questions for the specific step
@@ -49,7 +49,7 @@ AI should never assume a step is done or suggest moving on prematurely.
 
 ### Rule 5: Step Scope Discipline
 
-- NEVER ask about moving to the next step -- stay in the current step until the deliverable is ready
+- NEVER ask about moving to the next step – stay in the current step until the deliverable is ready
 - CAN revisit and update previous step deliverables based on new knowledge
 - NEVER work on future steps, even if the user mentions them casually
 - Stay focused on the specific scope of the current activity
@@ -58,9 +58,9 @@ AI should never assume a step is done or suggest moving on prematurely.
 
 When there is a disagreement or conflicting information:
 
-1. **User's own experience** -- highest weight, least likely to be wrong
-2. **Project documentation** -- what has already been decided and written down
-3. **AI suggestions** -- lowest weight, most likely to contain mistakes
+1. **User's own experience** – highest weight, least likely to be wrong
+2. **Project documentation** – what has already been decided and written down
+3. **AI suggestions** – lowest weight, most likely to contain mistakes
 
 AI confidently fills in gaps with made-up information if given room to do so. When AI makes a claim based on research or documents, ask it to provide specific quotes. Then open those sources and search for the exact text. If you cannot find anything, Claude probably invented it.
 
@@ -93,7 +93,7 @@ Claude never jumps ahead. It is always focused on one step only:
 ## Applying These Rules
 
 ### In Claude Projects (browser)
-These rules go into the **Project Instructions** field, which applies them to every chat automatically. You do not need to repeat them -- they are always active.
+These rules go into the **Project Instructions** field, which applies them to every chat automatically. You do not need to repeat them – they are always active.
 
 ### In Claude Code (terminal)
 These principles map to the CLAUDE.md file and the agent pipeline. Each sub-agent is essentially one focused "chat" with its own token budget, following the same pattern of focused scope and explicit completion.
@@ -103,8 +103,8 @@ The workflow applies to any AI tool with chat-based interactions. The mechanism 
 
 ## Common Mistakes to Avoid
 
-1. **Trying to do everything in one chat** -- you will hit the token limit and lose critical context
-2. **Forgetting to save deliverables** -- the next chat will not have access to your completed work
-3. **Trusting AI claims without verification** -- always ask for specific quotes and verify them
-4. **Letting AI skip the question phase** -- the 7-10 strategic questions prevent assumptions and ensure alignment
-5. **Moving to the next step without explicit completion** -- incomplete deliverables become shaky foundations for everything that follows
+1. **Trying to do everything in one chat** – you will hit the token limit and lose critical context
+2. **Forgetting to save deliverables** – the next chat will not have access to your completed work
+3. **Trusting AI claims without verification** – always ask for specific quotes and verify them
+4. **Letting AI skip the question phase** – the 7-10 strategic questions prevent assumptions and ensure alignment
+5. **Moving to the next step without explicit completion** – incomplete deliverables become shaky foundations for everything that follows

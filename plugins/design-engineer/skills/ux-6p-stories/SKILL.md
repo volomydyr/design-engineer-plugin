@@ -1,12 +1,12 @@
 ---
 name: ux-6p-stories
-description: "Guides creation of 6P Stories -- comic-style product stories with 6 panels that build customer empathy. Use when starting a new product or documenting an existing product's user experience."
+description: "Guides creation of 6P Stories – comic-style product stories with 6 panels that build customer empathy. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
 ---
 
 # ux-6p-stories Skill
 
-**Purpose:** Guide the user through creating a 6P Story -- a one-pager comic with six panels depicting what a customer goes through for a given experience. 6P Stories build customer empathy, reveal improvement opportunities, and communicate user problems more effectively than screens alone.
+**Purpose:** Guide the user through creating a 6P Story – a one-pager comic with six panels depicting what a customer goes through for a given experience. 6P Stories build customer empathy, reveal improvement opportunities, and communicate user problems more effectively than screens alone.
 
 **Why stories, not screens?** Screens merely tell you what happens. Only journeys can tell you *why* and *how*. Screens make you focus on your product, not the problem. It is dangerously easy to become attached to existing solutions you have put a lot of effort into (Sunk Cost Fallacy). Stories focus on the customer first.
 
@@ -14,8 +14,8 @@ disable-model-invocation: true
 
 **Reference files:**
 
-- [6p-stories-framework.md](./references/6p-stories-framework.md) -- Complete 6P framework with psychology, panel-by-panel guidance, and best practices
-- [6p-stories-examples.md](./references/6p-stories-examples.md) -- Adapted case study examples with good/bad patterns
+- [6p-stories-framework.md](./references/6p-stories-framework.md) – Complete 6P framework with psychology, panel-by-panel guidance, and best practices
+- [6p-stories-examples.md](./references/6p-stories-examples.md) – Adapted case study examples with good/bad patterns
 
 ---
 
@@ -52,27 +52,27 @@ Briefly explain WHY 6P Stories work, weaving the education into the conversation
 
 **Three psychological principles behind storytelling:**
 
-1. **Narrative Bias** -- Humans are wired to make sense of the world through stories. When information is presented as a narrative, the brain processes and retains it more effectively than raw data or screen descriptions.
+1. **Narrative Bias** – Humans are wired to make sense of the world through stories. When information is presented as a narrative, the brain processes and retains it more effectively than raw data or screen descriptions.
 
-2. **Singularity Effect** -- People empathize more with a single individual than with a large group. A 6P Story starring one specific customer creates stronger emotional engagement than aggregate user data.
+2. **Singularity Effect** – People empathize more with a single individual than with a large group. A 6P Story starring one specific customer creates stronger emotional engagement than aggregate user data.
 
-3. **Character Identification Effect** -- Stories make your brain feel like YOU are experiencing the journey. This develops genuine empathy for the hero and their struggles.
+3. **Character Identification Effect** – Stories make your brain feel like YOU are experiencing the journey. This develops genuine empathy for the hero and their struggles.
 
 **Three psychological principles behind comics specifically:**
 
-1. **Closure** -- The brain constantly tries to fill the gaps between comic panels. These gaps act as open-ended questions that force creative thinking and help find solutions. The space between panels is where insights happen.
+1. **Closure** – The brain constantly tries to fill the gaps between comic panels. These gaps act as open-ended questions that force creative thinking and help find solutions. The space between panels is where insights happen.
 
-2. **Miller's Law** -- The average person can only keep 7 plus or minus 2 items in working memory. Six panels is short enough to grasp the overall meaning quickly, while leaving enough gaps to imagine improvement opportunities.
+2. **Miller's Law** – The average person can only keep 7 plus or minus 2 items in working memory. Six panels is short enough to grasp the overall meaning quickly, while leaving enough gaps to imagine improvement opportunities.
 
-3. **Pareidolia** -- Humans tend to interpret faces and emotions even in abstract shapes and inanimate objects. Even the most basic stick-figure drawing with simple dots for eyes and a curved line for a mouth can convey powerful emotions and build empathy.
+3. **Pareidolia** – Humans tend to interpret faces and emotions even in abstract shapes and inanimate objects. Even the most basic stick-figure drawing with simple dots for eyes and a curved line for a mouth can convey powerful emotions and build empathy.
 
-**Key insight to share with the user:** This is not a drawing competition. Raw stick figures are actually better than "realistic" or "artsy" drawings. The focus should be on faces, eyes, eyebrows, and mouth -- simple dots, rectangles, and blobs. The brain is surprisingly good at interpreting human emotions even from simple lines because of pareidolia.
+**Key insight to share with the user:** This is not a drawing competition. Raw stick figures are actually better than "realistic" or "artsy" drawings. The focus should be on faces, eyes, eyebrows, and mouth – simple dots, rectangles, and blobs. The brain is surprisingly good at interpreting human emotions even from simple lines because of pareidolia.
 </step>
 
 <step number="3" required="true" depends_on="2">
 ### Step 3: Define the Happy Ending
 
-Guide the user to write the 6th panel (bottom right) first -- the customer's success moment.
+Guide the user to write the 6th panel (bottom right) first – the customer's success moment.
 
 **Instruct the user:**
 
@@ -88,7 +88,7 @@ Let's start with the ending. In 5 words or fewer, what does success look like fo
 Think about how they FEEL, not what button they clicked. For example:
 - "Finally found the perfect place"
 - "Confident about tomorrow's presentation"
-- "Relief -- no more manual work"
+- "Relief – no more manual work"
 ```
 
 **BLOCKING REQUIREMENT:** Wait for user input. If the ending focuses on the product rather than the customer, gently redirect.
@@ -104,7 +104,7 @@ Guide the user through panels 1 through 5, working backward from the happy endin
 - **Panel 1 (Exposition):** The customer's starting situation and context. What is their life like before this experience? What triggers the need?
 - **Panels 2-3 (Rising Action):** The customer encounters the problem. Show their struggle, confusion, or frustration. What goes wrong? What obstacles appear?
 - **Panels 4-5 (Climax and Resolution):** The turning point. How does the customer begin to overcome the challenge? What changes?
-- **Panel 6 (Denouement):** Already defined -- the happy ending.
+- **Panel 6 (Denouement):** Already defined – the happy ending.
 
 **For each panel, instruct the user to include:**
 
@@ -136,15 +136,15 @@ Evaluate the 6P Story against five quality criteria. Read [6p-stories-framework.
 
 **The most impactful 6P Stories respect the following best practices:**
 
-1. **You start with empathy** -- The story focuses more on the customer problem than on your product. You do not merely go through the steps in your app, but rather how the customer feels. The goal is to build empathy to find better solutions.
+1. **You start with empathy** – The story focuses more on the customer problem than on your product. You do not merely go through the steps in your app, but rather how the customer feels. The goal is to build empathy to find better solutions.
 
-2. **You capture emotions** -- Empathy requires emotion, so the story highlights emotions. It conveys a mini rollercoaster of ups and downs from the customer's perspective (smiles, frowns, expressions of doubt).
+2. **You capture emotions** – Empathy requires emotion, so the story highlights emotions. It conveys a mini rollercoaster of ups and downs from the customer's perspective (smiles, frowns, expressions of doubt).
 
-3. **You focus on actions** -- The story does not just describe steps. It makes others feel what the protagonist is going through in a real-life context.
+3. **You focus on actions** – The story does not just describe steps. It makes others feel what the protagonist is going through in a real-life context.
 
-4. **You highlight the hero's struggles** -- It is not enough to include an Exposition in panel 1 and a Denouement in panel 6. Great stories focus on the conflict. Panels 2, 3, 4, or 5 should highlight the customer's main doubts, frustrations, or obstacles.
+4. **You highlight the hero's struggles** – It is not enough to include an Exposition in panel 1 and a Denouement in panel 6. Great stories focus on the conflict. Panels 2, 3, 4, or 5 should highlight the customer's main doubts, frustrations, or obstacles.
 
-5. **You look for improvement opportunities** -- 6P stories naturally highlight gaps in the customer experience. Identify what they are. These become actionable insights for design improvements.
+5. **You look for improvement opportunities** – 6P stories naturally highlight gaps in the customer experience. Identify what they are. These become actionable insights for design improvements.
 
 **Provide specific feedback** on which criteria the story meets and which need strengthening. Suggest concrete improvements.
 
@@ -180,9 +180,9 @@ Now look at your completed 6P Story and consider:
 
 When creating 6P Stories, always follow this priority:
 
-1. **User's context and research** -- Real customer insights always win
-2. **Framework guidelines** -- The 6P structure and best practices from reference files
-3. **AI suggestions** -- Only when user has no data and needs a starting point to iterate on
+1. **User's context and research** – Real customer insights always win
+2. **Framework guidelines** – The 6P structure and best practices from reference files
+3. **AI suggestions** – Only when user has no data and needs a starting point to iterate on
 
 Never invent customer research. If the user has no customer data, the 6P Story becomes a hypothesis to validate, and this must be stated explicitly.
 

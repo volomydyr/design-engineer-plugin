@@ -1,4 +1,4 @@
-# Section 2: Visual Perception and Attention Focus -- Principles
+# Section 2: Visual Perception and Attention Focus – Principles
 
 All 10 principles covering how to effectively use attention, contrast, and visual cues to create emphasis in design.
 
@@ -12,10 +12,10 @@ All 10 principles covering how to effectively use attention, contrast, and visua
 
 In interfaces, this principle helps designers place the most important elements at the right location and at the right time. Users frequently ignore information that is not related to their current task:
 
-- **Contextual error placement** -- form error messages should appear next to the problematic field, not at the top or bottom of the page. When a user is focused on a specific field, their attention is anchored to that area. An error banner at the top of a long form will go unnoticed because the user's attention is elsewhere
-- **Post-task notifications** -- important system notifications are better shown after the user completes their current action, when their attention is no longer concentrated on a specific task. Interrupting mid-task means the notification competes with the user's focused attention and usually loses
-- **Contextual help** -- tooltips and guidance should appear near the element the user is currently interacting with. A help panel on the side of the screen is less effective than an inline hint next to the field being filled
-- **Progressive alerts** -- for non-urgent information, use subtle indicators (badge counts, color changes) that the user can notice when their attention naturally shifts, rather than interrupting with modal dialogs
+- **Contextual error placement** – form error messages should appear next to the problematic field, not at the top or bottom of the page. When a user is focused on a specific field, their attention is anchored to that area. An error banner at the top of a long form will go unnoticed because the user's attention is elsewhere
+- **Post-task notifications** – important system notifications are better shown after the user completes their current action, when their attention is no longer concentrated on a specific task. Interrupting mid-task means the notification competes with the user's focused attention and usually loses
+- **Contextual help** – tooltips and guidance should appear near the element the user is currently interacting with. A help panel on the side of the screen is less effective than an inline hint next to the field being filled
+- **Progressive alerts** – for non-urgent information, use subtle indicators (badge counts, color changes) that the user can notice when their attention naturally shifts, rather than interrupting with modal dialogs
 
 The practical implication: do not assume users will notice something just because it is on screen. They will only notice what is relevant to their current goal. Design must anticipate what the user is focused on at each moment and place important information within that focus zone.
 
@@ -37,11 +37,11 @@ A form that collects all validation errors and displays them as a bulleted list 
 
 This phenomenon demonstrates how users have learned to automatically filter content that looks like advertising. This applies not only to actual ad banners but to any bright, separate blocks in the interface:
 
-- **Avoid ad-like patterns for important content** -- do not style critical system messages as large colorful banners at the top of the page. Users will subconsciously categorize them as ads and ignore them
-- **Integrate into the content flow** -- important information should be embedded within the main content area, not isolated in separate visual blocks. An inline text message with a subtle icon is more likely to be read than a bright banner
-- **Subtle visual accents** -- use restrained visual emphasis (thin left border, small icon, subtle background tint) rather than bold, flashy treatments. The more something looks like an ad, the more it will be ignored
-- **Avoid the "banner zone"** -- the top area of the page between the navigation and the main content is the primary banner blindness zone. Important functional content placed here will be overlooked. Right sidebars are the secondary blind zone
-- **Test with eye-tracking patterns** -- areas that are typically reserved for ads in common website layouts (728x90 top strips, 300x250 right-sidebar blocks, content-interstitial strips) will trigger blindness regardless of what they contain
+- **Avoid ad-like patterns for important content** – do not style critical system messages as large colorful banners at the top of the page. Users will subconsciously categorize them as ads and ignore them
+- **Integrate into the content flow** – important information should be embedded within the main content area, not isolated in separate visual blocks. An inline text message with a subtle icon is more likely to be read than a bright banner
+- **Subtle visual accents** – use restrained visual emphasis (thin left border, small icon, subtle background tint) rather than bold, flashy treatments. The more something looks like an ad, the more it will be ignored
+- **Avoid the "banner zone"** – the top area of the page between the navigation and the main content is the primary banner blindness zone. Important functional content placed here will be overlooked. Right sidebars are the secondary blind zone
+- **Test with eye-tracking patterns** – areas that are typically reserved for ads in common website layouts (728x90 top strips, 300x250 right-sidebar blocks, content-interstitial strips) will trigger blindness regardless of what they contain
 
 Users have been trained by years of web browsing to ignore patterns that look like advertising. Even users who have never seen ads will exhibit this behavior because they have internalized the patterns from others' behavior and common layouts.
 
@@ -51,7 +51,7 @@ A SaaS application that communicates important account status (trial expiring, p
 
 ### Bad Example
 
-The same SaaS application that shows trial expiration as a large, colorful banner with a gradient background, bold text, a stock photo, and a bright CTA button -- looking exactly like an ad. Users scroll past it without reading, and 40% of trial users report they "were not warned" before their trial expired.
+The same SaaS application that shows trial expiration as a large, colorful banner with a gradient background, bold text, a stock photo, and a bright CTA button – looking exactly like an ad. Users scroll past it without reading, and 40% of trial users report they "were not warned" before their trial expired.
 
 ---
 
@@ -63,11 +63,11 @@ The same SaaS application that shows trial expiration as a large, colorful banne
 
 Visual anchors function as "magnets" that create hierarchy and attract attention to important elements, setting a predictable route for content scanning, especially on complex pages with large amounts of information:
 
-- **Product photography** -- in e-commerce, the main product photo serves as the primary visual anchor that draws the eye first. It should be the largest and most prominent element on the product detail page
-- **Section headings** -- in articles and long-form content, large headings and illustrations structure the content and facilitate perception. They act as waypoints that users scan before deciding where to read in detail
-- **Color-coded categories** -- using color to differentiate product categories or order statuses helps users quickly understand the current state. A consistent color system (green for active, red for urgent, gray for archived) creates reliable visual anchors
-- **Navigation icons** -- in applications, navigation icons serve as entry points to different sections. Their consistent placement and distinctive appearance make them reliable anchors that users return to repeatedly
-- **Hero elements** -- the first visual anchor on any page should be intentional. If the page has no clear hero element (large image, prominent heading, featured content), the eye has nowhere to land first and the user feels disoriented
+- **Product photography** – in e-commerce, the main product photo serves as the primary visual anchor that draws the eye first. It should be the largest and most prominent element on the product detail page
+- **Section headings** – in articles and long-form content, large headings and illustrations structure the content and facilitate perception. They act as waypoints that users scan before deciding where to read in detail
+- **Color-coded categories** – using color to differentiate product categories or order statuses helps users quickly understand the current state. A consistent color system (green for active, red for urgent, gray for archived) creates reliable visual anchors
+- **Navigation icons** – in applications, navigation icons serve as entry points to different sections. Their consistent placement and distinctive appearance make them reliable anchors that users return to repeatedly
+- **Hero elements** – the first visual anchor on any page should be intentional. If the page has no clear hero element (large image, prominent heading, featured content), the eye has nowhere to land first and the user feels disoriented
 
 The principle of visual anchors is closely related to visual hierarchy, but with a specific focus on creating a scanning path. While visual hierarchy establishes importance, visual anchors establish the order in which elements are noticed.
 
@@ -89,12 +89,12 @@ A news website where all articles are presented as uniform text blocks of the sa
 
 This effect is used when you need to draw attention to specific elements or blocks in the interface:
 
-- **Call-to-action buttons** -- the primary CTA should be visually distinct from all other buttons on the page. If all buttons are blue, the CTA should be orange or green -- anything that breaks the pattern
-- **Recommended pricing plans** -- in pricing tables, the recommended tier should have a different visual treatment: larger card, colored border, "Most Popular" badge, or elevated shadow. This draws the eye and creates a natural starting point for comparison
-- **Important data in tables** -- highlight critical values (overdue items, low stock, errors) with a different background color or text color so they stand out from the regular data rows
-- **Key messages** -- when you need the user to notice one specific piece of information on a content-heavy page, give it a unique visual treatment that nothing else on the page shares
+- **Call-to-action buttons** – the primary CTA should be visually distinct from all other buttons on the page. If all buttons are blue, the CTA should be orange or green – anything that breaks the pattern
+- **Recommended pricing plans** – in pricing tables, the recommended tier should have a different visual treatment: larger card, colored border, "Most Popular" badge, or elevated shadow. This draws the eye and creates a natural starting point for comparison
+- **Important data in tables** – highlight critical values (overdue items, low stock, errors) with a different background color or text color so they stand out from the regular data rows
+- **Key messages** – when you need the user to notice one specific piece of information on a content-heavy page, give it a unique visual treatment that nothing else on the page shares
 
-The critical constraint: **use isolation sparingly.** If too many elements are highlighted, the effect is lost entirely. When everything is special, nothing is special. A page where 5 different elements each use their own unique highlight color has no isolation effect -- it just looks chaotic.
+The critical constraint: **use isolation sparingly.** If too many elements are highlighted, the effect is lost entirely. When everything is special, nothing is special. A page where 5 different elements each use their own unique highlight color has no isolation effect – it just looks chaotic.
 
 The concept applies beyond color. An element can differ by size, shape, motion, texture, or position. A single animated element on an otherwise static page will attract strong attention. A circular element among rectangles will stand out.
 
@@ -116,11 +116,11 @@ A pricing page where every plan has its own unique color (red, blue, green), eac
 
 In interfaces, contrast is achieved not only through color but also through size, shape, spacing, and element weight:
 
-- **Text contrast** -- important headings should be darker and larger than body text. Use a clear typographic scale (e.g., 14px body, 18px subheading, 24px heading, 36px page title) with corresponding weight differences
-- **Action button contrast** -- primary action buttons need a brighter, more saturated color relative to the background. Secondary actions should have lower contrast (outlined or gray)
-- **Accessibility requirements** -- contrast is especially important for accessibility. WCAG AA requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (18px+ or 14px+ bold). WCAG AAA requires 7:1 and 4.5:1 respectively. This ensures people with visual impairments can read content
-- **Contrast fatigue** -- too much contrast can tire the eyes, especially for long reading sessions. Pure black (#000000) text on pure white (#FFFFFF) creates maximum contrast (21:1) but can cause visual strain. Slightly softened combinations (dark gray #1A1A1A on off-white #FAFAFA) maintain readability while reducing fatigue
-- **Dark mode considerations** -- in dark mode, contrast relationships reverse but the principles remain the same. Primary actions should still have the highest contrast. Avoid pure white text on pure black backgrounds for the same fatigue reasons
+- **Text contrast** – important headings should be darker and larger than body text. Use a clear typographic scale (e.g., 14px body, 18px subheading, 24px heading, 36px page title) with corresponding weight differences
+- **Action button contrast** – primary action buttons need a brighter, more saturated color relative to the background. Secondary actions should have lower contrast (outlined or gray)
+- **Accessibility requirements** – contrast is especially important for accessibility. WCAG AA requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (18px+ or 14px+ bold). WCAG AAA requires 7:1 and 4.5:1 respectively. This ensures people with visual impairments can read content
+- **Contrast fatigue** – too much contrast can tire the eyes, especially for long reading sessions. Pure black (#000000) text on pure white (#FFFFFF) creates maximum contrast (21:1) but can cause visual strain. Slightly softened combinations (dark gray #1A1A1A on off-white #FAFAFA) maintain readability while reducing fatigue
+- **Dark mode considerations** – in dark mode, contrast relationships reverse but the principles remain the same. Primary actions should still have the highest contrast. Avoid pure white text on pure black backgrounds for the same fatigue reasons
 
 ### Good Example
 
@@ -140,10 +140,10 @@ A dashboard where headings and body text are the same size and only differ by a 
 
 This law helps users group and understand relationships between interface elements. Elements with the same color, shape, size, or style are automatically perceived as parts of one system:
 
-- **Consistent action colors** -- all delete/remove buttons should share the same red color. All primary actions share the same brand color. All disabled states share the same gray treatment. This creates a visual language where users learn "red means destructive" without reading labels
-- **Icon consistency** -- all icons should be executed in a unified style. Mixing filled icons with outlined icons, or mixing different stroke weights, breaks the visual grouping and makes the interface feel inconsistent. Pick one icon style and use it throughout
-- **Card patterns** -- if items are displayed as cards, all cards of the same type should share the same visual structure (same border radius, same shadow, same padding). A card that looks different from the others will be perceived as a different type of content, even if it is the same
-- **Typography roles** -- all elements serving the same function should use the same typography. All section headings should look alike. All body text should look alike. All captions should look alike. Inconsistent typography breaks the perceived grouping
+- **Consistent action colors** – all delete/remove buttons should share the same red color. All primary actions share the same brand color. All disabled states share the same gray treatment. This creates a visual language where users learn "red means destructive" without reading labels
+- **Icon consistency** – all icons should be executed in a unified style. Mixing filled icons with outlined icons, or mixing different stroke weights, breaks the visual grouping and makes the interface feel inconsistent. Pick one icon style and use it throughout
+- **Card patterns** – if items are displayed as cards, all cards of the same type should share the same visual structure (same border radius, same shadow, same padding). A card that looks different from the others will be perceived as a different type of content, even if it is the same
+- **Typography roles** – all elements serving the same function should use the same typography. All section headings should look alike. All body text should look alike. All captions should look alike. Inconsistent typography breaks the perceived grouping
 
 The practical rule: **if two elements do the same thing, they must look the same. If two elements do different things, they must look different.** Visual similarity creates functional expectations.
 
@@ -165,11 +165,11 @@ An email application where some unread messages are bold and others are highligh
 
 When interacting with an interface, users subconsciously look for the simplest patterns and understandable forms. When designing complex functionality, it is important to present it through simple, intuitive forms and structures:
 
-- **Data visualization** -- instead of displaying all statistics at once in raw tables, show a graph with key indicators and provide detailed information on demand. A line chart showing a trend is simpler to process than a table with 50 rows of numbers
-- **Icon design** -- icons should use the simplest geometric forms that still communicate their meaning. An envelope for email, a house for home, a magnifying glass for search. Overly detailed or realistic icons take longer to process than simplified ones
-- **Layout simplification** -- use a clear grid structure. Even complex dashboards should resolve into a recognizable grid of rectangles. Irregular, overlapping, or asymmetric layouts require more mental effort to parse
-- **Feature organization** -- present complex feature sets through simple categories and layers rather than exposing all options simultaneously. A settings panel with 6 clearly-labeled sections is simpler to process than 30 ungrouped options, even though the total content is the same
-- **Animation and transitions** -- simple, predictable animations (slide, fade, scale) are easier to process than complex, multi-step animations. Users should be able to predict where an element will end up
+- **Data visualization** – instead of displaying all statistics at once in raw tables, show a graph with key indicators and provide detailed information on demand. A line chart showing a trend is simpler to process than a table with 50 rows of numbers
+- **Icon design** – icons should use the simplest geometric forms that still communicate their meaning. An envelope for email, a house for home, a magnifying glass for search. Overly detailed or realistic icons take longer to process than simplified ones
+- **Layout simplification** – use a clear grid structure. Even complex dashboards should resolve into a recognizable grid of rectangles. Irregular, overlapping, or asymmetric layouts require more mental effort to parse
+- **Feature organization** – present complex feature sets through simple categories and layers rather than exposing all options simultaneously. A settings panel with 6 clearly-labeled sections is simpler to process than 30 ungrouped options, even though the total content is the same
+- **Animation and transitions** – simple, predictable animations (slide, fade, scale) are easier to process than complex, multi-step animations. Users should be able to predict where an element will end up
 
 ### Good Example
 
@@ -189,11 +189,11 @@ An analytics dashboard that displays every available metric simultaneously: 12 d
 
 Images, icons, and visual elements are processed by the brain faster than text, which allows users to instantly understand the functions and states of the interface:
 
-- **Navigation icons** -- icons should complement text labels in navigation. A home icon next to the word "Home", a gear icon next to "Settings", a person icon next to "Profile". This dual encoding (visual + text) increases both speed and accuracy of recognition
-- **Status indicators** -- use visual symbols alongside status text. An error circle with the text "Error", a checkmark with "Success", a warning triangle with "Warning". The icon is processed faster than the text, giving the user an immediate emotional read before they even read the words
-- **Instructional content** -- for complex processes, use infographics, step-by-step illustrations, or annotated screenshots rather than pure text instructions. Visual instructions are remembered 6x better than text-only instructions
-- **Product presentation** -- in e-commerce, present products with quality photographs from multiple angles. A photo communicates size, color, texture, and context faster than any text description
-- **Data communication** -- use charts and graphs to communicate numerical information. A rising line chart communicates "growth" instantly. A comparison bar chart communicates "which is bigger" instantly. The equivalent in text would require reading and mentally processing numbers
+- **Navigation icons** – icons should complement text labels in navigation. A home icon next to the word "Home", a gear icon next to "Settings", a person icon next to "Profile". This dual encoding (visual + text) increases both speed and accuracy of recognition
+- **Status indicators** – use visual symbols alongside status text. An error circle with the text "Error", a checkmark with "Success", a warning triangle with "Warning". The icon is processed faster than the text, giving the user an immediate emotional read before they even read the words
+- **Instructional content** – for complex processes, use infographics, step-by-step illustrations, or annotated screenshots rather than pure text instructions. Visual instructions are remembered 6x better than text-only instructions
+- **Product presentation** – in e-commerce, present products with quality photographs from multiple angles. A photo communicates size, color, texture, and context faster than any text description
+- **Data communication** – use charts and graphs to communicate numerical information. A rising line chart communicates "growth" instantly. A comparison bar chart communicates "which is bigger" instantly. The equivalent in text would require reading and mentally processing numbers
 
 The critical caveat: visual elements should be relevant, understandable, and reinforce (not replace) textual information. Decorative images that do not communicate meaning add visual noise without improving comprehension. Every image should serve a clear informational purpose.
 
@@ -215,15 +215,15 @@ A project management tool where task status is communicated only through text la
 
 This effect is important when structuring content, navigation, and any ordered list of options:
 
-- **Navigation placement** -- in menus, lists of options, and navigation bars, place the most important items at the beginning and end. The first position benefits from the primacy effect (users pay most attention to what they see first). The last position benefits from the recency effect (the most recent thing in memory)
-- **Middle for secondary items** -- the middle of a list naturally receives less attention. Place secondary, less-critical options there. In a 5-tab navigation bar, tabs 1 and 5 get the most attention; tabs 2, 3, and 4 get progressively less
-- **Visual breaks for long lists** -- for long lists, use grouping, section headers, or visual pauses (whitespace, dividers) to create multiple "beginnings" and "endings" within the list. Each sub-group has its own primacy and recency positions, distributing attention more evenly
-- **Call-to-action placement** -- in a sequence of features or selling points, place the strongest argument first and the second-strongest last. The weakest arguments go in the middle
-- **Onboarding sequences** -- in onboarding flows or tutorials, front-load the most compelling feature and end with the most actionable step. Users will remember the impressive start and the clear final action, even if the middle steps blur together
+- **Navigation placement** – in menus, lists of options, and navigation bars, place the most important items at the beginning and end. The first position benefits from the primacy effect (users pay most attention to what they see first). The last position benefits from the recency effect (the most recent thing in memory)
+- **Middle for secondary items** – the middle of a list naturally receives less attention. Place secondary, less-critical options there. In a 5-tab navigation bar, tabs 1 and 5 get the most attention; tabs 2, 3, and 4 get progressively less
+- **Visual breaks for long lists** – for long lists, use grouping, section headers, or visual pauses (whitespace, dividers) to create multiple "beginnings" and "endings" within the list. Each sub-group has its own primacy and recency positions, distributing attention more evenly
+- **Call-to-action placement** – in a sequence of features or selling points, place the strongest argument first and the second-strongest last. The weakest arguments go in the middle
+- **Onboarding sequences** – in onboarding flows or tutorials, front-load the most compelling feature and end with the most actionable step. Users will remember the impressive start and the clear final action, even if the middle steps blur together
 
 ### Good Example
 
-A mobile banking app with a bottom navigation bar of 5 tabs: Home (first -- most used), Payments, Cards, History, Profile (last -- frequently accessed). The most important functions occupy the primary and recency positions. The middle tabs contain important but less frequently accessed functions.
+A mobile banking app with a bottom navigation bar of 5 tabs: Home (first – most used), Payments, Cards, History, Profile (last – frequently accessed). The most important functions occupy the primary and recency positions. The middle tabs contain important but less frequently accessed functions.
 
 ### Bad Example
 
@@ -239,12 +239,12 @@ A mobile banking app where the bottom navigation places rarely-used features at 
 
 When creating interfaces, it is important to consider the natural tendency of people to choose the central option. This helps direct the user's attention and increase conversion:
 
-- **Pricing pages** -- place the recommended pricing tier in the center position. In a 3-plan layout, the center plan should be the one you want most users to choose. Reinforce the center position with additional visual emphasis (larger card, highlighted border, "Recommended" badge)
-- **Product comparisons** -- when displaying 3 or more products side by side, place the suggested product in the center. Users without a strong preference will gravitate to it
-- **Option lists** -- in horizontal layouts of equal options (templates, themes, subscription levels), the center position receives natural preference. Use this to guide users toward the optimal choice
-- **Feature cards** -- when showcasing 3 key features or 3 value propositions, the center one receives the most attention and is perceived as the "main" offering
+- **Pricing pages** – place the recommended pricing tier in the center position. In a 3-plan layout, the center plan should be the one you want most users to choose. Reinforce the center position with additional visual emphasis (larger card, highlighted border, "Recommended" badge)
+- **Product comparisons** – when displaying 3 or more products side by side, place the suggested product in the center. Users without a strong preference will gravitate to it
+- **Option lists** – in horizontal layouts of equal options (templates, themes, subscription levels), the center position receives natural preference. Use this to guide users toward the optimal choice
+- **Feature cards** – when showcasing 3 key features or 3 value propositions, the center one receives the most attention and is perceived as the "main" offering
 
-This effect is especially powerful when combined with the Von Restorff Effect -- a center-positioned option that also has a unique visual treatment (highlighted, larger, badged) creates a double emphasis that significantly guides user behavior.
+This effect is especially powerful when combined with the Von Restorff Effect – a center-positioned option that also has a unique visual treatment (highlighted, larger, badged) creates a double emphasis that significantly guides user behavior.
 
 The effect works most strongly when:
 1. There are an odd number of options (3 or 5 work best)

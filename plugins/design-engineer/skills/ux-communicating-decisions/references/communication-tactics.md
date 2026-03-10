@@ -4,7 +4,7 @@
 
 Stories rally people around the user, not individual opinions. Instead of starting with "I think we should change X," start with "Our user Sarah opens the app, expects to find X, but instead encounters Y."
 
-**Why it works**: Stories bypass the brain's critical filters. When you present data, people analyze it. When you tell a story, people feel it. Module 1 of the course teaches 6P Stories for exactly this reason -- they build customer empathy.
+**Why it works**: Stories bypass the brain's critical filters. When you present data, people analyze it. When you tell a story, people feel it. Module 1 of the course teaches 6P Stories for exactly this reason – they build customer empathy.
 
 **How to apply:**
 - Open every presentation with a user story, not a feature list
@@ -46,7 +46,7 @@ Having the right words to describe your thoughts is a major asset. It is hard to
 
 Do not show designs without specifically asking what you want feedback on. This is the best way to focus the conversation and make team decisions quickly.
 
-**Why it works**: Without guardrails, feedback sprawls in every direction. Someone comments on the color while you wanted input on the flow. Someone questions the copy while you needed feedback on the layout. Guardrails use the same principle as reducing cognitive load -- fewer options lead to better, faster decisions.
+**Why it works**: Without guardrails, feedback sprawls in every direction. Someone comments on the color while you wanted input on the flow. Someone questions the copy while you needed feedback on the layout. Guardrails use the same principle as reducing cognitive load – fewer options lead to better, faster decisions.
 
 **How to apply:**
 - Before showing anything, state: "I would like feedback specifically on [X]"

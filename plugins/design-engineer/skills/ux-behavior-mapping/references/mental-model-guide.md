@@ -1,10 +1,10 @@
-# Mental Models for Product Design -- Complete Reference
+# Mental Models for Product Design – Complete Reference
 
 ## What Is a Mental Model?
 
 Mental models are shortcuts that you use to understand the world. They are simplified representations of how things work and shape how you think. Mental models allow you to see more opportunities because they give your brain organized chunks of information that are easier to understand and use.
 
-In the context of product design, a mental model is a simplified framework that helps you understand the reasoning behind user behaviors. It does not need to be a perfect representation of reality -- it needs to be useful for making better decisions.
+In the context of product design, a mental model is a simplified framework that helps you understand the reasoning behind user behaviors. It does not need to be a perfect representation of reality – it needs to be useful for making better decisions.
 
 ---
 
@@ -25,7 +25,7 @@ The Behavior Map (B = M x A x P) is itself a mental model. It is a simplificatio
 
 ## Building Mental Models for Your Users
 
-Beyond using the BMap, product designers need to build mental models OF their users -- simplified but accurate representations of how users think, what they want, and how they make decisions.
+Beyond using the BMap, product designers need to build mental models OF their users – simplified but accurate representations of how users think, what they want, and how they make decisions.
 
 ### Step 1: Gather Raw Data
 
@@ -39,7 +39,7 @@ Additional data sources:
 - Customer support tickets (reveal gap between user's mental model and product's actual model)
 - Search queries within your product (reveal what users expect to find)
 - Feature requests (reveal what users think is missing based on their model of the product)
-- User session recordings (reveal where users get confused -- mental model mismatch)
+- User session recordings (reveal where users get confused – mental model mismatch)
 
 ### Step 2: Identify Patterns
 
@@ -92,9 +92,9 @@ One of the most powerful applications of mental models is understanding what use
 
 Every product replaces some previous behavior. Understanding that previous behavior reveals:
 
-1. **The user's existing mental model** -- How they currently think about solving this problem
-2. **The transition cost** -- How much effort it takes to switch from the old behavior to the new one
-3. **The comparison frame** -- Users will unconsciously compare your product to whatever they were doing before
+1. **The user's existing mental model** – How they currently think about solving this problem
+2. **The transition cost** – How much effort it takes to switch from the old behavior to the new one
+3. **The comparison frame** – Users will unconsciously compare your product to whatever they were doing before
 
 **Examples of "Replacing X":**
 
@@ -128,9 +128,9 @@ Users bring mental models from other products. When a user sees a shopping cart 
 
 Mental models give teams a shared vocabulary to discuss user behavior:
 
-- "Our users' mental model expects X, but our product does Y" -- identifies a mismatch
-- "The Activation Threshold for this behavior is high because users' mental model does not include this concept" -- explains low adoption
-- "We need to bridge from the user's existing mental model (doing X manually) to our solution" -- frames the design challenge
+- "Our users' mental model expects X, but our product does Y" – identifies a mismatch
+- "The Activation Threshold for this behavior is high because users' mental model does not include this concept" – explains low adoption
+- "We need to bridge from the user's existing mental model (doing X manually) to our solution" – frames the design challenge
 
 ---
 
@@ -163,4 +163,4 @@ The BMap is most effective when combined with a validated user mental model:
 3. **Prompt effectiveness** is higher when the prompt matches the user's expectation of when and how they would be prompted (their interaction mental model)
 4. **Activation Threshold position** is more accurately judged when you understand the full picture of the user's context, not just isolated lever ratings
 
-The mental model is the "why behind the why" -- it explains not just what users want, but WHY they want it and HOW they think about getting it.
+The mental model is the "why behind the why" – it explains not just what users want, but WHY they want it and HOW they think about getting it.

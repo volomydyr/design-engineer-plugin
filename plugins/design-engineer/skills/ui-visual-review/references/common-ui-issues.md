@@ -51,7 +51,7 @@ AI generates spacing values that are close to the design but not exact, leading 
 - Horizontal page padding is consistent across all screens
 - Vertical spacing between sections follows the design system spacing scale
 - Component internal padding matches design specifications
-- No hardcoded spacing values -- all should reference design tokens
+- No hardcoded spacing values – all should reference design tokens
 
 ### Alignment Problems
 Elements that should align across screens or within containers may be slightly off.

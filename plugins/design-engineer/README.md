@@ -4,11 +4,11 @@ Full-stack product design and AI-assisted development plugin for Claude Code. An
 
 ## Philosophy
 
-- **Teach while working** -- every skill guides the thinking process, not just outputs deliverables
-- **User > Docs > AI** -- enforces this decision hierarchy in every skill
-- **Granular and specific** -- each skill covers exactly one activity
-- **Opinionated with real context** -- prescribes exact workflows based on real product-building experience
-- **Tool-agnostic with recommendations** -- does not lock you into specific tools, but recommends proven ones
+- **Teach while working** – every skill guides the thinking process, not just outputs deliverables
+- **User > Docs > AI** – enforces this decision hierarchy in every skill
+- **Granular and specific** – each skill covers exactly one activity
+- **Opinionated with real context** – prescribes exact workflows based on real product-building experience
+- **Tool-agnostic with recommendations** – does not lock you into specific tools, but recommends proven ones
 
 ## Quick Start
 
@@ -39,8 +39,8 @@ You interact with 7 top-level commands. Behind each one, the full engine of 48 s
 
 Most commands support two modes:
 
-- **God mode** -- runs the full pipeline autonomously with minimal user input
-- **Guided mode** -- interactive, asks questions at every stage, pauses for approval
+- **God mode** – runs the full pipeline autonomously with minimal user input
+- **Guided mode** – interactive, asks questions at every stage, pauses for approval
 
 ## Skills (48)
 
@@ -157,8 +157,8 @@ Every skill can be invoked directly:
 
 The plugin includes two hooks for deliverable dependency tracking:
 
-- **PostToolUse** -- when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
-- **Stop** -- summarizes which deliverables were updated in this session and which dependents may be stale
+- **PostToolUse** – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
+- **Stop** – summarizes which deliverables were updated in this session and which dependents may be stale
 
 ## Requirements
 

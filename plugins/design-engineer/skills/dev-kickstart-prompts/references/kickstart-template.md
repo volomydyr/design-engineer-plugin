@@ -6,11 +6,11 @@ Kick-start prompts are the starting messages you send to your AI coding tool to 
 
 ### What Makes a Good Kick-Start Prompt
 
-- **High-level references** that point to your context documents -- not deep technical details
-- **One clear objective per prompt** -- never multiple goals
-- **Behavioral expectations** -- ask questions first, wait for approval before building
-- **Document references by file path** -- AI should read the actual files, not work from memory
-- **No code snippets** -- let the AI tool figure out implementation details based on your framework's official documentation
+- **High-level references** that point to your context documents – not deep technical details
+- **One clear objective per prompt** – never multiple goals
+- **Behavioral expectations** – ask questions first, wait for approval before building
+- **Document references by file path** – AI should read the actual files, not work from memory
+- **No code snippets** – let the AI tool figure out implementation details based on your framework's official documentation
 
 ### What to Avoid
 
@@ -61,7 +61,7 @@ Read the MVP Requirements document at [path], specifically the section about [hi
 
 Implement [feature name]:
 - Reference the design files for visual direction (use Figma MCP if available, or reference design screenshots at [path])
-- Focus on making it functional first -- we will polish the visuals later
+- Focus on making it functional first – we will polish the visuals later
 - Reuse any components or patterns already established in the project
 - Ask me clarifying questions before starting implementation
 
@@ -115,7 +115,7 @@ After implementation, update the development status file.
 - Consider using Cursor's rules file for persistent instructions
 
 **Claude Code inside Cursor's terminal:**
-- Best of both worlds -- use Cursor for IDE features and Claude Code for AI capabilities
+- Best of both worlds – use Cursor for IDE features and Claude Code for AI capabilities
 - Setup prompts go to Claude Code in the terminal
 - Visual editing happens in Cursor's interface
 
@@ -152,6 +152,6 @@ The key is keeping each prompt focused on one objective. If a prompt tries to do
 Once the initial prompts are complete, you transition from setup mode to development mode:
 
 1. **Set up the agent pipeline** (if using Claude Code) for automated development workflows
-2. **Establish commit discipline** -- commit after every feature
+2. **Establish commit discipline** – commit after every feature
 3. **Continue with feature prompts** that reference existing components and patterns
 4. **Update the status file** regularly to maintain context across conversations

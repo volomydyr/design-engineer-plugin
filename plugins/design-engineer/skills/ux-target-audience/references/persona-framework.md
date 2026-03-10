@@ -58,7 +58,7 @@ The BMap framework uses three key questions to understand what drives and blocks
 
 > "If you had a magic wand and could instantly [achieve the value your product promises], how would it change your life?"
 
-This question reveals the user's underlying motivation -- what they truly want to achieve. Document:
+This question reveals the user's underlying motivation – what they truly want to achieve. Document:
 
 - **Surface desire**: What they say they want (e.g., "learn new skills faster")
 - **Deeper motivation**: What achieving this would actually mean for them (e.g., "feel confident applying for senior roles")
@@ -148,7 +148,7 @@ This table should be updated after each research activity. Proto-personas start 
 
 If your product serves meaningfully different user groups, create separate personas for each. However:
 
-- Start with your **primary persona** -- the person who benefits most from your product
+- Start with your **primary persona** – the person who benefits most from your product
 - Add secondary personas only when you have evidence they represent a distinct group with different needs
 - For MVP purposes, design for the primary persona first
 - Limit yourself to 2-3 personas maximum at the early stage

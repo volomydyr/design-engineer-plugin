@@ -49,7 +49,7 @@ Before asking questions, share how the business could be viewed from multiple an
 - **Cost perspective**: What it will take to build, maintain, and grow this product
 - **Competitive pricing perspective**: What users in this space typically pay
 
-Keep each to 2-3 sentences. Be honest -- flag what is speculation versus data-driven.
+Keep each to 2-3 sentences. Be honest – flag what is speculation versus data-driven.
 
 ---
 
@@ -118,7 +118,7 @@ This skill enforces User > Docs > AI at every step:
 
 1. **User's direct input** always overrides everything
 2. **Existing documentation** (competitive analysis, persona, problem statement) informs projections
-3. **AI suggestions** fill gaps but must be verified -- especially numerical claims
+3. **AI suggestions** fill gaps but must be verified – especially numerical claims
 
 ---
 
@@ -126,11 +126,11 @@ This skill enforces User > Docs > AI at every step:
 
 After the business plan is finalized, suggest:
 
-1. `ux-mvp-requirements` -- Define the minimum viable feature set informed by business constraints
-2. `ux-storybrand` -- Align messaging with the business model and value proposition
+1. `ux-mvp-requirements` – Define the minimum viable feature set informed by business constraints
+2. `ux-storybrand` – Align messaging with the business model and value proposition
 
 ---
 
 ## Resource Files
 
-- [business-plan-template.md](./references/business-plan-template.md) -- Lean business plan structure with financial projection framework
+- [business-plan-template.md](./references/business-plan-template.md) – Lean business plan structure with financial projection framework

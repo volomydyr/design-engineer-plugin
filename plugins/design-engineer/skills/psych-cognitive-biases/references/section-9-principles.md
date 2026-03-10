@@ -11,13 +11,13 @@ When working on a product for an extended period, designers develop a familiarit
 To counter this bias:
 
 - Conduct regular usability testing with people who have never used the product before
-- Involve new team members in reviewing mockups -- their fresh perspective reveals complexity that has become invisible to the core team
-- Create clear documentation during interface development, not after -- if you struggle to document a flow simply, the flow itself is too complex
+- Involve new team members in reviewing mockups – their fresh perspective reveals complexity that has become invisible to the core team
+- Create clear documentation during interface development, not after – if you struggle to document a flow simply, the flow itself is too complex
 - Use plain language audits: replace every technical term with an everyday equivalent and see if the interface still makes sense
 
 ### Good Example
 
-A data analytics platform has the team run monthly "fresh eyes" sessions where a designer from a different team attempts key tasks without guidance. In one session, a new reviewer cannot find the export function because it is labeled "ETL Pipeline" -- terminology obvious to the team but meaningless to users. The label is changed to "Export Data" with a subtitle explaining the format options.
+A data analytics platform has the team run monthly "fresh eyes" sessions where a designer from a different team attempts key tasks without guidance. In one session, a new reviewer cannot find the export function because it is labeled "ETL Pipeline" – terminology obvious to the team but meaningless to users. The label is changed to "Export Data" with a subtitle explaining the format options.
 
 ### Bad Example
 
@@ -41,11 +41,11 @@ The interface should adapt to different user levels:
 
 ### Good Example
 
-A photo editing application detects that a new user is applying filters without adjusting any parameters. It gently surfaces a tooltip: "Tip: Tap the filter again to adjust intensity" -- not blocking the user, but available when they are ready. For users who have edited 50+ photos, the app replaces the basic toolbar with a pro panel offering curves, layers, and batch processing.
+A photo editing application detects that a new user is applying filters without adjusting any parameters. It gently surfaces a tooltip: "Tip: Tap the filter again to adjust intensity" – not blocking the user, but available when they are ready. For users who have edited 50+ photos, the app replaces the basic toolbar with a pro panel offering curves, layers, and batch processing.
 
 ### Bad Example
 
-A project management tool treats all users identically. Beginners see the full complexity of Gantt charts, resource allocation, and dependency mapping on first login -- and feel overwhelmed. Power users see the same simplified onboarding tour every time they create a new workspace -- and feel patronized. Neither group is well served.
+A project management tool treats all users identically. Beginners see the full complexity of Gantt charts, resource allocation, and dependency mapping on first login – and feel overwhelmed. Power users see the same simplified onboarding tour every time they create a new workspace – and feel patronized. Neither group is well served.
 
 ---
 
@@ -94,7 +94,7 @@ To avoid cognitive dissonance:
 - Follow standard interface patterns consistently throughout the product
 - Use intuitively understandable icons that match established conventions
 - Provide clear feedback about the results of user actions
-- Ensure that visual affordances match actual behavior -- if it looks like a button, it should act like one
+- Ensure that visual affordances match actual behavior – if it looks like a button, it should act like one
 
 ### Good Example
 
@@ -102,7 +102,7 @@ A banking app maintains consistent interaction patterns throughout: the "Confirm
 
 ### Bad Example
 
-An e-commerce site promotes "Free Shipping on All Orders" in a banner at the top, but the checkout page adds a $4.99 "handling fee." The user's expectation of free delivery clashes with the actual charge. Trust is damaged, and cart abandonment increases -- the dissonance between promise and reality drives users away.
+An e-commerce site promotes "Free Shipping on All Orders" in a banner at the top, but the checkout page adds a $4.99 "handling fee." The user's expectation of free delivery clashes with the actual charge. Trust is damaged, and cart abandonment increases – the dissonance between promise and reality drives users away.
 
 ---
 
@@ -154,7 +154,7 @@ Instead of directly denying user beliefs, apply a neutral or soft approach to re
 
 ### Good Example
 
-A health tracking app wants users to log meals accurately. Instead of displaying "Incorrect portion size -- a serving of pasta is 200g, not 500g," it shows: "You logged 500g of pasta. That is about 2.5 servings. Would you like to adjust?" The user's input is acknowledged, context is provided without judgment, and the correction is optional. Users are more likely to adjust when not told they are wrong.
+A health tracking app wants users to log meals accurately. Instead of displaying "Incorrect portion size – a serving of pasta is 200g, not 500g," it shows: "You logged 500g of pasta. That is about 2.5 servings. Would you like to adjust?" The user's input is acknowledged, context is provided without judgment, and the correction is optional. Users are more likely to adjust when not told they are wrong.
 
 ### Bad Example
 
@@ -174,14 +174,14 @@ To reduce survey bias:
 
 - Formulate questions as neutrally as possible: "How would you describe your experience?" instead of "How great was your experience?"
 - Avoid leading wording that suggests a desired answer
-- Provide context only when genuinely necessary -- excessive context primes specific responses
+- Provide context only when genuinely necessary – excessive context primes specific responses
 - Randomize question order when possible to prevent sequence effects
 - Use behavioral data alongside survey data to triangulate actual user sentiment
 - Consider anonymous response options for sensitive topics
 
 ### Good Example
 
-A product team wants to understand why users leave during onboarding. Instead of asking "What did you not like about the onboarding?" (which frames the experience as negative), they ask: "Describe your experience setting up your account." They also combine survey responses with behavioral data: session recordings, drop-off points, and time-on-step metrics. The triangulated data reveals that users do not dislike the onboarding -- they simply get interrupted and cannot find where to resume.
+A product team wants to understand why users leave during onboarding. Instead of asking "What did you not like about the onboarding?" (which frames the experience as negative), they ask: "Describe your experience setting up your account." They also combine survey responses with behavioral data: session recordings, drop-off points, and time-on-step metrics. The triangulated data reveals that users do not dislike the onboarding – they simply get interrupted and cannot find where to resume.
 
 ### Bad Example
 
@@ -213,7 +213,7 @@ If elements are placed differently, it may cause discomfort and users may miss i
 
 ### Good Example
 
-A new email client positions the compose button as a floating action button in the bottom-right corner on mobile -- exactly where Gmail and Outlook have trained users to look for it. The search bar is at the top. The inbox is the default view. Users can start using the app immediately because every major element is where they expect it to be based on years of email app usage.
+A new email client positions the compose button as a floating action button in the bottom-right corner on mobile – exactly where Gmail and Outlook have trained users to look for it. The search bar is at the top. The inbox is the default view. Users can start using the app immediately because every major element is where they expect it to be based on years of email app usage.
 
 ### Bad Example
 
@@ -221,7 +221,7 @@ A task management app places the "Create New Task" button in the bottom-left cor
 
 ### From 106 Cognitive Biases: Availability Heuristic (merged)
 
-Users favor recent and available information over past information. When making decisions in an interface, people rely heavily on what comes to mind most easily -- typically their most recent or most vivid experience with similar products.
+Users favor recent and available information over past information. When making decisions in an interface, people rely heavily on what comes to mind most easily – typically their most recent or most vivid experience with similar products.
 
 **UX applications from 106 Biases**:
 
@@ -255,7 +255,7 @@ A document editing application auto-saves every 30 seconds and keeps a version h
 
 ### Bad Example
 
-A web-based form for applying to a university has no auto-save. A user spends 45 minutes filling out detailed information, uploads a 10MB transcript, and clicks "Submit." The session has timed out. All data is lost. The user must start over. This single negative experience -- despite a potentially excellent university -- becomes the defining memory and the story the user tells others.
+A web-based form for applying to a university has no auto-save. A user spends 45 minutes filling out detailed information, uploads a 10MB transcript, and clicks "Submit." The session has timed out. All data is lost. The user must start over. This single negative experience – despite a potentially excellent university – becomes the defining memory and the story the user tells others.
 
 ### From 106 Cognitive Biases: Negativity Bias (merged)
 
@@ -265,7 +265,7 @@ Users recall negative events more than positive ones. Research shows that negati
 
 - **Error recovery priority**: Invest disproportionately in error states, edge cases, and failure recovery. These moments define user perception more than smooth happy paths.
 - **Negative review amplification**: One 1-star review carries the weight of multiple 5-star reviews. Address negative feedback visibly and promptly.
-- **Loss framing awareness**: Framing changes as "what you lose" is more impactful than "what you gain." Use this ethically -- help users avoid genuine losses rather than manufacturing fear.
+- **Loss framing awareness**: Framing changes as "what you lose" is more impactful than "what you gain." Use this ethically – help users avoid genuine losses rather than manufacturing fear.
 - **Support experience**: A single bad support interaction damages brand perception more than ten good ones repair it. Prioritize first-contact resolution.
 
 ---
@@ -293,7 +293,7 @@ A medical insurance claims portal is designed knowing that users filing claims a
 
 ### Bad Example
 
-The same medical insurance portal requires users to fill out a 12-page form in one sitting, uses technical insurance terminology ("CPT codes," "EOB reference numbers"), provides no save function, and times out after 15 minutes of inactivity. Users dealing with medical emergencies -- the exact people who need this portal most -- are the least capable of completing it under these conditions.
+The same medical insurance portal requires users to fill out a 12-page form in one sitting, uses technical insurance terminology ("CPT codes," "EOB reference numbers"), provides no save function, and times out after 15 minutes of inactivity. Users dealing with medical emergencies – the exact people who need this portal most – are the least capable of completing it under these conditions.
 
 ---
 
@@ -301,7 +301,7 @@ The same medical insurance portal requires users to fill out a 12-page form in o
 
 ### Curse of Knowledge + Dunning-Kruger (The Expertise Paradox)
 
-The design team suffers from Curse of Knowledge (overestimating user understanding) while novice users suffer from Dunning-Kruger (overestimating their own ability). This creates a dangerous intersection: teams build complex interfaces believing they are simple, and users skip the help systems believing they do not need them. The antidote is behavioral data -- track what users actually do, not what the team assumes or users report.
+The design team suffers from Curse of Knowledge (overestimating user understanding) while novice users suffer from Dunning-Kruger (overestimating their own ability). This creates a dangerous intersection: teams build complex interfaces believing they are simple, and users skip the help systems believing they do not need them. The antidote is behavioral data – track what users actually do, not what the team assumes or users report.
 
 ### Planning Fallacy + Cognitive Dissonance
 

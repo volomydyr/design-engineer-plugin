@@ -117,13 +117,13 @@ Use the TAM-SAM-SOM framework:
 - 3:1 or higher for US and European markets
 - 5:1 or higher for markets with higher business complexity
 
-If your ratio is below the target, consider: adjusting the business model, optimizing costs, improving retention, increasing price, or reducing acquisition costs. Do not panic -- iterate on the assumptions and look for realistic optimizations.
+If your ratio is below the target, consider: adjusting the business model, optimizing costs, improving retention, increasing price, or reducing acquisition costs. Do not panic – iterate on the assumptions and look for realistic optimizations.
 
 ---
 
 ## 4. Go-to-Market Strategy (PESO)
 
-### 4.1 Shared Media (Start here -- free)
+### 4.1 Shared Media (Start here – free)
 
 Content you share on social platforms where your audience lives.
 

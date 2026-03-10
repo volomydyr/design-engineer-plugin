@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 Beginner founders usually think everything is important. They try to pack every possible feature into their product, which means years of building and no launch. Writing clear MVP requirements protects you from that trap.
 
-Good requirements are not about what you create -- they are about what you deliberately choose NOT to create. Less functionality often means more functionality that actually matters.
+Good requirements are not about what you create – they are about what you deliberately choose NOT to create. Less functionality often means more functionality that actually matters.
 
 ## Interaction Method
 
@@ -58,7 +58,7 @@ Keep each to 2-3 sentences. Be honest about trade-offs.
 Ask 7-10 questions to define the MVP boundary:
 
 1. **Core value**: If your product could do only ONE thing, what would it be?
-2. **Feature inventory**: List every feature you have considered. Do not filter yet -- just get them all out.
+2. **Feature inventory**: List every feature you have considered. Do not filter yet – just get them all out.
 3. **User journey**: What is the minimum path a user takes from first touch to experiencing value?
 4. **Deal breakers**: Which features, if missing, would make the product useless?
 5. **Nice-to-haves**: Which features would be great but the product still works without them?
@@ -82,7 +82,7 @@ For every feature identified, apply the ICE model. Score each from 1-10 across t
 
 Multiply the three scores. Features with the highest ICE score get the highest priority.
 
-Present the scored list and help the user draw the MVP line -- everything above the line ships in v1, everything below goes to the parking lot.
+Present the scored list and help the user draw the MVP line – everything above the line ships in v1, everything below goes to the parking lot.
 
 ---
 
@@ -104,7 +104,7 @@ Present the draft and ask for feedback. Ensure:
 Continue refining based on the user's feedback. For each iteration:
 
 1. Incorporate changes
-2. Challenge scope creep -- if features keep getting added, push back constructively
+2. Challenge scope creep – if features keep getting added, push back constructively
 3. Verify that the MVP still tells a coherent story (not a random collection of features)
 4. Ensure the validation goal is still achievable with this scope
 
@@ -134,11 +134,11 @@ This skill enforces User > Docs > AI at every step:
 
 After MVP requirements are finalized, suggest:
 
-1. `ux-information-architecture` -- Map the product structure based on the prioritized feature set
+1. `ux-information-architecture` – Map the product structure based on the prioritized feature set
 2. Begin UI design and prototyping based on the defined scope
 
 ---
 
 ## Resource Files
 
-- [mvp-prioritization-framework.md](./references/mvp-prioritization-framework.md) -- ICE prioritization matrix, acceptance criteria format, and parking lot structure
+- [mvp-prioritization-framework.md](./references/mvp-prioritization-framework.md) – ICE prioritization matrix, acceptance criteria format, and parking lot structure

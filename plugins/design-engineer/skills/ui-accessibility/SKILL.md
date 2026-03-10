@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-Accessibility is a UX improvement, not just a compliance requirement. Principles like Fitts's Law (larger targets are easier to hit) and Cognitive Load theory (simpler interfaces reduce mental effort) apply to every user -- not just those with disabilities. Building accessible products creates better experiences for everyone.
+Accessibility is a UX improvement, not just a compliance requirement. Principles like Fitts's Law (larger targets are easier to hit) and Cognitive Load theory (simpler interfaces reduce mental effort) apply to every user – not just those with disabilities. Building accessible products creates better experiences for everyone.
 
 ## Interaction Method
 
@@ -41,7 +41,7 @@ options:
 Use the comprehensive checklist from [accessibility-checklist.md](./references/accessibility-checklist.md) covering:
 
 ### Touch and Click Targets
-- Minimum tap target size: 56 points (based on Fitts's Law -- smaller targets require more precision and slow users down)
+- Minimum tap target size: 56 points (based on Fitts's Law – smaller targets require more precision and slow users down)
 - Adequate spacing between interactive elements to prevent accidental taps
 - Touch targets that extend beyond visible boundaries where needed for small icons
 
@@ -94,18 +94,18 @@ Save to `{deliverables_path}/reviews/accessibility-review.md`.
 ## Step 4: Prioritize Fixes
 
 Guide the user through fixing issues in priority order:
-1. **Critical** -- complete access barriers (missing labels, zero contrast, no keyboard access)
-2. **Major** -- significant usability issues (small touch targets, poor contrast, missing focus indicators)
-3. **Minor** -- improvements (suboptimal heading structure, missing decorative image markers)
+1. **Critical** – complete access barriers (missing labels, zero contrast, no keyboard access)
+2. **Major** – significant usability issues (small touch targets, poor contrast, missing focus indicators)
+3. **Minor** – improvements (suboptimal heading structure, missing decorative image markers)
 
 ---
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- they choose which fixes to prioritize
-2. **WCAG guidelines** -- the authoritative standard for accessibility
-3. **Psychology principles** -- Fitts's Law, Cognitive Load, and others support accessibility rationale
-4. **AI suggestions** -- propose solutions but defer to user
+1. **User's direct input** – they choose which fixes to prioritize
+2. **WCAG guidelines** – the authoritative standard for accessibility
+3. **Psychology principles** – Fitts's Law, Cognitive Load, and others support accessibility rationale
+4. **AI suggestions** – propose solutions but defer to user
 
 ---
 
@@ -117,4 +117,4 @@ After the accessibility review, suggest running `ui-visual-review` for a broader
 
 ## Resource Files
 
-- [accessibility-checklist.md](./references/accessibility-checklist.md) -- Comprehensive accessibility audit criteria with WCAG references
+- [accessibility-checklist.md](./references/accessibility-checklist.md) – Comprehensive accessibility audit criteria with WCAG references

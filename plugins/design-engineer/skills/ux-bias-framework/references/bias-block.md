@@ -12,7 +12,7 @@ The brain automatically filters out anything that falls into these three categor
 
 We are biologically wired to save energy, so we usually take the **path of least resistance**. If something looks hard to process, the brain skips it.
 
-**Hick's Law**: A large number of choices can trigger action paralysis. The more options you present, the longer it takes for someone to decide -- and many will simply give up instead of choosing.
+**Hick's Law**: A large number of choices can trigger action paralysis. The more options you present, the longer it takes for someone to decide – and many will simply give up instead of choosing.
 
 **How to audit for this:**
 - Count the number of distinct elements on the screen. Can you reduce them?
@@ -32,7 +32,7 @@ We are biologically wired to save energy, so we usually take the **path of least
 
 Anything that is not related to what the user currently wants is filtered out.
 
-**Selective Attention**: People focus only on what is relevant to their current goal. Everything else becomes invisible -- even if it is right in front of them.
+**Selective Attention**: People focus only on what is relevant to their current goal. Everything else becomes invisible – even if it is right in front of them.
 
 **How to audit for this:**
 - What is the user's job-to-be-done on this screen?
@@ -62,7 +62,7 @@ Once we see a pattern repeated often, we start filtering it out entirely.
 - Avoid standard ad-like shapes and placements for important messages
 - Break repetitive visual patterns when you need attention
 - Redesign elements that have become "wallpaper" in your interface
-- Use alarming colors sparingly -- if everything screams for attention, nothing does
+- Use alarming colors sparingly – if everything screams for attention, nothing does
 
 ---
 
@@ -108,7 +108,7 @@ When something is new, funny, or customized to our likings, we pay attention. Th
 - Break visual patterns at the exact moment you need attention
 - Introduce unexpected elements (humor, unusual visuals, surprising copy)
 - Personalize content using the user's name, history, preferences, or context
-- Use contrast -- make the important element visually different from its surroundings
+- Use contrast – make the important element visually different from its surroundings
 - Reserve pattern breaks for truly important moments (overuse makes them redundant)
 
 ---

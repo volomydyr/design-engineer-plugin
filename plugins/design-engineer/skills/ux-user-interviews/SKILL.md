@@ -28,8 +28,8 @@ You do not always need full interviews to start. A well-crafted survey can alrea
 
 **Reference files:**
 
-- [interview-script-template.md](./references/interview-script-template.md) -- question framework based on GEQs, three empathy questions, and the Replacing X technique
-- [analysis-methodology.md](./references/analysis-methodology.md) -- dual-analysis approach with step-by-step instructions
+- [interview-script-template.md](./references/interview-script-template.md) – question framework based on GEQs, three empathy questions, and the Replacing X technique
+- [analysis-methodology.md](./references/analysis-methodology.md) – dual-analysis approach with step-by-step instructions
 
 ---
 
@@ -46,9 +46,9 @@ Before writing any questions, understand what the user needs to learn.
 
 1. Read existing project context (problem statement, user persona, assumptions/hypotheses if available)
 2. Share brief suggestions on which research method fits best:
-   - **Survey** -- best for early validation, quantitative patterns, large sample sizes (~100 respondents). Lower effort for both you and participants. Use closed questions primarily.
-   - **Unmoderated user test** -- best for usability validation of prototypes. Gives both quantitative and qualitative data. Requires a prototype (wireframe or AI-generated).
-   - **Moderated interview** -- best for deep qualitative insights, understanding motivations and mental models. Highest effort but richest data.
+   - **Survey** – best for early validation, quantitative patterns, large sample sizes (~100 respondents). Lower effort for both you and participants. Use closed questions primarily.
+   - **Unmoderated user test** – best for usability validation of prototypes. Gives both quantitative and qualitative data. Requires a prototype (wireframe or AI-generated).
+   - **Moderated interview** – best for deep qualitative insights, understanding motivations and mental models. Highest effort but richest data.
 3. Explain trade-offs from multiple perspectives (time, cost, data quality, sample size)
 
 **Then ask 7-10 strategic questions using AskUserQuestion:**
@@ -123,12 +123,12 @@ Help the user find and motivate the right participants.
 
 **Key guidance:**
 
-- **Target 100 respondents for surveys** -- this gives reliable data with low margin of error
-- **Target 5-10 participants for usability tests** -- enough to uncover most usability issues
-- **Write personally and politely** -- do not spam random groups or chats
-- **Use the right communities** -- target your user persona specifically; there is no point surveying people outside your target audience
+- **Target 100 respondents for surveys** – this gives reliable data with low margin of error
+- **Target 5-10 participants for usability tests** – enough to uncover most usability issues
+- **Write personally and politely** – do not spam random groups or chats
+- **Use the right communities** – target your user persona specifically; there is no point surveying people outside your target audience
 - **If you ran a previous survey**, contact people who left their info for follow-up testing
-- **Motivate participation** -- explain why their input matters, keep time commitment clear
+- **Motivate participation** – explain why their input matters, keep time commitment clear
 
 **Present recruitment plan and ask:**
 
@@ -180,10 +180,10 @@ Based on the validated research findings, help the user update their existing de
 
 **Documents that typically need updates after research:**
 
-- **User persona** -- refine with real data instead of proto-persona assumptions
-- **Assumptions document** -- mark confirmed/disproven hypotheses, add new ones
-- **Problem statement** -- adjust if research revealed different core problems
-- **Parking lot** -- move validated ideas in, move disproven ideas out
+- **User persona** – refine with real data instead of proto-persona assumptions
+- **Assumptions document** – mark confirmed/disproven hypotheses, add new ones
+- **Problem statement** – adjust if research revealed different core problems
+- **Parking lot** – move validated ideas in, move disproven ideas out
 
 **Produce a Research Findings document that includes:**
 
@@ -194,7 +194,7 @@ Based on the validated research findings, help the user update their existing de
 - Recommendations for next steps
 - Raw data reference (link to spreadsheet or platform)
 
-**Remind the user:** Testing is not just about confirming favorite ideas. It is about finding mistakes and continuously improving. Be ready for surprises -- users will tell you what matters, and sometimes that means rethinking your business model entirely.
+**Remind the user:** Testing is not just about confirming favorite ideas. It is about finding mistakes and continuously improving. Be ready for surprises – users will tell you what matters, and sometimes that means rethinking your business model entirely.
 </step>
 
 </critical_sequence>
@@ -205,9 +205,9 @@ Based on the validated research findings, help the user update their existing de
 
 When interpreting research results:
 
-1. **User's own analysis and judgment** -- highest weight
-2. **Raw data from actual participants** -- direct evidence
-3. **AI pattern analysis** -- useful but may hallucinate patterns that do not exist
+1. **User's own analysis and judgment** – highest weight
+2. **Raw data from actual participants** – direct evidence
+3. **AI pattern analysis** – useful but may hallucinate patterns that do not exist
 
 Never let AI override what the data actually shows. When AI makes a claim based on research, ask it to provide specific quotes from the raw data. Then verify those quotes exist.
 

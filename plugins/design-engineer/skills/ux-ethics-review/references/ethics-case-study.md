@@ -2,7 +2,7 @@
 
 ## Context
 
-Clubhouse is a social audio app where users join live voice conversations. When it launched, the app used aggressive notifications to drive engagement -- sending 20+ notifications per day to active users.
+Clubhouse is a social audio app where users join live voice conversations. When it launched, the app used aggressive notifications to drive engagement – sending 20+ notifications per day to active users.
 
 **The problem**: The notification strategy was designed to maximize app opens, not to serve users. The result was notification fatigue, annoyance, and users either turning off all notifications (losing the channel entirely) or uninstalling the app.
 
@@ -22,7 +22,7 @@ The notifications violated the "Value our attention" humane principle:
 
 **Regret Test**: If users knew the notifications were designed to maximize app opens rather than to inform them about genuinely relevant content, would they still allow them? Almost certainly not. **FAIL.**
 
-**Manipulation Matrix**: The Clubhouse team likely used the app themselves (Maker uses it), and it did provide entertainment value. Position: **Entertainer** -- not sustainable long-term because the notification approach was actively degrading the user experience.
+**Manipulation Matrix**: The Clubhouse team likely used the app themselves (Maker uses it), and it did provide entertainment value. Position: **Entertainer** – not sustainable long-term because the notification approach was actively degrading the user experience.
 
 **Black Mirror Test**: Imagine everyone receives 20+ notifications per day from every app. The result would be constant interruption, inability to focus, anxiety, and a relationship with technology defined by interruption rather than empowerment. **FAIL.**
 
@@ -30,16 +30,16 @@ The notifications violated the "Value our attention" humane principle:
 
 ### Applying the "Value Our Attention" Principle
 
-Since the notifications were not working (users were ignoring them), the humane thing to do would be to **stop sending them** -- with a twist.
+Since the notifications were not working (users were ignoring them), the humane thing to do would be to **stop sending them** – with a twist.
 
 ### The solution
 
 Instead of continuing to blast notifications, offer users the ability to **customize their notification preferences** to fit their needs. This approach:
 
-1. **Reduces annoyance** -- fewer irrelevant notifications means less Reactance
-2. **Minimizes the risk of total opt-out** -- users who can filter are less likely to turn off notifications entirely
-3. **Creates a re-engagement opportunity** -- adapting to user preferences opens the door to reconnect at more appropriate moments
-4. **Gives users control** -- respecting autonomy builds trust
+1. **Reduces annoyance** – fewer irrelevant notifications means less Reactance
+2. **Minimizes the risk of total opt-out** – users who can filter are less likely to turn off notifications entirely
+3. **Creates a re-engagement opportunity** – adapting to user preferences opens the door to reconnect at more appropriate moments
+4. **Gives users control** – respecting autonomy builds trust
 
 ### Specific redesign elements
 
@@ -68,7 +68,7 @@ One highly relevant notification is worth more than 20 irrelevant ones. Relevanc
 
 ### 4. The Reactance warning
 
-Over-notification is a classic trigger for Reactance -- the psychological phenomenon where people do the opposite of what they are being pushed to do. Users who feel bombarded do not just ignore notifications; they actively resist the app itself.
+Over-notification is a classic trigger for Reactance – the psychological phenomenon where people do the opposite of what they are being pushed to do. Users who feel bombarded do not just ignore notifications; they actively resist the app itself.
 
 ### 5. Respect the relationship
 
@@ -82,4 +82,4 @@ For any notification or engagement system, ask:
 2. Does the system adapt when users stop engaging?
 3. Do users have meaningful control over what they receive?
 4. Would you find these notifications helpful if you received them yourself?
-5. Does the notification pass the Regret Test -- would users still allow it if they knew why it was sent?
+5. Does the notification pass the Regret Test – would users still allow it if they knew why it was sent?

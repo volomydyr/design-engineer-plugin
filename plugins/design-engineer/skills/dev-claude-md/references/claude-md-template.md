@@ -1,6 +1,6 @@
 # CLAUDE.md Template
 
-Use this template to generate a comprehensive CLAUDE.md file for any project. Replace bracketed placeholders with project-specific values. Every section below is important -- do not skip sections, but adapt the content to fit the project's needs.
+Use this template to generate a comprehensive CLAUDE.md file for any project. Replace bracketed placeholders with project-specific values. Every section below is important – do not skip sections, but adapt the content to fit the project's needs.
 
 ---
 
@@ -22,10 +22,10 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 
 **BEFORE creating ANY new component, layout, or style:**
 
-1. **AUDIT existing codebase** -- check existing views, components, and design system files
-2. **IDENTIFY reusable patterns** -- existing layouts, components, styles
-3. **EXTEND existing systems** -- do not recreate what already works
-4. **MAINTAIN consistency** -- follow established naming and structure patterns
+1. **AUDIT existing codebase** – check existing views, components, and design system files
+2. **IDENTIFY reusable patterns** – existing layouts, components, styles
+3. **EXTEND existing systems** – do not recreate what already works
+4. **MAINTAIN consistency** – follow established naming and structure patterns
 
 **Example:** If one section has card layouts, reuse the card component for similar sections elsewhere.
 
@@ -35,7 +35,7 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 
 ### Mandatory Sources of Truth (Hierarchy):
 
-1. **User's direct instructions** (highest authority -- never override)
+1. **User's direct instructions** (highest authority – never override)
 2. **Development status file** (current project status, guidelines, warnings)
 3. **Design files** (pixel-perfect UI implementation required)
 4. **Project knowledge documents** (complete feature specifications)
@@ -52,18 +52,18 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 
 ### Correct Tech Stack (Use Only These):
 
-- **Frontend**: [Your frontend framework -- e.g., React, Vue, SwiftUI, Flutter]
-- **Backend**: [Your backend solution -- e.g., Node.js, Django, Firebase, Supabase]
+- **Frontend**: [Your frontend framework – e.g., React, Vue, SwiftUI, Flutter]
+- **Backend**: [Your backend solution – e.g., Node.js, Django, Firebase, Supabase]
 - **AI** (if applicable): [Your AI integration approach]
-- **Data**: [Your data storage approach -- e.g., PostgreSQL, MongoDB, Core Data]
-- **Styling**: [Your styling approach -- e.g., Tailwind CSS, styled-components, native styles]
+- **Data**: [Your data storage approach – e.g., PostgreSQL, MongoDB, Core Data]
+- **Styling**: [Your styling approach – e.g., Tailwind CSS, styled-components, native styles]
 
 ### Implementation Patterns:
 
-- **Icons**: [Your icon approach -- e.g., icon library name, custom SVGs, asset catalog]
-- **Colors**: [Your color system -- e.g., CSS custom properties, design tokens, semantic aliases]
-- **Typography**: [Your typography system -- e.g., font scale, semantic type styles]
-- **Spacing**: [Your spacing system -- e.g., spacing scale, semantic constants]
+- **Icons**: [Your icon approach – e.g., icon library name, custom SVGs, asset catalog]
+- **Colors**: [Your color system – e.g., CSS custom properties, design tokens, semantic aliases]
+- **Typography**: [Your typography system – e.g., font scale, semantic type styles]
+- **Spacing**: [Your spacing system – e.g., spacing scale, semantic constants]
 
 ## PROJECT STATUS & STRUCTURE
 
@@ -104,7 +104,7 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 ### Development Process:
 
 1. **ALWAYS start by fetching up-to-date documentation** for any framework or library being used
-2. **READ development status file FIRST** -- contains critical warnings and current status
+2. **READ development status file FIRST** – contains critical warnings and current status
 3. **AUDIT existing components** before creating new ones (reuse what exists)
 4. **Check existing design system** before creating new styles
 5. **Use semantic naming** following the established token/alias pattern
@@ -132,8 +132,8 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 ### Non-Negotiable Requirements:
 
 - **ALWAYS cite specific sections** from project documents when implementing features
-- **NEVER modify, interpret, or be creative** with documented requirements -- follow exactly
-- **NEVER guess, assume, or hallucinate** -- use only specified technologies and approaches
+- **NEVER modify, interpret, or be creative** with documented requirements – follow exactly
+- **NEVER guess, assume, or hallucinate** – use only specified technologies and approaches
 - **NEVER invent new features** not documented in project knowledge documents
 - **ALWAYS use the designated tool for clarification** when uncertain
 
@@ -170,7 +170,7 @@ PHASE 4: WRAP UP
 - Proceeding with implementation before user approves the plan
 - Marking backend as "complete" without actually running it
 - Making architectural decisions without checking documentation
-- Guessing or assuming -- always ask for clarification
+- Guessing or assuming – always ask for clarification
 
 ## REQUIREMENT CONFLICT RESOLUTION
 
@@ -188,15 +188,15 @@ How should I proceed?"
 
 ## REMEMBER FOR EVERY PROMPT
 
-1. **READ development status file FIRST** -- critical warnings, status, guidelines
-2. **AUDIT existing codebase FIRST** -- reuse components, layouts, styles before creating new ones
-3. **CHECK existing components** -- previously built components are ready for reuse across the app
-4. **CHECK existing assets** -- verify available icons and images before referencing new ones
-5. **Follow established design system patterns** -- use the token/alias pattern consistently
-6. **Use only the specified tech stack** -- ignore outdated or alternative technology references
+1. **READ development status file FIRST** – critical warnings, status, guidelines
+2. **AUDIT existing codebase FIRST** – reuse components, layouts, styles before creating new ones
+3. **CHECK existing components** – previously built components are ready for reuse across the app
+4. **CHECK existing assets** – verify available icons and images before referencing new ones
+5. **Follow established design system patterns** – use the token/alias pattern consistently
+6. **Use only the specified tech stack** – ignore outdated or alternative technology references
 7. **Maintain pixel-perfect implementation** from designs
 8. **Update development status** when features are complete
-9. **WARN USER when approaching token limit** -- allow user to manually compact conversation with specific instructions instead of auto-compacting (prevents information loss and hallucination)
+9. **WARN USER when approaching token limit** – allow user to manually compact conversation with specific instructions instead of auto-compacting (prevents information loss and hallucination)
 ```
 
 ---
@@ -206,7 +206,7 @@ How should I proceed?"
 1. **Replace all bracketed placeholders** with your project's actual values
 2. **Remove sections that do not apply** (e.g., the AI section if your project has no AI features)
 3. **Add project-specific warnings** as you discover approaches that do not work
-4. **Update regularly** -- this file evolves throughout development
+4. **Update regularly** – this file evolves throughout development
 
 ### When to Update CLAUDE.md
 
@@ -218,7 +218,7 @@ How should I proceed?"
 
 ### Key Principles
 
-- **Start simple, grow over time**: Your first version will be basic -- that is fine. Add rules as you learn what AI gets wrong.
+- **Start simple, grow over time**: Your first version will be basic – that is fine. Add rules as you learn what AI gets wrong.
 - **Be specific**: Vague rules like "write good code" do not help. Specific rules like "use Color.primaryText instead of hardcoded color values" do.
 - **Record failures**: When AI uses an outdated API or deprecated pattern, add a warning to prevent it from happening again.
 - **Separate concerns**: Keep the detailed project status in a separate file. CLAUDE.md should contain rules and structure, not a changelog of every completed task.

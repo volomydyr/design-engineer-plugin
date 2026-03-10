@@ -2,7 +2,7 @@
 
 ## Foundation Principle
 
-Accessibility is a UX improvement, not just a compliance requirement. Fitts's Law states that the farther away and smaller a target is, the longer it takes the user to reach it and the harder it is to hit. This applies to every user -- not just those with disabilities. Larger targets are easier to hit, closer targets are faster to reach, and elements placed in natural thumb or cursor zones are more comfortable to interact with.
+Accessibility is a UX improvement, not just a compliance requirement. Fitts's Law states that the farther away and smaller a target is, the longer it takes the user to reach it and the harder it is to hit. This applies to every user – not just those with disabilities. Larger targets are easier to hit, closer targets are faster to reach, and elements placed in natural thumb or cursor zones are more comfortable to interact with.
 
 Similarly, Cognitive Load theory tells us that simpler interfaces reduce mental effort. Breaking complex forms into multiple steps, grouping related elements, and using familiar design patterns all reduce cognitive burden for everyone.
 
@@ -100,7 +100,7 @@ In mobile interfaces, key elements should be placed in the comfort zone of the t
 - [ ] Video content has captions or transcripts
 
 ### Heading Structure
-- [ ] Heading hierarchy is logical and sequential (h1, then h2, then h3 -- no skipping levels)
+- [ ] Heading hierarchy is logical and sequential (h1, then h2, then h3 – no skipping levels)
 - [ ] Each screen or page has exactly one h1
 - [ ] Headings accurately describe the content that follows them
 - [ ] Screen reader navigation by headings produces a meaningful outline
@@ -140,7 +140,7 @@ In mobile interfaces, key elements should be placed in the comfort zone of the t
 - [ ] Custom focus styles are provided when default browser styles are insufficient
 
 ### Navigation Traps
-- [ ] No keyboard traps -- users can always navigate away from any element
+- [ ] No keyboard traps – users can always navigate away from any element
 - [ ] Custom widgets (dropdowns, date pickers) allow keyboard escape
 - [ ] Infinite scroll does not trap keyboard focus
 - [ ] Auto-playing media does not trap focus

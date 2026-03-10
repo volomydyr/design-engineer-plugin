@@ -25,7 +25,7 @@ Reusing existing patterns can facilitate overall interpretation. When people enc
 - Do similar actions look and behave the same way throughout the product?
 - Is the user being asked to learn something new when an existing pattern would work?
 
-**Important distinction -- Familiarity vs. Redundancy**: These are the same psychological concept used in different situations. A UX pattern you have used before is redundant when trying to capture attention (Block step), but familiar when trying to simplify interpretation and action (Interpret step). Rule of thumb: do not use redundant elements when trying to capture attention; use familiarity when trying to simplify interpretation and action.
+**Important distinction – Familiarity vs. Redundancy**: These are the same psychological concept used in different situations. A UX pattern you have used before is redundant when trying to capture attention (Block step), but familiar when trying to simplify interpretation and action (Interpret step). Rule of thumb: do not use redundant elements when trying to capture attention; use familiarity when trying to simplify interpretation and action.
 
 ### 2. Cognitive Load
 
@@ -115,7 +115,7 @@ Highlighting what could happen in case of "non-action" is an excellent way to he
 
 Making sure key elements are standing out. If users cannot find the important elements, the best content in the world will not matter.
 
-**Why it works**: Users do not read interfaces -- they scan them. Key elements need to visually demand attention through contrast, size, color, placement, or animation.
+**Why it works**: Users do not read interfaces – they scan them. Key elements need to visually demand attention through contrast, size, color, placement, or animation.
 
 **How to apply:**
 - Make primary actions visually dominant (size, color, contrast)
@@ -123,7 +123,7 @@ Making sure key elements are standing out. If users cannot find the important el
 - Use visual weight to guide the eye through the correct sequence
 - Ensure interactive elements look interactive (affordance)
 - Use color and contrast strategically to create a clear visual hierarchy
-- Test with the "squint test" -- when you squint at the screen, the important elements should still be visible
+- Test with the "squint test" – when you squint at the screen, the important elements should still be visible
 
 **How to audit:**
 - Can the user find the primary action within 2 seconds?

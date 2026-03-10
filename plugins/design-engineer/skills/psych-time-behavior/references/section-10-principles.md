@@ -96,7 +96,7 @@ Key areas where the halo effect matters most:
 - **Product photography and imagery**: High-quality visuals suggest high-quality products and services
 - **Animations and transitions**: Smooth, purposeful animations create a perception of professional craftsmanship
 
-The halo effect works in reverse too -- a single poorly designed element can cast a negative shadow over the entire product.
+The halo effect works in reverse too – a single poorly designed element can cast a negative shadow over the entire product.
 
 ### Good Example
 
@@ -124,7 +124,7 @@ The Spark Effect helps create moments that evoke emotions and stay in the user's
 
 Best used at important interaction points: registration completion, first purchase, achievement unlocked, or level completion. Bright moments evoke positive emotions and increase product satisfaction.
 
-The key is that sparks should be small, unexpected, and delightful -- not elaborate, expected, or forced.
+The key is that sparks should be small, unexpected, and delightful – not elaborate, expected, or forced.
 
 ### Good Example
 
@@ -138,7 +138,7 @@ An accounting software plays confetti animations and celebration sounds for ever
 
 The Aha! Moment is the point where a user first realizes the value of a product. It is the spark that transforms a casual visitor into an engaged user.
 
-**Key concept**: Every product has a core "Aha! Moment" -- the first time the user experiences the product's primary value. For a messaging app, it is sending the first message and getting a reply. For a data tool, it is generating the first insight. The faster users reach this moment, the higher retention rates become.
+**Key concept**: Every product has a core "Aha! Moment" – the first time the user experiences the product's primary value. For a messaging app, it is sending the first message and getting a reply. For a data tool, it is generating the first insight. The faster users reach this moment, the higher retention rates become.
 
 **UX applications from 106 Biases**:
 
@@ -173,7 +173,7 @@ A banking app releases a major redesign. Instead of launching the new interface 
 
 ### Bad Example
 
-A popular note-taking app replaces its entire interface overnight. The sidebar moves from left to right. Tags are replaced by "contexts." The familiar "+" button for new notes becomes a long-press gesture on the screen. Users who have built years of muscle memory are suddenly lost. App store ratings drop from 4.7 to 3.2 in one week. Most complaints are not about the new design being worse -- it is about the new design being unfamiliar.
+A popular note-taking app replaces its entire interface overnight. The sidebar moves from left to right. Tags are replaced by "contexts." The familiar "+" button for new notes becomes a long-press gesture on the screen. Users who have built years of muscle memory are suddenly lost. App store ratings drop from 4.7 to 3.2 in one week. Most complaints are not about the new design being worse – it is about the new design being unfamiliar.
 
 ### From 106 Cognitive Biases: Familiarity Bias (merged)
 
@@ -181,7 +181,7 @@ People prefer what they already know. In product design, this means users gravit
 
 **UX applications from 106 Biases**:
 
-- **Leverage existing mental models**: Build on what users already know from competing products. If every email client uses a compose button in a certain position, yours should too -- unless you have an extremely compelling reason.
+- **Leverage existing mental models**: Build on what users already know from competing products. If every email client uses a compose button in a certain position, yours should too – unless you have an extremely compelling reason.
 - **Gradual innovation**: Introduce one novel element at a time, surrounded by familiar patterns. Users can absorb one new thing per session, not five.
 - **Familiar metaphors**: Use real-world metaphors users already understand: folders for organization, trash for deletion, bookmarks for saving.
 - **Consistency across platforms**: When your product exists on web, iOS, and Android, maintain enough visual consistency that moving between platforms feels familiar, even while respecting platform conventions.
@@ -207,7 +207,7 @@ When placing elements side by side, verify that their proximity does not create 
 
 ### Good Example
 
-A SaaS pricing page places three plans side by side. The recommended "Pro" plan has a slightly larger card, a colored header, and a "Most Popular" badge. The "Basic" plan beside it makes "Pro" feel like significantly better value, and the "Enterprise" plan on the other side makes "Pro" feel reasonably priced. The juxtaposition guides 60% of users toward the middle option without any manipulative tactics -- just clear visual comparison.
+A SaaS pricing page places three plans side by side. The recommended "Pro" plan has a slightly larger card, a colored header, and a "Most Popular" badge. The "Basic" plan beside it makes "Pro" feel like significantly better value, and the "Enterprise" plan on the other side makes "Pro" feel reasonably priced. The juxtaposition guides 60% of users toward the middle option without any manipulative tactics – just clear visual comparison.
 
 ### Bad Example
 
@@ -252,7 +252,7 @@ Each user perceives information through their own filter, formed by previous exp
 Real-world examples of attentional bias in action:
 
 - A user with negative online payment experience will primarily notice security elements and financial operation protection guarantees on a checkout page
-- Someone searching for family housing will focus on neighborhood descriptions, school proximity, and park availability -- ignoring investment metrics that a property investor would notice first
+- Someone searching for family housing will focus on neighborhood descriptions, school proximity, and park availability – ignoring investment metrics that a property investor would notice first
 - A user who recently experienced a data breach will scrutinize privacy policies and security badges before engaging with any new service
 
 Design should account for different usage scenarios and adapt to different user groups:
@@ -260,7 +260,7 @@ Design should account for different usage scenarios and adapt to different user 
 - Surface security signals prominently for financial and data-sensitive interfaces
 - Allow users to filter and prioritize information according to their current goals
 - Use personalization to highlight what is most relevant to each user's context
-- Do not assume all users notice the same elements -- test with users who have different backgrounds and motivations
+- Do not assume all users notice the same elements – test with users who have different backgrounds and motivations
 
 ### Good Example
 
@@ -268,7 +268,7 @@ A real estate platform detects through user behavior (search filters, saved list
 
 ### Bad Example
 
-A health insurance marketplace shows the same information hierarchy to everyone: plan name, monthly premium, deductible, network size, and coverage details in that order. A healthy 25-year-old looking for catastrophic coverage and a parent of three looking for comprehensive family coverage both see the same layout. Neither user's attentional bias is served -- the young user has to scroll past irrelevant family coverage details, and the parent has to hunt for pediatric coverage information buried in fine print.
+A health insurance marketplace shows the same information hierarchy to everyone: plan name, monthly premium, deductible, network size, and coverage details in that order. A healthy 25-year-old looking for catastrophic coverage and a parent of three looking for comprehensive family coverage both see the same layout. Neither user's attentional bias is served – the young user has to scroll past irrelevant family coverage details, and the parent has to hunt for pediatric coverage information buried in fine print.
 
 ---
 
@@ -282,7 +282,7 @@ The goal of shaping is to form correct habits in users through a system of encou
 
 The shaping progression:
 
-1. **Start small**: Begin with the easiest possible action -- even just showing up counts
+1. **Start small**: Begin with the easiest possible action – even just showing up counts
 2. **Celebrate early wins**: Praise for registration, first action, first completion
 3. **Gradually increase complexity**: Once basic behaviors are established, introduce more advanced actions
 4. **Reinforce consistency**: Reward streaks, regular usage, and returning after absence
@@ -308,7 +308,7 @@ Incrementally reinforcing actions to get closer to a target behavior. In behavio
 
 **UX applications from 106 Biases**:
 
-- **Onboarding as shaping**: Each onboarding step should feel like a small win, not a requirement. "Great, you set your name!" then "You added a photo -- your profile is now 3x more likely to get responses" builds momentum.
+- **Onboarding as shaping**: Each onboarding step should feel like a small win, not a requirement. "Great, you set your name!" then "You added a photo – your profile is now 3x more likely to get responses" builds momentum.
 - **Progressive feature adoption**: Do not show all features at once. Introduce one new capability when the user has demonstrated readiness for it through their behavior.
 - **Streak mechanics**: Daily streaks shape regular usage habits. The reinforcement (maintaining the streak) becomes the motivation to continue.
 - **Micro-commitments**: Ask for small commitments first (follow one topic) that shape toward larger commitments (create content, invite colleagues).

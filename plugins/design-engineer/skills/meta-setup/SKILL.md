@@ -57,7 +57,7 @@ Project:        Git initialized, no existing deliverables
 Explain briefly what each detected (or missing) MCP does, following this guidance:
 
 - **Context7**: Gives AI access to up-to-date technical documentation so it does not rely on outdated training data.
-- **Figma MCP** (official): Provides design data from Figma Dev Mode -- not screenshots, but structured design information adapted to the project's tech stack.
+- **Figma MCP** (official): Provides design data from Figma Dev Mode – not screenshots, but structured design information adapted to the project's tech stack.
 - **Figma Console MCP**: Can perform actions in Figma directly (create components, apply tokens, and styles from prompts). More powerful than the official MCP but trickier to set up.
 - **Playwright MCP**: Enables browser-based testing and a TDD approach. Also allows AI to browse live URLs for visual review.
 
@@ -85,7 +85,7 @@ options:
     description: "A live or near-complete product that needs review, audit, or iteration"
 ```
 
-This determines skip logic: the orchestrator will know which skills to suggest and which deliverables may already exist. For "Starting from scratch" -- the full pipeline applies. For other states, the orchestrator proactively detects existing deliverables and asks which to skip.
+This determines skip logic: the orchestrator will know which skills to suggest and which deliverables may already exist. For "Starting from scratch" – the full pipeline applies. For other states, the orchestrator proactively detects existing deliverables and asks which to skip.
 
 ### Question 2: Mode Preference
 
@@ -96,7 +96,7 @@ options:
   - label: "Guided mode (Recommended)"
     description: "Step-by-step with questions, suggestions from multiple perspectives, and approval at every stage"
   - label: "God mode"
-    description: "Fully autonomous -- provide context and let AI run the entire pipeline end-to-end with minimal input"
+    description: "Fully autonomous – provide context and let AI run the entire pipeline end-to-end with minimal input"
   - label: "Both / decide later"
     description: "Choose the mode each time you run a command"
 ```
@@ -110,7 +110,7 @@ question: "Who will be working on this project?"
 header: "Team"
 options:
   - label: "Solo"
-    description: "Just you -- all design and development"
+    description: "Just you – all design and development"
   - label: "Small team (2-5)"
     description: "A few collaborators sharing context"
   - label: "Larger team (5+)"
@@ -176,11 +176,11 @@ question: "What is your experience level with AI-assisted development?"
 header: "Experience"
 options:
   - label: "New to AI development"
-    description: "First time using AI tools for building products -- enable extra teaching and explanations"
+    description: "First time using AI tools for building products – enable extra teaching and explanations"
   - label: "Some experience"
     description: "Have used AI tools before but not extensively"
   - label: "Experienced"
-    description: "Comfortable with AI-assisted workflows -- skip basic explanations"
+    description: "Comfortable with AI-assisted workflows – skip basic explanations"
 ```
 
 This controls inline teaching depth. New users get more educational context woven into each skill. Experienced users get streamlined output.
@@ -221,7 +221,7 @@ The `.dependencies.yaml` file is initialized from the default template. See [dep
 - **design/**: MVP Requirements, Information Architecture, design references, Figma workflow notes, journey maps, B.I.A.S. audits
 - **psych/**: Psychology audit results, section-by-section principle applications
 - **dev/**: CLAUDE.md draft, kickstart prompts, agent configurations, MCP notes, GitHub workflow
-- **solutions/**: Compound documentation -- solved problems, project status, learnings, context files for long-term projects
+- **solutions/**: Compound documentation – solved problems, project status, learnings, context files for long-term projects
 
 ---
 
@@ -270,7 +270,7 @@ This file maps every deliverable the plugin produces and tracks:
 - Current status of each deliverable (not_started, in_progress, complete)
 - Last updated timestamp
 
-When any deliverable is created or updated, the plugin automatically checks this dependency graph and suggests reviewing affected downstream documents. This is critical because deliverables are living documents that get updated regularly -- and users often forget that changes to one document affect others.
+When any deliverable is created or updated, the plugin automatically checks this dependency graph and suggests reviewing affected downstream documents. This is critical because deliverables are living documents that get updated regularly – and users often forget that changes to one document affect others.
 
 ---
 
@@ -305,7 +305,7 @@ Tip: Re-run /setup anytime to reconfigure.
 ## Decision Hierarchy
 
 This skill enforces User > Docs > AI at every step:
-1. **User decisions** always override everything -- if the user wants a non-standard path or skips a question, respect that.
+1. **User decisions** always override everything – if the user wants a non-standard path or skips a question, respect that.
 2. **Documentation and detected environment** inform smart defaults.
 3. **AI suggestions** fill gaps only when user and docs provide no guidance.
 
@@ -313,7 +313,7 @@ This skill enforces User > Docs > AI at every step:
 
 ## Resource Files
 
-- [setup-checklist.md](./references/setup-checklist.md) -- Full reference of all configuration options and their effects
-- [dependencies-default.yaml](./assets/dependencies-default.yaml) -- Default dependency graph for all plugin deliverables
-- [detect-environment.sh](./scripts/detect-environment.sh) -- Environment detection script
-- [init-project-structure.sh](./scripts/init-project-structure.sh) -- Project structure scaffolding script
+- [setup-checklist.md](./references/setup-checklist.md) – Full reference of all configuration options and their effects
+- [dependencies-default.yaml](./assets/dependencies-default.yaml) – Default dependency graph for all plugin deliverables
+- [detect-environment.sh](./scripts/detect-environment.sh) – Environment detection script
+- [init-project-structure.sh](./scripts/init-project-structure.sh) – Project structure scaffolding script

@@ -18,9 +18,9 @@ If no approach was specified in arguments, use AskUserQuestion to ask:
 
 **Question:** "How would you like to run the psychology audit?"
 
-1. **Master audit** -- Broad scan across all 100+ principles, then targeted deep-dives into problem areas
-2. **Section deep-dive** -- Pick a specific section to analyze in detail
-3. **God mode** -- Full autonomous audit across all 100+ principles
+1. **Master audit** – Broad scan across all 100+ principles, then targeted deep-dives into problem areas
+2. **Section deep-dive** – Pick a specific section to analyze in detail
+3. **God mode** – Full autonomous audit across all 100+ principles
 
 If AskUserQuestion is not available, present options as a numbered list.
 
@@ -28,26 +28,26 @@ If AskUserQuestion is not available, present options as a numbered list.
 
 If the user chose a section deep-dive, ask which section:
 
-1. **Cognitive Basics** (Laws 1-10) -- cognitive load, progressive disclosure, recognition
-2. **Visual Perception** (Laws 11-20) -- Gestalt, visual hierarchy, attention
-3. **Decision Making: Core** (Laws 21-25) -- loss aversion, anchoring, confirmation bias
-4. **Decision Making: Advanced** (Laws 26-30) -- scarcity, social proof, decoy effect, framing
-5. **Engagement & Motivation** (Laws 31-40) -- curiosity gap, variable reward, goal gradient
-6. **Emotional Design: Core** (Laws 41-45) -- peak-end rule, delighters, labor illusion
-7. **Emotional Design: Advanced** (Laws 46-50) -- endowment effect, storytelling
-8. **Efficiency** (Laws 51-60) -- serial position, picture superiority, chunking
-9. **Behavioral Economics: Core** (Laws 61-65) -- sunk cost, reciprocity
-10. **Behavioral Economics: Habits** (Laws 66-70) -- commitment, consistency, reactance
+1. **Cognitive Basics** (Laws 1-10) – cognitive load, progressive disclosure, recognition
+2. **Visual Perception** (Laws 11-20) – Gestalt, visual hierarchy, attention
+3. **Decision Making: Core** (Laws 21-25) – loss aversion, anchoring, confirmation bias
+4. **Decision Making: Advanced** (Laws 26-30) – scarcity, social proof, decoy effect, framing
+5. **Engagement & Motivation** (Laws 31-40) – curiosity gap, variable reward, goal gradient
+6. **Emotional Design: Core** (Laws 41-45) – peak-end rule, delighters, labor illusion
+7. **Emotional Design: Advanced** (Laws 46-50) – endowment effect, storytelling
+8. **Efficiency** (Laws 51-60) – serial position, picture superiority, chunking
+9. **Behavioral Economics: Core** (Laws 61-65) – sunk cost, reciprocity
+10. **Behavioral Economics: Habits** (Laws 66-70) – commitment, consistency, reactance
 
-11. **Social Influence** (Laws 71-80) -- social proof, authority, liking
-12. **Cognitive Biases** (Laws 81-90) -- availability heuristic, negativity bias
-13. **Time & Behavior** (Laws 91-100) -- familiarity bias, shaping, aha moment
+11. **Social Influence** (Laws 71-80) – social proof, authority, liking
+12. **Cognitive Biases** (Laws 81-90) – availability heuristic, negativity bias
+13. **Time & Behavior** (Laws 91-100) – familiarity bias, shaping, aha moment
 
 ## Workflow
 
 ### Master Audit
 
-1. Load `psych-master-audit` -- performs a broad scan
+1. Load `psych-master-audit` – performs a broad scan
 2. Based on findings, recommend specific section deep-dives
 3. For each recommended section, load the corresponding skill
 4. Run `meta-compound` to document findings
@@ -83,5 +83,5 @@ Run all section skills sequentially:
 
 ## Agents Used
 
-- `psych-scanner` -- broad scan across all principles
-- `deliverable-writer` -- audit report production
+- `psych-scanner` – broad scan across all principles
+- `deliverable-writer` – audit report production

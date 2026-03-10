@@ -1,4 +1,4 @@
-# Section 7b: Behavioral Economics -- Habits and Patterns (Laws 66-70)
+# Section 7b: Behavioral Economics – Habits and Patterns (Laws 66-70)
 
 ## Law 66: Commitment and Consistency
 
@@ -14,11 +14,11 @@ This approach is also effective in onboarding, educational platforms (daily goal
 
 ### Good Example
 
-A language learning app starts by asking users to set a daily goal of just 5 minutes. After three days of consistency, it suggests increasing to 10 minutes. After a week, it introduces streak tracking. Each small commitment builds on the last, and users naturally escalate their engagement because they want to remain consistent with the identity they have started building -- "I'm someone who practices every day."
+A language learning app starts by asking users to set a daily goal of just 5 minutes. After three days of consistency, it suggests increasing to 10 minutes. After a week, it introduces streak tracking. Each small commitment builds on the last, and users naturally escalate their engagement because they want to remain consistent with the identity they have started building – "I'm someone who practices every day."
 
 ### Bad Example
 
-A productivity app immediately asks new users to commit to a complex weekly planning ritual, link their calendar, invite their entire team, and set quarterly goals. The initial commitment is too large -- users feel overwhelmed and abandon the process before any consistency can form.
+A productivity app immediately asks new users to commit to a complex weekly planning ritual, link their calendar, invite their entire team, and set quarterly goals. The initial commitment is too large – users feel overwhelmed and abandon the process before any consistency can form.
 
 ### From 106 Cognitive Biases: Commitment and Consistency
 
@@ -30,7 +30,7 @@ We tend to be consistent with what we have previously done or said, especially i
 
 - **Progressive onboarding**: Start with the smallest possible ask. "What's your name?" is easier than "Create your complete profile." Each answered question is a micro-commitment that makes the next one easier.
 - **Public commitments are stickier**: Social sharing of goals ("I just started my 30-day challenge!") creates social accountability that reinforces consistency.
-- **Streak mechanics**: Daily streaks work because breaking a streak means breaking consistency with your past self. Effective but use responsibly -- streak anxiety is real.
+- **Streak mechanics**: Daily streaks work because breaking a streak means breaking consistency with your past self. Effective but use responsibly – streak anxiety is real.
 - **Ethical checkpoint**: Are you building genuine habits that benefit the user, or exploiting consistency pressure to keep them engaged against their interests?
 
 ---
@@ -47,15 +47,15 @@ For example, you can offer free access to certain content or features before ask
 
 The key is that the "gift" must be genuinely valuable and appropriate in the context of the product, rather than being perceived as purely a marketing lure.
 
-In educational products, these can be useful knowledge, and in online stores -- recommendations or advice that help make a better choice before purchasing.
+In educational products, these can be useful knowledge, and in online stores – recommendations or advice that help make a better choice before purchasing.
 
 ### Good Example
 
-A financial planning tool offers a free, comprehensive budget analysis report with actionable insights -- no account required. The report is genuinely useful and personalized. At the end, it says: "Want to track these insights over time? Create a free account." Users feel they received real value and are naturally inclined to reciprocate by signing up.
+A financial planning tool offers a free, comprehensive budget analysis report with actionable insights – no account required. The report is genuinely useful and personalized. At the end, it says: "Want to track these insights over time? Create a free account." Users feel they received real value and are naturally inclined to reciprocate by signing up.
 
 ### Bad Example
 
-A website forces users to enter their email to download a "free guide" that turns out to be a thinly veiled sales pitch. The "gift" has no real value, so reciprocity backfires -- users feel tricked rather than grateful, and the unsubscribe rate skyrockets.
+A website forces users to enter their email to download a "free guide" that turns out to be a thinly veiled sales pitch. The "gift" has no real value, so reciprocity backfires – users feel tricked rather than grateful, and the unsubscribe rate skyrockets.
 
 ### From 106 Cognitive Biases: Reciprocity
 
@@ -74,7 +74,7 @@ We feel obliged to give when we receive. This creates a social debt that people 
 
 ## Law 68: Temptation Bundling
 
-**Definition**: Combining pleasant with useful -- users more willingly perform difficult tasks when they are paired with enjoyable activities.
+**Definition**: Combining pleasant with useful – users more willingly perform difficult tasks when they are paired with enjoyable activities.
 
 ### UX Application
 
@@ -106,7 +106,7 @@ The "set of steps" does not necessarily need to be entirely real. It is enough t
 
 ### Good Example
 
-A professional networking platform shows new users: "Your profile is 60% complete" after auto-importing name and photo from their login provider. The remaining 40% requires adding a job title, skills, and a brief bio. The pre-filled progress bar creates momentum -- users feel they are closer to the finish than the start, so they push through.
+A professional networking platform shows new users: "Your profile is 60% complete" after auto-importing name and photo from their login provider. The remaining 40% requires adding a job title, skills, and a brief bio. The pre-filled progress bar creates momentum – users feel they are closer to the finish than the start, so they push through.
 
 ### Bad Example
 
@@ -130,11 +130,11 @@ Such messages create in users a sense of involvement in important initiatives, w
 
 ### Good Example
 
-A coffee subscription service shows on every order confirmation: "This order supports fair-trade farming in Colombia. Your subscription has contributed to 3 community education programs this year." The social responsibility messaging is specific, verifiable, and tied to the user's actual purchase -- making them feel their spending has meaning beyond the product.
+A coffee subscription service shows on every order confirmation: "This order supports fair-trade farming in Colombia. Your subscription has contributed to 3 community education programs this year." The social responsibility messaging is specific, verifiable, and tied to the user's actual purchase – making them feel their spending has meaning beyond the product.
 
 ### Bad Example
 
-A fast-fashion retailer adds a vague "We care about the planet" badge to their checkout page while their supply chain practices contradict this claim. Users who research the company feel deceived, and the noble edge becomes a credibility liability. The social responsibility must be genuine and specific -- vague claims trigger skepticism.
+A fast-fashion retailer adds a vague "We care about the planet" badge to their checkout page while their supply chain practices contradict this claim. Users who research the company feel deceived, and the noble edge becomes a credibility liability. The social responsibility must be genuine and specific – vague claims trigger skepticism.
 
 ---
 

@@ -14,10 +14,10 @@ This is the mandatory first command. Run it once before using any other design-e
 
 ## What Happens
 
-1. **Environment detection** -- automatically detects installed MCPs (Context7, Figma MCP, Playwright, Figma Console), available tools, and project state
-2. **Configuration questions** -- asks 5-7 questions about your project and preferences
-3. **Project scaffolding** -- creates a standardized folder structure for design deliverables
-4. **Dependency tracking** -- initializes the cross-document dependency graph
+1. **Environment detection** – automatically detects installed MCPs (Context7, Figma MCP, Playwright, Figma Console), available tools, and project state
+2. **Configuration questions** – asks 5-7 questions about your project and preferences
+3. **Project scaffolding** – creates a standardized folder structure for design deliverables
+4. **Dependency tracking** – initializes the cross-document dependency graph
 
 ## Workflow
 
@@ -43,13 +43,13 @@ If AskUserQuestion is not available, present questions as numbered lists and ask
 
 Questions to ask (from the setup checklist in `meta-setup`):
 
-1. **Project state** -- Is this a new idea, an existing project without design docs, or an existing project with design docs?
-2. **Working mode** -- Do you prefer God mode (autonomous) or Guided mode (step-by-step)?
-3. **Team size** -- Are you working solo or with a team?
-4. **Deliverables path** -- Where should design documents be stored? (default: `docs/design/`)
-5. **Tool preferences** -- Which design tools do you use? (Figma, Sketch, other)
-6. **Development stack** -- What is your tech stack? (This helps adapt agent templates)
-7. **Prior research** -- Do you have existing research, personas, or competitive analysis to import?
+1. **Project state** – Is this a new idea, an existing project without design docs, or an existing project with design docs?
+2. **Working mode** – Do you prefer God mode (autonomous) or Guided mode (step-by-step)?
+3. **Team size** – Are you working solo or with a team?
+4. **Deliverables path** – Where should design documents be stored? (default: `docs/design/`)
+5. **Tool preferences** – Which design tools do you use? (Figma, Sketch, other)
+6. **Development stack** – What is your tech stack? (This helps adapt agent templates)
+7. **Prior research** – Do you have existing research, personas, or competitive analysis to import?
 
 ### Step 4: Project Scaffolding
 
@@ -73,4 +73,4 @@ Summarize what was detected, configured, and created. Suggest the next command b
 
 ## Mode
 
-Guided mode only -- interactive setup requires user input.
+Guided mode only – interactive setup requires user input.

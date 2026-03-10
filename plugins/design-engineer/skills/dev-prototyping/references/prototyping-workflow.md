@@ -9,8 +9,8 @@ There is also a practical reason: when you spend days in Figma designing a first
 ## Prerequisites
 
 Before generating a prototype, you should have at minimum:
-- **MVP Requirements** -- a prioritized list of features to build first
-- **Information Architecture** -- screen inventory, navigation structure, and user flow details
+- **MVP Requirements** – a prioritized list of features to build first
+- **Information Architecture** – screen inventory, navigation structure, and user flow details
 
 These documents become the foundation for the prototype. Without them, AI generates generic UIs that do not reflect your specific product decisions.
 
@@ -29,10 +29,10 @@ This upfront investment prevents misaligned prototypes that waste iteration cycl
 
 ### Step 2: Iterate Extensively
 
-Expect many rounds of refinement. Each round of feedback gets the prototype closer to the idea in your head. This is normal -- the process is not about getting it right the first time, but about progressively shaping the prototype through specific feedback.
+Expect many rounds of refinement. Each round of feedback gets the prototype closer to the idea in your head. This is normal – the process is not about getting it right the first time, but about progressively shaping the prototype through specific feedback.
 
 **Effective feedback looks like:**
-- "The navigation bar should have 5 tabs, not 4 -- add a Settings tab"
+- "The navigation bar should have 5 tabs, not 4 – add a Settings tab"
 - "Move the call-to-action button to the bottom of the screen, fixed position"
 - "The card layout should show a thumbnail image on the left and text on the right"
 
@@ -100,10 +100,10 @@ After user testing, you move to analysis (see the testing-analysis-guide). Based
 
 Once the prototype is validated:
 
-1. **Collect design references** -- look at similar products on platforms like Mobbin to understand common patterns
-2. **Design key screens only** -- not every screen, just the building blocks that set the visual style (typically 5-10 screens)
-3. **Let AI develop the rest** -- give Claude Code your key Figma screens along with requirements and architecture documents, and it will develop additional screens to match the established UI
-4. **Design corrections for mistakes** -- when AI's implementation of non-designed screens looks off, design corrections only for those specific frames, share them via Figma MCP, and let AI adjust
+1. **Collect design references** – look at similar products on platforms like Mobbin to understand common patterns
+2. **Design key screens only** – not every screen, just the building blocks that set the visual style (typically 5-10 screens)
+3. **Let AI develop the rest** – give Claude Code your key Figma screens along with requirements and architecture documents, and it will develop additional screens to match the established UI
+4. **Design corrections for mistakes** – when AI's implementation of non-designed screens looks off, design corrections only for those specific frames, share them via Figma MCP, and let AI adjust
 
 This approach results in fewer Figma screens than traditional design workflows, because AI handles the visual extension of your design language to screens you did not explicitly design.
 
@@ -111,5 +111,5 @@ This approach results in fewer Figma screens than traditional design workflows, 
 
 - **Use auto-layouts**: AI needs them to understand responsive behavior. Skip auto-layouts and AI will not know how elements should behave across screen sizes
 - **Do not worry about naming layers**: Modern Figma has AI features that name layers automatically
-- **Skip components and tokens in Figma**: Let AI create the design system in code. You can give AI a design frame, develop the first iteration, then ask it to refactor the code -- creating reusable components, color tokens, and spacing scales programmatically
+- **Skip components and tokens in Figma**: Let AI create the design system in code. You can give AI a design frame, develop the first iteration, then ask it to refactor the code – creating reusable components, color tokens, and spacing scales programmatically
 - **Focus on the visual direction**: Your Figma file is about setting the look and feel, not about documenting every possible state

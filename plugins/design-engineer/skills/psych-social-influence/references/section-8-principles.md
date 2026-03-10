@@ -18,7 +18,7 @@ A booking platform shows "12 people are looking at this hotel right now" with a 
 
 ### Bad Example
 
-An online course platform shows "50,000 students enrolled!" on every course, including ones launched yesterday. The inflated numbers feel dishonest, and users who investigate lose trust in all the platform's claims -- even legitimate ones.
+An online course platform shows "50,000 students enrolled!" on every course, including ones launched yesterday. The inflated numbers feel dishonest, and users who investigate lose trust in all the platform's claims – even legitimate ones.
 
 ### From 106 Cognitive Biases: Social Proof
 
@@ -88,7 +88,7 @@ A settings page lists 40 options in a single column with no grouping, no heading
 
 ### UX Application
 
-During usability testing, it is important to account for the fact that users may behave differently than in real life. They may be more careful, spend more time on tasks, make fewer errors -- or conversely, become nervous and make more mistakes.
+During usability testing, it is important to account for the fact that users may behave differently than in real life. They may be more careful, spend more time on tasks, make fewer errors – or conversely, become nervous and make more mistakes.
 
 Therefore, to obtain reliable results, use different research methods: video recordings of actual product use, analytics, A/B testing, and informal interviews. Create a relaxed atmosphere during testing and explain to users that the product is being tested, not them.
 
@@ -132,7 +132,7 @@ To obtain reliable data, use standardized testing scenarios, involve independent
 - Do not interfere with the user's interaction process
 - Record all observations and comments
 - Ask open-ended questions: "What do you think about this?"
-- Record all feedback -- both positive and negative
+- Record all feedback – both positive and negative
 - Draw conclusions based on objective data and metrics
 - Keep video recordings of sessions for later analysis
 - Document even results that contradict expectations
@@ -233,11 +233,11 @@ A newsletter signup appears as a quiet banner at the bottom of an article: "Enjo
 
 ### Bad Example
 
-A website displays a fullscreen popup on arrival: "Subscribe to our newsletter!" with a dismiss button labeled "No thanks, I prefer to stay uninformed." Closing it triggers a second popup. Scrolling reveals a sticky footer bar with the same ask. Users feel trapped and hostile -- even those who might have subscribed voluntarily now refuse out of spite.
+A website displays a fullscreen popup on arrival: "Subscribe to our newsletter!" with a dismiss button labeled "No thanks, I prefer to stay uninformed." Closing it triggers a second popup. Scrolling reveals a sticky footer bar with the same ask. Users feel trapped and hostile – even those who might have subscribed voluntarily now refuse out of spite.
 
 ### From 106 Cognitive Biases: Reactance
 
-When we feel our freedom is being taken away, we want the restricted thing even more -- and we push back against the restriction.
+When we feel our freedom is being taken away, we want the restricted thing even more – and we push back against the restriction.
 
 **Key insight**: Every forced action in your interface risks triggering reactance. The more aggressively you push, the more users resist.
 
@@ -269,7 +269,7 @@ A tax filing app shows "Great job! You've completed your return 40% faster than 
 
 ### Bad Example
 
-A form submission fails with the error message: "Error: Invalid input in field 3. User failed to provide correct format." The blame-the-user language contradicts self-serving bias -- the user already believes it is the system's fault, and this message creates hostility. Compare: "We need the date in MM/DD/YYYY format. Here's a quick fix:" which takes responsibility and offers a solution.
+A form submission fails with the error message: "Error: Invalid input in field 3. User failed to provide correct format." The blame-the-user language contradicts self-serving bias – the user already believes it is the system's fault, and this message creates hostility. Compare: "We need the date in MM/DD/YYYY format. Here's a quick fix:" which takes responsibility and offers a solution.
 
 ---
 
@@ -291,7 +291,7 @@ For any interface involving social dynamics, group behavior, or user research, c
 ## Principle Interactions
 
 ### Social Proof Strategy
-Combine Bandwagon Effect + Barnum-Forer awareness. Social proof is most effective when specific ("2,340 designers like you"), but beware of making generic claims sound personal -- the Barnum-Forer Effect means users will accept vague personalization initially but lose trust when they realize it is not genuine.
+Combine Bandwagon Effect + Barnum-Forer awareness. Social proof is most effective when specific ("2,340 designers like you"), but beware of making generic claims sound personal – the Barnum-Forer Effect means users will accept vague personalization initially but lose trust when they realize it is not genuine.
 
 ### Research Integrity Strategy
 Combine Hawthorne Effect + Observer-Expectancy Effect + False Consensus awareness. All three bias research results: users change behavior when observed (Hawthorne), researchers bias interpretation (Observer-Expectancy), and both assume their experience is universal (False Consensus). Counter all three with blind protocols, diverse samples, and mixed methods.

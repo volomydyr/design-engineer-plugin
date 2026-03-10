@@ -33,7 +33,7 @@ options:
   - label: "Some code already exists"
     description: "Development has started, need to document current state"
   - label: "Starting from zero"
-    description: "No documents or code yet -- help me plan"
+    description: "No documents or code yet – help me plan"
 allowMultiSelect: true
 ```
 
@@ -43,7 +43,7 @@ allowMultiSelect: true
 
 The most critical section of any CLAUDE.md. Guide the user through establishing their decision hierarchy based on [source-hierarchy-guide.md](./references/source-hierarchy-guide.md):
 
-1. **User's direct instructions** (highest authority -- never override)
+1. **User's direct instructions** (highest authority – never override)
 2. **Development status file** (current project status, guidelines, warnings)
 3. **Design files** (pixel-perfect UI implementation required)
 4. **Project knowledge documents** (complete feature specifications)
@@ -71,7 +71,7 @@ Exact technologies to use with no substitutions allowed. Include version constra
 ### Non-Negotiable Requirements
 - Always cite specific sections from project documents when implementing features
 - Never modify, interpret, or be creative with documented requirements
-- Never guess, assume, or hallucinate -- use only specified technologies
+- Never guess, assume, or hallucinate – use only specified technologies
 - Never invent new features not documented in project knowledge
 - Always use the designated tool for clarification when uncertain
 
@@ -109,9 +109,9 @@ Suggest the user ask AI to update the file after completing each significant fea
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- their project, their rules
-2. **Existing project documentation** -- requirements and architecture drive the rules
-3. **AI suggestions** -- propose structure and content based on the template
+1. **User's direct input** – their project, their rules
+2. **Existing project documentation** – requirements and architecture drive the rules
+3. **AI suggestions** – propose structure and content based on the template
 
 ---
 
@@ -123,5 +123,5 @@ After CLAUDE.md is created, suggest `dev-kickstart-prompts` to generate initial 
 
 ## Resource Files
 
-- [claude-md-template.md](./references/claude-md-template.md) -- Comprehensive template for CLAUDE.md generation
-- [source-hierarchy-guide.md](./references/source-hierarchy-guide.md) -- How to define and enforce the decision hierarchy
+- [claude-md-template.md](./references/claude-md-template.md) – Comprehensive template for CLAUDE.md generation
+- [source-hierarchy-guide.md](./references/source-hierarchy-guide.md) – How to define and enforce the decision hierarchy

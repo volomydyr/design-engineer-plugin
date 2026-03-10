@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-GitHub is essential even if you work alone. It provides version control -- the ability to go back in history when something breaks. Without it, you risk losing work that cannot be recovered.
+GitHub is essential even if you work alone. It provides version control – the ability to go back in history when something breaks. Without it, you risk losing work that cannot be recovered.
 
 GitHub is similar to Google Drive: it stores your project's code online. But it also tracks every change, lets you revert to any previous version, and enables collaboration when needed.
 
@@ -32,7 +32,7 @@ options:
     description: "Need help creating and connecting a repo"
   - label: "Repository exists but I do not use it consistently"
     description: "Need workflow guidance and commit discipline"
-  - label: "Active repository -- want to improve workflow"
+  - label: "Active repository – want to improve workflow"
     description: "Looking for best practices and automation"
 ```
 
@@ -66,7 +66,7 @@ The most important rule: commit frequently. Specifically:
 ## Step 4: Teach Safety Practices
 
 ### Staging vs. Discarding
-When you update code, changes exist only on your computer. Before committing, you stage files -- choosing which changes to include. The staging and discard actions in IDEs are often placed close together. One misclick can erase hours of work.
+When you update code, changes exist only on your computer. Before committing, you stage files – choosing which changes to include. The staging and discard actions in IDEs are often placed close together. One misclick can erase hours of work.
 
 ### Terminal Command Verification
 When AI suggests terminal commands, verify they are safe before running them. Ask AI to explain any command you do not understand. Do not accept all commands right away, especially when learning.
@@ -91,9 +91,9 @@ Help the user:
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- their preferred workflow, their comfort level
-2. **Git best practices** -- commit discipline and safety habits
-3. **AI suggestions** -- propose workflow but respect the user's pace
+1. **User's direct input** – their preferred workflow, their comfort level
+2. **Git best practices** – commit discipline and safety habits
+3. **AI suggestions** – propose workflow but respect the user's pace
 
 ---
 
@@ -105,4 +105,4 @@ After GitHub is set up, suggest `dev-context-management` to add status tracking 
 
 ## Resource Files
 
-- [github-for-designers.md](./references/github-for-designers.md) -- Simplified GitHub workflow with commit rules and safety practices
+- [github-for-designers.md](./references/github-for-designers.md) – Simplified GitHub workflow with commit rules and safety practices

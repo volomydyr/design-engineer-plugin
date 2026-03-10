@@ -24,13 +24,13 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 Create a development status file using the template from [status-tracking-template.md](./references/status-tracking-template.md). This file is separate from CLAUDE.md (separation of concerns) and should contain:
 
-- **Completed features** -- what is already built and working
-- **In-progress work** -- what is currently being developed
-- **Planned features** -- what comes next
-- **Critical warnings** -- approaches that failed, gotchas to remember
-- **Design system status** -- current token and component inventory
-- **Available assets** -- icons, images, and other resources
-- **Architecture decisions** -- key choices and their rationale
+- **Completed features** – what is already built and working
+- **In-progress work** – what is currently being developed
+- **Planned features** – what comes next
+- **Critical warnings** – approaches that failed, gotchas to remember
+- **Design system status** – current token and component inventory
+- **Available assets** – icons, images, and other resources
+- **Architecture decisions** – key choices and their rationale
 
 Place this file in a predictable location (e.g., `dev-status/development-context.md` or `status.md` at the project root).
 
@@ -53,7 +53,7 @@ For Claude Projects (pre-development):
 - Each activity gets its own chat to prevent context degradation
 - Save deliverables to project knowledge between chats
 - Start each new chat by checking the status tracker
-- Claude cannot save files to project knowledge on its own -- this must be done manually
+- Claude cannot save files to project knowledge on its own – this must be done manually
 
 For Claude Code (development):
 - Use sub-agents for heavy work (context analysis, implementation, auditing)
@@ -76,7 +76,7 @@ Share the strategies from [context-survival-guide.md](./references/context-survi
 
 ### Handling Chat Compaction
 - When approaching 200k tokens, AI automatically compresses earlier conversation
-- This compression loses some details -- prefer to avoid hitting the limit
+- This compression loses some details – prefer to avoid hitting the limit
 - If compaction happens, ask AI to re-read the status file and CLAUDE.md
 - For critical work, start a fresh conversation rather than continuing a compacted one
 
@@ -90,9 +90,9 @@ Share the strategies from [context-survival-guide.md](./references/context-survi
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- they decide what is important to track
-2. **Project documentation** -- the status file reflects real project state
-3. **AI suggestions** -- propose what to include in status updates
+1. **User's direct input** – they decide what is important to track
+2. **Project documentation** – the status file reflects real project state
+3. **AI suggestions** – propose what to include in status updates
 
 ---
 
@@ -104,5 +104,5 @@ After context management is set up, suggest `dev-github-workflow` for version co
 
 ## Resource Files
 
-- [status-tracking-template.md](./references/status-tracking-template.md) -- Development status file template
-- [context-survival-guide.md](./references/context-survival-guide.md) -- Strategies for maintaining context across sessions
+- [status-tracking-template.md](./references/status-tracking-template.md) – Development status file template
+- [context-survival-guide.md](./references/context-survival-guide.md) – Strategies for maintaining context across sessions

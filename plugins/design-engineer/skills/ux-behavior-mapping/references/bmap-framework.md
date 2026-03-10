@@ -1,4 +1,4 @@
-# BMap Framework -- Complete Reference
+# BMap Framework – Complete Reference
 
 ## The Core Formula
 
@@ -6,9 +6,9 @@
 
 A user behavior occurs only when three elements converge simultaneously:
 
-- **Motivation (M):** The willpower to act -- the behavior must align with the user's hopes, pains, and desires.
-- **Ability (A):** The capacity to act -- the user must have the resources and capability to perform the behavior.
-- **Prompt (P):** The timely cue to act -- a trigger that arrives at the right moment when motivation and ability are present.
+- **Motivation (M):** The willpower to act – the behavior must align with the user's hopes, pains, and desires.
+- **Ability (A):** The capacity to act – the user must have the resources and capability to perform the behavior.
+- **Prompt (P):** The timely cue to act – a trigger that arrives at the right moment when motivation and ability are present.
 
 The multiplication sign is deliberate: if ANY of the three factors is zero, the behavior does not happen. A highly motivated user who cannot perform the action (Ability = 0) will not act. A capable and motivated user who never receives a prompt (Prompt = 0) will not act.
 
@@ -49,17 +49,17 @@ N |
 
 ### Motivation Levers (3)
 
-**1. Anticipation -- Seeking hope and avoiding fear**
+**1. Anticipation – Seeking hope and avoiding fear**
 Users are motivated when they anticipate a positive outcome or fear a negative one. Hope pulls them toward the behavior; fear pushes them away from inaction.
 - Example: A user signs up for a budgeting app because they HOPE to save enough for a vacation, or because they FEAR running out of money before the end of the month.
 - Assessment question: "Is the user seeking hope or avoiding fear related to this behavior?"
 
-**2. Sensation -- Seeking pleasure and avoiding pain**
+**2. Sensation – Seeking pleasure and avoiding pain**
 Users are motivated by the promise of immediate pleasure or the avoidance of immediate pain. This is more visceral and immediate than anticipation.
 - Example: A user orders food delivery because they are hungry NOW (avoiding pain), or because they crave their favorite restaurant's dish (seeking pleasure).
 - Assessment question: "Does this behavior involve seeking immediate pleasure or avoiding immediate pain?"
 
-**3. Belonging -- Seeking acceptance and avoiding rejection**
+**3. Belonging – Seeking acceptance and avoiding rejection**
 Social dynamics are powerful motivators. Users act to be part of a group, gain status, or avoid social exclusion.
 - Example: A user joins a team collaboration tool because their entire team uses it (seeking belonging), or because they fear being the only one out of the loop (avoiding rejection).
 - Assessment question: "Does this behavior connect to social acceptance or fear of rejection?"
@@ -68,34 +68,34 @@ Social dynamics are powerful motivators. Users act to be part of a group, gain s
 
 The critical principle: **the user's ability is a function of the SCARCEST of the five ability levers at that moment.** One very low ability lever can kill the behavior even if the other four are high. A chain is only as strong as its weakest link.
 
-**4. Time -- How long does it take?**
+**4. Time – How long does it take?**
 The more time a behavior requires, the less likely it is to happen. Time is often the first ability lever to assess.
 - Low ability example: A 45-minute setup process for a productivity tool
 - High ability example: A one-click signup with Google authentication
 
-**5. Money -- How costly is it?**
+**5. Money – How costly is it?**
 Financial cost is a direct ability barrier. This includes not just the price, but also the perceived value relative to the cost.
 - Low ability example: A $200/month subscription for an individual user
 - High ability example: A free trial with no credit card required
 
-**6. Physical Capacity -- How physically demanding is it?**
+**6. Physical Capacity – How physically demanding is it?**
 Physical requirements can be literal (requiring specific devices, locations, or physical actions) or contextual (requiring the user to be in a specific situation).
 - Low ability example: Requiring a user to scan a physical document with their phone camera in a well-lit room
 - High ability example: Tapping a single button on a phone already in hand
 
-**7. Mental Capacity -- How complicated is it?**
+**7. Mental Capacity – How complicated is it?**
 Cognitive load is one of the biggest ability killers. Complex decisions, confusing interfaces, and unclear instructions all reduce mental capacity.
 - Low ability example: A configuration page with 30 options and no defaults
 - High ability example: A wizard with one question per step and smart defaults
 
-**8. Practice -- How familiar is it?**
+**8. Practice – How familiar is it?**
 Familiarity dramatically increases ability. Users can easily perform behaviors they have done before, especially if the interaction follows patterns they recognize from other products.
 - Low ability example: A completely novel interaction pattern the user has never encountered
 - High ability example: A shopping cart pattern that works exactly like Amazon
 
 ### Prompt Levers (2)
 
-Without a prompt, there is no action -- even when motivation and ability are both high. The prompt is what converts potential behavior into actual behavior.
+Without a prompt, there is no action – even when motivation and ability are both high. The prompt is what converts potential behavior into actual behavior.
 
 **9. Explicit Prompt**
 The information on what to do next is contained within the prompt itself. The user sees or hears the prompt and immediately knows what action to take.
@@ -117,7 +117,7 @@ These questions are used in surveys and user interviews to identify customers' J
 
 **"If you had a magic wand and could instantly X, how would that change your life?"**
 
-Purpose: Uncovers the user's deepest motivation -- what they truly want to achieve. The "magic wand" framing removes ability constraints, revealing pure motivation.
+Purpose: Uncovers the user's deepest motivation – what they truly want to achieve. The "magic wand" framing removes ability constraints, revealing pure motivation.
 
 ### Q2. Pain
 
@@ -156,7 +156,7 @@ These questions are especially useful for newer markets and products, but even m
 
 ### Replacing Y
 
-Y is often a **Hope (Motivation)** related to the core context X. Ideally, you should use the customer's own words -- their reply to the first part of Q3, or their answer to Q1.
+Y is often a **Hope (Motivation)** related to the core context X. Ideally, you should use the customer's own words – their reply to the first part of Q3, or their answer to Q1.
 
 ### Full Example from a Real Interview
 
@@ -206,13 +206,13 @@ This illustrates the BMap's primary value: it is a **communication and alignment
 **Scenario:** You are a millionaire. You are allergic to sushi. You are not hungry. You receive an Uber Eats notification about a sushi discount just as you pick up your phone.
 
 **Analysis:**
-- **Prompt:** High -- arrived at the exact moment you are looking at your phone
-- **Ability:** High -- you have plenty of money (millionaire), and you are one tap away from opening the app
-- **Motivation:** Very Low -- fear of allergic reaction (negative Anticipation), no hunger (no Sensation motivation)
+- **Prompt:** High – arrived at the exact moment you are looking at your phone
+- **Ability:** High – you have plenty of money (millionaire), and you are one tap away from opening the app
+- **Motivation:** Very Low – fear of allergic reaction (negative Anticipation), no hunger (no Sensation motivation)
 
-**BMap Position:** Zone C (High Ability, Low Motivation) -- well below the Activation Threshold
+**BMap Position:** Zone C (High Ability, Low Motivation) – well below the Activation Threshold
 
-**Key insight:** This is why Uber Eats sends notifications around lunch and dinner time. Hunger increases motivation, moving users above the Activation Threshold. The prompt itself does not change -- only its timing relative to the user's motivation state.
+**Key insight:** This is why Uber Eats sends notifications around lunch and dinner time. Hunger increases motivation, moving users above the Activation Threshold. The prompt itself does not change – only its timing relative to the user's motivation state.
 
 ---
 

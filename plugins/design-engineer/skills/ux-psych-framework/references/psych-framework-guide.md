@@ -1,4 +1,4 @@
-# Psych Framework -- Complete Reference
+# Psych Framework – Complete Reference
 
 ## Core Concept: Psych as a Cognitive Resource
 
@@ -26,11 +26,11 @@ Think of your customer as the **hero of a video game**, and their Psych Level as
 
 **Core principles:**
 
-1. **Your job is to help them achieve THEIR quest** -- not just your business goals. If your business goal is "increase sign-ups" but the user's quest is "find a solution to their problem," your design should focus on helping them find the solution. Sign-ups happen as a byproduct of serving the quest.
+1. **Your job is to help them achieve THEIR quest** – not just your business goals. If your business goal is "increase sign-ups" but the user's quest is "find a solution to their problem," your design should focus on helping them find the solution. Sign-ups happen as a byproduct of serving the quest.
 
 2. **To keep their Psych up, you need to both motivate them AND minimize friction.** These are two separate actions, and both are equally important. A common mistake is focusing only on removing friction (making things easier) while neglecting motivation (making things feel worthwhile).
 
-3. **If their Psych Level drops too much, it is game over** -- for them AND for you. "Game over" means the user abandons the experience: they close the tab, delete the app, switch to a competitor, or simply give up. There is no "respawn" in most product experiences.
+3. **If their Psych Level drops too much, it is game over** – for them AND for you. "Game over" means the user abandons the experience: they close the tab, delete the app, switch to a competitor, or simply give up. There is no "respawn" in most product experiences.
 
 4. **Different heroes have different starting health.** A user who arrives from an enthusiastic word-of-mouth recommendation starts with higher Psych than a user who clicks a random ad. The same screen can have very different Psych impacts depending on who is viewing it.
 
@@ -67,7 +67,7 @@ The goal of the Psych Framework is to put yourself in your customer's mind. Psyc
 - **Direction:** Is this element adding or subtracting Psych? (Most important)
 - **Relative magnitude:** Is this a small bump/dip or a major spike/crater? (Important)
 - **Sequence:** Does this friction come after a motivation boost or after another friction? (Important for running total)
-- **Exact number:** Is this a -2 or a -3? (Least important -- do not agonize over this)
+- **Exact number:** Is this a -2 or a -3? (Least important – do not agonize over this)
 
 **Reference benchmarks are provided below** to help calibrate, but they are guidelines, not rules. Different user segments may experience the same element very differently.
 
@@ -168,7 +168,7 @@ For each motivation point (especially the peak):
 
 ### Context
 
-Swimply is a tech startup -- an "Airbnb for private pools." The team is working on onboarding. The goal is to increase the pool booking rate for new visitors arriving on the homepage.
+Swimply is a tech startup – an "Airbnb for private pools." The team is working on onboarding. The goal is to increase the pool booking rate for new visitors arriving on the homepage.
 
 **Customer research insights (most new visitors):**
 - Find Swimply on hot days by searching "rent private swimming pool"
@@ -236,6 +236,6 @@ Friction points identified through Psych analysis become candidates for the B.I.
 
 The Psych Framework should be used to help customers achieve their goals, not to manipulate them into behaviors that serve only the business. A high Psych Level should reflect genuine value delivery, not psychological tricks that mask a poor product.
 
-If your Psych analysis shows high motivation from deceptive patterns (fake scarcity, hidden fees revealed late, dark patterns), the Psych Level is artificially inflated and will collapse when users discover the deception -- leading to negative reviews, refund requests, and destroyed trust.
+If your Psych analysis shows high motivation from deceptive patterns (fake scarcity, hidden fees revealed late, dark patterns), the Psych Level is artificially inflated and will collapse when users discover the deception – leading to negative reviews, refund requests, and destroyed trust.
 
 Sustainable Psych comes from genuine value alignment: the user's quest and your product's capabilities honestly match.

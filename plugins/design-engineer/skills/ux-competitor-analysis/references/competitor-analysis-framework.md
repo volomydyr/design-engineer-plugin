@@ -30,7 +30,7 @@ What people do instead of using any product:
 
 - [Manual workaround 1]
 - [Manual workaround 2]
-- [Ignoring the problem entirely -- why?]
+- [Ignoring the problem entirely – why?]
 
 ---
 
@@ -152,13 +152,13 @@ Use this template to generate a research prompt for deep web research tools (Per
 
 In addition to AI research, personally review each competitor:
 
-- [ ] Visit their website -- note first impressions, messaging clarity, CTA
-- [ ] Sign up / download their product -- experience the onboarding
-- [ ] Use the product for at least 15 minutes -- note friction points
-- [ ] Read their pricing page -- understand the value proposition at each tier
-- [ ] Check their social media -- see how they communicate with users
+- [ ] Visit their website – note first impressions, messaging clarity, CTA
+- [ ] Sign up / download their product – experience the onboarding
+- [ ] Use the product for at least 15 minutes – note friction points
+- [ ] Read their pricing page – understand the value proposition at each tier
+- [ ] Check their social media – see how they communicate with users
 - [ ] Read 10-20 recent reviews (App Store, Google Play, G2, Capterra)
-- [ ] Search Reddit for mentions -- find unfiltered user opinions
+- [ ] Search Reddit for mentions – find unfiltered user opinions
 
 Write down your personal impressions. AI cannot replace the insight you get from actually using a product.
 

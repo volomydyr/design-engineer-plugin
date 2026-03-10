@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-Classic competitor analysis can eat up days. AI makes it much faster if you know how to set it up correctly. The key is never just asking AI to "do a competitor analysis" -- that produces garbage. The quality depends entirely on the specificity of the prompt and the context provided.
+Classic competitor analysis can eat up days. AI makes it much faster if you know how to set it up correctly. The key is never just asking AI to "do a competitor analysis" – that produces garbage. The quality depends entirely on the specificity of the prompt and the context provided.
 
 Two critical starting points:
 
@@ -132,7 +132,7 @@ This skill enforces User > Docs > AI at every step:
 
 1. **User's direct input** always overrides everything
 2. **Existing documentation** (survey results where users mentioned tools, prior research) informs analysis
-3. **AI suggestions** and web research fill gaps -- but always verify claims with the user
+3. **AI suggestions** and web research fill gaps – but always verify claims with the user
 
 ---
 
@@ -140,11 +140,11 @@ This skill enforces User > Docs > AI at every step:
 
 After competitive analysis is finalized, suggest:
 
-1. `ux-business-plan` -- Define the business model informed by competitive pricing insights
-2. `ux-storybrand` -- Craft messaging that differentiates from competitors
+1. `ux-business-plan` – Define the business model informed by competitive pricing insights
+2. `ux-storybrand` – Craft messaging that differentiates from competitors
 
 ---
 
 ## Resource Files
 
-- [competitor-analysis-framework.md](./references/competitor-analysis-framework.md) -- Analysis structure with comparison matrices and research prompt template
+- [competitor-analysis-framework.md](./references/competitor-analysis-framework.md) – Analysis structure with comparison matrices and research prompt template

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-Claude Projects and similar tools can generate simple web prototypes -- perfect for quickly testing ideas. Instead of spending days in Figma to design a first iteration, you can generate a working prototype from your MVP Requirements and Information Architecture, iterate through many refinement rounds, and test it with real users before writing production code.
+Claude Projects and similar tools can generate simple web prototypes – perfect for quickly testing ideas. Instead of spending days in Figma to design a first iteration, you can generate a working prototype from your MVP Requirements and Information Architecture, iterate through many refinement rounds, and test it with real users before writing production code.
 
 The key principle: build functional-first prototypes before making them beautiful. Start with something that works well but looks basic, validate the concept, then invest in visual polish.
 
@@ -45,10 +45,10 @@ allowMultiSelect: true
 
 Guide the prototyping process using [prototyping-workflow.md](./references/prototyping-workflow.md):
 
-1. **Do not tell AI to build immediately** -- first ask it to share its thoughts, ask clarifying questions, and create a detailed development plan
+1. **Do not tell AI to build immediately** – first ask it to share its thoughts, ask clarifying questions, and create a detailed development plan
 2. **Wait for approval** before AI starts building
-3. **Iterate extensively** -- expect many rounds of refinement (dozens or more) as each round of feedback gets the prototype closer to the intended idea
-4. **Focus on functionality first** -- the prototype should work well and cover all key user flows, even if it looks basic
+3. **Iterate extensively** – expect many rounds of refinement (dozens or more) as each round of feedback gets the prototype closer to the intended idea
+4. **Focus on functionality first** – the prototype should work well and cover all key user flows, even if it looks basic
 
 ---
 
@@ -66,13 +66,13 @@ Once the prototype is ready for testing:
 
 Follow the approach from [testing-analysis-guide.md](./references/testing-analysis-guide.md):
 
-1. **Watch every test recording first** -- take your own notes and form your own conclusions
-2. **Do not share your conclusions with AI yet** -- keep them private
-3. **Ask AI to analyze the raw results independently** -- without knowing your thoughts, so it is not biased by your interpretation
+1. **Watch every test recording first** – take your own notes and form your own conclusions
+2. **Do not share your conclusions with AI yet** – keep them private
+3. **Ask AI to analyze the raw results independently** – without knowing your thoughts, so it is not biased by your interpretation
 4. **Then share your analysis** and ask AI to identify what might have been missed
-5. **Combine the best from both versions** -- your insights plus AI's fresh perspective
+5. **Combine the best from both versions** – your insights plus AI's fresh perspective
 
-This dual-analysis approach catches details that either human or AI analysis alone would miss. AI tends to invent findings that are not supported by data -- always verify its claims against the actual test results.
+This dual-analysis approach catches details that either human or AI analysis alone would miss. AI tends to invent findings that are not supported by data – always verify its claims against the actual test results.
 
 ---
 
@@ -88,9 +88,9 @@ Use test findings to:
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- their interpretation of test results takes priority
-2. **Test data** -- actual user behavior and feedback
-3. **AI analysis** -- useful for catching missed details but must be verified against raw data
+1. **User's direct input** – their interpretation of test results takes priority
+2. **Test data** – actual user behavior and feedback
+3. **AI analysis** – useful for catching missed details but must be verified against raw data
 
 ---
 
@@ -102,5 +102,5 @@ After prototyping and testing, suggest `ui-design-references` to collect visual 
 
 ## Resource Files
 
-- [prototyping-workflow.md](./references/prototyping-workflow.md) -- Iteration methodology for AI-generated prototypes
-- [testing-analysis-guide.md](./references/testing-analysis-guide.md) -- Dual-analysis approach for user testing results
+- [prototyping-workflow.md](./references/prototyping-workflow.md) – Iteration methodology for AI-generated prototypes
+- [testing-analysis-guide.md](./references/testing-analysis-guide.md) – Dual-analysis approach for user testing results

@@ -8,9 +8,9 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-Once your product is validated through testing, you can move to high-fidelity UI. But you do not need to design every screen beforehand. With AI-assisted development, Figma becomes a tool for visual direction -- not for documenting every possible state.
+Once your product is validated through testing, you can move to high-fidelity UI. But you do not need to design every screen beforehand. With AI-assisted development, Figma becomes a tool for visual direction – not for documenting every possible state.
 
-Before opening Figma, you should spend time collecting references to get a sense of common patterns relevant to your product type. Nothing complex -- just collect references so you are not starting from a blank file. Starting with references prevents blank-canvas paralysis and ensures consistency with established patterns in your industry.
+Before opening Figma, you should spend time collecting references to get a sense of common patterns relevant to your product type. Nothing complex – just collect references so you are not starting from a blank file. Starting with references prevents blank-canvas paralysis and ensures consistency with established patterns in your industry.
 
 For example, when building a healthcare app, browsing healthcare apps on Mobbin reveals common patterns for onboarding flows, data display, navigation structures, and interaction models. These references become the visual vocabulary that both you and your AI tools will use.
 
@@ -48,7 +48,7 @@ Then ask about the product domain (e.g., healthcare, fintech, e-commerce, produc
 
 ## Step 2: Identify Key Screens to Reference
 
-Based on the user's Information Architecture and MVP Requirements (if available from earlier skills), identify the 5-8 most important screens that need visual direction. These are the building blocks -- screens that set up the visual style AI can analyze and reuse for other parts of the app.
+Based on the user's Information Architecture and MVP Requirements (if available from earlier skills), identify the 5-8 most important screens that need visual direction. These are the building blocks – screens that set up the visual style AI can analyze and reuse for other parts of the app.
 
 Ask the user to confirm or adjust the list:
 
@@ -85,7 +85,7 @@ For each key screen identified in Step 2:
 
 1. Suggest specific search terms for Mobbin (e.g., "healthcare onboarding", "medical records detail")
 2. Recommend looking at 3-5 apps in the same domain
-3. Ask the user to note what they like about each reference -- specific elements, not just "looks good"
+3. Ask the user to note what they like about each reference – specific elements, not just "looks good"
 4. Help categorize references by: layout patterns, color approaches, typography styles, interaction models
 
 ---
@@ -120,9 +120,9 @@ The document should include:
 
 This skill enforces User > Docs > AI at every step:
 
-1. **User's direct input** always overrides everything -- their taste, their product, their call
+1. **User's direct input** always overrides everything – their taste, their product, their call
 2. **Existing documentation** (MVP Requirements, Information Architecture) informs what screens to focus on
-3. **AI suggestions** fill gaps only when user and docs provide no guidance -- and are always presented as suggestions, not decisions
+3. **AI suggestions** fill gaps only when user and docs provide no guidance – and are always presented as suggestions, not decisions
 
 ---
 
@@ -134,4 +134,4 @@ After references are collected, suggest running `ui-figma-workflow` to design th
 
 ## Resource Files
 
-- [reference-gathering-guide.md](./references/reference-gathering-guide.md) -- Approach to collecting and organizing design references using Mobbin and other tools
+- [reference-gathering-guide.md](./references/reference-gathering-guide.md) – Approach to collecting and organizing design references using Mobbin and other tools

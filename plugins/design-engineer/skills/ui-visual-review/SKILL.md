@@ -96,19 +96,19 @@ Save the report to `{deliverables_path}/reviews/visual-review.md`.
 ## Step 5: Apply Fixes
 
 If the user approves, apply fixes directly. Prioritize:
-1. Design system violations (hardcoded values) -- highest impact, easiest to fix
-2. Typography issues -- highly visible to users
-3. Component reuse issues -- reduce future maintenance burden
-4. Visual fidelity gaps -- match the design intent
+1. Design system violations (hardcoded values) – highest impact, easiest to fix
+2. Typography issues – highly visible to users
+3. Component reuse issues – reduce future maintenance burden
+4. Visual fidelity gaps – match the design intent
 
 ---
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- if they say the implementation is acceptable, respect that
-2. **Figma designs** -- the authoritative source for visual intent
-3. **Design system patterns** -- established conventions in the codebase
-4. **AI suggestions** -- propose fixes but defer to user
+1. **User's direct input** – if they say the implementation is acceptable, respect that
+2. **Figma designs** – the authoritative source for visual intent
+3. **Design system patterns** – established conventions in the codebase
+4. **AI suggestions** – propose fixes but defer to user
 
 ---
 
@@ -120,4 +120,4 @@ After the visual review, suggest running `ui-design-system` in audit mode if man
 
 ## Resource Files
 
-- [common-ui-issues.md](./references/common-ui-issues.md) -- Catalog of common AI-generated UI problems and fixes
+- [common-ui-issues.md](./references/common-ui-issues.md) – Catalog of common AI-generated UI problems and fixes

@@ -108,7 +108,7 @@ The foundation phase. Everything built later depends on these deliverables. Skil
 
 - **Required**: Yes
 - **Depends on**: Nothing (entry point)
-- **Produces**: Big Idea document -- the core product vision in clear, simple language
+- **Produces**: Big Idea document – the core product vision in clear, simple language
 - **Hands off to**: ux-problem-statement
 - **Notes**: This is where the user explains what they want to build. The skill helps refine a rough idea into a clear vision statement. In Guided mode, the skill shares suggestions from multiple perspectives first, then asks 7-10 questions using AskUserQuestion to deeply understand the idea.
 
@@ -116,7 +116,7 @@ The foundation phase. Everything built later depends on these deliverables. Skil
 
 - **Required**: Yes
 - **Depends on**: ux-big-idea (needs the product vision as context)
-- **Produces**: Problem Statement document -- defines what problems the product solves, for whom, and why existing solutions fall short
+- **Produces**: Problem Statement document – defines what problems the product solves, for whom, and why existing solutions fall short
 - **Hands off to**: ux-target-audience
 - **Notes**: Frames the product around user problems rather than features. The deliverable should be specific enough to guide all future design decisions.
 
@@ -124,15 +124,15 @@ The foundation phase. Everything built later depends on these deliverables. Skil
 
 - **Required**: Yes
 - **Depends on**: ux-big-idea, ux-problem-statement
-- **Produces**: Target Audience document -- detailed profiles of the people the product serves
+- **Produces**: Target Audience document – detailed profiles of the people the product serves
 - **Hands off to**: ux-assumptions
-- **Notes**: Defines who the users are, what they care about, what their context is. Not generic personas -- specific audience segments grounded in the problem statement.
+- **Notes**: Defines who the users are, what they care about, what their context is. Not generic personas – specific audience segments grounded in the problem statement.
 
 ### Skill 1.4: ux-assumptions
 
 - **Required**: Yes
 - **Depends on**: ux-big-idea, ux-problem-statement, ux-target-audience
-- **Produces**: Assumptions document -- explicit list of what the team believes to be true but has not validated
+- **Produces**: Assumptions document – explicit list of what the team believes to be true but has not validated
 - **Hands off to**: ux-competitor-analysis
 - **Notes**: Tracks assumptions throughout the project. Updated as new information emerges. This document is a living artifact that gets revisited in later phases.
 
@@ -140,7 +140,7 @@ The foundation phase. Everything built later depends on these deliverables. Skil
 
 - **Required**: Yes
 - **Depends on**: ux-problem-statement, ux-target-audience
-- **Produces**: Competitor Analysis document -- structured analysis of existing solutions in the space
+- **Produces**: Competitor Analysis document – structured analysis of existing solutions in the space
 - **Hands off to**: ux-user-interviews (if included) or meta-compound
 - **Notes**: Uses web search and deep research capabilities when available. Analyzes direct and indirect competitors. Identifies gaps and opportunities.
 
@@ -148,7 +148,7 @@ The foundation phase. Everything built later depends on these deliverables. Skil
 
 - **Required**: No
 - **Depends on**: ux-target-audience, ux-assumptions
-- **Produces**: User Interview findings -- synthesized insights from user conversations
+- **Produces**: User Interview findings – synthesized insights from user conversations
 - **Hands off to**: meta-compound
 - **When to include**: When the user has access to real users or potential users and wants to validate assumptions before proceeding. Most useful for products where the target audience is accessible.
 - **When to skip**: Early-stage ideas where no users are available yet, or when the user wants to move faster through discovery.
@@ -171,7 +171,7 @@ Translates discovery findings into product strategy. These skills define how the
 
 - **Required**: Yes
 - **Depends on**: Phase 1 deliverables (big idea, problem statement, target audience)
-- **Produces**: StoryBrand document -- brand messaging framework that positions the user as the hero and the product as the guide
+- **Produces**: StoryBrand document – brand messaging framework that positions the user as the hero and the product as the guide
 - **Hands off to**: ux-business-plan
 - **Notes**: Applies the StoryBrand framework to create clear product messaging. The output informs copywriting, onboarding flows, and marketing materials.
 
@@ -179,7 +179,7 @@ Translates discovery findings into product strategy. These skills define how the
 
 - **Required**: Yes
 - **Depends on**: Phase 1 deliverables, ux-storybrand
-- **Produces**: Business Plan document -- monetization strategy, pricing model, growth approach
+- **Produces**: Business Plan document – monetization strategy, pricing model, growth approach
 - **Hands off to**: ux-6p-stories
 - **Notes**: Covers revenue model, pricing tiers, unit economics. Grounded in the target audience and competitive landscape from Phase 1.
 
@@ -187,7 +187,7 @@ Translates discovery findings into product strategy. These skills define how the
 
 - **Required**: Yes
 - **Depends on**: Phase 1 deliverables, ux-storybrand, ux-business-plan
-- **Produces**: 6P Stories document -- narrative-driven product scenarios following the 6P framework
+- **Produces**: 6P Stories document – narrative-driven product scenarios following the 6P framework
 - **Hands off to**: ux-behavior-mapping (if included) or meta-compound
 - **Notes**: Creates story-driven scenarios that illustrate how real users interact with the product. Each story covers the 6P elements. Reveals gaps in the product concept that abstract documents miss.
 
@@ -195,7 +195,7 @@ Translates discovery findings into product strategy. These skills define how the
 
 - **Required**: No
 - **Depends on**: Phase 1 deliverables, ux-6p-stories
-- **Produces**: Behavior Mapping document -- maps user behaviors, motivations, and triggers
+- **Produces**: Behavior Mapping document – maps user behaviors, motivations, and triggers
 - **Hands off to**: ux-psych-framework (if included) or meta-compound
 - **When to include**: When the product relies heavily on behavior change (habit-forming apps, health products, educational tools) or when the user wants deeper insight into user motivation.
 - **When to skip**: Simpler products where user behavior patterns are straightforward.
@@ -204,7 +204,7 @@ Translates discovery findings into product strategy. These skills define how the
 
 - **Required**: No
 - **Depends on**: Phase 1 deliverables, ux-6p-stories
-- **Produces**: Psychology Framework document -- identifies which psychological principles are most relevant to the product
+- **Produces**: Psychology Framework document – identifies which psychological principles are most relevant to the product
 - **Hands off to**: meta-compound
 - **When to include**: When the user wants to apply design psychology principles early in the strategy phase rather than waiting for Phase 4 validation.
 - **When to skip**: When the user prefers to handle psychology principles during the Design & Validation phase via ux-bias-framework.
@@ -227,7 +227,7 @@ Converts strategy into concrete product specifications. These are the blueprints
 
 - **Required**: Yes
 - **Depends on**: Phase 1 and Phase 2 deliverables
-- **Produces**: MVP Requirements document -- feature specifications, scope definition, priority tiers
+- **Produces**: MVP Requirements document – feature specifications, scope definition, priority tiers
 - **Hands off to**: ux-information-architecture
 - **Notes**: Defines what goes into the MVP and what gets deferred to post-MVP. Every feature traces back to the problem statement and target audience. Uses the business plan to inform priority decisions.
 
@@ -235,7 +235,7 @@ Converts strategy into concrete product specifications. These are the blueprints
 
 - **Required**: Yes
 - **Depends on**: ux-mvp-requirements, Phase 1 and Phase 2 deliverables
-- **Produces**: Information Architecture document -- navigation structure, user flows, screen inventory, content hierarchy
+- **Produces**: Information Architecture document – navigation structure, user flows, screen inventory, content hierarchy
 - **Hands off to**: meta-compound
 - **Notes**: Defines the structural backbone of the product. Maps how users navigate between screens and how content is organized. The IA document becomes a critical reference for both design and development phases.
 
@@ -257,7 +257,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: Yes
 - **Depends on**: Phase 1-3 deliverables
-- **Produces**: Bias Framework analysis -- identifies cognitive biases relevant to the product and recommends design patterns to address them
+- **Produces**: Bias Framework analysis – identifies cognitive biases relevant to the product and recommends design patterns to address them
 - **Hands off to**: ux-journey-mapping
 - **Notes**: Applies psychology principles to the product design. Reviews the IA and MVP requirements through the lens of cognitive biases. Produces actionable recommendations, not just theory.
 
@@ -265,7 +265,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: Yes
 - **Depends on**: ux-bias-framework, Phase 1-3 deliverables
-- **Produces**: Journey Map document -- end-to-end user experience maps showing touchpoints, emotions, pain points, and opportunities
+- **Produces**: Journey Map document – end-to-end user experience maps showing touchpoints, emotions, pain points, and opportunities
 - **Hands off to**: ux-ethics-review (if included) or ui-design-references
 - **Notes**: Maps the complete user experience from first contact through ongoing use. Incorporates bias framework findings. Reveals experience gaps and emotional low points that need design attention.
 
@@ -273,7 +273,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: No
 - **Depends on**: Phase 1-3 deliverables, ux-bias-framework
-- **Produces**: Ethics Review document -- assessment of ethical implications in the product design
+- **Produces**: Ethics Review document – assessment of ethical implications in the product design
 - **Hands off to**: ui-design-references
 - **When to include**: Products that handle sensitive data (health, finance, children), products with persuasive design elements, or when the user wants to ensure ethical design practices.
 - **When to skip**: Straightforward utility products with minimal ethical risk.
@@ -282,7 +282,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: Yes
 - **Depends on**: Phase 1-3 deliverables, ux-journey-mapping
-- **Produces**: Design References collection -- curated visual references, mood boards, and design direction
+- **Produces**: Design References collection – curated visual references, mood boards, and design direction
 - **Hands off to**: ui-figma-workflow
 - **Notes**: Gathers visual inspiration and establishes the design direction before moving to high-fidelity work. Asks the user about their preferred visual approach.
 
@@ -290,7 +290,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: Yes
 - **Depends on**: ui-design-references, information architecture, MVP requirements
-- **Produces**: High-fidelity Figma designs -- complete screen designs following the established design direction
+- **Produces**: High-fidelity Figma designs – complete screen designs following the established design direction
 - **Hands off to**: dev-prototyping
 - **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools.
 
@@ -298,7 +298,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: Yes
 - **Depends on**: ui-figma-workflow or design references, information architecture
-- **Produces**: Working prototype -- functional prototype that can be tested
+- **Produces**: Working prototype – functional prototype that can be tested
 - **Hands off to**: ux-product-assessment (if included) or meta-compound
 - **Notes**: Creates a testable prototype based on the designs. The prototype serves as both a validation tool and a reference for development.
 
@@ -306,7 +306,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: No
 - **Depends on**: dev-prototyping, all Phase 1-4 deliverables
-- **Produces**: Product Assessment document -- comprehensive evaluation using a structured checklist
+- **Produces**: Product Assessment document – comprehensive evaluation using a structured checklist
 - **Hands off to**: meta-compound
 - **When to include**: Before moving to development, to catch issues across all dimensions (usability, business viability, technical feasibility, design quality).
 - **When to skip**: When the user is confident in the prototype and wants to move directly to development.
@@ -336,10 +336,10 @@ This is the boundary between pre-development activities (Phases 1-4) and develop
 <ask-user>
 All pre-development phases are complete. Before we proceed to development:
 
-1. **Proceed to development** -- Everything looks good, start Phase 5
-2. **Review specific deliverables** -- I want to revisit some outputs before moving on
-3. **Run skipped optional skills** -- I want to include some skills I skipped earlier
-4. **Stop here** -- I will handle development separately
+1. **Proceed to development** – Everything looks good, start Phase 5
+2. **Review specific deliverables** – I want to revisit some outputs before moving on
+3. **Run skipped optional skills** – I want to include some skills I skipped earlier
+4. **Stop here** – I will handle development separately
 </ask-user>
 
 ---
@@ -352,7 +352,7 @@ Sets up the development environment, creates implementation guides, and manages 
 
 - **Required**: Only if the user is using Claude Projects
 - **Depends on**: Phase 1-4 deliverables
-- **Produces**: Configured Claude Project -- project setup with all design deliverables as knowledge
+- **Produces**: Configured Claude Project – project setup with all design deliverables as knowledge
 - **Hands off to**: dev-claude-md
 - **Notes**: Sets up a Claude Project with the right instructions and knowledge base. Only relevant when the user's workflow involves Claude Projects.
 
@@ -360,7 +360,7 @@ Sets up the development environment, creates implementation guides, and manages 
 
 - **Required**: Yes
 - **Depends on**: Phase 1-4 deliverables
-- **Produces**: CLAUDE.md file -- global rules for AI-assisted development
+- **Produces**: CLAUDE.md file – global rules for AI-assisted development
 - **Hands off to**: dev-kickstart-prompts
 - **Notes**: Creates the rules file that governs AI behavior during development. Covers tech stack specifications, non-negotiable requirements, development pipeline, conflict resolution, and project status tracking.
 
@@ -368,15 +368,15 @@ Sets up the development environment, creates implementation guides, and manages 
 
 - **Required**: Yes
 - **Depends on**: dev-claude-md, Phase 1-4 deliverables
-- **Produces**: Kick-start prompts -- 3-5 focused prompts for beginning development
+- **Produces**: Kick-start prompts – 3-5 focused prompts for beginning development
 - **Hands off to**: dev-agent-pipeline
-- **Notes**: Generates high-level starting prompts that reference context documents. These are not deep technical prompts -- they are references that point to the existing deliverables. Simple and focused.
+- **Notes**: Generates high-level starting prompts that reference context documents. These are not deep technical prompts – they are references that point to the existing deliverables. Simple and focused.
 
 ### Skill 5.4: dev-agent-pipeline
 
 - **Required**: Yes
 - **Depends on**: dev-claude-md, dev-kickstart-prompts
-- **Produces**: Agent pipeline configuration -- specialized AI agents for the development workflow
+- **Produces**: Agent pipeline configuration – specialized AI agents for the development workflow
 - **Hands off to**: dev-mcp-setup
 - **Notes**: Sets up the sequence of specialized agents that run for each development task (context analysis, planning, backend, frontend, design system auditing, compounding).
 
@@ -384,7 +384,7 @@ Sets up the development environment, creates implementation guides, and manages 
 
 - **Required**: Yes
 - **Depends on**: dev-agent-pipeline
-- **Produces**: MCP configuration -- configured Model Context Protocol servers for the project
+- **Produces**: MCP configuration – configured Model Context Protocol servers for the project
 - **Hands off to**: dev-github-workflow
 - **Notes**: Configures relevant MCP servers based on the project's needs and the user's environment. Uses the environment detection from meta-setup.
 
@@ -392,7 +392,7 @@ Sets up the development environment, creates implementation guides, and manages 
 
 - **Required**: Yes
 - **Depends on**: dev-mcp-setup
-- **Produces**: GitHub workflow configuration -- repository setup, branching strategy, CI/CD basics
+- **Produces**: GitHub workflow configuration – repository setup, branching strategy, CI/CD basics
 - **Hands off to**: ui-design-system
 - **Notes**: Sets up version control and collaboration workflow. Covers commits, branches, pull requests, and basic automation.
 
@@ -400,7 +400,7 @@ Sets up the development environment, creates implementation guides, and manages 
 
 - **Required**: Yes
 - **Depends on**: ui-figma-workflow, dev-claude-md
-- **Produces**: Design system implementation -- code-level design tokens, component architecture, semantic naming
+- **Produces**: Design system implementation – code-level design tokens, component architecture, semantic naming
 - **Hands off to**: Development loop
 - **Notes**: Translates the Figma design system into code. Establishes the atomic architecture pattern: tokens, semantics, components.
 
@@ -408,18 +408,18 @@ Sets up the development environment, creates implementation guides, and manages 
 
 After initial setup, development enters an iterative loop for each feature:
 
-1. **context-analyzer** (agent) -- reads project state, understands what has been built
-2. **plan-creator** (agent) -- creates implementation plan for the next feature
-3. **Backend implementation** -- server-side code
-4. **Frontend implementation** -- client-side code and UI
-5. **design-system-auditor** (agent) -- verifies new code follows the design system
-6. **meta-compound** -- documents progress after each feature
+1. **context-analyzer** (agent) – reads project state, understands what has been built
+2. **plan-creator** (agent) – creates implementation plan for the next feature
+3. **Backend implementation** – server-side code
+4. **Frontend implementation** – client-side code and UI
+5. **design-system-auditor** (agent) – verifies new code follows the design system
+6. **meta-compound** – documents progress after each feature
 
 ### Skill 5.8: dev-context-management (ONGOING)
 
 - **Required**: Yes (runs throughout development)
 - **Depends on**: All development skills
-- **Produces**: Updated context files -- maintains project status, development context, and session continuity
+- **Produces**: Updated context files – maintains project status, development context, and session continuity
 - **Notes**: Keeps the status file updated after every big development phase. Addresses the context degradation problem where AI forgets about components already built, decisions already made, and approaches that did not work. Uses a dedicated status file (separation of concerns) rather than putting everything in CLAUDE.md.
 
 ### Phase 5 Completion: meta-compound

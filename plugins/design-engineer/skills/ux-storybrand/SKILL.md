@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-StoryBrand is a storytelling method where the user is the main hero, and your product is simply the guide that helps them succeed. It is used far beyond tech -- authors and screenwriters apply the same structure. Think about the flow of your favorite movie and you will see the pattern.
+StoryBrand is a storytelling method where the user is the main hero, and your product is simply the guide that helps them succeed. It is used far beyond tech – authors and screenwriters apply the same structure. Think about the flow of your favorite movie and you will see the pattern.
 
 It helps you:
 
@@ -21,7 +21,7 @@ Where to use it:
 - Product branding, website copy, UX microcopy
 - Basically anywhere words and your business intersect
 
-Most businesses talk about themselves: how great their product is and how advanced their features are. But people only care about themselves. Top brands do not talk about "me" -- they talk about you: your problems, your struggles, your transformation. They show how their product helps you avoid failure and become a better version of yourself.
+Most businesses talk about themselves: how great their product is and how advanced their features are. But people only care about themselves. Top brands do not talk about "me" – they talk about you: your problems, your struggles, your transformation. They show how their product helps you avoid failure and become a better version of yourself.
 
 ## Interaction Method
 
@@ -134,10 +134,10 @@ After StoryBrand is finalized, suggest:
 
 1. Use the StoryBrand canvas to write landing page copy
 2. Use it as the foundation for UX microcopy throughout the product
-3. `ux-business-plan` -- Build the business plan informed by the messaging strategy
+3. `ux-business-plan` – Build the business plan informed by the messaging strategy
 
 ---
 
 ## Resource Files
 
-- [storybrand-canvas-template.md](./references/storybrand-canvas-template.md) -- Complete StoryBrand canvas structure with examples
+- [storybrand-canvas-template.md](./references/storybrand-canvas-template.md) – Complete StoryBrand canvas structure with examples

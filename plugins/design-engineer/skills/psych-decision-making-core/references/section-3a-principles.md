@@ -1,4 +1,4 @@
-# Section 3a: Psychology of Decision-Making -- Core Principles (Laws 21-25)
+# Section 3a: Psychology of Decision-Making – Core Principles (Laws 21-25)
 
 ## Law 21: Loss Aversion
 
@@ -10,15 +10,15 @@ This principle helps motivate users to act through fear of losing an opportunity
 
 Instead of only showing advantages, it is more effective to demonstrate what the user will lose if they do not take the opportunity. You can also emphasize limited stock quantity or limited-time pricing.
 
-However, it is important not to overdo it -- excessive pressure can repel users and destroy trust. The line between ethical urgency and manipulative pressure is thin.
+However, it is important not to overdo it – excessive pressure can repel users and destroy trust. The line between ethical urgency and manipulative pressure is thin.
 
 ### Good Example
 
-A subscription service shows a banner during cancellation: "If you cancel now, you will lose access to your 47 saved playlists and 12 months of listening history." This presents real, personal losses -- data the user genuinely created -- giving them accurate information to make an informed decision.
+A subscription service shows a banner during cancellation: "If you cancel now, you will lose access to your 47 saved playlists and 12 months of listening history." This presents real, personal losses – data the user genuinely created – giving them accurate information to make an informed decision.
 
 ### Bad Example
 
-An e-commerce site shows a countdown timer on every product page claiming "Sale ends in 00:14:32" -- but the timer resets on page refresh. The artificial urgency exploits loss aversion with fabricated scarcity, damaging long-term trust once users notice the deception.
+An e-commerce site shows a countdown timer on every product page claiming "Sale ends in 00:14:32" – but the timer resets on page refresh. The artificial urgency exploits loss aversion with fabricated scarcity, damaging long-term trust once users notice the deception.
 
 ### From 106 Cognitive Biases
 
@@ -28,7 +28,7 @@ Loss Aversion describes our tendency to prefer avoiding losses over acquiring eq
 
 **UX applications from 106 Biases**:
 
-- **Free trial endings**: "Your premium features expire in 3 days" is more motivating than "Upgrade to get premium features" -- because losing something you already use triggers loss aversion
+- **Free trial endings**: "Your premium features expire in 3 days" is more motivating than "Upgrade to get premium features" – because losing something you already use triggers loss aversion
 - **Progress preservation**: Showing users what they have already accomplished ("You've completed 7 of 10 steps") before asking them to commit prevents them from feeling they would lose their progress
 - **Data ownership**: Letting users build something (playlists, boards, configurations) before requiring payment leverages both Loss Aversion and the Endowment Effect
 
@@ -52,7 +52,7 @@ A travel booking site breaks the flight search into three clear steps: (1) where
 
 ### Bad Example
 
-A hotel booking site presents all 200+ results on a single page with 18 filter options, 6 sorting criteria, and a map view -- all visible simultaneously. Users either abandon the search or impulsively pick the first result, often missing better options further down.
+A hotel booking site presents all 200+ results on a single page with 18 filter options, 6 sorting criteria, and a map view – all visible simultaneously. Users either abandon the search or impulsively pick the first result, often missing better options further down.
 
 ### Decision Fatigue Mitigation Strategies
 
@@ -82,13 +82,13 @@ A SaaS pricing page displays three plans: Enterprise ($299/mo), Professional ($9
 
 ### Bad Example
 
-A furniture store lists a "reference price" of $2,000 on a sofa that was never actually sold at that price, then shows the "sale price" of $800. The anchor is fabricated -- the sofa was always intended to sell at $800. When customers discover the deception (through price tracking tools or competitor comparison), trust is permanently damaged.
+A furniture store lists a "reference price" of $2,000 on a sofa that was never actually sold at that price, then shows the "sale price" of $800. The anchor is fabricated – the sofa was always intended to sell at $800. When customers discover the deception (through price tracking tools or competitor comparison), trust is permanently damaged.
 
 ### From 106 Cognitive Biases
 
-Anchoring Bias is our tendency to rely too heavily on the first piece of information we encounter. Once an anchor is set, subsequent judgments are made by adjusting away from that anchor -- but the adjustment is typically insufficient.
+Anchoring Bias is our tendency to rely too heavily on the first piece of information we encounter. Once an anchor is set, subsequent judgments are made by adjusting away from that anchor – but the adjustment is typically insufficient.
 
-**Key research**: In a classic study, participants who were asked "Is the height of the tallest redwood more or less than 1,200 feet?" guessed an average of 844 feet. Participants asked "more or less than 180 feet?" guessed an average of 282 feet. The initial number -- even when obviously extreme -- anchored their estimates.
+**Key research**: In a classic study, participants who were asked "Is the height of the tallest redwood more or less than 1,200 feet?" guessed an average of 844 feet. Participants asked "more or less than 180 feet?" guessed an average of 282 feet. The initial number – even when obviously extreme – anchored their estimates.
 
 **UX applications from 106 Biases**:
 
@@ -122,7 +122,7 @@ A recommendation engine only shows products similar to what the user has already
 
 Confirmation Bias is our tendency to search for, interpret, and recall information in a way that confirms our pre-existing beliefs. We give more weight to evidence that supports what we already think and dismiss evidence that contradicts it.
 
-**Key research**: In studies, people given the same ambiguous evidence about a controversial topic interpreted it as supporting their existing position -- regardless of which side they were on.
+**Key research**: In studies, people given the same ambiguous evidence about a controversial topic interpreted it as supporting their existing position – regardless of which side they were on.
 
 **UX applications from 106 Biases**:
 
@@ -131,7 +131,7 @@ Confirmation Bias is our tendency to search for, interpret, and recall informati
 - **Filter defaults**: If filters default to showing only 4+ star items, users never see valid 3-star alternatives that might be a better fit. Consider showing "Most helpful" reviews that include a mix.
 - **Onboarding questions**: Asking users their preferences early can create anchors that trigger confirmation bias. A user who selects "I'm a beginner" may then dismiss advanced features, even useful ones.
 
-**Design strategy**: Do not fight confirmation bias directly -- users will resist. Instead, present disconfirming information alongside confirming information in a way that feels helpful, not contradictory. "Users who liked this also considered..." is less confrontational than "You might be wrong about this."
+**Design strategy**: Do not fight confirmation bias directly – users will resist. Instead, present disconfirming information alongside confirming information in a way that feels helpful, not contradictory. "Users who liked this also considered..." is less confrontational than "You might be wrong about this."
 
 ---
 
@@ -157,7 +157,7 @@ A mobile carrier pre-selects the most expensive data plan, insurance add-on, and
 
 Default Bias describes our tendency to go with the pre-selected option, especially when the decision feels complex or the stakes seem low.
 
-**Key research**: Organ donation rates vary dramatically between countries -- not because of cultural differences, but because of the default on the driver's license form. Countries with opt-out defaults (you are a donor unless you uncheck) have donation rates above 90%. Countries with opt-in defaults (you must check a box to donate) hover around 15%.
+**Key research**: Organ donation rates vary dramatically between countries – not because of cultural differences, but because of the default on the driver's license form. Countries with opt-out defaults (you are a donor unless you uncheck) have donation rates above 90%. Countries with opt-in defaults (you must check a box to donate) hover around 15%.
 
 **UX applications from 106 Biases**:
 
@@ -165,7 +165,7 @@ Default Bias describes our tendency to go with the pre-selected option, especial
 - **Subscription defaults**: Pre-selecting annual billing (if it saves the user money) is ethical. Pre-selecting auto-renewal with no reminder is a dark pattern.
 - **Configuration defaults**: In complex software, well-chosen defaults reduce Decision Fatigue (Law 22) by eliminating unnecessary choices. Most users never change defaults, so each one should be the best choice for the majority.
 
-**Ethical checkpoint**: Ask yourself -- if 95% of users keep this default, does it serve their interest or only the business? The organ donation example shows the extraordinary power of defaults. With great power comes great responsibility.
+**Ethical checkpoint**: Ask yourself – if 95% of users keep this default, does it serve their interest or only the business? The organ donation example shows the extraordinary power of defaults. With great power comes great responsibility.
 
 ---
 

@@ -1,4 +1,4 @@
-# Setup Checklist -- Full Configuration Reference
+# Setup Checklist – Full Configuration Reference
 
 This file documents every configuration option collected by the `meta-setup` skill, what each option means, and how it affects the plugin's behavior throughout the entire workflow.
 
@@ -29,7 +29,7 @@ Controls the interaction pattern across all skills in the plugin.
 | **God mode** | AI runs the full pipeline autonomously with minimal user input. Pauses only at major phase checkpoints (end of Phase 1, end of Phase 2, etc.) and the User Approval Checkpoint between Phase 4 and Phase 5. |
 | **Both / decide later** | The orchestrator asks which mode to use each time a command is invoked. Individual skills can be invoked in either mode. |
 
-**Interaction pattern for Guided mode**: AI shares suggestions from different perspectives (not just one suggestion), asks questions using AskUserQuestion (or numbered-list fallback), waits for answers, iterates, and only finalizes when the user explicitly approves. Nothing is done through one set of questions -- iterative refinement until the user is satisfied.
+**Interaction pattern for Guided mode**: AI shares suggestions from different perspectives (not just one suggestion), asks questions using AskUserQuestion (or numbered-list fallback), waits for answers, iterates, and only finalizes when the user explicitly approves. Nothing is done through one set of questions – iterative refinement until the user is satisfied.
 
 ---
 
@@ -56,7 +56,7 @@ Determines how design-related skills interact with the user's design workflow.
 | **Other design tool** | Skills provide tool-agnostic design guidance. User provides design references through their preferred method. |
 | **No design tool yet** | Design tool steps are deferred. Skills focus on conceptual and structural deliverables until the user decides on a tool. |
 
-**Gradual Figma MCP usage**: When Figma MCP is available, skills use it for smaller elements at a time rather than sharing entire complex designs at once. The approach is to start with working prototypes that look rough, then apply design polish through Figma MCP -- functionality first, aesthetics second.
+**Gradual Figma MCP usage**: When Figma MCP is available, skills use it for smaller elements at a time rather than sharing entire complex designs at once. The approach is to start with working prototypes that look rough, then apply design polish through Figma MCP – functionality first, aesthetics second.
 
 ---
 
@@ -143,7 +143,7 @@ Controls the depth of inline teaching across all skills.
 |--------|--------|
 | **New to AI development** | Extra educational context woven into every skill. Explanations of why each step matters. More detailed instructions with examples. Warnings about common pitfalls (trusting AI blindly, not verifying sources, running unfamiliar terminal commands). |
 | **Some experience** | Moderate teaching depth. Key concepts explained, but basic AI tool usage is assumed known. |
-| **Experienced** | Streamlined output. Teaching is minimal -- focuses on the specific methodology and frameworks rather than general AI development concepts. |
+| **Experienced** | Streamlined output. Teaching is minimal – focuses on the specific methodology and frameworks rather than general AI development concepts. |
 
 ---
 

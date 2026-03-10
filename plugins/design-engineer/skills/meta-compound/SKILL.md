@@ -200,7 +200,7 @@ Update the project status file (`status.md`) at the project root.
 [Chronological log of important decisions]
 
 ## What Has Not Worked
-[Approaches that failed — prevents AI from repeating them]
+[Approaches that failed – prevents AI from repeating them]
 
 ## Open Questions
 [Unresolved issues across all phases]
@@ -288,7 +288,7 @@ What's next?
 - Any skill can request compound documentation when significant decisions are made
 
 **Invokes:**
-- None (terminal skill -- does not delegate to other skills)
+- None (terminal skill – does not delegate to other skills)
 
 **Handoff expectations:**
 All context needed for documentation should be present in conversation history before invocation. The skill reads conversation context to extract what was done.
@@ -299,11 +299,11 @@ All context needed for documentation should be present in conversation history b
 
 This skill implements context engineering best practices documented in [context-engineering-guide.md](./references/context-engineering-guide.md). Key principles:
 
-1. **One activity = one chat** -- save deliverables to project knowledge, start fresh for the next activity
-2. **Manual compaction over auto-compaction** -- warn the user when approaching token limits so they can manually compact with specific preservation instructions instead of losing context to automatic compression
-3. **Sub-agent token preservation** -- heavy work happens in sub-agents with their own token budgets, keeping the main conversation lean
-4. **Status file as ground truth** -- AI reads `status.md` at the start of every task to recover full project context
-5. **Separation of concerns** -- use small dedicated files instead of one large CLAUDE.md to prevent AI from ignoring parts due to context limits
+1. **One activity = one chat** – save deliverables to project knowledge, start fresh for the next activity
+2. **Manual compaction over auto-compaction** – warn the user when approaching token limits so they can manually compact with specific preservation instructions instead of losing context to automatic compression
+3. **Sub-agent token preservation** – heavy work happens in sub-agents with their own token budgets, keeping the main conversation lean
+4. **Status file as ground truth** – AI reads `status.md` at the start of every task to recover full project context
+5. **Separation of concerns** – use small dedicated files instead of one large CLAUDE.md to prevent AI from ignoring parts due to context limits
 
 ---
 
@@ -311,11 +311,11 @@ This skill implements context engineering best practices documented in [context-
 
 All documentation entries are validated against [compound-schema.yaml](./references/compound-schema.yaml), which defines:
 
-- **deliverable_type** -- categorizes the type of work (research deliverable, design deliverable, development artifact, etc.)
-- **phase** -- maps to the pipeline phases (pre-dev Phase 1-4, dev Phase 5-7)
-- **component** -- which part of the product or workflow was affected
-- **status** -- current state of the deliverable (draft, in-progress, complete, revised, superseded)
-- **severity** -- impact level for decisions and issues
+- **deliverable_type** – categorizes the type of work (research deliverable, design deliverable, development artifact, etc.)
+- **phase** – maps to the pipeline phases (pre-dev Phase 1-4, dev Phase 5-7)
+- **component** – which part of the product or workflow was affected
+- **status** – current state of the deliverable (draft, in-progress, complete, revised, superseded)
+- **severity** – impact level for decisions and issues
 
 ---
 

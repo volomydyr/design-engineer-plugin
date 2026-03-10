@@ -16,7 +16,7 @@ Copy and send the following prompt to the first chat in your new Claude Project.
 - I have full decision authority for all project choices
 - My experience and thoughts should outweigh web research when conflicts arise
 - You should share your initial thoughts about that step's deliverable first (brief, based on project knowledge), then ask me 7-10 strategic questions per step
-- Each step must stay focused on its specific scope -- never jump to solutions during discovery phases, never discuss positioning during discovery, never ask about implementation during early phases
+- Each step must stay focused on its specific scope – never jump to solutions during discovery phases, never discuss positioning during discovery, never ask about implementation during early phases
 
 **MULTI-CHAT WORKFLOW DETAILS:**
 
@@ -24,13 +24,13 @@ Copy and send the following prompt to the first chat in your new Claude Project.
 - **Between chats**: I upload deliverables to project knowledge so next chat has full context
 - **Starting new chats**: You will provide me a brief prompt for each next chat that includes: instruction to check status tracker, follow complete global rules, review project knowledge, then start with your assumptions + 7-10 questions for that specific step
 - **Step completion**: Only when we have a final deliverable and I explicitly say the step is complete
-- **Step scope discipline**: NEVER ask about moving to the next step -- stay in the current step until the final deliverable is ready. CAN revisit and update previous step deliverables based on new knowledge, but NEVER work on future steps
+- **Step scope discipline**: NEVER ask about moving to the next step – stay in the current step until the final deliverable is ready. CAN revisit and update previous step deliverables based on new knowledge, but NEVER work on future steps
 
 **WHAT I WANT YOU TO CREATE:**
 
-1. **Global Rules Document** -- Complete workflow rules that will guide every chat session
-2. **Project Status Tracker** -- Phase and step breakdown appropriate for my project type
-3. **Project Assumptions Document** -- Track assumptions throughout the project
+1. **Global Rules Document** – Complete workflow rules that will guide every chat session
+2. **Project Status Tracker** – Phase and step breakdown appropriate for my project type
+3. **Project Assumptions Document** – Track assumptions throughout the project
 
 **DOCUMENT REQUIREMENTS:**
 
@@ -43,7 +43,7 @@ Copy and send the following prompt to the first chat in your new Claude Project.
 **PROCESS REQUIREMENTS:**
 
 - Always check project status tracker first in each new chat
-- Always follow global rules completely -- do not ignore any parts
+- Always follow global rules completely – do not ignore any parts
 - Update project assumptions document at each step when new assumptions emerge
 - When step is complete, provide brief prompt for next chat that includes: check tracker, follow global rules, review knowledge, start with your initial thoughts about that step's deliverable + 7-10 questions
 - Decision hierarchy: My experience (highest weight) > Project knowledge > Your thoughts (lowest weight, most likely to hallucinate)
@@ -76,13 +76,13 @@ Copy and send the following prompt to the first chat in your new Claude Project.
 
 **Now, to customize this approach for my specific project, please ask me strategic questions about:**
 
-1. **Project Type & Context** -- What kind of project, industry, scope, timeline expectations
-2. **My Role & Authority** -- My background, decision-making authority, team involvement
-3. **Project Goals & Deliverables** -- What success looks like, key outputs needed
-4. **Client/Stakeholder Context** -- Who I'm working with/for, their expectations
-5. **Research & Validation Needs** -- What research approaches make sense for this project
-6. **Unique Project Requirements** -- Any special considerations, constraints, or opportunities
-7. **Step Sequence Preferences** -- Which suggested steps fit your project, what should be modified/added/removed
+1. **Project Type & Context** – What kind of project, industry, scope, timeline expectations
+2. **My Role & Authority** – My background, decision-making authority, team involvement
+3. **Project Goals & Deliverables** – What success looks like, key outputs needed
+4. **Client/Stakeholder Context** – Who I'm working with/for, their expectations
+5. **Research & Validation Needs** – What research approaches make sense for this project
+6. **Unique Project Requirements** – Any special considerations, constraints, or opportunities
+7. **Step Sequence Preferences** – Which suggested steps fit your project, what should be modified/added/removed
 
 **After understanding my project context, please:**
 
@@ -110,7 +110,7 @@ After the first chat, save all three documents to your project's knowledge base.
 
 The suggested sequence above is based on a product development workflow. Adapt it to your project type:
 
-- **Client project**: You may already have a brief or requirements -- skip or shorten Phase 1
+- **Client project**: You may already have a brief or requirements – skip or shorten Phase 1
 - **Side project / pet project**: Follow the full sequence for thorough preparation
 - **Design-only project**: Remove Phase 5 and focus on Phases 1-4
 - **Research project**: Expand Phase 1, reduce or remove Phases 4-5

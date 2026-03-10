@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-MCPs are integrations between an AI and another application. They extend what AI can do beyond basic code generation -- reading Figma designs, fetching up-to-date documentation, running browser tests, and more. However, installing every MCP you find is counterproductive. Start with the essentials and add others only when you have a specific need.
+MCPs are integrations between an AI and another application. They extend what AI can do beyond basic code generation – reading Figma designs, fetching up-to-date documentation, running browser tests, and more. However, installing every MCP you find is counterproductive. Start with the essentials and add others only when you have a specific need.
 
 ## Interaction Method
 
@@ -25,7 +25,7 @@ question: "Which MCPs do you already have installed?"
 header: "Current MCP Setup"
 options:
   - label: "None yet"
-    description: "Starting fresh -- need guidance on what to install"
+    description: "Starting fresh – need guidance on what to install"
   - label: "Context7"
     description: "Already have up-to-date documentation access"
   - label: "Figma MCP (official)"
@@ -47,19 +47,19 @@ Using the catalog from [mcp-catalog.md](./references/mcp-catalog.md), recommend 
 
 ### Essential (install these first)
 
-**Context7** -- Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this MCP on its own otherwise.
+**Context7** – Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this MCP on its own otherwise.
 
-**Figma MCP (official)** -- Gives AI access to design data from Figma Dev Mode -- code, not screenshots. The MCP adapts code to your tech stack automatically. Use it gradually (smaller elements at a time) for best results.
+**Figma MCP (official)** – Gives AI access to design data from Figma Dev Mode – code, not screenshots. The MCP adapts code to your tech stack automatically. Use it gradually (smaller elements at a time) for best results.
 
 ### Recommended (install when needed)
 
-**Playwright MCP** -- Browser automation for testing and TDD. More advanced -- install once you are comfortable with the basics.
+**Playwright MCP** – Browser automation for testing and TDD. More advanced – install once you are comfortable with the basics.
 
-**Figma Console MCP (unofficial)** -- Can perform actions in Figma: turn raw frames into components with tokens and styles. Trickier to set up but powerful for design system work.
+**Figma Console MCP (unofficial)** – Can perform actions in Figma: turn raw frames into components with tokens and styles. Trickier to set up but powerful for design system work.
 
 ### Specialized (install for specific use cases)
 
-**Remotion MCP** -- Create videos by talking to AI. Can turn a Figma design into a polished animated video.
+**Remotion MCP** – Create videos by talking to AI. Can turn a Figma design into a polished animated video.
 
 ---
 
@@ -86,9 +86,9 @@ Help the user add MCP usage rules to their CLAUDE.md:
 
 ## Decision Hierarchy
 
-1. **User's direct input** -- they choose which MCPs to install based on their needs
-2. **Project requirements** -- some workflows require specific MCPs
-3. **AI suggestions** -- recommend based on the proven workflow, but do not push unnecessary tools
+1. **User's direct input** – they choose which MCPs to install based on their needs
+2. **Project requirements** – some workflows require specific MCPs
+3. **AI suggestions** – recommend based on the proven workflow, but do not push unnecessary tools
 
 ---
 
@@ -100,4 +100,4 @@ After MCPs are configured, suggest `dev-agent-pipeline` to set up agents that le
 
 ## Resource Files
 
-- [mcp-catalog.md](./references/mcp-catalog.md) -- Catalog of recommended MCPs with use cases and setup references
+- [mcp-catalog.md](./references/mcp-catalog.md) – Catalog of recommended MCPs with use cases and setup references

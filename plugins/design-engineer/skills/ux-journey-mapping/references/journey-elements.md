@@ -8,16 +8,16 @@ A good customer journey map contains 5 types of elements that represent the emot
 
 **Definition**: The highest absolute psych level in your experience.
 
-The Peak is the moment where the user feels the most positive, motivated, or delighted. It is the high point of the entire journey -- the moment of greatest satisfaction, surprise, or reward.
+The Peak is the moment where the user feels the most positive, motivated, or delighted. It is the high point of the entire journey – the moment of greatest satisfaction, surprise, or reward.
 
 **Why it matters**: The Peak-End Rule tells us that people heavily weight the peaks when reconstructing an experience from memory. A strong Peak shapes the user's overall perception of the product far more than the average quality of all steps.
 
 **How to identify**:
 - Where does the user feel the most positive emotion?
-- Where is the "aha moment" -- the point where the user sees the core value?
+- Where is the "aha moment" – the point where the user sees the core value?
 - Where does the user feel the most rewarded for their effort?
 
-**Example (Brave Browser onboarding)**: The homepage dashboard showing ad blocking stats and performance metrics -- the user sees concrete proof that Brave is delivering on its promise.
+**Example (Brave Browser onboarding)**: The homepage dashboard showing ad blocking stats and performance metrics – the user sees concrete proof that Brave is delivering on its promise.
 
 ---
 
@@ -25,7 +25,7 @@ The Peak is the moment where the user feels the most positive, motivated, or del
 
 **Definition**: The lowest absolute psych level in your experience.
 
-The Pit is the moment where the user feels the most frustrated, confused, or demotivated. It is the low point of the entire journey -- where the experience fails the user the most.
+The Pit is the moment where the user feels the most frustrated, confused, or demotivated. It is the low point of the entire journey – where the experience fails the user the most.
 
 **Why it matters**: Like the Peak, the Pit is heavily weighted in memory. Users remember the worst moment almost as vividly as the best. Fixing the biggest Pit often has more impact than improving several minor friction points (Pareto Principle).
 
@@ -42,7 +42,7 @@ The Pit is the moment where the user feels the most frustrated, confused, or dem
 
 **Definition**: A psych increase in your experience.
 
-A Jump is a moment where the user's psych level rises -- they feel better than they did a moment ago. It represents a positive shift: new motivation, reduced friction, a pleasant surprise, or a reward.
+A Jump is a moment where the user's psych level rises – they feel better than they did a moment ago. It represents a positive shift: new motivation, reduced friction, a pleasant surprise, or a reward.
 
 **How to identify**:
 - Where does the user's feeling shift from negative (or neutral) to positive?
@@ -57,7 +57,7 @@ A Jump is a moment where the user's psych level rises -- they feel better than t
 
 **Definition**: A psych decrease in your experience.
 
-A Drop is a moment where the user's psych level falls -- they feel worse than they did a moment ago. It represents friction, confusion, disappointment, or increased effort.
+A Drop is a moment where the user's psych level falls – they feel worse than they did a moment ago. It represents friction, confusion, disappointment, or increased effort.
 
 **How to identify**:
 - Where does the user's feeling shift from positive (or neutral) to negative?
@@ -72,7 +72,7 @@ A Drop is a moment where the user's psych level falls -- they feel worse than th
 
 **Definition**: A moment marking the start or end of a milestone.
 
-A Transition is a boundary point -- the moment where one phase of the experience ends and another begins. Transitions signal important shifts in the user's journey.
+A Transition is a boundary point – the moment where one phase of the experience ends and another begins. Transitions signal important shifts in the user's journey.
 
 **Why it matters**: Transitions are the "stops in a day." Just as you do not count every step you take while walking, you focus on the milestones: leaving your house, arriving at the airport, bumping into a friend. In a product experience, Transitions are the moments that mark real commitment changes or milestone achievements.
 
@@ -83,9 +83,9 @@ Ask yourself:
 - Where does the user's context fundamentally change? (e.g., from browsing to using, from free to paid, from setup to daily use)
 - Where does one distinct phase of the experience end and another begin?
 
-**Example (Brave Browser onboarding)**: Going from passively browsing the Brave website to deciding to download the app. This is a significant commitment milestone -- the user shifts from "considering" to "acting."
+**Example (Brave Browser onboarding)**: Going from passively browsing the Brave website to deciding to download the app. This is a significant commitment milestone – the user shifts from "considering" to "acting."
 
-**Common mistake**: Treating every screen transition as a Transition element. In theory, every step you take while walking could be a "transition" from one place to another. But real milestones are "leaving your house," "arriving at the airport," "bumping into a random friend" -- not each individual step. Focus on the moments that matter from the customer's perspective.
+**Common mistake**: Treating every screen transition as a Transition element. In theory, every step you take while walking could be a "transition" from one place to another. But real milestones are "leaving your house," "arriving at the airport," "bumping into a random friend" – not each individual step. Focus on the moments that matter from the customer's perspective.
 
 ---
 
@@ -106,7 +106,7 @@ The following two graphs have 6 key moments (dots) in the same positions, but in
 
 ## Using Faces for Empathy
 
-Use faces (e.g., emojis) to represent the emotion at each moment. Unlike abstract dots on a graph, faces make it much easier to visualize and communicate what customers are experiencing. This connects to the psychology of Pareidolia -- the brain naturally interprets faces and emotions, making the journey map more intuitive and memorable.
+Use faces (e.g., emojis) to represent the emotion at each moment. Unlike abstract dots on a graph, faces make it much easier to visualize and communicate what customers are experiencing. This connects to the psychology of Pareidolia – the brain naturally interprets faces and emotions, making the journey map more intuitive and memorable.
 
 ---
 

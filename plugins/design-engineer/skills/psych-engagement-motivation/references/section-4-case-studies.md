@@ -1,4 +1,4 @@
-# Section 4: Engagement and Motivation -- Case Studies
+# Section 4: Engagement and Motivation – Case Studies
 
 ## Case Study 1: Onboarding Flow Using Flow State + Aha! Moment + Goal Gradient
 
@@ -79,7 +79,7 @@ Users start workouts but quit midway. Weekly frequency averages 1.8 sessions aga
 
 ### Solution Using Three Principles
 
-**Goal Gradient (Law 33)**: Show workout progress in real-time: "Exercise 6 of 8 -- almost there!" Increase encouragement frequency in the final 25% of each workout. Weekly goals use the same gradient: a 7-day ring that fills visibly with each completed session.
+**Goal Gradient (Law 33)**: Show workout progress in real-time: "Exercise 6 of 8 – almost there!" Increase encouragement frequency in the final 25% of each workout. Weekly goals use the same gradient: a 7-day ring that fills visibly with each completed session.
 
 **Variable Reward (Law 32)**: After each workout, reveal a randomized reward: a new exercise unlocked, a personal record notification, a motivational quote from an athlete, or bonus points toward a merchandise reward. The variety makes post-workout moments exciting.
 

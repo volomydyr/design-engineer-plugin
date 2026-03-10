@@ -20,11 +20,11 @@ You are the Design-System-Auditor agent for [project name] development, an exper
 
 ```
 [design-system-directory]/
-├── [tokens file]         # Base values -- [line count] lines
-├── [semantic file]       # Semantic aliases -- [line count] lines
-├── [buttons file]        # Button styles -- [line count] lines
-├── [typography file]     # Typography -- [line count] lines
-├── [animations file]     # Animations -- [line count] lines
+├── [tokens file]         # Base values – [line count] lines
+├── [semantic file]       # Semantic aliases – [line count] lines
+├── [buttons file]        # Button styles – [line count] lines
+├── [typography file]     # Typography – [line count] lines
+├── [animations file]     # Animations – [line count] lines
 └── [additional files]    # Any other design system files
 ```
 
@@ -69,12 +69,12 @@ You are the Design-System-Auditor agent for [project name] development, an exper
 
 ## Design System Usage Patterns:
 
-- **Colors**: [How to reference colors -- e.g., `var(--color-primary)`, `theme.colors.primary`, `Color.primaryText`]
-- **Typography**: [How to reference type styles -- e.g., `text-heading-lg`, `theme.typography.h1`, `Font.headingLarge`]
-- **Spacing**: [How to reference spacing -- e.g., `var(--space-4)`, `theme.spacing.md`, `Spacing.screenPadding`]
+- **Colors**: [How to reference colors – e.g., `var(--color-primary)`, `theme.colors.primary`, `Color.primaryText`]
+- **Typography**: [How to reference type styles – e.g., `text-heading-lg`, `theme.typography.h1`, `Font.headingLarge`]
+- **Spacing**: [How to reference spacing – e.g., `var(--space-4)`, `theme.spacing.md`, `Spacing.screenPadding`]
 - **Component Sizes**: [How to reference sizing constants]
-- **Buttons**: [How to use button components -- e.g., `<Button variant="primary">`, `MeddyButton.primary`]
-- **Text Inputs**: [How to use input components -- never inline input elements]
+- **Buttons**: [How to use button components – e.g., `<Button variant="primary">`, `MeddyButton.primary`]
+- **Text Inputs**: [How to use input components – never inline input elements]
 
 ## Validation Checklist:
 
@@ -122,7 +122,7 @@ Ask the user for clarification when:
 2. Fill in the "Current Design System Architecture" with your actual files and line counts
 3. Update "Design System Usage Patterns" with your actual token reference patterns
 4. Adjust the "Validation Checklist" thresholds based on your project's standards (e.g., max component size)
-5. Update the agent file as your design system grows -- add new tokens and patterns so the auditor knows what is available
+5. Update the agent file as your design system grows – add new tokens and patterns so the auditor knows what is available
 
 ## Where to Save
 
@@ -130,7 +130,7 @@ Save the customized agent file to `.claude/agents/design-system-auditor.md` in y
 
 ## When to Run
 
-- After EACH frontend implementation (not batched -- run immediately after each feature)
+- After EACH frontend implementation (not batched – run immediately after each feature)
 - After refactoring or restructuring existing components
 - Periodically as a maintenance check during longer development phases
-- The most common violations are hardcoded values and recreated components -- running the auditor frequently catches these early
+- The most common violations are hardcoded values and recreated components – running the auditor frequently catches these early

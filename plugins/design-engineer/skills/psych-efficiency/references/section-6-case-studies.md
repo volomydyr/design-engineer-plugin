@@ -1,4 +1,4 @@
-# Section 6: Efficiency Principles -- Case Studies
+# Section 6: Efficiency Principles – Case Studies
 
 ## Case Study 1: Settings Simplification Using Tesler's Law + Occam's Razor + Unit Bias
 
@@ -6,7 +6,7 @@
 A cloud storage service has a settings page with 45 configuration options spanning security, sharing, storage management, notifications, and integrations. Only 12% of users ever visit the settings page, and those who do change an average of 1.3 settings.
 
 ### Problem
-The settings page exposes all 45 options in a single scrolling list. Users who need to change one setting must scan through dozens of irrelevant options. Power users appreciate the control, but 88% of users never touch settings at all -- they rely entirely on defaults.
+The settings page exposes all 45 options in a single scrolling list. Users who need to change one setting must scan through dozens of irrelevant options. Power users appreciate the control, but 88% of users never touch settings at all – they rely entirely on defaults.
 
 ### Solution Using Three Principles
 

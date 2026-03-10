@@ -8,7 +8,7 @@ Two Figma MCP servers are available for AI-assisted development. Each serves a d
 
 ## 1. Figma Dev Mode MCP (Official)
 
-**What it provides**: Gives your AI tool design information from your frames in Figma. Not screenshots, but data from Dev Mode -- the same code that developers see when they review your UI before implementing it.
+**What it provides**: Gives your AI tool design information from your frames in Figma. Not screenshots, but data from Dev Mode – the same code that developers see when they review your UI before implementing it.
 
 **Key capability**: The MCP understands the technologies you use in your coding project. For example, if you are working on an iOS app with SwiftUI, AI does not just copy the code from Figma (which might be related to web development). Instead, it adapts the code to the correct framework automatically.
 
@@ -24,11 +24,11 @@ Two Figma MCP servers are available for AI-assisted development. Each serves a d
 
 ## 2. Figma Console MCP (Unofficial)
 
-**What it provides**: Unlike the official alternative, it does not just access design code from Dev Mode -- it can actually perform actions in Figma for you. For instance, it can turn raw frames into components with tokens and styles based on your prompt.
+**What it provides**: Unlike the official alternative, it does not just access design code from Dev Mode – it can actually perform actions in Figma for you. For instance, it can turn raw frames into components with tokens and styles based on your prompt.
 
 **Key capability**: Bi-directional interaction with Figma. Instead of just reading design data, it can create, modify, and organize design elements programmatically.
 
-**Setup**: Available at https://github.com/southleft/figma-console-mcp -- requires more configuration than the official MCP. Recommended to try after you have explored the official MCP first.
+**Setup**: Available at https://github.com/southleft/figma-console-mcp – requires more configuration than the official MCP. Recommended to try after you have explored the official MCP first.
 
 **When to use**:
 - When you need to create components, apply tokens, or set up styles in Figma programmatically
@@ -48,9 +48,9 @@ If you share a complex design with AI and tell it to build it, the result will t
 
 The best workflow for recreating UI through Figma MCP:
 
-1. **Generate functional code first** -- build something that works well but looks basic
-2. **Design it in Figma** -- create the visual design for each component or screen
-3. **Apply styles via MCP** -- give AI the Figma designs to apply correct styles without touching functionality
+1. **Generate functional code first** – build something that works well but looks basic
+2. **Design it in Figma** – create the visual design for each component or screen
+3. **Apply styles via MCP** – give AI the Figma designs to apply correct styles without touching functionality
 
 Starting with beautiful designs and then trying to make them functional is a more complex task for AI. Going from functional to beautiful produces better results with fewer iterations.
 
@@ -88,8 +88,8 @@ The MCP automatically adapts code to your project's technology stack. When revie
 
 ## Common Pitfalls
 
-- **Sharing too much at once** -- break complex pages into individual components or sections
-- **Skipping the functional-first approach** -- always get working code before applying visual design
-- **Ignoring tech stack adaptation** -- always verify the MCP output matches your framework patterns
-- **Not comparing with existing code** -- MCP output should integrate with your codebase, not create parallel patterns
-- **Using Figma Console MCP before understanding the official one** -- learn the basics first, then explore the advanced capabilities
+- **Sharing too much at once** – break complex pages into individual components or sections
+- **Skipping the functional-first approach** – always get working code before applying visual design
+- **Ignoring tech stack adaptation** – always verify the MCP output matches your framework patterns
+- **Not comparing with existing code** – MCP output should integrate with your codebase, not create parallel patterns
+- **Using Figma Console MCP before understanding the official one** – learn the basics first, then explore the advanced capabilities

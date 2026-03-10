@@ -30,16 +30,16 @@ Maps each book section to its corresponding skill, defines routing thresholds, a
 
 Route the user to a section skill when ANY of these conditions are met:
 
-1. **3 or more findings in a single section** -- indicates a pattern of issues that requires systematic analysis
-2. **1 or more HIGH severity findings in a section** -- even a single high-severity finding warrants deeper investigation
-3. **User explicitly requests** -- the user asks about topics covered by a specific section regardless of finding count
-4. **Cross-section pattern** -- findings in one section suggest issues in a related section (see cross-section relationships below)
+1. **3 or more findings in a single section** – indicates a pattern of issues that requires systematic analysis
+2. **1 or more HIGH severity findings in a section** – even a single high-severity finding warrants deeper investigation
+3. **User explicitly requests** – the user asks about topics covered by a specific section regardless of finding count
+4. **Cross-section pattern** – findings in one section suggest issues in a related section (see cross-section relationships below)
 
 ### When NOT to Route
 
-- **0-1 LOW findings in a section** -- the quick recommendation in the master scan report is sufficient
-- **Single MEDIUM finding with obvious fix** -- provide the fix inline rather than routing to a full deep dive
-- **User is in targeted mode and did not select the section** -- respect the user's scope choice
+- **0-1 LOW findings in a section** – the quick recommendation in the master scan report is sufficient
+- **Single MEDIUM finding with obvious fix** – provide the fix inline rather than routing to a full deep dive
+- **User is in targeted mode and did not select the section** – respect the user's scope choice
 
 ---
 
@@ -93,7 +93,7 @@ around [specific topic area].
 ### Cross-Section Routing
 ```
 Findings in **Section [N]** suggest related issues in **Section [M]**.
-These sections form a [cluster name] cluster -- reviewing both provides
+These sections form a [cluster name] cluster – reviewing both provides
 a more complete picture of [what the cluster addresses].
 ```
 
@@ -103,10 +103,10 @@ a more complete picture of [what the cluster addresses].
 
 When multiple sections qualify for deep dives, recommend them in this priority:
 
-1. **Sections with HIGH severity findings** -- ordered by number of HIGH findings (most first)
-2. **Sections with 3+ total findings** -- ordered by finding count
-3. **Cross-section cluster recommendations** -- based on relationship patterns
-4. **Sections with 2 MEDIUM findings** -- as optional follow-ups
+1. **Sections with HIGH severity findings** – ordered by number of HIGH findings (most first)
+2. **Sections with 3+ total findings** – ordered by finding count
+3. **Cross-section cluster recommendations** – based on relationship patterns
+4. **Sections with 2 MEDIUM findings** – as optional follow-ups
 
 Present the top 2-3 recommendations as the primary suggestion. List remaining qualified sections as optional follow-ups.
 
@@ -116,14 +116,14 @@ Present the top 2-3 recommendations as the primary suggestion. List remaining qu
 
 When routing to a section skill, pass the following context so the deep dive starts informed:
 
-1. **Design context** -- product type, audience, screens/flows being reviewed
-2. **Findings from the master scan** -- specific observations for that section, including:
+1. **Design context** – product type, audience, screens/flows being reviewed
+2. **Findings from the master scan** – specific observations for that section, including:
    - Which principles were flagged
    - Whether each was a violation or missed opportunity
    - The severity classification
    - Any specific UI elements or flows involved
-3. **User notes** -- any concerns or priorities the user mentioned
-4. **Related findings from other sections** -- if cross-section patterns were detected
+3. **User notes** – any concerns or priorities the user mentioned
+4. **Related findings from other sections** – if cross-section patterns were detected
 
 This ensures the section skill does not repeat the master scan work and can immediately dive deeper into the specific issues identified.
 
@@ -133,18 +133,18 @@ This ensures the section skill does not repeat the master scan work and can imme
 
 When running all sections autonomously (God mode), execute in this order for optimal flow:
 
-1. `psych-cognitive-basics` (Section 1) -- foundational layer, findings inform all others
-2. `psych-visual-perception` (Section 2) -- visual layer analysis
-3. `psych-efficiency` (Section 6) -- interaction mechanics
-4. `psych-decision-making-core` (Section 3a) -- core decision patterns
-5. `psych-decision-making-advanced` (Section 3b) -- advanced decision patterns
-6. `psych-engagement-motivation` (Section 4) -- engagement layer
-7. `psych-emotional-design-core` (Section 5a) -- emotional foundations
-8. `psych-emotional-design-advanced` (Section 5b) -- advanced emotional patterns
-9. `psych-behavioral-economics-core` (Section 7a) -- economic patterns
-10. `psych-behavioral-economics-habits` (Section 7b) -- habit patterns
-11. `psych-social-influence` (Section 8) -- social layer
-12. `psych-cognitive-biases` (Section 9) -- bias identification
-13. `psych-time-behavior` (Section 10) -- time and behavior polish
+1. `psych-cognitive-basics` (Section 1) – foundational layer, findings inform all others
+2. `psych-visual-perception` (Section 2) – visual layer analysis
+3. `psych-efficiency` (Section 6) – interaction mechanics
+4. `psych-decision-making-core` (Section 3a) – core decision patterns
+5. `psych-decision-making-advanced` (Section 3b) – advanced decision patterns
+6. `psych-engagement-motivation` (Section 4) – engagement layer
+7. `psych-emotional-design-core` (Section 5a) – emotional foundations
+8. `psych-emotional-design-advanced` (Section 5b) – advanced emotional patterns
+9. `psych-behavioral-economics-core` (Section 7a) – economic patterns
+10. `psych-behavioral-economics-habits` (Section 7b) – habit patterns
+11. `psych-social-influence` (Section 8) – social layer
+12. `psych-cognitive-biases` (Section 9) – bias identification
+13. `psych-time-behavior` (Section 10) – time and behavior polish
 
 This order ensures foundational findings (cognitive load, visual hierarchy, efficiency) are established before evaluating higher-level patterns (engagement, emotion, social influence) that depend on the foundations being sound.

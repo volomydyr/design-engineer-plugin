@@ -12,7 +12,7 @@ Friction is anything that makes it harder for users to complete their goal. The 
 
 The more choices, the longer it takes to decide. Too many options lead to decision paralysis where users choose nothing at all.
 
-**Hick's Law**: The time it takes to make a decision increases logarithmically with the number of choices. Each additional option does not just add a little complexity -- it compounds it.
+**Hick's Law**: The time it takes to make a decision increases logarithmically with the number of choices. Each additional option does not just add a little complexity – it compounds it.
 
 **How to apply:**
 - Count the number of decisions a user needs to make on each screen
@@ -32,7 +32,7 @@ The more choices, the longer it takes to decide. Too many options lead to decisi
 
 Create experiences that do not absolutely need user input. When sensible defaults are pre-selected, users only need to confirm rather than decide.
 
-**Why it works**: Defaults leverage the Status Quo Bias -- people tend to stick with the pre-selected option because changing it requires effort and decision-making. A good default removes a decision entirely.
+**Why it works**: Defaults leverage the Status Quo Bias – people tend to stick with the pre-selected option because changing it requires effort and decision-making. A good default removes a decision entirely.
 
 **How to apply:**
 - Pre-select the most common choice based on user data
@@ -59,7 +59,7 @@ It is easier to do three small steps than one big one. Breaking complex tasks in
 - Group related inputs together in each step
 - Show progress indicators so users know where they are in the flow
 - Allow users to save progress and return later
-- Use Commitment & Consistency -- once a user completes the first small step, they are more likely to continue
+- Use Commitment & Consistency – once a user completes the first small step, they are more likely to continue
 
 **How to audit:**
 - Are there screens that try to accomplish too much at once?
@@ -77,7 +77,7 @@ Even if you are excited to show what your product can do, make sure people have 
 - Show only the essential features in the initial view
 - Reveal advanced options behind "More options" or "Advanced" toggles
 - Introduce features one at a time during onboarding
-- Use contextual reveals -- show a feature at the moment the user needs it
+- Use contextual reveals – show a feature at the moment the user needs it
 - Layer information: summary first, details on demand
 - Do not front-load every capability your product offers
 
@@ -168,11 +168,11 @@ People can quickly recognize patterns and **start blocking your nudges if they a
 - Social proof or scarcity indicators are dismissed as "marketing tricks"
 
 **How to avoid Reactance:**
-- **Preserve nudges for key actions** -- do not nudge everything
+- **Preserve nudges for key actions** – do not nudge everything
 - Use nudges sparingly so they feel genuine, not manipulative
 - Ensure nudges are truthful (fake scarcity destroys trust permanently)
 - Maintain the user's sense of autonomy ("You can always change this later")
-- Vary your approaches -- do not rely on the same nudge type repeatedly
+- Vary your approaches – do not rely on the same nudge type repeatedly
 - Test whether your nudges increase or decrease long-term trust
 
 ---

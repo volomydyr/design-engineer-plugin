@@ -25,7 +25,7 @@ With sub-agents, each one uses its own set of tokens. One analyzes your project,
 
 ## The Four Agents
 
-### 1. Context Analyzer -- Mandatory First Step
+### 1. Context Analyzer – Mandatory First Step
 
 This agent runs before any implementation. It:
 
@@ -37,7 +37,7 @@ This agent runs before any implementation. It:
 
 **Output:** A summary of the current project state plus questions for you to answer before coding begins. This prevents assumptions and catches potential conflicts early.
 
-### 2. Backend Implementer -- Data Layer First
+### 2. Backend Implementer – Data Layer First
 
 This agent verifies and implements the data layer. It always runs, even if the answer is "no backend changes needed," because:
 
@@ -47,15 +47,15 @@ This agent verifies and implements the data layer. It always runs, even if the a
 
 **Output:** Updated or verified data schemas, API endpoints, and any required backend functions.
 
-### 3. Frontend Implementer -- Pixel-Perfect UI
+### 3. Frontend Implementer – Pixel-Perfect UI
 
 This agent creates the UI with one core rule: pixel-perfect implementation with zero creative interpretation. It must match the designs exactly.
 
-This agent should list every component that already exists in the project, which prevents recreation of things already built. This is a common problem -- AI frequently creates new components instead of reusing existing ones. Update the agent's component inventory whenever new components are created.
+This agent should list every component that already exists in the project, which prevents recreation of things already built. This is a common problem – AI frequently creates new components instead of reusing existing ones. Update the agent's component inventory whenever new components are created.
 
 **Output:** Implemented screens and components that match designs, using the existing design system.
 
-### 4. Design System Auditor -- Quality Check
+### 4. Design System Auditor – Quality Check
 
 This agent runs at the end of any implementation to check for violations. The most common issues are:
 
@@ -89,7 +89,7 @@ The plan must include:
 
 ## Running Agents Manually
 
-Even though the pipeline runs automatically for big implementation tasks, you can also call agents manually. Not all development is about large features -- sometimes you do minor UI improvements or small fixes. In these cases:
+Even though the pipeline runs automatically for big implementation tasks, you can also call agents manually. Not all development is about large features – sometimes you do minor UI improvements or small fixes. In these cases:
 
 - You can run just the design-system-auditor on recently changed code
 - You can run just the context-analyzer to understand the current state before making a decision
@@ -111,12 +111,12 @@ A good practice is to ask AI to update documents and settings when the project h
 
 These are the most common mistakes that break the pipeline:
 
-1. **Skipping to frontend implementation without asking for designs** -- the frontend agent needs design references
-2. **Skipping the plan creation step** -- without a plan, AI builds whatever it thinks is right
-3. **Proceeding with implementation before user approves** -- approval is mandatory, not optional
-4. **Marking backend as "complete" without running it** -- even "no changes needed" requires verification
-5. **Making architectural decisions without checking documentation** -- always use Context7 or equivalent for framework decisions
-6. **Guessing or assuming** -- when in doubt, ask the user for clarification
+1. **Skipping to frontend implementation without asking for designs** – the frontend agent needs design references
+2. **Skipping the plan creation step** – without a plan, AI builds whatever it thinks is right
+3. **Proceeding with implementation before user approves** – approval is mandatory, not optional
+4. **Marking backend as "complete" without running it** – even "no changes needed" requires verification
+5. **Making architectural decisions without checking documentation** – always use Context7 or equivalent for framework decisions
+6. **Guessing or assuming** – when in doubt, ask the user for clarification
 
 ## Setting Up the Pipeline
 

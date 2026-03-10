@@ -2,7 +2,7 @@
 
 ## Law 51: Tesler's Law (Conservation of Complexity)
 
-**Definition**: Any system has a certain amount of complexity that cannot be fully eliminated -- it can only be redistributed between the system and the user.
+**Definition**: Any system has a certain amount of complexity that cannot be fully eliminated – it can only be redistributed between the system and the user.
 
 ### UX Application
 
@@ -12,17 +12,17 @@ This is especially relevant for complex systems, settings, or filters: simplifyi
 
 ### Good Example
 
-A smart email client automatically categorizes incoming messages into Primary, Social, and Promotions tabs. The complexity of sorting hundreds of emails is moved from the user to the system. Users who disagree with a categorization can drag a message to a different tab, teaching the algorithm -- but the default experience requires zero effort.
+A smart email client automatically categorizes incoming messages into Primary, Social, and Promotions tabs. The complexity of sorting hundreds of emails is moved from the user to the system. Users who disagree with a categorization can drag a message to a different tab, teaching the algorithm – but the default experience requires zero effort.
 
 ### Bad Example
 
-A project management tool tries to "simplify" by removing all manual status options and instead using AI to auto-detect project status. The AI frequently misclassifies, and users have no manual override. The complexity was not eliminated -- it was transformed into a different problem (correcting AI mistakes) that is actually harder to solve than the original (clicking a status dropdown).
+A project management tool tries to "simplify" by removing all manual status options and instead using AI to auto-detect project status. The AI frequently misclassifies, and users have no manual override. The complexity was not eliminated – it was transformed into a different problem (correcting AI mistakes) that is actually harder to solve than the original (clicking a status dropdown).
 
 ### Tesler's Law Decision Framework
 
 When facing complexity, ask these three questions in order:
 
-1. **Can this complexity be eliminated entirely?** Some complexity is artificial -- created by poor design, legacy decisions, or unnecessary features. Remove it.
+1. **Can this complexity be eliminated entirely?** Some complexity is artificial – created by poor design, legacy decisions, or unnecessary features. Remove it.
 2. **Can this complexity be moved to the system?** If the system can handle it reliably (autofill, smart defaults, auto-detection), move it off the user's plate.
 3. **If it must stay with the user, can it be presented more simply?** Use progressive disclosure, chunking, or wizard patterns to make necessary complexity manageable.
 
@@ -36,7 +36,7 @@ When facing complexity, ask these three questions in order:
 
 Signifiers include visual, auditory, and tactile hints that help users understand interactions intuitively. For example, a pulsing outline around a button can create the illusion of volume, suggesting it can be pressed. A keyboard sound during text input confirms the action is being registered. Vibration on an error signals an incorrect step.
 
-It is important that signifiers are noticeable but not intrusive, match user expectations, and work across multiple perception channels -- visual, auditory, and tactile.
+It is important that signifiers are noticeable but not intrusive, match user expectations, and work across multiple perception channels – visual, auditory, and tactile.
 
 ### Good Example
 
@@ -44,7 +44,7 @@ A mobile banking app uses subtle shadow and slight elevation on tappable cards, 
 
 ### Bad Example
 
-A web application styles all elements -- buttons, labels, decorative badges, and informational cards -- with the same rounded rectangle shape, identical padding, and similar colors. Users click on decorative elements expecting them to be interactive, and miss actual buttons because nothing visually distinguishes actionable from static content.
+A web application styles all elements – buttons, labels, decorative badges, and informational cards – with the same rounded rectangle shape, identical padding, and similar colors. Users click on decorative elements expecting them to be interactive, and miss actual buttons because nothing visually distinguishes actionable from static content.
 
 ### Signifier Design Principles
 
@@ -98,7 +98,7 @@ A weather app shows the current temperature, a one-sentence forecast, and a 5-da
 
 ### Bad Example
 
-A weather app shows current conditions, hourly forecast, 10-day forecast, radar map, UV index, air quality, pollen count, wind speed chart, sunrise/sunset times, and moon phase -- all on a single scrolling screen. Users who just want to know if it will rain must process 15 data points to find their answer.
+A weather app shows current conditions, hourly forecast, 10-day forecast, radar map, UV index, air quality, pollen count, wind speed chart, sunrise/sunset times, and moon phase – all on a single scrolling screen. Users who just want to know if it will rain must process 15 data points to find their answer.
 
 ### Occam's Razor Application Method
 
@@ -153,7 +153,7 @@ A multi-step checkout process shows a clear "X" button on every step, a "Back" a
 
 ### Bad Example
 
-A subscription cancellation flow hides the cancel option behind 5 screens of retention offers, removes the browser back button functionality, has no visible close button, and requires calling customer support to complete cancellation. The lack of exit points transforms a simple action into a frustrating maze -- a classic dark pattern.
+A subscription cancellation flow hides the cancel option behind 5 screens of retention offers, removes the browser back button functionality, has no visible close button, and requires calling customer support to complete cancellation. The lack of exit points transforms a simple action into a frustrating maze – a classic dark pattern.
 
 ### Exit Point Design Principles
 
@@ -178,7 +178,7 @@ Each solution should match the specific task rather than being a copy of a popul
 
 ### Good Example
 
-An e-commerce app uses different navigation patterns for different content types: a tab bar for main sections (5 items -- all visible), a filterable grid for product browsing (visual scanning), a step-by-step wizard for checkout (linear process), and a search bar with autocomplete for finding specific products. Each pattern matches its specific use case.
+An e-commerce app uses different navigation patterns for different content types: a tab bar for main sections (5 items – all visible), a filterable grid for product browsing (visual scanning), a step-by-step wizard for checkout (linear process), and a search bar with autocomplete for finding specific products. Each pattern matches its specific use case.
 
 ### Bad Example
 
@@ -246,7 +246,7 @@ Gradual changes help users adapt and accept the new.
 
 ### Good Example
 
-A banking app undertakes a major redesign. Instead of launching everything at once, they roll out changes over 6 months: Month 1 -- updated colors and typography (visual refresh). Month 2 -- new icon system (familiar layout, fresher look). Month 3 -- reorganized dashboard (biggest structural change, after users are comfortable with the new visual language). Each update includes a brief "What's new" screen explaining the change and its benefit.
+A banking app undertakes a major redesign. Instead of launching everything at once, they roll out changes over 6 months: Month 1 – updated colors and typography (visual refresh). Month 2 – new icon system (familiar layout, fresher look). Month 3 – reorganized dashboard (biggest structural change, after users are comfortable with the new visual language). Each update includes a brief "What's new" screen explaining the change and its benefit.
 
 ### Bad Example
 
@@ -274,7 +274,7 @@ Users subconsciously trust the system, assuming that these values have already b
 
 ### Good Example
 
-A charity donation page shows four suggested amounts: $10, $25, $50, $100. The $25 option is pre-selected (highlighted). Research shows that most donors will give $25 because the suggested default feels "right." The charity chose $25 because it is genuinely their average donation amount -- the suggested unit reflects real user behavior.
+A charity donation page shows four suggested amounts: $10, $25, $50, $100. The $25 option is pre-selected (highlighted). Research shows that most donors will give $25 because the suggested default feels "right." The charity chose $25 because it is genuinely their average donation amount – the suggested unit reflects real user behavior.
 
 ### Bad Example
 

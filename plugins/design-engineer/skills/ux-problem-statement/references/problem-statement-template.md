@@ -14,11 +14,11 @@ Write 2-3 sentences that capture the essence of the problem. This should be unde
 
 > [Target users] currently struggle with [core problem]. Existing solutions fall short because [gap in current solutions]. This creates [negative consequence] for [how many / what type of] people.
 
-**Example (early draft -- too solution-focused):**
+**Example (early draft – too solution-focused):**
 
 > Tech professionals struggle with maintaining consistent professional development. They lack motivation and personalized learning paths.
 
-**Example (refined -- problem-focused):**
+**Example (refined – problem-focused):**
 
 > Tech professionals accumulate learning resources across dozens of browser tabs, Telegram chats, and bookmarks but rarely return to study them. Existing learning platforms offer generic courses that do not adapt to individual career goals, resulting in abandoned learning plans and stalled professional growth.
 
@@ -42,7 +42,7 @@ Describe the gap in the current landscape. Focus on what is broken, missing, or 
 
 ### 2.2 Who Feels This Pain the Most?
 
-Identify the person who suffers the most from this problem. This is not your entire addressable market -- it is the single most affected user profile.
+Identify the person who suffers the most from this problem. This is not your entire addressable market – it is the single most affected user profile.
 
 **Include:**
 
@@ -118,7 +118,7 @@ Watch for these mistakes and correct them during iteration:
 
 3. **Too narrow:** "Left-handed junior React developers in Kyiv who prefer video content" is so narrow that the market may not exist. Find the balance.
 
-4. **Assumption-heavy:** "Users hate existing solutions" -- do they? Have you asked? Flag assumptions explicitly and plan to validate them.
+4. **Assumption-heavy:** "Users hate existing solutions" – do they? Have you asked? Flag assumptions explicitly and plan to validate them.
 
 5. **Feature list disguised as problem statement:** If your problem statement reads like a product requirements document, start over with the three core questions.
 

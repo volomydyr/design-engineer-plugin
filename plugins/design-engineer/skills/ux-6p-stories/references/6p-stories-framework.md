@@ -1,8 +1,8 @@
-# 6P Stories Framework -- Complete Reference
+# 6P Stories Framework – Complete Reference
 
 ## What Is a 6P Story?
 
-A 6P Story is a one-pager comic with six panels depicting what your customer is going through for a given experience. It is a minimum viable story -- the simplest possible format that still captures the emotional arc of a customer journey.
+A 6P Story is a one-pager comic with six panels depicting what your customer is going through for a given experience. It is a minimum viable story – the simplest possible format that still captures the emotional arc of a customer journey.
 
 6P Stories are for **customer empathy**, not marketing. Their purpose is to help product teams understand what users really need and the context of interaction with a product. Stories are often better than screens for this because:
 
@@ -34,13 +34,13 @@ Stories make your brain feel like YOU are experiencing the journey. When reading
 Three additional psychological principles explain why the comic format is particularly effective:
 
 **1. Closure**
-The brain constantly tries to fill the gaps between comic panels. These gaps between panels are like open-ended questions for your brain. They act as a forcing function for creativity and help you find solutions. The most valuable product insights often emerge from thinking about what happens BETWEEN panels -- the transitions and moments that are not explicitly shown.
+The brain constantly tries to fill the gaps between comic panels. These gaps between panels are like open-ended questions for your brain. They act as a forcing function for creativity and help you find solutions. The most valuable product insights often emerge from thinking about what happens BETWEEN panels – the transitions and moments that are not explicitly shown.
 
 **2. Miller's Law**
-The average person can only keep 7 plus or minus 2 items in their working memory. Six panels is short enough to grasp the overall meaning quickly, while leaving enough gaps to imagine improvement opportunities. This constraint is a feature, not a limitation -- it forces you to focus on the moments that truly matter.
+The average person can only keep 7 plus or minus 2 items in their working memory. Six panels is short enough to grasp the overall meaning quickly, while leaving enough gaps to imagine improvement opportunities. This constraint is a feature, not a limitation – it forces you to focus on the moments that truly matter.
 
 **3. Pareidolia**
-Humans tend to interpret faces and emotions even in abstract shapes and inanimate objects. This is why even the most basic stick-figure drawing -- with simple dots for eyes and a curved line for a mouth -- can convey powerful emotions and build deep empathy. The brain fills in the rest.
+Humans tend to interpret faces and emotions even in abstract shapes and inanimate objects. This is why even the most basic stick-figure drawing – with simple dots for eyes and a curved line for a mouth – can convey powerful emotions and build deep empathy. The brain fills in the rest.
 
 This is explicitly **not a drawing competition**. Raw stick figures are actually better than "realistic" or "artsy" drawings because they keep the focus on the emotion and story rather than artistic quality. Focus only on: faces, eyes, eyebrows, and mouth. These can and should be simple dots, rectangles, and blobs. Keep drawings as simple as possible.
 
@@ -67,42 +67,42 @@ The 6P Story is arranged as a 2x3 grid (2 columns, 3 rows):
 
 ### Panel-by-Panel Guidance
 
-**Panel 1 -- Exposition (Top Left)**
+**Panel 1 – Exposition (Top Left)**
 - Introduce the hero (the customer) and their starting context
 - Show their life BEFORE the experience begins
 - Establish the trigger or need that sets the story in motion
 - Caption: 5 words maximum
 - Include: the character's starting emotion, their environment, the situation
 
-**Panel 2 -- Rising Action (Top Right)**
+**Panel 2 – Rising Action (Top Right)**
 - The customer encounters the first challenge or takes the first step
 - Show the transition from normal life to engaging with the problem
 - Begin building tension
 - Caption: 5 words maximum
 - Include: what changes, the customer's reaction, emerging friction
 
-**Panel 3 -- Rising Action / Complication (Middle Left)**
+**Panel 3 – Rising Action / Complication (Middle Left)**
 - Deepen the conflict or introduce the core struggle
 - This is where things get difficult for the customer
 - Show frustration, confusion, or obstacles
 - Caption: 5 words maximum
 - Include: the main pain point, emotional response, real-life context
 
-**Panel 4 -- Climax / Turning Point (Middle Right)**
+**Panel 4 – Climax / Turning Point (Middle Right)**
 - The critical moment where something changes
 - The customer either finds a solution, makes a decision, or gets help
 - This is the highest-tension panel
 - Caption: 5 words maximum
 - Include: the pivotal action, shift in emotion, what makes the difference
 
-**Panel 5 -- Resolution (Bottom Left)**
+**Panel 5 – Resolution (Bottom Left)**
 - The customer starts experiencing the benefits
 - Tension begins to release
 - Show the transition toward success
 - Caption: 5 words maximum
 - Include: evidence of improvement, growing confidence or relief
 
-**Panel 6 -- Denouement / Happy Ending (Bottom Right)**
+**Panel 6 – Denouement / Happy Ending (Bottom Right)**
 - The customer achieves their goal
 - Show how their life has improved
 - Focus on the FEELING, not the feature
@@ -125,13 +125,13 @@ Your 6P Story focuses more on the customer problem than on your product. You do 
 
 ### 2. Capture Emotions
 
-Empathy requires emotion, so your story highlights emotions. Try to convey a mini rollercoaster of ups and downs from the customer's perspective -- smiles, frowns, expressions of doubt, moments of relief. A flat emotional line means the story is not capturing the real experience.
+Empathy requires emotion, so your story highlights emotions. Try to convey a mini rollercoaster of ups and downs from the customer's perspective – smiles, frowns, expressions of doubt, moments of relief. A flat emotional line means the story is not capturing the real experience.
 
 **Check:** Does the hero's emotional state change at least 2-3 times across the 6 panels? Can you identify a clear emotional low point and a clear emotional high point?
 
 ### 3. Focus on Actions
 
-Your 6P Story does not just describe steps. It makes others feel what the protagonist is going through in a real-life context. Imagine if a product case study were just a series of screen descriptions -- it would not be very exciting or insightful.
+Your 6P Story does not just describe steps. It makes others feel what the protagonist is going through in a real-life context. Imagine if a product case study were just a series of screen descriptions – it would not be very exciting or insightful.
 
 **Check:** Does each panel show the customer DOING something in their real life, or is it just a description of an interface? Can you picture the scene as if you were watching a movie?
 
@@ -161,7 +161,7 @@ You want to focus on the top 6 moments that really make a difference. If you are
 
 - Focus on ONE specific experience, not the entire product lifecycle
 - The experience should have a clear beginning trigger and a clear success moment
-- If you need more than 6 panels, you are trying to cover too much -- split into multiple stories
+- If you need more than 6 panels, you are trying to cover too much – split into multiple stories
 - Good scopes: "first-time booking experience", "receiving a negative review", "upgrading from free to paid"
 - Too broad: "the entire onboarding", "using the product", "the customer lifecycle"
 
@@ -171,10 +171,10 @@ You want to focus on the top 6 moments that really make a difference. If you are
 
 6P Stories are not just for new products. For existing products, they serve a different but equally valuable purpose:
 
-1. **Document the current experience** -- Create a 6P Story of what customers go through RIGHT NOW. This often reveals pain points that analytics alone cannot surface.
-2. **Compare current vs. ideal** -- Create a second 6P Story showing the ideal experience. The gaps between the two stories become your design brief.
-3. **Onboard new team members** -- A 6P Story of the core experience is one of the fastest ways to help new team members understand the customer.
-4. **Rally stakeholders** -- When proposing changes to an existing product, a 6P Story of the current painful experience is far more persuasive than data slides.
+1. **Document the current experience** – Create a 6P Story of what customers go through RIGHT NOW. This often reveals pain points that analytics alone cannot surface.
+2. **Compare current vs. ideal** – Create a second 6P Story showing the ideal experience. The gaps between the two stories become your design brief.
+3. **Onboard new team members** – A 6P Story of the core experience is one of the fastest ways to help new team members understand the customer.
+4. **Rally stakeholders** – When proposing changes to an existing product, a 6P Story of the current painful experience is far more persuasive than data slides.
 
 ---
 
@@ -188,7 +188,7 @@ If you have customer research available (from surveys, interviews, analytics), i
 - **Quotes** from real customers can become the speech balloons in panels
 - **Analytics drop-offs** can indicate where the biggest struggle panel should be
 
-If you do NOT have customer research, the 6P Story becomes a hypothesis. This is still valuable -- it makes your assumptions explicit and testable -- but it should be clearly labeled as a hypothesis, not a validated story.
+If you do NOT have customer research, the 6P Story becomes a hypothesis. This is still valuable – it makes your assumptions explicit and testable – but it should be clearly labeled as a hypothesis, not a validated story.
 
 The General Empathy Questions (GEQs) from the Behavior Mapping activity are excellent sources of story material:
 
@@ -202,10 +202,10 @@ The General Empathy Questions (GEQs) from the Behavior Mapping activity are exce
 
 To create a 6P Story, follow this checklist:
 
-1. **Choose your customer story** -- Pick a slice of customer experience to improve
-2. **Print or draw the template** -- A page folded into 6 sections works perfectly
-3. **Write down the happy ending** -- Panel 6, 5 words maximum
-4. **Fill out the other 5 panels** -- Focus on customer's life, not your product. 5 words maximum per panel caption.
-5. **Illustrate each panel** -- Rough stick-figure illustrations. Focus on customer's context, emotion (frown/smile), and thoughts (speech balloons).
-6. **Review against best practices** -- Check all 5 criteria above
-7. **Find improvement ideas** -- Identify at least one thing that could go wrong and one thing that could be improved between any two panels
+1. **Choose your customer story** – Pick a slice of customer experience to improve
+2. **Print or draw the template** – A page folded into 6 sections works perfectly
+3. **Write down the happy ending** – Panel 6, 5 words maximum
+4. **Fill out the other 5 panels** – Focus on customer's life, not your product. 5 words maximum per panel caption.
+5. **Illustrate each panel** – Rough stick-figure illustrations. Focus on customer's context, emotion (frown/smile), and thoughts (speech balloons).
+6. **Review against best practices** – Check all 5 criteria above
+7. **Find improvement ideas** – Identify at least one thing that could go wrong and one thing that could be improved between any two panels

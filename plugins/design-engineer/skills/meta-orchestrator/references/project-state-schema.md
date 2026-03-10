@@ -4,9 +4,9 @@ Schema for the project state file that tracks progress through the design pipeli
 
 ## Why This File Exists
 
-When you work on something complex with AI, there is a problem you will run into sooner or later -- it forgets things. Every conversation has a token limit, and when you hit it, earlier parts of the chat get compressed or lost. This means the AI might forget about deliverables already created, decisions already made, and approaches that did not work before.
+When you work on something complex with AI, there is a problem you will run into sooner or later – it forgets things. Every conversation has a token limit, and when you hit it, earlier parts of the chat get compressed or lost. This means the AI might forget about deliverables already created, decisions already made, and approaches that did not work before.
 
-The project state file solves this by keeping a persistent record that AI reads at the start of every task. It does not need to be maintained manually -- the orchestrator and meta-compound handle updates automatically. However, users may need to nudge AI to update it from time to time, especially after big phases.
+The project state file solves this by keeping a persistent record that AI reads at the start of every task. It does not need to be maintained manually – the orchestrator and meta-compound handle updates automatically. However, users may need to nudge AI to update it from time to time, especially after big phases.
 
 This file is separate from CLAUDE.md (separation of concerns). It is better to use smaller, dedicated files for tracking progress instead of keeping everything in one large rules file, because otherwise the AI may ignore certain parts due to context limits.
 
@@ -47,7 +47,7 @@ The project state file uses the following markdown structure. Every section is r
 - **Project Name**: The name the user gave the project during startup
 - **Last updated**: Timestamp of the most recent update, in ISO 8601 format (e.g., 2026-03-09T14:30:00Z)
 - **Current phase**: Which phase the pipeline is currently in (e.g., "Phase 2: Strategy and Positioning")
-- **Current skill**: Which skill is currently executing or which skill is next (e.g., "ux-business-plan" or "Between skills -- next is ux-6p-stories")
+- **Current skill**: Which skill is currently executing or which skill is next (e.g., "ux-business-plan" or "Between skills – next is ux-6p-stories")
 - **Mode**: Which access mode the user selected (God, Guided, or Direct)
 - **Pipeline status**: Overall status of the pipeline run
 
@@ -75,39 +75,39 @@ This section is populated during the startup sequence and updated if the project
 
 ### Phase 1: Discovery and Foundation
 - **Status**: [Not started / In progress / Completed / Skipped]
-- **Started**: [Timestamp or "—"]
-- **Completed**: [Timestamp or "—"]
+- **Started**: [Timestamp or "–"]
+- **Completed**: [Timestamp or "–"]
 - **Skills completed**: [List of skill names]
 - **Skills skipped**: [List of skill names with reason]
 - **Deliverables produced**:
-  - [deliverable name] -- [file path relative to design-docs/]
+  - [deliverable name] – [file path relative to design-docs/]
 
 ### Phase 2: Strategy and Positioning
 - **Status**: [Not started / In progress / Completed / Skipped]
-- **Started**: [Timestamp or "—"]
-- **Completed**: [Timestamp or "—"]
+- **Started**: [Timestamp or "–"]
+- **Completed**: [Timestamp or "–"]
 - **Skills completed**: [List of skill names]
 - **Skills skipped**: [List of skill names with reason]
 - **Deliverables produced**:
-  - [deliverable name] -- [file path relative to design-docs/]
+  - [deliverable name] – [file path relative to design-docs/]
 
 ### Phase 3: Product Planning
 - **Status**: [Not started / In progress / Completed / Skipped]
-- **Started**: [Timestamp or "—"]
-- **Completed**: [Timestamp or "—"]
+- **Started**: [Timestamp or "–"]
+- **Completed**: [Timestamp or "–"]
 - **Skills completed**: [List of skill names]
 - **Skills skipped**: [List of skill names with reason]
 - **Deliverables produced**:
-  - [deliverable name] -- [file path relative to design-docs/]
+  - [deliverable name] – [file path relative to design-docs/]
 
 ### Phase 4: Design and Validation
 - **Status**: [Not started / In progress / Completed / Skipped]
-- **Started**: [Timestamp or "—"]
-- **Completed**: [Timestamp or "—"]
+- **Started**: [Timestamp or "–"]
+- **Completed**: [Timestamp or "–"]
 - **Skills completed**: [List of skill names]
 - **Skills skipped**: [List of skill names with reason]
 - **Deliverables produced**:
-  - [deliverable name] -- [file path relative to design-docs/]
+  - [deliverable name] – [file path relative to design-docs/]
 
 ### User Approval Checkpoint
 - **Status**: [Not reached / Pending approval / Approved / Declined]
@@ -117,12 +117,12 @@ This section is populated during the startup sequence and updated if the project
 
 ### Phase 5: Development
 - **Status**: [Not started / In progress / Completed / Skipped]
-- **Started**: [Timestamp or "—"]
-- **Completed**: [Timestamp or "—"]
+- **Started**: [Timestamp or "–"]
+- **Completed**: [Timestamp or "–"]
 - **Skills completed**: [List of skill names]
 - **Skills skipped**: [List of skill names with reason]
 - **Deliverables produced**:
-  - [deliverable name] -- [file path relative to design-docs/]
+  - [deliverable name] – [file path relative to design-docs/]
 ```
 
 ---
@@ -137,7 +137,7 @@ For each skill that has been executed, record its individual status:
 ### ux-big-idea
 - **Status**: [Completed / In progress / Skipped / Failed]
 - **Started**: [Timestamp]
-- **Completed**: [Timestamp or "—"]
+- **Completed**: [Timestamp or "–"]
 - **Deliverable**: [File path relative to design-docs/]
 - **Iterations**: [Number of revision cycles in Guided mode]
 - **Key decisions**: [Brief list of significant decisions made during this skill]
@@ -208,7 +208,7 @@ A brief summary written specifically for the AI to read at the start of the next
 
 **Where we left off**: [Which skill was last completed or is in progress]
 **What to do next**: [The immediate next step]
-**Critical context**: [Any context that must not be forgotten -- warnings, constraints, user preferences]
+**Critical context**: [Any context that must not be forgotten – warnings, constraints, user preferences]
 **Open questions**: [Anything unresolved that needs user input]
 ```
 
@@ -228,7 +228,7 @@ The orchestrator updates the project state file according to these rules:
 
 4. **At the user approval checkpoint**: Update the checkpoint status. Record the user's decision and any comments.
 
-5. **At the start of every new session**: Read the entire file. Confirm the current status with the user before proceeding. Do not assume the state is correct without verification -- the user may have done work outside the pipeline.
+5. **At the start of every new session**: Read the entire file. Confirm the current status with the user before proceeding. Do not assume the state is correct without verification – the user may have done work outside the pipeline.
 
 6. **When a skill fails or is retried**: Update the skill's status to "Failed" or note the retry. Add the failure reason to Learnings under "What Did Not Work".
 
@@ -251,7 +251,7 @@ Below is an example of what the project state file looks like after Phase 1 is c
 
 **Last updated**: 2026-03-09T16:45:00Z
 **Current phase**: Phase 2: Strategy and Positioning
-**Current skill**: Between skills -- next is ux-6p-stories
+**Current skill**: Between skills – next is ux-6p-stories
 **Mode**: Guided
 **Pipeline status**: In progress
 
@@ -269,23 +269,23 @@ Below is an example of what the project state file looks like after Phase 1 is c
 - **Started**: 2026-03-08T10:00:00Z
 - **Completed**: 2026-03-08T18:30:00Z
 - **Skills completed**: ux-big-idea, ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis
-- **Skills skipped**: ux-user-interviews (user chose to skip -- no access to target users yet)
+- **Skills skipped**: ux-user-interviews (user chose to skip – no access to target users yet)
 - **Deliverables produced**:
-  - Big Idea document -- deliverables/phase-1-discovery/big-idea.md
-  - Problem Statement -- deliverables/phase-1-discovery/problem-statement.md
-  - Target Audience -- deliverables/phase-1-discovery/target-audience.md
-  - Assumptions -- deliverables/phase-1-discovery/assumptions.md
-  - Competitor Analysis -- deliverables/phase-1-discovery/competitor-analysis.md
+  - Big Idea document – deliverables/phase-1-discovery/big-idea.md
+  - Problem Statement – deliverables/phase-1-discovery/problem-statement.md
+  - Target Audience – deliverables/phase-1-discovery/target-audience.md
+  - Assumptions – deliverables/phase-1-discovery/assumptions.md
+  - Competitor Analysis – deliverables/phase-1-discovery/competitor-analysis.md
 
 ### Phase 2: Strategy and Positioning
 - **Status**: In progress
 - **Started**: 2026-03-09T09:00:00Z
-- **Completed**: —
+- **Completed**: –
 - **Skills completed**: ux-storybrand, ux-business-plan
 - **Skills skipped**: None yet
 - **Deliverables produced**:
-  - StoryBrand -- deliverables/phase-2-strategy/storybrand.md
-  - Business Plan -- deliverables/phase-2-strategy/business-plan.md
+  - StoryBrand – deliverables/phase-2-strategy/storybrand.md
+  - Business Plan – deliverables/phase-2-strategy/business-plan.md
 
 ### Phase 3: Product Planning
 - **Status**: Not started
@@ -318,7 +318,7 @@ Below is an example of what the project state file looks like after Phase 1 is c
 - **Deliverable**: deliverables/phase-2-strategy/business-plan.md
 - **Iterations**: 4
 - **Key decisions**: Freemium model with premium AI features, no subscription fatigue
-- **Notes**: User had a hypothesis about quarterly payments -- research showed users dislike monthly subscriptions in similar apps but no evidence for quarterly acceptance specifically
+- **Notes**: User had a hypothesis about quarterly payments – research showed users dislike monthly subscriptions in similar apps but no evidence for quarterly acceptance specifically
 
 ## Decisions Log
 
@@ -335,11 +335,11 @@ Below is an example of what the project state file looks like after Phase 1 is c
 - Competitor analysis revealed a gap in medical record interpretation that no competitor addresses well
 
 ### What Did Not Work
-- First attempt at target audience was too broad (all adults) -- narrowed to specific segments after user feedback
+- First attempt at target audience was too broad (all adults) – narrowed to specific segments after user feedback
 
 ### Assumptions Updated
 - Validated: People find medical records confusing (confirmed by competitor reviews)
-- Invalidated: Assumed young adults would be primary audience -- research showed 35-55 age group has more medical records and more frustration
+- Invalidated: Assumed young adults would be primary audience – research showed 35-55 age group has more medical records and more frustration
 
 ### Unexpected Findings
 - Several competitors exist for health tracking but almost none for medical record interpretation specifically
@@ -349,5 +349,5 @@ Below is an example of what the project state file looks like after Phase 1 is c
 **Where we left off**: Completed ux-business-plan, about to start ux-6p-stories
 **What to do next**: Run ux-6p-stories to create narrative scenarios for the product
 **Critical context**: The product is positioned as a "medical translator" (see StoryBrand). Freemium model. Target audience is 35-55 adults with chronic conditions or regular medical visits.
-**Open questions**: User mentioned wanting to explore behavior mapping -- ask whether to include the optional ux-behavior-mapping skill after 6P stories
+**Open questions**: User mentioned wanting to explore behavior mapping – ask whether to include the optional ux-behavior-mapping skill after 6P stories
 ```

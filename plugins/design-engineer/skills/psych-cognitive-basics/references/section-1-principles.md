@@ -1,4 +1,4 @@
-# Section 1: Fundamentals of Cognitive Interaction -- Principles
+# Section 1: Fundamentals of Cognitive Interaction – Principles
 
 All 10 principles covering how to simplify information, reduce brain load, and make interaction intuitive.
 
@@ -12,18 +12,18 @@ All 10 principles covering how to simplify information, reduce brain load, and m
 
 When designing interfaces, it is essential to dose information and simplify how users interact with the system. In practice this means:
 
-- **Break complex forms into steps** -- instead of one long form with 20 fields, create a multi-step wizard that shows 3-5 fields per step
-- **Group related elements** -- cluster similar items visually so the brain processes them as single units rather than individual pieces
-- **Use familiar design patterns** -- rely on conventions users already know (hamburger menus, search bars at the top, shopping cart icons) rather than inventing novel interactions
-- **Limit visible data** -- instead of a table with 20 columns, show 5-6 key columns and let users expand or filter for the rest
-- **Split navigation** -- separate primary navigation (main features) from secondary navigation (settings, help, account)
-- **Structure text content** -- use headings, subheadings, and visual hierarchy so users can scan rather than read every word
+- **Break complex forms into steps** – instead of one long form with 20 fields, create a multi-step wizard that shows 3-5 fields per step
+- **Group related elements** – cluster similar items visually so the brain processes them as single units rather than individual pieces
+- **Use familiar design patterns** – rely on conventions users already know (hamburger menus, search bars at the top, shopping cart icons) rather than inventing novel interactions
+- **Limit visible data** – instead of a table with 20 columns, show 5-6 key columns and let users expand or filter for the rest
+- **Split navigation** – separate primary navigation (main features) from secondary navigation (settings, help, account)
+- **Structure text content** – use headings, subheadings, and visual hierarchy so users can scan rather than read every word
 
 There are three types of cognitive load to consider:
 
-1. **Intrinsic load** -- the inherent complexity of the task itself. You cannot eliminate this, but you can break it into manageable chunks.
-2. **Extraneous load** -- unnecessary complexity added by poor design. This is what you should aggressively reduce. Confusing layouts, unclear labels, and inconsistent patterns all add extraneous load.
-3. **Germane load** -- the productive mental effort of learning and creating mental models. Good design supports this by using progressive disclosure and consistent patterns.
+1. **Intrinsic load** – the inherent complexity of the task itself. You cannot eliminate this, but you can break it into manageable chunks.
+2. **Extraneous load** – unnecessary complexity added by poor design. This is what you should aggressively reduce. Confusing layouts, unclear labels, and inconsistent patterns all add extraneous load.
+3. **Germane load** – the productive mental effort of learning and creating mental models. Good design supports this by using progressive disclosure and consistent patterns.
 
 ### Good Example
 
@@ -43,11 +43,11 @@ A single-page checkout that shows shipping fields, billing fields, payment field
 
 In interfaces, it is important to limit the number of options and group them so users can make choices more easily:
 
-- **Category-based reduction** -- instead of showing all 50 products at once, organize them into 5-7 categories that users can browse one at a time
-- **Navigation limits** -- keep main navigation menus to 5-7 items. If you have more sections, use a hierarchy (primary nav with dropdowns or secondary nav)
-- **Step-by-step forms** -- break registration into multiple simple steps instead of one long page with many fields
-- **Smart defaults** -- pre-select the most common option so users only need to change it if their preference differs
-- **Progressive filtering** -- let users narrow down options gradually (first by category, then by price range, then by features) rather than presenting all filter options simultaneously
+- **Category-based reduction** – instead of showing all 50 products at once, organize them into 5-7 categories that users can browse one at a time
+- **Navigation limits** – keep main navigation menus to 5-7 items. If you have more sections, use a hierarchy (primary nav with dropdowns or secondary nav)
+- **Step-by-step forms** – break registration into multiple simple steps instead of one long page with many fields
+- **Smart defaults** – pre-select the most common option so users only need to change it if their preference differs
+- **Progressive filtering** – let users narrow down options gradually (first by category, then by price range, then by features) rather than presenting all filter options simultaneously
 
 The mathematical relationship is: decision time = a + b * log2(n), where n is the number of equally probable choices. This means that going from 2 options to 4 options adds less decision time than going from 20 to 40. But in practice, even small increases in choice count can cause hesitation when the options are similar or complex.
 
@@ -69,12 +69,12 @@ A restaurant app that shows all 80 menu items in a single scrollable list with n
 
 When designing interfaces, place elements that are frequently used closer to where the user's cursor or finger naturally rests, and size them proportionally to their importance:
 
-- **Proportional sizing** -- important action buttons should be larger than secondary controls. A "Submit" button should be bigger than a "Cancel" link
-- **Natural zones** -- place frequently-used elements near the natural resting position of the cursor (center-right on desktop) or finger (bottom half of screen on mobile)
-- **Mobile thumb zones** -- on mobile, key interactive elements should be in the comfortable thumb reach area (the bottom 40% of the screen). Avoid placing critical actions in the top corners
-- **Edge targeting** -- menus and toolbars benefit from being at screen edges because the edge acts as an infinite boundary, making it easier to click without precise aiming
-- **Touch target minimums** -- interactive elements on touch devices should be at least 44x44 points (Apple) or 48x48 dp (Material Design) to prevent mis-taps
-- **Spacing between targets** -- small, closely-spaced targets increase error rates. Add adequate padding between interactive elements, especially on touch devices
+- **Proportional sizing** – important action buttons should be larger than secondary controls. A "Submit" button should be bigger than a "Cancel" link
+- **Natural zones** – place frequently-used elements near the natural resting position of the cursor (center-right on desktop) or finger (bottom half of screen on mobile)
+- **Mobile thumb zones** – on mobile, key interactive elements should be in the comfortable thumb reach area (the bottom 40% of the screen). Avoid placing critical actions in the top corners
+- **Edge targeting** – menus and toolbars benefit from being at screen edges because the edge acts as an infinite boundary, making it easier to click without precise aiming
+- **Touch target minimums** – interactive elements on touch devices should be at least 44x44 points (Apple) or 48x48 dp (Material Design) to prevent mis-taps
+- **Spacing between targets** – small, closely-spaced targets increase error rates. Add adequate padding between interactive elements, especially on touch devices
 
 ### Good Example
 
@@ -94,13 +94,13 @@ A mobile app where the main action buttons are in the top-left corner of the scr
 
 Interfaces that contain important information should break it into small, meaningful groups of 5-9 elements maximum:
 
-- **Navigation items** -- keep main navigation to 5-7 items. If you have more, use grouping (mega menus) or hierarchy (primary/secondary navigation)
-- **Process steps** -- if a wizard or onboarding flow has more than 7 steps, group them into phases (e.g., "Setup", "Customization", "Verification")
-- **List items** -- when displaying lists of options, preferences, or features, keep each visible group to 5-9 items before introducing a category break or pagination
-- **Form fields** -- group form fields into logical sections of no more than 7 related fields each
-- **Tab bars** -- mobile tab bars should have 3-5 tabs maximum. More than 5 becomes difficult to distinguish and remember
+- **Navigation items** – keep main navigation to 5-7 items. If you have more, use grouping (mega menus) or hierarchy (primary/secondary navigation)
+- **Process steps** – if a wizard or onboarding flow has more than 7 steps, group them into phases (e.g., "Setup", "Customization", "Verification")
+- **List items** – when displaying lists of options, preferences, or features, keep each visible group to 5-9 items before introducing a category break or pagination
+- **Form fields** – group form fields into logical sections of no more than 7 related fields each
+- **Tab bars** – mobile tab bars should have 3-5 tabs maximum. More than 5 becomes difficult to distinguish and remember
 
-When the number of items exceeds 9, group them into logical categories or subdivisions so users can process the information without cognitive overload. The "magic number 7" is a guideline, not a hard rule -- the actual capacity varies by the complexity of the items being remembered.
+When the number of items exceeds 9, group them into logical categories or subdivisions so users can process the information without cognitive overload. The "magic number 7" is a guideline, not a hard rule – the actual capacity varies by the complexity of the items being remembered.
 
 ### Good Example
 
@@ -120,12 +120,12 @@ A dashboard that displays 15 equally-weighted metrics in a single row of cards, 
 
 This principle is rooted in how our memory and cognitive processes work. In interfaces, it is always better to show users available options rather than forcing them to remember:
 
-- **Date selection** -- instead of asking users to type a date in a specific format (DD/MM/YYYY), show a calendar picker where they can visually select the date
-- **Search with suggestions** -- provide autocomplete, search history, and suggested queries so users do not need to formulate exact search terms from memory
-- **Settings as controls** -- use toggles, sliders, and dropdown menus instead of text fields that require users to know and type valid values
-- **Recent items** -- show recently accessed files, documents, or pages so users can click to return rather than remembering paths or names
-- **Visual previews** -- show thumbnails of files, templates, or options rather than just text names
-- **Contextual menus** -- display available actions near the item being acted upon, rather than expecting users to remember keyboard shortcuts or menu locations
+- **Date selection** – instead of asking users to type a date in a specific format (DD/MM/YYYY), show a calendar picker where they can visually select the date
+- **Search with suggestions** – provide autocomplete, search history, and suggested queries so users do not need to formulate exact search terms from memory
+- **Settings as controls** – use toggles, sliders, and dropdown menus instead of text fields that require users to know and type valid values
+- **Recent items** – show recently accessed files, documents, or pages so users can click to return rather than remembering paths or names
+- **Visual previews** – show thumbnails of files, templates, or options rather than just text names
+- **Contextual menus** – display available actions near the item being acted upon, rather than expecting users to remember keyboard shortcuts or menu locations
 
 ### Good Example
 
@@ -145,11 +145,11 @@ A design tool where the user must type exact font names into a text field, remem
 
 Instead of overloading the interface with all possible options and details, reveal additional information sequentially, matching the user's context and needs:
 
-- **Product listings** -- show name, photo, and price first. Reveal detailed specifications, reviews, and comparisons only when the user clicks through to the product detail page
-- **Application settings** -- make simple, frequently-used options immediately accessible. Hide advanced configuration in an "Advanced Settings" section that users can expand
-- **Registration forms** -- ask for basic information first (name, email, password). Show additional fields (profile photo, preferences, integrations) in subsequent steps or after initial setup
-- **Help content** -- show a brief answer first with a "Learn more" link that expands to the full explanation
-- **Feature onboarding** -- introduce features one at a time as users encounter them naturally, rather than showing a 10-slide tutorial upfront
+- **Product listings** – show name, photo, and price first. Reveal detailed specifications, reviews, and comparisons only when the user clicks through to the product detail page
+- **Application settings** – make simple, frequently-used options immediately accessible. Hide advanced configuration in an "Advanced Settings" section that users can expand
+- **Registration forms** – ask for basic information first (name, email, password). Show additional fields (profile photo, preferences, integrations) in subsequent steps or after initial setup
+- **Help content** – show a brief answer first with a "Learn more" link that expands to the full explanation
+- **Feature onboarding** – introduce features one at a time as users encounter them naturally, rather than showing a 10-slide tutorial upfront
 
 The key insight is matching information complexity to user expertise level. Novice users need simplicity; expert users need access to power. Progressive disclosure serves both by layering the experience.
 
@@ -171,12 +171,12 @@ A cloud storage app where every file in the list immediately shows its name, siz
 
 Chunking is a method of organizing content by breaking information into smaller pieces that are easier to understand and remember:
 
-- **Form organization** -- group personal data fields together (name, date of birth), contact information together (email, phone, address), and profile settings together (avatar, bio, notifications). Use visual separators or section headers between groups
-- **Text content** -- split instructions and documentation into short paragraphs with descriptive subheadings. Avoid walls of text
-- **Menu structure** -- break menu options into categories with dividers. A settings menu with 20 items should be divided into groups like "Account", "Privacy", "Notifications", "Display"
-- **Number formatting** -- display phone numbers as (555) 123-4567 rather than 5551234567. Show credit card numbers as 4242 4242 4242 4242 rather than 4242424242424242
-- **Content cards** -- group related information into visual cards (e.g., a user card showing avatar + name + role as one chunk)
-- **Step indicators** -- group multi-step processes into phases of 3-4 steps each, with phase labels
+- **Form organization** – group personal data fields together (name, date of birth), contact information together (email, phone, address), and profile settings together (avatar, bio, notifications). Use visual separators or section headers between groups
+- **Text content** – split instructions and documentation into short paragraphs with descriptive subheadings. Avoid walls of text
+- **Menu structure** – break menu options into categories with dividers. A settings menu with 20 items should be divided into groups like "Account", "Privacy", "Notifications", "Display"
+- **Number formatting** – display phone numbers as (555) 123-4567 rather than 5551234567. Show credit card numbers as 4242 4242 4242 4242 rather than 4242424242424242
+- **Content cards** – group related information into visual cards (e.g., a user card showing avatar + name + role as one chunk)
+- **Step indicators** – group multi-step processes into phases of 3-4 steps each, with phase labels
 
 ### Good Example
 
@@ -196,11 +196,11 @@ A settings screen with 25 options listed in a single flat list with no grouping,
 
 Use size, color, contrast, spacing, and typography strategically so users immediately grasp the importance and structure of the interface:
 
-- **Typography scale** -- establish clear heading levels. H1 should be notably larger and bolder than H2, which should be notably larger than body text. This creates a scannable structure
-- **Primary vs. secondary actions** -- primary action buttons (Save, Submit, Buy) should be visually dominant (filled, high-contrast color). Secondary actions (Cancel, Back) should be visually subdued (outlined, gray, smaller)
-- **Whitespace as hierarchy** -- more whitespace around an element signals greater importance. Section breaks use more spacing than element breaks within a section
-- **Color for meaning** -- use color consistently to signal status (red for errors, green for success, yellow for warnings) and importance (brand color for primary actions, neutral colors for secondary)
-- **Content scanning** -- users scan in F-patterns (left-to-right, top-to-bottom with decreasing attention). Place the most important content at the top-left. Use bold text for key phrases within paragraphs
+- **Typography scale** – establish clear heading levels. H1 should be notably larger and bolder than H2, which should be notably larger than body text. This creates a scannable structure
+- **Primary vs. secondary actions** – primary action buttons (Save, Submit, Buy) should be visually dominant (filled, high-contrast color). Secondary actions (Cancel, Back) should be visually subdued (outlined, gray, smaller)
+- **Whitespace as hierarchy** – more whitespace around an element signals greater importance. Section breaks use more spacing than element breaks within a section
+- **Color for meaning** – use color consistently to signal status (red for errors, green for success, yellow for warnings) and importance (brand color for primary actions, neutral colors for secondary)
+- **Content scanning** – users scan in F-patterns (left-to-right, top-to-bottom with decreasing attention). Place the most important content at the top-left. Use bold text for key phrases within paragraphs
 
 Visual hierarchy is one of the areas where cognitive science intersects with Gestalt principles. The brain automatically assigns importance based on visual weight, and designers must align visual weight with actual importance.
 
@@ -222,11 +222,11 @@ A landing page where all text is the same size and weight, the primary CTA butto
 
 In interfaces, it is important to group related elements together and separate different groups using distance:
 
-- **Form labels and fields** -- a label should be closer to its corresponding input field than to any adjacent field. The spacing between a label and its field should be smaller than the spacing between one field group and the next
-- **Product cards** -- group the product name, price, and "Add to Cart" button close together as a unit. Separate this purchasing cluster from the product specifications or reviews section with more whitespace
-- **Navigation grouping** -- items within the same section of a menu should be closer to each other than to items in a different section. Use visual dividers or spacing to reinforce section boundaries
-- **Dashboard widgets** -- related metrics should be grouped in the same card or section. Unrelated metrics should be in separate visual containers
-- **Button groups** -- related actions (Edit, Duplicate, Delete) should be grouped together and separated from unrelated actions (Share, Print)
+- **Form labels and fields** – a label should be closer to its corresponding input field than to any adjacent field. The spacing between a label and its field should be smaller than the spacing between one field group and the next
+- **Product cards** – group the product name, price, and "Add to Cart" button close together as a unit. Separate this purchasing cluster from the product specifications or reviews section with more whitespace
+- **Navigation grouping** – items within the same section of a menu should be closer to each other than to items in a different section. Use visual dividers or spacing to reinforce section boundaries
+- **Dashboard widgets** – related metrics should be grouped in the same card or section. Unrelated metrics should be in separate visual containers
+- **Button groups** – related actions (Edit, Duplicate, Delete) should be grouped together and separated from unrelated actions (Share, Print)
 
 The key rule: **internal spacing must be tighter than external spacing.** The gap between elements within a group should always be smaller than the gap between groups.
 
@@ -248,14 +248,14 @@ A form where all labels, inputs, and helper texts are evenly spaced at 16px apar
 
 This principle ensures that users can easily find and understand the functionality of the interface without additional instructions:
 
-- **Visual cues** -- use clear visual affordances (buttons that look clickable, text fields that look editable, links that look tappable). Interactive elements must be visually distinct from static content
-- **Standard patterns** -- leverage interaction patterns users already know (swipe to delete, pull to refresh, long-press for context menu). Novel interactions need explicit guidance
-- **Meaningful icons** -- icons should be universally recognizable or paired with text labels. Avoid abstract icons without labels, as they force users to guess their meaning
-- **Feedback on actions** -- every user action should produce visible feedback (button press animation, loading indicator, success/error message). Silent interactions leave users uncertain whether anything happened
-- **Onboarding for new features** -- when introducing new capabilities, show contextual tooltips, coach marks, or subtle animations that draw attention to the new element. The user should never wonder "how do I do X?"
-- **Visible state** -- make the current state of the system visible (selected tab highlighted, active filters shown, undo available). Users should always know where they are and what is happening
+- **Visual cues** – use clear visual affordances (buttons that look clickable, text fields that look editable, links that look tappable). Interactive elements must be visually distinct from static content
+- **Standard patterns** – leverage interaction patterns users already know (swipe to delete, pull to refresh, long-press for context menu). Novel interactions need explicit guidance
+- **Meaningful icons** – icons should be universally recognizable or paired with text labels. Avoid abstract icons without labels, as they force users to guess their meaning
+- **Feedback on actions** – every user action should produce visible feedback (button press animation, loading indicator, success/error message). Silent interactions leave users uncertain whether anything happened
+- **Onboarding for new features** – when introducing new capabilities, show contextual tooltips, coach marks, or subtle animations that draw attention to the new element. The user should never wonder "how do I do X?"
+- **Visible state** – make the current state of the system visible (selected tab highlighted, active filters shown, undo available). Users should always know where they are and what is happening
 
-The core principle: users should never have to guess how to do something -- it should be obvious from the interface itself.
+The core principle: users should never have to guess how to do something – it should be obvious from the interface itself.
 
 ### Good Example
 
@@ -263,4 +263,4 @@ A collaborative document editor where the toolbar buttons use universally recogn
 
 ### Bad Example
 
-A document editor where toolbar buttons are unlabeled abstract shapes, there is no visual difference between editing and viewing modes, new features appear without any indication, and there is no feedback when the user saves a document -- they must check the file system to confirm the save worked.
+A document editor where toolbar buttons are unlabeled abstract shapes, there is no visual difference between editing and viewing modes, new features appear without any indication, and there is no feedback when the user saves a document – they must check the file system to confirm the save worked.

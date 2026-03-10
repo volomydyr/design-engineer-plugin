@@ -14,8 +14,8 @@ disable-model-invocation: true
 
 **Reference files:**
 
-- [bmap-framework.md](./references/bmap-framework.md) -- Complete BMap formula, Activation Threshold, 10 behavior levers, 3 key questions, GEQs, and the "Replacing X" technique
-- [mental-model-guide.md](./references/mental-model-guide.md) -- How to build, use, and validate mental models for product design
+- [bmap-framework.md](./references/bmap-framework.md) – Complete BMap formula, Activation Threshold, 10 behavior levers, 3 key questions, GEQs, and the "Replacing X" technique
+- [mental-model-guide.md](./references/mental-model-guide.md) – How to build, use, and validate mental models for product design
 
 ---
 
@@ -54,15 +54,15 @@ Explain the core concept naturally as part of the conversation:
 
 A user behavior happens only when three elements converge at the same moment:
 
-1. **Motivation** -- The willpower to act. The behavior must be aligned with the user's hopes, pains, and existing desires. You cannot impose motivation that does not exist.
-2. **Ability** -- The capacity to act. The user must have the time, money, physical capacity, mental capacity, and familiarity needed to perform the behavior.
-3. **Prompt** -- The timely cue to act. Without a prompt, there is no action -- even when motivation and ability are both high. The prompt must arrive at the right moment.
+1. **Motivation** – The willpower to act. The behavior must be aligned with the user's hopes, pains, and existing desires. You cannot impose motivation that does not exist.
+2. **Ability** – The capacity to act. The user must have the time, money, physical capacity, mental capacity, and familiarity needed to perform the behavior.
+3. **Prompt** – The timely cue to act. Without a prompt, there is no action – even when motivation and ability are both high. The prompt must arrive at the right moment.
 
 **The Activation Threshold:** On the BMap, there is a dashed line representing the minimum combined Motivation and Ability needed for a behavior to occur. If the user falls BELOW this threshold, the behavior does not happen regardless of the prompt.
 
 **Critical ethical insight:** Never try to impose a behavior on a user. Instead: (1) align your product with what users already want to accomplish, (2) highlight how it will help them achieve their goal (Motivation), and only then (3) make it as easy as possible to take action (Ability) with a clear and timely cue (Prompt).
 
-The BMap is a mental model -- a simplified representation to help you understand opposing forces influencing user behavior. It is not about placing a prompt as precisely as possible on a chart.
+The BMap is a mental model – a simplified representation to help you understand opposing forces influencing user behavior. It is not about placing a prompt as precisely as possible on a chart.
 </step>
 
 <step number="3" required="true" depends_on="2">
@@ -92,9 +92,9 @@ Teach the **"Replacing X" technique** (see [bmap-framework.md](./references/bmap
 ```
 Do you have answers to these 3 empathy questions from real customers?
 
-1. Yes -- I have customer research data I can share
-2. No, but I can collect it -- give me the questions formatted for my situation
-3. No, and I cannot access customers -- let's work with assumptions (will be clearly marked as hypotheses)
+1. Yes – I have customer research data I can share
+2. No, but I can collect it – give me the questions formatted for my situation
+3. No, and I cannot access customers – let's work with assumptions (will be clearly marked as hypotheses)
 ```
 
 **BLOCKING REQUIREMENT:** Wait for user response. If they choose option 2, format the GEQs with their specific product context (replacing X and Y). If they choose option 3, proceed but label all motivation/ability assessments as hypotheses.
@@ -138,16 +138,16 @@ Walk the user through assessing each of the 10 behavior levers for their specifi
 Let's assess your user's behavior levers. For the desired behavior you described, rate each on a scale of Low / Medium / High:
 
 MOTIVATION:
-1. Anticipation (hope/fear) -- How strongly does this behavior connect to something the user hopes for or fears?
-2. Sensation (pleasure/pain) -- Does this behavior involve seeking pleasure or avoiding pain?
-3. Belonging (acceptance/rejection) -- Does this behavior connect to social acceptance or fear of rejection?
+1. Anticipation (hope/fear) – How strongly does this behavior connect to something the user hopes for or fears?
+2. Sensation (pleasure/pain) – Does this behavior involve seeking pleasure or avoiding pain?
+3. Belonging (acceptance/rejection) – Does this behavior connect to social acceptance or fear of rejection?
 
 ABILITY:
-4. Time -- How long does it take?
-5. Money -- How much does it cost?
-6. Physical Capacity -- How physically demanding is it?
-7. Mental Capacity -- How complicated is it?
-8. Practice -- How familiar is it to the user?
+4. Time – How long does it take?
+5. Money – How much does it cost?
+6. Physical Capacity – How physically demanding is it?
+7. Mental Capacity – How complicated is it?
+8. Practice – How familiar is it to the user?
 
 PROMPT:
 9. Do you have an explicit prompt (button, notification, email) at the right moment?
@@ -193,7 +193,7 @@ Let's validate your prompt. Answer these questions:
 5. Are there natural implicit prompts (situations, habits) you could leverage?
 ```
 
-**Example:** Uber Eats sends food delivery notifications around lunch and dinner time because hunger increases motivation, which increases the chance of being above the Activation Threshold. The prompt itself has not changed -- only its timing.
+**Example:** Uber Eats sends food delivery notifications around lunch and dinner time because hunger increases motivation, which increases the chance of being above the Activation Threshold. The prompt itself has not changed – only its timing.
 </step>
 
 <step number="7" required="true" depends_on="6">
@@ -253,9 +253,9 @@ Compile the analysis into a structured Behavior Map document:
 
 ## Decision Hierarchy
 
-1. **User's customer research** -- Real data from GEQs, interviews, and analytics always wins
-2. **Framework guidelines** -- The BMap structure and lever definitions from reference files
-3. **AI suggestions** -- Only when user has no data; clearly labeled as hypotheses
+1. **User's customer research** – Real data from GEQs, interviews, and analytics always wins
+2. **Framework guidelines** – The BMap structure and lever definitions from reference files
+3. **AI suggestions** – Only when user has no data; clearly labeled as hypotheses
 
 Never invent customer motivations. If the user has no customer data, every motivation and ability assessment must be labeled as a hypothesis to validate.
 

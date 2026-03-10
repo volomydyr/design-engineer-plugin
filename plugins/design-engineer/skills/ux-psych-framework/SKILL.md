@@ -14,7 +14,7 @@ disable-model-invocation: true
 
 **Reference files:**
 
-- [psych-framework-guide.md](./references/psych-framework-guide.md) -- Complete Psych Framework with NPV formula, Psych Levels, variation benchmarks, video game analogy, and analysis template
+- [psych-framework-guide.md](./references/psych-framework-guide.md) – Complete Psych Framework with NPV formula, Psych Levels, variation benchmarks, video game analogy, and analysis template
 
 ---
 
@@ -54,7 +54,7 @@ Explain the framework naturally as part of the conversation:
 Psych = merging the Motivation and Ability axes of the Behavior Map into a single dimension. Think of Psych as a precious cognitive resource that every user brings to an experience:
 
 - Every user interaction will either **add** Psych (motivation, clarity, delight, progress) or **subtract** Psych (friction, confusion, effort, frustration)
-- **Motivating users is just as important as reducing unnecessary friction** -- this is the core insight
+- **Motivating users is just as important as reducing unnecessary friction** – this is the core insight
 
 **The Video Game Analogy**
 
@@ -62,7 +62,7 @@ Think of your customer as the **hero of a video game**, and their Psych Level as
 
 - Your job is to help them achieve their quest (not just your business goals)
 - To keep their Psych up, you need to motivate them AND minimize friction
-- If their Psych Level drops too much, it is game over for them -- and for you
+- If their Psych Level drops too much, it is game over for them – and for you
 - The quest is the customer's goal, not your conversion metric
 
 **Net Perceived Value (NPV)**
@@ -105,7 +105,7 @@ Try to identify 4-8 key reaction points. You can describe them sequentially as t
 - Follow the natural scanning pattern (typically F-shaped for web pages)
 - Look for: headlines, images, calls-to-action, form fields, pricing, social proof, error messages, loading states
 - Each reaction point should represent a moment where the customer's Psych Level changes
-- Not every element is a reaction point -- focus on the ones that cause significant positive or negative shifts
+- Not every element is a reaction point – focus on the ones that cause significant positive or negative shifts
 
 **BLOCKING REQUIREMENT:** Wait for user input. If the user struggles, provide examples based on the Swimply case study from the reference file.
 </step>
@@ -132,7 +132,7 @@ Now let's assign Psych variations to each reaction point. For each one, give it 
 Remember:
 - Positive = adds motivation, clarity, reassurance, or delight
 - Negative = adds friction, confusion, doubt, or frustration
-- Don't obsess over exact numbers -- focus on getting the DIRECTION and RELATIVE magnitude right
+- Don't obsess over exact numbers – focus on getting the DIRECTION and RELATIVE magnitude right
 
 What Psych variation would you assign to each reaction point you identified?
 ```
@@ -151,7 +151,7 @@ Help the user track the cumulative Psych Level across the experience.
 
 **Process:**
 
-1. Start with a baseline Psych Level (this depends on the customer's context -- are they excited, neutral, or already frustrated when they arrive?)
+1. Start with a baseline Psych Level (this depends on the customer's context – are they excited, neutral, or already frustrated when they arrive?)
 2. Add or subtract each Psych variation sequentially
 3. Track the running total at each point
 
@@ -179,11 +179,11 @@ Based on the Psych analysis, guide the user to identify concrete improvements.
 
 **Three types of improvements to consider:**
 
-1. **Reduce friction at the lowest Psych point** -- The biggest dip is the most dangerous moment. What can be simplified, clarified, or removed?
+1. **Reduce friction at the lowest Psych point** – The biggest dip is the most dangerous moment. What can be simplified, clarified, or removed?
 
-2. **Add motivation BEFORE friction points** -- If a friction-heavy step is unavoidable (e.g., a required form), add a motivating element BEFORE it to build up the user's Psych reserves. This could be social proof, a benefit reminder, a progress indicator, or a reassuring message.
+2. **Add motivation BEFORE friction points** – If a friction-heavy step is unavoidable (e.g., a required form), add a motivating element BEFORE it to build up the user's Psych reserves. This could be social proof, a benefit reminder, a progress indicator, or a reassuring message.
 
-3. **Amplify existing positive moments** -- Where Psych is already rising, can it rise more? Small additions like micro-copy, delighters, or progress celebration can amplify natural positive moments.
+3. **Amplify existing positive moments** – Where Psych is already rising, can it rise more? Small additions like micro-copy, delighters, or progress celebration can amplify natural positive moments.
 
 **Use AskUserQuestion:**
 
@@ -215,7 +215,7 @@ Compile the complete analysis.
 
 ## Customer Context
 - Goal: [What the user is trying to accomplish]
-- Arrival state: [How they arrive -- motivated, neutral, frustrated]
+- Arrival state: [How they arrive – motivated, neutral, frustrated]
 - Key motivations: [From BMap or research]
 - Key ability constraints: [From BMap or research]
 
@@ -266,10 +266,10 @@ If the user has access to customer research with SEQ-type data, it dramatically 
 
 ## Decision Hierarchy
 
-1. **User's customer research and SEQ data** -- Real user reactions always win
-2. **BMap insights** -- Motivation and ability analysis from Behavior Mapping
-3. **Framework benchmarks** -- Reference Psych Variation Benchmarks from the guide
-4. **AI estimates** -- Only when no other data exists; clearly labeled as estimates
+1. **User's customer research and SEQ data** – Real user reactions always win
+2. **BMap insights** – Motivation and ability analysis from Behavior Mapping
+3. **Framework benchmarks** – Reference Psych Variation Benchmarks from the guide
+4. **AI estimates** – Only when no other data exists; clearly labeled as estimates
 
 Never present AI-estimated Psych variations as facts. If the user has no customer data, all variations are estimates to be validated.
 

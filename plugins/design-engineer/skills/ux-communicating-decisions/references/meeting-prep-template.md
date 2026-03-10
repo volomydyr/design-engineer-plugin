@@ -26,7 +26,7 @@ _Frame the problem clearly. Make sure it is a real user problem, not just a busi
 
 **Your answer**: [The specific user problem, backed by data or research]
 
-**Is it a business problem?** [Yes/No -- if yes, also frame the user impact]
+**Is it a business problem?** [Yes/No – if yes, also frame the user impact]
 
 ### 4. How does it currently affect our users?
 

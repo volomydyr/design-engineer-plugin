@@ -1,6 +1,6 @@
 # Idea Validation Criteria
 
-Use these criteria to evaluate the strength of a product idea before investing significant time and resources. This is not a pass/fail checklist -- it is a thinking tool that helps surface risks and blind spots early.
+Use these criteria to evaluate the strength of a product idea before investing significant time and resources. This is not a pass/fail checklist – it is a thinking tool that helps surface risks and blind spots early.
 
 ## Core Validation Questions
 
@@ -21,7 +21,7 @@ Does the idea address a specific, observable problem?
 
 Is there a clearly defined group of people who experience this problem most acutely?
 
-**Strong signal**: You can describe a specific type of person -- their role, context, daily situation -- and explain why they suffer from this problem more than others.
+**Strong signal**: You can describe a specific type of person – their role, context, daily situation – and explain why they suffer from this problem more than others.
 
 **Warning sign**: The target is "everyone" or a vaguely defined group like "people who want to be more productive." Building a product "for everyone" usually means building it for no one.
 
@@ -119,7 +119,7 @@ When evaluating an idea with the user:
 1. Walk through each criterion honestly, not to discourage, but to strengthen the idea
 2. Identify which criteria are strong (these are the idea's foundations)
 3. Identify which criteria are weak or unknown (these become the first assumptions to validate)
-4. Help the user see that weak areas are not failures -- they are research priorities
+4. Help the user see that weak areas are not failures – they are research priorities
 5. The goal is never to prove an idea is perfect, but to deeply understand its potential and challenges
 
 Remember: most successful products started with ideas that had significant weaknesses. The difference is that their founders identified those weaknesses early and addressed them systematically.

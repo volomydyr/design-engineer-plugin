@@ -18,15 +18,15 @@ If no specific activity was specified in arguments, use AskUserQuestion to ask:
 
 **Question:** "What research activity do you need?"
 
-1. **Big Idea validation** -- Refine and validate your product idea
-2. **Problem Statement** -- Define the problem you are solving
-3. **Target Audience** -- Develop user personas
-4. **Assumptions & Hypotheses** -- Track and plan validation for assumptions
-5. **Competitive Analysis** -- Analyze the competitive landscape
-6. **User Interviews** -- Design, prepare, and analyze interviews
-7. **Business Plan** -- Revenue model, market size, go-to-market
-8. **StoryBrand** -- Product messaging framework
-9. **Full research pipeline** -- Run all of the above in sequence
+1. **Big Idea validation** – Refine and validate your product idea
+2. **Problem Statement** – Define the problem you are solving
+3. **Target Audience** – Develop user personas
+4. **Assumptions & Hypotheses** – Track and plan validation for assumptions
+5. **Competitive Analysis** – Analyze the competitive landscape
+6. **User Interviews** – Design, prepare, and analyze interviews
+7. **Business Plan** – Revenue model, market size, go-to-market
+8. **StoryBrand** – Product messaging framework
+9. **Full research pipeline** – Run all of the above in sequence
 
 If AskUserQuestion is not available, present options as a numbered list.
 
@@ -74,6 +74,6 @@ Run `meta-compound` after completing the pipeline to document all research findi
 
 ## Agents Used
 
-- `ux-researcher` -- parallel research tasks
-- `deliverable-writer` -- document production
-- `compound-documenter` -- progress documentation
+- `ux-researcher` – parallel research tasks
+- `deliverable-writer` – document production
+- `compound-documenter` – progress documentation

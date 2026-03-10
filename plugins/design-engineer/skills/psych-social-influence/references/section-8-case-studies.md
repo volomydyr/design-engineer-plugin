@@ -1,4 +1,4 @@
-# Section 8: Social Influence -- Case Studies
+# Section 8: Social Influence – Case Studies
 
 ## Case Study 1: E-Commerce Trust Building Using Bandwagon Effect + Barnum-Forer Awareness + Self-Serving Bias
 
@@ -14,7 +14,7 @@ Product pages show basic information (title, price, description, photos) but lac
 
 **Barnum-Forer Awareness (Law 78)**: Ensure personalized recommendations are genuinely data-driven, not generic. Instead of labeling everything "Recommended for you," show "Because you bought [specific product], customers like you also bought [related product]." The specificity makes the recommendation feel trustworthy rather than generic.
 
-**Self-Serving Bias (Law 80)**: When a purchase succeeds, show "Great choice! You found one of our highest-rated items." When something goes wrong (payment fails, item out of stock), the message takes responsibility: "We're sorry -- this item just sold out. Here are similar options we think you'll like."
+**Self-Serving Bias (Law 80)**: When a purchase succeeds, show "Great choice! You found one of our highest-rated items." When something goes wrong (payment fails, item out of stock), the message takes responsibility: "We're sorry – this item just sold out. Here are similar options we think you'll like."
 
 ### Result Pattern
 - Conversion rate increases through social validation
@@ -58,11 +58,11 @@ Users receive 5-8 push notifications daily. Opening the app triggers a fullscree
 
 ### Solution Using Three Principles
 
-**Reactance (Law 79)**: Dramatically reduce interruptions. Replace frequent push notifications with a single daily digest that users can customize. Remove the fullscreen rating popup entirely -- instead, add a subtle in-context prompt after a user completes a meaningful task. Make the premium upgrade a quiet, always-accessible option rather than an aggressive interruption. Put notification controls on the main settings page, not buried in submenus.
+**Reactance (Law 79)**: Dramatically reduce interruptions. Replace frequent push notifications with a single daily digest that users can customize. Remove the fullscreen rating popup entirely – instead, add a subtle in-context prompt after a user completes a meaningful task. Make the premium upgrade a quiet, always-accessible option rather than an aggressive interruption. Put notification controls on the main settings page, not buried in submenus.
 
 **Spotlight Effect (Law 76)**: Remove features that make users feel watched or judged. Eliminate "last active" status indicators that create pressure to appear available. Replace "You haven't completed any tasks today" messages with encouraging alternatives like "Ready to pick up where you left off?" Never display inactivity streaks or shame users for gaps in usage.
 
-**Streisand Effect (Law 77)**: Address the social media criticism transparently rather than trying to suppress it. Publish a blog post: "We heard you -- here's what we're changing about notifications." The transparency converts critics into advocates. Trying to hide or dispute the complaints would only amplify them.
+**Streisand Effect (Law 77)**: Address the social media criticism transparently rather than trying to suppress it. Publish a blog post: "We heard you – here's what we're changing about notifications." The transparency converts critics into advocates. Trying to hide or dispute the complaints would only amplify them.
 
 ### Result Pattern
 - Daily active users stabilize and begin recovering as friction is removed

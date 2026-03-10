@@ -15,7 +15,7 @@ Most designers are not fans of writing them out. But it is easier than it looks 
 1. "I believe [assumption is true/false], and I can find out by [research method]."
 2. "I will achieve [result] if [user group] gets [value] by using [functionality]. I can validate this through [research method]."
 
-This is a living document. New hypotheses are added constantly -- usually around 2 AM. The key discipline is tracking them systematically, categorizing by risk, and prioritizing which ones to test first.
+This is a living document. New hypotheses are added constantly – usually around 2 AM. The key discipline is tracking them systematically, categorizing by risk, and prioritizing which ones to test first.
 
 ## Interaction Method
 
@@ -100,7 +100,7 @@ Help the user prioritize which assumptions to test first using a value-risk matr
 
 High-value, high-risk assumptions should be tested first. Low-value, low-risk assumptions can wait or go to the parking lot.
 
-New hypotheses are added or adjusted constantly -- this is not a fixed process. Prioritization should happen before planning each new round of research, because it determines what gets tested next.
+New hypotheses are added or adjusted constantly – this is not a fixed process. Prioritization should happen before planning each new round of research, because it determines what gets tested next.
 
 ---
 
@@ -148,11 +148,11 @@ This skill enforces User > Docs > AI at every step:
 
 After assumptions are documented, suggest:
 
-1. `ux-user-interviews` -- Design research to validate the highest-priority assumptions
-2. `ux-competitor-analysis` -- Research competitors to validate market-related assumptions
+1. `ux-user-interviews` – Design research to validate the highest-priority assumptions
+2. `ux-competitor-analysis` – Research competitors to validate market-related assumptions
 
 ---
 
 ## Resource Files
 
-- [assumptions-template.md](./references/assumptions-template.md) -- Categorized assumption tracking format with prioritization matrix
+- [assumptions-template.md](./references/assumptions-template.md) – Categorized assumption tracking format with prioritization matrix

@@ -48,7 +48,7 @@ Provide a structured analysis summary with these sections:
 - Ensure the current task aligns with the documented tech stack
 - Identify any asset needs (icons, images) and check what already exists before requesting new ones
 - Flag any potential conflicts between designs and documented requirements
-- Emphasize REUSE EXISTING DEVELOPMENT -- check existing views, design system, and components before creating anything new
+- Emphasize REUSE EXISTING DEVELOPMENT – check existing views, design system, and components before creating anything new
 - **Ask the user for clarification** when analysis reveals ambiguities, conflicts, or decisions requiring user input
 
 Your analysis sets the foundation for all subsequent development work. Be thorough and precise to ensure optimal development outcomes.

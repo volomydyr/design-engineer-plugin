@@ -24,13 +24,13 @@ A checkout flow processes the payment successfully but shows only "Order #38291 
 
 We judge an experience largely based on how we felt at its peak and at its end, rather than the sum or average of every moment.
 
-**Key research**: Daniel Kahneman's cold water experiment -- participants preferred a trial of 60 seconds in painfully cold water followed by 30 seconds of slightly warmer water over just 60 seconds of cold water. The improved ending made the longer, objectively worse experience seem better.
+**Key research**: Daniel Kahneman's cold water experiment – participants preferred a trial of 60 seconds in painfully cold water followed by 30 seconds of slightly warmer water over just 60 seconds of cold water. The improved ending made the longer, objectively worse experience seem better.
 
 **UX applications from 106 Biases**:
 
 - **Provide Exit Points**: Well-designed exit moments (save confirmations, summary screens, "come back soon" messages) dramatically improve how the experience is remembered
 - **Peak-End Rule in onboarding**: A confusing 10-step onboarding that ends with a satisfying Aha! Moment will be remembered more positively than a smooth 5-step onboarding with a flat ending
-- **Error recovery as peak**: When a user encounters an error and the system helps them recover gracefully, that recovery can become a positive peak -- better than if no error had occurred
+- **Error recovery as peak**: When a user encounters an error and the system helps them recover gracefully, that recovery can become a positive peak – better than if no error had occurred
 
 **Design strategy**: Map your user journey and identify (1) where the peak is, (2) how the experience ends. Invest disproportionate design effort in these two moments.
 
@@ -46,7 +46,7 @@ From practice, pleasant surprises often become viral moments that users share wi
 
 For example: a fun animation when completing a task, a humorous message during loading, or a pleasant sound effect on a successful action.
 
-Use them moderately and appropriately -- too many can be annoying. They should be unobtrusive and not interfere with core tasks.
+Use them moderately and appropriately – too many can be annoying. They should be unobtrusive and not interfere with core tasks.
 
 ### Good Example
 
@@ -86,7 +86,7 @@ In a notes app, pressing the button to create a new note produces a gentle pulse
 
 ### Bad Example
 
-A user presses the button to create a new note, and this triggers only a mechanical action -- a dry, blank page opens. The absence of animation, vibration, or sound effect makes the interaction dry and devoid of emotional content.
+A user presses the button to create a new note, and this triggers only a mechanical action – a dry, blank page opens. The absence of animation, vibration, or sound effect makes the interaction dry and devoid of emotional content.
 
 ---
 
@@ -100,7 +100,7 @@ This principle is especially important for fast operations that users may percei
 
 For example, when searching for tickets, analyzing data, or processing payments, show intermediate stages of the system's work. Instead of a simple loading indicator, display specific process steps: "checking availability," "calculating the best price," "generating results."
 
-This creates a sense of complex work and increases trust in the result. Be careful not to overdo the duration -- the process should look natural.
+This creates a sense of complex work and increases trust in the result. Be careful not to overdo the duration – the process should look natural.
 
 ### Good Example
 
@@ -112,7 +112,7 @@ An instant search returns results in 0.1 seconds. Users distrust the completenes
 
 ### From 106 Cognitive Biases: Labor Illusion
 
-Research by Ryan Buell at Harvard Business School found that people valued a travel site's results more when they could see the site "working" -- even when the results were identical to an instant version.
+Research by Ryan Buell at Harvard Business School found that people valued a travel site's results more when they could see the site "working" – even when the results were identical to an instant version.
 
 **UX applications from 106 Biases**:
 
@@ -132,19 +132,19 @@ Use this principle by involving users in customization and personalization of th
 
 This works especially effectively in creative apps where users can create their own content.
 
-It is important to find a balance between ready-made solutions and self-customization -- overly complex customization can repel users. Additional features should be accessible but not mandatory.
+It is important to find a balance between ready-made solutions and self-customization – overly complex customization can repel users. Additional features should be accessible but not mandatory.
 
 ### Good Example
 
-A dashboard tool lets users drag-and-drop widgets, choose which metrics to display, and customize the color theme. After 10 minutes of setup, the dashboard feels uniquely "theirs" -- they are far more likely to use it daily and far less likely to switch to a competitor.
+A dashboard tool lets users drag-and-drop widgets, choose which metrics to display, and customize the color theme. After 10 minutes of setup, the dashboard feels uniquely "theirs" – they are far more likely to use it daily and far less likely to switch to a competitor.
 
 ### Bad Example
 
-A productivity app requires users to build their entire workflow from scratch before they can use any feature. There are no templates, no defaults, no guided setup. The IKEA Effect requires some effort, not overwhelming effort -- the furniture comes with instructions and pre-drilled holes.
+A productivity app requires users to build their entire workflow from scratch before they can use any feature. There are no templates, no defaults, no guided setup. The IKEA Effect requires some effort, not overwhelming effort – the furniture comes with instructions and pre-drilled holes.
 
 ### IKEA Effect + Endowment Effect Connection
 
-The IKEA Effect creates ownership through effort. Once users feel ownership, the Endowment Effect (Law 46) kicks in -- they overvalue what they "own" and resist switching. This combination is one of the strongest ethical retention mechanisms in product design.
+The IKEA Effect creates ownership through effort. Once users feel ownership, the Endowment Effect (Law 46) kicks in – they overvalue what they "own" and resist switching. This combination is one of the strongest ethical retention mechanisms in product design.
 
 ---
 

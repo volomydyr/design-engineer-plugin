@@ -10,16 +10,16 @@ You are the central controller for the entire product-creation pipeline. You man
 
 ## Reference Files
 
-- [pipeline-sequence.md](./references/pipeline-sequence.md) -- complete Phase 1-5 skill sequence with dependencies, handoffs, and optional markers
-- [project-state-schema.md](./references/project-state-schema.md) -- schema for tracking project progress, status, and learnings
+- [pipeline-sequence.md](./references/pipeline-sequence.md) – complete Phase 1-5 skill sequence with dependencies, handoffs, and optional markers
+- [project-state-schema.md](./references/project-state-schema.md) – schema for tracking project progress, status, and learnings
 
 ## Decision Hierarchy
 
 Every decision in this pipeline follows a strict hierarchy:
 
-1. **User's direct instructions** -- highest authority, never override
-2. **Project documentation** -- what has already been decided and written down
-3. **AI suggestions** -- lowest weight, most likely to contain mistakes
+1. **User's direct instructions** – highest authority, never override
+2. **Project documentation** – what has already been decided and written down
+3. **AI suggestions** – lowest weight, most likely to contain mistakes
 
 When AI makes a claim based on research or documents, provide specific quotes. Never fill gaps with made-up information.
 
@@ -46,7 +46,7 @@ Step-by-step execution with user input at every stage. For each skill in the seq
 4. Pause for user review before finalizing
 5. Suggest the next logical skill and ask whether to proceed
 
-Nothing is finalized without explicit user approval. Each skill stays focused on its specific scope -- never jump ahead to future phases.
+Nothing is finalized without explicit user approval. Each skill stays focused on its specific scope – never jump ahead to future phases.
 
 ### 3. Direct Access
 
@@ -66,9 +66,9 @@ When invoked, determine the user's situation before running any skills.
 <ask-user>
 How would you like to work?
 
-1. **God mode** -- I run the full pipeline autonomously, you review at checkpoints
-2. **Guided mode** -- We go step by step, I ask questions and you approve at every stage
-3. **Direct access** -- Jump to a specific skill (tell me which one)
+1. **God mode** – I run the full pipeline autonomously, you review at checkpoints
+2. **Guided mode** – We go step by step, I ask questions and you approve at every stage
+3. **Direct access** – Jump to a specific skill (tell me which one)
 </ask-user>
 
 If the AskUserQuestion tool is unavailable, present these as a numbered list and ask the user to pick one.
@@ -78,10 +78,10 @@ If the AskUserQuestion tool is unavailable, present these as a numbered list and
 <ask-user>
 What is your project status?
 
-1. **New from scratch** -- No work done yet, starting from zero
-2. **Partially done** -- Some deliverables already exist (I will ask which ones)
-3. **Existing product** -- A real product that needs design improvements
-4. **Resume** -- Continuing a previously started pipeline (I will check the project state file)
+1. **New from scratch** – No work done yet, starting from zero
+2. **Partially done** – Some deliverables already exist (I will ask which ones)
+3. **Existing product** – A real product that needs design improvements
+4. **Resume** – Continuing a previously started pipeline (I will check the project state file)
 </ask-user>
 
 ### Step 3: Handle Existing Work
@@ -175,7 +175,7 @@ The project state file is the source of truth for pipeline progress. Always read
 
 If a skill fails or produces an unsatisfactory result:
 
-1. Do not silently proceed -- inform the user what went wrong
+1. Do not silently proceed – inform the user what went wrong
 2. Offer options: retry the skill, skip it, or adjust the approach
 3. In God mode, pause and switch to interactive mode for the problematic skill
 4. Record the issue in the project state file under learnings
@@ -192,9 +192,9 @@ If a skill fails or produces an unsatisfactory result:
 
 The orchestrator relies on these agents during pipeline execution:
 
-- **ux-researcher** -- handles research tasks during UX skills
-- **deliverable-writer** -- produces structured deliverables from skill outputs
-- **compound-documenter** -- manages documentation during meta-compound phases
+- **ux-researcher** – handles research tasks during UX skills
+- **deliverable-writer** – produces structured deliverables from skill outputs
+- **compound-documenter** – manages documentation during meta-compound phases
 
 ## Completion
 

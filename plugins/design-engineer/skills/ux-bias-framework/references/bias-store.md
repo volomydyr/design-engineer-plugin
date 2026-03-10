@@ -16,7 +16,7 @@ This is the ultimate goal: turn positive interactions into habits that bring use
 
 ### The B.I.A.S. Loop
 
-Store is not just the end of one interaction -- it is the beginning of the next. Every stored experience shapes how the user will:
+Store is not just the end of one interaction – it is the beginning of the next. Every stored experience shapes how the user will:
 - **Block**: Positive storage means less defensive filtering next time. Negative storage means more blocking.
 - **Interpret**: Positive storage creates favorable interpretation frames. Negative storage creates skepticism.
 - **Act**: Positive storage reduces hesitation. Negative storage increases friction and resistance.
@@ -56,7 +56,7 @@ Confirm they are doing the right thing. You want users to feel "in good hands" t
 **How to apply:**
 - Confirm the value of their decision immediately after they make it
 - Show trust signals at moments of commitment (security badges, guarantees, reviews)
-- Provide "safety nets" -- easy undo, cancellation policies, money-back guarantees
+- Provide "safety nets" – easy undo, cancellation policies, money-back guarantees
 - Summarize what they are getting before final confirmation
 - Use language that validates their choice ("Great choice", "You are all set", "You are in good company")
 - After purchase or sign-up, reinforce the benefits they just secured
@@ -78,7 +78,7 @@ Showing you have people's best interests at heart. When users feel that a produc
 - Warn users about potential issues or costs before they encounter them
 - Provide genuinely useful recommendations (not just upsells)
 - Show you remember their preferences and history
-- Go beyond the transaction -- offer tips, advice, or insights that help them succeed
+- Go beyond the transaction – offer tips, advice, or insights that help them succeed
 - Design for the user's long-term benefit, even when it might reduce short-term metrics
 - Offer transparency about how things work, pricing, or data usage
 
@@ -92,7 +92,7 @@ Showing you have people's best interests at heart. When users feel that a produc
 
 Going above and beyond can leave a positive mark in the mind of people. Delighters are unexpected moments of joy that exceed expectations.
 
-**Why it works**: The brain is wired to remember exceptional moments more vividly than ordinary ones. A delightful surprise creates a disproportionately positive memory that colors the entire experience. This connects to the Peak-End Rule -- experiences are remembered based on their peak moments and how they end.
+**Why it works**: The brain is wired to remember exceptional moments more vividly than ordinary ones. A delightful surprise creates a disproportionately positive memory that colors the entire experience. This connects to the Peak-End Rule – experiences are remembered based on their peak moments and how they end.
 
 **How to apply:**
 - Identify moments where user expectations are low and exceed them
@@ -115,10 +115,10 @@ Going above and beyond can leave a positive mark in the mind of people. Delighte
 
 In the broader context of user experience (covered more deeply in Journey Mapping), the Peak-End Rule states that people judge an experience based on how they felt at:
 
-1. **The peak** -- the most intense moment (positive or negative)
-2. **The end** -- the final moments of the interaction
+1. **The peak** – the most intense moment (positive or negative)
+2. **The end** – the final moments of the interaction
 
-Ending any interaction on a strong positive note can help reduce the negative effects of any friction or frustration encountered during the experience. This makes the Store step especially critical -- it is literally the last thing users remember.
+Ending any interaction on a strong positive note can help reduce the negative effects of any friction or frustration encountered during the experience. This makes the Store step especially critical – it is literally the last thing users remember.
 
 **Implications for Store:**
 - The confirmation screen, success state, or follow-up message IS the ending

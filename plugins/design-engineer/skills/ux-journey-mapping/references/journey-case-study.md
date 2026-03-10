@@ -22,7 +22,7 @@ The Brave onboarding journey was distilled to its top 5-6 key moments. Instead o
 |---|--------|-------------|---------------|-------------|
 | 1 | Landing on Brave website | Transition | Medium | The user arrives, likely from a recommendation or search. Marks the start of the journey. Curiosity is present but commitment is low. |
 | 2 | Deciding to download | Transition | Medium | The user makes the first real commitment: going from passive browsing to actively downloading. This is a significant milestone. |
-| 3 | Default browser prompt | Drop / Pit | Negative | Immediately after install, Brave asks the user to change their default browser -- before the user has even tried the product. Combined with the perception of needing to manually import bookmarks, psych drops sharply. |
+| 3 | Default browser prompt | Drop / Pit | Negative | Immediately after install, Brave asks the user to change their default browser – before the user has even tried the product. Combined with the perception of needing to manually import bookmarks, psych drops sharply. |
 | 4 | Bookmark import completing | Jump | Medium-High | The import happens quickly and automatically. Relief and positive surprise that it was not the painful manual process the user feared. |
 | 5 | Homepage with stats | Peak | High | The dashboard shows ads blocked, trackers blocked, and time saved. Concrete, visual proof that Brave delivers on its promise. This is the "aha moment." |
 | 6 | First browsing session | Transition | Medium-High | The user starts browsing normally. Marks the transition from "setup" to "daily use." |
@@ -41,7 +41,7 @@ Using the 4 improvement tactics, three specific opportunities were identified:
 
 **Tactic applied**: Mark the Transition
 
-**The problem**: Going from browsing a website passively to deciding to download an app is a big commitment. In the original experience, this transition was not acknowledged -- it was just another click.
+**The problem**: Going from browsing a website passively to deciding to download an app is a big commitment. In the original experience, this transition was not acknowledged – it was just another click.
 
 **The redesign**: The download step was redesigned to explicitly mark this milestone. The user sees clear acknowledgment that they are making a meaningful choice, with a preview of what to expect next. The Transition feels intentional rather than incidental.
 
@@ -52,8 +52,8 @@ Using the 4 improvement tactics, three specific opportunities were identified:
 **Tactic applied**: Fill the Biggest Pit
 
 **The problem**: The Pit occurred at the default browser prompt for two reasons:
-1. The user was asked to change their default browser before they could even try Brave -- the commitment was too high for the psych level at that moment
-2. The user feared having to manually import hundreds of bookmarks -- a perception of high effort
+1. The user was asked to change their default browser before they could even try Brave – the commitment was too high for the psych level at that moment
+2. The user feared having to manually import hundreds of bookmarks – a perception of high effort
 
 **The redesign**: The import process was made highly visible and fast. Instead of the user worrying about whether their bookmarks would survive, the redesign showed the import happening in real-time, with clear feedback about what was being imported and how quickly it was completing. The untimely default browser prompt was addressed so the user could first experience value before being asked for that commitment.
 
@@ -81,7 +81,7 @@ The Brave onboarding has many screens. But when distilled to 5-6 key moments, th
 
 ### 2. The Pit is often about timing, not content
 
-The default browser prompt and bookmark import are not inherently bad features. The problem was timing -- they appeared before the user had received any value. The same requests after the user has experienced the dashboard would feel reasonable.
+The default browser prompt and bookmark import are not inherently bad features. The problem was timing – they appeared before the user had received any value. The same requests after the user has experienced the dashboard would feel reasonable.
 
 ### 3. Reordering can be more powerful than redesigning
 
@@ -89,7 +89,7 @@ The idea of moving the dashboard earlier did not require building anything new. 
 
 ### 4. The Peak-End Rule drives memory
 
-The Brave onboarding ends on the homepage dashboard -- a strong positive moment. Because of the Peak-End Rule, users remember this ending more than the friction in the middle. If the journey ended on the settings page instead, the overall memory would be significantly worse, even though the actual content is identical.
+The Brave onboarding ends on the homepage dashboard – a strong positive moment. Because of the Peak-End Rule, users remember this ending more than the friction in the middle. If the journey ended on the settings page instead, the overall memory would be significantly worse, even though the actual content is identical.
 
 ### 5. Mark what matters
 

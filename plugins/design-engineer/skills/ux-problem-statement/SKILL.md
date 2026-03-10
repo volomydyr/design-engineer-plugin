@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-The very first step in building a product is defining the problem you are solving. Without this, everything else -- personas, hypotheses, even design decisions -- will float in the air without a foundation.
+The very first step in building a product is defining the problem you are solving. Without this, everything else – personas, hypotheses, even design decisions – will float in the air without a foundation.
 
 A solid problem statement answers three key questions:
 
@@ -16,7 +16,7 @@ A solid problem statement answers three key questions:
 2. **Who feels this pain the most?** This points to your target audience and ensures you are not building a product "for everyone."
 3. **How will your product make their life better?** This explains your uniqueness among competitors.
 
-Keep it short and concrete. Do not describe features or solutions yet -- stay focused on the pain.
+Keep it short and concrete. Do not describe features or solutions yet – stay focused on the pain.
 
 A common mistake is slipping into "solution mode" too early. The stronger version of a problem statement always comes after you strip away specific features and focus purely on the problems. For example, mentioning "motivation" or "personalization" is already describing solutions, not problems.
 
@@ -56,7 +56,7 @@ Before diving into questions, briefly share how the problem could be viewed from
 
 - **User perspective**: Who might be experiencing this pain daily and what their current workarounds look like
 - **Market perspective**: Why existing solutions might be falling short and what gaps you see
-- **Severity perspective**: How significant this problem is -- is it a daily frustration or an occasional inconvenience
+- **Severity perspective**: How significant this problem is – is it a daily frustration or an occasional inconvenience
 - **Timing perspective**: What has changed recently (technology, behavior, market shifts) that makes solving this problem more viable now
 
 Be honest and direct. If the problem seems narrow or broad, say so. The goal is to give the user starting material for their own thinking.
@@ -73,7 +73,7 @@ Ask 7-10 questions to deeply understand the problem. Adapt based on what the use
 4. **Why current solutions fail**: What specifically is wrong with the existing approaches? Where do they break down?
 5. **The sufferer**: If you had to pick one specific person who experiences this problem the most, who would they be? What is their role, situation, context?
 6. **Emotional impact**: How does this problem make people feel? Frustrated, overwhelmed, stuck, anxious?
-7. **Cost of inaction**: What happens if this problem is never solved? What do people lose -- time, money, opportunities, confidence?
+7. **Cost of inaction**: What happens if this problem is never solved? What do people lose – time, money, opportunities, confidence?
 8. **Your unique lens**: Why do you see this problem more clearly than others? What personal experience or insight gives you an edge?
 9. **Scale**: Roughly how many people face this problem? Is it a niche or a widespread issue?
 10. **Validation signals**: Have you heard real people complain about this? Where and how?
@@ -101,7 +101,7 @@ Continue refining based on the user's feedback. For each iteration:
 1. Incorporate the user's corrections and additions
 2. Flag if the statement is drifting toward solutions instead of problems
 3. Check that the three core questions are clearly answered
-4. Share your honest perspective -- if something feels weak or unclear, say so
+4. Share your honest perspective – if something feels weak or unclear, say so
 5. Ask follow-up questions where needed
 
 Repeat until the user explicitly approves the problem statement.
@@ -128,7 +128,7 @@ This skill enforces User > Docs > AI at every step:
 
 1. **User's direct input** always overrides everything
 2. **Existing documentation** (Big Idea doc, prior research) informs suggestions
-3. **AI suggestions** fill gaps only when user and docs provide no guidance -- always presented as suggestions, not decisions
+3. **AI suggestions** fill gaps only when user and docs provide no guidance – always presented as suggestions, not decisions
 
 ---
 
@@ -136,11 +136,11 @@ This skill enforces User > Docs > AI at every step:
 
 After the problem statement is finalized, suggest:
 
-1. `ux-target-audience` -- Build detailed user personas based on the problem
-2. `ux-assumptions` -- Document what you believe to be true and plan validation
+1. `ux-target-audience` – Build detailed user personas based on the problem
+2. `ux-assumptions` – Document what you believe to be true and plan validation
 
 ---
 
 ## Resource Files
 
-- [problem-statement-template.md](./references/problem-statement-template.md) -- Complete deliverable structure with examples and anti-patterns
+- [problem-statement-template.md](./references/problem-statement-template.md) – Complete deliverable structure with examples and anti-patterns

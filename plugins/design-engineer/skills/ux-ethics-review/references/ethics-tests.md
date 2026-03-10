@@ -49,7 +49,7 @@ Created by Nir Eyal, this 2x2 matrix helps you see where your product or feature
 
 **Peddler**: The maker does not use the product, but it could improve users' lives. This often indicates a disconnect between the team and their users. The product might be good, but the team does not truly understand or believe in it.
 
-**Dealer**: The maker does not use the product AND it does not improve users' lives. This is the most unethical position -- selling something you would not use yourself that does not help anyone.
+**Dealer**: The maker does not use the product AND it does not improve users' lives. This is the most unethical position – selling something you would not use yourself that does not help anyone.
 
 **How to apply:**
 1. Ask your team honestly: "Do you use this feature/product in your own life?"
@@ -74,11 +74,11 @@ Considering the impact of second-order effects, project yourself into the future
    - What skills atrophy when your product does the work?
    - What social dynamics shift?
 
-**The Facebook Like button example**: The like button seemed harmless -- a simple way to express appreciation. But at scale, it created comparison anxiety, validation addiction, content optimized for engagement rather than truth, and political polarization. The second-order effects were catastrophic.
+**The Facebook Like button example**: The like button seemed harmless – a simple way to express appreciation. But at scale, it created comparison anxiety, validation addiction, content optimized for engagement rather than truth, and political polarization. The second-order effects were catastrophic.
 
 **How to apply with your team:**
 1. List all potential negative side effects that could emerge from this feature
-2. Do not dismiss anything as "too extreme" -- the point is to explore edge cases
+2. Do not dismiss anything as "too extreme" – the point is to explore edge cases
 3. Brainstorm how to prevent those scenarios
 4. Build safeguards into the product for the most likely negative outcomes
 

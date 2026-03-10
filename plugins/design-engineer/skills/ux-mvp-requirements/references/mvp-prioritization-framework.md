@@ -78,7 +78,7 @@ Features that scored well but did not make the MVP cut.
 
 ### 3.3 Parking Lot
 
-Ideas that are interesting but do not solve the core user problem for the MVP. These are not rejected -- they are deferred.
+Ideas that are interesting but do not solve the core user problem for the MVP. These are not rejected – they are deferred.
 
 | Feature | Reason for Parking | Revisit When |
 |---------|-------------------|-------------|

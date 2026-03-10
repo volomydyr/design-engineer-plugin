@@ -1,4 +1,4 @@
-# Section 7a: Behavioral Economics -- Core Patterns (Laws 61-65)
+# Section 7a: Behavioral Economics – Core Patterns (Laws 61-65)
 
 ## Law 61: Decoy Effect
 
@@ -8,7 +8,7 @@
 
 This effect is a powerful tool for creating persuasive choice scenarios, especially when you need to steer users toward a particular decision.
 
-For example, if pricing plans offer two subscription options -- Basic at $10/month and Premium at $20/month -- adding a middle option at $17/month can cause most users to choose Premium at $20/month.
+For example, if pricing plans offer two subscription options – Basic at $10/month and Premium at $20/month – adding a middle option at $17/month can cause most users to choose Premium at $20/month.
 
 This happens because the Premium option appears more beneficial and psychologically attractive. The user realizes that for a small additional payment they receive significantly more features, making this choice seem more rational in their eyes.
 
@@ -18,7 +18,7 @@ A SaaS platform offers three tiers: Starter ($9, 5 projects), Pro ($15, 10 proje
 
 ### Bad Example
 
-A streaming service offers Basic ($5, SD only), Standard ($13, HD), and Premium ($14, 4K + family sharing). The decoy is too close to the target -- only $1 difference. Users see through the manipulation because the pricing feels artificial and dishonest.
+A streaming service offers Basic ($5, SD only), Standard ($13, HD), and Premium ($14, 4K + family sharing). The decoy is too close to the target – only $1 difference. Users see through the manipulation because the pricing feels artificial and dishonest.
 
 ---
 
@@ -42,13 +42,13 @@ A design tool offers a 14-day free trial during which users create projects, upl
 
 ### Bad Example
 
-A subscription service makes cancellation deliberately difficult -- hiding the cancel button, requiring a phone call, or showing guilt-inducing messages like "You'll lose 347 days of progress!" This weaponizes sunk cost into a dark pattern that erodes trust and generates negative reviews.
+A subscription service makes cancellation deliberately difficult – hiding the cancel button, requiring a phone call, or showing guilt-inducing messages like "You'll lose 347 days of progress!" This weaponizes sunk cost into a dark pattern that erodes trust and generates negative reviews.
 
 ### From 106 Cognitive Biases: Sunk Cost Effect
 
 The sunk cost effect (also called sunk cost fallacy) describes our tendency to follow through on something if we have already invested time, effort, or money into it, whether or not the current costs outweigh the benefits.
 
-**Key insight**: The more users invest in your product (data, customizations, social connections, content), the harder it becomes to switch -- not because of lock-in, but because of perceived loss of investment.
+**Key insight**: The more users invest in your product (data, customizations, social connections, content), the harder it becomes to switch – not because of lock-in, but because of perceived loss of investment.
 
 **UX applications from 106 Biases**:
 
@@ -140,7 +140,7 @@ For any interface involving pricing, investment, or value perception, check thes
 Combine Decoy Effect + Hyperbolic Discounting when designing pricing pages. The decoy steers choice toward the target plan, while an immediate bonus ("Start today and get your first month at 50% off") triggers the discounting bias to act now.
 
 ### Retention Through Investment
-Combine Sunk Cost Effect + Pareto Principle. Focus the user's investment on the 20% of features they use most. When their most-used workflows are deeply customized, the sunk cost of switching is both real and valuable -- not artificial.
+Combine Sunk Cost Effect + Pareto Principle. Focus the user's investment on the 20% of features they use most. When their most-used workflows are deeply customized, the sunk cost of switching is both real and valuable – not artificial.
 
 ### Responsible Commerce
 Combine Cashless Effect + Hyperbolic Discounting awareness. Both principles make spending feel easier. Ethical design counterbalances this by providing spending summaries, purchase confirmations, and cooling-off periods for large transactions.

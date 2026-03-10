@@ -32,10 +32,10 @@ Sub-agents run in separate "chats" with separate token limits. Heavy work (conte
 **Why this helps:** Your main conversation stays lean. Instead of burning 50,000 tokens analyzing the codebase, the context-analyzer agent does that work separately and returns a summary. The main conversation only consumes tokens for the summary, not the full analysis.
 
 **The four-agent pattern:**
-1. Context analyzer -- analyzes project state (separate tokens)
-2. Backend implementer -- implements data layer (separate tokens)
-3. Frontend implementer -- implements UI (separate tokens)
-4. Design system auditor -- checks quality (separate tokens)
+1. Context analyzer – analyzes project state (separate tokens)
+2. Backend implementer – implements data layer (separate tokens)
+3. Frontend implementer – implements UI (separate tokens)
+4. Design system auditor – checks quality (separate tokens)
 
 Each agent has its own ~200,000 token budget, effectively multiplying your available context.
 
@@ -51,7 +51,7 @@ For pre-development work in Claude Projects (or similar tools), one activity sho
 **The workflow:**
 1. Start a chat focused on one specific step
 2. Complete the step and produce a deliverable
-3. Save the deliverable to project knowledge (manually -- AI cannot do this)
+3. Save the deliverable to project knowledge (manually – AI cannot do this)
 4. Start a fresh chat for the next step
 
 ## Strategy 4: Manual Compaction Over Auto-Compaction
@@ -81,7 +81,7 @@ Regular commits serve as a secondary context preservation mechanism. Even if AI 
 
 ## Strategy 6: IDE Timeline as Last Resort
 
-IDEs like Cursor have a Timeline feature -- a local history of file changes separate from Git. It is not as powerful, not as easy to use, and not granular enough to let you revert everything cleanly. But it helps when:
+IDEs like Cursor have a Timeline feature – a local history of file changes separate from Git. It is not as powerful, not as easy to use, and not granular enough to let you revert everything cleanly. But it helps when:
 
 - You forgot to commit before AI broke something
 - You accidentally discarded changes instead of staging them

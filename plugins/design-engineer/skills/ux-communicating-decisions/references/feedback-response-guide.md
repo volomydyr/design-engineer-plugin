@@ -4,9 +4,9 @@
 
 For any feedback, follow these steps in order:
 
-1. **Lead with a yes** -- The first thing you should always do is acknowledge the feedback. Thank the person who took the time to care about your work.
-2. **Repeat and Empathize** -- Briefly summarize what they said. Rephrase their response as a question that forces them to elaborate on their point of view. Ask about the feelings driving their statements (What are they afraid of? What concerns do they have?).
-3. **Assure** -- Assure them that you care about finding the best solution before responding.
+1. **Lead with a yes** – The first thing you should always do is acknowledge the feedback. Thank the person who took the time to care about your work.
+2. **Repeat and Empathize** – Briefly summarize what they said. Rephrase their response as a question that forces them to elaborate on their point of view. Ask about the feelings driving their statements (What are they afraid of? What concerns do they have?).
+3. **Assure** – Assure them that you care about finding the best solution before responding.
 
 ---
 

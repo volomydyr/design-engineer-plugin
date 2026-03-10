@@ -10,8 +10,8 @@ How to effectively use attention, contrast, and visual cues to create emphasis i
 
 ## Reference Files
 
-- [Section 2 Principles](./references/section-2-principles.md) -- All 10 principles with definitions, UX applications, and good/bad examples
-- [Section 2 Case Studies](./references/section-2-case-studies.md) -- Adapted case studies showing principles in action
+- [Section 2 Principles](./references/section-2-principles.md) – All 10 principles with definitions, UX applications, and good/bad examples
+- [Section 2 Case Studies](./references/section-2-case-studies.md) – Adapted case studies showing principles in action
 
 ## Workflow
 
@@ -22,10 +22,10 @@ Ask the user what they want to evaluate against visual perception principles.
 **Ask the user:**
 > What would you like me to analyze against visual perception and attention principles?
 >
-> 1. **Figma frames** -- I will examine specific screens from your Figma file
-> 2. **Screenshots** -- share screenshots of the interface to review
-> 3. **Design description** -- describe the interface, flow, or feature in text
-> 4. **Live product** -- provide a URL and I will review the current state
+> 1. **Figma frames** – I will examine specific screens from your Figma file
+> 2. **Screenshots** – share screenshots of the interface to review
+> 3. **Design description** – describe the interface, flow, or feature in text
+> 4. **Live product** – provide a URL and I will review the current state
 
 Wait for the user's response before proceeding.
 
@@ -52,11 +52,11 @@ This file contains all 10 principles of visual perception and attention:
 
 For each principle, assess the design systematically:
 
-1. **State the principle** -- one sentence explaining what it means
-2. **Evaluate** -- does the design follow or violate this principle? Be specific about which elements or flows are affected
-3. **Severity** -- rate as Critical (breaks usability), Warning (degrades experience), or Passed (principle is well-applied)
-4. **Evidence** -- point to specific UI elements, flows, or patterns that demonstrate the finding
-5. **Recommendation** -- if there is a violation, provide a concrete suggestion with pros and cons
+1. **State the principle** – one sentence explaining what it means
+2. **Evaluate** – does the design follow or violate this principle? Be specific about which elements or flows are affected
+3. **Severity** – rate as Critical (breaks usability), Warning (degrades experience), or Passed (principle is well-applied)
+4. **Evidence** – point to specific UI elements, flows, or patterns that demonstrate the finding
+5. **Recommendation** – if there is a violation, provide a concrete suggestion with pros and cons
 
 Use these evaluation patterns for each principle:
 
@@ -81,7 +81,7 @@ Use these evaluation patterns for each principle:
 **Von Restorff Effect checkpoints:**
 - Identify elements that should stand out (CTAs, recommended plans, key messages)
 - Check if these elements are visually distinct from their surroundings (different color, size, shape, or style)
-- Verify that isolation is used sparingly -- if too many elements are "special," none stand out
+- Verify that isolation is used sparingly – if too many elements are "special," none stand out
 - Look for pricing tables or feature comparisons where the recommended option should pop
 
 **Contrast checkpoints:**
@@ -135,7 +135,7 @@ Structure the output as follows:
 
 ### Detailed Findings
 
-#### [Principle Name] -- [Passed/Warning/Critical]
+#### [Principle Name] – [Passed/Warning/Critical]
 **What it means**: [One-sentence definition]
 **Finding**: [Specific observation about the design]
 **Evidence**: [Which elements or flows demonstrate this]
@@ -171,6 +171,6 @@ For each critical or warning finding, find the most relevant case study and expl
 
 Several principles in this section overlap with content from the 106 Cognitive Biases framework. The reference file merges these sources for a unified perspective:
 
-- **Banner Blindness** -- expanded with research on how users develop selective filtering for ad-like patterns and how this affects notification design
-- **Von Restorff Effect** -- enriched with the isolation effect research and practical limits on how many elements can be simultaneously "special"
-- **Visual Hierarchy** -- deepened with the relationship between visual weight, scanning patterns, and information architecture
+- **Banner Blindness** – expanded with research on how users develop selective filtering for ad-like patterns and how this affects notification design
+- **Von Restorff Effect** – enriched with the isolation effect research and practical limits on how many elements can be simultaneously "special"
+- **Visual Hierarchy** – deepened with the relationship between visual weight, scanning patterns, and information architecture

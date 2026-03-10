@@ -2,7 +2,7 @@
 
 ## Core Principle
 
-A design system should be built in code, not Figma. With AI-assisted development, tokens and components emerge from implementation -- not from upfront planning. You give AI a design frame, develop the first iteration, and then ask it to refactor: separate large files into smaller ones, create reusable components, and extract colors, typography, and spacing into tokens.
+A design system should be built in code, not Figma. With AI-assisted development, tokens and components emerge from implementation – not from upfront planning. You give AI a design frame, develop the first iteration, and then ask it to refactor: separate large files into smaller ones, create reusable components, and extract colors, typography, and spacing into tokens.
 
 This approach ensures every token and component is actually used in your codebase, avoids maintaining two parallel systems (Figma + code), and lets AI handle the mechanical work of consistency enforcement.
 
@@ -16,14 +16,14 @@ The design system follows an atomic design pattern with three layers. Each layer
 
 The foundation layer containing raw values that define the visual identity of the product:
 
-- **Colors** -- hex values, RGB values, opacity levels
-- **Spacing** -- point/pixel values for padding, margins, gaps (e.g., spacing10, spacing40, spacing56, spacing64)
-- **Typography** -- font sizes, font weights, line heights, letter spacing
-- **Border radii** -- corner radius values for different component types
-- **Shadows** -- shadow definitions (color, offset, blur, spread)
-- **Animation durations** -- timing values for transitions and micro-interactions (e.g., microAnimationDuration at 0.08s, quickAnimationDuration at 0.15s, slowTransition at 0.5s)
-- **Icon sizes** -- standardized icon dimensions (e.g., iconSizeSmall at 16, iconSizeMedium at 20, iconSize at 24)
-- **Accessibility constants** -- minimum tap target size of 56 points
+- **Colors** – hex values, RGB values, opacity levels
+- **Spacing** – point/pixel values for padding, margins, gaps (e.g., spacing10, spacing40, spacing56, spacing64)
+- **Typography** – font sizes, font weights, line heights, letter spacing
+- **Border radii** – corner radius values for different component types
+- **Shadows** – shadow definitions (color, offset, blur, spread)
+- **Animation durations** – timing values for transitions and micro-interactions (e.g., microAnimationDuration at 0.08s, quickAnimationDuration at 0.15s, slowTransition at 0.5s)
+- **Icon sizes** – standardized icon dimensions (e.g., iconSizeSmall at 16, iconSizeMedium at 20, iconSize at 24)
+- **Accessibility constants** – minimum tap target size of 56 points
 
 Example structure:
 ```
@@ -41,9 +41,9 @@ Instead of using raw values directly:
 - `EdgeInsets(top: 16, leading: 20)` becomes `Semantics.screenHorizontalPadding`
 
 Semantic aliases can be organized by context:
-- **Onboarding semantics** -- aliases specific to onboarding flows (colors, spacing, typography)
-- **Main app semantics** -- aliases for the primary app experience
-- **Shared semantics** -- aliases used across multiple contexts
+- **Onboarding semantics** – aliases specific to onboarding flows (colors, spacing, typography)
+- **Main app semantics** – aliases for the primary app experience
+- **Shared semantics** – aliases used across multiple contexts
 
 Example structure:
 ```
@@ -55,15 +55,15 @@ DesignSystem/
 
 ### Layer 3: View Components (Reusable UI)
 
-Components that consume semantic aliases -- never raw values. Each component uses only semantic aliases to ensure consistency and enable theming.
+Components that consume semantic aliases – never raw values. Each component uses only semantic aliases to ensure consistency and enable theming.
 
 Component categories:
-- **Button styles** -- primary, secondary, stateful buttons with consistent styling
-- **Button container layouts** -- standardized arrangements for button groups
-- **Typography components** -- text styles with atomic modifiers
-- **Animation configurations** -- reusable animation presets (quickEaseOut, microInteraction, slowTransition)
-- **Input components** -- text fields, selectors, toggles
-- **Container components** -- cards, sheets, modals
+- **Button styles** – primary, secondary, stateful buttons with consistent styling
+- **Button container layouts** – standardized arrangements for button groups
+- **Typography components** – text styles with atomic modifiers
+- **Animation configurations** – reusable animation presets (quickEaseOut, microInteraction, slowTransition)
+- **Input components** – text fields, selectors, toggles
+- **Container components** – cards, sheets, modals
 
 Example structure:
 ```
@@ -84,7 +84,7 @@ DesignSystem/
 The design system is built incrementally during development, not designed upfront:
 
 ### Step 1: Implement First
-Build the first iteration from design frames. At this stage, code will contain hardcoded values -- this is expected.
+Build the first iteration from design frames. At this stage, code will contain hardcoded values – this is expected.
 
 ### Step 2: Identify Patterns
 After initial implementation, scan for repeated values:
@@ -124,19 +124,19 @@ Identify repeated UI patterns and create reusable components:
 
 ### Colors
 Use semantic color aliases that describe purpose, not appearance:
-- `Color.onboardingTextPrimary` -- primary text in onboarding
-- `Color.primaryAction` -- interactive elements requiring attention
+- `Color.onboardingTextPrimary` – primary text in onboarding
+- `Color.primaryAction` – interactive elements requiring attention
 - Create context-specific semantics files for different app areas
 
 ### Typography
 Use semantic font aliases:
-- `Font.onboardingTitle` -- titles in onboarding screens
-- `Font.bodySmall` -- small body text throughout the app
+- `Font.onboardingTitle` – titles in onboarding screens
+- `Font.bodySmall` – small body text throughout the app
 - Semantic aliases can be reused across the entire app
 
 ### Spacing
 Use semantic spacing constants:
-- `Semantics.screenHorizontalPadding` -- horizontal page padding
+- `Semantics.screenHorizontalPadding` – horizontal page padding
 - Reference base spacing tokens (spacing10, spacing40, spacing56, spacing64)
 - Maintain consistent spacing system across all screens
 
@@ -144,7 +144,7 @@ Use semantic spacing constants:
 Use established component patterns:
 - Universal button component with variants (primary, secondary, stateful)
 - Input field component with modes (editable, tappable)
-- Never inline component styling -- always use design system references
+- Never inline component styling – always use design system references
 
 ### Icons
 Use a centralized icon system:
@@ -158,8 +158,8 @@ Use a centralized icon system:
 
 The design system lives in code because:
 
-1. **Every token is used** -- no orphaned design tokens that exist only in Figma
-2. **Single source of truth** -- the code defines the system, not a parallel Figma library
-3. **AI can enforce it** -- AI tools can audit compliance and replace violations automatically
-4. **Incremental growth** -- the system grows as the product grows, not as a speculative upfront investment
-5. **Refactoring is cheap** -- AI handles the mechanical work of finding and replacing hardcoded values
+1. **Every token is used** – no orphaned design tokens that exist only in Figma
+2. **Single source of truth** – the code defines the system, not a parallel Figma library
+3. **AI can enforce it** – AI tools can audit compliance and replace violations automatically
+4. **Incremental growth** – the system grows as the product grows, not as a speculative upfront investment
+5. **Refactoring is cheap** – AI handles the mechanical work of finding and replacing hardcoded values

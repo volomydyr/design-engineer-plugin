@@ -79,15 +79,15 @@ Each agent should reference the hierarchy and know which sources to prioritize. 
 When giving instructions, you can reinforce the hierarchy by referencing specific documents:
 - "Follow the layout from the Figma design for this screen"
 - "Use the navigation structure from the Information Architecture document"
-- "Ignore the prototype approach -- I want to do it differently"
+- "Ignore the prototype approach – I want to do it differently"
 
 ## Conflict Resolution Protocol
 
 When two sources disagree, AI must:
 
-1. **Identify the conflict clearly** -- quote both sources
+1. **Identify the conflict clearly** – quote both sources
 2. **State which source has higher authority** based on the hierarchy
-3. **Ask the user how to proceed** -- never resolve conflicts silently
+3. **Ask the user how to proceed** – never resolve conflicts silently
 4. **Wait for the user's decision** before implementing anything
 
 ### Example Conflict Report
@@ -105,8 +105,8 @@ Even when the hierarchy suggests an answer, always confirm with the user for sig
 
 ## Common Pitfalls
 
-1. **AI overriding user instructions with "best practices"** -- your instructions are always Level 1
-2. **AI inventing features not in any document** -- if it is not documented, it should not exist
-3. **AI "improving" designs** -- designs must be implemented exactly as shown
-4. **AI ignoring status file warnings** -- warnings exist because someone already learned the hard way
-5. **AI resolving conflicts silently** -- all conflicts must be reported to the user
+1. **AI overriding user instructions with "best practices"** – your instructions are always Level 1
+2. **AI inventing features not in any document** – if it is not documented, it should not exist
+3. **AI "improving" designs** – designs must be implemented exactly as shown
+4. **AI ignoring status file warnings** – warnings exist because someone already learned the hard way
+5. **AI resolving conflicts silently** – all conflicts must be reported to the user

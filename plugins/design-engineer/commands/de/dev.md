@@ -18,15 +18,15 @@ If no activity was specified in arguments, use AskUserQuestion to ask:
 
 **Question:** "What do you need?"
 
-1. **Full development setup** -- CLAUDE.md + agents + MCPs + kick-start prompts
-2. **CLAUDE.md setup** -- Generate or update your CLAUDE.md
-3. **Agent pipeline setup** -- Configure the 4-agent development pipeline
-4. **Context management** -- Set up long-running project context tracking
-5. **GitHub workflow** -- Git workflow setup for designers
-6. **MCP configuration** -- Configure recommended MCP servers
-7. **Kick-start prompts** -- Generate IDE kick-start prompts
-8. **Prototyping workflow** -- Set up prototyping and user testing
-9. **Run development pipeline** -- Execute context-analyzer > plan > backend > frontend > auditor for a feature
+1. **Full development setup** – CLAUDE.md + agents + MCPs + kick-start prompts
+2. **CLAUDE.md setup** – Generate or update your CLAUDE.md
+3. **Agent pipeline setup** – Configure the 4-agent development pipeline
+4. **Context management** – Set up long-running project context tracking
+5. **GitHub workflow** – Git workflow setup for designers
+6. **MCP configuration** – Configure recommended MCP servers
+7. **Kick-start prompts** – Generate IDE kick-start prompts
+8. **Prototyping workflow** – Set up prototyping and user testing
+9. **Run development pipeline** – Execute context-analyzer > plan > backend > frontend > auditor for a feature
 
 If AskUserQuestion is not available, present options as a numbered list.
 
@@ -52,24 +52,24 @@ Load the corresponding skill:
 For running the full agent pipeline on a feature:
 
 1. Load `dev-claude-md` to verify CLAUDE.md is current
-2. Task `context-analyzer`(feature description) -- analyzes project context
-3. Task `plan-creator`(analysis results) -- creates implementation plan
-4. Task `backend-implementer`(plan) -- implements backend
-5. Task `frontend-implementer`(plan) -- implements frontend
-6. Task `design-system-auditor`(implementation) -- audits against design system
+2. Task `context-analyzer`(feature description) – analyzes project context
+3. Task `plan-creator`(analysis results) – creates implementation plan
+4. Task `backend-implementer`(plan) – implements backend
+5. Task `frontend-implementer`(plan) – implements frontend
+6. Task `design-system-auditor`(implementation) – audits against design system
 7. Run `meta-compound` to document the development session
 
 ### Full Setup (Option 1)
 
 Run in sequence:
 
-1. Load `dev-claude-projects` -- Claude Projects workspace setup
-2. Load `dev-claude-md` -- CLAUDE.md generation
-3. Load `dev-kickstart-prompts` -- kick-start prompt generation
-4. Load `dev-agent-pipeline` -- agent pipeline configuration
-5. Load `dev-mcp-setup` -- MCP server configuration
-6. Load `dev-github-workflow` -- GitHub workflow setup
-7. Load `dev-context-management` -- context tracking setup
+1. Load `dev-claude-projects` – Claude Projects workspace setup
+2. Load `dev-claude-md` – CLAUDE.md generation
+3. Load `dev-kickstart-prompts` – kick-start prompt generation
+4. Load `dev-agent-pipeline` – agent pipeline configuration
+5. Load `dev-mcp-setup` – MCP server configuration
+6. Load `dev-github-workflow` – GitHub workflow setup
+7. Load `dev-context-management` – context tracking setup
 
 ## Mode
 
@@ -78,9 +78,9 @@ Run in sequence:
 
 ## Agents Used
 
-- `context-analyzer` -- project context analysis
-- `plan-creator` -- implementation planning
-- `backend-implementer` -- backend development
-- `frontend-implementer` -- frontend development
-- `design-system-auditor` -- design system compliance
-- `compound-documenter` -- session documentation
+- `context-analyzer` – project context analysis
+- `plan-creator` – implementation planning
+- `backend-implementer` – backend development
+- `frontend-implementer` – frontend development
+- `design-system-auditor` – design system compliance
+- `compound-documenter` – session documentation

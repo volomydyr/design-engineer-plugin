@@ -45,18 +45,18 @@ When adding or modifying skills:
 
 ### Content Rules (Non-Negotiable)
 
-- [ ] ALL content from source files only -- never generic internet knowledge
-- [ ] English only -- no Ukrainian names or translated names
+- [ ] ALL content from source files only – never generic internet knowledge
+- [ ] English only – no Ukrainian names or translated names
 - [ ] Each skill covers exactly ONE activity
 - [ ] Prescribes exact workflows from the author's experience
 - [ ] Guides thinking process, not just outputs deliverables
 - [ ] Enforces User > Docs > AI decision hierarchy
 - [ ] Reference files contain FULL ADAPTED content, not summaries
-- [ ] Sources merged silently -- no attribution like "from the book"
+- [ ] Sources merged silently – no attribution like "from the book"
 
 ### Structural Rules
 
-- [ ] SKILL.md under 500 lines -- detailed content in references/
+- [ ] SKILL.md under 500 lines – detailed content in references/
 - [ ] All reference files linked with proper markdown: `[file.md](./references/file.md)`
 - [ ] No placeholder text (TODO, TBD, [fill in])
 - [ ] AskUserQuestion with numbered-list fallback for cross-platform compatibility

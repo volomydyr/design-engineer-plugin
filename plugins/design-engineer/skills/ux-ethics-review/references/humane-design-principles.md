@@ -92,7 +92,7 @@ Instead of shareholders' interests.
 
 **How to evaluate:**
 - Are you putting business goals before users' goals?
-- If you could only optimize for one thing -- user happiness or revenue -- which does your product currently optimize for?
+- If you could only optimize for one thing – user happiness or revenue – which does your product currently optimize for?
 - How does your product help "push humanity forward"?
 - Would you be proud to explain every design decision to your users?
 
@@ -118,9 +118,9 @@ Instead of shareholders' interests.
 
 With a bit of imagination, transform your screens and interactions into real people:
 
-- **What would they look like?** -- Imagine your product as a person standing in front of the user
-- **What would they say?** -- Read your copy and notifications out loud. How do they sound coming from a real person?
-- **How would they act?** -- Would they interrupt? Manipulate? Help? Listen?
-- **Is it a person you would want to know and hang out with?** -- If the answer is no, your product needs work
+- **What would they look like?** – Imagine your product as a person standing in front of the user
+- **What would they say?** – Read your copy and notifications out loud. How do they sound coming from a real person?
+- **How would they act?** – Would they interrupt? Manipulate? Help? Listen?
+- **Is it a person you would want to know and hang out with?** – If the answer is no, your product needs work
 
-Remember, just like in real life, people prefer to nurture a positive relationship with technology. Build products that feel like helpful, respectful, honest companions -- not pushy salespeople.
+Remember, just like in real life, people prefer to nurture a positive relationship with technology. Build products that feel like helpful, respectful, honest companions – not pushy salespeople.

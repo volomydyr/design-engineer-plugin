@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Why This Matters
 
-Every product starts with a spark. But before you rush into wireframes or mockups, you need something simple to guide you -- a Big Idea document. It does two things really well:
+Every product starts with a spark. But before you rush into wireframes or mockups, you need something simple to guide you – a Big Idea document. It does two things really well:
 
 1. Checks whether your idea solves a real problem for a real person.
 2. Highlights risks before you spend time and money.
@@ -106,7 +106,7 @@ Continue refining based on the user's feedback. For each iteration:
 
 1. Incorporate the user's corrections and additions
 2. Flag any contradictions or gaps you notice
-3. Share your perspective honestly -- if something seems risky or unclear, say so
+3. Share your perspective honestly – if something seems risky or unclear, say so
 4. Ask follow-up questions where needed
 
 Repeat this cycle until the user explicitly approves the Big Idea overview.
@@ -130,9 +130,9 @@ The document should include:
 
 Include these at the top of the deliverable:
 
-1. **This is an iterative process.** Do not expect version 1 to be "the final one." A good Big Idea document evolves many times, especially after research and testing. That is a good sign -- it means you are learning and adapting the product to reality.
+1. **This is an iterative process.** Do not expect version 1 to be "the final one." A good Big Idea document evolves many times, especially after research and testing. That is a good sign – it means you are learning and adapting the product to reality.
 
-2. **Be ready to pivot.** It is completely normal to eventually realize that your idea does not work -- it does not solve a real problem or would cost more than it could ever generate. It is better to reach this conclusion early and change direction than to discover it a year in. The goal is not to prove that your idea is perfect, but to deeply understand its potential and the challenges that lie ahead.
+2. **Be ready to pivot.** It is completely normal to eventually realize that your idea does not work – it does not solve a real problem or would cost more than it could ever generate. It is better to reach this conclusion early and change direction than to discover it a year in. The goal is not to prove that your idea is perfect, but to deeply understand its potential and the challenges that lie ahead.
 
 ---
 
@@ -146,9 +146,9 @@ When evaluating the idea's strength, reference the criteria in [idea-validation-
 
 This skill enforces User > Docs > AI at every step:
 
-1. **User's direct input** always overrides everything -- their vision, their product, their call
+1. **User's direct input** always overrides everything – their vision, their product, their call
 2. **Existing documentation** (if the user has notes, research, or prior work) informs suggestions
-3. **AI suggestions** fill gaps only when user and docs provide no guidance -- and are always presented as suggestions, not decisions
+3. **AI suggestions** fill gaps only when user and docs provide no guidance – and are always presented as suggestions, not decisions
 
 ---
 
@@ -156,14 +156,14 @@ This skill enforces User > Docs > AI at every step:
 
 After the Big Idea overview is complete, suggest running the individual skills in this order:
 
-1. `ux-problem-statement` -- Define the core problem in detail
-2. `ux-target-audience` -- Build detailed user personas
-3. `ux-assumptions` -- Document and categorize assumptions
-4. `ux-competitor-analysis` -- Research the competitive landscape
+1. `ux-problem-statement` – Define the core problem in detail
+2. `ux-target-audience` – Build detailed user personas
+3. `ux-assumptions` – Document and categorize assumptions
+4. `ux-competitor-analysis` – Research the competitive landscape
 5. Continue through the remaining Big Idea sections as needed
 
 ---
 
 ## Resource Files
 
-- [idea-validation-criteria.md](./references/idea-validation-criteria.md) -- Criteria for evaluating idea strength, common pitfalls, and red flags to watch for
+- [idea-validation-criteria.md](./references/idea-validation-criteria.md) – Criteria for evaluating idea strength, common pitfalls, and red flags to watch for
