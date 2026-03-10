@@ -1,0 +1,43 @@
+{
+  "eval_id": 1,
+  "eval_name": "fresh-saas-setup",
+  "prompt": "I just installed the design-engineer plugin and I want to set it up for my new SaaS project. It's a project management tool for freelance designers called DesignFlow. I'm working solo, using Figma and Claude Code in the terminal.",
+  "assertions": [
+    {
+      "id": "env-detection",
+      "text": "Runs environment detection (checks for MCPs, git, existing config)",
+      "type": "qualitative"
+    },
+    {
+      "id": "config-questions",
+      "text": "Asks sequential configuration questions (project type, mode, team size, tools, paths)",
+      "type": "qualitative"
+    },
+    {
+      "id": "config-file",
+      "text": "Produces a .design-engineer.yaml config file with the user's answers",
+      "type": "file_exists",
+      "check": "outputs contain a .design-engineer.yaml or equivalent config"
+    },
+    {
+      "id": "folder-scaffold",
+      "text": "Creates or describes the deliverables folder structure (foundation, research, design, psych, dev, solutions)",
+      "type": "qualitative"
+    },
+    {
+      "id": "dependency-init",
+      "text": "Initializes or references the dependency tracking system (.dependencies.yaml)",
+      "type": "qualitative"
+    },
+    {
+      "id": "next-steps",
+      "text": "Provides clear next steps after setup (which command to run next)",
+      "type": "qualitative"
+    },
+    {
+      "id": "user-context",
+      "text": "Incorporates user context (DesignFlow, SaaS, solo, Figma) into the setup",
+      "type": "qualitative"
+    }
+  ]
+}

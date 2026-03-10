@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "bare-setup-command",
+  "prompt": "/de:setup",
+  "assertions": [
+    {
+      "id": "handles-no-context",
+      "text": "Handles bare command gracefully without requiring additional context upfront",
+      "type": "qualitative"
+    },
+    {
+      "id": "starts-detection",
+      "text": "Begins with environment detection before asking questions",
+      "type": "qualitative"
+    },
+    {
+      "id": "full-workflow",
+      "text": "Executes the complete setup workflow (detect, configure, scaffold, initialize)",
+      "type": "qualitative"
+    },
+    {
+      "id": "asks-questions",
+      "text": "Asks configuration questions to gather missing context from user",
+      "type": "qualitative"
+    },
+    {
+      "id": "produces-outputs",
+      "text": "Produces config file and/or folder structure as output",
+      "type": "qualitative"
+    }
+  ]
+}

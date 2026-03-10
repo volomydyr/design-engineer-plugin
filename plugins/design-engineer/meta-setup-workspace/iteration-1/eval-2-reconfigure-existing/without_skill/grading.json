@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Detects existing configuration and acknowledges it", "passed": true, "evidence": "Created previous-config.yaml backup showing awareness of prior config"},
+    {"text": "Offers choice to reconfigure vs view vs cancel", "passed": false, "evidence": "Went straight to reconfiguration without offering options"},
+    {"text": "Produces updated config reflecting Sketch and 3 team members", "passed": true, "evidence": "Updated config shows Sketch and team of 3"},
+    {"text": "Preserves existing deliverables and project state", "passed": true, "evidence": "Backed up previous config, preserved existing structure"},
+    {"text": "Shows summary of what changed", "passed": true, "evidence": "change-summary.md has side-by-side comparison table"}
+  ]
+}

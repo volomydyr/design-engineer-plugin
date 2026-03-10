@@ -1,0 +1,11 @@
+{
+  "eval_id": 3,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Handles bare command gracefully", "passed": true, "evidence": "Explained that the command is not recognized and offered alternatives"},
+    {"text": "Begins with environment detection", "passed": false, "evidence": "No environment detection - could not recognize the command at all"},
+    {"text": "Executes the complete setup workflow", "passed": false, "evidence": "Could not execute any setup workflow - no knowledge of the plugin"},
+    {"text": "Asks configuration questions", "passed": false, "evidence": "No questions asked - no workflow to follow"},
+    {"text": "Produces config file and folder structure", "passed": false, "evidence": "No outputs produced - only a transcript explaining the command is unknown"}
+  ]
+}
