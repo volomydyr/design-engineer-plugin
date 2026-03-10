@@ -1,0 +1,13 @@
+{
+  "eval_id": 29,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Determines the user's starting point and current confidence in the idea", "passed": false, "evidence": "No starting-point assessment. Jumped directly into discussing the idea without classifying where the user is."},
+    {"text": "Asks structured validation questions about the problem, audience, and market", "passed": true, "evidence": "Asked some questions about the target audience and market, though not in a structured framework."},
+    {"text": "Evaluates idea viability with specific criteria", "passed": false, "evidence": "Discussed viability conversationally but no structured criteria or scorecard applied."},
+    {"text": "Identifies specific risks (Google Maps competition, data collection challenge)", "passed": true, "evidence": "Mentioned Google Maps competition and data collection as challenges in conversation."},
+    {"text": "Helps refine the concept beyond the initial description", "passed": true, "evidence": "Suggested starting with one city and MVP approach -- general refinement advice."},
+    {"text": "Produces a structured Big Idea deliverable file", "passed": false, "evidence": "No file created. All output was conversational in the chat."},
+    {"text": "Updates or references the dependency tracking system", "passed": false, "evidence": "No awareness of dependency tracking or deliverables pipeline."}
+  ]
+}

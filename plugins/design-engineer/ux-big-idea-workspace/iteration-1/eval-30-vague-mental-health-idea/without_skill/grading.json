@@ -1,0 +1,13 @@
+{
+  "eval_id": 30,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Handles the vague starting point without making premature assumptions", "passed": false, "evidence": "Jumped to brainstorming solutions rather than systematically narrowing the problem space"},
+    {"text": "Asks probing questions to narrow the focus within mental health", "passed": true, "evidence": "Asked some questions about what aspect interested the user"},
+    {"text": "Helps arrive at a concrete product concept from the vague idea", "passed": true, "evidence": "Suggested mood-tracking journal concept, though via brainstorming not structured narrowing"},
+    {"text": "Evaluates viability of the refined concept", "passed": false, "evidence": "No structured viability evaluation. General positive sentiment without criteria."},
+    {"text": "Identifies risks specific to the mental health space", "passed": true, "evidence": "Mentioned clinical claims sensitivity and regulatory caution conversationally"},
+    {"text": "Produces a structured Big Idea deliverable file", "passed": false, "evidence": "No file created. All output conversational."},
+    {"text": "Updates or references the dependency tracking system", "passed": false, "evidence": "No awareness of dependency tracking."}
+  ]
+}

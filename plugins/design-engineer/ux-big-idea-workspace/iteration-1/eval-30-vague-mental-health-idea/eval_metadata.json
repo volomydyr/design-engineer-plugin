@@ -1,0 +1,42 @@
+{
+  "eval_id": 30,
+  "eval_name": "vague-mental-health-idea",
+  "prompt": "I want to build something in the mental health space for college students but I only have a vague sense of the problem. Can you help me shape this into something concrete?",
+  "assertions": [
+    {
+      "id": "handles-vagueness",
+      "text": "Handles the vague starting point without making premature assumptions",
+      "type": "qualitative"
+    },
+    {
+      "id": "probing-questions",
+      "text": "Asks probing questions to narrow the focus within mental health",
+      "type": "qualitative"
+    },
+    {
+      "id": "concrete-concept",
+      "text": "Helps arrive at a concrete product concept from the vague idea",
+      "type": "qualitative"
+    },
+    {
+      "id": "viability-evaluation",
+      "text": "Evaluates viability of the refined concept",
+      "type": "qualitative"
+    },
+    {
+      "id": "risk-identification",
+      "text": "Identifies risks specific to the mental health space (regulation, sensitivity, clinical vs wellness)",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable-file",
+      "text": "Produces a structured Big Idea deliverable file",
+      "type": "file_exists"
+    },
+    {
+      "id": "dependency-tracking",
+      "text": "Updates or references the dependency tracking system",
+      "type": "qualitative"
+    }
+  ]
+}

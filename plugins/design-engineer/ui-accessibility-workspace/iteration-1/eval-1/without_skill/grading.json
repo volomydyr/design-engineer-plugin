@@ -1,0 +1,12 @@
+{
+  "eval_id": 94,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Addresses color contrast ratios with WCAG AA/AAA standards for healthcare", "passed": true, "evidence": "Mentions WCAG AA contrast ratios (4.5:1) but does not recommend AAA for healthcare or provide specific audit methodology"},
+    {"text": "Covers screen reader compatibility and ARIA attributes", "passed": true, "evidence": "Lists screen reader best practices (alt text, ARIA labels) but lacks structured verification checklist"},
+    {"text": "Addresses keyboard navigation and focus management", "passed": true, "evidence": "Mentions keyboard navigation and focus states in general terms without healthcare-flow-specific guidance"},
+    {"text": "Includes elderly-specific considerations (tap targets, text sizing, motor control)", "passed": false, "evidence": "Brief mention of larger text but no specific tap target sizes, no motor control considerations, no elderly-focused accommodations"},
+    {"text": "Produces a structured accessibility audit report with prioritized remediation", "passed": false, "evidence": "Provides a bulleted list of suggestions but no structured audit format, no severity levels, no remediation priorities"},
+    {"text": "Includes healthcare-specific accessibility concerns", "passed": false, "evidence": "No healthcare-specific considerations — treats it as a generic web app accessibility review"}
+  ]
+}

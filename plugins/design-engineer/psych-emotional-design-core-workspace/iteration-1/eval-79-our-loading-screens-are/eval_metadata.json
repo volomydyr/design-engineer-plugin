@@ -1,0 +1,32 @@
+{
+  "eval_id": 79,
+  "eval_name": "our-loading-screens-are",
+  "prompt": "Our loading screens are just a spinning circle and users hate waiting. How can I use psychology to make the wait feel shorter or even enjoyable?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured psych-emotional-design-core workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

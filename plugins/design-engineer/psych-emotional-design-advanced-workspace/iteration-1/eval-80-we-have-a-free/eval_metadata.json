@@ -1,0 +1,32 @@
+{
+  "eval_id": 80,
+  "eval_name": "we-have-a-free",
+  "prompt": "We have a free trial that expires after 14 days. Users who don't convert often come back weeks later asking if they can try again. How do I use the Endowment Effect and Fresh Start Effect to improve trial-to-paid conversion?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured psych-emotional-design-advanced workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

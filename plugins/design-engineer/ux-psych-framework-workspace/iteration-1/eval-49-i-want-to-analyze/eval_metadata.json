@@ -1,0 +1,32 @@
+{
+  "eval_id": 49,
+  "eval_name": "i-want-to-analyze",
+  "prompt": "I want to analyze our checkout flow screen by screen to see where users lose 'Psych' -- that mental energy to keep going. We have 5 screens: cart, account creation, shipping, payment, and confirmation.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured ux-psych-framework workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

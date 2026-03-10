@@ -1,0 +1,11 @@
+{
+  "eval_id": 103,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Identifies specific button sizing discrepancies between live and design", "passed": true, "evidence": "Suggests checking button padding and height values, recommends comparing CSS against Figma inspect values"},
+    {"text": "Checks font family, size, weight, and line-height differences", "passed": true, "evidence": "Recommends verifying font imports, checking font-size and font-weight declarations against design specs"},
+    {"text": "Verifies card layout spacing against design specifications", "passed": true, "evidence": "Suggests checking gap, padding, and margin values on the card grid and individual cards"},
+    {"text": "Checks for hardcoded values vs design token usage", "passed": false, "evidence": "Mentions using design tokens but does not proactively scan for hardcoded values or wrong-token references"},
+    {"text": "Produces a detailed review organized by severity with specific fixes", "passed": false, "evidence": "Provides a debugging approach but no structured report with severity levels, file:line references, or organized fix list"}
+  ]
+}

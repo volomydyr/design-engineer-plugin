@@ -1,0 +1,11 @@
+{
+  "eval_id": 95,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Calculates the exact contrast ratio of #CCCCCC on white (1.6:1)", "passed": true, "evidence": "Computed ratio as 1.6:1, showed calculation method using relative luminance formula, flagged as severe failure"},
+    {"text": "References correct WCAG AA minimum (4.5:1 for normal text, 3:1 for large text)", "passed": true, "evidence": "Full WCAG level breakdown: AA normal 4.5:1, AA large 3:1, AAA normal 7:1, AAA large 4.5:1"},
+    {"text": "Provides specific alternative hex values that pass WCAG AA while maintaining clean aesthetic", "passed": true, "evidence": "Provided graduated palette: #767676 (4.54:1 AA pass), #595959 (7.0:1 AAA), #949494 (3.03:1 large-text-only) with visual samples"},
+    {"text": "Frames the argument for stakeholders using both legal compliance and UX reasoning", "passed": true, "evidence": "Stakeholder brief covers ADA/Section 508 legal risk, user population data (15% have visual impairment), and business impact of excluding users"},
+    {"text": "Explains why contrast requirements exist beyond compliance", "passed": true, "evidence": "Covers situational impairments (bright sunlight, aging eyes), cognitive load reduction, and universal design principles"}
+  ]
+}

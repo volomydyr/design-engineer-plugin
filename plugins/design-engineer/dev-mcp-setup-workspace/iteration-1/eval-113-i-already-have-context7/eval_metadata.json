@@ -1,0 +1,32 @@
+{
+  "eval_id": 113,
+  "eval_name": "i-already-have-context7",
+  "prompt": "I already have Context7 and Figma MCP set up. Should I add Figma Console MCP too? What's the difference and when would I need it?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-mcp-setup workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

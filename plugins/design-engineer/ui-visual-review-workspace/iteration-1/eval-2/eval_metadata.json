@@ -1,0 +1,32 @@
+{
+  "eval_id": 103,
+  "eval_name": "live-site-vs-figma-comparison",
+  "prompt": "We deployed a new feature and the live site looks different from what we designed in Figma. Some buttons are bigger, fonts seem different, and the card layout spacing is off. Can you compare and identify all the discrepancies?",
+  "assertions": [
+    {
+      "id": "button-sizing",
+      "text": "Identifies specific button sizing discrepancies between live and design",
+      "type": "qualitative"
+    },
+    {
+      "id": "font-differences",
+      "text": "Checks font family, size, weight, and line-height differences",
+      "type": "qualitative"
+    },
+    {
+      "id": "card-spacing",
+      "text": "Verifies card layout spacing against design specifications",
+      "type": "qualitative"
+    },
+    {
+      "id": "token-verification",
+      "text": "Checks for hardcoded values vs design token usage",
+      "type": "qualitative"
+    },
+    {
+      "id": "severity-report",
+      "text": "Produces a detailed review organized by severity with specific fixes",
+      "type": "qualitative"
+    }
+  ]
+}

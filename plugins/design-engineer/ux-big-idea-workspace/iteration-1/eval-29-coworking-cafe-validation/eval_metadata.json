@@ -1,0 +1,42 @@
+{
+  "eval_id": 29,
+  "eval_name": "coworking-cafe-validation",
+  "prompt": "I have this idea for an app that helps remote workers find coworking-friendly cafes near them. It would show real-time seat availability, WiFi speed, noise level, and power outlet info. But I'm not sure if this is really a problem worth solving or if Google Maps already handles it.",
+  "assertions": [
+    {
+      "id": "starting-point",
+      "text": "Determines the user's starting point and current confidence in the idea",
+      "type": "qualitative"
+    },
+    {
+      "id": "structured-questions",
+      "text": "Asks structured validation questions about the problem, audience, and market",
+      "type": "qualitative"
+    },
+    {
+      "id": "viability-check",
+      "text": "Evaluates idea viability with specific criteria (problem severity, market size, competition)",
+      "type": "qualitative"
+    },
+    {
+      "id": "risk-identification",
+      "text": "Identifies specific risks (Google Maps competition, data collection challenge, real-time accuracy)",
+      "type": "qualitative"
+    },
+    {
+      "id": "concept-refinement",
+      "text": "Helps refine the concept beyond the initial description",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable-file",
+      "text": "Produces a structured Big Idea deliverable file in the project directory",
+      "type": "file_exists"
+    },
+    {
+      "id": "dependency-tracking",
+      "text": "Updates or references the dependency tracking system",
+      "type": "qualitative"
+    }
+  ]
+}

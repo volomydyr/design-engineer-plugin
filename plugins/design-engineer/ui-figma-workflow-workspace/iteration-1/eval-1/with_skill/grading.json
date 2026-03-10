@@ -1,0 +1,11 @@
+{
+  "eval_id": 100,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Recommends designing only 5-8 key screens that establish visual style", "passed": true, "evidence": "Explicitly prescribes 5-8 key screens: landing/hero, dashboard/main view, detail page, form/input, empty state, settings — explains why each matters for style definition"},
+    {"text": "Focuses on visual direction rather than documenting every state", "passed": true, "evidence": "Emphasizes that Figma screens are style guides not specs — AI generates states, responsive variants, and edge cases from the visual direction"},
+    {"text": "Explains how Figma MCP shares design data with AI for code generation", "passed": true, "evidence": "Walks through Figma MCP workflow: select frame, MCP reads design properties (colors, spacing, typography, layout), AI generates matching code"},
+    {"text": "Teaches the handoff process from Figma to code via AI", "passed": true, "evidence": "Step-by-step handoff: design key screen in Figma, use MCP to read it, prompt AI to implement, visual review, iterate"},
+    {"text": "Sets up an efficient workflow that avoids over-designing", "passed": true, "evidence": "Establishes 'design minimal, generate maximal' principle with concrete time estimates: 2-3 hours in Figma vs 2-3 days traditional"}
+  ]
+}

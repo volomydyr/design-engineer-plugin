@@ -1,0 +1,45 @@
+{
+  "skill_name": "ui-accessibility",
+  "iteration": 1,
+  "timestamp": "2026-03-10T10:30:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-1-healthcare-portal-accessibility": {"passed": 6, "total": 6, "rate": 1.0},
+        "eval-2-contrast-ratio-audit": {"passed": 5, "total": 5, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 44500,
+        "mean_duration_seconds": 180.5,
+        "by_eval": {
+          "eval-1": {"tokens": 46200, "duration_seconds": 188.4},
+          "eval-2": {"tokens": 42800, "duration_seconds": 172.6}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.45,
+      "pass_rate_by_eval": {
+        "eval-1-healthcare-portal-accessibility": {"passed": 3, "total": 6, "rate": 0.50},
+        "eval-2-contrast-ratio-audit": {"passed": 3, "total": 5, "rate": 0.60}
+      },
+      "timing": {
+        "mean_tokens": 20950,
+        "mean_duration_seconds": 99.8,
+        "by_eval": {
+          "eval-1": {"tokens": 22100, "duration_seconds": 105.3},
+          "eval-2": {"tokens": 19800, "duration_seconds": 94.2}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+55%",
+    "tokens": "+112%",
+    "duration": "+81%"
+  },
+  "summary": "ui-accessibility skill achieves 100% pass rate vs 45% baseline. Baseline Claude handles well-known WCAG basics (contrast ratios, standards) competently but lacks structured audit frameworks, healthcare-specific overlays, elderly accommodations, stakeholder persuasion, and prioritized remediation plans. Token cost is ~2x higher, justified by structured deliverables."
+}

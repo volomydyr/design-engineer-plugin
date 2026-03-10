@@ -1,0 +1,11 @@
+{
+  "eval_id": 102,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Checks for title case vs sentence case errors in AI-generated UI text", "passed": false, "evidence": "Does not specifically check text casing — focuses on visual spacing and color issues as the user described"},
+    {"text": "Verifies spacing against design tokens or Figma source values", "passed": true, "evidence": "Suggests comparing spacing values between code and Figma, mentions checking padding and margin values"},
+    {"text": "Checks hardcoded color values against design tokens", "passed": true, "evidence": "Recommends searching for hardcoded hex values and replacing with design tokens, provides grep approach"},
+    {"text": "Identifies creative interpretations that deviate from the original design", "passed": false, "evidence": "Does not proactively look for AI embellishments — only addresses the specific issues the user mentioned"},
+    {"text": "Produces a visual review report with specific files and lines to fix", "passed": false, "evidence": "Provides general debugging approach but no structured visual review report with file:line references"}
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "eval_id": 110,
+  "eval_name": "im-a-designer-who",
+  "prompt": "I'm a designer who just started coding with Claude Code. I've never used Git before. Can you set up a GitHub workflow for me and explain it like I'm five?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-github-workflow workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

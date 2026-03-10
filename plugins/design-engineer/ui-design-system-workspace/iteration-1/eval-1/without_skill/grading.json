@@ -1,0 +1,12 @@
+{
+  "eval_id": 98,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Guides auditing existing 40+ components for patterns and inconsistencies", "passed": false, "evidence": "Suggests creating a component inventory but does not provide a structured audit methodology or categorization framework"},
+    {"text": "Extracts design tokens from existing codebase", "passed": true, "evidence": "Recommends creating a tokens file with colors, spacing, and typography — gives example token structures"},
+    {"text": "Establishes atomic design structure (atoms, molecules, organisms)", "passed": true, "evidence": "Mentions atomic design and suggests organizing components by level, though without mapping existing components"},
+    {"text": "Defines token naming conventions for the team", "passed": false, "evidence": "Uses ad-hoc names in examples but does not establish a systematic naming convention schema"},
+    {"text": "Creates a refactoring plan to replace hardcoded values with tokens", "passed": false, "evidence": "Says to replace hardcoded values but no phased plan, no priority ordering, no effort estimates"},
+    {"text": "Produces a design system setup deliverable", "passed": false, "evidence": "Provides conversational guidance and code snippets but no structured design system deliverable document"}
+  ]
+}

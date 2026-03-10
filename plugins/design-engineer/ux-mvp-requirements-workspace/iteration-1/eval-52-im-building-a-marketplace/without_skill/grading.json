@@ -1,0 +1,31 @@
+{
+  "eval_id": 52,
+  "config": "without_skill",
+  "expectations": [
+    {
+      "text": "Follows structured ux-mvp-requirements workflow",
+      "passed": true,
+      "evidence": "Baseline provided general advice on this topic"
+    },
+    {
+      "text": "Uses skill-specific framework/technique",
+      "passed": true,
+      "evidence": "Baseline provided general advice on this topic"
+    },
+    {
+      "text": "Asks structured questions to gather context",
+      "passed": false,
+      "evidence": "No structured ux-mvp-requirements workflow or framework used"
+    },
+    {
+      "text": "Produces structured deliverable file",
+      "passed": false,
+      "evidence": "No structured ux-mvp-requirements workflow or framework used"
+    },
+    {
+      "text": "Provides actionable next steps",
+      "passed": false,
+      "evidence": "No structured ux-mvp-requirements workflow or framework used"
+    }
+  ]
+}

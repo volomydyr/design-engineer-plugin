@@ -1,0 +1,32 @@
+{
+  "eval_id": 64,
+  "eval_name": "i-have-a-design",
+  "prompt": "I have a design review meeting with stakeholders tomorrow. They're going to push back on my decision to remove the dashboard and replace it with a feed-based home screen. Help me prepare to defend this decision.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured ux-communicating-decisions workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

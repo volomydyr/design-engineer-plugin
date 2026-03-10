@@ -1,0 +1,32 @@
+{
+  "eval_id": 41,
+  "eval_name": "i-need-help-writing",
+  "prompt": "I need help writing the copy for our landing page. We have a time-tracking app for freelancers called TimeWise. The product helps freelancers accurately bill clients and avoid undercharging. How do I make the messaging connect emotionally?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured ux-storybrand workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

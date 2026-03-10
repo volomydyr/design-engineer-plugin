@@ -1,0 +1,32 @@
+{
+  "eval_id": 65,
+  "eval_name": "the-ceo-just-told",
+  "prompt": "The CEO just told me that our new navigation redesign 'looks weird' and wants to revert it. How do I respond to vague stakeholder feedback without getting defensive?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured ux-communicating-decisions workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "eval_id": 97,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Gathers references specifically for B2B analytics dashboards", "passed": true, "evidence": "Curates references from Mixpanel, Amplitude, Datadog, Grafana, Linear and other B2B analytics products with specific screen examples"},
+    {"text": "Filters for the 'modern but professional' aesthetic", "passed": true, "evidence": "Creates aesthetic spectrum (playful—modern—corporate) and positions references along it, filtering to the modern-professional zone"},
+    {"text": "Identifies patterns in data visualization, layout, typography, and color usage", "passed": true, "evidence": "Breaks down patterns: inter/system font stacks, muted blue-gray palettes, card-based chart containers, whitespace-heavy layouts, subtle data viz colors"},
+    {"text": "Compares different visual approaches (dark vs light, card-based vs data-dense)", "passed": true, "evidence": "Produces comparison matrix: dark mode (Grafana-style) vs light (Linear-style), card-based (Mixpanel) vs data-dense (Datadog), with pros/cons for B2B context"},
+    {"text": "Produces a curated reference collection that defines the visual direction", "passed": true, "evidence": "Outputs design-references.md with curated collection, aesthetic positioning, pattern analysis, and recommended visual direction summary"}
+  ]
+}

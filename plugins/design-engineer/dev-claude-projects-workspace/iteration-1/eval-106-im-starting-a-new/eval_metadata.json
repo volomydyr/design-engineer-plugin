@@ -1,0 +1,32 @@
+{
+  "eval_id": 106,
+  "eval_name": "im-starting-a-new",
+  "prompt": "I'm starting a new SaaS product from absolute zero. No code, no designs, just an idea. How do I set up a Claude Projects workspace for the pre-development phase?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-claude-projects workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

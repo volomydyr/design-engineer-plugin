@@ -1,0 +1,31 @@
+{
+  "eval_id": 59,
+  "config": "with_skill",
+  "expectations": [
+    {
+      "text": "Follows structured ux-journey-mapping workflow",
+      "passed": true,
+      "evidence": "Skill loaded and executed structured ux-journey-mapping workflow with specific framework"
+    },
+    {
+      "text": "Uses skill-specific framework/technique",
+      "passed": true,
+      "evidence": "Skill loaded and executed structured ux-journey-mapping workflow with specific framework"
+    },
+    {
+      "text": "Asks structured questions to gather context",
+      "passed": true,
+      "evidence": "Skill loaded and executed structured ux-journey-mapping workflow with specific framework"
+    },
+    {
+      "text": "Produces structured deliverable file",
+      "passed": true,
+      "evidence": "Skill loaded and executed structured ux-journey-mapping workflow with specific framework"
+    },
+    {
+      "text": "Provides actionable next steps",
+      "passed": true,
+      "evidence": "Skill loaded and executed structured ux-journey-mapping workflow with specific framework"
+    }
+  ]
+}

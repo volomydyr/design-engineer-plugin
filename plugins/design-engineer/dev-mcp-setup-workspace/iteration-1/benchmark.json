@@ -1,0 +1,53 @@
+{
+  "skill_name": "dev-mcp-setup",
+  "iteration": 1,
+  "timestamp": "2026-03-10T13:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-112-i-just-installed-claude": {
+          "passed": 5,
+          "total": 5,
+          "rate": 1.0
+        },
+        "eval-113-i-already-have-context7": {
+          "passed": 5,
+          "total": 5,
+          "rate": 1.0
+        }
+      },
+      "timing": {
+        "mean_tokens": 45250,
+        "mean_duration_seconds": 202.5
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.2,
+      "pass_rate_by_eval": {
+        "eval-112-i-just-installed-claude": {
+          "passed": 1,
+          "total": 5,
+          "rate": 0.2
+        },
+        "eval-113-i-already-have-context7": {
+          "passed": 1,
+          "total": 5,
+          "rate": 0.2
+        }
+      },
+      "timing": {
+        "mean_tokens": 22250,
+        "mean_duration_seconds": 92.5
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+80%",
+    "tokens": "+103%",
+    "duration": "+119%"
+  },
+  "summary": "dev-mcp-setup achieves 100% pass rate vs 20% baseline (+80%). The skill provides structured workflows, specific frameworks, and deliverable file creation that baseline Claude cannot replicate."
+}

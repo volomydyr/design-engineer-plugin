@@ -1,0 +1,32 @@
+{
+  "eval_id": 83,
+  "eval_name": "our-mobile-app-has",
+  "prompt": "Our mobile app has a bottom navigation with 5 tabs, a side drawer with 8 items, and a floating action button with 3 options. Users report feeling 'lost.' Is our navigation too complex?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured psych-efficiency workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

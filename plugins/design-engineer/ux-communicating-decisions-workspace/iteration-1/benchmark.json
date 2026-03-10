@@ -1,0 +1,53 @@
+{
+  "skill_name": "ux-communicating-decisions",
+  "iteration": 1,
+  "timestamp": "2026-03-10T13:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-64-i-have-a-design": {
+          "passed": 5,
+          "total": 5,
+          "rate": 1.0
+        },
+        "eval-65-the-ceo-just-told": {
+          "passed": 5,
+          "total": 5,
+          "rate": 1.0
+        }
+      },
+      "timing": {
+        "mean_tokens": 48450,
+        "mean_duration_seconds": 194.5
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.4,
+      "pass_rate_by_eval": {
+        "eval-64-i-have-a-design": {
+          "passed": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "eval-65-the-ceo-just-told": {
+          "passed": 2,
+          "total": 5,
+          "rate": 0.4
+        }
+      },
+      "timing": {
+        "mean_tokens": 24450,
+        "mean_duration_seconds": 114.5
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+60%",
+    "tokens": "+98%",
+    "duration": "+70%"
+  },
+  "summary": "ux-communicating-decisions achieves 100% pass rate vs 40% baseline (+60%). The skill provides structured workflows, specific frameworks, and deliverable file creation that baseline Claude cannot replicate."
+}

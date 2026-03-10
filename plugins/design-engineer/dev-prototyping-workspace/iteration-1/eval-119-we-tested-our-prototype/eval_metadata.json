@@ -1,0 +1,32 @@
+{
+  "eval_id": 119,
+  "eval_name": "we-tested-our-prototype",
+  "prompt": "We tested our prototype with 8 users last week and got mixed results. 5 loved the concept but 3 couldn't figure out the navigation. Help me analyze the results and decide what to change before building the real thing.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-prototyping workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

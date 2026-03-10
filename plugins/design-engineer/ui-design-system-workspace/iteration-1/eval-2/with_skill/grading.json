@@ -1,0 +1,11 @@
+{
+  "eval_id": 99,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Scans codebase for hardcoded values that should use existing tokens", "passed": true, "evidence": "Runs systematic scan: grep for hex colors, px values, font declarations outside token files; cross-references against existing 200+ token set"},
+    {"text": "Identifies redundant or duplicate tokens in the token set", "passed": true, "evidence": "Token deduplication analysis finds 18 near-duplicate tokens (e.g., gray-200 vs neutral-light with same hex value), recommends consolidation"},
+    {"text": "Checks component consistency against design system standards", "passed": true, "evidence": "Component audit checks each component against token usage, spacing scale adherence, and naming convention compliance"},
+    {"text": "Flags specific files where developers created new tokens instead of reusing", "passed": true, "evidence": "Produces file-level violation report: 34 files with hardcoded values, 12 files with ad-hoc token definitions, organized by severity"},
+    {"text": "Produces an audit report with specific violations and remediation priorities", "passed": true, "evidence": "Outputs design-system-audit.md with violation categories, file-level findings, token consolidation recommendations, and prioritized remediation plan"}
+  ]
+}

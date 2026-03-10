@@ -1,0 +1,11 @@
+{
+  "eval_id": 100,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Recommends designing only 5-8 key screens that establish visual style", "passed": false, "evidence": "Suggests designing 'main screens' but does not specify a number or explain the minimal-screens principle for AI workflows"},
+    {"text": "Focuses on visual direction rather than documenting every state", "passed": false, "evidence": "Gives traditional Figma advice about creating components and variants — does not explain that AI handles state generation"},
+    {"text": "Explains how Figma MCP shares design data with AI for code generation", "passed": false, "evidence": "No mention of Figma MCP or how AI reads design properties from Figma. Treats Figma as traditional design tool"},
+    {"text": "Teaches the handoff process from Figma to code via AI", "passed": false, "evidence": "Mentions exporting assets and using CSS inspect — traditional handoff, not AI-assisted handoff"},
+    {"text": "Sets up an efficient workflow that avoids over-designing", "passed": true, "evidence": "General advice to start simple and iterate, though not specifically framed for AI-assisted development"}
+  ]
+}

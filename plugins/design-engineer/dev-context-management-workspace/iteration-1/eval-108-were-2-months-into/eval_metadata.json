@@ -1,0 +1,32 @@
+{
+  "eval_id": 108,
+  "eval_name": "were-2-months-into",
+  "prompt": "We're 2 months into development and Claude keeps forgetting things we already built. It suggested creating a Button component yesterday when we already have one. How do I fix this context loss problem?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-context-management workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "skill_name": "dev-claude-projects",
+  "iteration": 1,
+  "timestamp": "2026-03-10T13:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-106-im-starting-a-new": {
+          "passed": 5,
+          "total": 5,
+          "rate": 1.0
+        },
+        "eval-107-ive-been-using-claude": {
+          "passed": 5,
+          "total": 5,
+          "rate": 1.0
+        }
+      },
+      "timing": {
+        "mean_tokens": 44650,
+        "mean_duration_seconds": 196.5
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.4,
+      "pass_rate_by_eval": {
+        "eval-106-im-starting-a-new": {
+          "passed": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "eval-107-ive-been-using-claude": {
+          "passed": 2,
+          "total": 5,
+          "rate": 0.4
+        }
+      },
+      "timing": {
+        "mean_tokens": 21650,
+        "mean_duration_seconds": 86.5
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+60%",
+    "tokens": "+106%",
+    "duration": "+127%"
+  },
+  "summary": "dev-claude-projects achieves 100% pass rate vs 40% baseline (+60%). The skill provides structured workflows, specific frameworks, and deliverable file creation that baseline Claude cannot replicate."
+}

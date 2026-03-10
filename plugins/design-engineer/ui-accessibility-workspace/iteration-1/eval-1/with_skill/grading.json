@@ -1,0 +1,12 @@
+{
+  "eval_id": 94,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Addresses color contrast ratios with WCAG AA/AAA standards for healthcare", "passed": true, "evidence": "Performed full contrast audit recommending AAA (7:1) for primary content given healthcare context, AA (4.5:1) minimum for all text"},
+    {"text": "Covers screen reader compatibility and ARIA attributes", "passed": true, "evidence": "Audit section on screen readers includes ARIA landmark roles, live regions for alerts, form label associations, and reading order verification"},
+    {"text": "Addresses keyboard navigation and focus management", "passed": true, "evidence": "Keyboard nav checklist covers tab order, focus trapping in modals, skip-to-content links, and visible focus indicators"},
+    {"text": "Includes elderly-specific considerations (tap targets, text sizing, motor control)", "passed": true, "evidence": "Dedicated section for elderly users: 48px minimum tap targets, 16px base font, 200% zoom support, reduced motion preferences"},
+    {"text": "Produces a structured accessibility audit report with prioritized remediation", "passed": true, "evidence": "Output includes prioritized audit report with P0 (blocker), P1 (critical), P2 (important) severity levels and specific remediation steps"},
+    {"text": "Includes healthcare-specific accessibility concerns", "passed": true, "evidence": "Covers medical terminology readability, emergency state accessibility, appointment booking flow for assistive tech, and medication dosage display clarity"}
+  ]
+}

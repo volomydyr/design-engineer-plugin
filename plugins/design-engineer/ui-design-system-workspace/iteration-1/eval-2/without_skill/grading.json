@@ -1,0 +1,11 @@
+{
+  "eval_id": 99,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Scans codebase for hardcoded values that should use existing tokens", "passed": true, "evidence": "Suggests using grep/search to find hardcoded hex values and px values, provides example commands"},
+    {"text": "Identifies redundant or duplicate tokens in the token set", "passed": false, "evidence": "Mentions token bloat as a concept but does not provide a method to identify duplicates or near-duplicates"},
+    {"text": "Checks component consistency against design system standards", "passed": false, "evidence": "Recommends manual review of components but no systematic consistency checking methodology"},
+    {"text": "Flags specific files where developers created new tokens instead of reusing", "passed": false, "evidence": "Suggests looking for local variable definitions but no automated or systematic flagging approach"},
+    {"text": "Produces an audit report with specific violations and remediation priorities", "passed": false, "evidence": "Provides suggestions for what to audit but no structured report, no severity levels, no remediation plan"}
+  ]
+}

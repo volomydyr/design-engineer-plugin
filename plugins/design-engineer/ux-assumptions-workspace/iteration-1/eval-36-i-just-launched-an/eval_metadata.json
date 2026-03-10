@@ -1,0 +1,32 @@
+{
+  "eval_id": 36,
+  "eval_name": "i-just-launched-an",
+  "prompt": "I just launched an MVP for my habit tracking app and half our assumptions turned out to be wrong. Users aren't using the social features at all, and the daily reminder is getting dismissed 80% of the time. How do I update my assumptions doc?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured ux-assumptions workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

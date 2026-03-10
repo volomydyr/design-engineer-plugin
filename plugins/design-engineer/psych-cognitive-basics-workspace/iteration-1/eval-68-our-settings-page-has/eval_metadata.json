@@ -1,0 +1,32 @@
+{
+  "eval_id": 68,
+  "eval_name": "our-settings-page-has",
+  "prompt": "Our settings page has 35 options spread across one long scrollable page. Users keep calling support because they can't find what they need. Analyze this from a cognitive basics perspective.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured psych-cognitive-basics workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

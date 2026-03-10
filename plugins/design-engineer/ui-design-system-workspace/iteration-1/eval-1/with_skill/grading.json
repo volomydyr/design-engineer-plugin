@@ -1,0 +1,12 @@
+{
+  "eval_id": 98,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Guides auditing existing 40+ components for patterns and inconsistencies", "passed": true, "evidence": "Runs component inventory workflow: categorize by atomic level, identify duplicates, flag inconsistent implementations of similar patterns"},
+    {"text": "Extracts design tokens from existing codebase", "passed": true, "evidence": "Provides extraction methodology: scan for hardcoded hex values, px values, font declarations; deduplicate into canonical token set with usage counts"},
+    {"text": "Establishes atomic design structure (atoms, molecules, organisms)", "passed": true, "evidence": "Maps existing components to atomic hierarchy, identifies missing atoms (e.g., no base Button atom, 6 molecule-level button variants)"},
+    {"text": "Defines token naming conventions for the team", "passed": true, "evidence": "Establishes naming schema: color-{semantic}-{variant}, spacing-{size}, font-{role}-{property} with examples from extracted tokens"},
+    {"text": "Creates a refactoring plan to replace hardcoded values with tokens", "passed": true, "evidence": "Phased refactoring plan: Phase 1 tokens file + CSS variables, Phase 2 high-usage components, Phase 3 remaining components, with file-by-file priority"},
+    {"text": "Produces a design system setup deliverable", "passed": true, "evidence": "Outputs design-system-setup.md with token definitions, component inventory, naming conventions, and phased migration plan"}
+  ]
+}

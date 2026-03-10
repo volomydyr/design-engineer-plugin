@@ -1,0 +1,32 @@
+{
+  "eval_id": 105,
+  "eval_name": "our-claudemd-is-6",
+  "prompt": "Our CLAUDE.md is 6 months old and our project has changed a lot -- we added a GraphQL layer, switched from Jest to Vitest, and have 15 new components. Help me update it.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-claude-md workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

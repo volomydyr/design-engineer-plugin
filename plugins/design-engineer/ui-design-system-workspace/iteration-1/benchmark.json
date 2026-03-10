@@ -1,0 +1,45 @@
+{
+  "skill_name": "ui-design-system",
+  "iteration": 1,
+  "timestamp": "2026-03-10T10:30:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-1-code-first-design-system-setup": {"passed": 6, "total": 6, "rate": 1.0},
+        "eval-2-design-system-compliance-audit": {"passed": 5, "total": 5, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 46500,
+        "mean_duration_seconds": 191.0,
+        "by_eval": {
+          "eval-1": {"tokens": 47800, "duration_seconds": 195.6},
+          "eval-2": {"tokens": 45200, "duration_seconds": 186.3}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.27,
+      "pass_rate_by_eval": {
+        "eval-1-code-first-design-system-setup": {"passed": 2, "total": 6, "rate": 0.33},
+        "eval-2-design-system-compliance-audit": {"passed": 1, "total": 5, "rate": 0.20}
+      },
+      "timing": {
+        "mean_tokens": 23000,
+        "mean_duration_seconds": 113.6,
+        "by_eval": {
+          "eval-1": {"tokens": 24300, "duration_seconds": 118.7},
+          "eval-2": {"tokens": 21700, "duration_seconds": 108.4}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+73%",
+    "tokens": "+102%",
+    "duration": "+68%"
+  },
+  "summary": "ui-design-system skill achieves 100% pass rate vs 27% baseline. Baseline knows design system concepts (tokens, atomic design) but cannot execute structured audits, extract tokens systematically, identify duplicates, or produce formal deliverables. The skill provides the methodology that transforms general knowledge into actionable design system work."
+}

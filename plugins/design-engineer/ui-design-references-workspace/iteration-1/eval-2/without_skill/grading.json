@@ -1,0 +1,11 @@
+{
+  "eval_id": 97,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Gathers references specifically for B2B analytics dashboards", "passed": true, "evidence": "Names several analytics dashboards (Mixpanel, Stripe) as references but without specific screen examples or search queries"},
+    {"text": "Filters for the 'modern but professional' aesthetic", "passed": false, "evidence": "Provides general advice about balancing modern and professional but no systematic aesthetic filtering or positioning"},
+    {"text": "Identifies patterns in data visualization, layout, typography, and color usage", "passed": false, "evidence": "Mentions clean typography and muted colors in general terms but no systematic pattern extraction across references"},
+    {"text": "Compares different visual approaches (dark vs light, card-based vs data-dense)", "passed": false, "evidence": "No structured comparison of approaches — mentions dark mode as an option but no pros/cons analysis"},
+    {"text": "Produces a curated reference collection that defines the visual direction", "passed": false, "evidence": "Conversational suggestions only — no structured deliverable or curated collection produced"}
+  ]
+}

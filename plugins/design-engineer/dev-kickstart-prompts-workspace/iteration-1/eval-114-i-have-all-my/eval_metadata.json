@@ -1,0 +1,32 @@
+{
+  "eval_id": 114,
+  "eval_name": "i-have-all-my",
+  "prompt": "I have all my design docs ready (problem statement, MVP requirements, IA, design references) and I'm about to open Cursor for the first time. Generate the kick-start prompts I should use to get the project going.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-kickstart-prompts workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

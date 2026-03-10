@@ -1,0 +1,32 @@
+{
+  "eval_id": 92,
+  "eval_name": "our-page-loads-in",
+  "prompt": "Our page loads in 3 seconds but users perceive it as slow. Meanwhile our competitor loads in 4 seconds but users think it's faster. What time perception principles are at play and how do we fix this?",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured psych-time-behavior workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

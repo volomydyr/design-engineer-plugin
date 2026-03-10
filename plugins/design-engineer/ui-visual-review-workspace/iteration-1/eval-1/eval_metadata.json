@@ -1,0 +1,32 @@
+{
+  "eval_id": 102,
+  "eval_name": "onboarding-flow-visual-review",
+  "prompt": "I just had Claude Code implement my Figma designs for the onboarding flow. Some things look off -- the spacing seems wrong and the colors don't match exactly. Can you do a visual review?",
+  "assertions": [
+    {
+      "id": "title-case-check",
+      "text": "Checks for title case vs sentence case errors in AI-generated UI text",
+      "type": "qualitative"
+    },
+    {
+      "id": "spacing-verification",
+      "text": "Verifies spacing against design tokens or Figma source values",
+      "type": "qualitative"
+    },
+    {
+      "id": "color-matching",
+      "text": "Checks hardcoded color values against design tokens",
+      "type": "qualitative"
+    },
+    {
+      "id": "creative-deviations",
+      "text": "Identifies creative interpretations that deviate from the original design",
+      "type": "qualitative"
+    },
+    {
+      "id": "visual-review-report",
+      "text": "Produces a visual review report with specific files and lines to fix",
+      "type": "qualitative"
+    }
+  ]
+}

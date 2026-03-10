@@ -1,0 +1,13 @@
+{
+  "eval_id": 29,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Determines the user's starting point and current confidence in the idea", "passed": true, "evidence": "Step 1 classified user as 'Has an idea, needs validation' using the skill's starting-point assessment"},
+    {"text": "Asks structured validation questions about the problem, audience, and market", "passed": true, "evidence": "Step 2 asked 5 structured questions covering who, current solutions, frequency, cost, and willingness to pay"},
+    {"text": "Evaluates idea viability with specific criteria", "passed": true, "evidence": "Step 3 applied viability criteria: problem severity, market size, competition, data moat"},
+    {"text": "Identifies specific risks (Google Maps competition, data collection challenge)", "passed": true, "evidence": "Step 4 identified 4 risks including data collection chicken-and-egg and Google Maps threat"},
+    {"text": "Helps refine the concept beyond the initial description", "passed": true, "evidence": "Step 5 suggested pivoting to cafe-office scores, niching down to top 10 cities, partner revenue model"},
+    {"text": "Produces a structured Big Idea deliverable file", "passed": true, "evidence": "Created docs/design/foundation/big-idea.md with full validation structure"},
+    {"text": "Updates or references the dependency tracking system", "passed": true, "evidence": "Updated .dependencies.yaml to mark big-idea as completed"}
+  ]
+}

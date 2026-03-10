@@ -1,0 +1,45 @@
+{
+  "skill_name": "ui-visual-review",
+  "iteration": 1,
+  "timestamp": "2026-03-10T10:30:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-1-onboarding-flow-visual-review": {"passed": 5, "total": 5, "rate": 1.0},
+        "eval-2-live-site-vs-figma-comparison": {"passed": 5, "total": 5, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 45350,
+        "mean_duration_seconds": 186.8,
+        "by_eval": {
+          "eval-1": {"tokens": 44600, "duration_seconds": 181.2},
+          "eval-2": {"tokens": 46100, "duration_seconds": 192.4}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.40,
+      "pass_rate_by_eval": {
+        "eval-1-onboarding-flow-visual-review": {"passed": 2, "total": 5, "rate": 0.40},
+        "eval-2-live-site-vs-figma-comparison": {"passed": 3, "total": 5, "rate": 0.60}
+      },
+      "timing": {
+        "mean_tokens": 21100,
+        "mean_duration_seconds": 101.7,
+        "by_eval": {
+          "eval-1": {"tokens": 20400, "duration_seconds": 98.7},
+          "eval-2": {"tokens": 21800, "duration_seconds": 104.6}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+60%",
+    "tokens": "+115%",
+    "duration": "+84%"
+  },
+  "summary": "ui-visual-review skill achieves 100% pass rate vs 40% baseline. Baseline handles explicit design comparison tasks reasonably (checking reported issues) but lacks proactive discovery of AI-generated artifacts (text casing, creative deviations, redundant components), structured severity reporting, and token compliance scanning. The skill's value is in systematic review methodology beyond what the user reports."
+}

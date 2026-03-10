@@ -1,0 +1,11 @@
+{
+  "eval_id": 103,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Identifies specific button sizing discrepancies between live and design", "passed": true, "evidence": "Compares button padding/height: live buttons use py-3 px-6 (48px height) vs design spec of py-2 px-4 (36px height), flags as P0 fidelity issue"},
+    {"text": "Checks font family, size, weight, and line-height differences", "passed": true, "evidence": "Full typography audit: live uses system font stack (missing Inter import), body text 16px vs design 14px, heading weight 700 vs design 600"},
+    {"text": "Verifies card layout spacing against design specifications", "passed": true, "evidence": "Card gap is 24px (gap-6) vs design 16px (gap-4), card padding 24px vs design 20px, card border-radius 16px vs design 12px"},
+    {"text": "Checks for hardcoded values vs design token usage", "passed": true, "evidence": "Finds 11 hardcoded values that should reference tokens, 3 instances where tokens exist but wrong token was used"},
+    {"text": "Produces a detailed review organized by severity with specific fixes", "passed": true, "evidence": "Visual review report: 4 P0 issues (button sizing, font import, card spacing), 5 P1 issues (token misuse), 6 P2 issues (minor deviations) with file:line fixes"}
+  ]
+}

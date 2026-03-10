@@ -1,0 +1,32 @@
+{
+  "eval_id": 104,
+  "eval_name": "we-need-to-create",
+  "prompt": "We need to create a CLAUDE.md for our Next.js + Supabase project. The repo already has components in src/components and API routes in src/app/api. We use Tailwind and shadcn/ui.",
+  "assertions": [
+    {
+      "id": "workflow",
+      "text": "Follows structured dev-claude-md workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "framework",
+      "text": "Uses skill-specific framework/technique",
+      "type": "qualitative"
+    },
+    {
+      "id": "questions",
+      "text": "Asks structured questions to gather context",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces structured deliverable file",
+      "type": "qualitative"
+    },
+    {
+      "id": "actionable",
+      "text": "Provides actionable next steps",
+      "type": "qualitative"
+    }
+  ]
+}

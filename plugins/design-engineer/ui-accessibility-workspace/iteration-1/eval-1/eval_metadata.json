@@ -1,0 +1,37 @@
+{
+  "eval_id": 94,
+  "eval_name": "healthcare-portal-accessibility",
+  "prompt": "We need to make our healthcare patient portal accessible. We have elderly patients who may have low vision, and some patients who use screen readers. What should we check?",
+  "assertions": [
+    {
+      "id": "contrast-ratios",
+      "text": "Addresses color contrast ratios with WCAG AA/AAA standards for healthcare",
+      "type": "qualitative"
+    },
+    {
+      "id": "screen-reader",
+      "text": "Covers screen reader compatibility and ARIA attributes",
+      "type": "qualitative"
+    },
+    {
+      "id": "keyboard-nav",
+      "text": "Addresses keyboard navigation and focus management",
+      "type": "qualitative"
+    },
+    {
+      "id": "elderly-specific",
+      "text": "Includes elderly-specific considerations (tap targets, text sizing, motor control)",
+      "type": "qualitative"
+    },
+    {
+      "id": "audit-report",
+      "text": "Produces a structured accessibility audit report with prioritized remediation",
+      "type": "qualitative"
+    },
+    {
+      "id": "healthcare-context",
+      "text": "Includes healthcare-specific accessibility concerns (medical terminology, emergency states)",
+      "type": "qualitative"
+    }
+  ]
+}
