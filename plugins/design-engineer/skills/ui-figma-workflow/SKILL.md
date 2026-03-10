@@ -1,6 +1,6 @@
 ---
 name: ui-figma-workflow
-description: Defines the minimal Figma workflow for AI-assisted development. Use when starting high-fidelity design work or when preparing Figma frames for handoff to AI coding tools.
+description: Defines a minimal Figma workflow for AI-assisted development. Use when starting high-fidelity design work or preparing Figma frames for handoff to AI coding tools.
 disable-model-invocation: true
 ---
 

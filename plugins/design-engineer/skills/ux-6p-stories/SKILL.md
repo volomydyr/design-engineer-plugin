@@ -1,6 +1,6 @@
 ---
 name: ux-6p-stories
-description: Guides users through creating 6P Stories -- comic-style product stories with 6 panels that build customer empathy. Use when starting a new product (creating empathy stories from scratch) or documenting an existing product's user experience. Core UX design activity.
+description: "Guides creation of 6P Stories -- comic-style product stories with 6 panels that build customer empathy. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
 ---
 

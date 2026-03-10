@@ -1,6 +1,6 @@
 ---
 name: psych-decision-making-advanced
-description: Section 3b -- Psychology of Decision-Making advanced patterns (Laws 26-30). Covers Scarcity Effect, Social Proof, Authority Bias, Framing Effect, and Availability Heuristic. Teaches the boundary between ethical influence and manipulation. Use for auditing persuasion patterns, pricing pages, social proof elements, and urgency/scarcity tactics.
+description: "Explores advanced decision-making psychology principles (Laws 26-30) for UX design. Covers persuasion, scarcity, social proof, and the boundary between ethical influence and manipulation. Use when auditing pricing pages, urgency tactics, or social proof elements."
 disable-model-invocation: true
 ---
 

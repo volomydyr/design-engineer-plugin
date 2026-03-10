@@ -1,6 +1,6 @@
 ---
 name: psych-visual-perception
-description: "Deep dive into Visual Perception and Attention Focus psychology principles (Laws 11-20) for UX design. Use when analyzing how a design directs attention, uses contrast, applies Gestalt grouping, and manages visual focus."
+description: "Explores visual perception and attention focus psychology principles (Laws 11-20) for UX design. Covers contrast, Gestalt grouping, and visual hierarchy. Use when analyzing how a design directs attention and manages visual focus."
 disable-model-invocation: true
 ---
 

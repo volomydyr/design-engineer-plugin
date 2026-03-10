@@ -1,6 +1,6 @@
 ---
 name: dev-mcp-setup
-description: Guides setup of essential MCPs (Model Context Protocol integrations) for AI-assisted development. Use when configuring a new development environment or when the user needs help choosing which integrations to install.
+description: Guides setup of essential MCP integrations for AI-assisted development. Use when configuring a new development environment or choosing which MCP servers to install.
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: psych-engagement-motivation
-description: Section 4 -- Engagement and Motivation (Laws 31-40). Covers Flow State, Variable Reward, Goal Gradient Effect, Curiosity Gap, Aha! Moment, Investment Loops, External Trigger, Internal Trigger, Zeigarnik Effect, and Feedback Loop. Use for auditing onboarding flows, gamification, retention mechanics, notification systems, and engagement loops.
+description: "Explores engagement and motivation psychology principles (Laws 31-40) for UX design. Covers flow states, variable rewards, triggers, and feedback loops. Use when auditing onboarding flows, gamification, retention mechanics, or notification systems."
 disable-model-invocation: true
 ---
 

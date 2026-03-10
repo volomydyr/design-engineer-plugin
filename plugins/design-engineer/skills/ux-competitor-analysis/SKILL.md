@@ -1,6 +1,6 @@
 ---
 name: ux-competitor-analysis
-description: Conducts structured competitive analysis using web search, deep research, and user-provided context. Identifies direct and indirect competitors, analyzes strengths and weaknesses, and maps market positioning. Use when you need to understand the competitive landscape before making product or business decisions.
+description: Conducts structured competitive analysis identifying direct and indirect competitors, strengths, weaknesses, and market positioning. Use when you need to understand the competitive landscape before making product or business decisions.
 disable-model-invocation: true
 ---
 

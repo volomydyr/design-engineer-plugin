@@ -1,6 +1,6 @@
 ---
 name: meta-setup
-description: Interactive one-time plugin setup. Detects environment (MCPs, tools, project state), asks configuration questions, scaffolds deliverable folders, and initializes dependency tracking. Use when starting a new project or configuring the design-engineer plugin for the first time.
+description: "Runs interactive one-time plugin setup. Detects environment, asks configuration questions, scaffolds deliverable folders, and initializes dependency tracking. Use when starting a new project or configuring the design-engineer plugin for the first time."
 disable-model-invocation: true
 ---
 

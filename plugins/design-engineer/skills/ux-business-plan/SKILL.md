@@ -1,6 +1,6 @@
 ---
 name: ux-business-plan
-description: Develops a business plan covering revenue model, market size, go-to-market strategy, and financial projections. Teaches critical evaluation of AI-generated claims. Use when you need to define how your product will make money, estimate market potential, or plan finances before building.
+description: Develops a business plan covering revenue model, market size, go-to-market strategy, and financial projections. Use when defining how a product will make money, estimating market potential, or planning finances before building.
 disable-model-invocation: true
 ---
 

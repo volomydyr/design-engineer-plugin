@@ -1,6 +1,6 @@
 ---
 name: psych-cognitive-basics
-description: "Deep dive into Fundamentals of Cognitive Interaction psychology principles (Laws 1-10) for UX design. Use when analyzing how an interface manages cognitive load, choice architecture, information grouping, and discoverability."
+description: "Explores cognitive interaction fundamentals (Laws 1-10) for UX design. Covers cognitive load, choice architecture, information grouping, and discoverability. Use when analyzing how an interface manages mental effort and attention."
 disable-model-invocation: true
 ---
 

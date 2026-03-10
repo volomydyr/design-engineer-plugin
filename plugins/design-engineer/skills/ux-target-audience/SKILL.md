@@ -1,6 +1,6 @@
 ---
 name: ux-target-audience
-description: Develops detailed user personas with demographics, motivations, pain points, and behavioral patterns. Use when you need to define or refine who your product is for, after the problem statement is established.
+description: Develops detailed user personas with demographics, motivations, pain points, and behavioral patterns. Use when defining or refining who your product is for, after the problem statement is established.
 disable-model-invocation: true
 ---
 

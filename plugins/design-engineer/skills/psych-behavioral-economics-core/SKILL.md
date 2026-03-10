@@ -1,6 +1,6 @@
 ---
 name: psych-behavioral-economics-core
-description: "Deep dive into behavioral economics core patterns psychology principles for UX design. Section 7a covers Laws 61-65: Decoy Effect, Sunk Cost Effect, Hyperbolic Discounting, Cashless Effect, and Pareto Principle. Teaches how economic psychology affects user decisions about value, investment, and spending."
+description: "Explores behavioral economics psychology principles (Laws 61-65) for UX design. Covers how economic biases affect user decisions about value, investment, and spending. Use when auditing pricing, upgrade flows, or any interface involving monetary decisions."
 disable-model-invocation: true
 ---
 

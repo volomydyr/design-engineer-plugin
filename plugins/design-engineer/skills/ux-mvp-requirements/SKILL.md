@@ -1,6 +1,6 @@
 ---
 name: ux-mvp-requirements
-description: Defines and prioritizes MVP features using the ICE model, separating must-haves from nice-to-haves. Use when you need to decide what to build first, cut scope to launch faster, or when the feature list has grown beyond what is realistic for initial release.
+description: Defines and prioritizes MVP features using the ICE model, separating must-haves from nice-to-haves. Use when deciding what to build first, cutting scope to launch faster, or when the feature list exceeds initial release capacity.
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: dev-claude-projects
-description: Sets up and optimizes a Claude Projects workspace for pre-development activities. Use when starting a new product from scratch and needing a structured multi-chat workflow for ideation, research, and planning before any coding begins.
+description: Sets up and optimizes a Claude Projects workspace for pre-development activities. Use when starting a new product and needing a structured multi-chat workflow for ideation, research, and planning before coding.
 disable-model-invocation: true
 ---
 

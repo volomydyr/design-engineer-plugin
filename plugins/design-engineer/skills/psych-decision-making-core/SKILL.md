@@ -1,6 +1,6 @@
 ---
 name: psych-decision-making-core
-description: Section 3a -- Psychology of Decision-Making core principles (Laws 21-25). Covers Loss Aversion, Decision Fatigue, Anchoring Bias, Confirmation Bias, and Default Bias. Teaches how users make decisions and how design can support better decision-making without manipulation. Use for auditing pricing pages, form flows, filter systems, default settings, and any interface where users must choose between options.
+description: "Explores core decision-making psychology principles (Laws 21-25) for UX design. Covers loss aversion, decision fatigue, anchoring, and defaults. Use when auditing interfaces where users must choose between options, such as pricing, forms, or filter systems."
 disable-model-invocation: true
 ---
 

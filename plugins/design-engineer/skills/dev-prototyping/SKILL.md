@@ -1,6 +1,6 @@
 ---
 name: dev-prototyping
-description: Guides the AI prototyping workflow from generation through testing and analysis. Use when creating interactive prototypes from planning documents, when testing prototypes with users, or when analyzing test results.
+description: Guides the AI prototyping workflow from generation through testing and analysis. Use when creating interactive prototypes from planning documents, testing with users, or analyzing test results.
 disable-model-invocation: true
 ---
 

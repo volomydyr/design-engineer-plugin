@@ -1,6 +1,6 @@
 ---
 name: ux-product-assessment
-description: "Comprehensive product design assessment across usability, psychology, accessibility, and ethics dimensions. Runs the step-by-step Product Assessment Checklist covering all five areas: user behaviors, B.I.A.S. gaps, journey improvements, decision communication, and ethical review. Use for comprehensive reviews of existing products or as a final quality gate before launch."
+description: "Runs a comprehensive product design assessment across usability, psychology, accessibility, and ethics. Covers the full Product Assessment Checklist. Use when reviewing existing products end-to-end or as a final quality gate before launch."
 disable-model-invocation: true
 ---
 

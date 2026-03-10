@@ -1,6 +1,6 @@
 ---
 name: ux-big-idea
-description: Guides the user through defining and refining their product idea into a structured Big Idea document. Use when starting a new product from scratch or when an existing idea needs to be evaluated for viability, risks, and clarity before any design or development work begins.
+description: Guides defining and refining a product idea into a structured Big Idea document. Use when starting a new product or when an existing idea needs evaluation for viability, risks, and clarity before design work.
 disable-model-invocation: true
 ---
 

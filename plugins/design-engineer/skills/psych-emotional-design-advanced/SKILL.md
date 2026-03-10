@@ -1,6 +1,6 @@
 ---
 name: psych-emotional-design-advanced
-description: Section 5b -- Emotional Design advanced applications (Laws 46-50). Covers Endowment Effect, Fresh Start Effect, Storytelling Effect, Spacing Effect, and Feedforward. Teaches when and how to use emotional triggers responsibly for retention, re-engagement, and comprehension. Use for auditing trial-to-paid conversion, re-engagement campaigns, narrative onboarding, educational content pacing, and preview/undo patterns.
+description: "Explores advanced emotional design psychology principles (Laws 46-50) for UX design. Covers responsible emotional triggers for retention, re-engagement, and comprehension. Use when auditing trial-to-paid conversion, re-engagement campaigns, or narrative onboarding flows."
 disable-model-invocation: true
 ---
 

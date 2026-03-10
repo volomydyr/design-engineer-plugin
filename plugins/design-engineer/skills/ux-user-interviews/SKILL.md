@@ -1,6 +1,6 @@
 ---
 name: ux-user-interviews
-description: Design, prepare, and analyze user interviews and surveys. Generates interview scripts based on General Empathy Questions (GEQs) and the Replacing X technique. Guides dual-analysis methodology where you analyze results first, then AI analyzes independently, then both are combined. Use when you need to validate assumptions, understand user behavior, or gather qualitative/quantitative data at any stage of the product lifecycle.
+description: "Designs, prepares, and analyzes user interviews and surveys using GEQ and Replacing X techniques. Guides dual-analysis methodology combining human and AI insights. Use when validating assumptions, understanding user behavior, or gathering qualitative data."
 disable-model-invocation: true
 ---
 

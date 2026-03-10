@@ -1,6 +1,6 @@
 ---
 name: ui-visual-review
-description: Reviews implemented UI against design intent and catches common AI-generated issues. Use after any implementation phase to verify visual fidelity, or when the user reports UI discrepancies.
+description: Reviews implemented UI against design intent and catches common AI-generated issues. Use after implementation to verify visual fidelity or when UI discrepancies are reported.
 disable-model-invocation: true
 ---
 

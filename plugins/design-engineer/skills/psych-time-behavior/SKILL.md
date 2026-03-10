@@ -1,6 +1,6 @@
 ---
 name: psych-time-behavior
-description: "Deep dive into time perception and behavior management psychology principles for UX design. Section 10 (Laws 91-100). Covers Parkinson's Law, Chronoception, Singularity Effect, Halo Effect, Spark Effect, Familiarity Bias, Juxtaposition, Survivorship Bias, Attentional Bias, and Shaping. Use for auditing how time perception, patience thresholds, and gradual behavior change affect user engagement and retention."
+description: "Explores time perception and behavior management psychology principles (Laws 91-100) for UX design. Covers patience thresholds, familiarity, and gradual behavior shaping. Use when auditing time-sensitive interactions, progressive onboarding, or long-term engagement patterns."
 disable-model-invocation: true
 ---
 

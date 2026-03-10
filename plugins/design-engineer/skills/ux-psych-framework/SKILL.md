@@ -1,6 +1,6 @@
 ---
 name: ux-psych-framework
-description: Applies the Psych Framework to evaluate Net Perceived Value (Expected Utility minus Expected Interaction Cost) across each step of a user experience. Treats the customer as the hero of a video game with a "Psych Level" health bar. Optional/advanced -- most useful for screen-level analysis of user experiences.
+description: "Applies the Psych Framework to evaluate Net Perceived Value across each step of a user experience. Tracks the user's \"Psych Level\" health bar of motivation vs. friction. Use when performing screen-level analysis of user experience quality."
 disable-model-invocation: true
 ---
 

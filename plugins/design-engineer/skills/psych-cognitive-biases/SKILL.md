@@ -1,6 +1,6 @@
 ---
 name: psych-cognitive-biases
-description: "Deep dive into cognitive biases and self-perception psychology principles for UX design. Section 9 (Laws 81-90). Covers Curse of Knowledge, Dunning-Kruger Effect, Planning Fallacy, Cognitive Dissonance, Hindsight Bias, Backfire Effect, Survey Bias, Expectations Bias, Negativity Bias, and Empathy Gap. Use for auditing interfaces against thinking errors that affect both users AND designers/builders."
+description: "Explores cognitive biases and self-perception psychology principles (Laws 81-90) for UX design. Covers thinking errors that affect both users and designers. Use when auditing interfaces for knowledge gaps, planning fallacies, or survey and research validity."
 disable-model-invocation: true
 ---
 

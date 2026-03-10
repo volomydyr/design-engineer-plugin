@@ -1,6 +1,6 @@
 ---
 name: ui-design-references
-description: Guides the user through gathering and organizing design references before opening any design tool. Use when starting high-fidelity UI work or when the user needs visual direction for their product's look and feel.
+description: Guides gathering and organizing design references before opening any design tool. Use when starting high-fidelity UI work or when needing visual direction for the product's look and feel.
 disable-model-invocation: true
 ---
 

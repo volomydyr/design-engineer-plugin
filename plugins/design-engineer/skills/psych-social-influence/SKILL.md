@@ -1,6 +1,6 @@
 ---
 name: psych-social-influence
-description: "Deep dive into social influence psychology principles for UX design. Section 8 covers Laws 71-80: Bandwagon Effect, False Consensus Effect, Group Attractiveness Effect, Hawthorne Effect, Observer-Expectancy Effect, Spotlight Effect, Streisand Effect, Barnum-Forer Effect, Reactance, and Self-Serving Bias. Teaches how social dynamics influence product adoption, research validity, and user autonomy."
+description: "Explores social influence psychology principles (Laws 71-80) for UX design. Covers how social dynamics affect product adoption, research validity, and user autonomy. Use when auditing social features, community mechanics, or research methodology for social bias."
 disable-model-invocation: true
 ---
 

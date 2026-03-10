@@ -1,6 +1,6 @@
 ---
 name: ux-information-architecture
-description: Creates the product's information architecture including screen inventory, navigation structure, user flows, and content hierarchy. Use when you need a structural blueprint before starting UI design, or when the product's navigation feels unclear or overly complex.
+description: Creates information architecture including screen inventory, navigation structure, user flows, and content hierarchy. Use when you need a structural blueprint before UI design or when navigation feels unclear.
 disable-model-invocation: true
 ---
 

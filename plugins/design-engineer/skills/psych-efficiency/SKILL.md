@@ -1,6 +1,6 @@
 ---
 name: psych-efficiency
-description: Section 6 -- Efficiency Principles (Laws 51-60). Covers Tesler's Law, Signifiers, Skeuomorphism, Occam's Razor, Method of Loci, Exit Points, Law of the Instrument, Second-Order Effect, Weber's Law, and Unit Bias. Teaches how to simplify without oversimplifying, respect users' time and cognitive resources, and create intuitive interactions through detail and minimalism. Use for auditing navigation systems, complex settings, redesign strategies, form simplification, and any interface balancing simplicity with functionality.
+description: "Explores efficiency and simplification psychology principles (Laws 51-60) for UX design. Covers simplifying without oversimplifying, signifiers, and intuitive interaction patterns. Use when auditing navigation, complex settings, form simplification, or balancing simplicity with functionality."
 disable-model-invocation: true
 ---
 

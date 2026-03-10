@@ -1,6 +1,6 @@
 ---
 name: meta-orchestrator
-description: Central controller for the design pipeline. Manages God mode (autonomous), Guided mode (interactive), and Direct access. Sequences through discovery, strategy, planning, and validation phases while tracking project state and managing skill handoffs. Use when running the full design workflow via /de:design.
+description: "Controls the full design pipeline across discovery, strategy, planning, and validation phases. Manages autonomous, guided, and direct access modes while tracking project state. Use when running the end-to-end design workflow via /de:design."
 disable-model-invocation: true
 ---
 

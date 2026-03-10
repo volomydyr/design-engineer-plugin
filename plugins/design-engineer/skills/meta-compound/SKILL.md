@@ -1,6 +1,6 @@
 ---
 name: meta-compound
-description: Knowledge documentation and context engineering for design projects. Documents solutions, stores project status, maintains living context files, and tracks cross-deliverable dependencies. Auto-triggered after major phases or invoked manually via /de:compound.
+description: "Documents knowledge and engineers context for design projects. Stores project status, maintains living context files, and tracks cross-deliverable dependencies. Use when completing a major phase or when context needs to be preserved across sessions."
 disable-model-invocation: true
 ---
 

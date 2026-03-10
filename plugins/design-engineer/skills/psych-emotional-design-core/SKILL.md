@@ -1,6 +1,6 @@
 ---
 name: psych-emotional-design-core
-description: Section 5a -- Emotional Design foundations (Laws 41-45). Covers Peak-End Rule, Delighters, Sensory Appeal, Labor Illusion, and IKEA Effect. Teaches how peak moments and endings shape memory, how micro-delighters create disproportionate impact, and how perceived effort increases perceived value. Use for auditing emotional touchpoints, celebration moments, loading states, and personalization flows.
+description: "Explores foundational emotional design psychology principles (Laws 41-45) for UX design. Covers how peak moments, micro-delighters, and perceived effort shape user memory and value. Use when auditing emotional touchpoints, celebration moments, loading states, or personalization flows."
 disable-model-invocation: true
 ---
 

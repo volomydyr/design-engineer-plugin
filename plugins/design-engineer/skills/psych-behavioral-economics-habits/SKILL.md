@@ -1,6 +1,6 @@
 ---
 name: psych-behavioral-economics-habits
-description: "Deep dive into behavioral economics habits and patterns psychology principles for UX design. Section 7b covers Laws 66-70: Commitment and Consistency, Reciprocity, Temptation Bundling, Pseudo-Set Framing, and Noble Edge Effect. Teaches how to build positive habits through design while respecting user autonomy."
+description: "Explores habit formation and behavioral patterns psychology principles (Laws 66-70) for UX design. Covers building positive habits through reciprocity, commitment, and ethical nudging. Use when designing retention loops, loyalty mechanics, or habit-building features."
 disable-model-invocation: true
 ---
 
