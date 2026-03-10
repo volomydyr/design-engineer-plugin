@@ -1,0 +1,37 @@
+{
+  "eval_id": 23,
+  "eval_name": "dev-pipeline",
+  "prompt": "/de:dev pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
+  "assertions": [
+    {
+      "id": "routes-pipeline",
+      "text": "Routes to pipeline execution mode",
+      "type": "qualitative"
+    },
+    {
+      "id": "verifies-claude-md",
+      "text": "Verifies CLAUDE.md is current",
+      "type": "qualitative"
+    },
+    {
+      "id": "context-analyzer",
+      "text": "Runs context-analyzer agent",
+      "type": "qualitative"
+    },
+    {
+      "id": "plan-creator-approval",
+      "text": "Runs plan-creator agent and waits for approval",
+      "type": "qualitative"
+    },
+    {
+      "id": "backend-frontend",
+      "text": "Runs backend-implementer and frontend-implementer",
+      "type": "qualitative"
+    },
+    {
+      "id": "auditor-compound",
+      "text": "Runs design-system-auditor and meta-compound",
+      "type": "qualitative"
+    }
+  ]
+}

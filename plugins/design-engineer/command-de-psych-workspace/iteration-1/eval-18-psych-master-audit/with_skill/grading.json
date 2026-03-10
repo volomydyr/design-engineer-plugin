@@ -1,0 +1,12 @@
+{
+  "eval_id": 18,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Routes to psych-master-audit skill", "passed": true, "evidence": "Step 1 explicitly loads psych-master-audit skill upon receiving /de:psych master command"},
+    {"text": "Identifies Hick's Law violation (too many choices on goal screen)", "passed": true, "evidence": "Step 3 Section 1 identifies Hick's Law (Law 2) as CRITICAL, calculates log2(20) complexity, explains multi-pass cognitive burden"},
+    {"text": "Identifies cognitive overload/decision fatigue", "passed": true, "evidence": "Step 3 identifies Decision Fatigue (Law 14) in Section 2, Cognitive Load Theory (Law 5) in Section 1, and Miller's Law (Law 1) working memory overload"},
+    {"text": "Scans across multiple psychology sections", "passed": true, "evidence": "Step 3 scans all 10 sections (Cognitive Load, Decision Architecture, Visual Perception, Engagement, Trust, Navigation, Emotional Design, Accessibility, Persuasion, Error Prevention) with per-section scores"},
+    {"text": "Produces findings report with priority levels", "passed": true, "evidence": "Step 4 produces structured findings table with 4 priority levels (Critical, High, Medium, Low) totaling 13 findings with section, law number, and issue description"},
+    {"text": "Recommends specific section deep-dives", "passed": true, "evidence": "Step 5 recommends 4 specific section deep-dives in priority order (Sections 2, 1, 4, 9) with rationale for each"}
+  ]
+}

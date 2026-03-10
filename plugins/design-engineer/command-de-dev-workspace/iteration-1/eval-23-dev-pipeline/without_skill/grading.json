@@ -1,0 +1,12 @@
+{
+  "eval_id": 23,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Routes to pipeline execution mode", "passed": false, "evidence": "No pipeline routing. Did not recognize /de:dev pipeline as a structured command. Treated as a generic feature implementation request."},
+    {"text": "Verifies CLAUDE.md is current", "passed": false, "evidence": "No CLAUDE.md verification. Did not check for existence, source hierarchy, or pipeline rules."},
+    {"text": "Runs context-analyzer agent", "passed": false, "evidence": "No context analysis step. Asked the user about tech stack instead of analyzing existing project context (design docs, schemas, component library)."},
+    {"text": "Runs plan-creator agent and waits for approval", "passed": false, "evidence": "No plan creation or approval gate. Jumped directly to writing code without presenting an implementation plan."},
+    {"text": "Runs backend-implementer and frontend-implementer", "passed": true, "evidence": "Partial pass -- did produce some implementation code (1 page component, 1 API route), but as a single monolithic pass rather than separate backend and frontend agent runs. Output was incomplete (1 API route vs 4, no migration, no Zod schemas)."},
+    {"text": "Runs design-system-auditor and meta-compound", "passed": false, "evidence": "No audit or documentation step. Generated components were not checked against a design system, and no compound documentation was created."}
+  ]
+}

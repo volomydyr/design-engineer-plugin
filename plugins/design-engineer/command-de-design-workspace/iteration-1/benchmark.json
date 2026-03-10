@@ -1,0 +1,49 @@
+{
+  "skill_name": "command:de:design",
+  "iteration": 1,
+  "timestamp": "2026-03-10T14:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-12-design-god-mode": {"passed": 7, "total": 7, "rate": 1.0},
+        "eval-13-design-guided-context": {"passed": 6, "total": 6, "rate": 1.0},
+        "eval-14-design-phase-jump": {"passed": 5, "total": 5, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 49300,
+        "mean_duration_seconds": 198.3,
+        "by_eval": {
+          "eval-12": {"tokens": 52400, "duration_seconds": 215.0},
+          "eval-13": {"tokens": 48700, "duration_seconds": 198.0},
+          "eval-14": {"tokens": 46800, "duration_seconds": 182.0}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.11,
+      "pass_rate_by_eval": {
+        "eval-12-design-god-mode": {"passed": 0, "total": 7, "rate": 0.0},
+        "eval-13-design-guided-context": {"passed": 2, "total": 6, "rate": 0.33},
+        "eval-14-design-phase-jump": {"passed": 0, "total": 5, "rate": 0.0}
+      },
+      "timing": {
+        "mean_tokens": 17833,
+        "mean_duration_seconds": 95.3,
+        "by_eval": {
+          "eval-12": {"tokens": 16200, "duration_seconds": 89.0},
+          "eval-13": {"tokens": 21500, "duration_seconds": 112.0},
+          "eval-14": {"tokens": 15800, "duration_seconds": 85.0}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+89%",
+    "tokens": "+176%",
+    "duration": "+108%"
+  },
+  "summary": "command:de:design skill achieves 100% pass rate vs 11% baseline across all three design workflow evals. Baseline Claude can recognize domain concepts (dual-audience complexity) but cannot orchestrate phased skill pipelines, manage interaction modes (God/Guided), check upstream dependencies, or coordinate compound documentation. Token cost is ~2.8x higher but enables structured multi-phase design execution that is otherwise impossible."
+}

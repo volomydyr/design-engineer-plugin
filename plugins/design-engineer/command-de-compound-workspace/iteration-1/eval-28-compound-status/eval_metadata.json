@@ -1,0 +1,32 @@
+{
+  "eval_id": 28,
+  "eval_name": "compound-status",
+  "prompt": "/de:compound status",
+  "assertions": [
+    {
+      "id": "routes-to-meta-compound-status",
+      "text": "Routes to meta-compound with \"status\" argument",
+      "type": "qualitative"
+    },
+    {
+      "id": "reads-status-md",
+      "text": "Reads status.md file",
+      "type": "qualitative"
+    },
+    {
+      "id": "displays-completed-phases",
+      "text": "Displays completed phases",
+      "type": "qualitative"
+    },
+    {
+      "id": "shows-deliverables-decisions",
+      "text": "Shows deliverables and key decisions",
+      "type": "qualitative"
+    },
+    {
+      "id": "shows-next-steps-no-new-docs",
+      "text": "Shows next steps (does NOT create new documentation)",
+      "type": "qualitative"
+    }
+  ]
+}

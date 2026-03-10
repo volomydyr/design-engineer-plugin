@@ -1,0 +1,11 @@
+{
+  "eval_id": 28,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Routes to meta-compound with \"status\" argument", "passed": false, "evidence": "Did not recognize /de:compound status as a structured command with a subcommand. Treated it as a general request about project status. No skill routing occurred."},
+    {"text": "Reads status.md file", "passed": false, "evidence": "Did not know about docs/design/solutions/status.md. Did not attempt to read any status file. Instead offered to help create a project status document from scratch."},
+    {"text": "Displays completed phases", "passed": false, "evidence": "No phase-based status display. Without knowledge of the status.md structure or the deliverables pipeline, could not show phase completion status."},
+    {"text": "Shows deliverables and key decisions", "passed": false, "evidence": "No deliverables or decisions displayed. Asked the user what deliverables they had completed rather than reading from the existing tracking system."},
+    {"text": "Shows next steps (does NOT create new documentation)", "passed": false, "evidence": "Offered to create a status document rather than reading an existing one. Would have created new files instead of displaying existing status in read-only mode."}
+  ]
+}

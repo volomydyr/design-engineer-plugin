@@ -1,0 +1,49 @@
+{
+  "skill_name": "meta-orchestrator",
+  "iteration": 1,
+  "timestamp": "2026-03-10T14:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-4-god-mode-full-pipeline": {"passed": 11, "total": 11, "rate": 1.0},
+        "eval-5-guided-mode-existing-project": {"passed": 8, "total": 8, "rate": 1.0},
+        "eval-6-direct-access-jump": {"passed": 6, "total": 6, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 47167,
+        "mean_duration_seconds": 203.2,
+        "by_eval": {
+          "eval-4": {"tokens": 53200, "duration_seconds": 243.5},
+          "eval-5": {"tokens": 46800, "duration_seconds": 198.3},
+          "eval-6": {"tokens": 41500, "duration_seconds": 167.8}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.24,
+      "pass_rate_by_eval": {
+        "eval-4-god-mode-full-pipeline": {"passed": 1, "total": 11, "rate": 0.09},
+        "eval-5-guided-mode-existing-project": {"passed": 4, "total": 8, "rate": 0.50},
+        "eval-6-direct-access-jump": {"passed": 1, "total": 6, "rate": 0.167}
+      },
+      "timing": {
+        "mean_tokens": 18900,
+        "mean_duration_seconds": 96.7,
+        "by_eval": {
+          "eval-4": {"tokens": 18400, "duration_seconds": 95.2},
+          "eval-5": {"tokens": 22100, "duration_seconds": 112.4},
+          "eval-6": {"tokens": 16200, "duration_seconds": 82.6}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+76%",
+    "tokens": "+150%",
+    "duration": "+110%"
+  },
+  "summary": "meta-orchestrator skill achieves 100% pass rate vs 24% baseline across 25 total assertions. The skill provides structured pipeline orchestration (5-phase sequencing, 3 access modes, dependency checking, project state management, meta-compound phase documentation) that baseline Claude cannot replicate. Baseline can produce reasonable design content (IA, competitor analysis) but has no awareness of the pipeline structure, skill invocation, state tracking, or phase-based execution. Token cost is ~2.5x higher, justified by dramatically more structured and comprehensive output."
+}

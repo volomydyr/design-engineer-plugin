@@ -1,0 +1,47 @@
+{
+  "eval_id": 9,
+  "eval_name": "compound-status",
+  "prompt": "/de:compound status",
+  "assertions": [
+    {
+      "id": "reads-status-file",
+      "text": "Reads status.md file (or warns if missing)",
+      "type": "qualitative"
+    },
+    {
+      "id": "displays-completed-phases",
+      "text": "Displays completed phases",
+      "type": "qualitative"
+    },
+    {
+      "id": "shows-current-phase",
+      "text": "Shows current phase and progress",
+      "type": "qualitative"
+    },
+    {
+      "id": "lists-deliverables",
+      "text": "Lists deliverables produced",
+      "type": "qualitative"
+    },
+    {
+      "id": "shows-decisions-log",
+      "text": "Shows key decisions log",
+      "type": "qualitative"
+    },
+    {
+      "id": "lists-open-questions",
+      "text": "Lists open questions",
+      "type": "qualitative"
+    },
+    {
+      "id": "shows-next-steps",
+      "text": "Shows next steps",
+      "type": "qualitative"
+    },
+    {
+      "id": "read-only",
+      "text": "Does NOT create new documentation (this is read-only)",
+      "type": "qualitative"
+    }
+  ]
+}

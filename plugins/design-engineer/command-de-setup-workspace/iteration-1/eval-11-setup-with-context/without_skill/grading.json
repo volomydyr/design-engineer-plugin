@@ -1,0 +1,12 @@
+{
+  "eval_id": 11,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Recognizes command and loads meta-setup skill", "passed": false, "evidence": "Could not recognize /de:setup as a registered command -- offered general help instead"},
+    {"text": "Incorporates provided context (React Native, existing docs, team of 3)", "passed": true, "evidence": "Correctly identified React Native, existing docs in product-design/, and team of 3 from the user's message and offered context-aware suggestions"},
+    {"text": "Detects existing project state and adapts questions", "passed": false, "evidence": "No structured project state detection -- inferred some state from context but did not adapt a question flow"},
+    {"text": "Allows custom deliverables path (product-design)", "passed": true, "evidence": "Acknowledged the product-design/ folder and offered to organize its contents, though not in the plugin's specific structure"},
+    {"text": "Creates config reflecting provided context", "passed": false, "evidence": "No config file created -- does not know the plugin's .design-engineer.yaml schema"},
+    {"text": "Suggests /de:review as next step (appropriate for existing projects with docs)", "passed": false, "evidence": "Does not know about /de:review or any other plugin commands -- cannot make plugin-specific suggestions"}
+  ]
+}

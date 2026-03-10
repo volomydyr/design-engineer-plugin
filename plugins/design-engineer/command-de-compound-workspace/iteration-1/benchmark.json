@@ -1,0 +1,45 @@
+{
+  "skill_name": "meta-compound",
+  "iteration": 1,
+  "timestamp": "2026-03-10T14:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-27-compound-document-session": {"passed": 6, "total": 6, "rate": 1.0},
+        "eval-28-compound-status": {"passed": 5, "total": 5, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 39850,
+        "mean_duration_seconds": 161.5,
+        "by_eval": {
+          "eval-27": {"tokens": 41200, "duration_seconds": 168.0},
+          "eval-28": {"tokens": 38500, "duration_seconds": 155.0}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.18,
+      "pass_rate_by_eval": {
+        "eval-27-compound-document-session": {"passed": 2, "total": 6, "rate": 0.33},
+        "eval-28-compound-status": {"passed": 0, "total": 5, "rate": 0.0}
+      },
+      "timing": {
+        "mean_tokens": 15300,
+        "mean_duration_seconds": 65.0,
+        "by_eval": {
+          "eval-27": {"tokens": 16400, "duration_seconds": 72.0},
+          "eval-28": {"tokens": 14200, "duration_seconds": 58.0}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+82%",
+    "tokens": "+160%",
+    "duration": "+148%"
+  },
+  "summary": "meta-compound skill achieves 100% pass rate vs 18% baseline. The skill provides structured compound documentation with schema validation, status tracking, and decision menus that baseline Claude cannot replicate. Eval 28 (status check) shows the widest gap -- baseline scores 0% because it has no awareness of status.md or the read-only status display workflow. Token cost is ~2.6x higher but justified by the structured documentation process."
+}

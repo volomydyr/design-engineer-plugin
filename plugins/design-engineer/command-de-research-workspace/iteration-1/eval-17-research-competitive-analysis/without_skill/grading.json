@@ -1,0 +1,11 @@
+{
+  "eval_id": 17,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Routes to ux-competitor-analysis skill", "passed": false, "evidence": "No awareness of ux-competitor-analysis skill. Attempted to interpret the command but could not route to any specific skill workflow"},
+    {"text": "Asks about current competitive knowledge", "passed": true, "evidence": "Asked 'What product or market are you analyzing?' and followed up with 'Do you know of any existing competitors?' -- gathering context but not through the structured 3-option framework"},
+    {"text": "Identifies direct and indirect competitors", "passed": true, "evidence": "Listed several competitors when given a product context. Did not systematically categorize them as direct vs indirect but did mention different types of alternatives"},
+    {"text": "Analyzes strengths and weaknesses", "passed": true, "evidence": "Provided basic pros/cons for major competitors. Less structured than the skill version -- narrative format rather than comparison matrix with opportunity column"},
+    {"text": "Produces competitive analysis deliverable", "passed": false, "evidence": "Output was conversational text in the chat. No structured deliverable file saved. No dependency tracking"}
+  ]
+}

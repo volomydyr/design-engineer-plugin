@@ -1,0 +1,17 @@
+{
+  "eval_id": 4,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Determines access mode (God mode selected or inferred from 'autonomously')", "passed": false, "evidence": "No concept of access modes. Proceeded directly to creating a general design document without asking about execution mode"},
+    {"text": "Determines project state (new from scratch)", "passed": true, "evidence": "Implicitly understood this is a new project from the user's phrasing, though did not formally determine project state"},
+    {"text": "Sequences through Phase 1 Discovery skills in correct order", "passed": false, "evidence": "No awareness of Phase 1 skills. Created a generic product overview mixing discovery, strategy, and technical concerns in a single pass"},
+    {"text": "Runs meta-compound after Phase 1 completion", "passed": false, "evidence": "No concept of meta-compound or phase-based documentation consolidation"},
+    {"text": "Sequences through Phase 2 Strategy skills", "passed": false, "evidence": "No awareness of Phase 2 or strategy skills (storybrand, business-plan, 6p-stories). Mentioned features and tech stack instead"},
+    {"text": "Runs meta-compound after Phase 2", "passed": false, "evidence": "No meta-compound concept exists in baseline behavior"},
+    {"text": "Sequences through Phase 3 Planning skills", "passed": false, "evidence": "No structured planning phase. Feature brainstorm and wireframe concepts are loosely related but not the specific mvp-requirements or information-architecture skills"},
+    {"text": "Runs meta-compound after Phase 3", "passed": false, "evidence": "No meta-compound concept exists in baseline behavior"},
+    {"text": "Sequences through Phase 4 Design & Validation skills", "passed": false, "evidence": "No design validation phase. No bias framework, journey mapping, or design references skill execution"},
+    {"text": "Pauses at user approval checkpoint before Phase 5 development", "passed": false, "evidence": "No checkpoint concept. Went straight from design ideas to suggesting development next steps"},
+    {"text": "Manages project state file throughout execution", "passed": false, "evidence": "No project state file created. Single output file (meal-planning-app-design.md) with no state tracking"}
+  ]
+}

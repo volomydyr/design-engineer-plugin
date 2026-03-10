@@ -1,0 +1,12 @@
+{
+  "eval_id": 23,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Routes to pipeline execution mode", "passed": true, "evidence": "Step 1 parsed 'pipeline' argument and routed to the agent pipeline execution mode with 5-agent sequence"},
+    {"text": "Verifies CLAUDE.md is current", "passed": true, "evidence": "Step 2 checked CLAUDE.md existence, last modified date, tech stack match, pipeline rules presence, and source hierarchy"},
+    {"text": "Runs context-analyzer agent", "passed": true, "evidence": "Step 3 ran context-analyzer which gathered CLAUDE.md, existing code, design docs, database schema, auth system, and component library context"},
+    {"text": "Runs plan-creator agent and waits for approval", "passed": true, "evidence": "Step 4 produced a 5-section implementation plan and explicitly requested user approval before proceeding"},
+    {"text": "Runs backend-implementer and frontend-implementer", "passed": true, "evidence": "Step 5 ran both implementer agents producing 4 API routes, 1 migration, 5 components, and 1 page"},
+    {"text": "Runs design-system-auditor and meta-compound", "passed": true, "evidence": "Step 6 ran both: auditor found 2 issues with recommendations, compound documented the implementation with patterns and learnings"}
+  ]
+}

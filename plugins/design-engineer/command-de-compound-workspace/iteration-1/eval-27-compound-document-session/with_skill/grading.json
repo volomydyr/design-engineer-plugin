@@ -1,0 +1,12 @@
+{
+  "eval_id": 27,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Routes to meta-compound skill", "passed": true, "evidence": "Command /de:compound correctly routed to meta-compound skill. Skill loaded and initiated the 6-step compound documentation process."},
+    {"text": "Detects completed activities (IA and MVP requirements)", "passed": true, "evidence": "Step 1 parsed the user prompt, identified two completed activities: information architecture (design phase) and MVP requirements (design phase). Cross-referenced against .dependencies.yaml to confirm both deliverables exist in the graph."},
+    {"text": "Validates YAML frontmatter against compound-schema", "passed": true, "evidence": "Step 3 validated YAML frontmatter for both documentation entries against compound-schema. Required fields (title, date, phase, activity, status, related-deliverables) all present and conforming to allowed values."},
+    {"text": "Creates documentation entries for both activities", "passed": true, "evidence": "Two documentation files created in docs/design/solutions/: information-architecture-session.md and mvp-requirements-session.md. Both contain YAML frontmatter, decisions made, rationale, and cross-references."},
+    {"text": "Updates status.md", "passed": true, "evidence": "docs/design/solutions/status.md updated with new entries for both activities. Phase 3 (Design) progress updated to reflect IA and MVP requirements as completed. Timestamps and session reference added."},
+    {"text": "Presents 5-option decision menu", "passed": true, "evidence": "After documentation was created, presented numbered menu: (1) Review and edit entries, (2) Add additional context, (3) Create follow-up tasks, (4) Update dependencies, (5) Finish and save. User selected option 5."}
+  ]
+}

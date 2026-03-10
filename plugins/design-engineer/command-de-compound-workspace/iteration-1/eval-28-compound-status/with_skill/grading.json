@@ -1,0 +1,11 @@
+{
+  "eval_id": 28,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Routes to meta-compound with \"status\" argument", "passed": true, "evidence": "Command /de:compound status correctly routed to meta-compound skill with 'status' as the argument. Skill recognized the status subcommand and entered read-only status display mode."},
+    {"text": "Reads status.md file", "passed": true, "evidence": "Read docs/design/solutions/status.md in full. Parsed the structured markdown including phase sections, completed items, in-progress items, session log, and key decisions."},
+    {"text": "Displays completed phases", "passed": true, "evidence": "Displayed all completed phases with checkmarks, dates, and session durations. Phase 1 (Foundation) shown as fully complete, Phase 2 (Research) shown as fully complete, Phase 3 (Design) shown as partially complete with IA and MVP Requirements done."},
+    {"text": "Shows deliverables and key decisions", "passed": true, "evidence": "Listed all completed deliverables per phase with their completion dates. Displayed key decisions section including navigation hierarchy choice, MVP scope (8 features), and IA organization principle."},
+    {"text": "Shows next steps (does NOT create new documentation)", "passed": true, "evidence": "Displayed recommended next steps based on incomplete items: Design References, Journey Maps, and B.I.A.S. Audit. No files were created or modified during this command -- purely read-only status display."}
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "eval_id": 6,
+  "eval_name": "direct-access-jump",
+  "prompt": "I need to jump directly to the information architecture skill. We already have our MVP requirements finalized and I want to build the navigation structure for our health tracking app.",
+  "assertions": [
+    {
+      "id": "direct-access-mode",
+      "text": "Activates Direct access mode (jump to specific skill)",
+      "type": "qualitative"
+    },
+    {
+      "id": "verify-upstream",
+      "text": "Verifies upstream dependency (ux-mvp-requirements)",
+      "type": "qualitative"
+    },
+    {
+      "id": "invoke-ia-skill",
+      "text": "Loads ux-information-architecture skill directly",
+      "type": "qualitative"
+    },
+    {
+      "id": "ia-deliverable",
+      "text": "Produces information architecture deliverable",
+      "type": "qualitative"
+    },
+    {
+      "id": "suggest-next-skills",
+      "text": "Suggests related next skills after completion (e.g., ux-journey-mapping, ux-bias-framework)",
+      "type": "qualitative"
+    },
+    {
+      "id": "update-project-state",
+      "text": "Updates project state after skill execution",
+      "type": "qualitative"
+    }
+  ]
+}

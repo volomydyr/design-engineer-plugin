@@ -1,0 +1,37 @@
+{
+  "eval_id": 27,
+  "eval_name": "compound-document-session",
+  "prompt": "/de:compound -- We just finished a 3-hour session working on the information architecture and MVP requirements. Save everything we decided.",
+  "assertions": [
+    {
+      "id": "routes-to-meta-compound",
+      "text": "Routes to meta-compound skill",
+      "type": "qualitative"
+    },
+    {
+      "id": "detects-completed-activities",
+      "text": "Detects completed activities (IA and MVP requirements)",
+      "type": "qualitative"
+    },
+    {
+      "id": "validates-yaml-frontmatter",
+      "text": "Validates YAML frontmatter against compound-schema",
+      "type": "qualitative"
+    },
+    {
+      "id": "creates-documentation-entries",
+      "text": "Creates documentation entries for both activities",
+      "type": "qualitative"
+    },
+    {
+      "id": "updates-status-md",
+      "text": "Updates status.md",
+      "type": "qualitative"
+    },
+    {
+      "id": "presents-decision-menu",
+      "text": "Presents 5-option decision menu",
+      "type": "qualitative"
+    }
+  ]
+}

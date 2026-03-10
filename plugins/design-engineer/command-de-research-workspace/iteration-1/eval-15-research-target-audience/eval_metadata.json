@@ -1,0 +1,32 @@
+{
+  "eval_id": 15,
+  "eval_name": "research-target-audience",
+  "prompt": "/de:research target-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
+  "assertions": [
+    {
+      "id": "routes-to-skill",
+      "text": "Recognizes command and routes to ux-target-audience skill",
+      "type": "qualitative"
+    },
+    {
+      "id": "persona-accountants",
+      "text": "Develops persona for accountants at small firms",
+      "type": "qualitative"
+    },
+    {
+      "id": "persona-business-owners",
+      "text": "Develops persona for business owners",
+      "type": "qualitative"
+    },
+    {
+      "id": "primary-vs-secondary",
+      "text": "Evaluates primary vs secondary persona",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable",
+      "text": "Produces target audience deliverable",
+      "type": "qualitative"
+    }
+  ]
+}

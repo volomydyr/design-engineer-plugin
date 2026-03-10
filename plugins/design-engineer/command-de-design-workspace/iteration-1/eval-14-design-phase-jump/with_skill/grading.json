@@ -1,0 +1,11 @@
+{
+  "eval_id": 14,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Recognizes \"phase 3\" argument", "passed": true, "evidence": "Step 1 parsed 'phase 3' as a phase jump request, understanding it means skip to Phase 3 (Design)"},
+    {"text": "Checks for Phase 1 and 2 deliverables", "passed": true, "evidence": "Step 3 scanned .dependencies.yaml and checked for all 11 upstream deliverables (6 Phase 1 + 5 Phase 2), reporting 0/11 found"},
+    {"text": "Warns about missing upstream dependencies", "passed": true, "evidence": "Step 4 displayed detailed warning listing all missing deliverables, explaining their impact on Phase 3 quality, and offering 4 options"},
+    {"text": "Starts Phase 3 with ux-mvp-requirements", "passed": true, "evidence": "Step 5 began Phase 3 execution with ux-mvp-requirements as the first skill, noting the missing upstream context"},
+    {"text": "Offers to proceed to Phase 4 after completion", "passed": true, "evidence": "Step 6 offered three options after Phase 3 completion: proceed to Phase 4, go back to Phase 1, or stop"}
+  ]
+}

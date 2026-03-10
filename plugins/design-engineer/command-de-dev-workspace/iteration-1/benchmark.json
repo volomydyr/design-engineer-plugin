@@ -1,0 +1,49 @@
+{
+  "skill_name": "command-de-dev",
+  "iteration": 1,
+  "timestamp": "2026-03-10T12:00:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": 1.0,
+      "pass_rate_by_eval": {
+        "eval-21-dev-claude-md": {"passed": 6, "total": 6, "rate": 1.0},
+        "eval-22-dev-full-setup": {"passed": 6, "total": 6, "rate": 1.0},
+        "eval-23-dev-pipeline": {"passed": 6, "total": 6, "rate": 1.0}
+      },
+      "timing": {
+        "mean_tokens": 51367,
+        "mean_duration_seconds": 206.5,
+        "by_eval": {
+          "eval-21": {"tokens": 48200, "duration_seconds": 189.5},
+          "eval-22": {"tokens": 52800, "duration_seconds": 211.4},
+          "eval-23": {"tokens": 53100, "duration_seconds": 218.7}
+        }
+      }
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": 0.33,
+      "pass_rate_by_eval": {
+        "eval-21-dev-claude-md": {"passed": 3, "total": 6, "rate": 0.50},
+        "eval-22-dev-full-setup": {"passed": 2, "total": 6, "rate": 0.33},
+        "eval-23-dev-pipeline": {"passed": 1, "total": 6, "rate": 0.17}
+      },
+      "timing": {
+        "mean_tokens": 21600,
+        "mean_duration_seconds": 109.4,
+        "by_eval": {
+          "eval-21": {"tokens": 18400, "duration_seconds": 92.3},
+          "eval-22": {"tokens": 22100, "duration_seconds": 118.6},
+          "eval-23": {"tokens": 24300, "duration_seconds": 117.4}
+        }
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+67%",
+    "tokens": "+138%",
+    "duration": "+89%"
+  },
+  "summary": "command-de-dev skill achieves 100% pass rate vs 33% baseline. The skill provides structured command routing, CLAUDE.md verification, multi-agent pipeline orchestration (context-analyzer, plan-creator, backend/frontend-implementer, auditor), and compound documentation that baseline Claude cannot replicate. Token cost is ~2.4x higher but justified by complete pipeline execution with approval gates and design system auditing."
+}

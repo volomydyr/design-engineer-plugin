@@ -1,0 +1,12 @@
+{
+  "eval_id": 19,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Routes to psych-engagement-motivation skill (section 4)", "passed": false, "evidence": "No skill routing occurred. Claude treated this as a general product/UX question about streak systems."},
+    {"text": "Analyzes against Variable Reward principle", "passed": true, "evidence": "Step 1 mentions 'reward becomes less motivating over time' and Step 2 suggests 'varied rewards,' but does not name Variable Reward, Variable Ratio Reinforcement, or cite the underlying psychology."},
+    {"text": "Analyzes against Goal Gradient Effect", "passed": false, "evidence": "No mention of Goal Gradient Effect. Suggests milestones but does not explain the psychological mechanism of accelerating effort near a goal."},
+    {"text": "Identifies missing engagement loop elements", "passed": true, "evidence": "Implicitly identifies several missing elements (variety, social, forgiveness) but does not frame them as an engagement loop model or diagnose what is structurally missing."},
+    {"text": "Provides specific design recommendations", "passed": true, "evidence": "Steps 2-4 provide practical recommendations (streak freezes, milestones, leaderboards, content variety) but they are general best practices, not psychology-informed design prescriptions."},
+    {"text": "References specific law numbers (Laws 31-40)", "passed": false, "evidence": "No law numbers, no psychology framework references, no structured section analysis. All recommendations are stated as UX best practices without theoretical grounding."}
+  ]
+}

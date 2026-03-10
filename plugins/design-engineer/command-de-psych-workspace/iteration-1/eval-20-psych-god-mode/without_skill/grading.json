@@ -1,0 +1,12 @@
+{
+  "eval_id": 20,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Activates God mode (autonomous full audit)", "passed": false, "evidence": "No God mode activation. Claude does not recognize the /de:psych god-mode command and instead provides general UX psychology advice in a free-form format."},
+    {"text": "Runs psych-master-audit first (overview scan)", "passed": false, "evidence": "No master audit scan. There is no structured overview phase -- Claude jumps directly into listing general observations without any systematic scanning framework."},
+    {"text": "Sequences through all 13 section skills", "passed": false, "evidence": "No section sequencing. Claude mentions a few psychology topics (visual hierarchy, choice architecture, social proof) in a flat list but does not organize them into 13 sections or sequence through them systematically."},
+    {"text": "Mentions using browser MCP if available for URL analysis", "passed": false, "evidence": "Step 2 notes the URL but does not attempt to use browser MCP tools. States it cannot systematically crawl the site without specific browser tooling integration for this workflow."},
+    {"text": "Produces comprehensive audit report", "passed": false, "evidence": "No structured audit report. Output is a narrative list of general tips without section scores, priority levels, law references, findings tables, or executive summary."},
+    {"text": "Runs meta-compound to document findings", "passed": false, "evidence": "No meta-compound step. No deliverable files created, no .dependencies.yaml updates, no documentation of findings in the design system."}
+  ]
+}

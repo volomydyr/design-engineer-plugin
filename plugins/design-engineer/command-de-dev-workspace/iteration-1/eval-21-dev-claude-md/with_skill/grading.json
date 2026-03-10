@@ -1,0 +1,12 @@
+{
+  "eval_id": 21,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Routes to dev-claude-md skill", "passed": true, "evidence": "Step 1 parsed /de:dev command with argument claude-md and routed to the dev-claude-md skill"},
+    {"text": "Gathers tech stack context (Next.js 14, Supabase, Tailwind, shadcn/ui)", "passed": true, "evidence": "Step 2 extracted all four technologies from user prompt and verified against project files including package.json"},
+    {"text": "Asks about planning documents and existing code", "passed": true, "evidence": "Step 3 presented multi-select question about existing documents (PRDs, ADRs, Figma, CLAUDE.md, API docs) and follow-up on locations"},
+    {"text": "Guides source hierarchy definition (User > Docs > AI)", "passed": true, "evidence": "Step 4 explained the 3-level hierarchy concept with descriptions and offered customize/default/extend options"},
+    {"text": "Generates CLAUDE.md with tech stack specs and pipeline rules", "passed": true, "evidence": "Step 5 generated CLAUDE.md with 10 sections including detailed tech stack specs and 5-agent pipeline rules"},
+    {"text": "Includes conflict resolution protocol", "passed": true, "evidence": "CLAUDE.md contains explicit 4-step conflict resolution protocol with source citation requirements"}
+  ]
+}

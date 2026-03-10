@@ -1,0 +1,11 @@
+{
+  "eval_id": 17,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Routes to ux-competitor-analysis skill", "passed": true, "evidence": "Parsed 'competitive-analysis' argument, mapped it to ux-competitor-analysis skill, and loaded it directly without presenting the research menu"},
+    {"text": "Asks about current competitive knowledge", "passed": true, "evidence": "Step 2 asked 'What do you already know about competitors in your space?' with 3 options (have research, know some names, starting fresh)"},
+    {"text": "Identifies direct and indirect competitors", "passed": true, "evidence": "Categorized competitors into direct (same product type) and indirect (alternative solutions) with rationale for each categorization"},
+    {"text": "Analyzes strengths and weaknesses", "passed": true, "evidence": "Produced structured strength/weakness analysis for each competitor with actionable opportunity column showing where to differentiate"},
+    {"text": "Produces competitive analysis deliverable", "passed": true, "evidence": "Generated competitor-analysis.md saved to docs/design/research/ with competitor profiles, comparison matrix, and strategic positioning recommendations"}
+  ]
+}

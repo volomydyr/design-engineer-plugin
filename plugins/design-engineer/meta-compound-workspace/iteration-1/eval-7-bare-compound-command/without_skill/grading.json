@@ -1,0 +1,13 @@
+{
+  "eval_id": 7,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Asks what to document (trigger detection)", "passed": false, "evidence": "Did not recognize /de:compound as a command. Asked generically what the user wants to document, but not through a structured trigger detection menu with the 5 specific options"},
+    {"text": "Gathers context from conversation", "passed": true, "evidence": "After user explained, did gather basic information about the design token setup. However, did not extract structured fields (phase, component, severity) -- only informal description"},
+    {"text": "Validates YAML frontmatter against compound-schema.yaml", "passed": false, "evidence": "No YAML frontmatter was generated. No reference to compound-schema.yaml or any schema validation. Created a plain markdown file without frontmatter"},
+    {"text": "Creates documentation file in project-docs/solutions/[category]/", "passed": false, "evidence": "Created design-token-notes.md at the project root, not in the project-docs/solutions/design/ directory required by the schema category mapping"},
+    {"text": "Updates status.md", "passed": false, "evidence": "No status.md file was created or referenced. Baseline has no concept of a project status file that tracks all documentation entries"},
+    {"text": "Cross-references existing docs", "passed": false, "evidence": "No search for related documentation entries was performed. Baseline does not implement cross-referencing behavior"},
+    {"text": "Presents decision menu after capture", "passed": false, "evidence": "Asked generically if user wants adjustments, but did not present the structured 5-option decision menu (Continue workflow, View documentation, Link entries, Update deliverable, Other)"}
+  ]
+}

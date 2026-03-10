@@ -1,0 +1,12 @@
+{
+  "eval_id": 11,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Recognizes command and loads meta-setup skill", "passed": true, "evidence": "Step 1 recognized /de:setup and loaded meta-setup skill, also parsed inline context from arguments"},
+    {"text": "Incorporates provided context (React Native, existing docs, team of 3)", "passed": true, "evidence": "Context parsed and used to pre-fill project state (in-development), team size (small, 3), and deliverables path (product-design/)"},
+    {"text": "Detects existing project state and adapts questions", "passed": true, "evidence": "Pre-filled project state to 'Partially done (in development)' based on 'existing React Native app' context; skipped conditional questions for new projects"},
+    {"text": "Allows custom deliverables path (product-design)", "passed": true, "evidence": "Question 5 offered product-design/ as first option based on user context; simulated answer chose it; scaffolding used product-design/ as root"},
+    {"text": "Creates config reflecting provided context", "passed": true, "evidence": "Config includes tech_stack: react-native, team_size: small, team_count: 3, deliverables_path: product-design/, project_state: in-development"},
+    {"text": "Suggests /de:review as next step (appropriate for existing projects with docs)", "passed": true, "evidence": "Step 8 lists /de:review first in next steps and adds a tip: 'Since you have existing docs in product-design/, /de:review is the recommended starting point'"}
+  ]
+}

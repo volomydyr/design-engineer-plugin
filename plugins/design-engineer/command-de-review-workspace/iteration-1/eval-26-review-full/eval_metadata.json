@@ -1,0 +1,37 @@
+{
+  "eval_id": 26,
+  "eval_name": "review-full",
+  "prompt": "/de:review full -- We're about to launch our event ticketing platform and want a comprehensive review before going live.",
+  "assertions": [
+    {
+      "id": "full-review-mode",
+      "text": "Activates full review mode",
+      "type": "qualitative"
+    },
+    {
+      "id": "visual-review",
+      "text": "Runs ui-visual-review",
+      "type": "qualitative"
+    },
+    {
+      "id": "accessibility",
+      "text": "Runs ui-accessibility",
+      "type": "qualitative"
+    },
+    {
+      "id": "psych-audit",
+      "text": "Runs psych-master-audit",
+      "type": "qualitative"
+    },
+    {
+      "id": "product-ethics",
+      "text": "Runs ux-product-assessment and ux-ethics-review",
+      "type": "qualitative"
+    },
+    {
+      "id": "comprehensive-report",
+      "text": "Compiles comprehensive multi-dimensional review report",
+      "type": "qualitative"
+    }
+  ]
+}

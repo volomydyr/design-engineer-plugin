@@ -1,0 +1,37 @@
+{
+  "eval_id": 22,
+  "eval_name": "dev-full-setup",
+  "prompt": "/de:dev setup -- Full development setup for my new project. I'm using Claude Code in Cursor, building with Remix and Prisma.",
+  "assertions": [
+    {
+      "id": "recognizes-setup",
+      "text": "Recognizes 'setup' argument for full sequence",
+      "type": "qualitative"
+    },
+    {
+      "id": "claude-projects-first",
+      "text": "Runs dev-claude-projects first",
+      "type": "qualitative"
+    },
+    {
+      "id": "sequences-all-skills",
+      "text": "Sequences through all dev setup skills",
+      "type": "qualitative"
+    },
+    {
+      "id": "adapts-remix-prisma",
+      "text": "Adapts for Remix + Prisma stack",
+      "type": "qualitative"
+    },
+    {
+      "id": "adapts-cursor",
+      "text": "Adapts for Cursor IDE environment",
+      "type": "qualitative"
+    },
+    {
+      "id": "runs-all-7",
+      "text": "Runs all 7 dev skills in order",
+      "type": "qualitative"
+    }
+  ]
+}

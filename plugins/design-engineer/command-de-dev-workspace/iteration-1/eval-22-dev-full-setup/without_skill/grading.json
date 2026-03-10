@@ -1,0 +1,12 @@
+{
+  "eval_id": 22,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Recognizes 'setup' argument for full sequence", "passed": true, "evidence": "Understood 'setup' as a request for project setup, but treated it as a single task rather than a 7-skill sequence trigger."},
+    {"text": "Runs dev-claude-projects first", "passed": false, "evidence": "No concept of dev-claude-projects. Did not configure Claude Projects context or create .cursorrules."},
+    {"text": "Sequences through all dev setup skills", "passed": false, "evidence": "Single-pass approach. Created CLAUDE.md and project structure in one step without skill sequencing."},
+    {"text": "Adapts for Remix + Prisma stack", "passed": true, "evidence": "CLAUDE.md and project structure correctly reference Remix loaders/actions and Prisma schema conventions."},
+    {"text": "Adapts for Cursor IDE environment", "passed": false, "evidence": "Mentioned Cursor in the CLAUDE.md but no Cursor-specific adaptations (.cursorrules, MCP interaction notes, workspace settings)."},
+    {"text": "Runs all 7 dev skills in order", "passed": false, "evidence": "No skill sequencing. Produced 2 files instead of the 7+ outputs from the full skill sequence."}
+  ]
+}

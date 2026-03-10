@@ -1,0 +1,13 @@
+{
+  "eval_id": 8,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Detects trigger as significant decision", "passed": true, "evidence": "Step 1 identified the pivot as a significant decision trigger from the user's message, detecting both the completion signal ('just finished competitor analysis') and decision signal ('big decision to pivot')"},
+    {"text": "Extracts pivot decision and rationale", "passed": true, "evidence": "Step 2 extracted the B2C-to-B2B pivot, the competitor analysis rationale, PlanCraft $20M funding detail, and market saturation reasoning. Confirmed extraction with user before proceeding"},
+    {"text": "Validates YAML frontmatter with correct deliverable_type", "passed": true, "evidence": "Step 3 validated frontmatter with deliverable_type: decision_log, phase: phase_1_discovery, severity: critical -- all correct enum values from compound-schema.yaml"},
+    {"text": "Creates documentation file with B2C-to-B2B decision details", "passed": true, "evidence": "Step 4 created project-docs/solutions/meta/b2c-to-b2b-pivot-20260310.md with full decision details including rationale, competitor funding data, and downstream impact"},
+    {"text": "Updates status.md Key Decisions Log", "passed": true, "evidence": "Step 5 appended pivot decision to Key Decisions Log section, added warning about direction change, updated Next Steps to reflect B2B pivot"},
+    {"text": "Searches for related competitor-analysis entries", "passed": true, "evidence": "Step 6 found competitor-analysis-20260308.md, identified builds-on relationship, and added cross-references to both documents"},
+    {"text": "Includes What Did Not Work section (B2C approach)", "passed": true, "evidence": "Documentation includes detailed What Did Not Work section explaining why B2C failed: high acquisition costs, retention requiring gamification, price sensitivity, well-funded competitors (PlanCraft $20M, TaskFlow $35M)"}
+  ]
+}

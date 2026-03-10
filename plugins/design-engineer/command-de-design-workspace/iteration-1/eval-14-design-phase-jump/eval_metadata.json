@@ -1,0 +1,32 @@
+{
+  "eval_id": 14,
+  "eval_name": "design-phase-jump",
+  "prompt": "/de:design phase 3",
+  "assertions": [
+    {
+      "id": "phase-argument-recognition",
+      "text": "Recognizes \"phase 3\" argument",
+      "type": "qualitative"
+    },
+    {
+      "id": "deliverable-check",
+      "text": "Checks for Phase 1 and 2 deliverables",
+      "type": "qualitative"
+    },
+    {
+      "id": "dependency-warning",
+      "text": "Warns about missing upstream dependencies",
+      "type": "qualitative"
+    },
+    {
+      "id": "phase-3-start",
+      "text": "Starts Phase 3 with ux-mvp-requirements",
+      "type": "qualitative"
+    },
+    {
+      "id": "phase-4-offer",
+      "text": "Offers to proceed to Phase 4 after completion",
+      "type": "qualitative"
+    }
+  ]
+}

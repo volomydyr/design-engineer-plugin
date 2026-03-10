@@ -1,0 +1,37 @@
+{
+  "eval_id": 16,
+  "eval_name": "research-full-pipeline",
+  "prompt": "/de:research full -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
+  "assertions": [
+    {
+      "id": "recognizes-full",
+      "text": "Recognizes 'full' argument and activates full pipeline",
+      "type": "qualitative"
+    },
+    {
+      "id": "big-idea-first",
+      "text": "Runs ux-big-idea first",
+      "type": "qualitative"
+    },
+    {
+      "id": "sequences-skills",
+      "text": "Sequences through all research skills in order",
+      "type": "qualitative"
+    },
+    {
+      "id": "optional-interviews",
+      "text": "Asks about optional ux-user-interviews",
+      "type": "qualitative"
+    },
+    {
+      "id": "meta-compound",
+      "text": "Runs meta-compound after pipeline",
+      "type": "qualitative"
+    },
+    {
+      "id": "maintains-context",
+      "text": "Maintains context between skills throughout",
+      "type": "qualitative"
+    }
+  ]
+}

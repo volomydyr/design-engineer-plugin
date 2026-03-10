@@ -1,0 +1,37 @@
+{
+  "eval_id": 25,
+  "eval_name": "review-accessibility",
+  "prompt": "/de:review accessibility -- Our app needs to meet WCAG 2.1 AA standards before we can sell to government clients. Can you audit the current implementation?",
+  "assertions": [
+    {
+      "id": "route-accessibility",
+      "text": "Routes to accessibility audit workflow",
+      "type": "qualitative"
+    },
+    {
+      "id": "load-accessibility-skill",
+      "text": "Loads ui-accessibility skill",
+      "type": "qualitative"
+    },
+    {
+      "id": "contrast-ratios",
+      "text": "Checks contrast ratios",
+      "type": "qualitative"
+    },
+    {
+      "id": "touch-keyboard",
+      "text": "Checks touch/tap targets and keyboard navigation",
+      "type": "qualitative"
+    },
+    {
+      "id": "wcag-21-aa",
+      "text": "Evaluates against WCAG 2.1 AA criteria specifically",
+      "type": "qualitative"
+    },
+    {
+      "id": "audit-report",
+      "text": "Produces audit report with pass/fail items and priorities",
+      "type": "qualitative"
+    }
+  ]
+}

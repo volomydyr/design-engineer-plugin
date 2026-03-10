@@ -1,0 +1,12 @@
+{
+  "eval_id": 25,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Routes to accessibility audit workflow", "passed": true, "evidence": "Understood the request was about accessibility and began discussing accessibility topics"},
+    {"text": "Loads ui-accessibility skill", "passed": false, "evidence": "No skill loaded. Provided accessibility advice from general knowledge without a structured skill framework."},
+    {"text": "Checks contrast ratios", "passed": true, "evidence": "Mentioned contrast ratios and the 4.5:1 minimum for WCAG AA. Accessibility is well-known enough that baseline Claude covers this."},
+    {"text": "Checks touch/tap targets and keyboard navigation", "passed": true, "evidence": "Mentioned minimum touch target sizes and keyboard navigation as important considerations"},
+    {"text": "Evaluates against WCAG 2.1 AA criteria specifically", "passed": false, "evidence": "Referenced WCAG generally but did not systematically walk through WCAG 2.1 AA success criteria. Mixed in WCAG 2.0 and general advice without distinguishing AA-specific requirements."},
+    {"text": "Produces audit report with pass/fail items and priorities", "passed": false, "evidence": "Produced a general checklist of accessibility best practices but not a structured audit report with pass/fail determinations per criterion and severity-based prioritization"}
+  ]
+}

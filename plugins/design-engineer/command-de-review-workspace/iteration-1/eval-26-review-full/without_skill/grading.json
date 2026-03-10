@@ -1,0 +1,12 @@
+{
+  "eval_id": 26,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Activates full review mode", "passed": true, "evidence": "Understood the request for a comprehensive review and began providing general product feedback"},
+    {"text": "Runs ui-visual-review", "passed": false, "evidence": "Offered some visual design comments but did not run a structured visual review with defined criteria. Feedback was ad-hoc."},
+    {"text": "Runs ui-accessibility", "passed": false, "evidence": "Mentioned accessibility in passing but did not perform a structured accessibility audit"},
+    {"text": "Runs psych-master-audit", "passed": false, "evidence": "No psychology principles scan. Did not reference cognitive biases, behavioral patterns, or persuasion principles relevant to ticketing."},
+    {"text": "Runs ux-product-assessment and ux-ethics-review", "passed": true, "evidence": "Provided general product assessment feedback covering user flows and edge cases. Mentioned ethical considerations around ticket pricing. However, neither was structured through dedicated skill frameworks."},
+    {"text": "Compiles comprehensive multi-dimensional review report", "passed": false, "evidence": "Produced a single-pass general review rather than a multi-dimensional compiled report from distinct review skills. No executive summary, no per-dimension sections, no prioritized action items."}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "eval_id": 27,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "Routes to meta-compound skill", "passed": true, "evidence": "Recognized /de:compound as the compound documentation command and attempted to execute it. However, without the skill loaded, it proceeded with generic documentation behavior."},
+    {"text": "Detects completed activities (IA and MVP requirements)", "passed": true, "evidence": "Parsed the user prompt and identified IA and MVP requirements as the two activities to document. However, did not cross-reference against .dependencies.yaml or validate against the deliverable graph."},
+    {"text": "Validates YAML frontmatter against compound-schema", "passed": false, "evidence": "No YAML frontmatter validation performed. Created markdown files without structured frontmatter. No awareness of compound-schema or its required fields."},
+    {"text": "Creates documentation entries for both activities", "passed": false, "evidence": "Created a single combined session-notes.md file rather than separate documentation entries per activity. The file used free-form markdown without the compound documentation structure."},
+    {"text": "Updates status.md", "passed": false, "evidence": "No status.md file was read or updated. No awareness of the status tracking mechanism or its format."},
+    {"text": "Presents 5-option decision menu", "passed": false, "evidence": "No decision menu presented. After creating the notes file, simply asked 'Is there anything else you'd like me to add?' -- an open-ended question rather than a structured menu."}
+  ]
+}

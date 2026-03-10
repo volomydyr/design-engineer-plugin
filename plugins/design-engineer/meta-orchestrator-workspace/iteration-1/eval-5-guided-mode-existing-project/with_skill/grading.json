@@ -1,0 +1,14 @@
+{
+  "eval_id": 5,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Determines access mode as Guided (step by step)", "passed": true, "evidence": "Step 1 correctly mapped 'step by step with your guidance' to Guided mode"},
+    {"text": "Determines project state as partially done or existing product", "passed": true, "evidence": "Step 2 presented project state options, user selected Partially done based on existing deliverables"},
+    {"text": "Checks for existing deliverables in docs/design/", "passed": true, "evidence": "Step 3 scanned docs/design/ directory, found problem-statement.md and target-audience.md, confirmed absence of other deliverables"},
+    {"text": "Identifies which skills to skip based on existing work", "passed": true, "evidence": "Step 4 explicitly identified skip list: ux-big-idea (covered by problem-statement), ux-problem-statement (exists), ux-target-audience (exists)"},
+    {"text": "Determines correct pipeline entry point (after target-audience)", "passed": true, "evidence": "Step 4 recommended starting at ux-assumptions as first missing required skill after existing work"},
+    {"text": "Presents each skill with explanation before invoking", "passed": true, "evidence": "Steps 5, 6, and 8 each present skill name, what it does, why it matters at this stage, before asking to proceed"},
+    {"text": "Asks for user approval before each skill", "passed": true, "evidence": "Every skill invocation preceded by 'Shall I proceed with [skill]? (yes / skip / adjust)' prompt"},
+    {"text": "Maintains interactive flow throughout", "passed": true, "evidence": "Key behavioral patterns section confirms explain-ask-execute-review-confirm pattern maintained throughout all skills"}
+  ]
+}

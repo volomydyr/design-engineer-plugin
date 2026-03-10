@@ -1,0 +1,37 @@
+{
+  "eval_id": 11,
+  "eval_name": "setup-with-context",
+  "prompt": "/de:setup -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
+  "assertions": [
+    {
+      "id": "recognizes-command",
+      "text": "Recognizes command and loads meta-setup skill",
+      "type": "qualitative"
+    },
+    {
+      "id": "incorporates-context",
+      "text": "Incorporates provided context (React Native, existing docs, team of 3)",
+      "type": "qualitative"
+    },
+    {
+      "id": "detects-project-state",
+      "text": "Detects existing project state and adapts questions",
+      "type": "qualitative"
+    },
+    {
+      "id": "custom-path",
+      "text": "Allows custom deliverables path (product-design)",
+      "type": "qualitative"
+    },
+    {
+      "id": "config-reflects-context",
+      "text": "Creates config reflecting provided context",
+      "type": "qualitative"
+    },
+    {
+      "id": "suggests-review",
+      "text": "Suggests /de:review as next step (appropriate for existing projects with docs)",
+      "type": "qualitative"
+    }
+  ]
+}

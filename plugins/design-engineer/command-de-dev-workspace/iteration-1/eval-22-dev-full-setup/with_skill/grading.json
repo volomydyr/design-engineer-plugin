@@ -1,0 +1,12 @@
+{
+  "eval_id": 22,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Recognizes 'setup' argument for full sequence", "passed": true, "evidence": "Step 1 parsed 'setup' argument and identified it as the orchestrator mode triggering all 7 dev skills"},
+    {"text": "Runs dev-claude-projects first", "passed": true, "evidence": "Step 2 ran dev-claude-projects as Skill 1/7, configuring Claude Projects context for Cursor environment"},
+    {"text": "Sequences through all dev setup skills", "passed": true, "evidence": "Steps 2-8 executed all 7 skills sequentially with status tracking (Skill N/7 format)"},
+    {"text": "Adapts for Remix + Prisma stack", "passed": true, "evidence": "Every skill output was adapted: Remix loaders/actions in CLAUDE.md, Prisma schema in agent config, Remix conventions in kickstart prompts"},
+    {"text": "Adapts for Cursor IDE environment", "passed": true, "evidence": "Step 2 created .cursorrules, Step 6 included Cursor-specific MCP notes, setup summary references Cursor"},
+    {"text": "Runs all 7 dev skills in order", "passed": true, "evidence": "All 7 skills completed in order: claude-projects, claude-md, kickstart-prompts, agent-config, mcp-notes, github-workflow, compound"}
+  ]
+}

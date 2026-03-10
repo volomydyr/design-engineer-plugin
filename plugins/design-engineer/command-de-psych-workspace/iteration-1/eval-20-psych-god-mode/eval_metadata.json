@@ -1,0 +1,37 @@
+{
+  "eval_id": 20,
+  "eval_name": "psych-god-mode",
+  "prompt": "/de:psych god-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
+  "assertions": [
+    {
+      "id": "god-mode-activation",
+      "text": "Activates God mode (autonomous full audit)",
+      "type": "qualitative"
+    },
+    {
+      "id": "master-audit-first",
+      "text": "Runs psych-master-audit first (overview scan)",
+      "type": "qualitative"
+    },
+    {
+      "id": "all-sections",
+      "text": "Sequences through all 13 section skills",
+      "type": "qualitative"
+    },
+    {
+      "id": "browser-mcp",
+      "text": "Mentions using browser MCP if available for URL analysis",
+      "type": "qualitative"
+    },
+    {
+      "id": "comprehensive-report",
+      "text": "Produces comprehensive audit report",
+      "type": "qualitative"
+    },
+    {
+      "id": "meta-compound",
+      "text": "Runs meta-compound to document findings",
+      "type": "qualitative"
+    }
+  ]
+}
