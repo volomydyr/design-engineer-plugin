@@ -20,6 +20,14 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Check for Saved Design Decisions
+
+Before starting, check if the project has a saved design system file at `.design-system/system.md`. If it exists, read it and apply the saved decisions – direction, depth strategy, spacing base unit, key patterns, component inventory. This prevents re-inventing decisions that were already made in a previous session.
+
+If the file exists, present the saved decisions to the user and ask if they are still current before proceeding.
+
+---
+
 ## Step 1: Determine Current State
 
 ```
@@ -41,6 +49,8 @@ options:
 ## Step 2: Define the Architecture
 
 Walk the user through the atomic design system architecture described in [design-system-architecture.md](./references/design-system-architecture.md):
+
+For projects starting from scratch, use the starter values in [starter-values.md](./references/starter-values.md) as a sensible starting point – spacing scales, typography scales, text hierarchy, border progression, surface elevation, and depth strategies.
 
 ### Layer 1: Design Tokens (Base Values)
 Foundation layer containing raw values – colors (hex/RGB), spacing (points/pixels), typography (font sizes, weights, line heights), border radii, shadow definitions, animation durations, icon sizes, and accessibility constants (minimum tap target size of 56 points).
@@ -94,6 +104,32 @@ Save the design system documentation to `{deliverables_path}/dev/design-system.m
 
 ---
 
+## Step 6: Save Design Decisions
+
+After completing the design system, offer to save the key decisions for future sessions:
+
+```
+"Want me to save these design decisions for future sessions?"
+```
+
+If yes, write to `.design-system/system.md` in the project root:
+
+- **Direction and feel** – the stated design intent
+- **Depth strategy** – which approach was chosen (borders-only, shadows, layered, surface shifts)
+- **Spacing base unit** – the scale in use
+- **Typography choices** – typeface, scale, hierarchy levels
+- **Color temperature** – warm/cool neutrals, accent color, semantic colors
+- **Key component patterns** – established components and their usage rules
+- **Component inventory** – list of all reusable components created
+
+This compounds: each save makes future work faster and more consistent. On subsequent runs, Step 0 loads these decisions automatically.
+
+**When to save:** Add patterns when a component is used 2+ times, is reusable across the project, or has specific measurements worth remembering. Do not save one-off components, temporary experiments, or variations better handled with props.
+
+**Consistency checks:** If `.design-system/system.md` exists, check against it: spacing on the defined grid, depth using the declared strategy, colors from the defined palette, documented patterns reused instead of reinvented.
+
+---
+
 ## Decision Hierarchy
 
 1. **User's direct input** – their preferred naming conventions, organizational choices
@@ -112,3 +148,5 @@ After the design system is established, suggest running `ui-visual-review` to ch
 
 - [design-system-architecture.md](./references/design-system-architecture.md) – Atomic design pattern for code-first design systems
 - [compliance-checklist.md](./references/compliance-checklist.md) – Compliance audit checklist for design system verification
+- [starter-values.md](./references/starter-values.md) – Sensible starter values for spacing, typography, borders, surfaces, depth, and shadows
+- [prompt-templates.md](./references/prompt-templates.md) – Curated prompt templates for visual polish, glance tests, component specs, and audits

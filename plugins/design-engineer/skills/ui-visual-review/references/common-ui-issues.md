@@ -200,6 +200,62 @@ AI may implement different animations or timings than what the design intent sug
 
 ---
 
+## 6. UX Pattern Issues
+
+### Missing Navigation Context
+Screens that float in space without clear location grounding.
+
+**What to check:**
+- Current location is indicated in navigation (active state, breadcrumb, or page title)
+- Global navigation is present and consistently placed
+- Users can always answer "Where am I?" without reading body content
+
+### Unclear Primary Action
+Screens where the most important action is not visually dominant.
+
+**What to check:**
+- One primary action per screen is visually prominent (size, color, position)
+- Secondary actions are clearly subordinate
+- Users can identify what to do next within 2–3 seconds
+
+### Ambiguous Interactive Elements
+Elements where clickability is unclear.
+
+**What to check:**
+- Buttons look like buttons (not just colored text)
+- Links are visually distinct from static text
+- Clickable cards have hover/press states that signal interactivity
+- No static elements that look clickable (decorative borders that look like buttons)
+
+### Spacing-Based Grouping Failures
+Spacing that does not clearly communicate which elements belong together.
+
+**What to check:**
+- Space within a group is smaller than space between groups
+- Related form fields are visually closer to each other than to unrelated fields
+- Section boundaries are clear without relying solely on borders or dividers
+
+### Missing Feedback States
+Actions that do not provide visible feedback.
+
+**What to check:**
+- Form submissions show loading and success/error states
+- Button clicks show immediate visual response (not just after server response)
+- Long operations display progress indicators
+- Destructive actions have confirmation or undo mechanisms
+
+### Accessibility Failures
+Design choices that exclude users with different abilities.
+
+**What to check:**
+- Text contrast meets minimum ratios (4.5:1 for normal text, 3:1 for large text)
+- Focus indicators are visible on all interactive elements
+- Touch targets meet minimum size (44×44 points iOS, 48×48dp Android)
+- Color is not the only way information is communicated (add icons, patterns, or text)
+- Content is usable without images loading (alt text, placeholders)
+
+---
+
 ## Review Report Format
 
 For each issue found during visual review, document:

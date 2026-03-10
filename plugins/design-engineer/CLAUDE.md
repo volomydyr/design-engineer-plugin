@@ -30,7 +30,7 @@ plugins/design-engineer/
 ├── agents/                         # 9 specialized agents
 ├── commands/
 │   └── de/                         # 7 commands (de: namespace)
-└── skills/                         # 48 hidden skills
+└── skills/                         # 49 hidden skills
 ```
 
 ## Skill Compliance Checklist

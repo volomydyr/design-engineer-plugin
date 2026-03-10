@@ -23,7 +23,7 @@ claude plugin install design-engineer
 
 ## Commands
 
-You interact with 7 top-level commands. Behind each one, the full engine of 48 skills and 9 agents runs silently.
+You interact with 7 top-level commands. Behind each one, the full engine of 49 skills and 9 agents runs silently.
 
 | Command | What It Does |
 |---------|-------------|
@@ -42,7 +42,7 @@ Most commands support two modes:
 - **God mode** – runs the full pipeline autonomously with minimal user input
 - **Guided mode** – interactive, asks questions at every stage, pauses for approval
 
-## Skills (48)
+## Skills (49)
 
 All skills are hidden from auto-discovery (`disable-model-invocation: true`). Power users can invoke any skill directly by typing its name.
 
@@ -101,14 +101,15 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `psych-cognitive-biases` | Laws 81-90: availability heuristic, negativity bias |
 | `psych-time-behavior` | Laws 91-100: familiarity bias, shaping, aha moment |
 
-### UI Design (5)
+### UI Design (6)
 
 | Skill | What It Does |
 |-------|-------------|
-| `ui-design-references` | Reference gathering and inspiration workflow |
+| `ui-design-references` | Design intent exploration and reference gathering |
+| `ui-design-critique` | 4-lens craft critique with named design tests |
 | `ui-figma-workflow` | Figma for AI-assisted development |
-| `ui-design-system` | Design system architecture and compliance |
-| `ui-visual-review` | Visual UI review against design intent |
+| `ui-design-system` | Design system architecture, compliance, and persistence |
+| `ui-visual-review` | Visual UI review with UX non-negotiables |
 | `ui-accessibility` | Accessibility compliance audit |
 
 ### Development (8)

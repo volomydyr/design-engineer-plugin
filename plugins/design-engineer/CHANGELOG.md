@@ -4,7 +4,26 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.0.0] - 2026-03-10
+## [1.1.0] – 2026-03-10
+
+### Added
+
+- New `ui-design-critique` skill with 4-lens craft critique framework (Composition, Craft, Content, Structure) and 4 named tests (Swap, Squint, Signature, Token)
+- Design intent guide reference for `ui-design-references` with "Where Defaults Hide" philosophy, Intent-First framework, Product Domain Exploration, and WHY checkpoint
+- Starter values reference for `ui-design-system` with spacing, typography, text hierarchy, border progression, surface elevation, depth strategies, and shadow scales
+- Prompt templates reference for `ui-design-system` with 6 curated task-specific prompts
+- Design system persistence mechanism (`.design-system/system.md` save/load)
+- UX non-negotiables check in `ui-visual-review` (6 fundamental usability principles)
+- UX pattern issues section in `ui-visual-review` common issues catalog
+
+### Changed
+
+- `ui-design-references` expanded from reference collection to full design thinking skill
+- `ui-visual-review` adds UX non-negotiables check before visual audit
+- `ui-design-system` checks for saved decisions on startup and offers persistence on completion
+- Skill count 48 → 49, UI Design category 5 → 6
+
+## [1.0.0] – 2026-03-10
 
 ### Added
 

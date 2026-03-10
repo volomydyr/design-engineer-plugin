@@ -44,7 +44,37 @@ Ask the user which screens or components to review. If working within a pipeline
 
 ---
 
-## Step 3: Run the Visual Audit
+## Step 3: UX Non-Negotiables Check
+
+Before diving into the visual audit, run a quick UX check. These are fundamental usability principles that must hold regardless of visual style:
+
+### 1. Reduce Thinking
+Users should never wonder:
+- "Where am I?" – Is the current location clear from navigation state, breadcrumbs, or page title?
+- "What do I do next?" – Is the primary action obvious and prominent?
+- "Is that clickable?" – Are interactive elements visually distinct from static content?
+- "Why did they call it that?" – Are labels self-evident, not jargon?
+
+### 2. Use Conventions
+Unusual UI is a tax on every user interaction. Verify that navigation, form patterns, and interaction models follow established conventions for the platform. Flag deviations that lack a clear measured reason.
+
+### 3. Clear Visual Hierarchy
+Every screen should answer at a glance: what this page is, what the primary action is, where the navigation is, and what is secondary. If the answer is not immediately clear, the hierarchy needs work.
+
+### 4. Grouping Clarity
+If spacing does grouping work, it must be unambiguous: more space around groups than within groups. Related items should be visually closer to each other than to unrelated items.
+
+### 5. Feedback and Forgiveness
+Users should see results of actions quickly, understand system status at all times, and be able to recover via undo, back, or cancel where possible. Preventing errors is better than scolding users for making them.
+
+### 6. Accessibility Is Beautiful
+Good aesthetics must survive keyboard-only use, low vision, color blindness, small screens, and slow networks. If the design breaks under any of these conditions, it is not finished.
+
+Document any non-negotiable violations before proceeding to the visual audit.
+
+---
+
+## Step 4: Run the Visual Audit
 
 For each screen or component, check against the common issues catalog in [common-ui-issues.md](./references/common-ui-issues.md):
 
@@ -80,7 +110,7 @@ For each screen or component, check against the common issues catalog in [common
 
 ---
 
-## Step 4: Produce the Review Report
+## Step 5: Produce the Review Report
 
 For each issue found, document:
 - **What**: specific description of the issue
@@ -93,7 +123,7 @@ Save the report to `{deliverables_path}/reviews/visual-review.md`.
 
 ---
 
-## Step 5: Apply Fixes
+## Step 6: Apply Fixes
 
 If the user approves, apply fixes directly. Prioritize:
 1. Design system violations (hardcoded values) – highest impact, easiest to fix
@@ -114,7 +144,7 @@ If the user approves, apply fixes directly. Prioritize:
 
 ## What Comes Next
 
-After the visual review, suggest running `ui-design-system` in audit mode if many design system violations were found, or `ui-accessibility` to check accessibility compliance.
+After the visual review, suggest running `ui-design-critique` to evaluate craft quality beyond correctness, `ui-design-system` in audit mode if many design system violations were found, or `ui-accessibility` to check accessibility compliance.
 
 ---
 
