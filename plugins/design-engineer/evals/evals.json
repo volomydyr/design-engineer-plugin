@@ -1,0 +1,838 @@
+{
+  "plugin_name": "design-engineer",
+  "evals": [
+    {
+      "id": 1,
+      "skill_name": "meta-setup",
+      "prompt": "I just installed the design-engineer plugin and I want to set it up for my new SaaS project. It's a project management tool for freelance designers called DesignFlow. I'm working solo, using Figma and Claude Code in the terminal.",
+      "expected_output": "Should run environment detection script, ask 5-7 configuration questions sequentially (project state, mode preference, team size, design tool integration, deliverables path, dev environment, experience level), scaffold the project folder structure with foundation/research/design/psych/dev/solutions subdirectories, create .design-engineer.yaml config file, initialize .dependencies.yaml, and display a setup summary with next steps.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "skill_name": "meta-setup",
+      "prompt": "I need to reconfigure the design-engineer plugin. We switched from Figma to Sketch and added two more team members. Can you re-run the setup?",
+      "expected_output": "Should detect the existing .design-engineer.yaml, ask whether to reconfigure/view/cancel, then walk through all configuration questions again with updated answers for design tool (Sketch/other) and team size (small team 2-5), update the config file, and confirm changes.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "skill_name": "meta-setup",
+      "prompt": "/de:setup",
+      "expected_output": "Should trigger the full setup flow: environment detection, sequential configuration questions, project scaffolding, config file creation, dependency tracking initialization, and completion summary with recommended next commands.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "skill_name": "meta-orchestrator",
+      "prompt": "I want to build a meal planning app for busy parents. Run the entire design pipeline for me autonomously -- I trust your judgment on the details, just check in with me at major milestones.",
+      "expected_output": "Should activate God mode, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: big-idea, problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: storybrand, business-plan, 6p-stories), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-framework, journey-mapping, design-references, figma-workflow, prototyping), running meta-compound after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "skill_name": "meta-orchestrator",
+      "prompt": "We have an existing e-commerce platform that already has a problem statement and target audience defined in docs/design/. I want to work through the remaining design pipeline step by step with your guidance.",
+      "expected_output": "Should activate Guided mode, detect project state as partially done, check for existing deliverables in docs/design/, confirm which skills to skip (ux-big-idea, ux-problem-statement, ux-target-audience), and determine the correct entry point. Should proceed skill by skill with explanations, questions, and approval prompts at each step.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "skill_name": "meta-orchestrator",
+      "prompt": "I need to jump directly to the information architecture skill. We already have our MVP requirements finalized and I want to build the navigation structure for our health tracking app.",
+      "expected_output": "Should activate Direct access mode, verify that ux-mvp-requirements deliverable exists as an upstream dependency, warn if missing, then load ux-information-architecture directly. After completion, should suggest related next skills like ux-journey-mapping or ux-bias-framework.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "skill_name": "meta-compound",
+      "prompt": "/de:compound",
+      "expected_output": "Should ask what to document (current progress, decision, learning, project status, or context refresh), gather context from the conversation, validate YAML frontmatter against compound-schema.yaml, create a documentation entry in project-docs/solutions/[category]/, update status.md, cross-reference existing docs, and present a decision menu.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "skill_name": "meta-compound",
+      "prompt": "We just finished the competitor analysis phase and made a big decision to pivot from B2C to B2B. I want to document this decision and the rationale so we don't lose it across sessions.",
+      "expected_output": "Should detect the trigger as a significant decision, extract the pivot decision and rationale from conversation, validate against compound-schema.yaml, create a documentation entry with the B2C-to-B2B pivot details in the correct category directory, update status.md with the decision in the Key Decisions Log, and check for related entries.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "skill_name": "meta-compound",
+      "prompt": "/de:compound status",
+      "expected_output": "Should read the current status.md file and display project status including completed phases, current phase, deliverables produced, key decisions log, open questions, and next steps. If no status file exists, should warn the user.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "skill_name": "command:de:setup",
+      "prompt": "/de:setup",
+      "expected_output": "Should load the meta-setup skill, run environment detection script, report findings (detected MCPs, tools, project state), ask 5-7 sequential configuration questions, run project scaffolding script, create .design-engineer.yaml config file and .dependencies.yaml, and display a setup confirmation summary with next step suggestions based on project state.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "skill_name": "command:de:setup",
+      "prompt": "/de:setup -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
+      "expected_output": "Should detect existing project state, ask configuration questions with smart defaults based on the provided context (existing project with docs, team of 3), allow custom deliverables path (product-design), scaffold the folder structure accordingly, and suggest /de:review as the logical next step for existing projects with docs.",
+      "files": []
+    },
+    {
+      "id": 12,
+      "skill_name": "command:de:design",
+      "prompt": "/de:design god-mode",
+      "expected_output": "Should verify /de:setup has been run, activate God mode, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-compound after each phase, pausing at the transition checkpoint before development.",
+      "files": []
+    },
+    {
+      "id": 13,
+      "skill_name": "command:de:design",
+      "prompt": "/de:design guided -- I'm building a language learning app for deaf children aged 5-12. Their parents are the buyers but the kids are the users.",
+      "expected_output": "Should activate Guided mode with the provided context, sequence through all phases with step-by-step questions and approval prompts at each skill, handle the dual-audience complexity (children as users, parents as buyers) throughout the pipeline, and allow the user to review and approve each deliverable before moving to the next skill.",
+      "files": []
+    },
+    {
+      "id": 14,
+      "skill_name": "command:de:design",
+      "prompt": "/de:design phase 3",
+      "expected_output": "Should check for existing Phase 1 and Phase 2 deliverables, warn about any missing upstream dependencies, then jump directly to Phase 3 (Planning) starting with ux-mvp-requirements followed by ux-information-architecture, run meta-compound after completion, and offer to proceed to Phase 4.",
+      "files": []
+    },
+    {
+      "id": 15,
+      "skill_name": "command:de:research",
+      "prompt": "/de:research target-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
+      "expected_output": "Should load ux-target-audience skill directly, work through persona development for both potential audiences (accountants and business owners), help the user evaluate which is the primary vs secondary persona, produce a target audience deliverable, and ask if they want to run another research activity.",
+      "files": []
+    },
+    {
+      "id": 16,
+      "skill_name": "command:de:research",
+      "prompt": "/de:research full -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
+      "expected_output": "Should run the full research pipeline in sequence: ux-big-idea, ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis, ask about ux-user-interviews, ux-business-plan, ux-storybrand. Should run meta-compound after completing the full pipeline to document all research findings.",
+      "files": []
+    },
+    {
+      "id": 17,
+      "skill_name": "command:de:research",
+      "prompt": "/de:research competitive-analysis",
+      "expected_output": "Should load ux-competitor-analysis skill directly, ask about current competitive knowledge, identify direct and indirect competitors through web search and user context, analyze strengths/weaknesses, produce a competitive analysis deliverable, then ask if the user wants to run another research activity.",
+      "files": []
+    },
+    {
+      "id": 18,
+      "skill_name": "command:de:psych",
+      "prompt": "/de:psych master -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
+      "expected_output": "Should load psych-master-audit, gather context about the onboarding screens, run a broad scan across all 10 sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
+      "files": []
+    },
+    {
+      "id": 19,
+      "skill_name": "command:de:psych",
+      "prompt": "/de:psych section 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
+      "expected_output": "Should load psych-engagement-motivation (Section 4, Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
+      "files": []
+    },
+    {
+      "id": 20,
+      "skill_name": "command:de:psych",
+      "prompt": "/de:psych god-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
+      "expected_output": "Should run the complete audit across all 13 sections autonomously: master scan first, then all section skills (cognitive basics through time/behavior), compile a comprehensive psychology audit report with executive summary, section-by-section findings, and prioritized recommendations. Should use browser MCP if available to analyze the live URL.",
+      "files": []
+    },
+    {
+      "id": 21,
+      "skill_name": "command:de:dev",
+      "prompt": "/de:dev claude-md -- We have a Next.js 14 app with Supabase backend, Tailwind CSS, and shadcn/ui components. The repo has components in src/components, API routes in src/app/api, and design docs in docs/design/.",
+      "expected_output": "Should load dev-claude-md skill, gather project context, ask about available planning documents and existing code, guide the user through defining the source hierarchy, then generate a comprehensive CLAUDE.md with critical document references, tech stack specifications (Next.js 14, Supabase, Tailwind, shadcn/ui), development pipeline rules, and conflict resolution protocol.",
+      "files": []
+    },
+    {
+      "id": 22,
+      "skill_name": "command:de:dev",
+      "prompt": "/de:dev setup -- Full development setup for my new project. I'm using Claude Code in Cursor, building with Remix and Prisma.",
+      "expected_output": "Should run the full development setup sequence: dev-claude-projects, dev-claude-md, dev-kickstart-prompts, dev-agent-pipeline, dev-mcp-setup, dev-github-workflow, dev-context-management. Each skill should be customized for the Remix + Prisma stack and Cursor IDE environment.",
+      "files": []
+    },
+    {
+      "id": 23,
+      "skill_name": "command:de:dev",
+      "prompt": "/de:dev pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
+      "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, plan-creator creates an implementation plan for the profile settings page, wait for user approval, then run backend-implementer and frontend-implementer, followed by design-system-auditor. Should run meta-compound to document the session.",
+      "files": []
+    },
+    {
+      "id": 24,
+      "skill_name": "command:de:review",
+      "prompt": "/de:review figma -- I just finished designing the checkout flow for our e-commerce app. There are 4 screens: cart summary, shipping info, payment, and order confirmation. Can you review them?",
+      "expected_output": "Should ask for Figma frame link or screenshots, load ui-visual-review for visual quality check, ui-accessibility for accessibility compliance, psych-master-audit for psychology principles scan, compile findings into a structured review report covering all 4 screens, and offer post-review options.",
+      "files": []
+    },
+    {
+      "id": 25,
+      "skill_name": "command:de:review",
+      "prompt": "/de:review accessibility -- Our app needs to meet WCAG 2.1 AA standards before we can sell to government clients. Can you audit the current implementation?",
+      "expected_output": "Should load ui-accessibility skill, perform a comprehensive accessibility review checking contrast ratios, touch/tap targets, screen reader support, keyboard navigation, focus management, and WCAG 2.1 AA specific criteria. Should produce an accessibility audit report with pass/fail items and remediation priorities.",
+      "files": []
+    },
+    {
+      "id": 26,
+      "skill_name": "command:de:review",
+      "prompt": "/de:review full -- We're about to launch our event ticketing platform and want a comprehensive review before going live.",
+      "expected_output": "Should run all review dimensions: ui-visual-review, ui-accessibility, psych-master-audit, ux-product-assessment, ux-ethics-review, ux-communicating-decisions. Should compile all findings into a comprehensive review report and offer post-review options including addressing findings, sharing with stakeholders, and documentation.",
+      "files": []
+    },
+    {
+      "id": 27,
+      "skill_name": "command:de:compound",
+      "prompt": "/de:compound -- We just finished a 3-hour session working on the information architecture and MVP requirements. Save everything we decided.",
+      "expected_output": "Should load meta-compound, detect that IA and MVP work was completed, gather context from the conversation, validate YAML frontmatter, create documentation entries for both activities, update status.md with completed items, cross-reference related entries, and present the decision menu.",
+      "files": []
+    },
+    {
+      "id": 28,
+      "skill_name": "command:de:compound",
+      "prompt": "/de:compound status",
+      "expected_output": "Should load meta-compound, read the current status.md, and display a comprehensive project status showing completed phases, current phase, all deliverables produced with file paths, key decisions log, what has not worked, open questions, and next steps.",
+      "files": []
+    },
+    {
+      "id": 29,
+      "skill_name": "ux-big-idea",
+      "prompt": "I have this idea for an app that helps remote workers find coworking-friendly cafes near them. It would show real-time seat availability, WiFi speed, noise level, and power outlet info. But I'm not sure if this is really a problem worth solving or if Google Maps already handles it.",
+      "expected_output": "Should walk through the Big Idea validation process: determine the user's starting point, ask structured questions about the idea, evaluate whether the problem is real and worth solving, check for idea viability, identify risks (Google Maps competition, data collection challenge), refine the concept, and produce a structured Big Idea document.",
+      "files": []
+    },
+    {
+      "id": 30,
+      "skill_name": "ux-big-idea",
+      "prompt": "I want to build something in the mental health space for college students but I only have a vague sense of the problem. Can you help me shape this into something concrete?",
+      "expected_output": "Should start with the user's vague idea, ask probing questions to identify the specific problem within the broad mental health space, help narrow the focus to a concrete product concept, evaluate viability, identify risks, and produce a Big Idea document that captures the refined idea with clarity.",
+      "files": []
+    },
+    {
+      "id": 31,
+      "skill_name": "ux-problem-statement",
+      "prompt": "We're building a tool that helps small restaurant owners manage their online reviews across Google, Yelp, and TripAdvisor. Help me write a proper problem statement -- I keep slipping into describing features instead of the actual problem.",
+      "expected_output": "Should guide the user through defining the problem without solution language, answer the three key questions (what problem exists, who feels it most, how will the product help), identify and correct any feature/solution language, and produce a structured problem statement document that stays focused on the pain rather than specific features.",
+      "files": []
+    },
+    {
+      "id": 32,
+      "skill_name": "ux-problem-statement",
+      "prompt": "Here's our current problem statement: 'We will build a personalized AI-powered study platform with gamification and social features for high school students.' Can you help me fix this? I think it's more of a feature list than a problem statement.",
+      "expected_output": "Should identify that the statement describes a solution, not a problem, strip away the feature language (AI-powered, gamification, social features), guide the user to identify the underlying pain, and produce a revised problem statement focused on the actual problem high school students face with studying.",
+      "files": []
+    },
+    {
+      "id": 33,
+      "skill_name": "ux-target-audience",
+      "prompt": "I'm building a fitness tracking app called FitPulse. Help me define who we're actually building this for -- I think it's busy professionals aged 25-40 but I'm not sure how to validate that assumption.",
+      "expected_output": "Should assess the user's current knowledge level, ask targeted questions about the audience, develop a detailed persona covering background, behaviors, pain points, and goals for busy professionals 25-40, discuss whether this is a proto-persona or data-backed, suggest validation methods, and produce a Target Audience deliverable.",
+      "files": []
+    },
+    {
+      "id": 34,
+      "skill_name": "ux-target-audience",
+      "prompt": "We have survey data from 200 users of our budgeting app. Most respondents are 22-28 year olds who just got their first 'real' job. Can you help us build a detailed persona from this data?",
+      "expected_output": "Should work with the provided survey data to build a data-informed persona, structure it around background, behaviors, pain points, and goals specific to recent graduates managing money for the first time, identify patterns in the data, and produce a Target Audience document that reflects real data rather than assumptions.",
+      "files": []
+    },
+    {
+      "id": 35,
+      "skill_name": "ux-assumptions",
+      "prompt": "We're assuming that parents of toddlers would pay $9.99/month for an app that suggests age-appropriate activities based on weather and available materials. I have a list of about 12 assumptions but no plan for how to test them. Help me organize and prioritize these.",
+      "expected_output": "Should help categorize the assumptions (user, product, business), assess risk level for each, apply the hypothesis formulas ('I believe X, I can find out by Y'), prioritize which assumptions to test first based on risk, suggest validation methods for high-risk assumptions, and produce a living assumptions document.",
+      "files": []
+    },
+    {
+      "id": 36,
+      "skill_name": "ux-assumptions",
+      "prompt": "I just launched an MVP for my habit tracking app and half our assumptions turned out to be wrong. Users aren't using the social features at all, and the daily reminder is getting dismissed 80% of the time. How do I update my assumptions doc?",
+      "expected_output": "Should update the assumptions document as a living document, mark disproven assumptions (social features, daily reminders) with evidence, discuss what the data reveals about actual user behavior, generate new hypotheses based on the findings, suggest new validation approaches, and reprioritize the remaining assumptions.",
+      "files": []
+    },
+    {
+      "id": 37,
+      "skill_name": "ux-competitor-analysis",
+      "prompt": "I'm building a recipe app but everyone says 'there are already a million recipe apps.' Help me do a proper competitive analysis so I can find gaps. I know about AllRecipes and Yummly but that's about it.",
+      "expected_output": "Should identify the user's current competitive knowledge, use web search to find direct and indirect competitors beyond the ones mentioned, identify both direct competitors (AllRecipes, Yummly, Tasty, etc.) and indirect ones (TikTok food content, Pinterest recipes, YouTube cooking), analyze strengths and weaknesses, map market positioning, identify gaps, and produce a competitive analysis deliverable.",
+      "files": []
+    },
+    {
+      "id": 38,
+      "skill_name": "ux-competitor-analysis",
+      "prompt": "We're entering the project management space with a tool specifically for architecture firms. I need to understand what Asana, Monday.com, and specialized tools like ArchiOffice are doing, and where we can differentiate.",
+      "expected_output": "Should analyze both general PM tools (Asana, Monday.com) and specialized architecture tools (ArchiOffice), compare feature sets relevant to architecture firms, identify underserved needs, map competitive positioning in a matrix, and produce a competitive analysis highlighting differentiation opportunities.",
+      "files": []
+    },
+    {
+      "id": 39,
+      "skill_name": "ux-user-interviews",
+      "prompt": "I need to set up user interviews for my grocery delivery app. I've never done interviews before and I'm kind of nervous about it. Can you help me prepare a script and tell me what to avoid?",
+      "expected_output": "Should operate in guided mode, prepare an interview script using General Empathy Questions (GEQs) and the 'Replacing X' technique, teach the user to ask about past behavior rather than hypothetical futures, provide tips for nervous first-time interviewers, discuss finding participants, and prepare the dual-analysis methodology for after the interviews.",
+      "files": []
+    },
+    {
+      "id": 40,
+      "skill_name": "ux-user-interviews",
+      "prompt": "I just finished 8 user interviews for my fitness coaching platform. I have my own analysis written up. Can you do an independent analysis of the transcripts and then we compare?",
+      "expected_output": "Should implement the dual-analysis methodology: accept the user's analysis, perform an independent AI analysis of the interview data, then compare both analyses to identify agreements, disagreements, and insights one analysis caught that the other missed. Should produce a combined analysis deliverable.",
+      "files": []
+    },
+    {
+      "id": 41,
+      "skill_name": "ux-storybrand",
+      "prompt": "I need help writing the copy for our landing page. We have a time-tracking app for freelancers called TimeWise. The product helps freelancers accurately bill clients and avoid undercharging. How do I make the messaging connect emotionally?",
+      "expected_output": "Should walk through the StoryBrand framework where the freelancer is the hero and TimeWise is the guide. Should identify the character (freelancer), their problem (undercharging, time tracking hassle), the guide (TimeWise with empathy and authority), the plan (simple steps to accurate billing), the call to action, help them avoid failure (lost revenue, client disputes), and achieve success (fair pay, confidence). Should produce a StoryBrand document with actionable copy direction.",
+      "files": []
+    },
+    {
+      "id": 42,
+      "skill_name": "ux-storybrand",
+      "prompt": "Our SaaS product has terrible conversion on the landing page. The messaging is all about our AI features and technology stack. Help us rewrite it using StoryBrand so it focuses on the customer's problem instead of our product.",
+      "expected_output": "Should identify the mistake of talking about the product instead of the customer, walk through the complete StoryBrand 7-part framework, reframe the messaging to make the customer the hero, produce before/after copy comparisons, and deliver a StoryBrand document that shifts focus from features to customer transformation.",
+      "files": []
+    },
+    {
+      "id": 43,
+      "skill_name": "ux-business-plan",
+      "prompt": "I have a subscription-based design template marketplace. I need to figure out pricing, market size, and whether this can actually make money. I've been focused on the product and haven't thought about the business side at all.",
+      "expected_output": "Should assess the user's business planning status (starting from scratch), walk through revenue model options (subscription tiers, one-time purchases, freemium), estimate market size with critical evaluation of AI-generated numbers, develop go-to-market strategy, create financial projections with healthy skepticism, and produce a business plan deliverable.",
+      "files": []
+    },
+    {
+      "id": 44,
+      "skill_name": "ux-business-plan",
+      "prompt": "We have a B2B analytics dashboard and we're trying to decide between per-seat pricing and usage-based pricing. Our competitors charge $15-50 per seat. Help me model both options and figure out which makes more sense for our product.",
+      "expected_output": "Should analyze both pricing models (per-seat vs usage-based) against the specific product context, compare with competitor pricing ($15-50/seat), model revenue projections for both, discuss pros/cons of each approach for a B2B analytics product, teach critical evaluation of the projections, and produce a business plan section focused on pricing strategy.",
+      "files": []
+    },
+    {
+      "id": 45,
+      "skill_name": "ux-6p-stories",
+      "prompt": "I want to create a 6P story for my dog walking app. The main scenario is: a busy professional needs someone to walk their dog during work hours but worries about trusting a stranger with their pet.",
+      "expected_output": "Should guide creation of a 6-panel comic-style story covering the dog owner's journey: the trigger situation, the frustration/anxiety, discovering the solution, the experience, the resolution, and the transformed state. Should build customer empathy, focus on the user's emotional journey rather than app screens, and produce a 6P Story deliverable.",
+      "files": []
+    },
+    {
+      "id": 46,
+      "skill_name": "ux-6p-stories",
+      "prompt": "We already have a live budgeting app but users are churning after the first month. Help me create a 6P story for the current experience to identify where we're losing people.",
+      "expected_output": "Should create a 6P story documenting the current (problematic) user experience to identify gaps and drop-off points, reveal through the story format where the experience breaks down, compare what the panels should look like in an ideal scenario vs current reality, and surface improvement opportunities that explain the churn.",
+      "files": []
+    },
+    {
+      "id": 47,
+      "skill_name": "ux-behavior-mapping",
+      "prompt": "Users are signing up for our online course platform but only 15% actually start watching the first lesson. We can't figure out why. Can you help us map the behavior gap using BMap?",
+      "expected_output": "Should apply the BMap framework (Behavior = Motivation x Ability x Prompt), analyze the Activation Threshold for starting the first lesson, evaluate motivation (why users signed up vs what changes after signup), ability (friction between signup and first lesson), and prompts (what triggers exist). Should identify the most efficient behavior levers and produce a Behavior Map deliverable with specific interventions.",
+      "files": []
+    },
+    {
+      "id": 48,
+      "skill_name": "ux-behavior-mapping",
+      "prompt": "I'm designing a new habit-forming feature for our meditation app. Before I build it, I want to map out the expected behaviors and figure out what would motivate users to meditate daily. Help me create a behavior map.",
+      "expected_output": "Should apply BMap to a new product feature, use the 3 key questions and General Empathy Questions to understand motivations, analyze the ability dimension (time, effort, mental cost), evaluate potential prompts (notifications, streaks, social triggers), build a Mental Model for the target behavior, and produce a Behavior Map predicting engagement patterns.",
+      "files": []
+    },
+    {
+      "id": 49,
+      "skill_name": "ux-psych-framework",
+      "prompt": "I want to analyze our checkout flow screen by screen to see where users lose 'Psych' -- that mental energy to keep going. We have 5 screens: cart, account creation, shipping, payment, and confirmation.",
+      "expected_output": "Should apply the Psych Framework to calculate Net Perceived Value (Expected Utility minus Expected Interaction Cost) at each of the 5 screens, use the video game health bar analogy to visualize Psych Levels, identify where Psych drops critically low (likely account creation and payment), recommend specific interventions to boost Psych at weak points, and produce a Psych Framework analysis deliverable.",
+      "files": []
+    },
+    {
+      "id": 50,
+      "skill_name": "ux-psych-framework",
+      "prompt": "We're designing an onboarding flow for a personal finance app. Can you predict the Psych variations before we build it? I want to know which steps will drain motivation and which will boost it.",
+      "expected_output": "Should apply the Psych Framework predictively to a proposed design, evaluate each onboarding step for its Psych impact (additions and subtractions), use variation benchmarks to flag steps that risk dropping below the abandonment threshold, suggest reordering or modifying steps to maintain positive Psych, and produce a proactive Psych Framework analysis.",
+      "files": []
+    },
+    {
+      "id": 51,
+      "skill_name": "ux-mvp-requirements",
+      "prompt": "Our team has a feature list of 47 items for our task management app. We need to cut this down to what's essential for launch. We keep arguing about what's 'must-have' vs 'nice-to-have'. Help us prioritize using ICE scoring.",
+      "expected_output": "Should apply the ICE model (Impact, Confidence, Ease) to systematically score and prioritize the 47 features, separate must-haves from nice-to-haves, challenge the team's assumptions about what is truly essential, help them deliberately choose what NOT to build, and produce an MVP Requirements deliverable with a prioritized feature list.",
+      "files": []
+    },
+    {
+      "id": 52,
+      "skill_name": "ux-mvp-requirements",
+      "prompt": "I'm building a marketplace for local artisans to sell handmade goods. What's the absolute minimum I need to launch and start getting real user feedback? I tend to over-engineer things.",
+      "expected_output": "Should help define the minimum viable product for a marketplace (two-sided with sellers and buyers), identify the core loop that must work, apply ICE scoring, resist the user's tendency to over-engineer by focusing on what validates the core hypothesis, and produce MVP Requirements that are ruthlessly scoped down.",
+      "files": []
+    },
+    {
+      "id": 53,
+      "skill_name": "ux-information-architecture",
+      "prompt": "We have our MVP features locked down for a job board for the creative industry. Now I need to figure out the navigation structure -- where everything lives, how screens connect, and what the user flow looks like. Help me build the IA.",
+      "expected_output": "Should create an information architecture covering screen inventory, navigation structure, user flows, and content hierarchy for a creative job board, organize screens logically (job listings, profiles, applications, messaging, settings), define the navigation hierarchy, map primary user flows, and produce an IA deliverable that serves as a structural blueprint for UI design.",
+      "files": []
+    },
+    {
+      "id": 54,
+      "skill_name": "ux-information-architecture",
+      "prompt": "Our app's navigation is a mess -- users can't find features and we keep getting support tickets about it. We have 3 tabs, a hamburger menu with 12 items, and a settings page with 4 sub-pages. Help me restructure the IA.",
+      "expected_output": "Should audit the existing navigation structure, identify problems (too many items in hamburger menu, unclear categorization), restructure using IA principles like card sorting logic and progressive disclosure, simplify the hierarchy, and produce a revised IA that reduces navigation confusion.",
+      "files": []
+    },
+    {
+      "id": 55,
+      "skill_name": "ux-bias-framework",
+      "prompt": "/de:psych -- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
+      "expected_output": "Should apply the B.I.A.S. Framework (Block, Interpret, Act, Store) to all 3 screens. Block: check what the brain filters out (possibly too many value props). Interpret: check framing around benefits and familiarity. Act: evaluate friction in permission requests. Store: assess what positive/negative impression is stored. Should flag reactance risk on back-to-back permission requests and produce a structured B.I.A.S. audit with priority actions.",
+      "files": []
+    },
+    {
+      "id": 56,
+      "skill_name": "ux-bias-framework",
+      "prompt": "Our pricing page has a 2% conversion rate and we think the design might be the problem. Can you run a B.I.A.S. analysis on it? We have 3 tiers: Free, Pro ($12/mo), and Enterprise (custom pricing).",
+      "expected_output": "Should audit the pricing page through all 4 B.I.A.S. steps: Block (what's being filtered out, are users seeing the right tier), Interpret (is value framed as benefits, is the anchor set correctly, is loss aversion leveraged), Act (is friction reduced, are defaults helpful, is there social proof), Store (what impression does this leave). Should provide specific redesign recommendations with expected impact on conversion.",
+      "files": []
+    },
+    {
+      "id": 57,
+      "skill_name": "ux-bias-framework",
+      "prompt": "I'm designing a new subscription cancellation flow and I want to make sure I'm not accidentally creating dark patterns. Walk me through the B.I.A.S. framework to balance retention with ethical design.",
+      "expected_output": "Should apply B.I.A.S. to the cancellation flow with special attention to the ethical boundary between influence and manipulation. Should check the Regret Test at each step, flag reactance risks, ensure Block does not hide the cancel button, Interpret uses honest framing, Act reduces friction for cancellation while offering genuine alternatives, and Store leaves a positive impression even when users leave.",
+      "files": []
+    },
+    {
+      "id": 58,
+      "skill_name": "ux-journey-mapping",
+      "prompt": "Create a customer journey map for our hotel booking app. The key moments are: searching for hotels, comparing options, booking, pre-arrival communication, check-in, during stay, and post-stay review.",
+      "expected_output": "Should distill the hotel booking experience into 5-8 key moments, map the emotional arc across the journey, identify peak moments and low points, apply improvement tactics to weak moments, consider the Peak-End Rule for ending on a high note, and produce a journey map deliverable that complements 6P Stories.",
+      "files": []
+    },
+    {
+      "id": 59,
+      "skill_name": "ux-journey-mapping",
+      "prompt": "We've been getting complaints that our car insurance claims process feels 'cold and frustrating.' Help me map the current journey and identify where we can add empathy and reduce frustration.",
+      "expected_output": "Should map the current claims journey identifying emotional low points (cold interactions, long waits, confusing status updates), apply proven improvement tactics at each friction point, leverage Psych Framework concepts to boost emotional state during a naturally stressful process, and produce a journey map with specific improvement recommendations.",
+      "files": []
+    },
+    {
+      "id": 60,
+      "skill_name": "ux-ethics-review",
+      "prompt": "We're building a social media app for teens and I'm worried about the ethical implications. We have infinite scroll, streak mechanics, and push notifications for friend activity. Can you run an ethics review?",
+      "expected_output": "Should apply the Regret Test, Manipulation Matrix, Black Mirror Test, and Humane Design Principles to each feature (infinite scroll, streaks, push notifications). Should flag high-risk patterns for a teen audience, identify dark pattern concerns, assess if users would feel manipulated if they understood the mechanics, and produce an ethics review report with specific recommendations for more humane alternatives.",
+      "files": []
+    },
+    {
+      "id": 61,
+      "skill_name": "ux-ethics-review",
+      "prompt": "Our product manager wants to add a 'low stock' warning on our e-commerce product pages to create urgency. Is this ethical? Can you help us think through the implications?",
+      "expected_output": "Should evaluate the 'low stock' feature through the ethics tests: Regret Test (would users regret being pressured?), Manipulation Matrix (is it honest scarcity or manufactured urgency?), discuss the ethical boundary between informing users and manipulating them, check against Humane Design Principles, and provide a nuanced recommendation about when real scarcity warnings are ethical vs when they become manipulative.",
+      "files": []
+    },
+    {
+      "id": 62,
+      "skill_name": "ux-product-assessment",
+      "prompt": "We're about to submit our healthcare appointment app for a design review with leadership. Can you run the full product assessment checklist first so we can catch anything before they do?",
+      "expected_output": "Should run the 5-area product assessment checklist: user behaviors analysis, B.I.A.S. gaps identification, journey improvements, decision communication preparation, and ethical review. Should identify the highest-impact improvements across all dimensions and produce a comprehensive Product Assessment deliverable.",
+      "files": []
+    },
+    {
+      "id": 63,
+      "skill_name": "ux-product-assessment",
+      "prompt": "Our fintech app has been live for 6 months and we're planning v2. Run a comprehensive assessment to figure out what to improve, what to keep, and what to cut.",
+      "expected_output": "Should run the complete product assessment across all 5 areas using real usage data context, evaluate what is working well vs what is underperforming, identify features to improve/keep/cut for v2, and produce an assessment report that serves as a quality gate and v2 planning input.",
+      "files": []
+    },
+    {
+      "id": 64,
+      "skill_name": "ux-communicating-decisions",
+      "prompt": "I have a design review meeting with stakeholders tomorrow. They're going to push back on my decision to remove the dashboard and replace it with a feed-based home screen. Help me prepare to defend this decision.",
+      "expected_output": "Should apply B.I.A.S. principles to stakeholder communication, prepare the 4 communication tactics with key sentences, use the 3-step feedback response process, create a meeting preparation using the template, help frame the dashboard-to-feed decision with data and psychology principles, anticipate objections, and produce a presentation-ready justification.",
+      "files": []
+    },
+    {
+      "id": 65,
+      "skill_name": "ux-communicating-decisions",
+      "prompt": "The CEO just told me that our new navigation redesign 'looks weird' and wants to revert it. How do I respond to vague stakeholder feedback without getting defensive?",
+      "expected_output": "Should apply the 3-step feedback response process, teach the user to acknowledge the feedback, ask clarifying questions to understand the real concern behind 'looks weird', and prepare a structured response that references specific design rationale and user research. Should help the user communicate decisions professionally without being defensive or dismissive.",
+      "files": []
+    },
+    {
+      "id": 66,
+      "skill_name": "psych-master-audit",
+      "prompt": "I want to run a psychology audit on my e-learning platform. Students are completing courses but reporting that the experience feels 'boring and mechanical.' Here are screenshots of the main course page, lesson view, and progress dashboard.",
+      "expected_output": "Should gather context (e-learning platform, 'boring' feedback), run the master scan across all 10 sections, likely flag issues in Engagement & Motivation (missing variable rewards, weak curiosity gap), Emotional Design (no delighters, flat endings), and Efficiency (mechanical feel). Should produce a findings report with section scores, prioritized findings, and route to recommended deep-dive sections.",
+      "files": []
+    },
+    {
+      "id": 67,
+      "skill_name": "psych-master-audit",
+      "prompt": "Can you scan our signup flow for psychology issues? It's a simple 3-step form: email/password, personal info, preferences. The conversion from step 1 to step 2 is only 40%.",
+      "expected_output": "Should run a targeted master scan on the signup flow, identify likely issues: Cognitive Basics (too much info at once), Decision-Making (no defaults, too many preference options), Engagement (no progress feedback, missing goal gradient), Efficiency (unnecessary fields). Should prioritize the 60% drop-off between steps 1 and 2 as the critical finding and recommend specific section deep-dives.",
+      "files": []
+    },
+    {
+      "id": 68,
+      "skill_name": "psych-cognitive-basics",
+      "prompt": "Our settings page has 35 options spread across one long scrollable page. Users keep calling support because they can't find what they need. Analyze this from a cognitive basics perspective.",
+      "expected_output": "Should apply Laws 1-10 focusing on cognitive load, progressive disclosure, recognition over recall, and information grouping. Should identify Hick's Law violation (too many choices), Miller's Law issues (exceeding working memory), lack of progressive disclosure, and missing recognition patterns. Should provide specific restructuring recommendations.",
+      "files": []
+    },
+    {
+      "id": 69,
+      "skill_name": "psych-cognitive-basics",
+      "prompt": "I'm designing a dashboard for a fleet management system. There will be a lot of data -- vehicle locations, fuel levels, driver status, maintenance alerts. How do I present this without overwhelming the user?",
+      "expected_output": "Should apply cognitive basics principles to a data-heavy dashboard: chunking information into groups, applying cognitive load theory to limit simultaneous data points, using progressive disclosure for detail levels, designing for recognition over recall, and applying Fitts's Law for interactive elements. Should provide specific design recommendations for managing information density.",
+      "files": []
+    },
+    {
+      "id": 70,
+      "skill_name": "psych-visual-perception",
+      "prompt": "Our app uses the same visual weight for everything -- same font size, same color intensity, same button styles. Users say they don't know where to look first. Can you audit this using visual perception principles?",
+      "expected_output": "Should apply Laws 11-20 covering Gestalt principles, visual hierarchy, contrast, and attention focus. Should identify missing visual hierarchy, lack of contrast to guide attention, weak grouping through proximity and similarity, and insufficient emphasis on primary actions. Should provide specific recommendations for creating clear visual focus points.",
+      "files": []
+    },
+    {
+      "id": 71,
+      "skill_name": "psych-visual-perception",
+      "prompt": "I'm redesigning a news aggregator app. How do I use visual perception principles to help users scan headlines quickly and find relevant stories without reading everything?",
+      "expected_output": "Should apply visual perception principles to content scanning: visual hierarchy for headline importance, Gestalt grouping for related stories, contrast for breaking news vs regular content, attention focus for category navigation, and visual patterns for scan-friendly layouts. Should produce specific design recommendations optimized for rapid content scanning.",
+      "files": []
+    },
+    {
+      "id": 72,
+      "skill_name": "psych-decision-making-core",
+      "prompt": "Our filter system on a real estate search has 14 filter categories and users are abandoning the search after applying 2-3 filters. Is this a decision-making problem?",
+      "expected_output": "Should analyze using Laws 21-25: identify Decision Fatigue from too many filter categories, missing Default Bias (no smart defaults pre-selected), potential Anchoring issues (no reference points for price ranges), and Confirmation Bias (not showing results that validate initial preferences). Should recommend reducing visible filters, adding smart defaults, and progressive filter disclosure.",
+      "files": []
+    },
+    {
+      "id": 73,
+      "skill_name": "psych-decision-making-core",
+      "prompt": "We have a pricing page with Annual and Monthly billing options. Most users pick Monthly even though Annual saves them 20%. How can we ethically nudge them toward the better value option?",
+      "expected_output": "Should apply Loss Aversion (frame what they lose by choosing monthly), Anchoring Bias (show annual price first as the reference point), Default Bias (pre-select annual), while checking for ethical boundaries. Should discuss the line between helping users make better decisions and manipulating them, and provide specific pricing page recommendations.",
+      "files": []
+    },
+    {
+      "id": 74,
+      "skill_name": "psych-decision-making-advanced",
+      "prompt": "We want to add social proof and scarcity signals to our course enrollment page. 'Only 5 spots left' and '2,847 students enrolled.' How do we do this without crossing into dark patterns?",
+      "expected_output": "Should analyze Laws 26-30: Social Proof (student count is legitimate if real), Scarcity Effect ('5 spots left' is ethical only if real scarcity, manipulative if artificial), Authority Bias (instructor credentials), Framing Effect (how the enrollment value is presented). Should clearly delineate the ethical boundary for each tactic and provide specific implementation guidance that stays honest.",
+      "files": []
+    },
+    {
+      "id": 75,
+      "skill_name": "psych-decision-making-advanced",
+      "prompt": "Our trial-to-paid conversion is low. Users love the product during the trial but hesitate at the payment screen. What advanced decision-making principles could help?",
+      "expected_output": "Should apply Framing Effect (reframe price as daily cost or value gained), Social Proof (show how many converted and their success), Authority Bias (expert endorsements), Anchoring (anchor against competitor pricing or cost of not having the product). Should discuss Availability Heuristic (making trial benefits vivid at decision point). Should provide specific conversion optimization recommendations with ethical guardrails.",
+      "files": []
+    },
+    {
+      "id": 76,
+      "skill_name": "psych-engagement-motivation",
+      "prompt": "We built a gamified recycling app with points, badges, and a leaderboard but engagement drops off after 3 weeks. The gamification just isn't sticking. Can you analyze what's going wrong?",
+      "expected_output": "Should analyze Laws 31-40: check for Variable Reward (are rewards predictable and boring?), Goal Gradient (is progress visible and accelerating?), Flow State (is difficulty balanced?), Investment Loops (are users building something they'd lose?), Internal vs External Triggers (is the app relying too heavily on external triggers?). Should identify why engagement fades and recommend specific motivation design changes.",
+      "files": []
+    },
+    {
+      "id": 77,
+      "skill_name": "psych-engagement-motivation",
+      "prompt": "I'm designing the onboarding for a productivity tool. How do I create an 'Aha moment' early enough that users see the value before they bounce?",
+      "expected_output": "Should focus on Aha! Moment, Curiosity Gap, Feedback Loop, and Goal Gradient principles. Should help identify what the product's Aha moment is, design the shortest path to reach it during onboarding, use curiosity gaps to keep users moving forward, and provide clear feedback at each step. Should produce specific onboarding design recommendations.",
+      "files": []
+    },
+    {
+      "id": 78,
+      "skill_name": "psych-emotional-design-core",
+      "prompt": "Our task management app works great functionally but users describe it as 'soulless.' We want to add emotional moments without making it feel gimmicky. Where should we add delight?",
+      "expected_output": "Should apply Laws 41-45: Peak-End Rule (identify key moments to add emotional peaks), Delighters (micro-interactions that exceed expectations), Labor Illusion (show work being done on behalf of the user), IKEA Effect (let users customize and feel ownership), Sensory Appeal. Should identify specific moments for adding delight that feel authentic rather than forced, focusing on task completion celebrations and progress milestones.",
+      "files": []
+    },
+    {
+      "id": 79,
+      "skill_name": "psych-emotional-design-core",
+      "prompt": "Our loading screens are just a spinning circle and users hate waiting. How can I use psychology to make the wait feel shorter or even enjoyable?",
+      "expected_output": "Should apply Labor Illusion (show what the system is doing during the wait), Sensory Appeal (visual/animation interest), Peak-End Rule (end the loading with a positive transition), and Delighters (unexpected moments during loading). Should provide specific loading state design recommendations with examples of how to transform a frustrating wait into a neutral or positive experience.",
+      "files": []
+    },
+    {
+      "id": 80,
+      "skill_name": "psych-emotional-design-advanced",
+      "prompt": "We have a free trial that expires after 14 days. Users who don't convert often come back weeks later asking if they can try again. How do I use the Endowment Effect and Fresh Start Effect to improve trial-to-paid conversion?",
+      "expected_output": "Should apply Endowment Effect (make users feel ownership of their data/customizations during trial), Fresh Start Effect (time conversion prompts with natural fresh starts like Monday, month start), Spacing Effect (spread conversion reminders appropriately), and Feedforward (preview what they'll lose). Should provide specific trial design recommendations that leverage ownership psychology ethically.",
+      "files": []
+    },
+    {
+      "id": 81,
+      "skill_name": "psych-emotional-design-advanced",
+      "prompt": "Our educational platform needs better content retention. Students watch videos but forget the material within a week. How can emotional design principles help with learning retention?",
+      "expected_output": "Should apply Storytelling Effect (embed concepts in narratives), Spacing Effect (distribute learning over time rather than cramming), Fresh Start Effect (leverage natural restart points for review), and Feedforward (preview what's coming next to build anticipation). Should provide specific recommendations for improving content retention through emotional design.",
+      "files": []
+    },
+    {
+      "id": 82,
+      "skill_name": "psych-efficiency",
+      "prompt": "We're redesigning our enterprise CRM's settings panel. It currently has 200+ options and users spend an average of 15 minutes trying to find what they need. How do we simplify without removing necessary functionality?",
+      "expected_output": "Should apply Laws 51-60: Tesler's Law (complexity cannot be eliminated, only moved to the right place), Signifiers (clear labels and affordances), Occam's Razor (simplest effective design), Method of Loci (spatial organization), and Weber's Law (meaningful distinctions between options). Should provide specific restructuring recommendations that simplify the interface without losing needed functionality.",
+      "files": []
+    },
+    {
+      "id": 83,
+      "skill_name": "psych-efficiency",
+      "prompt": "Our mobile app has a bottom navigation with 5 tabs, a side drawer with 8 items, and a floating action button with 3 options. Users report feeling 'lost.' Is our navigation too complex?",
+      "expected_output": "Should analyze using Tesler's Law (is complexity in the right place?), Signifiers (are navigation items clearly labeled?), Exit Points (can users easily recover from wrong navigation?), Law of the Instrument (are we using too many navigation patterns?), and Second-Order Effects (unintended consequences of multiple nav systems). Should provide specific recommendations for consolidating navigation.",
+      "files": []
+    },
+    {
+      "id": 84,
+      "skill_name": "psych-behavioral-economics-core",
+      "prompt": "We're designing a pricing page for our SaaS tool with 3 tiers: Basic ($19), Pro ($49), and Enterprise ($99). Should we add a 4th tier as a decoy? How do we ethically use behavioral economics on a pricing page?",
+      "expected_output": "Should analyze Laws 61-65: Decoy Effect (whether a 4th tier would ethically shift preferences), Hyperbolic Discounting (annual vs monthly pricing psychology), Cashless Effect (reducing payment pain), Pareto Principle (focusing on the 20% of features that matter most per tier). Should discuss ethical use of the Decoy Effect and whether it helps or manipulates in this context.",
+      "files": []
+    },
+    {
+      "id": 85,
+      "skill_name": "psych-behavioral-economics-core",
+      "prompt": "Users who invest significant time setting up their workspace in our project tool rarely cancel, but new users churn at high rates. How does sunk cost psychology explain this and how can we ethically leverage it?",
+      "expected_output": "Should apply Sunk Cost Effect (investment creates switching barriers), analyze ethical implications of deliberately increasing sunk costs, discuss the line between creating genuine value through investment and trapping users. Should recommend ways to front-load meaningful setup that benefits the user while naturally creating switching costs, not artificially inflating them.",
+      "files": []
+    },
+    {
+      "id": 86,
+      "skill_name": "psych-behavioral-economics-habits",
+      "prompt": "We want to build a habit loop for our language learning app. Users should practice daily for 10 minutes. How do I use commitment and consistency, reciprocity, and temptation bundling to make this happen?",
+      "expected_output": "Should apply Laws 66-70: Commitment and Consistency (start with small public commitments that escalate), Reciprocity (give valuable free content to create obligation), Temptation Bundling (pair practice with enjoyable activities), Pseudo-Set Framing (create completion sets that motivate progress). Should discuss building genuine habits vs creating dependency, with specific design recommendations for the 10-minute daily practice goal.",
+      "files": []
+    },
+    {
+      "id": 87,
+      "skill_name": "psych-behavioral-economics-habits",
+      "prompt": "Our nonprofit donation platform wants to increase recurring donations. Most donors give once and never return. How can behavioral economics principles help without being manipulative?",
+      "expected_output": "Should apply Commitment and Consistency (small initial commitment leads to larger ones), Reciprocity (show impact of donations to create grateful reciprocity), Noble Edge Effect (highlight the organization's genuine mission), and Pseudo-Set Framing (create giving milestones). Should be especially careful about ethical boundaries with nonprofit donations and provide transparent, non-manipulative design recommendations.",
+      "files": []
+    },
+    {
+      "id": 88,
+      "skill_name": "psych-social-influence",
+      "prompt": "We're adding social features to our fitness app -- group challenges, friend activity feeds, and sharing workout results. Before we build, can you audit these plans against social influence principles?",
+      "expected_output": "Should apply Laws 71-80: Bandwagon Effect (group challenges leverage herd behavior), Hawthorne Effect (being observed changes behavior -- positive for fitness), Reactance (risk of pushing too hard on social features), Spotlight Effect (users overestimate how much others notice their poor performance), Group Attractiveness Effect. Should flag Reactance risks and privacy concerns, and recommend which social features to prioritize.",
+      "files": []
+    },
+    {
+      "id": 89,
+      "skill_name": "psych-social-influence",
+      "prompt": "Our user reviews section shows 'Be the first to review!' when a product has no reviews. We think this might be hurting sales. What social influence principles are at play here?",
+      "expected_output": "Should identify the problem using social influence principles: False Consensus Effect (no reviews suggests no one bought it), Bandwagon Effect in reverse (absence of social proof creates doubt), and Spotlight Effect. Should recommend alternatives to 'Be the first to review' that don't signal zero purchases, such as showing related metrics, expert opinions, or aggregate category data.",
+      "files": []
+    },
+    {
+      "id": 90,
+      "skill_name": "psych-cognitive-biases",
+      "prompt": "We've been building our developer tool for 2 years and our onboarding documentation assumes users already know our terminology. Fresh users are confused but our team doesn't see the problem. Is this the Curse of Knowledge?",
+      "expected_output": "Should apply Laws 81-90 with focus on Curse of Knowledge (team cannot unsee their expertise), Dunning-Kruger Effect (may apply to the team's assessment of usability), and Empathy Gap (team cannot feel the frustration of new users). Should provide specific tactics for identifying and correcting expertise bias in documentation and onboarding, such as usability testing with new users and language audits.",
+      "files": []
+    },
+    {
+      "id": 91,
+      "skill_name": "psych-cognitive-biases",
+      "prompt": "Our design team is interpreting user survey results very differently from what the data actually shows. They keep saying 'users want feature X' when the survey doesn't clearly support that. What biases might be at work?",
+      "expected_output": "Should analyze using Confirmation Bias (seeing data that confirms pre-existing beliefs), Survey Bias (how survey design affects responses), Expectations Bias (interpreting ambiguous data to match expectations), Hindsight Bias (rewriting memory of predictions), and Backfire Effect (doubling down when confronted with contradicting data). Should provide specific recommendations for more objective data analysis and decision-making processes.",
+      "files": []
+    },
+    {
+      "id": 92,
+      "skill_name": "psych-time-behavior",
+      "prompt": "Our page loads in 3 seconds but users perceive it as slow. Meanwhile our competitor loads in 4 seconds but users think it's faster. What time perception principles are at play and how do we fix this?",
+      "expected_output": "Should apply Laws 91-100 focusing on Chronoception (subjective time perception), Familiarity Bias (competitor's familiar patterns feel faster), and Shaping (gradually training users' expectations). Should identify that perceived speed is about visual feedback and progressive loading, not just actual speed, and provide specific recommendations for making 3-second loads feel instant through animation, progressive content rendering, and skeleton screens.",
+      "files": []
+    },
+    {
+      "id": 93,
+      "skill_name": "psych-time-behavior",
+      "prompt": "We want our personal finance app to become a daily habit but users currently open it once a week at most. How do I use time and behavior management principles to increase usage frequency without being annoying?",
+      "expected_output": "Should apply Parkinson's Law (work expands to fill time -- give users daily micro-tasks), Shaping (gradually increase engagement through small steps), Familiarity Bias (build consistent patterns users can rely on), Spark Effect (create daily moments that trigger the habit), and Attentional Bias (make financial awareness salient at key moments). Should provide specific recommendations for increasing daily engagement without crossing into notification spam or manipulation.",
+      "files": []
+    },
+    {
+      "id": 94,
+      "skill_name": "ui-accessibility",
+      "prompt": "We need to make our healthcare patient portal accessible. We have elderly patients who may have low vision, and some patients who use screen readers. What should we check?",
+      "expected_output": "Should perform a comprehensive accessibility review covering: color contrast ratios (at least WCAG AA, ideally AAA for healthcare), touch/tap target sizes (especially for elderly users with reduced motor control), screen reader compatibility, keyboard navigation, focus management, text sizing, form labels, error messaging, and healthcare-specific considerations like medical terminology. Should produce an accessibility audit report with prioritized remediation items.",
+      "files": []
+    },
+    {
+      "id": 95,
+      "skill_name": "ui-accessibility",
+      "prompt": "Our designer used a light gray (#CCCCCC) text on white background for secondary information throughout the app. I think this fails contrast requirements but they say it 'looks cleaner.' Can you audit this and help me make the case?",
+      "expected_output": "Should check the specific contrast ratio of #CCCCCC on white (fails WCAG AA at 1.6:1, minimum is 4.5:1 for normal text), explain why contrast requirements exist (not just compliance but usability), provide alternative color values that look clean while meeting WCAG AA, and help frame the argument for stakeholders using both accessibility law and UX improvement reasoning.",
+      "files": []
+    },
+    {
+      "id": 96,
+      "skill_name": "ui-design-references",
+      "prompt": "I'm about to start the UI design for our pet care marketplace app. Before I open Figma, help me gather design references -- I want to look at what other pet apps, marketplaces, and booking platforms are doing visually.",
+      "expected_output": "Should guide the user through gathering design references from platforms like Mobbin, Dribbble, and competitors, organize references by category (pet apps, marketplace patterns, booking flows), identify common visual patterns relevant to the product type, create a reference collection that establishes visual vocabulary, and produce a design references deliverable that prevents blank-canvas paralysis.",
+      "files": []
+    },
+    {
+      "id": 97,
+      "skill_name": "ui-design-references",
+      "prompt": "We're redesigning our B2B analytics dashboard and want it to feel modern but professional -- not too playful, not too corporate. Help me find the right visual direction through references.",
+      "expected_output": "Should help gather references specifically for B2B analytics dashboards, filter for the 'modern but professional' aesthetic, identify patterns in data visualization, layout, typography, and color usage, compare different visual approaches (dark mode vs light, card-based vs data-dense), and produce a curated reference collection that defines the visual direction.",
+      "files": []
+    },
+    {
+      "id": 98,
+      "skill_name": "ui-design-system",
+      "prompt": "We've been building our Next.js app for 3 months and have 40+ components but no design system. Colors are hardcoded everywhere, spacing is inconsistent, and every developer uses different patterns. Help me set up a proper code-first design system.",
+      "expected_output": "Should guide creation of a code-first design system: audit existing components for patterns, extract design tokens (colors, typography, spacing) from the codebase, establish atomic design structure (atoms, molecules, organisms), define token naming conventions, create a refactoring plan to replace hardcoded values with tokens, and produce a design system setup deliverable.",
+      "files": []
+    },
+    {
+      "id": 99,
+      "skill_name": "ui-design-system",
+      "prompt": "Our design system has 200+ tokens but developers keep creating new ones instead of reusing existing ones. How do I audit our codebase for design system compliance?",
+      "expected_output": "Should run the design system in audit mode, scan the codebase for hardcoded values that should use tokens, identify redundant or duplicate tokens, check component consistency, flag files where developers created new tokens instead of reusing existing ones, and produce an audit report with specific violations and remediation priorities.",
+      "files": []
+    },
+    {
+      "id": 100,
+      "skill_name": "ui-figma-workflow",
+      "prompt": "I'm a developer who's never used Figma before but I need to create some key screens for our app before coding. What's the minimal Figma workflow I need for AI-assisted development?",
+      "expected_output": "Should explain the minimal Figma workflow: design only 5-8 key screens that establish visual style, focus on visual direction rather than documenting every state, explain how Figma MCP shares design data with AI, teach the handoff process from Figma to code, and help the user set up an efficient workflow that avoids over-designing.",
+      "files": []
+    },
+    {
+      "id": 101,
+      "skill_name": "ui-figma-workflow",
+      "prompt": "I have 30+ Figma frames for every possible state of every screen. My developer says this is overkill for AI-assisted development. Is he right? How should I restructure my Figma work?",
+      "expected_output": "Should confirm that 30+ frames is excessive for AI-assisted development, explain that AI can generate variations from a few key screens, recommend which 5-8 screens to keep as the style guide, teach the user how to let AI handle state variations and responsive layouts, and help restructure the Figma workflow to be minimal and effective.",
+      "files": []
+    },
+    {
+      "id": 102,
+      "skill_name": "ui-visual-review",
+      "prompt": "I just had Claude Code implement my Figma designs for the onboarding flow. Some things look off -- the spacing seems wrong and the colors don't match exactly. Can you do a visual review?",
+      "expected_output": "Should check for common AI-generated UI issues: title case vs sentence case errors, incorrect spacing, hardcoded color values instead of design tokens, creative interpretations that deviate from the design, redundant components that duplicate existing ones, and other visual fidelity issues. Should produce a visual review report with specific files and lines to fix.",
+      "files": []
+    },
+    {
+      "id": 103,
+      "skill_name": "ui-visual-review",
+      "prompt": "We deployed a new feature and the live site looks different from what we designed in Figma. Some buttons are bigger, fonts seem different, and the card layout spacing is off. Can you compare and identify all the discrepancies?",
+      "expected_output": "Should compare the live implementation against design intent, identify specific discrepancies (button sizing, font differences, card spacing), check for hardcoded values vs design tokens, verify component reuse, and produce a detailed visual review with specific fixes needed to match the original design, organized by severity.",
+      "files": []
+    },
+    {
+      "id": 104,
+      "skill_name": "dev-claude-md",
+      "prompt": "We need to create a CLAUDE.md for our Next.js + Supabase project. The repo already has components in src/components and API routes in src/app/api. We use Tailwind and shadcn/ui.",
+      "expected_output": "Should gather project context, define the source hierarchy (user instructions > status file > design files > project knowledge > global rules), generate a comprehensive CLAUDE.md covering: critical document references, reuse-existing-development rules, tech stack (Next.js, Supabase, Tailwind, shadcn/ui) with no-substitution rules, non-negotiable requirements, development pipeline, and conflict resolution protocol. Should explain maintenance expectations.",
+      "files": []
+    },
+    {
+      "id": 105,
+      "skill_name": "dev-claude-md",
+      "prompt": "Our CLAUDE.md is 6 months old and our project has changed a lot -- we added a GraphQL layer, switched from Jest to Vitest, and have 15 new components. Help me update it.",
+      "expected_output": "Should audit the existing CLAUDE.md against current project state, identify outdated sections (testing framework, API layer), add new components to the documentation, update tech stack specifications, refresh the development pipeline if needed, and produce an updated CLAUDE.md that reflects the current state of the project.",
+      "files": []
+    },
+    {
+      "id": 106,
+      "skill_name": "dev-claude-projects",
+      "prompt": "I'm starting a new SaaS product from absolute zero. No code, no designs, just an idea. How do I set up a Claude Projects workspace for the pre-development phase?",
+      "expected_output": "Should guide workspace setup: explain the multi-chat workflow (one activity per chat), help structure project knowledge files, set up rules for the workspace, establish the deliverable-saving workflow, explain how documents build on each other across chats, and produce a Claude Projects configuration that supports the full pre-development pipeline.",
+      "files": []
+    },
+    {
+      "id": 107,
+      "skill_name": "dev-claude-projects",
+      "prompt": "I've been using Claude Projects but my chats keep getting messy -- I mix research with design decisions with coding questions all in one chat. How do I restructure my workflow?",
+      "expected_output": "Should diagnose the problem (mixing concerns in single chats causes context degradation), restructure the workflow around one-activity-per-chat principle, explain how to save deliverables between chats, set up proper project knowledge organization, and help the user establish a disciplined multi-chat workflow that prevents context loss.",
+      "files": []
+    },
+    {
+      "id": 108,
+      "skill_name": "dev-context-management",
+      "prompt": "We're 2 months into development and Claude keeps forgetting things we already built. It suggested creating a Button component yesterday when we already have one. How do I fix this context loss problem?",
+      "expected_output": "Should explain the context degradation problem (token limits, chat compaction), set up a status file for AI to read at the start of every task, establish component registry tracking, configure sub-agent workflows to preserve main conversation budget, implement a systematic approach to recording what exists and what has been decided, and produce a context management setup that prevents repeated work.",
+      "files": []
+    },
+    {
+      "id": 109,
+      "skill_name": "dev-context-management",
+      "prompt": "I'm about to start a complex project that will take 6+ months. What context management strategy should I put in place from day one so I don't lose decisions and learnings over time?",
+      "expected_output": "Should set up comprehensive context management from the start: status file structure, compound documentation workflow, sub-agent token preservation strategy, manual compaction guidelines, separation of concerns across small dedicated files, and a systematic approach to maintaining project memory over a 6+ month timeline.",
+      "files": []
+    },
+    {
+      "id": 110,
+      "skill_name": "dev-github-workflow",
+      "prompt": "I'm a designer who just started coding with Claude Code. I've never used Git before. Can you set up a GitHub workflow for me and explain it like I'm five?",
+      "expected_output": "Should explain Git/GitHub in designer-friendly terms (like Google Drive but with version history), set up the basic workflow (init, commits, branches, push), explain recovery strategies (reverting bad changes), establish a commit convention, and produce a GitHub workflow guide tailored for a design-background developer with no prior Git experience.",
+      "files": []
+    },
+    {
+      "id": 111,
+      "skill_name": "dev-github-workflow",
+      "prompt": "I've been using Git but I just commit everything to main. Now I'm working with a small team and need a proper branching strategy. What's the simplest approach that won't slow us down?",
+      "expected_output": "Should assess current workflow, recommend a simple branching strategy suitable for a small team (feature branches, PRs, main branch protection), explain the workflow without unnecessary complexity, set up branch naming conventions, and establish a review process that balances speed with code quality.",
+      "files": []
+    },
+    {
+      "id": 112,
+      "skill_name": "dev-mcp-setup",
+      "prompt": "I just installed Claude Code and want to set up the right MCP integrations for my project. I use Figma for design and want to be able to test in the browser. What do I actually need?",
+      "expected_output": "Should explain what MCPs are and what each essential one does, recommend starting with Context7 (up-to-date docs) and Figma MCP (design data) as essentials, explain Playwright MCP (browser testing) as an advanced option, warn against installing everything at once, guide through installation of the recommended MCPs, and produce an MCP setup guide.",
+      "files": []
+    },
+    {
+      "id": 113,
+      "skill_name": "dev-mcp-setup",
+      "prompt": "I already have Context7 and Figma MCP set up. Should I add Figma Console MCP too? What's the difference and when would I need it?",
+      "expected_output": "Should explain the difference between Figma MCP (reads design data for development) and Figma Console MCP (can perform actions in Figma -- create components, apply tokens, modify designs), recommend when each is appropriate, assess whether the user's workflow needs Console MCP, and provide setup guidance if they decide to add it.",
+      "files": []
+    },
+    {
+      "id": 114,
+      "skill_name": "dev-kickstart-prompts",
+      "prompt": "I have all my design docs ready (problem statement, MVP requirements, IA, design references) and I'm about to open Cursor for the first time. Generate the kick-start prompts I should use to get the project going.",
+      "expected_output": "Should generate high-level kick-start prompts that reference the existing planning documents, keep prompts simple and avoid deep technical details, structure prompts for a logical development sequence (project setup, core features, UI implementation), and produce a set of ready-to-use kick-start prompts tailored to the user's specific project and tech stack.",
+      "files": []
+    },
+    {
+      "id": 115,
+      "skill_name": "dev-kickstart-prompts",
+      "prompt": "I'm starting development on a React Native app with Expo, Firebase, and a Node.js backend. I have MVP requirements and an IA doc. Create kick-start prompts that will set up the project correctly.",
+      "expected_output": "Should generate kick-start prompts specific to the React Native + Expo + Firebase + Node.js stack, reference the existing MVP requirements and IA documents, include prompts for project scaffolding, backend setup, frontend setup, and design system initialization, keeping them high-level with pointers to context documents rather than code snippets.",
+      "files": []
+    },
+    {
+      "id": 116,
+      "skill_name": "dev-agent-pipeline",
+      "prompt": "I want to set up the 4-agent pipeline for my development workflow. I'm building a Vue.js app with a Python FastAPI backend. Walk me through configuring each agent.",
+      "expected_output": "Should set up the 4-agent pipeline (context-analyzer, plan-creator, backend-implementer, frontend-implementer, plus design-system-auditor), customize each agent's configuration for the Vue.js + FastAPI stack, explain how sub-agents preserve main conversation token budget, establish the execution sequence, and produce agent pipeline configuration files.",
+      "files": []
+    },
+    {
+      "id": 117,
+      "skill_name": "dev-agent-pipeline",
+      "prompt": "I tried using 8 agents but it was chaos -- the main conversation kept forgetting to run some of them. Help me consolidate down to the essential 4 and set up a reliable pipeline.",
+      "expected_output": "Should acknowledge the common problem of too many agents, help consolidate from 8 to 4 essential agents, explain why 4 is the practical limit, define clear responsibilities for each agent (context analysis, planning, backend implementation, frontend implementation), set up the execution sequence so nothing gets forgotten, and produce a streamlined pipeline configuration.",
+      "files": []
+    },
+    {
+      "id": 118,
+      "skill_name": "dev-prototyping",
+      "prompt": "I have my MVP requirements and IA ready. Before writing production code, I want to generate a quick prototype to test with 5 users this weekend. How do I create an AI-generated prototype?",
+      "expected_output": "Should guide the prototyping workflow: generate a functional-first prototype from existing planning documents, emphasize functionality over visual polish, set up a testing plan for the 5-user test, prepare test scripts, and explain the analysis methodology for interpreting test results. Should produce a working prototype approach and testing preparation.",
+      "files": []
+    },
+    {
+      "id": 119,
+      "skill_name": "dev-prototyping",
+      "prompt": "We tested our prototype with 8 users last week and got mixed results. 5 loved the concept but 3 couldn't figure out the navigation. Help me analyze the results and decide what to change before building the real thing.",
+      "expected_output": "Should apply the dual-analysis methodology to the test results, identify patterns in the navigation confusion (3/8 users), assess severity of the navigation issues, distinguish between concept validation (positive -- 5/8 loved it) and usability issues (navigation), recommend specific changes based on findings, and help prioritize what to fix before production development.",
+      "files": []
+    }
+  ]
+}

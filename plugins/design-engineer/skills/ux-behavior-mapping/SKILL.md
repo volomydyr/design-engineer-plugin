@@ -193,7 +193,7 @@ Let's validate your prompt. Answer these questions:
 5. Are there natural implicit prompts (situations, habits) you could leverage?
 ```
 
-**Example from the course:** Uber Eats sends food delivery notifications around lunch and dinner time because hunger increases motivation, which increases the chance of being above the Activation Threshold. The prompt itself has not changed -- only its timing.
+**Example:** Uber Eats sends food delivery notifications around lunch and dinner time because hunger increases motivation, which increases the chance of being above the Activation Threshold. The prompt itself has not changed -- only its timing.
 </step>
 
 <step number="7" required="true" depends_on="6">
