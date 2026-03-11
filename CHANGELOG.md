@@ -2,6 +2,20 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.3.0] – 2026-03-11
+
+### Added
+
+- New `ui-figma-handoff` skill — automates Figma design structuring and dev handoff preparation using Figma Console MCP
+- Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-workflow`
+- `figma-handoff` deliverable in dependency graph
+
+### Changed
+
+- Rewrote `figma-for-ai-dev.md` — conditional guidance based on Figma Console MCP availability
+- Standardized Figma tool names across all files: "Figma plugin" (official) and "Figma Console MCP"
+- Skill count 48 → 49, UI Design category 6 → 7
+
 ## [1.2.0] – 2026-03-11
 
 ### Added

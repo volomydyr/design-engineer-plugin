@@ -26,8 +26,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 question: "How do you want to review the implementation?"
 header: "Review Method"
 options:
-  - label: "Compare with Figma designs (via MCP)"
-    description: "Side-by-side comparison using Figma MCP data"
+  - label: "Compare with Figma designs (via Figma plugin)"
+    description: "Side-by-side comparison using Figma plugin data"
   - label: "Review screenshots"
     description: "Analyze provided screenshots of the implementation"
   - label: "Review live URL (via Playwright)"

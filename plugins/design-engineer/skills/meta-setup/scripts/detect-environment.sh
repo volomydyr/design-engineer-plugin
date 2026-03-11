@@ -27,26 +27,26 @@ else
   echo "[MISSING] Context7 -- up-to-date technical documentation"
 fi
 
-# Check for Figma MCP (official)
+# Check for Figma plugin (official)
 # Provides design data from Figma Dev Mode adapted to the project's tech stack.
 if grep -rql -i "figma" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null | head -1 | grep -vq "figma-console" 2>/dev/null; then
   # More precise check: look for figma MCP that is NOT figma-console
   if grep -rql -iE "(figma_mcp|figma-mcp|@figma|figma.*dev.mode)" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-    MCPS_FOUND+=("Figma MCP")
-    echo "[FOUND] Figma MCP -- design data from Figma Dev Mode"
+    MCPS_FOUND+=("Figma plugin")
+    echo "[FOUND] Figma plugin -- design data from Figma Dev Mode"
   else
     # Fallback: any figma reference that is not console
     if grep -rql -i "figma" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-      MCPS_FOUND+=("Figma MCP (unconfirmed)")
-      echo "[FOUND] Figma MCP (unconfirmed) -- found figma reference in MCP config"
+      MCPS_FOUND+=("Figma plugin (unconfirmed)")
+      echo "[FOUND] Figma plugin (unconfirmed) -- found figma reference in MCP config"
     else
-      MCPS_MISSING+=("Figma MCP")
-      echo "[MISSING] Figma MCP -- design data from Figma Dev Mode"
+      MCPS_MISSING+=("Figma plugin")
+      echo "[MISSING] Figma plugin -- design data from Figma Dev Mode"
     fi
   fi
 else
-  MCPS_MISSING+=("Figma MCP")
-  echo "[MISSING] Figma MCP -- design data from Figma Dev Mode"
+  MCPS_MISSING+=("Figma plugin")
+  echo "[MISSING] Figma plugin -- design data from Figma Dev Mode"
 fi
 
 # Check for Figma Console MCP (unofficial, more powerful)

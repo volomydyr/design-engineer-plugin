@@ -60,7 +60,7 @@ Use official documentation to verify you are following current best practices fo
 Read the MVP Requirements document at [path], specifically the section about [highest-priority feature].
 
 Implement [feature name]:
-- Reference the design files for visual direction (use Figma MCP if available, or reference design screenshots at [path])
+- Reference the design files for visual direction (use the Figma plugin if available, or reference design screenshots at [path])
 - Focus on making it functional first – we will polish the visuals later
 - Reuse any components or patterns already established in the project
 - Ask me clarifying questions before starting implementation

@@ -173,7 +173,7 @@ Skills: `ux-mvp-requirements`, `ux-information-architecture`
 Then run: `meta-compound`
 
 ### Phase 4: Design and Validation
-Skills: `ux-bias-framework`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ux-product-assessment` (optional)
+Skills: `ux-bias-framework`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-product-assessment` (optional)
 Then run: `meta-compound`
 
 ### User Approval Checkpoint

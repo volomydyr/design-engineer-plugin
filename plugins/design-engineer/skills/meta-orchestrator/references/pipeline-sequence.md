@@ -67,6 +67,8 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ui-figma-workflow
         |
+   ui-figma-handoff [optional]
+        |
    ux-product-assessment [optional]
         |
    meta-compound       <-- save progress
@@ -300,7 +302,17 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Hands off to**: ux-product-assessment (if included) or meta-compound
 - **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools. The validated prototype informs which key screens to design in Figma. Focus Figma work on the screens that set the visual style (typically 5-10 screens).
 
-### Skill 4.7: ux-product-assessment (OPTIONAL)
+### Skill 4.7: ui-figma-handoff (OPTIONAL)
+
+- **Required**: No
+- **Depends on**: ui-figma-workflow
+- **Produces**: Structured Figma file with components, tokens, annotations, and dev status badges
+- **Hands off to**: ux-product-assessment (if included) or meta-compound
+- **When to include**: When Figma Console MCP is available and the user wants higher-quality developer handoff from Figma
+- **When to skip**: When using the minimal Figma workflow without Figma Console MCP, or when the design system is being built entirely in code
+- **Notes**: Automates the structuring of raw Figma designs (components, variables, styles) and prepares them for dev handoff (annotations, sections, connectors, dev status badges). Requires Figma Console MCP.
+
+### Skill 4.8: ux-product-assessment (OPTIONAL)
 
 - **Required**: No
 - **Depends on**: dev-prototyping, all Phase 1-4 deliverables

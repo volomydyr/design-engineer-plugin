@@ -28,10 +28,10 @@ Before starting any design work, establish how designs will be shared with AI to
 question: "How do you want to share Figma designs with your AI coding tool?"
 header: "Figma Integration Method"
 options:
-  - label: "Figma MCP (official)"
-    description: "Gives AI access to Dev Mode data – code, not screenshots. Best for pixel-perfect results."
-  - label: "Figma Console MCP (unofficial)"
-    description: "Can perform actions in Figma for you (create components, apply tokens). More powerful but trickier to set up."
+  - label: "Figma plugin (official)"
+    description: "Gives AI access to Dev Mode data – code, not screenshots. Supports code→Figma import. Best for pixel-perfect results."
+  - label: "Figma Console MCP"
+    description: "Can perform actions in Figma for you (create components, apply tokens, structure files). More powerful but trickier to set up."
   - label: "Manual screenshots"
     description: "Take screenshots of frames and share with AI. Simple but less accurate."
   - label: "Playwright MCP or browser extension"
@@ -40,7 +40,7 @@ options:
     description: "Help me decide based on my setup."
 ```
 
-If the user selects "Not sure yet," recommend the official Figma MCP as the default starting point for most workflows.
+If the user selects "Not sure yet," recommend the Figma plugin as the default starting point for most workflows.
 
 ---
 
@@ -67,17 +67,22 @@ Walk the user through these critical Figma practices:
 ### Focus on Auto-Layouts
 Auto-layouts are essential. AI needs them to understand how to make code responsive. If you skip auto-layouts and use absolute positioning, AI will not know how elements should behave when screen sizes change.
 
-### Skip Components and Tokens in Figma
-There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine.
+### Components and Tokens
 
-The design system should be built in code, not Figma. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor – separate large files into smaller ones, create reusable components, extract colors and tokens.
+**With Figma Console MCP**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes and produces better development handoff results — structured files with proper variable bindings, component instances, and dev-ready annotations.
+
+**Without Figma Console MCP**: There is no need to name layers properly — Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
+
+### Code-to-Figma Import
+
+If the user has an HTML prototype from `dev-prototyping`, the Figma plugin can import it into Figma as a starting point for high-fidelity design work. This creates Figma frames from the prototype that can then be refined manually — useful for going from code back to design.
 
 ### Design Corrections, Not Full Coverage
 After AI implements the first iteration, some screens will look good and others will have issues. Design corrections only for the frames where AI made mistakes, share them via the chosen integration method, and let AI adjust the code based on the new references.
 
 ---
 
-## Step 4: Using the Figma MCP Effectively
+## Step 4: Using the Figma Plugin Effectively
 
 Share guidance from [figma-mcp-guide.md](./references/figma-mcp-guide.md) on getting the best results:
 
@@ -110,11 +115,15 @@ Help the user create a Figma strategy document saved to `{deliverables_path}/des
 
 ## What Comes Next
 
-After Figma designs are created, suggest running `dev-agent-pipeline` to implement them using the agent pipeline, or `ui-visual-review` to review implemented results against the designs.
+After Figma designs are created, suggest the logical next step:
+
+- **If Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
+- **For development**: suggest `dev-agent-pipeline` to implement designs using the agent pipeline
+- **For review**: suggest `ui-visual-review` to review implemented results against the designs
 
 ---
 
 ## Resource Files
 
-- [figma-for-ai-dev.md](./references/figma-for-ai-dev.md) – Principles for minimal Figma workflow in AI-assisted development
-- [figma-mcp-guide.md](./references/figma-mcp-guide.md) – How to use the Figma MCP effectively for design handoff
+- [figma-for-ai-dev.md](./references/figma-for-ai-dev.md) – Principles for Figma workflow in AI-assisted development
+- [figma-mcp-guide.md](./references/figma-mcp-guide.md) – How to use Figma integrations effectively for design handoff

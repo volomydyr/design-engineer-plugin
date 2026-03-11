@@ -33,7 +33,7 @@ This agent runs before any implementation. It:
 - Reviews existing code, components, and design system files
 - Checks available styles, icons, and assets
 - Fetches up-to-date documentation for whatever technologies you are using
-- Analyzes the designs you are about to implement (via Figma MCP or design file references)
+- Analyzes the designs you are about to implement (via the Figma plugin or design file references)
 
 **Output:** A summary of the current project state plus questions for you to answer before coding begins. This prevents assumptions and catches potential conflicts early.
 

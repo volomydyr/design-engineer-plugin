@@ -4,6 +4,24 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.3.0] – 2026-03-11
+
+### Added
+
+- New `ui-figma-handoff` skill — automates Figma design structuring (components, tokens, variables, styles) and dev handoff preparation (annotations, sections, connectors, dev status) using Figma Console MCP
+- Three new reference files: `figma-structuring-guide.md` (7-phase methodology), `figma-handoff-guide.md` (handoff preparation process), `figma-console-helpers.md` (code snippets for Figma Console MCP)
+- Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-workflow`
+- `figma-handoff` deliverable in dependency graph with upstream/downstream tracking
+
+### Changed
+
+- Rewrote `figma-for-ai-dev.md` — no longer says "skip components and tokens"; now recommends automating with Figma Console MCP when available, with minimal approach as fallback
+- Updated `figma-mcp-guide.md` — renamed to Figma Integration Guide, added code-to-Figma import capability and `ui-figma-handoff` reference
+- `ui-figma-workflow` Step 3 updated: conditional guidance based on Figma Console MCP availability
+- Phase 4 pipeline: `ui-figma-handoff` added as optional step after `ui-figma-workflow`
+- Standardized Figma tool names across all files: "Figma plugin" (official) and "Figma Console MCP"
+- Skill count 48 → 49, UI Design category 6 → 7
+
 ## [1.2.0] – 2026-03-11
 
 ### Added

@@ -28,10 +28,10 @@ options:
     description: "Starting fresh – need guidance on what to install"
   - label: "Context7"
     description: "Already have up-to-date documentation access"
-  - label: "Figma MCP (official)"
-    description: "Already have Figma Dev Mode data access"
+  - label: "Figma plugin (official)"
+    description: "Already have Figma design data access (bidirectional — design→code and code→design)"
   - label: "Figma Console MCP"
-    description: "Already have the advanced Figma action MCP"
+    description: "Already have the Figma Console MCP for programmatic Figma actions"
   - label: "Playwright MCP"
     description: "Already have browser automation for testing"
   - label: "Other MCPs"
@@ -49,13 +49,13 @@ Using the catalog from [mcp-catalog.md](./references/mcp-catalog.md), recommend 
 
 **Context7** – Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this MCP on its own otherwise.
 
-**Figma MCP (official)** – Gives AI access to design data from Figma Dev Mode – code, not screenshots. The MCP adapts code to your tech stack automatically. Use it gradually (smaller elements at a time) for best results.
+**Figma plugin (official)** – Gives AI access to design data from Figma Dev Mode — code, not screenshots. The plugin adapts code to your tech stack automatically and supports bidirectional workflows (design→code and code→design import). Use it gradually (smaller elements at a time) for best results.
 
 ### Recommended (install when needed)
 
 **Playwright MCP** – Browser automation for testing and TDD. More advanced – install once you are comfortable with the basics.
 
-**Figma Console MCP (unofficial)** – Can perform actions in Figma: turn raw frames into components with tokens and styles. Trickier to set up but powerful for design system work.
+**Figma Console MCP** – Can perform actions in Figma programmatically: turn raw frames into components with tokens and styles, structure files for dev handoff. Trickier to set up but powerful for design system work. The `ui-figma-handoff` skill provides a guided workflow for using it.
 
 ### Specialized (install for specific use cases)
 
@@ -79,7 +79,7 @@ Important: do not provide hardcoded installation commands. MCPs update their set
 
 Help the user add MCP usage rules to their CLAUDE.md:
 - When to use Context7 (before any architectural decision)
-- When to use Figma MCP (when implementing designs, when reviewing visual fidelity)
+- When to use Figma plugin (when implementing designs, when reviewing visual fidelity, when importing code into Figma)
 - When to use Playwright (for testing implemented features)
 
 ---

@@ -320,11 +320,25 @@ deliverables:
       - journey-map
       - prototype
     informs:
+      - figma-handoff
       - claude-md-draft
       - kickstart-prompts
     folder: design
     phase: 4
     skill: ui-figma-workflow
+    last_updated: null
+
+  figma-handoff:
+    status: not_started
+    depends_on:
+      - figma-workflow
+    informs:
+      - product-assessment
+      - claude-md-draft
+      - kickstart-prompts
+    folder: design
+    phase: 4
+    skill: ui-figma-handoff
     last_updated: null
 
   product-assessment:

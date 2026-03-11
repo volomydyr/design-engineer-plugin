@@ -103,11 +103,11 @@ Explain prerequisites:
 
 1. **Figma Desktop app** must be open with the file loaded
 2. **Dev mode access** requires a paid Figma plan
-3. **Figma MCP plugin** must be installed and connected
+3. **Figma plugin** must be installed and connected
 
-Ask the user to share a link to specific frames they want to prototype. Use the Figma MCP tools to read design context — layout structure, colors, typography, spacing, component hierarchy.
+Ask the user to share a link to specific frames they want to prototype. Use the Figma plugin tools to read design context — layout structure, colors, typography, spacing, component hierarchy.
 
-If the Figma MCP is not available or not working, fall back to asking the user to describe the designs manually or share screenshots.
+If the Figma plugin is not available or not working, fall back to asking the user to describe the designs manually or share screenshots.
 
 ### Path D: Just an Idea
 
@@ -324,7 +324,8 @@ Save `design-docs/prototype/prototype-notes.md` with:
 
 After prototyping, suggest the logical next step based on what exists:
 
-- **If no Figma designs exist**: suggest `ui-figma-workflow` to design key screens based on the validated prototype
+- **If no Figma designs exist**: suggest `ui-figma-workflow` to design key screens based on the validated prototype. If the Figma plugin is available, the prototype HTML can be imported into Figma as a starting point for high-fidelity design work (code-to-Figma import creates Figma frames from the prototype that can then be refined manually).
+- **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
 - **If designs exist but need review**: suggest `ui-design-critique` or `ui-visual-review` to evaluate the prototype against design intent
 - **If the prototype needs production implementation**: suggest the development pipeline via `/de:dev`
 

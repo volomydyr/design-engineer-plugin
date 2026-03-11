@@ -51,12 +51,12 @@ Determines how design-related skills interact with the user's design workflow.
 
 | Option | Effect |
 |--------|--------|
-| **Figma with MCP** | Skills that reference designs (ui-figma-workflow, ui-visual-review, ui-design-system) use Figma MCP to read design data directly. Provides adapted code based on the project's tech stack. |
+| **Figma with MCP** | Skills that reference designs (ui-figma-workflow, ui-visual-review, ui-design-system) use Figma plugin to read design data directly. Provides adapted code based on the project's tech stack. |
 | **Figma without MCP** | Skills prompt the user to share screenshots or exported design specs manually. Instructions for manual sharing are provided at each step. |
 | **Other design tool** | Skills provide tool-agnostic design guidance. User provides design references through their preferred method. |
 | **No design tool yet** | Design tool steps are deferred. Skills focus on conceptual and structural deliverables until the user decides on a tool. |
 
-**Gradual Figma MCP usage**: When Figma MCP is available, skills use it for smaller elements at a time rather than sharing entire complex designs at once. The approach is to start with working prototypes that look rough, then apply design polish through Figma MCP – functionality first, aesthetics second.
+**Gradual Figma plugin usage**: When the Figma plugin is available, skills use it for smaller elements at a time rather than sharing entire complex designs at once. The approach is to start with working prototypes that look rough, then apply design polish through the Figma plugin — functionality first, aesthetics second.
 
 ---
 
@@ -158,6 +158,6 @@ The following tools are detected during setup and affect skill behavior:
 | **WebFetch** | Skills can fetch live URLs for analysis | User shares content through copy-paste |
 | **Agent tool** | Complex skills can delegate parallel subtasks to sub-agents | Skills run sequentially within a single context |
 | **Context7 MCP** | Technical documentation is fetched in real-time during development skills | AI relies on training data (may be outdated) |
-| **Figma MCP** | Design data is read directly from Figma | User shares screenshots or design specs manually |
+| **Figma plugin** | Design data is read directly from Figma | User shares screenshots or design specs manually |
 | **Figma Console MCP** | AI can create components and apply tokens in Figma | Design actions are done manually by the user |
 | **Playwright MCP** | Browser-based testing and live URL review available | Testing is done manually; visual review uses screenshots |
