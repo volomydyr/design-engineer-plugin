@@ -51,12 +51,71 @@ header: "Design Feel"
 options:
   - label: "Warm and approachable"
     description: "Friendly, organic, inviting – like a well-worn notebook or a cozy workspace"
+    preview: |
+      ╭──────────────────────────────╮
+      │                              │
+      │  Welcome back, Sarah         │
+      │                              │
+      │  ╭────────╮  ╭────────╮     │
+      │  │ ~~~~~~ │  │ ~~~~~~ │     │
+      │  │ ~~~~~~ │  │ ~~~~~~ │     │
+      │  │        │  │        │     │
+      │  ╰────────╯  ╰────────╯     │
+      │                              │
+      │  ╭──────────────────────╮    │
+      │  │  What's on your mind? │    │
+      │  ╰──────────────────────╯    │
+      ╰──────────────────────────────╯
+      Rounded corners, generous spacing,
+      soft surfaces, personal tone
   - label: "Cold and precise"
     description: "Technical, exact, efficient – like a surgical instrument or a terminal"
+    preview: |
+      ┌──────────────────────────────┐
+      │ SYSTEM STATUS     v2.4.1     │
+      ├──────────────────────────────┤
+      │ CPU ████████░░ 78%           │
+      │ MEM ██████░░░░ 62%           │
+      │ NET ███░░░░░░░ 31%           │
+      ├──────────────────────────────┤
+      │ > deploy --env production    │
+      │ > status: READY              │
+      └──────────────────────────────┘
+      Sharp edges, tight spacing,
+      monospace type, data-forward
   - label: "Dense and powerful"
     description: "Information-rich, professional, complex – like a trading floor or command center"
+    preview: |
+      ┌────┬───────────────┬─────────┐
+      │NAV │ AAPL  +2.4%   │ ALERTS  │
+      │    │ MSFT  -0.8%   │   3 new │
+      │    │ GOOG  +1.1%   │   1 cri │
+      │    ├───────────────┤─────────│
+      │    │ ┌──┐┌──┐┌──┐ │ Volume  │
+      │    │ │..││. ││..│ │ 2.4M    │
+      │    │ └──┘└──┘└──┘ │ +12%    │
+      └────┴───────────────┴─────────┘
+      Multi-panel, compact spacing,
+      high data density, many columns
   - label: "Calm and focused"
     description: "Minimal, spacious, intentional – like a reading app or meditation space"
+    preview: |
+
+
+              The Art of Stillness
+
+              -------------------
+
+              In a world that moves
+              too fast, the greatest
+              luxury is space to think.
+
+
+                    [ Continue ]
+
+
+      Generous whitespace, centered,
+      minimal elements, breathing room
 ```
 
 ---

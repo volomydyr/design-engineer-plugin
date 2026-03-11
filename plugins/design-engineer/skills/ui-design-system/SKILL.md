@@ -52,6 +52,72 @@ Walk the user through the atomic design system architecture described in [design
 
 For projects starting from scratch, use the starter values in [starter-values.md](./references/starter-values.md) as a sensible starting point – spacing scales, typography scales, text hierarchy, border progression, surface elevation, and depth strategies.
 
+Before defining layers, establish the depth strategy. This is a foundational decision that affects every surface in the system:
+
+```
+question: "Which depth strategy fits your product's intent?"
+header: "Depth Strategy"
+options:
+  - label: "Borders only"
+    description: "Clean, technical – structure through lines, not dimension"
+    preview: |
+      ┌────────────────────┐
+      │ Card Title          │
+      ├────────────────────┤
+      │ Content here        │
+      │                     │
+      │ ┌────────┐          │
+      │ │ Button │          │
+      │ └────────┘          │
+      └────────────────────┘
+      No shadows, no elevation.
+      Flat and precise.
+  - label: "Subtle shadows"
+    description: "Gentle depth – elements float slightly above the surface"
+    preview: |
+      ╭────────────────────╮ .
+      │ Card Title          │ .
+      │                     │ .
+      │ Content here        │ .
+      │                     │ .
+      │ ╭────────╮          │ .
+      │ │ Button │.         │ .
+      │ ╰────────╯          │ .
+      ╰────────────────────╯ .
+       ......................
+      Soft shadows, slight lift.
+  - label: "Layered surfaces"
+    description: "Tonal shifts create depth without visible shadows"
+    preview: |
+      ========================
+      = .................... =
+      = . Card Title        . =
+      = .                   . =
+      = . Content here      . =
+      = .                   . =
+      = . [[[Button]]]      . =
+      = .                   . =
+      = .................... =
+      ========================
+      Background > surface > element.
+      Depth through color, not shadow.
+  - label: "Mixed (contextual)"
+    description: "Borders for structure, shadows for interactive elements"
+    preview: |
+      ┌────────────────────┐
+      │ Card Title          │
+      │                     │
+      │ Content here        │
+      │                     │
+      │ ╭────────╮ .        │
+      │ │ Button │ .        │
+      │ ╰────────╯ .        │
+      │  ..........         │
+      └────────────────────┘
+      Borders for containers,
+      shadows for interactive elements.
+```
+
 ### Layer 1: Design Tokens (Base Values)
 Foundation layer containing raw values – colors (hex/RGB), spacing (points/pixels), typography (font sizes, weights, line heights), border radii, shadow definitions, animation durations, icon sizes, and accessibility constants (minimum tap target size of 56 points).
 

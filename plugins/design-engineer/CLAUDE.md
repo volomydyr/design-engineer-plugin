@@ -60,6 +60,7 @@ When adding or modifying skills:
 - [ ] All reference files linked with proper markdown: `[file.md](./references/file.md)`
 - [ ] No placeholder text (TODO, TBD, [fill in])
 - [ ] AskUserQuestion with numbered-list fallback for cross-platform compatibility
+- [ ] AskUserQuestion previews used when presenting visual or architectural options (layout comparisons, spacing scales, design directions, IA structures)
 
 ### Pre-Commit Checklist
 
@@ -83,3 +84,25 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 ## Living Documents
 
 Deliverables created by this plugin are living documents tracked via `.dependencies.yaml`. When an upstream deliverable changes, downstream documents may need review. The hook scripts in `hooks/` implement this tracking automatically.
+
+## Context Monitoring
+
+When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):
+
+1. Gently suggest compacting: "This session has covered a lot of ground. Context is getting heavy – it might be a good time to compact. Would you like me to suggest a compact message?"
+
+2. If the user agrees, generate a compact message that preserves:
+   - Current project name and state
+   - Which command is running and in which mode
+   - Current phase and skill position
+   - Key decisions made this session (from the decisions log or conversation)
+   - Deliverables completed and any stale dependents
+   - What to do next
+   - Any unresolved questions or blockers
+
+3. Format the compact message as a single paragraph optimized for the `/compact` command: "Keep full context of [project] at [path]. Current state: v[X], running /de:[command] in [mode] mode. Phase [N] ([name]): completed [skills], next is [skill]. Key decisions: [list]. Deliverables updated: [list]. Stale dependents: [list]. Next step: [action]. [Any blockers or open questions]."
+
+Important:
+- Do NOT warn earlier than ~90% – premature warnings are distracting
+- This is a SUGGESTION, not a requirement – never tell the user they must compact
+- If the user dismisses the suggestion, do not bring it up again in the same session

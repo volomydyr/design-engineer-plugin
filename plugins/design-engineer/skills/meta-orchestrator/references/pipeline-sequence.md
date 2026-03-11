@@ -39,9 +39,9 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ux-6p-stories
         |
-   ux-behavior-mapping [optional]
-        |
-   ux-psych-framework [optional]
+   ux-behavior-mapping [optional] ─┐
+                                    ├─ [parallel-group: 2a]
+   ux-psych-framework [optional]  ─┘
         |
    meta-compound       <-- save progress
         |
@@ -63,9 +63,9 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ui-design-references
         |
-   ui-figma-workflow
-        |
-   dev-prototyping
+   ui-figma-workflow ────────────────┐
+                                    ├─ [parallel-group: 4a]
+   dev-prototyping   ──────────────┘
         |
    ux-product-assessment [optional]
         |
@@ -79,13 +79,13 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    dev-claude-md
         |
-   dev-kickstart-prompts
+   dev-kickstart-prompts ─────────────┐
+                                     ├─ [parallel-group: 5a]
+   dev-agent-pipeline   ────────────┘
         |
-   dev-agent-pipeline
-        |
-   dev-mcp-setup
-        |
-   dev-github-workflow
+   dev-mcp-setup  ──────────────────┐
+                                     ├─ [parallel-group: 5b]
+   dev-github-workflow ─────────────┘
         |
    ui-design-system
         |
@@ -342,6 +342,17 @@ All pre-development phases are complete. Before we proceed to development:
 4. **Stop here** – I will handle development separately
 </ask-user>
 
+If the user proceeds to development, ask about model preference:
+
+<ask-user>
+Development works well with a faster model. Which would you prefer?
+
+1. **Sonnet (Recommended)** – Faster execution, good for implementation tasks
+2. **Opus** – More thorough but slower, better if implementation involves complex architecture
+</ask-user>
+
+If the user picks Sonnet, suggest: "Switch with `/model sonnet` before we continue."
+
 ---
 
 ## Phase 5: Development
@@ -429,3 +440,22 @@ Final invocation of `meta-compound` to:
 - Record all learnings across the entire pipeline
 - Update the project state file to reflect completion
 - Create a final summary of the project
+
+---
+
+## Parallel Groups
+
+Skills in the same parallel group have no dependency on each other's output and can execute simultaneously. The groups identified in the pipeline overview are:
+
+- **[parallel-group: 2a]** – `ux-behavior-mapping` and `ux-psych-framework` are both optional and independent. Both depend on Phase 1 deliverables and `ux-6p-stories`, not on each other.
+- **[parallel-group: 4a]** – `ui-figma-workflow` and `dev-prototyping` can proceed in parallel once the design direction is established. Prototyping depends on design references and IA, not specifically on completed Figma files.
+- **[parallel-group: 5a]** – `dev-kickstart-prompts` and `dev-agent-pipeline` both depend on `dev-claude-md`, not on each other.
+- **[parallel-group: 5b]** – `dev-mcp-setup` and `dev-github-workflow` are independent setup tasks.
+
+### How to Execute Parallel Groups
+
+**God mode**: Spawn Agent subprocesses for each skill in the group simultaneously. Wait for all to complete before proceeding to the next skill in the sequence.
+
+**Guided mode**: Inform the user: "These [N] skills can run independently. Would you like to run them in parallel (faster) or one at a time (more interactive)?" Respect the user's preference.
+
+**Direct access**: Not applicable – the user is running a single skill.

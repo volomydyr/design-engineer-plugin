@@ -69,7 +69,70 @@ Ask 7-10 questions to define the product's structural blueprint:
 1. **Core screens**: What are the most important screens or pages in your product? List everything you can think of.
 2. **Entry points**: How do users first encounter your product? (Landing page, app store, referral link, onboarding)
 3. **Primary flow**: What is the main path a user takes from opening the product to getting value?
-4. **Navigation model**: How do you envision the main navigation? Tab bar, sidebar, hamburger menu, or something else?
+4. **Navigation model**: Use AskUserQuestion with previews to help the user choose:
+
+```
+question: "How do you envision the main navigation?"
+header: "Navigation"
+options:
+  - label: "Bottom tab bar"
+    description: "Fixed tabs at the bottom – standard for mobile apps with 3-5 main sections"
+    preview: |
+      ┌──────────────────────┐
+      │                      │
+      │    [Content Area]    │
+      │                      │
+      │                      │
+      ├──────────────────────┤
+      │  H   S   +   U   G  │
+      └──────────────────────┘
+      Always visible, thumb-friendly,
+      max 5 items. iOS/Android standard.
+  - label: "Sidebar navigation"
+    description: "Persistent side panel – common for desktop apps and dashboards"
+    preview: |
+      ┌──────┬───────────────┐
+      │ Logo │               │
+      │------│               │
+      │ Home │  [Content]    │
+      │ Data │               │
+      │ Team │               │
+      │ Msgs │               │
+      │------│               │
+      │ Gear │               │
+      └──────┴───────────────┘
+      Always visible, scalable to
+      many sections. Desktop-first.
+  - label: "Hamburger menu"
+    description: "Hidden navigation behind a menu icon – saves space but reduces discoverability"
+    preview: |
+      ┌──────────────────────┐
+      │ =  App Name      (!) │
+      ├──────────────────────┤
+      │                      │
+      │    [Content Area]    │
+      │                      │
+      │    No nav visible    │
+      │    until = tapped    │
+      │                      │
+      └──────────────────────┘
+      Hidden until opened.
+      More space, less discovery.
+  - label: "Top navigation"
+    description: "Horizontal tabs or links at the top – common for marketing sites and simple web apps"
+    preview: |
+      ┌──────────────────────┐
+      │ Logo  Home  Pricing  │
+      │       Blog  Contact  │
+      ├──────────────────────┤
+      │                      │
+      │    [Content Area]    │
+      │                      │
+      │                      │
+      └──────────────────────┘
+      Familiar pattern for web.
+      Limited to ~6 items.
+```
 5. **Content types**: What types of content does your product display? (Text, cards, lists, media, forms, dashboards)
 6. **Depth levels**: How many levels deep should the navigation go? (Top-level sections, sub-sections, detail views, modals)
 7. **User states**: What different states does a user go through? (First-time, returning, free tier, paid tier)

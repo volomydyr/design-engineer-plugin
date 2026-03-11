@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stop hook: summarize deliverable changes and stale dependents."""
+"""Stop hook: summarize deliverable changes, stale dependents, and write resume state."""
 
 import os
 import re
@@ -60,25 +60,145 @@ def is_recent(timestamp_str, hours=12):
     return False
 
 
-def main():
-    # Look for .dependencies.yaml in common locations
+def find_project_root(start_dir):
+    """Walk up from start_dir looking for .design-engineer.yaml."""
+    d = start_dir
+    for _ in range(6):
+        if os.path.isfile(os.path.join(d, ".design-engineer.yaml")):
+            return d
+        parent = os.path.dirname(d)
+        if parent == d:
+            break
+        d = parent
+    return None
+
+
+def find_deps_path(start_dir):
+    """Look for .dependencies.yaml in common locations."""
     candidates = []
-    cwd = os.getcwd()
-    candidates.append(os.path.join(cwd, "docs", "design", ".dependencies.yaml"))
-    # Walk up to 3 levels looking for docs/design/
-    d = cwd
+    d = start_dir
     for _ in range(4):
         candidates.append(os.path.join(d, "docs", "design", ".dependencies.yaml"))
         parent = os.path.dirname(d)
         if parent == d:
             break
         d = parent
-
-    deps_path = None
     for c in candidates:
         if os.path.isfile(c):
-            deps_path = c
-            break
+            return c
+    return None
+
+
+# Phase name lookup
+PHASE_NAMES = {
+    "1": "Discovery and Foundation",
+    "2": "Strategy and Positioning",
+    "3": "Product Planning",
+    "4": "Design and Validation",
+    "5": "Development",
+}
+
+
+def derive_resume_state(deliverables, updated, stale):
+    """Derive phase/skill position from deliverable state."""
+    # Find the highest phase with a completed or recently updated deliverable
+    current_phase = "1"
+    last_completed_skill = None
+    next_skill = None
+
+    # Build phase -> deliverables mapping
+    phase_deliverables = {}
+    for key, val in deliverables.items():
+        phase = val.get("phase", "")
+        if phase:
+            phase_deliverables.setdefault(phase, []).append((key, val))
+
+    # Find the most advanced phase with recent work
+    for phase_num in sorted(phase_deliverables.keys()):
+        phase_items = phase_deliverables[phase_num]
+        has_recent = any(k in updated for k, _ in phase_items)
+        if has_recent:
+            current_phase = phase_num
+            # Find last completed and next pending in this phase
+            for key, val in phase_items:
+                status = val.get("status", "not_started")
+                if status == "complete" or key in updated:
+                    last_completed_skill = val.get("skill", key)
+                elif status == "not_started" and next_skill is None:
+                    next_skill = val.get("skill", key)
+
+    # If no next skill found in current phase, check the next phase
+    if next_skill is None:
+        next_phase = str(int(current_phase) + 1) if current_phase.isdigit() else None
+        if next_phase and next_phase in phase_deliverables:
+            for key, val in phase_deliverables[next_phase]:
+                if val.get("status", "not_started") == "not_started":
+                    next_skill = val.get("skill", key)
+                    break
+
+    return current_phase, last_completed_skill, next_skill
+
+
+def write_resume_state(project_root, deliverables, updated, stale):
+    """Write resume section into .design-engineer.yaml."""
+    config_path = os.path.join(project_root, ".design-engineer.yaml")
+    if not os.path.isfile(config_path):
+        return
+
+    current_phase, last_skill, next_skill = derive_resume_state(
+        deliverables, updated, stale
+    )
+    phase_name = PHASE_NAMES.get(current_phase, "Unknown")
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    # Build the resume YAML block
+    lines = [
+        "",
+        "resume:",
+        f'  timestamp: "{now}"',
+        f"  phase: {current_phase}",
+        f'  phase_name: "{phase_name}"',
+    ]
+    if last_skill:
+        lines.append(f'  last_completed_skill: "{last_skill}"')
+    if next_skill:
+        lines.append(f'  next_skill: "{next_skill}"')
+    if updated:
+        lines.append("  deliverables_updated:")
+        for u in sorted(updated):
+            lines.append(f"    - {u}")
+    if stale:
+        lines.append("  stale_dependents:")
+        for s in sorted(stale):
+            lines.append(f"    - {s}")
+
+    resume_block = "\n".join(lines) + "\n"
+
+    # Read existing config, strip any previous resume section, append new one
+    try:
+        with open(config_path, "r") as f:
+            config_text = f.read()
+    except OSError:
+        return
+
+    # Remove existing resume: section (from "resume:" to next top-level key or EOF)
+    config_text = re.sub(
+        r"\nresume:\n(?:  [^\n]*\n|    - [^\n]*\n)*", "\n", config_text
+    )
+    config_text = config_text.rstrip("\n")
+
+    try:
+        with open(config_path, "w") as f:
+            f.write(config_text + resume_block)
+    except OSError:
+        pass
+
+
+def main():
+    cwd = os.getcwd()
+
+    # Find dependencies file
+    deps_path = find_deps_path(cwd)
     if not deps_path:
         return
 
@@ -103,6 +223,7 @@ def main():
             if dep not in updated and dep in deliverables:
                 stale.add(dep)
 
+    # Print dependency summary (original behavior)
     print("--- Session Dependency Summary ---")
     print(f"Deliverables updated this session: {', '.join(sorted(updated))}")
     if stale:
@@ -113,6 +234,11 @@ def main():
     else:
         print("No downstream dependents need review.")
     print("---")
+
+    # Write resume state to .design-engineer.yaml (if it exists)
+    project_root = find_project_root(cwd)
+    if project_root:
+        write_resume_state(project_root, deliverables, updated, stale)
 
 
 if __name__ == "__main__":

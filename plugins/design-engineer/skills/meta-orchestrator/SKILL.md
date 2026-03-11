@@ -23,6 +23,15 @@ Every decision in this pipeline follows a strict hierarchy:
 
 When AI makes a claim based on research or documents, provide specific quotes. Never fill gaps with made-up information.
 
+## Model Recommendations
+
+Different phases benefit from different models. At key transition points, suggest (not require) the appropriate model:
+
+- **Phases 1–4 (Discovery, Strategy, Planning, Design)**: Recommend Opus. These phases involve brainstorming, nuanced decision-making, and synthesizing multiple perspectives – strengths of the most capable model. If the user is not on Opus, suggest: "For best results during planning and design phases, consider switching to Opus: `/model opus`"
+- **Phase 5 (Development)**: Recommend Sonnet as the default. Implementation is more mechanical and benefits from speed. At the user approval checkpoint before Phase 5, ask which model they prefer using AskUserQuestion: "Sonnet (Recommended) – faster for implementation" or "Opus – more thorough but slower."
+
+These are suggestions only – never block progress based on model choice.
+
 ## Three Access Modes
 
 ### 1. God Mode (Autonomous)
@@ -61,6 +70,33 @@ The user jumps to any specific skill by name. When invoked in Direct mode:
 
 When invoked, determine the user's situation before running any skills.
 
+### Step 0: Check for Resume State
+
+Before asking about mode or project state, check if `.design-engineer.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
+
+If a `resume:` section exists:
+
+1. Present the resume state to the user:
+   "Last session you were in Phase [phase] ([phase_name]). You completed [last_completed_skill] and the next skill is [next_skill]. [N] deliverables may need review: [stale_dependents]."
+
+2. Ask the user:
+
+<ask-user>
+How would you like to proceed?
+
+1. **Continue where I left off** – Resume with [next_skill] in the same mode
+2. **Start fresh** – Ignore previous state and choose a new starting point
+3. **Review stale deliverables first** – Update [stale_dependents] before continuing
+</ask-user>
+
+3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `design-docs/project-state.md` for full context.
+
+4. After resuming, clear the `resume:` section from `.design-engineer.yaml` to avoid stale resume data in the next session.
+
+If no `resume:` section exists, proceed to Step 1.
+
+---
+
 ### Step 1: Determine Access Mode
 
 <ask-user>
@@ -74,6 +110,24 @@ How would you like to work?
 If the AskUserQuestion tool is unavailable, present these as a numbered list and ask the user to pick one.
 
 ### Step 2: Determine Project State
+
+#### Progress Summary
+
+Before asking the project state question, check if `docs/design/.dependencies.yaml` exists. If it does, read it and present a compact progress summary:
+
+```
+Phase 1 (Discovery): [N]/6 complete → Next: [skill_name]
+Phase 2 (Strategy): [N]/5 complete
+Phase 3 (Planning): [N]/2 complete
+Phase 4 (Design): [N]/7 complete
+Phase 5 (Development): [N]/8 complete
+```
+
+Show only phases that have at least one completed deliverable, plus the next incomplete phase. Use the deliverable `status` and `phase` fields to compute counts.
+
+If the progress summary shows work already done, skip the project state question – the answer is already known. Proceed directly to Step 3 with the detected state.
+
+If no `.dependencies.yaml` exists, ask:
 
 <ask-user>
 What is your project status?
@@ -151,6 +205,16 @@ For skills marked as optional in the pipeline sequence:
 
 - **God mode**: Skip optional skills by default unless the user explicitly requested them at startup
 - **Guided mode**: Present the optional skill, explain when it is most useful, and ask whether to include it
+
+### Handling Parallel Groups
+
+Some skills within the same phase have no dependency on each other and can run simultaneously. These are marked as parallel groups in [pipeline-sequence.md](./references/pipeline-sequence.md).
+
+When the pipeline reaches a parallel group:
+
+- **God mode**: Launch all skills in the group simultaneously using the Agent tool. Each skill runs in its own fresh context. Wait for all to complete, then validate all deliverables were produced before proceeding to the next skill in the sequence.
+- **Guided mode**: Present the parallel group to the user: "The next [N] skills ([skill names]) can run independently. Running them in parallel is faster but less interactive. Running them one at a time lets you review each before moving on." Respect the user's preference.
+- **Direct access**: Not applicable – the user is running a single skill.
 
 ## Context Handoff Between Skills
 

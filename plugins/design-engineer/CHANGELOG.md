@@ -4,6 +4,25 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.1.1] – 2026-03-11
+
+### Added
+
+- Session pause/resume – Stop hook now writes resume state to `.design-engineer.yaml`; orchestrator detects it on startup and offers to continue where you left off
+- Progress routing – orchestrator shows phase completion summary from `.dependencies.yaml` before asking project state
+- Parallel group annotations in pipeline sequence for 4 skill groups (Phases 2, 4, 5) with execution guidance for god/guided modes
+- AskUserQuestion preview mockups in `ui-design-references` (design feel), `ui-design-system` (depth strategy), and `ux-information-architecture` (navigation model)
+- Context monitoring instruction in CLAUDE.md – suggests compaction at ~90% usage with state-preserving compact message
+- Model recommendations in orchestrator – suggests Opus for planning phases, asks user preference (Sonnet default) at Phase 5 transition
+- Preview usage rule added to Skill Compliance Checklist
+
+### Changed
+
+- `meta-orchestrator` startup sequence now checks for resume state (Step 0) before asking mode/project state
+- `meta-orchestrator` reads `.dependencies.yaml` for automatic progress summary, skipping redundant project state question
+- `meta-orchestrator` handles parallel groups during pipeline execution (god mode: simultaneous agents; guided mode: user choice)
+- `session_dep_summary.py` enhanced to write resume state in addition to printing dependency summary
+
 ## [1.1.0] – 2026-03-10
 
 ### Added

@@ -2,6 +2,23 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.1.1] – 2026-03-11
+
+### Added
+
+- Session pause/resume via Stop hook and orchestrator resume detection
+- Progress routing – automatic phase completion summary in orchestrator startup
+- Parallel group execution for independent skills within the same phase
+- AskUserQuestion preview mockups for visual/architectural choices (design feel, depth strategy, navigation model)
+- Proactive context monitoring instruction with state-preserving compact message format
+- Model recommendations – Opus for planning phases, Sonnet (user choice) for development
+
+### Changed
+
+- `meta-orchestrator` startup enhanced with Step 0 (resume check), progress summary, and parallel group handling
+- `session_dep_summary.py` now writes resume state to `.design-engineer.yaml`
+- Pipeline sequence annotated with 4 parallel groups across Phases 2, 4, and 5
+
 ## [1.1.0] – 2026-03-10
 
 ### Added
