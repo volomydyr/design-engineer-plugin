@@ -124,9 +124,9 @@ One paragraph describing how your product should be positioned in the market rel
 
 ## 5. AI-Powered Research Prompt Template
 
-Use this template to generate a research prompt for deep web research tools (Perplexity, Liner, Claude deep research). First, customize it in your Claude Project where your product documentation provides context, then copy the result into the research tool.
+Use this template to generate a research prompt for deep web research tools (Perplexity, Liner, Claude deep research). First, customize it in your AI tool where your product documentation provides context, then copy the result into the research tool.
 
-**Step 1: Generate the prompt in Claude Projects**
+**Step 1: Generate the prompt in your AI tool**
 
 > Based on all the information gathered in this Claude Project, create a concise research prompt that I can use in AI deep web research tools like Perplexity or Liner. Format the prompt in markdown.
 >
@@ -144,7 +144,7 @@ Use this template to generate a research prompt for deep web research tools (Per
 
 **Step 2:** Copy the generated prompt into Perplexity, Liner, or similar deep research tool.
 
-**Step 3:** Take the AI research results, combine them with your own manual observations from using competitor products, and feed everything back into Claude Projects for a final consolidated analysis.
+**Step 3:** Take the AI research results, combine them with your own manual observations from using competitor products, and feed everything back into your AI tool for a final consolidated analysis.
 
 ---
 

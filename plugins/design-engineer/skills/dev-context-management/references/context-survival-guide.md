@@ -41,7 +41,7 @@ Each agent has its own ~200,000 token budget, effectively multiplying your avail
 
 ## Strategy 3: One Activity Per Chat
 
-For pre-development work in Claude Projects (or similar tools), one activity should equal one chat. When you finish an activity (e.g., defining a problem statement), save the deliverable to the project's knowledge and start a fresh chat.
+For pre-development work in browser-based AI tools (Claude.ai, ChatGPT, or similar), one activity should equal one chat. When you finish an activity (e.g., defining a problem statement), save the deliverable to the project's knowledge and start a fresh chat.
 
 **Why this works:**
 - Each chat gets the full token budget for its specific activity

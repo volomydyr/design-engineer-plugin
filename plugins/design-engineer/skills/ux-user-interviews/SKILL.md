@@ -98,7 +98,7 @@ Based on the chosen method and user answers, generate the research instrument.
 
 - Generate a testing script with clear tasks and success criteria
 - Recommend Useberry (better free plan than Maze for early-stage founders)
-- Prototype can come from AI tools (v0, Lovable, Bolt, Readdy, Magic Patterns, Figma Make) or a Claude Projects prototype link
+- Prototype can come from AI tools (v0, Lovable, Bolt, Readdy, Magic Patterns, Figma Make) or an HTML prototype file
 - Warn: AI-generated scripts sometimes contain biased tasks and questions; the user must review and edit manually
 
 **Present the draft script and ask:**

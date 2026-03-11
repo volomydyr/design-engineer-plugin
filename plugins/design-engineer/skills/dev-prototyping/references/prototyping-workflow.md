@@ -2,7 +2,7 @@
 
 ## The Principle: Functional First, Beautiful Later
 
-Starting in Figma for the first iteration does not make sense unless you are working with an uncommon design idea or a non-typical layout. For regular web and mobile apps with standard patterns, you can generate prototypes with AI tools like Claude Projects. With proper context and the right design process beforehand, AI produces great results.
+Starting in Figma for the first iteration does not make sense unless you are working with an uncommon design idea or a non-typical layout. For regular web and mobile apps with standard patterns, you can generate prototypes with AI tools like Claude Code. With proper context and the right design process beforehand, AI produces great results.
 
 There is also a practical reason: when you spend days in Figma designing a first iteration, you risk creating a UI that looks great but is technically painful to implement. On the other hand, if AI generates components and provides their code, it means the development will be relatively easy.
 
@@ -69,9 +69,9 @@ Stop iterating on the prototype when:
 
 ### Setting Up Tests
 
-Claude Projects (and similar tools) provide direct share links for prototypes. When the prototype is ready for testing:
+Host the prototype locally (`python3 -m http.server`) or deploy to static hosting. When the prototype is ready for testing:
 
-1. Copy the share link
+1. Open the prototype URL in a browser (e.g., `http://localhost:8000/prototype.html`)
 2. Paste it into a user testing tool (Useberry, Maze, or similar)
 3. Create a test script with specific tasks for users to complete
 
@@ -100,7 +100,7 @@ After user testing, you move to analysis (see the testing-analysis-guide). Based
 
 Once the prototype is validated:
 
-1. **Collect design references** – look at similar products on platforms like Mobbin to understand common patterns
+1. **Collect design references** – if not already gathered upstream (via `ui-design-references`), look at similar products on platforms like Mobbin to understand common patterns
 2. **Design key screens only** – not every screen, just the building blocks that set the visual style (typically 5-10 screens)
 3. **Let AI develop the rest** – give Claude Code your key Figma screens along with requirements and architecture documents, and it will develop additional screens to match the established UI
 4. **Design corrections for mistakes** – when AI's implementation of non-designed screens looks off, design corrections only for those specific frames, share them via Figma MCP, and let AI adjust

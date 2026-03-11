@@ -66,6 +66,8 @@ The user jumps to any specific skill by name. When invoked in Direct mode:
 3. Execute the requested skill
 4. On completion, suggest related skills that would logically follow
 
+Additionally, `/de:prototype` provides a standalone entry point for prototyping outside the pipeline, without needing to invoke the full orchestrator.
+
 ## Startup Sequence
 
 When invoked, determine the user's situation before running any skills.
@@ -171,14 +173,14 @@ Skills: `ux-mvp-requirements`, `ux-information-architecture`
 Then run: `meta-compound`
 
 ### Phase 4: Design and Validation
-Skills: `ux-bias-framework`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `ui-figma-workflow`, `dev-prototyping`, `ux-product-assessment` (optional)
+Skills: `ux-bias-framework`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ux-product-assessment` (optional)
 Then run: `meta-compound`
 
 ### User Approval Checkpoint
 After Phase 4, present a summary of all pre-development work and wait for explicit user approval before proceeding to Phase 5.
 
 ### Phase 5: Development
-Skills: `dev-claude-projects`, `dev-claude-md`, `dev-kickstart-prompts`, `dev-agent-pipeline`, `dev-mcp-setup`, `dev-github-workflow`, `ui-design-system`
+Skills: `dev-claude-md`, `dev-kickstart-prompts`, `dev-agent-pipeline`, `dev-mcp-setup`, `dev-github-workflow`, `ui-design-system`
 Then enter the development loop and run: `meta-compound` (final documentation)
 
 ## Skill Invocation Pattern

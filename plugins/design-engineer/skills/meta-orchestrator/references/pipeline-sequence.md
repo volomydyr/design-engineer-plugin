@@ -63,9 +63,9 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ui-design-references
         |
-   ui-figma-workflow ────────────────┐
-                                    ├─ [parallel-group: 4a]
-   dev-prototyping   ──────────────┘
+   dev-prototyping
+        |
+   ui-figma-workflow
         |
    ux-product-assessment [optional]
         |
@@ -74,8 +74,6 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
     [USER APPROVAL CHECKPOINT]
         |
 ========== PHASE 5: DEVELOPMENT ==========
-        |
-   dev-claude-projects [if using Claude Projects]
         |
    dev-claude-md
         |
@@ -283,24 +281,24 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Required**: Yes
 - **Depends on**: Phase 1-3 deliverables, ux-journey-mapping
 - **Produces**: Design References collection – curated visual references, mood boards, and design direction
-- **Hands off to**: ui-figma-workflow
+- **Hands off to**: dev-prototyping
 - **Notes**: Gathers visual inspiration and establishes the design direction before moving to high-fidelity work. Asks the user about their preferred visual approach.
 
-### Skill 4.5: ui-figma-workflow
+### Skill 4.5: dev-prototyping
 
 - **Required**: Yes
-- **Depends on**: ui-design-references, information architecture, MVP requirements
+- **Depends on**: ui-design-references, information-architecture, mvp-requirements, journey-map, bias-audit
+- **Produces**: Working HTML prototype – single-file prototype saved to `design-docs/prototype/prototype.html`
+- **Hands off to**: ui-figma-workflow
+- **Notes**: Generates a single-file HTML prototype directly in Claude Code. Pulls design context from upstream deliverables (design references, IA, journey map, bias audit) and applies design intent, typography, spacing, and color from the established design direction. The prototype serves as both a validation tool and a reference for which key screens to design in Figma.
+
+### Skill 4.6: ui-figma-workflow
+
+- **Required**: Yes
+- **Depends on**: ui-design-references, dev-prototyping, information architecture, MVP requirements
 - **Produces**: High-fidelity Figma designs – complete screen designs following the established design direction
-- **Hands off to**: dev-prototyping
-- **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools.
-
-### Skill 4.6: dev-prototyping
-
-- **Required**: Yes
-- **Depends on**: ui-figma-workflow or design references, information architecture
-- **Produces**: Working prototype – functional prototype that can be tested
 - **Hands off to**: ux-product-assessment (if included) or meta-compound
-- **Notes**: Creates a testable prototype based on the designs. The prototype serves as both a validation tool and a reference for development.
+- **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools. The validated prototype informs which key screens to design in Figma. Focus Figma work on the screens that set the visual style (typically 5-10 screens).
 
 ### Skill 4.7: ux-product-assessment (OPTIONAL)
 
@@ -359,15 +357,7 @@ If the user picks Sonnet, suggest: "Switch with `/model sonnet` before we contin
 
 Sets up the development environment, creates implementation guides, and manages the development workflow. This phase transitions from design thinking to code.
 
-### Skill 5.1: dev-claude-projects (CONDITIONAL)
-
-- **Required**: Only if the user is using Claude Projects
-- **Depends on**: Phase 1-4 deliverables
-- **Produces**: Configured Claude Project – project setup with all design deliverables as knowledge
-- **Hands off to**: dev-claude-md
-- **Notes**: Sets up a Claude Project with the right instructions and knowledge base. Only relevant when the user's workflow involves Claude Projects.
-
-### Skill 5.2: dev-claude-md
+### Skill 5.1: dev-claude-md
 
 - **Required**: Yes
 - **Depends on**: Phase 1-4 deliverables
@@ -375,7 +365,7 @@ Sets up the development environment, creates implementation guides, and manages 
 - **Hands off to**: dev-kickstart-prompts
 - **Notes**: Creates the rules file that governs AI behavior during development. Covers tech stack specifications, non-negotiable requirements, development pipeline, conflict resolution, and project status tracking.
 
-### Skill 5.3: dev-kickstart-prompts
+### Skill 5.2: dev-kickstart-prompts
 
 - **Required**: Yes
 - **Depends on**: dev-claude-md, Phase 1-4 deliverables
@@ -383,7 +373,7 @@ Sets up the development environment, creates implementation guides, and manages 
 - **Hands off to**: dev-agent-pipeline
 - **Notes**: Generates high-level starting prompts that reference context documents. These are not deep technical prompts – they are references that point to the existing deliverables. Simple and focused.
 
-### Skill 5.4: dev-agent-pipeline
+### Skill 5.3: dev-agent-pipeline
 
 - **Required**: Yes
 - **Depends on**: dev-claude-md, dev-kickstart-prompts
@@ -391,7 +381,7 @@ Sets up the development environment, creates implementation guides, and manages 
 - **Hands off to**: dev-mcp-setup
 - **Notes**: Sets up the sequence of specialized agents that run for each development task (context analysis, planning, backend, frontend, design system auditing, compounding).
 
-### Skill 5.5: dev-mcp-setup
+### Skill 5.4: dev-mcp-setup
 
 - **Required**: Yes
 - **Depends on**: dev-agent-pipeline
@@ -399,7 +389,7 @@ Sets up the development environment, creates implementation guides, and manages 
 - **Hands off to**: dev-github-workflow
 - **Notes**: Configures relevant MCP servers based on the project's needs and the user's environment. Uses the environment detection from meta-setup.
 
-### Skill 5.6: dev-github-workflow
+### Skill 5.5: dev-github-workflow
 
 - **Required**: Yes
 - **Depends on**: dev-mcp-setup
@@ -407,7 +397,7 @@ Sets up the development environment, creates implementation guides, and manages 
 - **Hands off to**: ui-design-system
 - **Notes**: Sets up version control and collaboration workflow. Covers commits, branches, pull requests, and basic automation.
 
-### Skill 5.7: ui-design-system
+### Skill 5.6: ui-design-system
 
 - **Required**: Yes
 - **Depends on**: ui-figma-workflow, dev-claude-md
@@ -426,7 +416,7 @@ After initial setup, development enters an iterative loop for each feature:
 5. **design-system-auditor** (agent) – verifies new code follows the design system
 6. **meta-compound** – documents progress after each feature
 
-### Skill 5.8: dev-context-management (ONGOING)
+### Skill 5.7: dev-context-management (ONGOING)
 
 - **Required**: Yes (runs throughout development)
 - **Depends on**: All development skills
@@ -448,7 +438,6 @@ Final invocation of `meta-compound` to:
 Skills in the same parallel group have no dependency on each other's output and can execute simultaneously. The groups identified in the pipeline overview are:
 
 - **[parallel-group: 2a]** – `ux-behavior-mapping` and `ux-psych-framework` are both optional and independent. Both depend on Phase 1 deliverables and `ux-6p-stories`, not on each other.
-- **[parallel-group: 4a]** – `ui-figma-workflow` and `dev-prototyping` can proceed in parallel once the design direction is established. Prototyping depends on design references and IA, not specifically on completed Figma files.
 - **[parallel-group: 5a]** – `dev-kickstart-prompts` and `dev-agent-pipeline` both depend on `dev-claude-md`, not on each other.
 - **[parallel-group: 5b]** – `dev-mcp-setup` and `dev-github-workflow` are independent setup tasks.
 

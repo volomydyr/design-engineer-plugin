@@ -34,7 +34,11 @@ options:
     description: "Navigate to a URL and take automated screenshots"
   - label: "Review code only"
     description: "Audit the codebase for design system violations without visual comparison"
+  - label: "Review HTML prototype"
+    description: "Audit an HTML prototype file for UX and visual quality"
 ```
+
+When "Review HTML prototype" is selected, read the HTML file at the path the user provides (default: `design-docs/prototype/prototype.html`). Run the UX non-negotiables check (Step 3) and an adapted visual audit that focuses on spacing, typography, hierarchy, and interactive states rather than design system token compliance (since prototypes use inline tokens, not a formal design system).
 
 ---
 

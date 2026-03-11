@@ -210,6 +210,7 @@ deliverables:
     informs:
       - information-architecture
       - design-references
+      - prototype
       - kickstart-prompts
       - agent-pipeline
     folder: design
@@ -223,6 +224,7 @@ deliverables:
       - mvp-requirements
     informs:
       - design-references
+      - prototype
       - figma-workflow
       - journey-map
       - kickstart-prompts
@@ -288,9 +290,26 @@ deliverables:
       - competitor-analysis
     informs:
       - figma-workflow
+      - prototype
     folder: design
     phase: 4
     skill: ui-design-references
+    last_updated: null
+
+  prototype:
+    status: not_started
+    depends_on:
+      - mvp-requirements
+      - information-architecture
+      - design-references
+      - journey-map
+      - bias-audit
+    informs:
+      - figma-workflow
+      - product-assessment
+    folder: prototype
+    phase: 4
+    skill: dev-prototyping
     last_updated: null
 
   figma-workflow:
@@ -299,6 +318,7 @@ deliverables:
       - information-architecture
       - design-references
       - journey-map
+      - prototype
     informs:
       - claude-md-draft
       - kickstart-prompts

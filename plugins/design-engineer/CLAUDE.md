@@ -29,8 +29,8 @@ plugins/design-engineer/
 │   └── session_dep_summary.py
 ├── agents/                         # 9 specialized agents
 ├── commands/
-│   └── de/                         # 7 commands (de: namespace)
-└── skills/                         # 49 hidden skills
+│   └── de/                         # 8 commands (de: namespace)
+└── skills/                         # 48 hidden skills
 ```
 
 ## Skill Compliance Checklist
@@ -77,6 +77,7 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 - `/de:design` - Full design workflow orchestrator
 - `/de:research` - UX research activities
 - `/de:psych` - Psychology audit and deep-dives
+- `/de:prototype` - HTML prototype generation
 - `/de:dev` - Development pipeline
 - `/de:review` - Multi-layer design review
 - `/de:compound` - Knowledge documentation

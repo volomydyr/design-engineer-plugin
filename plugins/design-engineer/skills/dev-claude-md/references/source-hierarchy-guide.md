@@ -54,7 +54,7 @@ Planning documents (MVP Requirements, Information Architecture, Business Plan, e
 
 ### Level 5: Reference Prototypes
 
-If you have a working prototype (e.g., from Claude Projects), it serves as a content and text reference when no formal designs exist.
+If you have a working prototype (e.g., from a prototype (e.g., an HTML prototype file)), it serves as a content and text reference when no formal designs exist.
 
 **Why fifth:** Prototypes may contain placeholder content or early-stage decisions that have since been refined. They are useful for reference but should not override more authoritative sources.
 

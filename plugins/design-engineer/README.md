@@ -23,7 +23,7 @@ claude plugin install design-engineer
 
 ## Commands
 
-You interact with 7 top-level commands. Behind each one, the full engine of 49 skills and 9 agents runs silently.
+You interact with 8 top-level commands. Behind each one, the full engine of 48 skills and 9 agents runs silently.
 
 | Command | What It Does |
 |---------|-------------|
@@ -31,6 +31,7 @@ You interact with 7 top-level commands. Behind each one, the full engine of 49 s
 | `/de:design` | Full design workflow orchestrator. God mode (autonomous) or Guided mode (step-by-step). Sequences through discovery, strategy, planning, and validation. |
 | `/de:research` | UX research activities. Big Idea validation, Problem Statement, Target Audience, Competitive Analysis, User Interviews, Business Plan, and more. |
 | `/de:psych` | Psychology audit. Master audit across 100+ principles, section deep-dives, or God mode for full autonomous analysis. |
+| `/de:prototype` | HTML prototype generation. New products, new features, or redesigns. |
 | `/de:dev` | Development pipeline. CLAUDE.md generation, agent pipeline setup, context management, kick-start prompts, GitHub workflow, MCP configuration. |
 | `/de:review` | Multi-layer design review. Visual review, accessibility audit, psychology scan, product assessment, design system compliance, ethics review. |
 | `/de:compound` | Knowledge documentation. Documents decisions, learnings, and project state for cross-session continuity. |
@@ -42,7 +43,7 @@ Most commands support two modes:
 - **God mode** – runs the full pipeline autonomously with minimal user input
 - **Guided mode** – interactive, asks questions at every stage, pauses for approval
 
-## Skills (49)
+## Skills (48)
 
 All skills are hidden from auto-discovery (`disable-model-invocation: true`). Power users can invoke any skill directly by typing its name.
 
@@ -112,18 +113,17 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `ui-visual-review` | Visual UI review with UX non-negotiables |
 | `ui-accessibility` | Accessibility compliance audit |
 
-### Development (8)
+### Development (7)
 
 | Skill | What It Does |
 |-------|-------------|
-| `dev-claude-projects` | Claude Projects workspace setup |
 | `dev-claude-md` | CLAUDE.md generation and maintenance |
 | `dev-kickstart-prompts` | IDE kick-start prompt generation |
 | `dev-agent-pipeline` | 4-agent development pipeline setup |
 | `dev-context-management` | Long-running project context management |
 | `dev-mcp-setup` | MCP configuration guidance |
 | `dev-github-workflow` | GitHub workflow for designers |
-| `dev-prototyping` | Prototyping and user testing workflow |
+| `dev-prototyping` | Single-file HTML prototype generation from planning docs, existing designs, or just an idea |
 
 ## Agents (9)
 

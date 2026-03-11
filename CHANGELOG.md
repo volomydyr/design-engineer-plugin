@@ -2,6 +2,29 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.2.0] – 2026-03-11
+
+### Added
+
+- New `/de:prototype` command – 8th top-level command for standalone HTML prototype generation (new products, features, or redesigns)
+- Rewrote `dev-prototyping`: question-based context gathering (planning docs, existing codebase, Figma designs, or just an idea), generates single-file HTML prototypes in Claude Code, applies design intent and starter values
+- Added `prototype` deliverable to dependency graph with full upstream/downstream tracking
+- Added "HTML prototype" as review target in `ui-design-critique`, `ui-visual-review`, and `ui-accessibility`
+- Added `references/multi-session-workflow.md` to `dev-context-management` with tool-agnostic session management rules
+
+### Changed
+
+- Phase 4 pipeline restructured: `dev-prototyping` now runs sequentially AFTER `ui-design-references` and BEFORE `ui-figma-workflow` (was parallel with figma-workflow)
+- `ui-figma-workflow` now depends on prototype deliverable (prototype informs which key screens to design in Figma)
+- `dev-prototyping` removed from `/de:dev` command (now accessed via `/de:prototype` or pipeline)
+- Cleaned up ~17 "Claude Projects" references across 12 files to be tool-agnostic or Claude Code-specific
+
+### Removed
+
+- Removed `dev-claude-projects` skill (content merged into `dev-context-management` and `meta-compound`)
+- Removed parallel-group 4a from pipeline sequence
+- Skill count 49 → 48, Development category 8 → 7, Command count 7 → 8
+
 ## [1.1.1] – 2026-03-11
 
 ### Added

@@ -32,7 +32,11 @@ options:
     description: "Test a running application"
   - label: "Specific component"
     description: "Focus on one component or interaction"
+  - label: "HTML prototype"
+    description: "Check an HTML prototype file for accessibility issues"
 ```
+
+When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `design-docs/prototype/prototype.html`). Run the full accessibility checklist with particular attention to contrast ratios, touch/click target sizes, keyboard navigation, screen reader support (semantic HTML, ARIA labels), and heading hierarchy.
 
 ---
 

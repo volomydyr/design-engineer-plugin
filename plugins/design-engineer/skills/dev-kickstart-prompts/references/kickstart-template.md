@@ -2,7 +2,7 @@
 
 ## Principles for Effective Kick-Start Prompts
 
-Kick-start prompts are the starting messages you send to your AI coding tool to set up a new project. They bridge the gap between planning (done in Claude Projects or similar) and actual development (done in an IDE with Claude Code, Cursor, or another tool).
+Kick-start prompts are the starting messages you send to your AI coding tool to set up a new project. They bridge the gap between planning (done in earlier pipeline phases or a separate AI tool) and actual development (done in an IDE with Claude Code, Cursor, or another tool).
 
 ### What Makes a Good Kick-Start Prompt
 

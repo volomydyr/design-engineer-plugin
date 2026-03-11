@@ -66,7 +66,7 @@ Extract from conversation history:
 
 **Environment details:**
 
-- Tools used (Claude Projects, Claude Code, Cursor, Figma)
+- Tools used (Claude Code, Cursor, Figma, or other AI tools)
 - MCP servers involved (if any)
 - Token usage concerns (approaching limits, compaction occurred)
 

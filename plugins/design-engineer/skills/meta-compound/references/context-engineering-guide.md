@@ -1,6 +1,6 @@
 # Context Engineering Guide
 
-Best practices for maintaining context across sessions, surviving chat compaction, and enabling long-term complex projects. These strategies apply to both Claude Projects (browser) and Claude Code (IDE) workflows.
+Best practices for maintaining context across sessions, surviving chat compaction, and enabling long-term complex projects. These strategies apply to Claude Code, Claude.ai, and other AI tool workflows.
 
 ---
 
@@ -14,11 +14,11 @@ Claude has a "compact chat" feature – when you hit 200k tokens, AI automatical
 
 When you finish an activity (e.g., defining a problem statement, completing a B.I.A.S. audit, implementing a frontend component), save the deliverable and start a fresh chat for the next activity. AI will access all your previous documents through its knowledge or project files, while having a clean context window.
 
-### How to apply this in Claude Projects (browser)
+### How to apply this in Claude.ai (browser)
 
 1. Complete one activity per chat (e.g., write the Problem Statement document)
-2. When finished, save the deliverable to the project's knowledge by clicking the "Copy to project" button
-3. This must be done manually – Claude cannot save files on its own, even if you ask it to and it claims it did
+2. When finished, save the deliverable to the project's knowledge or uploaded files
+3. In browser-based tools, this must be done manually – the AI cannot save files to the project knowledge on its own
 4. Start a fresh chat for the next activity
 5. AI reads all your previous documents through project knowledge, starting with full context
 
@@ -84,7 +84,7 @@ Manual compaction avoids these risks by letting the human – who knows what mat
 
 ## Strategy 3: Sub-Agent Token Preservation
 
-Claude Code has the exact same 200,000 token limit as Claude Projects. Complex development workflows that require reading many files, creating plans, and writing code burn through that limit fast. When it fills up, chat compaction happens and earlier instructions get partially lost.
+Claude Code has the same 200,000 token limit as other AI tools. Complex development workflows that require reading many files, creating plans, and writing code burn through that limit fast. When it fills up, chat compaction happens and earlier instructions get partially lost.
 
 Sub-agents solve this by giving each task its own token budget. Each sub-agent runs in a separate conversation with its own 200k token limit. Results come back to the main conversation as concise summaries, preserving the parent conversation's token budget for coordination rather than execution.
 
@@ -147,7 +147,7 @@ Create a markdown file in the root of your project and call it `status.md`. The 
 
 **For Claude Code:** Explain the status file as part of your workflow in the CLAUDE.md file. Tell the AI to read it at the start of every conversation and update it after every significant action.
 
-**For Claude Projects:** Add the status file to the project's knowledge. Update it manually at the end of each chat by asking AI to generate the updated version, then copying it to the project.
+**For browser-based AI tools (Claude.ai, etc.):** Add the status file to the project's knowledge or uploaded files. Update it manually at the end of each chat by asking AI to generate the updated version, then copying it to the project.
 
 ### What the status file should track
 

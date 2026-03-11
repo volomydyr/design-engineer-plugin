@@ -52,7 +52,11 @@ options:
     description: "Read the frontend code and critique the design decisions in it"
   - label: "Figma comparison"
     description: "Compare implementation against the Figma design for craft gaps"
+  - label: "HTML prototype"
+    description: "Read and critique an HTML prototype file from design-docs/prototype/"
 ```
+
+When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `design-docs/prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
 
 ---
 

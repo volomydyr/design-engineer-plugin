@@ -49,11 +49,11 @@ Note: AI can forget to track status even with rules in place. The user should nu
 
 ## Step 3: Implement the One-Activity-Per-Chat Pattern
 
-For Claude Projects (pre-development):
+For browser-based AI tools (pre-development):
 - Each activity gets its own chat to prevent context degradation
-- Save deliverables to project knowledge between chats
+- Save deliverables between sessions (to project knowledge, files, or equivalent)
 - Start each new chat by checking the status tracker
-- Claude cannot save files to project knowledge on its own – this must be done manually
+- In browser-based tools, saving deliverables to the project's knowledge must be done manually – AI cannot do this on its own
 
 For Claude Code (development):
 - Use sub-agents for heavy work (context analysis, implementation, auditing)
@@ -106,3 +106,4 @@ After context management is set up, suggest `dev-github-workflow` for version co
 
 - [status-tracking-template.md](./references/status-tracking-template.md) – Development status file template
 - [context-survival-guide.md](./references/context-survival-guide.md) – Strategies for maintaining context across sessions
+- [multi-session-workflow.md](./references/multi-session-workflow.md) – Tool-agnostic rules for multi-session workflows
