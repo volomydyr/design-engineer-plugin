@@ -156,11 +156,16 @@ PHASE 2: PLANNING (WAIT FOR APPROVAL)
 
 PHASE 3: IMPLEMENTATION (Only After Approval)
 7. backend-implementer -> Verify/refine data layer (ALWAYS run)
-8. frontend-implementer -> Implement UI (after designs + approval)
-9. design-system-auditor -> Verify compliance
+8. /simplify -> Review backend changes
+9. frontend-implementer -> Implement UI (after designs + approval)
+10. /simplify -> Review frontend changes
 
-PHASE 4: WRAP UP
-10. Integration testing -> Test full user flow
+PHASE 4: QUALITY AUDIT
+11. /simplify -> Final pass on all code changes
+12. design-system-auditor -> Verify compliance
+
+PHASE 5: WRAP UP
+13. Integration testing -> Test full user flow
 ```
 
 ### Pipeline Violations to Avoid
@@ -171,6 +176,7 @@ PHASE 4: WRAP UP
 - Marking backend as "complete" without actually running it
 - Making architectural decisions without checking documentation
 - Guessing or assuming – always ask for clarification
+- Skipping `/simplify` after implementation steps
 
 ## REQUIREMENT CONFLICT RESOLUTION
 
@@ -198,6 +204,7 @@ How should I proceed?"
 8. **Update development status** when features are complete
 9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
 10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning — write structured plans to the plan file, never as plain text. After approval, save to `plans/` in the project. After completion, move to `plans/archive/`.
+11. **Run `/simplify` after every code-producing step** — mandatory after backend-implementer, frontend-implementer, and before design-system-auditor. Also after prototype generation.
 ```
 
 ---

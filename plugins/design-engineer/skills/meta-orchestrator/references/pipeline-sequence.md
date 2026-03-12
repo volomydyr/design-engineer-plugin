@@ -90,8 +90,8 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
    ui-design-system
         |
    [Development loop: context-analyzer -> Plan Mode ->
-    backend -> frontend -> design-system-auditor ->
-    compound]
+    backend -> /simplify -> frontend -> /simplify ->
+    /simplify (final) -> design-system-auditor -> compound]
         |
    dev-context-management [ongoing]
         |
@@ -424,9 +424,12 @@ After initial setup, development enters an iterative loop for each feature:
 1. **context-analyzer** (agent) – reads project state, understands what has been built
 2. **Plan Mode** – enter Plan Mode, write structured plan, get approval, save to `plans/`
 3. **Backend implementation** – server-side code
-4. **Frontend implementation** – client-side code and UI
-5. **design-system-auditor** (agent) – verifies new code follows the design system
-6. **meta-compound** – documents progress after each feature
+4. **`/simplify`** – review backend changes for reuse, quality, and efficiency
+5. **Frontend implementation** – client-side code and UI
+6. **`/simplify`** – review frontend changes for reuse, quality, and efficiency
+7. **`/simplify`** (final pass) – review all code changes together
+8. **design-system-auditor** (agent) – verifies new code follows the design system
+9. **meta-compound** – documents progress after each feature
 
 ### Skill 5.7: dev-context-management (ONGOING)
 

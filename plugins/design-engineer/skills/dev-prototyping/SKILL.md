@@ -194,6 +194,10 @@ Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for th
 - Ask clarifying questions about interactions, flows, and edge cases before generating
 - The first generation is a starting point, not a final product
 
+### Code Quality Pass
+
+After generating the prototype file, run `/simplify` to review the generated HTML/CSS/JS for reuse, quality, and efficiency.
+
 ---
 
 ## Step 5: Iterate with User
@@ -227,6 +231,10 @@ Stop iterating when:
 - The prototype accurately represents the product concept
 - It is good enough to test with real users
 - Further refinement would be about visual polish rather than functionality
+
+### Final Quality Pass
+
+After the last iteration round, run `/simplify` one final time to ensure the completed prototype is clean and efficient.
 
 ---
 

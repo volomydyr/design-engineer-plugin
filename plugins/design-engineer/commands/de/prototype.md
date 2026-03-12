@@ -16,6 +16,8 @@ Generate a single-file HTML prototype using the `dev-prototyping` skill.
 
 Load the `dev-prototyping` skill and follow its full 7-step flow.
 
+After the prototype is generated (Step 4), run `/simplify` to review the prototype code for quality and efficiency. If further iterations happen in Step 5, run `/simplify` again after the final iteration round.
+
 ### Argument Handling
 
 If an argument was provided, use it to pre-select the answer in Step 1 (Understand Context):

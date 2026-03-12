@@ -53,9 +53,12 @@ For running the full agent pipeline on a feature:
 2. Task `context-analyzer`(feature description) – analyzes project context
 3. Enter Plan Mode → write structured plan → `ExitPlanMode` → copy to `plans/`
 4. Task `backend-implementer`(plan) – implements backend
-5. Task `frontend-implementer`(plan) – implements frontend
-6. Task `design-system-auditor`(implementation) – audits against design system
-7. Run `meta-compound` to document the development session
+5. Run `/simplify` – review backend changes
+6. Task `frontend-implementer`(plan) – implements frontend
+7. Run `/simplify` – review frontend changes
+8. Run `/simplify` – final pass on all code changes
+9. Task `design-system-auditor`(implementation) – audits against design system
+10. Run `meta-compound` to document the development session
 
 ### Full Setup (Option 1)
 

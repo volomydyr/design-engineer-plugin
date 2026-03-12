@@ -2,6 +2,16 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.6.1] – 2026-03-12
+
+### Added
+
+- `/simplify` integration — mandatory code quality pass after every code-producing step in dev pipeline and prototyping flows
+
+### Changed
+
+- Dev pipeline renumbered to include /simplify steps (Phase 4: Quality Audit, Phase 5: Wrap Up)
+
 ## [1.6.0] – 2026-03-12
 
 ### Added

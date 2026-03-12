@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.6.1] – 2026-03-12
+
+### Added
+
+- `/simplify` integration — mandatory code quality pass after every code-producing step
+- Runs after backend-implementer, after frontend-implementer, and as a final pass before design-system-auditor
+- Runs after prototype generation and final iteration in dev-prototyping
+- Code quality rule added to CLAUDE.md and CLAUDE.md template
+
+### Changed
+
+- Dev pipeline renumbered: Phase 3 includes /simplify steps, old Phase 4 (Wrap Up) split into Phase 4 (Quality Audit) + Phase 5 (Wrap Up)
+- Pipeline Violations updated to include skipping /simplify
+- REMEMBER FOR EVERY PROMPT expanded to 11 items
+
 ## [1.6.0] – 2026-03-12
 
 ### Added

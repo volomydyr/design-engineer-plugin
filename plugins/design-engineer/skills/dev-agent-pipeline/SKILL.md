@@ -54,11 +54,14 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 ### Phase 3: Implementation (Only After Approval)
 7. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
-8. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
+8. Run `/simplify` — review backend changes for reuse, quality, and efficiency
+9. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
+10. Run `/simplify` — review frontend changes for reuse, quality, and efficiency
 
 ### Phase 4: Quality Audit
-9. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
-10. Output: violation report + fixes applied
+11. Run `/simplify` — final pass reviewing all code changes together
+12. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
+13. Output: violation report + fixes applied
 
 ---
 
@@ -95,11 +98,16 @@ PHASE 2: PLANNING (WAIT FOR APPROVAL)
 
 PHASE 3: IMPLEMENTATION (Only After Approval)
 7. backend-implementer -> Verify/refine data layer
-8. frontend-implementer -> Implement UI after approval
-9. design-system-auditor -> Verify compliance
+8. /simplify -> Review backend changes
+9. frontend-implementer -> Implement UI after approval
+10. /simplify -> Review frontend changes
 
-PHASE 4: WRAP UP
-10. Integration testing -> Test full user flow
+PHASE 4: QUALITY AUDIT
+11. /simplify -> Final pass on all code changes
+12. design-system-auditor -> Verify compliance
+
+PHASE 5: WRAP UP
+13. Integration testing -> Test full user flow
 ```
 
 ---
@@ -124,6 +132,7 @@ A good practice is to ask AI to update documents and settings when the project h
 - Marking backend as "complete" without actually running it
 - Making architectural decisions without checking documentation
 - Guessing or assuming instead of asking for clarification
+- Skipping `/simplify` after implementation steps
 
 ---
 

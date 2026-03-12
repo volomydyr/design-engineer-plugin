@@ -146,6 +146,21 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 4. Implement the plan
 5. After completion, move the plan to `plans/archive/`
 
+## Code Quality: /simplify
+
+After every code-producing step, run `/simplify` to review changed code for reuse, quality, and efficiency. This is mandatory.
+
+### When to Run
+
+- After `backend-implementer` returns
+- After `frontend-implementer` returns
+- Final pass after all code changes (before `design-system-auditor`)
+- After prototype generation in `dev-prototyping`
+
+### How
+
+Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not inside sub-agents.
+
 ## Context Monitoring
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):
