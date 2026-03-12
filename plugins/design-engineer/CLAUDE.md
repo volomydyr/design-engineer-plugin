@@ -27,7 +27,8 @@ plugins/design-engineer/
 │   ├── hooks.json
 │   ├── check_deliverable_deps.py
 │   ├── session_dep_summary.py
-│   └── de-statusline.js
+│   ├── de-statusline.js
+│   └── de-safety-hook.js
 ├── agents/                         # 9 specialized agents
 ├── commands/
 │   └── de/                         # 9 commands (de: namespace)

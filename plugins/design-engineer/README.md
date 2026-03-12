@@ -159,10 +159,11 @@ Every skill can be invoked directly:
 
 ## Hooks
 
-The plugin includes two hooks for deliverable dependency tracking:
+The plugin includes three hooks:
 
-- **PostToolUse** – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
-- **Stop** – summarizes which deliverables were updated in this session and which dependents may be stale
+- **PreToolUse** (`de-safety-hook.js`) – context-aware protection against destructive Bash commands (rm -rf, git push --force, DROP TABLE, git add .env, etc.). Shows safer alternatives alongside every block. Fail-open design.
+- **PostToolUse** (`check_deliverable_deps.py`) – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
+- **Stop** (`session_dep_summary.py`) – summarizes which deliverables were updated in this session and which dependents may be stale
 
 ## Requirements
 

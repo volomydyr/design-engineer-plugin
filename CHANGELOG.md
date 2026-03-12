@@ -2,6 +2,14 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.5.0] – 2026-03-12
+
+### Added
+
+- New `de-safety-hook.js` PreToolUse hook — context-aware protection against destructive Bash commands
+- Blocks rm -rf, git force push, DROP TABLE, git add .env, and more with safer alternatives
+- Fail-open design: any hook error allows the command through
+
 ## [1.4.0] – 2026-03-12
 
 ### Added

@@ -4,6 +4,23 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.5.0] – 2026-03-12
+
+### Added
+
+- New `de-safety-hook.js` PreToolUse hook — context-aware protection against destructive Bash commands
+  - Filesystem: blocks `rm -rf`, `chmod 777`
+  - Git: blocks force push, `reset --hard`, `clean -f`, `checkout --`, `branch -D`, `stash drop/clear`
+  - Database: blocks `DROP TABLE/DATABASE/SCHEMA`, `TRUNCATE`, `DELETE` without `WHERE`
+  - Environment: warns on `git add .env` (staging secrets)
+  - Context-aware: allows patterns in data context (grep, echo, cat, etc.)
+  - Shows safer alternatives alongside every block
+  - Fail-open design with debug logging to `~/.claude/cache/de-safety.log`
+
+### Changed
+
+- Updated hooks description to include safety
+
 ## [1.4.0] – 2026-03-12
 
 ### Added

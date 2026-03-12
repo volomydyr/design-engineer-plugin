@@ -1,6 +1,18 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking and dependency management",
+  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, and safety",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-safety-hook.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "hooks": [
