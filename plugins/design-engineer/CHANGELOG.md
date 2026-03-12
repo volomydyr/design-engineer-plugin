@@ -4,6 +4,24 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.7.0] – 2026-03-12
+
+### Added
+
+- TDD with Playwright CLI — mandatory test-first development for all code-producing steps
+- New `test-writer` agent — writes failing Playwright CLI test scripts before implementation (context-isolated)
+- New `de-tdd-hook.js` PreToolUse hook — blocks source code writes when no test scripts exist in `tests/`
+- Test archival pattern: active tests in `tests/`, archived to `tests/archive/` after feature completion
+- New agent template `test-writer.md` for user project customization
+
+### Changed
+
+- Dev pipeline Phase 3 expanded: test-writer → Red → implementation → Green (was: implementation only)
+- Pipeline steps renumbered: 13 → 17 steps across 5 phases
+- Pipeline Violations expanded with TDD-specific violations
+- REMEMBER FOR EVERY PROMPT expanded to 12 items
+- Agent count 8 → 9
+
 ## [1.6.1] – 2026-03-12
 
 ### Added

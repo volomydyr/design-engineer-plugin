@@ -90,8 +90,9 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
    ui-design-system
         |
    [Development loop: context-analyzer -> Plan Mode ->
-    backend -> /simplify -> frontend -> /simplify ->
-    /simplify (final) -> design-system-auditor -> compound]
+    test-writer -> tests (Red) -> backend -> /simplify ->
+    frontend -> /simplify -> tests (Green) ->
+    /simplify (final) -> design-system-auditor -> archive tests -> compound]
         |
    dev-context-management [ongoing]
         |
@@ -423,13 +424,17 @@ After initial setup, development enters an iterative loop for each feature:
 
 1. **context-analyzer** (agent) – reads project state, understands what has been built
 2. **Plan Mode** – enter Plan Mode, write structured plan, get approval, save to `plans/`
-3. **Backend implementation** – server-side code
-4. **`/simplify`** – review backend changes for reuse, quality, and efficiency
-5. **Frontend implementation** – client-side code and UI
-6. **`/simplify`** – review frontend changes for reuse, quality, and efficiency
-7. **`/simplify`** (final pass) – review all code changes together
-8. **design-system-auditor** (agent) – verifies new code follows the design system
-9. **meta-compound** – documents progress after each feature
+3. **test-writer** (agent) – writes failing Playwright CLI test scripts to `tests/`
+4. **Run tests** – verify Red phase (all tests fail — feature not built yet)
+5. **Backend implementation** – server-side code
+6. **`/simplify`** – review backend changes for reuse, quality, and efficiency
+7. **Frontend implementation** – client-side code and UI
+8. **`/simplify`** – review frontend changes for reuse, quality, and efficiency
+9. **Run tests** – verify Green phase (all tests pass)
+10. **`/simplify`** (final pass) – review all code changes together
+11. **design-system-auditor** (agent) – verifies new code follows the design system
+12. **Archive tests** – move test scripts from `tests/` to `tests/archive/`
+13. **meta-compound** – documents progress after each feature
 
 ### Skill 5.7: dev-context-management (ONGOING)
 

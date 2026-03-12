@@ -1,6 +1,6 @@
 # Design Engineer
 
-Full-stack product design and AI-assisted development plugin for Claude Code. 50 skills, 8 agents, 9 commands. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
+Full-stack product design and AI-assisted development plugin for Claude Code. 50 skills, 9 agents, 9 commands. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
 
 ## Philosophy
 
@@ -23,7 +23,7 @@ claude plugin install design-engineer
 
 ## Commands
 
-You interact with 9 top-level commands. Behind each one, the full engine of 50 skills and 8 agents runs silently.
+You interact with 9 top-level commands. Behind each one, the full engine of 50 skills and 9 agents runs silently.
 
 | Command | What It Does |
 |---------|-------------|
@@ -139,6 +139,7 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `psych-scanner` | Scans designs against 100+ psychology principles |
 | `ux-researcher` | Conducts research activities |
 | `deliverable-writer` | Produces structured deliverable documents |
+| `test-writer` | Writes failing Playwright CLI test scripts before implementation |
 | `compound-documenter` | Documents decisions and maintains context |
 
 ## Power User Guide
@@ -161,6 +162,7 @@ Every skill can be invoked directly:
 The plugin includes three hooks:
 
 - **PreToolUse** (`de-safety-hook.js`) – context-aware protection against destructive Bash commands (rm -rf, git push --force, DROP TABLE, git add .env, etc.). Shows safer alternatives alongside every block. Fail-open design.
+- **PreToolUse** (`de-tdd-hook.js`) – enforces test-first development by blocking source code writes (Write/Edit/MultiEdit) when no test scripts exist in `tests/` during active implementation. Fail-open design.
 - **PostToolUse** (`check_deliverable_deps.py`) – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
 - **Stop** (`session_dep_summary.py`) – summarizes which deliverables were updated in this session and which dependents may be stale
 

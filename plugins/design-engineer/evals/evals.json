@@ -159,7 +159,7 @@
       "id": 23,
       "skill_name": "command:de:dev",
       "prompt": "/de:dev pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
-      "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, enters Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then run backend-implementer, /simplify, frontend-implementer, /simplify, final /simplify pass, then design-system-auditor. Should run meta-compound to document the session.",
+      "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, enters Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then run test-writer to create failing Playwright CLI test scripts, verify Red (all fail), then run backend-implementer, /simplify, frontend-implementer, /simplify, verify Green (all pass), final /simplify pass, then design-system-auditor, archive tests to tests/archive/. Should run meta-compound to document the session.",
       "files": []
     },
     {
@@ -810,7 +810,7 @@
       "id": 116,
       "skill_name": "dev-agent-pipeline",
       "prompt": "I want to set up the 4-agent pipeline for my development workflow. I'm building a Vue.js app with a Python FastAPI backend. Walk me through configuring each agent.",
-      "expected_output": "Should set up the 3-agent pipeline + Plan Mode (context-analyzer, Plan Mode for planning, backend-implementer, frontend-implementer, plus design-system-auditor), customize each agent's configuration for the Vue.js + FastAPI stack, explain how sub-agents preserve main conversation token budget, establish the execution sequence with /simplify after each implementation step, and produce agent pipeline configuration files.",
+      "expected_output": "Should set up the 4-agent pipeline + Plan Mode (context-analyzer, Plan Mode for planning, test-writer for TDD, backend-implementer, frontend-implementer, plus design-system-auditor), customize each agent's configuration for the Vue.js + FastAPI stack, explain how sub-agents preserve main conversation token budget, establish the execution sequence with test-writer before implementation and /simplify after each implementation step, and produce agent pipeline configuration files.",
       "files": []
     },
     {

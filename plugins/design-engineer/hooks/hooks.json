@@ -1,5 +1,5 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, and safety",
+  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, and TDD enforcement",
   "hooks": {
     "PreToolUse": [
       {
@@ -8,6 +8,16 @@
           {
             "type": "command",
             "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-safety-hook.js",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-tdd-hook.js",
             "timeout": 5
           }
         ]

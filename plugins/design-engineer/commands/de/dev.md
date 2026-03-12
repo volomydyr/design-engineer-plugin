@@ -52,13 +52,17 @@ For running the full agent pipeline on a feature:
 1. Load `dev-claude-md` to verify CLAUDE.md is current
 2. Task `context-analyzer`(feature description) – analyzes project context
 3. Enter Plan Mode → write structured plan → `ExitPlanMode` → copy to `plans/`
-4. Task `backend-implementer`(plan) – implements backend
-5. Run `/simplify` – review backend changes
-6. Task `frontend-implementer`(plan) – implements frontend
-7. Run `/simplify` – review frontend changes
-8. Run `/simplify` – final pass on all code changes
-9. Task `design-system-auditor`(implementation) – audits against design system
-10. Run `meta-compound` to document the development session
+4. Task `test-writer`(plan) – writes failing test scripts to `tests/`
+5. Run test scripts – verify Red (all tests fail)
+6. Task `backend-implementer`(plan) – implements backend
+7. Run `/simplify` – review backend changes
+8. Task `frontend-implementer`(plan) – implements frontend
+9. Run `/simplify` – review frontend changes
+10. Run test scripts – verify Green (all tests pass)
+11. Run `/simplify` – final pass on all code changes
+12. Task `design-system-auditor`(implementation) – audits against design system
+13. Archive test scripts from `tests/` to `tests/archive/`
+14. Run `meta-compound` to document the development session
 
 ### Full Setup (Option 1)
 
@@ -80,6 +84,7 @@ Run in sequence:
 
 - `context-analyzer` – project context analysis
 - Plan Mode (`EnterPlanMode` / `ExitPlanMode`) – implementation planning
+- `test-writer` – TDD test script creation
 - `backend-implementer` – backend development
 - `frontend-implementer` – frontend development
 - `design-system-auditor` – design system compliance

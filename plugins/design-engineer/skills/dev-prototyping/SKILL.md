@@ -166,6 +166,12 @@ If adjustments are needed, iterate on the brief until approved.
 
 ---
 
+## TDD: Write Tests First
+
+Before generating the prototype file, use the `test-writer` agent to create Playwright CLI test scripts in `tests/` that verify the expected prototype behavior. Run the test scripts to confirm they fail (Red phase — the prototype does not exist yet).
+
+---
+
 ## Step 4: Generate the Prototype
 
 Write a single HTML file with all CSS in `<style>` and all JS in `<script>`. No external dependencies — everything self-contained.
@@ -197,6 +203,10 @@ Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for th
 ### Code Quality Pass
 
 After generating the prototype file, run `/simplify` to review the generated HTML/CSS/JS for reuse, quality, and efficiency.
+
+### TDD: Verify Green
+
+After generating the prototype and running `/simplify`, run the test scripts from `tests/` to verify they now pass (Green phase).
 
 ---
 

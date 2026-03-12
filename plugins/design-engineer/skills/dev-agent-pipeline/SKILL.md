@@ -52,16 +52,19 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 5. Plan includes: summary, architectural decisions, files to create/modify, components to reuse vs. create, step-by-step approach, success criteria
 6. **Stop and wait** – user must approve before any implementation begins
 
-### Phase 3: Implementation (Only After Approval)
-7. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
-8. Run `/simplify` — review backend changes for reuse, quality, and efficiency
-9. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
-10. Run `/simplify` — review frontend changes for reuse, quality, and efficiency
+### Phase 3: TDD + Implementation (Only After Approval)
+7. **Test Writer** creates failing test scripts in `tests/` using Playwright CLI
+8. Run test scripts → verify Red (all tests fail — feature not built yet)
+9. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
+10. Run `/simplify` — review backend changes for reuse, quality, and efficiency
+11. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
+12. Run `/simplify` — review frontend changes for reuse, quality, and efficiency
+13. Run test scripts → verify Green (all tests pass)
 
 ### Phase 4: Quality Audit
-11. Run `/simplify` — final pass reviewing all code changes together
-12. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
-13. Output: violation report + fixes applied
+14. Run `/simplify` — final pass reviewing all code changes together
+15. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
+16. Output: violation report + fixes applied
 
 ---
 
@@ -69,6 +72,7 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 For each agent, generate a markdown file using the adapted templates from:
 - [context-analyzer.md](./references/agent-templates/context-analyzer.md)
+- [test-writer.md](./references/agent-templates/test-writer.md)
 - [backend-implementer.md](./references/agent-templates/backend-implementer.md)
 - [frontend-implementer.md](./references/agent-templates/frontend-implementer.md)
 - [design-system-auditor.md](./references/agent-templates/design-system-auditor.md)
@@ -96,18 +100,22 @@ PHASE 2: PLANNING (WAIT FOR APPROVAL)
 5. Enter Plan Mode -> Write structured plan -> ExitPlanMode for approval
 6. Wait for user approval -> Do NOT proceed without it
 
-PHASE 3: IMPLEMENTATION (Only After Approval)
-7. backend-implementer -> Verify/refine data layer
-8. /simplify -> Review backend changes
-9. frontend-implementer -> Implement UI after approval
-10. /simplify -> Review frontend changes
+PHASE 3: TDD + IMPLEMENTATION (Only After Approval)
+7. test-writer -> Write failing test scripts
+8. Run tests -> Verify Red (all fail)
+9. backend-implementer -> Verify/refine data layer (ALWAYS run)
+10. /simplify -> Review backend changes
+11. frontend-implementer -> Implement UI (after designs + approval)
+12. /simplify -> Review frontend changes
+13. Run tests -> Verify Green (all pass)
 
 PHASE 4: QUALITY AUDIT
-11. /simplify -> Final pass on all code changes
-12. design-system-auditor -> Verify compliance
+14. /simplify -> Final pass on all code changes
+15. design-system-auditor -> Verify compliance
 
 PHASE 5: WRAP UP
-13. Integration testing -> Test full user flow
+16. Archive tests -> Move tests/ to tests/archive/
+17. Integration testing -> Test full user flow
 ```
 
 ---
@@ -133,6 +141,8 @@ A good practice is to ask AI to update documents and settings when the project h
 - Making architectural decisions without checking documentation
 - Guessing or assuming instead of asking for clarification
 - Skipping `/simplify` after implementation steps
+- Skipping test-writer before implementation
+- Implementing code without running tests first (Red phase)
 
 ---
 
@@ -153,6 +163,7 @@ After the pipeline is set up, the user sends development prompts and the pipelin
 ## Resource Files
 
 - [context-analyzer.md](./references/agent-templates/context-analyzer.md) – Adapted context analyzer agent template
+- [test-writer.md](./references/agent-templates/test-writer.md) – Adapted test writer agent template
 - [backend-implementer.md](./references/agent-templates/backend-implementer.md) – Adapted backend implementer agent template
 - [frontend-implementer.md](./references/agent-templates/frontend-implementer.md) – Adapted frontend implementer agent template
 - [design-system-auditor.md](./references/agent-templates/design-system-auditor.md) – Adapted design system auditor agent template

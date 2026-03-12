@@ -18,6 +18,8 @@ Load the `dev-prototyping` skill and follow its full 7-step flow.
 
 After the prototype is generated (Step 4), run `/simplify` to review the prototype code for quality and efficiency. If further iterations happen in Step 5, run `/simplify` again after the final iteration round.
 
+Before generating the prototype (Step 4), use the `test-writer` agent to create test scripts that verify the expected prototype behavior. Run the tests to confirm Red phase (failure). After the prototype is generated and `/simplify` has run, run the tests again to verify Green phase (pass).
+
 ### Argument Handling
 
 If an argument was provided, use it to pre-select the answer in Step 1 (Understand Context):

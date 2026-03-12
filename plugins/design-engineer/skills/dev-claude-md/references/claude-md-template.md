@@ -154,18 +154,22 @@ PHASE 2: PLANNING (WAIT FOR APPROVAL)
 5. Enter Plan Mode -> Write structured plan -> ExitPlanMode for approval
 6. Wait for user approval -> Do NOT proceed without it
 
-PHASE 3: IMPLEMENTATION (Only After Approval)
-7. backend-implementer -> Verify/refine data layer (ALWAYS run)
-8. /simplify -> Review backend changes
-9. frontend-implementer -> Implement UI (after designs + approval)
-10. /simplify -> Review frontend changes
+PHASE 3: TDD + IMPLEMENTATION (Only After Approval)
+7. test-writer -> Write failing test scripts
+8. Run tests -> Verify Red (all fail)
+9. backend-implementer -> Verify/refine data layer (ALWAYS run)
+10. /simplify -> Review backend changes
+11. frontend-implementer -> Implement UI (after designs + approval)
+12. /simplify -> Review frontend changes
+13. Run tests -> Verify Green (all pass)
 
 PHASE 4: QUALITY AUDIT
-11. /simplify -> Final pass on all code changes
-12. design-system-auditor -> Verify compliance
+14. /simplify -> Final pass on all code changes
+15. design-system-auditor -> Verify compliance
 
 PHASE 5: WRAP UP
-13. Integration testing -> Test full user flow
+16. Archive tests -> Move tests/ to tests/archive/
+17. Integration testing -> Test full user flow
 ```
 
 ### Pipeline Violations to Avoid
@@ -177,6 +181,8 @@ PHASE 5: WRAP UP
 - Making architectural decisions without checking documentation
 - Guessing or assuming – always ask for clarification
 - Skipping `/simplify` after implementation steps
+- Skipping test-writer before implementation
+- Writing implementation code without test scripts in tests/
 
 ## REQUIREMENT CONFLICT RESOLUTION
 
@@ -205,6 +211,7 @@ How should I proceed?"
 9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
 10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning — write structured plans to the plan file, never as plain text. After approval, save to `plans/` in the project. After completion, move to `plans/archive/`.
 11. **Run `/simplify` after every code-producing step** — mandatory after backend-implementer, frontend-implementer, and before design-system-auditor. Also after prototype generation.
+12. **Write tests BEFORE implementation** — run test-writer agent to create Playwright CLI test scripts in `tests/` before backend-implementer or frontend-implementer. Verify Red (fail) before implementing, verify Green (pass) after. A TDD hook blocks source code writes when no tests exist.
 ```
 
 ---

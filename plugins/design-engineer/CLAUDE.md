@@ -28,8 +28,9 @@ plugins/design-engineer/
 │   ├── check_deliverable_deps.py
 │   ├── session_dep_summary.py
 │   ├── de-statusline.js
-│   └── de-safety-hook.js
-├── agents/                         # 8 specialized agents
+│   ├── de-safety-hook.js
+│   └── de-tdd-hook.js
+├── agents/                         # 9 specialized agents
 ├── commands/
 │   └── de/                         # 9 commands (de: namespace)
 └── skills/                         # 50 hidden skills
@@ -160,6 +161,29 @@ After every code-producing step, run `/simplify` to review changed code for reus
 ### How
 
 Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not inside sub-agents.
+
+## TDD with Playwright CLI
+
+All code-producing steps follow Test-Driven Development using Playwright CLI. A PreToolUse hook enforces this — source code writes are blocked when no test scripts exist in `tests/`.
+
+### TDD Cycle
+
+1. **Red**: `test-writer` agent creates failing test scripts in `tests/`
+2. Run test scripts → verify they fail (expected — feature not built yet)
+3. **Green**: Implement the feature (backend-implementer, frontend-implementer)
+4. Run test scripts → verify they pass
+5. **Refactor**: `/simplify` cleans up the code
+
+### Test Storage
+
+- Active test scripts: `tests/*.sh` (executable shell scripts using Playwright CLI)
+- Archived tests: `tests/archive/` (moved after feature completion, like `plans/archive/`)
+
+### When TDD Applies
+
+- After plan approval, before backend-implementer and frontend-implementer
+- After prototype generation in dev-prototyping
+- The hook only activates during implementation (when `plans/` has active plan files)
 
 ## Context Monitoring
 

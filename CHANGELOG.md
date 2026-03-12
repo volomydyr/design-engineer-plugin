@@ -2,6 +2,17 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.7.0] – 2026-03-12
+
+### Added
+
+- TDD with Playwright CLI — test-writer agent + TDD enforcement hook for mandatory test-first development
+- Test archival pattern (`tests/` → `tests/archive/`) mirroring plan archival
+
+### Changed
+
+- Dev pipeline expanded with Red/Green TDD cycle (13 → 17 steps)
+
 ## [1.6.1] – 2026-03-12
 
 ### Added
