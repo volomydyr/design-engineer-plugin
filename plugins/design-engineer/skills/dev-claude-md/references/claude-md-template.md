@@ -196,7 +196,7 @@ How should I proceed?"
 6. **Use only the specified tech stack** – ignore outdated or alternative technology references
 7. **Maintain pixel-perfect implementation** from designs
 8. **Update development status** when features are complete
-9. **WARN USER when approaching token limit** – allow user to manually compact conversation with specific instructions instead of auto-compacting (prevents information loss and hallucination)
+9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
 ```
 
 ---

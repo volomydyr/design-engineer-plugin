@@ -2,6 +2,12 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.5.2] – 2026-03-12
+
+### Changed
+
+- Context monitoring now suggests compacting with a ready-to-use compact message proactively — no extra round-trip
+
 ## [1.5.1] – 2026-03-12
 
 ### Changed

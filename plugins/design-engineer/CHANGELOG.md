@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.5.2] – 2026-03-12
+
+### Changed
+
+- Context monitoring now includes a ready-to-use compact message proactively in the warning — no extra round-trip needed
+- Updated compaction guidance in context-engineering-guide, context-survival-guide, meta-compound skill, and CLAUDE.md template to match the proactive pattern
+
 ## [1.5.1] – 2026-03-12
 
 ### Changed

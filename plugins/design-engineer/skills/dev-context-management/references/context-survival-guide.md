@@ -58,14 +58,15 @@ For pre-development work in browser-based AI tools (Claude.ai, ChatGPT, or simil
 
 When approaching the 200k token limit, Claude automatically compresses the earlier conversation. This auto-compaction is smart but loses details.
 
-**The better approach:** When you notice the conversation getting long, manually compact it yourself. Tell AI specifically what to remember and what can be forgotten. This gives you control over what information survives compression.
+**The better approach:** Configure AI to proactively suggest compacting **with a ready-to-use compact message** when context gets heavy. The message should include actual session values (project state, decisions made, current phase, next steps) so the user can immediately run `/compact` with it — no extra round-trip needed.
 
-**How to do it:**
-- Ask AI to summarize the current state before the conversation gets too long
-- Tell AI which decisions and warnings are critical to preserve
-- Start a fresh conversation with the summary if the current one is getting unwieldy
+**How to set it up:**
+- Add a context monitoring rule to CLAUDE.md
+- AI detects ~90% usage and generates the suggestion with the compact message included
+- The user can use it immediately, customize it, or dismiss it
+- If dismissed, AI does not raise it again in the same session
 
-**Warning the user:** Include a rule in CLAUDE.md telling AI to warn the user when approaching the token limit, allowing the user to manually compact with specific instructions instead of letting auto-compaction happen.
+**Why proactive is better than reactive:** Waiting for the user to agree to a compact message, then generating it in a second step, wastes the very tokens that are running low. Including the message upfront saves a round-trip and ensures the user has a quality compact message before context degrades.
 
 ## Strategy 5: Git as a Context Safety Net
 

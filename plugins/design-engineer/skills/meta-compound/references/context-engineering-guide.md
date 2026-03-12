@@ -40,15 +40,14 @@ By saving each deliverable as a separate file and starting fresh chats, you ensu
 
 ## Strategy 2: Manual Compaction Over Auto-Compaction
 
-When approaching token limits, the AI should warn the user and allow them to manually compact the conversation with specific instructions, instead of letting auto-compaction happen. Auto-compaction prevents information loss through summarization, but the AI decides what to keep and what to compress. Manual compaction lets the user specify exactly what must be preserved.
+When approaching token limits, the AI should warn the user and provide a ready-to-use compact message in the same response — not wait for agreement before generating it. Auto-compaction prevents information loss through summarization, but the AI decides what to keep and what to compress. Manual compaction lets the user control what survives.
 
 ### How manual compaction works
 
-1. AI detects the conversation is approaching the token limit (roughly 80% of the 200k window)
-2. AI warns the user with a clear message about what might be lost
-3. The user tells AI exactly what to preserve: specific decisions, file paths, current task state, critical constraints
-4. AI compacts the conversation while preserving the specified items at full detail
-5. The conversation continues with a smaller token footprint but with critical context intact
+1. AI detects the conversation is approaching the token limit (roughly 80-90% of the 200k window)
+2. AI proactively suggests compacting **and includes a ready-to-use compact message** with actual session values filled in — no placeholders, no waiting for a second round-trip
+3. The user can immediately copy the message and run `/compact`, customize it, or dismiss it
+4. The conversation continues with a smaller token footprint but with critical context intact
 
 ### What to preserve during manual compaction
 
