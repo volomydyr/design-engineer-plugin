@@ -26,13 +26,13 @@ header: "Current MCP Setup"
 options:
   - label: "None yet"
     description: "Starting fresh – need guidance on what to install"
-  - label: "Context7"
+  - label: "Context7 plugin"
     description: "Already have up-to-date documentation access"
-  - label: "Figma plugin (official)"
+  - label: "Figma plugin"
     description: "Already have Figma design data access (bidirectional — design→code and code→design)"
   - label: "Figma Console MCP"
     description: "Already have the Figma Console MCP for programmatic Figma actions"
-  - label: "Playwright MCP"
+  - label: "Playwright plugin"
     description: "Already have browser automation for testing"
   - label: "Other MCPs"
     description: "I have other integrations installed"
@@ -47,19 +47,15 @@ Using the catalog from [mcp-catalog.md](./references/mcp-catalog.md), recommend 
 
 ### Essential (install these first)
 
-**Context7** – Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this MCP on its own otherwise.
+**Context7 plugin** – Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this plugin on its own otherwise.
 
-**Figma plugin (official)** – Gives AI access to design data from Figma Dev Mode — code, not screenshots. The plugin adapts code to your tech stack automatically and supports bidirectional workflows (design→code and code→design import). Use it gradually (smaller elements at a time) for best results.
+**Figma plugin** – Gives AI access to design data from Figma Dev Mode — code, not screenshots. The plugin adapts code to your tech stack automatically and supports bidirectional workflows (design→code and code→design import). Use it gradually (smaller elements at a time) for best results.
 
 ### Recommended (install when needed)
 
-**Playwright MCP** – Browser automation for testing and TDD. More advanced – install once you are comfortable with the basics.
+**Playwright plugin** – Browser automation for testing and TDD. More advanced – install once you are comfortable with the basics.
 
 **Figma Console MCP** – Can perform actions in Figma programmatically: turn raw frames into components with tokens and styles, structure files for dev handoff. Trickier to set up but powerful for design system work. The `ui-figma-handoff` skill provides a guided workflow for using it.
-
-### Specialized (install for specific use cases)
-
-**Remotion MCP** – Create videos by talking to AI. Can turn a Figma design into a polished animated video.
 
 ---
 

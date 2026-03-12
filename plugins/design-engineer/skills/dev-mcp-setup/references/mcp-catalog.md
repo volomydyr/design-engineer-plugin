@@ -6,11 +6,11 @@ The rule of thumb: do not install everything you see on the web. Start with the 
 
 ---
 
-## Essential MCPs
+## Essential Plugins
 
 Install these first. They cover the two most critical needs for AI-assisted development: accurate documentation and design data.
 
-### Context7
+### Context7 Plugin
 
 **What it does:** Gives your AI tool access to up-to-date technical documentation for any framework or library. Large language models are trained on information up to a specific date, and everything after that date, AI does not know about. Technical documentation gets regularly updated, and there are situations when AI – even the most powerful model – still has knowledge based on outdated docs.
 
@@ -18,7 +18,7 @@ Install these first. They cover the two most critical needs for AI-assisted deve
 
 **How to use it:**
 - Specify in your CLAUDE.md or prompts that AI should use Context7 for documentation lookup
-- AI will not usually call this MCP on its own unless instructed to
+- AI will not usually call this plugin on its own unless instructed to
 - Use it before any architectural decision: "Use Context7 to look up the current best practice for [topic]"
 
 **When to use:** Before making any architectural decision, when implementing features with framework-specific patterns, when AI suggests code that looks unfamiliar or possibly outdated.
@@ -27,7 +27,7 @@ Install these first. They cover the two most critical needs for AI-assisted deve
 
 ---
 
-### Figma Plugin (Official)
+### Figma Plugin
 
 **What it does:** Gives your AI tool design information from your frames in Figma. Not screenshots, but data from Dev Mode — the same code that developers see when they review your UI before implementing it. Also supports bidirectional workflows — it can import code from Claude Code into Figma, creating Figma frames from your HTML prototype or generated code.
 
@@ -51,11 +51,11 @@ Install these first. They cover the two most critical needs for AI-assisted deve
 
 ---
 
-## Recommended MCPs
+## Recommended
 
 Install these when you have a specific need. They are not required for every project but become valuable for certain workflows.
 
-### Playwright MCP
+### Playwright Plugin
 
 **What it does:** Browser automation for testing. Lets AI run your web application, click through user flows, verify that elements render correctly, and catch regressions.
 
@@ -69,27 +69,13 @@ Install these when you have a specific need. They are not required for every pro
 
 ### Figma Console MCP
 
-**What it does:** Unlike the Figma plugin that primarily reads design data and imports code, the Figma Console MCP can perform actions inside Figma programmatically. It can turn raw frames into components with tokens and styles, create variable collections, organize files, and automate repetitive design tasks.
+**What it does:** Unlike the Figma plugin that primarily reads design data and imports code, the Figma Console MCP can perform actions inside Figma programmatically. It can turn raw frames into components with tokens and styles, create variable collections, organize files, and automate repetitive design tasks. This is a standalone MCP server (not a Claude Code plugin).
 
 **When to install:** After you have explored the Figma plugin and want more advanced design workflows. Particularly useful for design system work and dev handoff preparation. The `ui-figma-handoff` skill provides a guided workflow for using it to structure raw designs and prepare for developer handoff.
 
 **Difficulty:** Trickier to set up than the Figma plugin, especially if you are new to Claude Code. But once learned, it is incredibly powerful for managing your design system programmatically.
 
 **Repository:** [github.com/southleft/figma-console-mcp](https://github.com/southleft/figma-console-mcp)
-
----
-
-## Specialized MCPs
-
-Install these only for specific use cases. Most projects will not need them.
-
-### Remotion MCP
-
-**What it does:** Lets you create videos by talking to AI. You can give Claude Code a design and generate a polished animated video – no video editing skills required.
-
-**When to install:** When you need to create product demos, feature showcases, or animated marketing content. Not needed for core development work.
-
-**Repository:** [remotion.dev/docs/ai/mcp](https://www.remotion.dev/docs/ai/mcp)
 
 ---
 

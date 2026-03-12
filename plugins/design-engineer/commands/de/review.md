@@ -34,7 +34,7 @@ If AskUserQuestion is not available, present options as a numbered list.
 
 Ask for a Figma frame link or ask the user to share screenshots.
 
-If Figma MCP is available, use it to analyze the design directly.
+If Figma plugin is available, use it to analyze the design directly.
 
 1. Load `ui-visual-review` – check visual design quality
 2. Load `ui-accessibility` – accessibility compliance
@@ -45,7 +45,7 @@ If Figma MCP is available, use it to analyze the design directly.
 
 Ask for a URL or screenshots.
 
-If Playwright MCP is available, use it to capture and analyze the live site.
+If Playwright plugin is available, use it to capture and analyze the live site.
 
 1. Load `ui-visual-review` – compare implementation against design intent
 2. Load `ui-accessibility` – accessibility audit

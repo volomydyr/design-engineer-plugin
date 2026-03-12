@@ -4,6 +4,22 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.5.1] – 2026-03-12
+
+### Changed
+
+- Renamed Context7, Figma (official), and Playwright from "MCP" to "plugin" across all skills, commands, and references
+- `detect-environment.sh` now reads `enabledPlugins` from `~/.claude/settings.json` and separates output into `Plugins found:` / `MCPs found:`
+- Simplified fragile Figma plugin detection logic
+- `.design-engineer.yaml` template: split `mcps:` block into `plugins:` and `mcps:` sections, `figma_mcp:` → `figma:`
+- `setup-checklist.md`: `Context7 MCP` → `Context7 plugin`, `Playwright MCP` → `Playwright plugin`, `Figma with MCP` → `Figma with plugin`
+- `mcp-catalog.md`: section headers updated, `Essential MCPs` → `Essential Plugins`, `Recommended MCPs` → `Recommended`
+
+### Removed
+
+- Remotion MCP from `dev-mcp-setup` skill and `mcp-catalog.md` (unrelated to design engineering)
+- "Specialized MCPs" category from catalog
+
 ## [1.5.0] – 2026-03-12
 
 ### Added

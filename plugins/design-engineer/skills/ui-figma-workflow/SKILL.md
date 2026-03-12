@@ -34,7 +34,7 @@ options:
     description: "Can perform actions in Figma for you (create components, apply tokens, structure files). More powerful but trickier to set up."
   - label: "Manual screenshots"
     description: "Take screenshots of frames and share with AI. Simple but less accurate."
-  - label: "Playwright MCP or browser extension"
+  - label: "Playwright plugin or browser extension"
     description: "Use browser automation to capture live designs."
   - label: "Not sure yet"
     description: "Help me decide based on my setup."

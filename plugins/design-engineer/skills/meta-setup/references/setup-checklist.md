@@ -51,8 +51,8 @@ Determines how design-related skills interact with the user's design workflow.
 
 | Option | Effect |
 |--------|--------|
-| **Figma with MCP** | Skills that reference designs (ui-figma-workflow, ui-visual-review, ui-design-system) use Figma plugin to read design data directly. Provides adapted code based on the project's tech stack. |
-| **Figma without MCP** | Skills prompt the user to share screenshots or exported design specs manually. Instructions for manual sharing are provided at each step. |
+| **Figma with plugin** | Skills that reference designs (ui-figma-workflow, ui-visual-review, ui-design-system) use Figma plugin to read design data directly. Provides adapted code based on the project's tech stack. |
+| **Figma without plugin** | Skills prompt the user to share screenshots or exported design specs manually. Instructions for manual sharing are provided at each step. |
 | **Other design tool** | Skills provide tool-agnostic design guidance. User provides design references through their preferred method. |
 | **No design tool yet** | Design tool steps are deferred. Skills focus on conceptual and structural deliverables until the user decides on a tool. |
 
@@ -157,7 +157,7 @@ The following tools are detected during setup and affect skill behavior:
 | **WebSearch** | Research skills use web search for competitor analysis, market validation | User must provide research context manually |
 | **WebFetch** | Skills can fetch live URLs for analysis | User shares content through copy-paste |
 | **Agent tool** | Complex skills can delegate parallel subtasks to sub-agents | Skills run sequentially within a single context |
-| **Context7 MCP** | Technical documentation is fetched in real-time during development skills | AI relies on training data (may be outdated) |
+| **Context7 plugin** | Technical documentation is fetched in real-time during development skills | AI relies on training data (may be outdated) |
 | **Figma plugin** | Design data is read directly from Figma | User shares screenshots or design specs manually |
 | **Figma Console MCP** | AI can create components and apply tokens in Figma | Design actions are done manually by the user |
-| **Playwright MCP** | Browser-based testing and live URL review available | Testing is done manually; visual review uses screenshots |
+| **Playwright plugin** | Browser-based testing and live URL review available | Testing is done manually; visual review uses screenshots |

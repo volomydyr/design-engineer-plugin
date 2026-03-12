@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # detect-environment.sh
-# Checks for installed MCPs, available tools, and project state.
+# Checks for installed plugins and MCPs, available tools, and project state.
 # Outputs a structured summary for the meta-setup skill.
 
 set -euo pipefail
@@ -9,64 +9,74 @@ echo "=== Design-Engineer Environment Detection ==="
 echo ""
 
 # ─────────────────────────────────────────────
-# 1. MCP Detection
+# 1. Plugin & MCP Detection
 # ─────────────────────────────────────────────
-echo "--- MCP Detection ---"
+echo "--- Plugin & MCP Detection ---"
 
+PLUGINS_FOUND=()
+PLUGINS_MISSING=()
 MCPS_FOUND=()
 MCPS_MISSING=()
 
-# Check for Context7 MCP
-# Context7 helps AI get up-to-date technical documentation
-# so it does not rely on outdated training data.
-if grep -rql "context7" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-  MCPS_FOUND+=("Context7")
-  echo "[FOUND] Context7 -- up-to-date technical documentation"
+# Helper: search across all MCP/settings config files
+CONFIG_FILES=(~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json)
+
+config_contains() {
+  grep -rql -iE "$1" "${CONFIG_FILES[@]}" 2>/dev/null
+}
+
+# Read enabledPlugins from ~/.claude/settings.json
+ENABLED_PLUGINS=""
+if [ -f ~/.claude/settings.json ]; then
+  ENABLED_PLUGINS=$(python3 -c "
+import json, sys
+try:
+    with open('$HOME/.claude/settings.json') as f:
+        data = json.load(f)
+    plugins = data.get('enabledPlugins', [])
+    print(' '.join(plugins))
+except Exception:
+    pass
+" 2>/dev/null || true)
+fi
+
+# Check for Context7 plugin
+if echo "$ENABLED_PLUGINS" | grep -qi "context7" 2>/dev/null || config_contains "context7"; then
+  PLUGINS_FOUND+=("Context7")
+  echo "[FOUND] Context7 plugin -- up-to-date technical documentation"
 else
-  MCPS_MISSING+=("Context7")
-  echo "[MISSING] Context7 -- up-to-date technical documentation"
+  PLUGINS_MISSING+=("Context7")
+  echo "[MISSING] Context7 plugin -- up-to-date technical documentation"
 fi
 
 # Check for Figma plugin (official)
-# Provides design data from Figma Dev Mode adapted to the project's tech stack.
-if grep -rql -i "figma" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null | head -1 | grep -vq "figma-console" 2>/dev/null; then
-  # More precise check: look for figma MCP that is NOT figma-console
-  if grep -rql -iE "(figma_mcp|figma-mcp|@figma|figma.*dev.mode)" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-    MCPS_FOUND+=("Figma plugin")
-    echo "[FOUND] Figma plugin -- design data from Figma Dev Mode"
-  else
-    # Fallback: any figma reference that is not console
-    if grep -rql -i "figma" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-      MCPS_FOUND+=("Figma plugin (unconfirmed)")
-      echo "[FOUND] Figma plugin (unconfirmed) -- found figma reference in MCP config"
-    else
-      MCPS_MISSING+=("Figma plugin")
-      echo "[MISSING] Figma plugin -- design data from Figma Dev Mode"
-    fi
-  fi
+if echo "$ENABLED_PLUGINS" | grep -qi "figma" 2>/dev/null && ! echo "$ENABLED_PLUGINS" | grep -qi "figma-console" 2>/dev/null; then
+  PLUGINS_FOUND+=("Figma")
+  echo "[FOUND] Figma plugin -- design data from Figma Dev Mode"
+elif config_contains "(figma_mcp|figma-mcp|@figma|figma.*dev.mode)"; then
+  PLUGINS_FOUND+=("Figma")
+  echo "[FOUND] Figma plugin -- design data from Figma Dev Mode"
 else
-  MCPS_MISSING+=("Figma plugin")
+  PLUGINS_MISSING+=("Figma")
   echo "[MISSING] Figma plugin -- design data from Figma Dev Mode"
 fi
 
-# Check for Figma Console MCP (unofficial, more powerful)
-# Can perform actions in Figma: create components, apply tokens and styles.
-if grep -rql -i "figma.console\|figma-console\|southleft" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-  MCPS_FOUND+=("Figma Console")
-  echo "[FOUND] Figma Console -- perform actions in Figma directly"
+# Check for Playwright plugin
+if echo "$ENABLED_PLUGINS" | grep -qi "playwright" 2>/dev/null || config_contains "playwright"; then
+  PLUGINS_FOUND+=("Playwright")
+  echo "[FOUND] Playwright plugin -- browser testing and visual review"
 else
-  MCPS_MISSING+=("Figma Console")
-  echo "[MISSING] Figma Console -- perform actions in Figma directly"
+  PLUGINS_MISSING+=("Playwright")
+  echo "[MISSING] Playwright plugin -- browser testing and visual review"
 fi
 
-# Check for Playwright MCP
-# Enables browser-based testing and browsing live URLs for visual review.
-if grep -rql -i "playwright" ~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json 2>/dev/null; then
-  MCPS_FOUND+=("Playwright MCP")
-  echo "[FOUND] Playwright MCP -- browser testing and visual review"
+# Check for Figma Console MCP (standalone MCP server, not a plugin)
+if config_contains "figma.console|figma-console|southleft"; then
+  MCPS_FOUND+=("Figma Console")
+  echo "[FOUND] Figma Console MCP -- perform actions in Figma directly"
 else
-  MCPS_MISSING+=("Playwright MCP")
-  echo "[MISSING] Playwright MCP -- browser testing and visual review"
+  MCPS_MISSING+=("Figma Console")
+  echo "[MISSING] Figma Console MCP -- perform actions in Figma directly"
 fi
 
 echo ""
@@ -145,12 +155,14 @@ echo ""
 # 3. Summary
 # ─────────────────────────────────────────────
 echo "--- Summary ---"
-echo "MCPs found:   ${MCPS_FOUND[*]:-none}"
-echo "MCPs missing: ${MCPS_MISSING[*]:-none}"
-echo "Git:          $([ -d '.git' ] && echo 'yes' || echo 'no')"
-echo "CLAUDE.md:    $([ -f 'CLAUDE.md' ] && echo 'yes' || echo 'no')"
-echo "Config:       $([ -f '.design-engineer.yaml' ] && echo 'yes' || echo 'no')"
-echo "Deliverables: $([ -d 'docs/design' ] && echo 'yes' || echo 'no')"
-echo "Source code:  $HAS_CODE"
+echo "Plugins found:  ${PLUGINS_FOUND[*]:-none}"
+echo "Plugins missing: ${PLUGINS_MISSING[*]:-none}"
+echo "MCPs found:     ${MCPS_FOUND[*]:-none}"
+echo "MCPs missing:   ${MCPS_MISSING[*]:-none}"
+echo "Git:            $([ -d '.git' ] && echo 'yes' || echo 'no')"
+echo "CLAUDE.md:      $([ -f 'CLAUDE.md' ] && echo 'yes' || echo 'no')"
+echo "Config:         $([ -f '.design-engineer.yaml' ] && echo 'yes' || echo 'no')"
+echo "Deliverables:   $([ -d 'docs/design' ] && echo 'yes' || echo 'no')"
+echo "Source code:    $HAS_CODE"
 echo ""
 echo "=== Detection Complete ==="

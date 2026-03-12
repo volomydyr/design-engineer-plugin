@@ -14,7 +14,7 @@ This is the mandatory first command. Run it once before using any other design-e
 
 ## What Happens
 
-1. **Environment detection** – automatically detects installed MCPs (Context7, Figma MCP, Playwright, Figma Console), available tools, and project state
+1. **Environment detection** – automatically detects installed plugins and MCPs (Context7, Figma, Playwright, Figma Console), available tools, and project state
 2. **Configuration questions** – asks 5-7 questions about your project and preferences
 3. **Project scaffolding** – creates a standardized folder structure for design deliverables
 4. **Dependency tracking** – initializes the cross-document dependency graph

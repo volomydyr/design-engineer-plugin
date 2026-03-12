@@ -2,6 +2,14 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.5.1] – 2026-03-12
+
+### Changed
+
+- Renamed Context7, Figma (official), and Playwright from "MCP" to "plugin" across all skills, commands, and references
+- `detect-environment.sh` reads `enabledPlugins` and separates output into plugins vs MCPs
+- Removed Remotion MCP (unrelated to design engineering)
+
 ## [1.5.0] – 2026-03-12
 
 ### Added

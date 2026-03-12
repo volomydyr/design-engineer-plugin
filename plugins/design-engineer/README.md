@@ -167,8 +167,12 @@ The plugin includes three hooks:
 
 ## Requirements
 
-- Claude Code CLI
-- Recommended: Context7 MCP server (bundled), Figma MCP, Playwright MCP
+- **Claude Code CLI**
+- **Node.js** (v18+) — runs the safety hook and status line
+- **Python 3** — runs dependency tracking hooks and environment detection
+- **Bash** — runs setup scripts (macOS/Linux built-in)
+- Recommended plugins: Context7 (bundled), Figma, Playwright
+- Optional MCP: Figma Console
 
 ## Feedback
 

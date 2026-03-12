@@ -39,7 +39,7 @@ If "Cancel": stop.
 
 Run `scripts/detect-environment.sh` from this skill's directory. This script checks for:
 
-- **Installed MCPs**: Context7, Figma plugin (official), Figma Console MCP, Playwright MCP
+- **Installed plugins**: Context7, Figma, Playwright. **Installed MCPs**: Figma Console
 - **Available tools**: AskUserQuestion, WebSearch, WebFetch, Agent tool
 - **Project state**: existing code, existing docs/design/ folder, existing CLAUDE.md, git initialization
 
@@ -48,18 +48,20 @@ Display the detection results to the user in a clear summary:
 ```
 Environment Detection Results
 ─────────────────────────────
-MCPs found:     Context7, Figma plugin
-MCPs missing:   Playwright MCP, Figma Console MCP
+Plugins found:  Context7, Figma
+Plugins missing: Playwright
+MCPs found:     Figma Console
+MCPs missing:   (none)
 Tools:          AskUserQuestion, WebSearch, Agent
 Project:        Git initialized, no existing deliverables
 ```
 
 Explain briefly what each detected (or missing) MCP does, following this guidance:
 
-- **Context7**: Gives AI access to up-to-date technical documentation so it does not rely on outdated training data.
-- **Figma plugin** (official): Provides design data from Figma Dev Mode — not screenshots, but structured design information adapted to the project's tech stack. Supports bidirectional workflows (design→code and code→design import).
-- **Figma Console MCP**: Can perform actions in Figma directly (create components, apply tokens, and styles from prompts). More powerful than the official MCP but trickier to set up.
-- **Playwright MCP**: Enables browser-based testing and a TDD approach. Also allows AI to browse live URLs for visual review.
+- **Context7 plugin**: Gives AI access to up-to-date technical documentation so it does not rely on outdated training data.
+- **Figma plugin**: Provides design data from Figma Dev Mode — not screenshots, but structured design information adapted to the project's tech stack. Supports bidirectional workflows (design→code and code→design import).
+- **Figma Console MCP**: Can perform actions in Figma directly (create components, apply tokens, and styles from prompts). More powerful than the official plugin but trickier to set up.
+- **Playwright plugin**: Enables browser-based testing and a TDD approach. Also allows AI to browse live URLs for visual review.
 
 Do not recommend installing everything. Explain that Context7 and the Figma plugin are the essential two for the workflow this plugin teaches. Playwright and Figma Console MCP are advanced tools to explore once the user is comfortable with the basics.
 
@@ -125,9 +127,9 @@ This affects context management strategy. Solo projects can use simpler status t
 question: "How do you work with design tools?"
 header: "Design Integration"
 options:
-  - label: "Figma with MCP"
+  - label: "Figma with plugin"
     description: "Use the Figma plugin to share design data directly with AI"
-  - label: "Figma without MCP"
+  - label: "Figma without plugin"
     description: "Manually share screenshots or export design specs"
   - label: "Other design tool"
     description: "Sketch, Adobe XD, or another tool"
@@ -243,11 +245,12 @@ project:
   experience_level: "{answer_from_q7_or_null}"
 
 environment:
-  mcps:
+  plugins:
     context7: {true/false}
-    figma_mcp: {true/false}
-    figma_console: {true/false}
+    figma: {true/false}
     playwright: {true/false}
+  mcps:
+    figma_console: {true/false}
   tools:
     ask_user_question: {true/false}
     web_search: {true/false}
