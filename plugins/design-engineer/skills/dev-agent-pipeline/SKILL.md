@@ -40,7 +40,7 @@ options:
 
 ## Step 2: Explain the Pipeline
 
-Walk through the proven 4-agent pipeline pattern:
+Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 ### Phase 1: Research and Analysis
 1. **Context Analyzer** runs first – reads project status, audits existing code, checks available styles and components, fetches up-to-date documentation, and analyzes designs
@@ -48,7 +48,7 @@ Walk through the proven 4-agent pipeline pattern:
 3. User answers questions
 
 ### Phase 2: Planning (Wait for Approval)
-4. **Plan Creator** builds a detailed implementation plan based on context analysis and user answers
+4. Enter **Plan Mode** (`EnterPlanMode`) — write a structured implementation plan to the plan file, then `ExitPlanMode` for user approval
 5. Plan includes: summary, architectural decisions, files to create/modify, components to reuse vs. create, step-by-step approach, success criteria
 6. **Stop and wait** – user must approve before any implementation begins
 
@@ -70,6 +70,8 @@ For each agent, generate a markdown file using the adapted templates from:
 - [frontend-implementer.md](./references/agent-templates/frontend-implementer.md)
 - [design-system-auditor.md](./references/agent-templates/design-system-auditor.md)
 
+Planning is handled by Plan Mode (not an agent). See the structured plan template in the project's CLAUDE.md.
+
 Customize each template based on the user's tech stack, project structure, and existing code. See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work together in practice.
 
 ---
@@ -88,7 +90,7 @@ PHASE 1: RESEARCH & ANALYSIS
 4. Process responses, make informed decisions
 
 PHASE 2: PLANNING (WAIT FOR APPROVAL)
-5. Create detailed implementation plan
+5. Enter Plan Mode -> Write structured plan -> ExitPlanMode for approval
 6. Wait for user approval -> Do NOT proceed without it
 
 PHASE 3: IMPLEMENTATION (Only After Approval)

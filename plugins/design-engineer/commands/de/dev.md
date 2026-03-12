@@ -51,7 +51,7 @@ For running the full agent pipeline on a feature:
 
 1. Load `dev-claude-md` to verify CLAUDE.md is current
 2. Task `context-analyzer`(feature description) – analyzes project context
-3. Task `plan-creator`(analysis results) – creates implementation plan
+3. Enter Plan Mode → write structured plan → `ExitPlanMode` → copy to `plans/`
 4. Task `backend-implementer`(plan) – implements backend
 5. Task `frontend-implementer`(plan) – implements frontend
 6. Task `design-system-auditor`(implementation) – audits against design system
@@ -76,7 +76,7 @@ Run in sequence:
 ## Agents Used
 
 - `context-analyzer` – project context analysis
-- `plan-creator` – implementation planning
+- Plan Mode (`EnterPlanMode` / `ExitPlanMode`) – implementation planning
 - `backend-implementer` – backend development
 - `frontend-implementer` – frontend development
 - `design-system-auditor` – design system compliance

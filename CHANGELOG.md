@@ -2,6 +2,26 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.6.0] – 2026-03-12
+
+### Added
+
+- Plan Mode integration — Claude now uses EnterPlanMode for all non-trivial planning instead of text-based plans
+- Project-local plan storage in `plans/` with date-prefixed filenames
+- Plan archival to `plans/archive/` when implementation completes
+- Structured plan template (summary, architectural decisions, phased breakdown, risk assessment) embedded in CLAUDE.md
+
+### Changed
+
+- Merged `plan-creator` agent into Plan Mode flow — planning now happens in the main conversation with full context, not a sub-agent
+- `dev-agent-pipeline` Phase 2 uses Plan Mode instead of plan-creator sub-agent
+- Pipeline development loop updated across orchestrator, commands, and agent references
+- Agent count 9 → 8, version 1.5.2 → 1.6.0
+
+### Removed
+
+- `plan-creator` agent (replaced by Plan Mode with structured template)
+
 ## [1.5.2] – 2026-03-12
 
 ### Changed

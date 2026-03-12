@@ -1,6 +1,6 @@
 # Design Engineer
 
-Full-stack product design and AI-assisted development plugin for Claude Code. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
+Full-stack product design and AI-assisted development plugin for Claude Code. 50 skills, 8 agents, 9 commands. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
 
 ## Philosophy
 
@@ -23,7 +23,7 @@ claude plugin install design-engineer
 
 ## Commands
 
-You interact with 9 top-level commands. Behind each one, the full engine of 50 skills and 9 agents runs silently.
+You interact with 9 top-level commands. Behind each one, the full engine of 50 skills and 8 agents runs silently.
 
 | Command | What It Does |
 |---------|-------------|
@@ -128,12 +128,11 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `dev-github-workflow` | GitHub workflow for designers |
 | `dev-prototyping` | Single-file HTML prototype generation from planning docs, existing designs, or just an idea |
 
-## Agents (9)
+## Agents (8)
 
 | Agent | Role |
 |-------|------|
 | `context-analyzer` | Analyzes project context and codebase structure |
-| `plan-creator` | Creates implementation plans from requirements |
 | `backend-implementer` | Implements backend features |
 | `frontend-implementer` | Implements frontend features |
 | `design-system-auditor` | Audits code against design system rules |

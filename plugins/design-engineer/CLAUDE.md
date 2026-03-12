@@ -29,7 +29,7 @@ plugins/design-engineer/
 │   ├── session_dep_summary.py
 │   ├── de-statusline.js
 │   └── de-safety-hook.js
-├── agents/                         # 9 specialized agents
+├── agents/                         # 8 specialized agents
 ├── commands/
 │   └── de/                         # 9 commands (de: namespace)
 └── skills/                         # 50 hidden skills
@@ -88,6 +88,63 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 ## Living Documents
 
 Deliverables created by this plugin are living documents tracked via `.dependencies.yaml`. When an upstream deliverable changes, downstream documents may need review. The hook scripts in `hooks/` implement this tracking automatically.
+
+## Plan Mode
+
+Always use `EnterPlanMode` for any non-trivial implementation planning — never output plans as plain text messages.
+
+### When to Use Plan Mode
+
+Use Plan Mode for any task that involves multiple files, phased implementation, architectural decisions, or more than a single-line fix. Do NOT use Plan Mode for: single-line fixes, typo corrections, or pure research tasks.
+
+### Structured Plan Format
+
+When in Plan Mode, write plans using this structure:
+
+```markdown
+# Implementation Plan: [Feature/Task Name]
+
+## Summary
+[1-2 sentence overview of what will be implemented]
+
+## Architectural Decisions
+- [Decision 1]: [Rationale]
+- [Decision 2]: [Rationale]
+
+## Phase 1: [Phase Name]
+**Objective**: [What this accomplishes]
+**Files**:
+- Create: [file paths]
+- Modify: [file paths]
+**Reuse**: [Existing components/patterns to leverage]
+**Success criteria**: [Verification steps]
+
+## Phase 2: [Phase Name]
+...
+
+## Risk Assessment
+- [Risk 1]: [Mitigation]
+- [Risk 2]: [Mitigation]
+
+## Questions for User
+- [Any decisions that need user input before proceeding]
+```
+
+### Project-Local Storage
+
+After plan approval, copy the approved plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it does not exist.
+
+### Archival
+
+When implementation is complete, move the plan from `plans/` to `plans/archive/`. Create the `plans/archive/` directory if it does not exist.
+
+### Workflow
+
+1. `EnterPlanMode` — write a structured plan to the plan file
+2. `ExitPlanMode` — present the plan for user approval
+3. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
+4. Implement the plan
+5. After completion, move the plan to `plans/archive/`
 
 ## Context Monitoring
 

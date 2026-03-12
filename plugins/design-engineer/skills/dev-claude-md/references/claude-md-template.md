@@ -151,7 +151,7 @@ PHASE 1: RESEARCH & ANALYSIS
 4. Process responses, make informed decisions
 
 PHASE 2: PLANNING (WAIT FOR APPROVAL)
-5. Create detailed implementation plan
+5. Enter Plan Mode -> Write structured plan -> ExitPlanMode for approval
 6. Wait for user approval -> Do NOT proceed without it
 
 PHASE 3: IMPLEMENTATION (Only After Approval)
@@ -197,6 +197,7 @@ How should I proceed?"
 7. **Maintain pixel-perfect implementation** from designs
 8. **Update development status** when features are complete
 9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
+10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning — write structured plans to the plan file, never as plain text. After approval, save to `plans/` in the project. After completion, move to `plans/archive/`.
 ```
 
 ---
