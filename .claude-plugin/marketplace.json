@@ -11,8 +11,8 @@
   "plugins": [
     {
       "name": "design-engineer",
-      "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 8 commands, and 49 skills.",
-      "version": "1.3.0",
+      "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 9 commands, and 50 skills.",
+      "version": "1.4.0",
       "author": {
         "name": "Volodymyr Merlenko",
         "url": "https://github.com/volomydyr"

@@ -261,7 +261,33 @@ dependencies:
 
 ---
 
-## Step 6: Initialize Dependency Tracking
+## Step 6: Status Line
+
+Ask whether the user wants to install the design-engineer status line:
+
+```
+question: "Would you like to install the design-engineer status line?"
+header: "Status Line"
+options:
+  - label: "Yes (Recommended)"
+    description: "Shows model, usage limits, context bar, and pipeline progress below every prompt"
+  - label: "No"
+    description: "Skip – install later with /de:statusline install"
+```
+
+If "Yes":
+1. Check if a status line is already configured in `~/.claude/settings.json`
+2. If one exists, inform the user: "A status line is already configured: [current value]. Installing will replace it. The previous script file will not be deleted."
+3. Create directories: `mkdir -p ~/.claude/hooks ~/.claude/cache`
+4. Copy the script: `cp ${CLAUDE_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js`
+5. Read `~/.claude/settings.json`, set `statusLine` to `{"type": "command", "command": "node \"{home}/.claude/hooks/de-statusline.js\""}` (replace `{home}` with the actual home directory path), write back with 2-space indentation
+6. Confirm: "Status line installed. It will appear on the next prompt."
+
+If "No": Skip and proceed to the next step.
+
+---
+
+## Step 7: Initialize Dependency Tracking
 
 Copy the default dependency graph from [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
 
@@ -274,7 +300,7 @@ When any deliverable is created or updated, the plugin automatically checks this
 
 ---
 
-## Step 7: Confirm Setup
+## Step 8: Confirm Setup
 
 Display a summary of everything configured:
 
@@ -289,12 +315,14 @@ Deliverables:     {deliverables_path}
 MCPs detected:    {list}
 Config saved:     .design-engineer.yaml
 Dependencies:     {deliverables_path}/.dependencies.yaml
+Status line:      {installed | skipped}
 
 Next steps:
 - Run /design to start the full product design pipeline
 - Run /research to conduct targeted research
 - Run /psych to audit designs with psychology principles
 - Run /review to review existing designs or code
+- Run /de:statusline to manage the status line later
 
 Tip: Re-run /setup anytime to reconfigure.
      Edit .design-engineer.yaml directly for manual adjustments.

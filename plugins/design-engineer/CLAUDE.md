@@ -26,11 +26,12 @@ plugins/design-engineer/
 ├── hooks/
 │   ├── hooks.json
 │   ├── check_deliverable_deps.py
-│   └── session_dep_summary.py
+│   ├── session_dep_summary.py
+│   └── de-statusline.js
 ├── agents/                         # 9 specialized agents
 ├── commands/
-│   └── de/                         # 8 commands (de: namespace)
-└── skills/                         # 49 hidden skills
+│   └── de/                         # 9 commands (de: namespace)
+└── skills/                         # 50 hidden skills
 ```
 
 ## Skill Compliance Checklist
@@ -81,6 +82,7 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 - `/de:dev` - Development pipeline
 - `/de:review` - Multi-layer design review
 - `/de:compound` - Knowledge documentation
+- `/de:statusline` - Status line management
 
 ## Living Documents
 

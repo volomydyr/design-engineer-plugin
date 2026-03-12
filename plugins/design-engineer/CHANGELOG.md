@@ -4,6 +4,22 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.4.0] – 2026-03-12
+
+### Added
+
+- New `de-statusline.js` hook — status line showing model, usage limits (5h/7d with reset times), context bar, and pipeline progress
+- New `meta-statusline` skill — manages status line installation, uninstallation, and status checking
+- New `/de:statusline` command with install | uninstall | status subcommands
+- Status line question added to `/de:setup` flow (new Step 6)
+- Bridge file compatibility with GSD context monitor (`/tmp/claude-ctx-{session}.json`)
+- Background API fetch for Anthropic usage data with 60s cache
+
+### Changed
+
+- `meta-setup` now includes status line installation option (Steps 6-8 renumbered from 5-7)
+- Skill count 49 → 50, command count 8 → 9
+
 ## [1.3.0] – 2026-03-11
 
 ### Added

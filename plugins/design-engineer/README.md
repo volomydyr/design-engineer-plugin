@@ -23,7 +23,7 @@ claude plugin install design-engineer
 
 ## Commands
 
-You interact with 8 top-level commands. Behind each one, the full engine of 49 skills and 9 agents runs silently.
+You interact with 9 top-level commands. Behind each one, the full engine of 50 skills and 9 agents runs silently.
 
 | Command | What It Does |
 |---------|-------------|
@@ -35,6 +35,7 @@ You interact with 8 top-level commands. Behind each one, the full engine of 49 s
 | `/de:dev` | Development pipeline. CLAUDE.md generation, agent pipeline setup, context management, kick-start prompts, GitHub workflow, MCP configuration. |
 | `/de:review` | Multi-layer design review. Visual review, accessibility audit, psychology scan, product assessment, design system compliance, ethics review. |
 | `/de:compound` | Knowledge documentation. Documents decisions, learnings, and project state for cross-session continuity. |
+| `/de:statusline` | Status line management. Install, uninstall, or check the status line showing model, usage limits, context bar, and pipeline progress. |
 
 ### Modes
 
@@ -47,13 +48,14 @@ Most commands support two modes:
 
 All skills are hidden from auto-discovery (`disable-model-invocation: true`). Power users can invoke any skill directly.
 
-### Meta (3)
+### Meta (4)
 
 | Skill | What It Does |
 |-------|-------------|
 | `meta-setup` | Interactive environment setup and project scaffolding |
 | `meta-orchestrator` | Central controller for the design pipeline |
 | `meta-compound` | Knowledge documentation and context engineering |
+| `meta-statusline` | Status line installation and management |
 
 ### UX Research (10)
 

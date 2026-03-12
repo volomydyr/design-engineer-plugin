@@ -2,6 +2,14 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.4.0] – 2026-03-12
+
+### Added
+
+- New `de-statusline.js` hook — status line with model, usage limits, context bar, and pipeline progress
+- New `meta-statusline` skill and `/de:statusline` command
+- Status line installation integrated into `/de:setup`
+
 ## [1.3.0] – 2026-03-11
 
 ### Added
