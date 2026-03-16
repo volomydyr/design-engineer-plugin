@@ -2,6 +2,7 @@
 name: dev-claude-md
 description: Generates and maintains a comprehensive CLAUDE.md file for any project. Use when setting up a new project, when the project has evolved significantly, or when switching tech stacks.
 disable-model-invocation: true
+model: sonnet
 ---
 
 # CLAUDE.md Generation and Maintenance

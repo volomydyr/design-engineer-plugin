@@ -2,6 +2,7 @@
 name: ux-target-audience
 description: Develops detailed user personas with demographics, motivations, pain points, and behavioral patterns. Use when defining or refining who your product is for, after the problem statement is established.
 disable-model-invocation: true
+model: opus
 ---
 
 # Target Audience

@@ -2,6 +2,7 @@
 name: meta-statusline
 description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /de:statusline."
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Design-Engineer Status Line

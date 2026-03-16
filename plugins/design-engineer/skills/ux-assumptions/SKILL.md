@@ -2,6 +2,7 @@
 name: ux-assumptions
 description: Creates a living assumptions document categorizing beliefs about users, product, and business by risk level. Plans validation approaches. Use when identifying assumptions, tracking validation status, or planning research priorities.
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Assumptions and Hypotheses

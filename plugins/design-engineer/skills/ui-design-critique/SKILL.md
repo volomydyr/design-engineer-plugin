@@ -2,6 +2,7 @@
 name: ui-design-critique
 description: Critiques implemented UI for craft quality using a 4-lens framework and 4 named tests. Use after building to identify where defaults replaced intentional design decisions and close the gap between correct and crafted.
 disable-model-invocation: true
+model: opus
 ---
 
 # Design Critique

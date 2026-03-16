@@ -2,6 +2,7 @@
 name: ux-communicating-decisions
 description: Helps communicate and justify product decisions to stakeholders using B.I.A.S. principles. Use when preparing for design reviews, presenting findings, or responding to stakeholder feedback.
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Communicating Decisions

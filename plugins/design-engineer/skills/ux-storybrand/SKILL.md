@@ -2,6 +2,7 @@
 name: ux-storybrand
 description: Creates a StoryBrand framework document for clear product messaging where the user is the hero and the product is the guide. Use when crafting landing pages, marketing copy, or UX writing that emotionally connects with users.
 disable-model-invocation: true
+model: opus
 ---
 
 # StoryBrand Framework

@@ -2,6 +2,7 @@
 name: ux-psych-framework
 description: "Applies the Psych Framework to evaluate Net Perceived Value across each step of a user experience. Tracks the user's \"Psych Level\" health bar of motivation vs. friction. Use when performing screen-level analysis of user experience quality."
 disable-model-invocation: true
+model: opus
 ---
 
 # ux-psych-framework Skill

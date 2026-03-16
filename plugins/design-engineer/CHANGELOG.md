@@ -4,6 +4,20 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.8.0] – 2026-03-16
+
+### Added
+
+- Explicit model configuration for all 9 agents and 50 skills
+- Model Configuration section in CLAUDE.md with assignment principles
+- Model guidance in agent templates for user project customization
+
+### Changed
+
+- 6 agents set to `model: opus`, 3 to `model: sonnet` (was: all `inherit`)
+- 36 skills set to `model: opus`, 14 to `model: sonnet` (was: no model field)
+- Skill Compliance Checklist updated to require `model:` field
+
 ## [1.7.0] – 2026-03-12
 
 ### Added

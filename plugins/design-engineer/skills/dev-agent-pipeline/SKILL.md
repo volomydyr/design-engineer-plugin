@@ -2,6 +2,7 @@
 name: dev-agent-pipeline
 description: Sets up a specialized agent pipeline for AI-assisted development with context analysis, planning, implementation, and auditing phases. Use when configuring agent-driven development workflows for a new project.
 disable-model-invocation: true
+model: opus
 ---
 
 # Agent Pipeline Setup

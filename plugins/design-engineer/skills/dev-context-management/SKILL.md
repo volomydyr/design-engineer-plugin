@@ -2,6 +2,7 @@
 name: dev-context-management
 description: Teaches and implements context management for long-running development projects. Use when context loss becomes a problem or when setting up status tracking for AI-assisted workflows.
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Context Management

@@ -2,6 +2,7 @@
 name: meta-setup
 description: "Runs interactive one-time plugin setup. Detects environment, asks configuration questions, scaffolds deliverable folders, and initializes dependency tracking. Use when starting a new project or configuring the design-engineer plugin for the first time."
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Design-Engineer Plugin Setup

@@ -2,6 +2,8 @@
 
 Adapt this template to your project by replacing bracketed placeholders with your actual tech stack, file paths, and UI patterns.
 
+> **Recommended model:** `opus` — this agent requires precise design interpretation and complex UI implementation.
+
 ---
 
 ```markdown

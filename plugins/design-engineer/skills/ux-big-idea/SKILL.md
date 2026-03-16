@@ -2,6 +2,7 @@
 name: ux-big-idea
 description: Guides defining and refining a product idea into a structured Big Idea document. Use when starting a new product or when an existing idea needs evaluation for viability, risks, and clarity before design work.
 disable-model-invocation: true
+model: opus
 ---
 
 # Big Idea

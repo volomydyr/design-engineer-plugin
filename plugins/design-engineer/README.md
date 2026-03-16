@@ -44,7 +44,7 @@ Most commands support two modes:
 - **God mode** – runs the full pipeline autonomously with minimal user input
 - **Guided mode** – interactive, asks questions at every stage, pauses for approval
 
-## Skills (49)
+## Skills (50)
 
 All skills are hidden from auto-discovery (`disable-model-invocation: true`). Power users can invoke any skill directly.
 
@@ -128,7 +128,7 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `dev-github-workflow` | GitHub workflow for designers |
 | `dev-prototyping` | Single-file HTML prototype generation from planning docs, existing designs, or just an idea |
 
-## Agents (8)
+## Agents (9)
 
 | Agent | Role |
 |-------|------|
@@ -165,6 +165,15 @@ The plugin includes three hooks:
 - **PreToolUse** (`de-tdd-hook.js`) – enforces test-first development by blocking source code writes (Write/Edit/MultiEdit) when no test scripts exist in `tests/` during active implementation. Fail-open design.
 - **PostToolUse** (`check_deliverable_deps.py`) – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
 - **Stop** (`session_dep_summary.py`) – summarizes which deliverables were updated in this session and which dependents may be stale
+
+## Model Configuration
+
+Every agent and skill specifies an explicit model in its frontmatter:
+
+- **Opus** (42 components) — psychology analysis, UX research, implementation, design review, orchestration
+- **Sonnet** (17 components) — context reading, template generation, setup wizards, documentation
+
+See `CLAUDE.md` for assignment principles when adding new components.
 
 ## Requirements
 

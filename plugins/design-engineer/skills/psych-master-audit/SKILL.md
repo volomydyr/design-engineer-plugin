@@ -2,6 +2,7 @@
 name: psych-master-audit
 description: "Runs a broad psychology audit across 100+ UX principles. Scans designs for opportunities and violations, then routes to section-specific deep dives. Use when reviewing a design holistically for psychology compliance."
 disable-model-invocation: true
+model: opus
 ---
 
 # Psychology Master Audit

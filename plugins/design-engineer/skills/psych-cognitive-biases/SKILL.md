@@ -2,6 +2,7 @@
 name: psych-cognitive-biases
 description: "Explores cognitive biases and self-perception psychology principles (Laws 81-90) for UX design. Covers thinking errors that affect both users and designers. Use when auditing interfaces for knowledge gaps, planning fallacies, or survey and research validity."
 disable-model-invocation: true
+model: opus
 ---
 
 # Cognitive Biases and Self-Perception (Laws 81-90)

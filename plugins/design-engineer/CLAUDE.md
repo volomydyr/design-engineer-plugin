@@ -45,6 +45,7 @@ When adding or modifying skills:
 - [ ] `name:` present and matches directory name
 - [ ] `description:` present, describes what it does AND when to use it
 - [ ] `disable-model-invocation: true` present on ALL skills
+- [ ] `model:` present — `opus` (default) or `sonnet` (mechanical tasks only)
 
 ### Content Rules (Non-Negotiable)
 
@@ -71,6 +72,35 @@ When adding or modifying skills:
 - [ ] CHANGELOG.md updated
 - [ ] README.md component counts verified
 - [ ] All JSON files valid (`python3 -m json.tool`)
+
+## Model Configuration
+
+Every agent and skill MUST have an explicit `model:` field in its frontmatter.
+
+### Assignment Principles
+
+- **`model: opus`** — default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation
+- **`model: sonnet`** — for mechanical tasks: file reading, template generation, setup wizards, documentation formatting
+- **No `model: inherit`** — plugin should be explicit about quality expectations
+- **No `model: haiku`** — not used in this plugin
+
+### Skill Frontmatter
+
+Skills include `model:` after `disable-model-invocation`:
+
+```yaml
+---
+name: skill-name
+description: "..."
+disable-model-invocation: true
+model: opus
+---
+```
+
+### When Adding New Agents/Skills
+
+- Default to `model: opus` unless the task is clearly mechanical
+- Document the rationale if choosing `sonnet` for a new component
 
 ## Command Naming Convention
 

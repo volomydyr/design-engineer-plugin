@@ -2,6 +2,8 @@
 
 Adapt this template to your project by replacing bracketed placeholders with your actual tech stack, file paths, and project structure.
 
+> **Recommended model:** `sonnet` — this agent performs file reading and context summarization, which doesn't require deep reasoning.
+
 ---
 
 ```markdown

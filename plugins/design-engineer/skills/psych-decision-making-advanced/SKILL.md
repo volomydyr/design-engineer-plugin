@@ -2,6 +2,7 @@
 name: psych-decision-making-advanced
 description: "Explores advanced decision-making psychology principles (Laws 26-30) for UX design. Covers persuasion, scarcity, social proof, and the boundary between ethical influence and manipulation. Use when auditing pricing pages, urgency tactics, or social proof elements."
 disable-model-invocation: true
+model: opus
 ---
 
 # Decision-Making: Advanced Patterns (Laws 26-30)

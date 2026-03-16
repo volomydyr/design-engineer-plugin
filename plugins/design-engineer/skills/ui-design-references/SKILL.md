@@ -2,6 +2,7 @@
 name: ui-design-references
 description: Guides design intent exploration and reference gathering before opening any design tool. Use when starting high-fidelity UI work, establishing visual direction, or when the product needs intentional design decisions rather than defaults.
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Design References and Intent

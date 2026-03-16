@@ -2,6 +2,7 @@
 name: ux-6p-stories
 description: "Guides creation of 6P Stories – comic-style product stories with 6 panels that build customer empathy. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
+model: opus
 ---
 
 # ux-6p-stories Skill

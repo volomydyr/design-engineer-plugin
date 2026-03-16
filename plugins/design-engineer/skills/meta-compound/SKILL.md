@@ -2,6 +2,7 @@
 name: meta-compound
 description: "Documents knowledge and engineers context for design projects. Stores project status, maintains living context files, and tracks cross-deliverable dependencies. Use when completing a major phase or when context needs to be preserved across sessions."
 disable-model-invocation: true
+model: sonnet
 ---
 
 # meta-compound Skill

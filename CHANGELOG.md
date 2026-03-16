@@ -2,6 +2,12 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.8.0] – 2026-03-16
+
+### Added
+
+- Explicit model configuration across all agents and skills (42 Opus, 17 Sonnet)
+
 ## [1.7.0] – 2026-03-12
 
 ### Added

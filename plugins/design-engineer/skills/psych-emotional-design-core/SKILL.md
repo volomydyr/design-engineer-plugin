@@ -2,6 +2,7 @@
 name: psych-emotional-design-core
 description: "Explores foundational emotional design psychology principles (Laws 41-45) for UX design. Covers how peak moments, micro-delighters, and perceived effort shape user memory and value. Use when auditing emotional touchpoints, celebration moments, loading states, or personalization flows."
 disable-model-invocation: true
+model: opus
 ---
 
 # Emotional Design: Foundations (Laws 41-45)

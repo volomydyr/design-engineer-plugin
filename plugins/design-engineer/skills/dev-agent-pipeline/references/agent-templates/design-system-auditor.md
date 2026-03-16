@@ -2,6 +2,8 @@
 
 Adapt this template to your project by replacing bracketed placeholders with your actual tech stack, design system structure, and quality standards.
 
+> **Recommended model:** `opus` — this agent needs deep understanding of design patterns to catch subtle violations.
+
 ---
 
 ```markdown

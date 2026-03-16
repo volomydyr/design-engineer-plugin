@@ -2,6 +2,7 @@
 name: dev-kickstart-prompts
 description: Generates kick-start prompts for beginning development in any IDE. Use when transitioning from planning to coding or when starting a new project and needing structured initial prompts.
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Kick-Start Prompt Generation

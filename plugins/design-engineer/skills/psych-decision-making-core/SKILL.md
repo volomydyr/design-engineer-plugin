@@ -2,6 +2,7 @@
 name: psych-decision-making-core
 description: "Explores core decision-making psychology principles (Laws 21-25) for UX design. Covers loss aversion, decision fatigue, anchoring, and defaults. Use when auditing interfaces where users must choose between options, such as pricing, forms, or filter systems."
 disable-model-invocation: true
+model: opus
 ---
 
 # Psychology of Decision-Making: Core Principles (Laws 21-25)
