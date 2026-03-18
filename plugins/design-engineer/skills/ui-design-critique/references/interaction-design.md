@@ -108,6 +108,31 @@ Arrow keys move `tabindex="0"` between items. Tab moves to the next component en
 
 Provide skip links (`<a href="#main-content">Skip to main content</a>`) for keyboard users to jump past navigation. Hide off-screen, show on focus.
 
+## Minimum Hit Area
+
+Interactive elements need at least **40×40px** hit area (WCAG recommends 44×44px). If the visible element is smaller (e.g., a 20×20 icon button), extend the hit area with a pseudo-element without changing the visual size.
+
+```css
+/* Small icon button with expanded hit area */
+.icon-button {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+}
+```
+
+**Collision rule**: If two interactive elements are adjacent, their extended hit areas must not overlap. Shrink the pseudo-element until there's no collision — but keep it as large as possible.
+
 ## Gesture Discoverability
 
 Swipe-to-delete and similar gestures are invisible. Hint at their existence:

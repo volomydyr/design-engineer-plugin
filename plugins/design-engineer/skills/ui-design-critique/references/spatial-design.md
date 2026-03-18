@@ -69,27 +69,104 @@ Viewport queries are for page layouts. **Container queries are for components**:
 
 **Why this matters**: A card in a narrow sidebar stays compact, while the same card in a main content area expands—automatically, without viewport hacks.
 
-## Optical Adjustments
+## Concentric Border Radius
 
-Text at `margin-left: 0` looks indented due to letterform whitespace—use negative margin (`-0.05em`) to optically align. Geometrically centered icons often look off-center; play icons need to shift right, arrows shift toward their direction.
+When nesting rounded elements, the outer radius must equal the inner radius plus the padding between them:
 
-### Touch Targets vs Visual Size
+```
+outerRadius = innerRadius + padding
+```
 
-Buttons can look small but need large touch targets (44px minimum). Use padding or pseudo-elements:
+Mismatched radii on nested elements is one of the most common things that makes interfaces feel off.
 
 ```css
-.icon-button {
-  width: 24px;  /* Visual size */
-  height: 24px;
-  position: relative;
-}
+/* Good — concentric radii */
+.card { border-radius: 20px; padding: 8px; }   /* 12 + 8 = 20 */
+.card-inner { border-radius: 12px; }
 
-.icon-button::before {
-  content: '';
-  position: absolute;
-  inset: -10px;  /* Expand tap target to 44px */
+/* Bad — same radius on both, corners don't align */
+.card { border-radius: 12px; padding: 8px; }
+.card-inner { border-radius: 12px; }
+```
+
+**Exception**: If padding is larger than 24px, treat the layers as separate surfaces and choose each radius independently — strict concentric math at large padding distances isn't noticeable.
+
+## Optical Adjustments
+
+Geometric centering often looks wrong. Align optically when geometry conflicts with perception.
+
+**Text alignment**: Text at `margin-left: 0` looks indented due to letterform whitespace — use a small negative margin (`-0.05em`) to optically align.
+
+**Buttons with icons**: Use slightly less padding on the icon side. A reliable rule: `icon-side padding = text-side padding - 2px`.
+
+```css
+/* Good — optical balance */
+.button-with-icon {
+  padding-left: 16px;
+  padding-right: 14px;  /* icon side = text side - 2px */
 }
 ```
+
+**Play triangles**: Play icons are triangular — their geometric center is not their visual center. Shift slightly right with `margin-left: 2px`.
+
+**Asymmetric icons** (stars, arrows, carets): Fix in the SVG directly by adjusting the viewBox or path so no layout adjustment is needed in component code.
+
+## Shadows as Borders
+
+For cards, buttons, and containers, prefer a layered `box-shadow` over a solid border. Shadows use transparency and adapt to any background color; solid borders don't.
+
+**Do not apply to dividers** (`border-b`, `border-t`, separators) — those stay as borders. Only apply to elements where the border creates depth or elevation.
+
+```css
+:root {
+  /* Light mode — three layers: ring, subtle lift, ambient depth */
+  --shadow-border:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --shadow-border-hover:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.08),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.08),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode — single white ring; depth shadows aren't visible on dark */
+[data-theme="dark"] {
+  --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-border-hover: 0 0 0 1px rgba(255, 255, 255, 0.13);
+}
+```
+
+```css
+.card {
+  box-shadow: var(--shadow-border);
+  transition-property: box-shadow;
+  transition-duration: 150ms;
+}
+.card:hover {
+  box-shadow: var(--shadow-border-hover);
+}
+```
+
+## Image Outlines
+
+Add a subtle 1px outline with low opacity to images. This creates consistent depth and integrates images with bordered or shadowed elements around them.
+
+```css
+/* Light mode */
+img {
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -1px;  /* inset — doesn't affect layout */
+}
+
+/* Dark mode */
+img {
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: -1px;
+}
+```
+
+Use `outline` rather than `border` — it doesn't affect layout and `outline-offset: -1px` keeps the image at its intended dimensions.
 
 ## Depth & Elevation
 
@@ -97,4 +174,4 @@ Create semantic z-index scales (dropdown → sticky → modal-backdrop → modal
 
 ---
 
-**Avoid**: Arbitrary spacing values outside your scale. Making all spacing equal (variety creates hierarchy). Creating hierarchy through size alone—combine size, weight, color, and space.
+**Avoid**: Arbitrary spacing values outside your scale. Making all spacing equal (variety creates hierarchy). Creating hierarchy through size alone—combine size, weight, color, and space. Same border radius on parent and child (use concentric math).

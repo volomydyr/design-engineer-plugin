@@ -42,6 +42,82 @@ Timing matters more than easing. These durations feel right for most UI:
 
 **transform** and **opacity** only—everything else causes layout recalculation. For height animations (accordions), use `grid-template-rows: 0fr → 1fr` instead of animating `height` directly.
 
+## Interruptible Animations
+
+Users change intent mid-interaction. Use **CSS transitions** for interactive state changes — they retarget smoothly mid-animation. Reserve **keyframe animations** for one-shot sequences that run to completion.
+
+| | CSS Transitions | Keyframe Animations |
+|--|-----------------|---------------------|
+| **Interruptible** | Yes — retargets mid-animation | No — restarts from beginning |
+| **Use for** | Hover, toggle, open/close | Enter animations, loading |
+| **Duration** | Adapts to remaining distance | Fixed regardless of state |
+
+```css
+/* Good — interruptible transition */
+.drawer {
+  transform: translateX(-100%);
+  transition: transform 200ms ease-out;
+}
+.drawer.open { transform: translateX(0); }
+/* Clicking again mid-animation smoothly reverses */
+
+/* Bad — keyframe for interactive element */
+.drawer.open { animation: slideIn 200ms ease-out forwards; }
+/* Closing mid-animation snaps or restarts */
+```
+
+## Contextual Icon Animations
+
+When icons appear or disappear contextually (on hover, on state change), animate with `opacity`, `scale`, and `blur` rather than toggling visibility. Always use exactly these values — do not deviate:
+
+- `scale`: `0.25` → `1` (never `0.5` or `0.6`)
+- `opacity`: `0` → `1`
+- `filter`: `blur(4px)` → `blur(0px)`
+- Spring: `duration: 0.3, bounce: 0` — **bounce must always be `0`**
+
+```css
+/* CSS cross-fade approach (no library dependency) */
+/* Keep both icons in DOM — one absolutely positioned */
+.icon-enter {
+  position: absolute;
+  scale: 0.25;
+  opacity: 0;
+  filter: blur(4px);
+  transition: scale 300ms, opacity 300ms, filter 300ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+.icon-enter.active {
+  scale: 1;
+  opacity: 1;
+  filter: blur(0px);
+}
+```
+
+When to animate icons: state-change icons (play→pause), icons appearing on hover, contextual toolbar icons. Skip: static navigation icons, always-visible decorative icons.
+
+## Scale on Press
+
+A subtle scale-down on click gives buttons tactile feedback. **Always use `scale(0.96)`.** Never go below `0.95` — anything smaller feels exaggerated. Use a CSS transition so mid-press release animates smoothly back.
+
+```css
+.button {
+  transition-property: scale;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.button:active { scale: 0.96; }
+```
+
+Not every button needs this. Add a `static` variant that disables the scale when motion would be distracting (e.g., submit buttons in modals).
+
+## Skip Animation on Page Load
+
+Use `initial={false}` on `AnimatePresence` to prevent enter animations from firing on first render. Elements already in their default state shouldn't animate in on page load — only on subsequent state changes.
+
+Works well for: icon swaps, toggles, tabs, segmented controls.
+
+**Do not use** when the component relies on its `initial` prop for a first-time entrance (staggered page heroes, loading states) — `initial={false}` would skip the entire entrance.
+
 ## Staggered Animations
 
 Use CSS custom properties for cleaner stagger: `animation-delay: calc(var(--i, 0) * 50ms)` with `style="--i: 0"` on each item. **Cap total stagger time**—10 items at 50ms = 500ms total. For many items, reduce per-item delay or cap staggered count.
@@ -92,8 +168,37 @@ This is not optional. Vestibular disorders affect ~35% of adults over 40.
 
 ## Performance
 
-Don't use `will-change` preemptively—only when animation is imminent (`:hover`, `.animating`). For scroll-triggered animations, use Intersection Observer instead of scroll events; unobserve after animating once. Create motion tokens for consistency (durations, easings, common transitions).
+### Transition Specificity
+
+**Never use `transition: all`** — it forces the browser to watch every property for changes, causes unexpected transitions, and prevents optimizations. Always specify exact properties.
+
+```css
+/* Good */
+.button { transition-property: scale, background-color; transition-duration: 150ms; }
+
+/* Bad */
+.button { transition: all 150ms ease-out; }
+```
+
+In Tailwind: `transition-[scale,background-color]` not `transition` (which maps to `all`). Note: `transition-transform` covers `transform, translate, scale, rotate` — use it when only animating transforms.
+
+### `will-change`
+
+Hints the browser to pre-promote an element to its own GPU compositing layer, preventing first-frame stutter. Only useful for `transform`, `opacity`, and `filter` — properties the GPU can composite. Never `will-change: all`.
+
+```css
+/* Good */
+.animated-card { will-change: transform; }
+
+/* Bad */
+.animated-card { will-change: all; }
+.animated-card { will-change: background-color; } /* Can't GPU-composite */
+```
+
+Only add when you notice first-frame stutter (Safari benefits most). Don't add preemptively — each compositing layer costs memory.
+
+For scroll-triggered animations, use Intersection Observer instead of scroll events; unobserve after animating once. Create motion tokens for consistency (durations, easings, common transitions).
 
 ---
 
-**Avoid**: Animating everything (animation fatigue is real). Using >500ms for UI feedback. Ignoring `prefers-reduced-motion`. Using animation to hide slow loading.
+**Avoid**: Animating everything (animation fatigue is real). Using >500ms for UI feedback. Ignoring `prefers-reduced-motion`. Using animation to hide slow loading. Using `transition: all`. Adding `will-change` preemptively.

@@ -113,6 +113,51 @@ code { font-variant-ligatures: none; }
 body { font-kerning: normal; }
 ```
 
+## Rendering Polish
+
+### Text Wrapping
+
+Use `text-wrap: balance` on headings to distribute text evenly across lines, preventing orphans. The algorithm is computationally expensive — browsers limit it to **6 lines or fewer** (Chromium) and 10 lines or fewer (Firefox). Never apply to long paragraphs.
+
+Use `text-wrap: pretty` for body copy — it optimizes the last line to avoid orphans without the 6-line constraint.
+
+```css
+h1, h2, h3 { text-wrap: balance; }  /* even line lengths, headings only */
+p           { text-wrap: pretty; }   /* prevents orphans, safe on long text */
+```
+
+| Scenario | Use |
+|----------|-----|
+| Headings, titles, short text (≤6 lines) | `text-wrap: balance` |
+| Body paragraphs, descriptions | `text-wrap: pretty` |
+| Code blocks, pre-formatted text | Neither |
+
+### Font Smoothing
+
+On macOS, text renders heavier than intended by default. Apply antialiased smoothing once at the root — all text will render crisper and thinner. Other platforms ignore these properties, so applying universally is safe.
+
+```css
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+```
+
+Apply at the root once. **Never per-element** — inconsistent smoothing across heading and body text is worse than no smoothing.
+
+### Tabular Numbers: When to Use
+
+`font-variant-numeric: tabular-nums` makes all digits equal width, preventing layout shift when values update dynamically.
+
+| Use tabular-nums | Skip it |
+|------------------|---------|
+| Counters, timers, prices that update | Static display numbers |
+| Table columns with numbers | Decorative large numbers |
+| Animated number transitions | Phone numbers, zip codes |
+| Scoreboards, dashboards | Version strings (v2.1.0) |
+
+**Caveat**: Some fonts (including Inter) change the visual appearance of `1` with this property — it becomes wider and centered. This is expected and usually desirable for alignment, but verify in your specific typeface.
+
 ## Typography System Architecture
 
 Name tokens semantically (`--text-body`, `--text-heading`), not by value (`--font-size-16`). Include font stacks, size scale, weights, line-heights, and letter-spacing in your token system.

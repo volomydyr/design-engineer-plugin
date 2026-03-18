@@ -2,6 +2,12 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.9.1] – 2026-03-18
+
+### Changed
+
+- Enriched 4 design reference files with concrete implementation techniques: text wrapping, font smoothing, concentric border radius, optical alignment, shadows as borders, image outlines, interruptible animations, contextual icon animations, scale on press, transition specificity
+
 ## [1.9.0] – 2026-03-18
 
 ### Added

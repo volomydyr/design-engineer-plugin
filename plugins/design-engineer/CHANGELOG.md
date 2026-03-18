@@ -4,6 +4,15 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.9.1] – 2026-03-18
+
+### Changed
+
+- typography.md: added text wrapping (balance/pretty), font smoothing, tabular-nums when-to-use guide
+- spatial-design.md: added concentric border radius, expanded optical alignment, shadows as borders, image outlines
+- motion-design.md: added interruptible animations, contextual icon animations (exact values), scale on press, skip-animation-on-load, expanded performance section
+- interaction-design.md: added minimum hit area with pseudo-element pattern and collision rule
+
 ## [1.9.0] – 2026-03-18
 
 ### Added
