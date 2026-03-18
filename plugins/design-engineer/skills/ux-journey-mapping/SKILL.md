@@ -13,7 +13,7 @@ A good customer journey map will help you:
 
 1. Distill customer experiences to their top 5-8 moments.
 2. Support and complement 6P Stories (see `ux-6p-stories`).
-3. Systemize the Psych Lead and lessons of your experience (see `ux-psych-framework`).
+3. Systemize the Psych Lead and lessons of your experience (see `ux-psych-levels`).
 
 Unfortunately, many people believe they need incredibly detailed customer journey maps. But a customer journey map that is too exhaustive is:
 
@@ -252,6 +252,6 @@ This skill enforces User > Docs > AI at every step:
 
 After the journey map is complete, suggest:
 
-1. `ux-bias-framework` – Apply the B.I.A.S. Framework to audit specific moments
+1. `ux-bias-audit` – Apply the B.I.A.S. Framework to audit specific moments
 2. `ux-ethics-review` – Ensure improvements are ethical and humane (optional but recommended)
 3. `ux-communicating-decisions` – Prepare to present journey findings to stakeholders

@@ -6,7 +6,7 @@ Schema for the project state file that tracks progress through the design pipeli
 
 When you work on something complex with AI, there is a problem you will run into sooner or later – it forgets things. Every conversation has a token limit, and when you hit it, earlier parts of the chat get compressed or lost. This means the AI might forget about deliverables already created, decisions already made, and approaches that did not work before.
 
-The project state file solves this by keeping a persistent record that AI reads at the start of every task. It does not need to be maintained manually – the orchestrator and meta-compound handle updates automatically. However, users may need to nudge AI to update it from time to time, especially after big phases.
+The project state file solves this by keeping a persistent record that AI reads at the start of every task. It does not need to be maintained manually – the orchestrator and meta-document handle updates automatically. However, users may need to nudge AI to update it from time to time, especially after big phases.
 
 This file is separate from CLAUDE.md (separation of concerns). It is better to use smaller, dedicated files for tracking progress instead of keeping everything in one large rules file, because otherwise the AI may ignore certain parts due to context limits.
 
@@ -134,15 +134,6 @@ For each skill that has been executed, record its individual status:
 ```markdown
 ## Skill History
 
-### ux-big-idea
-- **Status**: [Completed / In progress / Skipped / Failed]
-- **Started**: [Timestamp]
-- **Completed**: [Timestamp or "–"]
-- **Deliverable**: [File path relative to design-docs/]
-- **Iterations**: [Number of revision cycles in Guided mode]
-- **Key decisions**: [Brief list of significant decisions made during this skill]
-- **Notes**: [Any relevant context for future reference]
-
 ### ux-problem-statement
 - **Status**: [Completed / In progress / Skipped / Failed]
 ...
@@ -180,7 +171,7 @@ Significant decisions made during the pipeline, in chronological order. Each ent
 ```markdown
 ## Learnings
 
-Insights, patterns, and lessons recorded during the pipeline. Updated after each meta-compound run.
+Insights, patterns, and lessons recorded during the pipeline. Updated after each meta-document run.
 
 ### What Worked
 - [Description of approach that worked well]
@@ -222,7 +213,7 @@ The orchestrator updates the project state file according to these rules:
 
 1. **After every skill completes**: Update that skill's entry in the Skill History section. Update the Phase Status if this was the last skill in a phase.
 
-2. **After every meta-compound run**: Update the Learnings section. Update the Context for Next Session section. Update the Phase Status for the completed phase.
+2. **After every meta-document run**: Update the Learnings section. Update the Context for Next Session section. Update the Phase Status for the completed phase.
 
 3. **When the user makes a significant decision**: Add an entry to the Decisions Log. If the decision changes the pipeline plan (e.g., skipping a phase), update the Phase Status accordingly.
 
@@ -268,10 +259,9 @@ Below is an example of what the project state file looks like after Phase 1 is c
 - **Status**: Completed
 - **Started**: 2026-03-08T10:00:00Z
 - **Completed**: 2026-03-08T18:30:00Z
-- **Skills completed**: ux-big-idea, ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis
+- **Skills completed**: ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis
 - **Skills skipped**: ux-user-interviews (user chose to skip – no access to target users yet)
 - **Deliverables produced**:
-  - Big Idea document – deliverables/phase-1-discovery/big-idea.md
   - Problem Statement – deliverables/phase-1-discovery/problem-statement.md
   - Target Audience – deliverables/phase-1-discovery/target-audience.md
   - Assumptions – deliverables/phase-1-discovery/assumptions.md
@@ -293,11 +283,11 @@ Below is an example of what the project state file looks like after Phase 1 is c
 
 ## Skill History
 
-### ux-big-idea
+### ux-problem-statement
 - **Status**: Completed
 - **Started**: 2026-03-08T10:00:00Z
 - **Completed**: 2026-03-08T11:15:00Z
-- **Deliverable**: deliverables/phase-1-discovery/big-idea.md
+- **Deliverable**: deliverables/phase-1-discovery/problem-statement.md
 - **Iterations**: 3
 - **Key decisions**: Focused on medical records interpretation rather than general health tracking
 - **Notes**: User had a clear vision from the start, refinement was mostly about scope

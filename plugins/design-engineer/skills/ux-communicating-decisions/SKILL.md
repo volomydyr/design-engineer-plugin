@@ -125,6 +125,6 @@ Would you like to:
 
 ## Cross-References
 
-- **ux-bias-framework**: B.I.A.S. vocabulary and principles used in communication
+- **ux-bias-audit**: B.I.A.S. vocabulary and principles used in communication
 - **ux-ethics-review**: Ethics arguments strengthen decision justification
 - **ux-product-assessment**: Assessment findings provide evidence for decisions

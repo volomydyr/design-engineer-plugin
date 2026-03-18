@@ -1,6 +1,6 @@
 ---
 name: meta-setup
-description: "Runs interactive one-time plugin setup. Detects environment, asks configuration questions, scaffolds deliverable folders, and initializes dependency tracking. Use when starting a new project or configuring the design-engineer plugin for the first time."
+description: "Smart entry point for the design-engineer plugin. Detects project state and routes to the right flow: new projects get full setup, returning projects resume where they left off, existing projects get a capability guide. Use as the first command for any project."
 disable-model-invocation: true
 model: sonnet
 ---
@@ -15,24 +15,79 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 1: Check Existing Configuration
+## Step 1: Detect Project State
 
-Look for `.design-engineer.yaml` in the project root. If it exists, display the current settings summary and ask:
+Check for `.design-engineer.yaml` in the project root.
+
+### Path A: Returning Project (config file exists)
+
+Read `.design-engineer.yaml`. Check if it contains a `resume:` section (written by the session hook when a previous session ended with work in progress).
+
+**If resume state exists**, show the current state:
 
 ```
-question: "A configuration file already exists. What would you like to do?"
-header: "Existing Config Detected"
+Welcome back. Here's where you are:
+
+Phase:           {phase_name}
+Last completed:  {last_completed_skill}
+Next:            {next_skill}
+Deliverables:    {count} created, {stale_count} may need review
+```
+
+Then ask:
+
+```
+question: "How would you like to proceed?"
+header: "Resume"
 options:
+  - label: "Continue where I left off"
+    description: "Resume with {next_skill} in the same mode"
+  - label: "Jump to a different phase"
+    description: "Choose which phase or skill to work on"
+  - label: "Browse all capabilities"
+    description: "See everything this plugin can do"
   - label: "Reconfigure"
-    description: "Run the interactive setup again from scratch"
-  - label: "View current"
-    description: "Show the current configuration, then stop"
-  - label: "Cancel"
-    description: "Keep current settings"
+    description: "Re-run the setup from scratch"
 ```
 
-If "View current": read and display the file, then stop.
-If "Cancel": stop.
+If "Continue" or "Jump": hand off to `meta-orchestrator` with the appropriate context.
+If "Browse": proceed to **Step 6: Capability Guide** below.
+If "Reconfigure": proceed to Step 2.
+
+**If no resume state** (config exists but no active pipeline), show the saved config summary and ask:
+
+```
+question: "What would you like to do?"
+header: "Existing Config"
+options:
+  - label: "Start the design pipeline"
+    description: "Run /de:design to begin or continue the full workflow"
+  - label: "Browse all capabilities"
+    description: "See everything this plugin can do"
+  - label: "Reconfigure"
+    description: "Re-run the setup from scratch"
+```
+
+If "Start": suggest running `/de:design`.
+If "Browse": proceed to **Step 6: Capability Guide**.
+If "Reconfigure": proceed to Step 2.
+
+### Path B: New to Plugin (no config file)
+
+Ask:
+
+```
+question: "Welcome to Design Engineer. What brings you here?"
+header: "Project Type"
+options:
+  - label: "New product idea"
+    description: "Starting from scratch — I have an idea or a problem I want to solve"
+  - label: "Existing project"
+    description: "I already have a product, codebase, or designs — I want to improve, review, or add features"
+```
+
+If "New product idea": proceed to **Step 2: Environment Detection** (full setup flow).
+If "Existing project": proceed to **Step 6: Capability Guide** first, then minimal setup.
 
 ---
 
@@ -57,7 +112,7 @@ Tools:          AskUserQuestion, WebSearch, Agent
 Project:        Git initialized, no existing deliverables
 ```
 
-Explain briefly what each detected (or missing) MCP does, following this guidance:
+Explain briefly what each detected (or missing) MCP does:
 
 - **Context7 plugin**: Gives AI access to up-to-date technical documentation so it does not rely on outdated training data.
 - **Figma plugin**: Provides design data from Figma Dev Mode — not screenshots, but structured design information adapted to the project's tech stack. Supports bidirectional workflows (design→code and code→design import).
@@ -70,43 +125,23 @@ Do not recommend installing everything. Explain that Context7 and the Figma plug
 
 ## Step 3: Ask Configuration Questions
 
-Ask the following 5-7 questions sequentially. Each answer shapes the plugin configuration.
+Ask the following questions sequentially. Each answer shapes the plugin configuration.
 
-### Question 1: Project State
-
-```
-question: "What is the current state of your project?"
-header: "Project State"
-options:
-  - label: "Starting from scratch"
-    description: "New idea, no design or development work done yet"
-  - label: "Partially done (pre-development)"
-    description: "Some design deliverables exist (problem statement, research, etc.) but development has not started"
-  - label: "Partially done (in development)"
-    description: "Design is mostly complete and development has already begun"
-  - label: "Existing product"
-    description: "A live or near-complete product that needs review, audit, or iteration"
-```
-
-This determines skip logic: the orchestrator will know which skills to suggest and which deliverables may already exist. For "Starting from scratch" – the full pipeline applies. For other states, the orchestrator proactively detects existing deliverables and asks which to skip.
-
-### Question 2: Mode Preference
+### Question 1: Mode Preference
 
 ```
 question: "How do you prefer to work with AI?"
 header: "Interaction Mode"
 options:
   - label: "Guided mode (Recommended)"
-    description: "Step-by-step with questions, suggestions from multiple perspectives, and approval at every stage"
+    description: "Step-by-step with questions, AI shares thoughts based on project context, and approval at every stage"
   - label: "God mode"
     description: "Fully autonomous – provide context and let AI run the entire pipeline end-to-end with minimal input"
   - label: "Both / decide later"
     description: "Choose the mode each time you run a command"
 ```
 
-Guided mode: AI shares brief suggestions from multiple perspectives first, asks 7-10 questions using AskUserQuestion, then iterates back-and-forth until the user approves the deliverable. God mode: AI runs the full pipeline autonomously with minimal user input, pausing only at major checkpoints.
-
-### Question 3: Team Size
+### Question 2: Team Size
 
 ```
 question: "Who will be working on this project?"
@@ -120,9 +155,9 @@ options:
     description: "Multiple people with distinct roles"
 ```
 
-This affects context management strategy. Solo projects can use simpler status tracking. Team projects need more structured handoff documentation and compound steps.
+This affects context management strategy. Solo projects can use simpler status tracking. Team projects need more structured handoff documentation.
 
-### Question 4: Design Tool Integration
+### Question 3: Design Tool Integration
 
 ```
 question: "How do you work with design tools?"
@@ -138,7 +173,7 @@ options:
     description: "Will decide later or skip design tooling"
 ```
 
-### Question 5: Deliverables Path
+### Question 4: Deliverables Path
 
 ```
 question: "Where should design deliverables be saved?"
@@ -152,9 +187,9 @@ options:
 
 If "Custom path" is selected, ask a follow-up question for the exact path. Default is `docs/design/` inside the project root.
 
-### Question 6: Development Environment (conditional)
+### Question 5: Development Environment (conditional)
 
-Only ask this if the project state is "Starting from scratch" or "Partially done (pre-development)":
+Only ask this for new product setups:
 
 ```
 question: "What development environment do you plan to use?"
@@ -170,29 +205,11 @@ options:
     description: "Different IDE or undecided"
 ```
 
-### Question 7: Previous Experience (conditional)
-
-Only ask this if the project state is "Starting from scratch":
-
-```
-question: "What is your experience level with AI-assisted development?"
-header: "Experience"
-options:
-  - label: "New to AI development"
-    description: "First time using AI tools for building products – enable extra teaching and explanations"
-  - label: "Some experience"
-    description: "Have used AI tools before but not extensively"
-  - label: "Experienced"
-    description: "Comfortable with AI-assisted workflows – skip basic explanations"
-```
-
-This controls inline teaching depth. New users get more educational context woven into each skill. Experienced users get streamlined output.
-
 ---
 
 ## Step 4: Scaffold Project Structure
 
-Run `scripts/init-project-structure.sh` with the deliverables path from Question 5.
+Run `scripts/init-project-structure.sh` with the deliverables path from Question 4.
 
 This creates the standardized folder structure. See [setup-checklist.md](./references/setup-checklist.md) for the full configuration reference.
 
@@ -217,33 +234,23 @@ The script creates:
 
 The `.dependencies.yaml` file is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
 
-**Subdirectory purposes:**
-
-- **foundation/**: Big Idea, Problem Statement, Target Audience, Assumptions, StoryBrand, Business Plan
-- **research/**: Competitor Analysis, User Interview findings, market research
-- **design/**: MVP Requirements, Information Architecture, design references, Figma workflow notes, journey maps, B.I.A.S. audits
-- **psych/**: Psychology audit results, section-by-section principle applications
-- **dev/**: CLAUDE.md draft, kickstart prompts, agent configurations, MCP notes, GitHub workflow
-- **solutions/**: Compound documentation – solved problems, project status, learnings, context files for long-term projects
-
 ---
 
-## Step 5: Write Configuration File
+## Step 5: Write Configuration and Finalize
 
 Generate `.design-engineer.yaml` in the project root with all collected answers:
 
 ```yaml
 # Design-Engineer Plugin Configuration
-# Generated by /setup on {current_date}
+# Generated by /de:setup on {current_date}
 
 project:
-  state: "{answer_from_q1}"
-  mode: "{answer_from_q2}"
-  team_size: "{answer_from_q3}"
-  design_tool: "{answer_from_q4}"
-  deliverables_path: "{answer_from_q5}"
-  dev_environment: "{answer_from_q6_or_null}"
-  experience_level: "{answer_from_q7_or_null}"
+  type: "new"
+  mode: "{answer_mode}"
+  team_size: "{answer_team}"
+  design_tool: "{answer_design_tool}"
+  deliverables_path: "{answer_deliverables_path}"
+  dev_environment: "{answer_dev_env_or_null}"
 
 environment:
   plugins:
@@ -263,11 +270,7 @@ dependencies:
   auto_suggest: true
 ```
 
----
-
-## Step 6: Status Line
-
-Ask whether the user wants to install the design-engineer status line:
+Ask about the status line:
 
 ```
 question: "Would you like to install the design-engineer status line?"
@@ -276,7 +279,7 @@ options:
   - label: "Yes (Recommended)"
     description: "Shows model, usage limits, context bar, and pipeline progress below every prompt"
   - label: "No"
-    description: "Skip – install later with /de:statusline install"
+    description: "Skip – re-run /de:setup later to install"
 ```
 
 If "Yes":
@@ -287,50 +290,160 @@ If "Yes":
 5. Read `~/.claude/settings.json`, set `statusLine` to `{"type": "command", "command": "node \"{home}/.claude/hooks/de-statusline.js\""}` (replace `{home}` with the actual home directory path), write back with 2-space indentation
 6. Confirm: "Status line installed. It will appear on the next prompt."
 
-If "No": Skip and proceed to the next step.
-
----
-
-## Step 7: Initialize Dependency Tracking
-
-Copy the default dependency graph from [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
-
-This file maps every deliverable the plugin produces and tracks:
-- Which deliverables depend on which other deliverables
-- Current status of each deliverable (not_started, in_progress, complete)
-- Last updated timestamp
-
-When any deliverable is created or updated, the plugin automatically checks this dependency graph and suggests reviewing affected downstream documents. This is critical because deliverables are living documents that get updated regularly – and users often forget that changes to one document affect others.
-
----
-
-## Step 8: Confirm Setup
+Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
 
 Display a summary of everything configured:
 
 ```
 Setup Complete
 ──────────────
-Project state:    {state}
+Project type:     New product
 Mode:             {mode}
 Team:             {team_size}
 Design tool:      {design_tool}
 Deliverables:     {deliverables_path}
-MCPs detected:    {list}
+Plugins detected: {list}
 Config saved:     .design-engineer.yaml
-Dependencies:     {deliverables_path}/.dependencies.yaml
 Status line:      {installed | skipped}
 
-Next steps:
-- Run /design to start the full product design pipeline
-- Run /research to conduct targeted research
-- Run /psych to audit designs with psychology principles
-- Run /review to review existing designs or code
-- Run /de:statusline to manage the status line later
+Next step: Run /de:design to start the full product design pipeline.
 
-Tip: Re-run /setup anytime to reconfigure.
-     Edit .design-engineer.yaml directly for manual adjustments.
+Tip: Re-run /de:setup anytime to reconfigure or browse capabilities.
 ```
+
+---
+
+## Step 6: Capability Guide
+
+This step is reached when:
+- A returning user chooses "Browse all capabilities" (Path A)
+- An existing project user arrives (Path B, existing)
+
+### 6a: Show All Capabilities
+
+Present everything the plugin can do in plain language:
+
+```
+Here's everything this plugin can help you with:
+
+RESEARCH & DISCOVERY
+• Define and analyze your core problem
+• Build behavioral user personas
+• Map and test your assumptions
+• Research your competition
+• Prepare and analyze user interviews
+
+STRATEGY & POSITIONING
+• Map what drives user behavior (BMap framework)
+• Build your product narrative (StoryBrand)
+• Create user empathy stories (6P Comics)
+• Plan your business model and revenue
+
+PLANNING
+• Define MVP scope and feature priorities
+• Design information architecture and user flows
+
+DESIGN & VALIDATION
+• Audit designs for cognitive biases (B.I.A.S. framework)
+• Map customer journey highs and lows
+• Review ethics and dark patterns
+• Collect and organize design references
+• Generate clickable HTML prototypes
+• Design key screens with Figma workflow
+• Analyze UX psychology per screen (Psych Levels)
+• Run a full product assessment
+
+DEVELOPMENT
+• Generate project CLAUDE.md rules
+• Set up AI agent development pipeline
+• Build features with TDD (test-first + agents)
+• Manage context across sessions
+• Set up GitHub workflow
+• Configure MCP plugins
+
+REVIEW & AUDIT
+• Design craft quality critique
+• Implementation fidelity check
+• Accessibility audit (WCAG)
+• Psychology scan (100 laws)
+• Design system compliance audit
+• Prepare findings for stakeholders
+```
+
+### 6b: Diagnostic Questions (existing projects only)
+
+For existing projects (not returning users who just want to browse), ask diagnostic questions to help filter relevant capabilities:
+
+```
+question: "What kind of project is this?"
+header: "Project Type"
+options:
+  - label: "App (mobile or web)"
+    description: "A software application with UI"
+  - label: "Website"
+    description: "A website or landing page"
+  - label: "Design system"
+    description: "A component library or design system"
+  - label: "Something else"
+    description: "Tell me more about your project"
+```
+
+```
+question: "What do you currently have?"
+header: "Current State"
+options:
+  - label: "Code + designs"
+    description: "Both a codebase and Figma/design files exist"
+  - label: "Code only"
+    description: "A working codebase but no formal designs"
+  - label: "Designs only"
+    description: "Figma files or design specs but no code"
+  - label: "Documentation only"
+    description: "Research, specs, or planning docs but no code or designs"
+```
+
+```
+question: "What do you want to do right now?"
+header: "Goal"
+options:
+  - label: "Improve UX / redesign"
+    description: "Make the existing experience better"
+  - label: "Add new features"
+    description: "Build something new into the existing product"
+  - label: "Audit / review"
+    description: "Check quality, accessibility, psychology, or design system compliance"
+  - label: "Set up dev workflow"
+    description: "Configure AI-assisted development for this project"
+```
+
+### 6c: Filtered Recommendations
+
+Based on the diagnostic answers, present a filtered list of the most relevant capabilities with the commands to invoke them:
+
+```
+Based on your answers, the most relevant capabilities for you right now are:
+
+[Filtered list with brief explanations and commands]
+
+For example:
+• Psychology audit of your existing screens → /de:review psych
+• Design craft review → /de:review figma
+• Prototype a new feature → /de:prototype feature
+• Full development pipeline for a feature → /de:dev pipeline
+
+These are recommendations — you can use any capability at any time.
+Come back to /de:setup anytime to see this list again.
+```
+
+### 6d: Minimal Config for Existing Projects
+
+If the user arrived via Path B (existing project, first time with plugin):
+
+1. Run environment detection (Step 2)
+2. Ask only essential config: deliverables path and design tool integration
+3. Write `.design-engineer.yaml` with `project.type: "existing"`
+4. Scaffold folders (Step 4)
+5. Do NOT ask about mode preference, team size, or dev environment — these are relevant for the full pipeline, not ad-hoc usage
 
 ---
 

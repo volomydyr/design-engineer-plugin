@@ -1,10 +1,10 @@
 ---
-name: de:compound
-description: Document decisions, learnings, and project state for cross-session continuity.
-argument-hint: "[status]"
+name: de:document
+description: Document decisions, learnings, project state, and stakeholder communication for cross-session continuity.
+argument-hint: "[status | stakeholder]"
 ---
 
-# Compound Documentation
+# Project Documentation
 
 ## Context
 
@@ -16,11 +16,13 @@ Documents decisions, learnings, and project state. Ensures context survives acro
 
 ### Step 1: Load Compound Skill
 
-Load the `meta-compound` skill. It handles the documentation process.
+Load the `meta-document` skill. It handles the documentation process.
 
 ### Step 2: Determine Action
 
 If arguments contain "status", show current project status and recent changes.
+
+If arguments contain "stakeholder", jump directly to option 6 below.
 
 Otherwise, use AskUserQuestion to ask:
 
@@ -31,6 +33,7 @@ Otherwise, use AskUserQuestion to ask:
 3. **Learning** – Document something that worked well or poorly
 4. **Project status** – View and update overall project state
 5. **Context refresh** – Regenerate the living context file from all deliverables
+6. **Prepare stakeholder communication** – Frame decisions, trade-offs, and rationale for non-design audiences
 
 If AskUserQuestion is not available, present options as a numbered list.
 
@@ -43,6 +46,7 @@ Based on selection:
 3. **Learning** – Ask what was learned, categorize (design, development, process), store for future reference
 4. **Project status** – Read the current status file, display progress across all phases, highlight what is next
 5. **Context refresh** – Read all existing deliverables, regenerate the living context file, verify dependency graph is current
+6. **Stakeholder communication** – Load `ux-communicating-decisions` to help frame design decisions, trade-offs, and recommendations for stakeholders (PMs, engineers, executives)
 
 ### Step 4: Verify
 

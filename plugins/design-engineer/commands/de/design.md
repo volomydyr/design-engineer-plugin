@@ -14,7 +14,7 @@ The primary command for product creation. Handles the entire design pipeline fro
 
 ## Prerequisites
 
-Verify that `/de:setup` has been run by checking for `design-engineer.local.md` in the project root. If not found, instruct the user to run `/de:setup` first.
+Verify that `/de:setup` has been run by checking for `.design-engineer.yaml` in the project root. If not found, instruct the user to run `/de:setup` first.
 
 ## Mode Selection
 
@@ -46,14 +46,13 @@ Load the `meta-orchestrator` skill. It manages the pipeline sequence, phase tran
 
 Skills executed in sequence:
 
-1. Load `ux-big-idea` – idea validation and refinement
-2. Load `ux-problem-statement` – structured problem definition
-3. Load `ux-target-audience` – persona development
-4. Load `ux-assumptions` – assumption tracking
-5. Load `ux-competitor-analysis` – competitive landscape analysis
-6. Load `ux-user-interviews` – interview design and analysis *(optional – ask user)*
+1. Load `ux-problem-statement` – structured problem definition
+2. Load `ux-target-audience` – persona development
+3. Load `ux-assumptions` – assumption tracking
+4. Load `ux-competitor-analysis` – competitive landscape analysis
+5. Load `ux-user-interviews` – interview design and analysis *(optional – ask user)*
 
-After Phase 1, run `meta-compound` to document progress.
+After Phase 1, run `meta-document` to document progress.
 
 In Guided mode, pause and ask: "Phase 1 (Discovery) complete. Ready to proceed to Phase 2 (Strategy)?"
 
@@ -61,13 +60,12 @@ In Guided mode, pause and ask: "Phase 1 (Discovery) complete. Ready to proceed t
 
 Skills executed in sequence:
 
-1. Load `ux-storybrand` – messaging framework
-2. Load `ux-business-plan` – revenue model and market sizing
+1. Load `ux-behavior-mapping` – behavior analysis (Motivation × Ability × Prompt)
+2. Load `ux-storybrand` – messaging framework
 3. Load `ux-6p-stories` – product narrative stories
-4. Load `ux-behavior-mapping` – behavior analysis *(optional)*
-5. Load `ux-psych-framework` – psychology framework *(optional)*
+4. Load `ux-business-plan` – revenue model and market sizing
 
-After Phase 2, run `meta-compound` to document progress.
+After Phase 2, run `meta-document` to document progress.
 
 ### Phase 3: Planning
 
@@ -76,21 +74,22 @@ Skills executed in sequence:
 1. Load `ux-mvp-requirements` – MVP prioritization
 2. Load `ux-information-architecture` – IA design
 
-After Phase 3, run `meta-compound` to document progress.
+After Phase 3, run `meta-document` to document progress.
 
 ### Phase 4: Design & Validation
 
 Skills executed in sequence:
 
-1. Load `ux-bias-framework` – B.I.A.S. audit
+1. Load `ux-bias-audit` – B.I.A.S. audit
 2. Load `ux-journey-mapping` – journey mapping
 3. Load `ux-ethics-review` – ethical review *(optional)*
 4. Load `ui-design-references` – reference gathering
-5. Load `ui-figma-workflow` – Figma workflow
-6. Load `dev-prototyping` – prototyping and testing
-7. Load `ux-product-assessment` – product assessment *(optional)*
+5. Load `dev-prototyping` – prototyping and testing
+6. Load `ui-figma-workflow` – Figma workflow
+7. Load `ux-psych-levels` – screen-level psychology analysis (Psych Levels)
+8. Load `ux-product-assessment` – product assessment *(optional)*
 
-After Phase 4, run `meta-compound` to document progress.
+After Phase 4, run `meta-document` to document progress.
 
 ### Transition Checkpoint
 
@@ -100,7 +99,7 @@ Before proceeding to development:
 
 1. **Proceed to development** – Run `/de:dev` to set up the development pipeline
 2. **Review deliverables** – Run `/de:review` to audit everything created
-3. **Run psychology audit** – Run `/de:psych` for a deep psychology review
+3. **Run psychology audit** – Run `/de:review psych` for a deep psychology review
 4. **Document and stop** – Save progress and end the session
 
 ## Agents Used

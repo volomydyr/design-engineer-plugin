@@ -43,31 +43,19 @@ If the user has existing business documents or competitive analysis, ask them to
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, share how the business could be viewed from multiple angles:
-
-- **Revenue perspective**: Common business models in this space and which might fit
-- **Market perspective**: How large the addressable audience might be
-- **Cost perspective**: What it will take to build, maintain, and grow this product
-- **Competitive pricing perspective**: What users in this space typically pay
-
-Keep each to 2-3 sentences. Be honest – flag what is speculation versus data-driven.
+Before asking questions, share your brief initial thoughts about the business plan based on what you know about the project so far. Keep it to 2-3 sentences per thought. Be honest -- flag what is speculation versus data-driven.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 questions covering business model, market, and finances:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project. Make sure your questions cover these key concepts:
 
-1. **Revenue model**: How do you imagine making money? Subscription, freemium, one-time purchase, marketplace, advertising?
-2. **Pricing intuition**: Based on your competitive research, what price range feels right? What do similar products charge?
-3. **Free vs. paid boundary**: If offering a free tier, what would be free and what would be paid? How do you nudge users toward upgrading?
-4. **Market size**: How many potential users exist for your product? How did you estimate this?
-5. **Growth channels**: How will you get your first 100 users? First 1,000? What channels will you use (PESO: Paid, Earned, Shared, Owned)?
-6. **Cost structure**: What are your main costs? Development, hosting, AI APIs, marketing, your own time?
-7. **Break-even**: How many paying users do you need to cover your costs?
-8. **LTV:CAC awareness**: Do you have a sense of how much a user is worth over their lifetime vs. how much it costs to acquire them?
-9. **Biggest financial risk**: What would make this product financially unviable?
-10. **Timeline**: When do you expect to reach your first paying customer?
+- 5 business model types: freemium, subscription, e-commerce, advertising, marketplace
+- Market research: TAM/SAM/SOM estimation
+- PESO framework (Paid, Earned, Shared, Owned) for go-to-market
+- Financial planning: revenue forecasting, cost structure
+- AI verification discipline: "the main goal of every AI assistant is to answer you even when it doesn't know"
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 

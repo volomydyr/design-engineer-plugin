@@ -44,14 +44,14 @@ Runs the full pipeline end-to-end with minimal user input. Skills execute sequen
 
 A **user approval checkpoint** separates these two stages. Even in God mode, pause at this checkpoint and wait for explicit user approval before proceeding to development.
 
-After each phase, automatically invoke `meta-compound` to save progress, document learnings, and maintain context continuity.
+After each phase, automatically invoke `meta-document` to save progress, document learnings, and maintain context continuity.
 
 ### 2. Guided Mode (Interactive)
 
 Step-by-step execution with user input at every stage. For each skill in the sequence:
 
-1. Present brief suggestions from multiple perspectives before asking questions
-2. Ask 7-10 strategic questions using the AskUserQuestion tool
+1. Share brief initial thoughts about that step's deliverable based on project knowledge
+2. Ask 7-10 context-based strategic questions using the AskUserQuestion tool
 3. Iterate back and forth until the user is satisfied with the deliverable
 4. Pause for user review before finalizing
 5. Suggest the next logical skill and ask whether to proceed
@@ -119,8 +119,8 @@ If the AskUserQuestion tool is unavailable, present these as a numbered list and
 Before asking the project state question, check if `docs/design/.dependencies.yaml` exists. If it does, read it and present a compact progress summary:
 
 ```
-Phase 1 (Discovery): [N]/6 complete → Next: [skill_name]
-Phase 2 (Strategy): [N]/5 complete
+Phase 1 (Discovery): [N]/5 complete → Next: [skill_name]
+Phase 2 (Strategy): [N]/4 complete
 Phase 3 (Planning): [N]/2 complete
 Phase 4 (Design): [N]/7 complete
 Phase 5 (Development): [N]/8 complete
@@ -162,27 +162,27 @@ If the user selected "Resume":
 Refer to [pipeline-sequence.md](./references/pipeline-sequence.md) for the complete skill sequence. The high-level flow is:
 
 ### Phase 1: Discovery and Foundation
-Skills: `ux-big-idea`, `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-competitor-analysis`, `ux-user-interviews` (optional)
-Then run: `meta-compound`
+Skills: `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-competitor-analysis`, `ux-user-interviews` (optional)
+Then run: `meta-document`
 
 ### Phase 2: Strategy and Positioning
-Skills: `ux-storybrand`, `ux-business-plan`, `ux-6p-stories`, `ux-behavior-mapping` (optional), `ux-psych-framework` (optional)
-Then run: `meta-compound`
+Skills: `ux-behavior-mapping`, `ux-storybrand`, `ux-6p-stories`, `ux-business-plan`
+Then run: `meta-document`
 
 ### Phase 3: Product Planning
 Skills: `ux-mvp-requirements`, `ux-information-architecture`
-Then run: `meta-compound`
+Then run: `meta-document`
 
 ### Phase 4: Design and Validation
-Skills: `ux-bias-framework`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-product-assessment` (optional)
-Then run: `meta-compound`
+Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-psych-levels`, `ux-product-assessment` (optional)
+Then run: `meta-document`
 
 ### User Approval Checkpoint
 After Phase 4, present a summary of all pre-development work and wait for explicit user approval before proceeding to Phase 5.
 
 ### Phase 5: Development
 Skills: `dev-claude-md`, `dev-kickstart-prompts`, `dev-agent-pipeline`, `dev-mcp-setup`, `dev-github-workflow`, `ui-design-system`
-Then enter the development loop and run: `meta-compound` (final documentation)
+Then enter the development loop and run: `meta-document` (final documentation)
 
 ## Skill Invocation Pattern
 
@@ -226,14 +226,14 @@ Each skill in the pipeline builds on the work of previous skills. To maintain co
 1. After each skill completes, ensure its deliverable is saved to the standardized location in `design-docs/`
 2. Before invoking the next skill, confirm that all required upstream deliverables exist
 3. If a deliverable is missing (e.g., user skipped a skill), note this gap and inform the next skill about what context is unavailable
-4. Invoke `meta-compound` at the end of every phase to consolidate learnings and update the project state
+4. Invoke `meta-document` at the end of every phase to consolidate learnings and update the project state
 
 ## Project State Management
 
 Maintain the project state file at `design-docs/project-state.md` following the schema in [project-state-schema.md](./references/project-state-schema.md). Update this file:
 
 - After every skill completes (update the skill's status and timestamp)
-- After every `meta-compound` run (update phase status and learnings)
+- After every `meta-document` run (update phase status and learnings)
 - When the user makes a significant decision that affects the pipeline
 
 The project state file is the source of truth for pipeline progress. Always read it at the start of a new session. This addresses the context degradation problem: when conversations hit token limits and earlier parts get compressed or lost, the state file preserves what has been completed, what decisions were made, and what approaches did not work.
@@ -261,13 +261,13 @@ The orchestrator relies on these agents during pipeline execution:
 
 - **ux-researcher** – handles research tasks during UX skills
 - **deliverable-writer** – produces structured deliverables from skill outputs
-- **compound-documenter** – manages documentation during meta-compound phases
+- **compound-documenter** – manages documentation during meta-document phases
 
 ## Completion
 
 When the full pipeline finishes (or when the user decides to stop):
 
-1. Run `meta-compound` one final time to document everything
+1. Run `meta-document` one final time to document everything
 2. Present a summary of all completed phases and deliverables
 3. List any skipped optional skills the user might want to return to later
 4. Confirm the project state file is up to date

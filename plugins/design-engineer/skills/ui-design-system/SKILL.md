@@ -207,7 +207,7 @@ This compounds: each save makes future work faster and more consistent. On subse
 
 ## What Comes Next
 
-After the design system is established, suggest running `ui-visual-review` to check implemented UI against design intent, or `dev-agent-pipeline` to implement features using the design system.
+After the design system is established, suggest running `ui-implementation-review` to check implemented UI against design intent, or `dev-agent-pipeline` to implement features using the design system.
 
 ---
 

@@ -191,6 +191,6 @@ Never invent customer research. If the user has no customer data, the 6P Story b
 
 ## Integration Notes
 
-- **Feeds into:** ux-behavior-mapping (the key moment from the 6P Story becomes the focus of the Behavior Map), ux-psych-framework (improvement opportunities become Psych analysis targets)
+- **Feeds into:** ux-behavior-mapping (the key moment from the 6P Story becomes the focus of the Behavior Map), ux-psych-levels (improvement opportunities become Psych analysis targets)
 - **Receives from:** Any prior customer research or problem statement work
 - **Standalone use:** Fully usable independently for any product at any stage

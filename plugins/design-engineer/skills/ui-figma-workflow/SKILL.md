@@ -120,7 +120,7 @@ After Figma designs are created, suggest the logical next step:
 
 - **If Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
 - **For development**: suggest `dev-agent-pipeline` to implement designs using the agent pipeline
-- **For review**: suggest `ui-visual-review` to review implemented results against the designs
+- **For review**: suggest `ui-implementation-review` to review implemented results against the designs
 
 ---
 

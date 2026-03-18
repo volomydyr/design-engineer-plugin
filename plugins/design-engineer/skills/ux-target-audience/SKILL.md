@@ -50,31 +50,20 @@ If the user has existing data, surveys, or persona drafts, ask them to share bef
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, briefly share how the target audience could be viewed from multiple angles:
+Before asking questions, share your brief initial thoughts about the target audience based on what you already know about the project. Draw on the user's context from Step 1, the problem statement (if available), and your understanding of the domain.
 
-- **Demographic perspective**: Who might these people be in terms of role, experience, and context
-- **Behavioral perspective**: How they likely approach the problem area today – their habits, tools, and decision patterns
-- **Motivational perspective**: What drives them – career growth, efficiency, recognition, financial gain
-- **Barrier perspective**: What prevents them from solving the problem today – lack of time, knowledge, motivation, or resources
-
-Keep this to 2-3 sentences per perspective. Be honest about what is speculation versus what is grounded in shared data.
+Be honest about what is speculation versus what is grounded in shared data. If you see patterns or potential segments worth exploring, mention them. The goal is to give the user starting material for their own thinking – not to follow a rigid template.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Use the BMap framework (Hope, Pain, Barrier) combined with practical product questions. Ask 7-10 questions, adapting based on the user's earlier answers:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
 
-1. **Hope (magic wand)**: If your target user had a magic wand and could instantly [achieve the value your product promises], how would it change their life?
-2. **Pain (last attempt)**: Tell me about the last time your target user tried to [do the action your product enables]. What happened? What stopped them from reaching their goal?
-3. **Barrier (biggest challenge)**: What is their biggest difficulty when it comes to [the problem your product solves]? Why is it so hard for them?
-4. **Daily context**: Describe a typical day for this person. When and where does the problem show up?
-5. **Decision making**: How do they currently decide what tools or approaches to use for this problem? Who or what influences them?
-6. **Existing tools**: What specific products, apps, or workarounds do they use today? What do they like and dislike about them?
-7. **Willingness to pay**: Have they paid money to solve this problem before? If yes, how much and for what?
-8. **Information sources**: Where do they go to learn about solutions like yours? What communities, platforms, or people do they trust?
-9. **Success definition**: In their own words, what would "success" look like after using your product?
-10. **Segmentation**: Are there meaningfully different groups within your target audience? If so, who is the primary group and who is secondary?
+- Proto-persona: best guess of who the user is
+- 4 categories: background, behaviors, pain points, goals
+- 3 empathy questions (Hope/Pain/Barrier): "If you had a magic wand...", "What is your biggest challenge...", "Last time you tried to solve this..."
+- 3 reasons ideas fail: users not motivated enough, product too complex, no trigger to act
 
 Ask questions in small batches (2-3 at a time). Wait for answers before continuing.
 

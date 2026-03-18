@@ -54,31 +54,17 @@ If the user has not done user research, strongly recommend completing `ux-target
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, briefly share how the StoryBrand narrative could work from multiple angles:
-
-- **Hero perspective**: Who the hero (user) is and what they desire
-- **Problem perspective**: What external, internal, and philosophical problems the hero faces
-- **Guide perspective**: How the product can serve as a trusted guide
-- **Outcome perspective**: What success and failure look like for the hero
-
-Keep each to 2-3 sentences. Ground these in the user's product context.
+Before asking questions, share your brief initial thoughts about the StoryBrand narrative based on what you know about the project so far. Keep it to 2-3 sentences per thought. Ground these in the user's product context.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Walk through each element of the StoryBrand framework with targeted questions. Ask 7-10 questions:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project. Make sure your questions cover these key concepts:
 
-1. **The Hero**: Who is the main character in your story? What do they want more than anything?
-2. **External Problem**: What tangible, visible problem do they face? What is the obstacle in their way?
-3. **Internal Problem**: How does this problem make them feel? What emotional struggle accompanies the external problem?
-4. **Philosophical Problem**: Why is it just plain wrong that this problem exists? What bigger principle is at stake?
-5. **The Guide**: How does your product demonstrate empathy (you understand their pain) and authority (you can actually help)?
-6. **The Plan**: What are the simple steps (3-4 maximum) that a user takes to engage with your product?
-7. **Call to Action**: What is the one thing you want the user to do right now? What is the secondary, softer CTA?
-8. **Success**: What does the hero's life look like after your product helps them? Paint the picture.
-9. **Failure**: What happens if the hero does nothing? What do they risk losing?
-10. **Transformation**: Who does the hero become? What identity shift happens?
+- The 7-element StoryBrand framework: hero, 3-layer problem (external, internal, philosophical), guide with empathy and authority, plan, call to action, success, failure
+- The user is the hero, the product is the guide
+- Application to marketing, social posts, email, ad campaigns, product branding, website copy, UX microcopy
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 

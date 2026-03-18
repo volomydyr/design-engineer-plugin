@@ -47,22 +47,27 @@ Load the corresponding skill:
 
 ### Development Pipeline Execution (Option 8)
 
-For running the full agent pipeline on a feature:
+**Critical: build one feature at a time.** Do not attempt to build the entire MVP in a single cycle. The context-analyzer reads all deliverables (MVP requirements, IA, designs) and produces a feature-by-feature build sequence. Each feature goes through the full pipeline cycle below. After each cycle, `compound-documenter` saves progress so the next session can pick up where you left off.
 
-1. Load `dev-claude-md` to verify CLAUDE.md is current
-2. Task `context-analyzer`(feature description) – analyzes project context
-3. Enter Plan Mode → write structured plan → `ExitPlanMode` → copy to `plans/`
-4. Task `test-writer`(plan) – writes failing test scripts to `tests/`
-5. Run test scripts – verify Red (all tests fail)
-6. Task `backend-implementer`(plan) – implements backend
-7. Run `/simplify` – review backend changes
-8. Task `frontend-implementer`(plan) – implements frontend
-9. Run `/simplify` – review frontend changes
-10. Run test scripts – verify Green (all tests pass)
-11. Run `/simplify` – final pass on all code changes
-12. Task `design-system-auditor`(implementation) – audits against design system
-13. Archive test scripts from `tests/` to `tests/archive/`
-14. Run `meta-compound` to document the development session
+**First run only:** Load `dev-claude-md` to verify CLAUDE.md is current.
+
+**Each feature cycle:**
+
+1. Task `context-analyzer`(feature description) – reads current project state, identifies what to build next
+2. Enter Plan Mode → write structured plan for THIS feature only → `ExitPlanMode` → copy to `plans/`
+3. Task `test-writer`(plan) – writes failing test scripts to `tests/`
+4. Run test scripts – verify Red (all tests fail)
+5. Task `backend-implementer`(plan) – implements backend
+6. Run `/simplify` – review backend changes
+7. Task `frontend-implementer`(plan) – implements frontend
+8. Run `/simplify` – review frontend changes
+9. Run test scripts – verify Green (all tests pass)
+10. Run `/simplify` – final pass on all code changes
+11. Task `design-system-auditor`(implementation) – audits against design system
+12. Archive test scripts from `tests/` to `tests/archive/`
+13. Run `meta-document` to document what was built, update project status, record what's next
+
+After each cycle, show progress and ask: "Feature complete. What would you like to build next?"
 
 ### Full Setup (Option 1)
 

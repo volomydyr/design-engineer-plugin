@@ -1,11 +1,11 @@
 ---
-name: meta-compound
+name: meta-document
 description: "Documents knowledge and engineers context for design projects. Stores project status, maintains living context files, and tracks cross-deliverable dependencies. Use when completing a major phase or when context needs to be preserved across sessions."
 disable-model-invocation: true
 model: sonnet
 ---
 
-# meta-compound Skill
+# meta-document Skill
 
 **Purpose:** Document solutions, store project status, and maintain living context files that enable long-term complex projects across sessions, chat compaction, and team handoffs. Adapted from compound-engineering's compound-docs pattern for design + development workflows.
 
@@ -32,7 +32,7 @@ This is not for pet projects that you start and abandon. This is for actual comp
 - User confirms a solution worked ("that fixed it", "looks good", "approved")
 - End of any complex multi-step task
 
-**OR manual:** `/de:compound` command
+**OR manual:** `/de:document` command
 
 **Document when:**
 
@@ -284,7 +284,7 @@ What's next?
 ## Integration Points
 
 **Invoked by:**
-- `/de:compound` command (manual invocation)
+- `/de:document` command (manual invocation)
 - `meta-orchestrator` after each major phase completion (auto-triggered in God mode)
 - Any skill can request compound documentation when significant decisions are made
 

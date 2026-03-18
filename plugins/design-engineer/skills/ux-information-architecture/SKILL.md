@@ -52,25 +52,20 @@ If the user has existing MVP requirements, Service UX Map, or wireframes, ask th
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, briefly share how the product structure could be organized from multiple angles:
-
-- **User journey perspective**: What screens or steps the user encounters from first touch to core value
-- **Navigation perspective**: How the main sections relate to each other
-- **Depth perspective**: How many levels deep the navigation goes
-- **Platform perspective**: How structure differs between mobile and desktop (if applicable)
-
-Keep each to 2-3 sentences. Ground these in the user's product context.
+Before asking questions, share your brief initial thoughts about the information architecture based on what you know about the project so far. Keep it to 2-3 sentences per thought. Ground these in the user's product context.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 questions to define the product's structural blueprint:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project. Make sure your questions cover these key concepts:
 
-1. **Core screens**: What are the most important screens or pages in your product? List everything you can think of.
-2. **Entry points**: How do users first encounter your product? (Landing page, app store, referral link, onboarding)
-3. **Primary flow**: What is the main path a user takes from opening the product to getting value?
-4. **Navigation model**: Use AskUserQuestion with previews to help the user choose:
+- House-building analogy: plan the structure first versus winging it room by room
+- 4 benefits of IA: keeps navigation in one place, reveals gaps, prepares for the UI phase, gives a checklist
+- 4-level depth limit (e.g., Onboarding / steps / questions / answer options)
+- Simplicity preferred
+
+When asking about navigation models, use AskUserQuestion with previews to help the user choose:
 
 ```
 question: "How do you envision the main navigation?"
@@ -134,12 +129,6 @@ options:
       Familiar pattern for web.
       Limited to ~6 items.
 ```
-5. **Content types**: What types of content does your product display? (Text, cards, lists, media, forms, dashboards)
-6. **Depth levels**: How many levels deep should the navigation go? (Top-level sections, sub-sections, detail views, modals)
-7. **User states**: What different states does a user go through? (First-time, returning, free tier, paid tier)
-8. **Settings and account**: What settings or account management features are needed?
-9. **Edge cases**: What happens when content is empty, loading fails, or limits are reached?
-10. **Platform priority**: Are you designing for mobile-first, desktop-first, or both equally?
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 

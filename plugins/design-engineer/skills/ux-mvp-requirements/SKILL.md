@@ -43,31 +43,18 @@ If the user has existing feature lists, information architecture, or user resear
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, share how the MVP scope could be viewed from multiple angles:
-
-- **User perspective**: What is the minimum set of features that delivers the core value promise
-- **Business perspective**: What features are needed to validate the business model
-- **Technical perspective**: What is realistic to build given the available resources and timeline
-- **Competitive perspective**: What is the minimum to be credibly different from existing solutions
-
-Keep each to 2-3 sentences. Be honest about trade-offs.
+Before asking questions, share your brief initial thoughts about the MVP scope based on what you know about the project so far. Keep it to 2-3 sentences per thought. Be honest about trade-offs.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 questions to define the MVP boundary:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project. Make sure your questions cover these key concepts:
 
-1. **Core value**: If your product could do only ONE thing, what would it be?
-2. **Feature inventory**: List every feature you have considered. Do not filter yet – just get them all out.
-3. **User journey**: What is the minimum path a user takes from first touch to experiencing value?
-4. **Deal breakers**: Which features, if missing, would make the product useless?
-5. **Nice-to-haves**: Which features would be great but the product still works without them?
-6. **Constraints**: What are your constraints? Time, budget, technical skills, team size?
-7. **Free vs. paid scope**: If you have a freemium model, what is in the free tier vs. paid tier for MVP?
-8. **Competitor baseline**: What do competitors offer at their most basic level?
-9. **Validation goal**: What specific hypothesis does the MVP need to validate?
-10. **Launch timeline**: When do you want to launch, and what is realistic?
+- ICE model: Impact 1-10, Confidence 1-10, Ease 1-10, multiply for priority score
+- Free vs. paid boundary definition
+- Parking lot for deferred features
+- "Beginner founders often think everything is important"
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 

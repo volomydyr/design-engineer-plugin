@@ -1,5 +1,5 @@
 ---
-name: ui-design-critique
+name: ui-craft-review
 description: Critiques implemented UI for craft quality using a 4-lens framework and 4 named tests. Use after building to identify where defaults replaced intentional design decisions and close the gap between correct and crafted.
 disable-model-invocation: true
 model: opus
@@ -13,7 +13,11 @@ There is a distance between correct and crafted. Correct means the layout holds,
 
 Your first output lives in correct. This skill pulls it toward crafted.
 
-This is not about finding bugs or catching design system violations – that is what `ui-visual-review` does. This skill asks a different question: "Would a design lead put their name on this?"
+This is not about finding bugs or catching design system violations – that is what `ui-implementation-review` does. This skill asks a different question: "Would a design lead put their name on this?"
+
+Good taste is trained, not innate. Develop it by surrounding yourself with great work, thinking deeply about why something feels right, and studying the best interfaces with curiosity — reverse-engineer animations, inspect spacing, understand hierarchy.
+
+"All those unseen details combine to produce something that's just stunning, like a thousand barely audible voices all singing in tune." — Paul Graham. Beauty is underutilized in software. Most teams stop at correct. Craft is leverage.
 
 ## Interaction Method
 
@@ -200,7 +204,7 @@ After rebuilding, run the 4 named tests again. The goal is for every test to pas
 
 ## What Comes Next
 
-After critique and rebuild, suggest running `ui-visual-review` to catch any remaining technical issues (hardcoded values, design system violations), or `ui-accessibility` to verify the refined design meets accessibility standards.
+After critique and rebuild, suggest running `ui-implementation-review` to catch any remaining technical issues (hardcoded values, design system violations), or `ui-accessibility` to verify the refined design meets accessibility standards.
 
 ---
 
@@ -211,7 +215,8 @@ After critique and rebuild, suggest running `ui-visual-review` to catch any rema
 - [typography.md](./references/typography.md) – Type systems, font pairing, modular scales, OpenType features
 - [color-and-contrast.md](./references/color-and-contrast.md) – OKLCH color, tinted neutrals, dark mode, WCAG contrast
 - [spatial-design.md](./references/spatial-design.md) – Spacing systems, grids, visual hierarchy, container queries
-- [motion-design.md](./references/motion-design.md) – Easing curves, duration rules, stagger patterns, reduced motion
+- [motion-design.md](./references/motion-design.md) – Animation decision framework, easing curves, duration rules, springs, stagger
+- [advanced-animations.md](./references/advanced-animations.md) – clip-path patterns, gesture/drag, WAAPI, debugging
 - [interaction-design.md](./references/interaction-design.md) – Interactive states, focus rings, forms, keyboard navigation
 - [responsive-design.md](./references/responsive-design.md) – Mobile-first, fluid design, input detection, safe areas
 - [ux-writing.md](./references/ux-writing.md) – Button labels, error messages, empty states, voice and tone

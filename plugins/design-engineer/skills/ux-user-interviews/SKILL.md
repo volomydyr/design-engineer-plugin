@@ -46,26 +46,16 @@ Before writing any questions, understand what the user needs to learn.
 **AI actions:**
 
 1. Read existing project context (problem statement, user persona, assumptions/hypotheses if available)
-2. Share brief suggestions on which research method fits best:
-   - **Survey** – best for early validation, quantitative patterns, large sample sizes (~100 respondents). Lower effort for both you and participants. Use closed questions primarily.
-   - **Unmoderated user test** – best for usability validation of prototypes. Gives both quantitative and qualitative data. Requires a prototype (wireframe or AI-generated).
-   - **Moderated interview** – best for deep qualitative insights, understanding motivations and mental models. Highest effort but richest data.
-3. Explain trade-offs from multiple perspectives (time, cost, data quality, sample size)
+2. Share your brief initial thoughts about which research method fits best based on what you already know about the project. Draw on the user's context, existing documents, and your understanding of the domain. Be honest about trade-offs – the goal is to give the user starting material for their own thinking, not to follow a rigid template.
 
-**Then ask 7-10 strategic questions using AskUserQuestion:**
+**Then ask 7-10 context-based strategic questions using AskUserQuestion.** Adapt your questions to what you already know about the project from the context read above and any existing documents. Make sure your questions cover these key concepts:
 
-<ask_user>
-I need to understand your research context before preparing the script. Please answer these questions (respond with the number and your answer for each):
-
-1. What specific assumptions or hypotheses are you trying to validate? (If you have a hypotheses document, reference it)
-2. Do you already have access to potential participants? If so, how many and through what channel?
-3. What research have you already done? (e.g., surveys, competitor analysis, informal conversations)
-4. Do you have a prototype or design that participants could interact with?
-5. What is your timeline for completing this research?
-6. Are you more comfortable with written surveys or live conversations?
-7. What does your product replace for users? What were they doing before? (the "Replacing X" question)
-8. Have you identified any gaps in your understanding of users that previous research did not cover?
-</ask_user>
+- Surveys: use closed questions, Google Forms, ~100 respondents, improve each round
+- Past-not-future rule: do not ask about the future, ask about the past
+- GEQ: 3 empathy questions (Hope, Pain, Barrier)
+- "Replacing X" technique: what were users doing before your product?
+- Dual-analysis: analyze yourself first, then AI independently, then combine
+- Contact collection at end of survey
 
 **Iterate** until the user confirms the chosen research method and scope.
 </step>

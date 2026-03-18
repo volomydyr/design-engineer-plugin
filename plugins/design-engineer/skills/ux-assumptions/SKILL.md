@@ -48,31 +48,20 @@ If the user has existing assumptions or research results, ask them to share befo
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, briefly analyze the user's product context from multiple assumption angles:
+Before asking questions, share your brief initial thoughts about the user's assumptions and hypotheses based on what you already know about the project. Draw on the user's context from Step 1, the problem statement, persona (if available), and your understanding of the domain.
 
-- **User assumptions**: What you believe about who the users are and what they need
-- **Product assumptions**: What you believe about how the product should work
-- **Business assumptions**: What you believe about how the product will make money and grow
-- **Technical assumptions**: What you believe about feasibility and implementation complexity
-
-For each angle, share 2-3 specific assumptions you can already infer from the user's problem statement and persona (if available). Be explicit that these are starting points for discussion, not conclusions.
+Be explicit that these are starting points for discussion, not conclusions. If you can already spot risky assumptions or contradictions in the existing context, mention them. The goal is to give the user starting material for their own thinking – not to follow a rigid template.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 questions to surface hidden assumptions. Use these as a starting framework:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
 
-1. **User identity**: Who are your early users? How confident are you that this is the right group?
-2. **Core problem**: What specific problems do they have? Have you verified this with real people?
-3. **Solution fit**: How do you believe these problems can be solved? What makes you think your approach is the right one?
-4. **Feature priority**: Which features do you consider most important? Why these and not others?
-5. **Value proposition**: What is the main value of your product? Would your users describe it the same way?
-6. **User acquisition**: How will you get your first users? What channels will work best?
-7. **Revenue**: How will you make money? Is this based on evidence or hope?
-8. **Competition**: Who are your main competitors? Are you sure you are not missing indirect ones?
-9. **Biggest risk**: What is the biggest risk for your product? What could make everything fail?
-10. **Risk mitigation**: How do you plan to avoid or reduce that risk?
+- Two hypothesis formulas: "I believe [assumption], and I can find out by [method]" and "I will achieve [result] if [user group] gets [value] by using [functionality]"
+- Lean UX guiding prompts (User: "My early users are...", Product: "These problems can be solved with...", Business: "I will get most of my users through...")
+- Value-risk prioritization (Jeff Gothelf)
+- Parking lot for ideas that do not solve the core problem
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 

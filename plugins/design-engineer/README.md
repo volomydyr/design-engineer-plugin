@@ -1,6 +1,6 @@
 # Design Engineer
 
-Full-stack product design and AI-assisted development plugin for Claude Code. 50 skills, 9 agents, 9 commands. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
+Full-stack product design and AI-assisted development plugin for Claude Code. 49 skills, 9 agents, 6 commands. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
 
 ## Philosophy
 
@@ -23,19 +23,16 @@ claude plugin install design-engineer
 
 ## Commands
 
-You interact with 9 top-level commands. Behind each one, the full engine of 50 skills and 9 agents runs silently.
+You interact with 6 top-level commands. Behind each one, the full engine of 49 skills and 9 agents runs silently.
 
 | Command | What It Does |
 |---------|-------------|
-| `/de:setup` | One-time plugin configuration. Detects your environment, asks about your project, scaffolds deliverable folders. |
+| `/de:setup` | Smart entry point. Detects your situation — new projects get full setup, returning projects resume, existing projects get a capability guide. |
 | `/de:design` | Full design workflow orchestrator. God mode (autonomous) or Guided mode (step-by-step). Sequences through discovery, strategy, planning, and validation. |
-| `/de:research` | UX research activities. Big Idea validation, Problem Statement, Target Audience, Competitive Analysis, User Interviews, Business Plan, and more. |
-| `/de:psych` | Psychology audit. Master audit across 100+ principles, section deep-dives, or God mode for full autonomous analysis. |
 | `/de:prototype` | HTML prototype generation. New products, new features, or redesigns. |
 | `/de:dev` | Development pipeline. CLAUDE.md generation, agent pipeline setup, context management, kick-start prompts, GitHub workflow, MCP configuration. |
-| `/de:review` | Multi-layer design review. Visual review, accessibility audit, psychology scan, product assessment, design system compliance, ethics review. |
-| `/de:compound` | Knowledge documentation. Documents decisions, learnings, and project state for cross-session continuity. |
-| `/de:statusline` | Status line management. Install, uninstall, or check the status line showing model, usage limits, context bar, and pipeline progress. |
+| `/de:review` | Multi-layer design review. Visual review, accessibility audit, psychology audit (100+ principles), product assessment, design system compliance, ethics review. |
+| `/de:document` | Knowledge documentation and stakeholder communication. Documents decisions, learnings, and project state. Prepares findings for stakeholders. |
 
 ### Modes
 
@@ -44,7 +41,7 @@ Most commands support two modes:
 - **God mode** – runs the full pipeline autonomously with minimal user input
 - **Guided mode** – interactive, asks questions at every stage, pauses for approval
 
-## Skills (50)
+## Skills (49)
 
 All skills are hidden from auto-discovery (`disable-model-invocation: true`). Power users can invoke any skill directly.
 
@@ -54,14 +51,13 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 |-------|-------------|
 | `meta-setup` | Interactive environment setup and project scaffolding |
 | `meta-orchestrator` | Central controller for the design pipeline |
-| `meta-compound` | Knowledge documentation and context engineering |
+| `meta-document` | Knowledge documentation and context engineering |
 | `meta-statusline` | Status line installation and management |
 
 ### UX Research (10)
 
 | Skill | What It Does |
 |-------|-------------|
-| `ux-big-idea` | Idea validation and refinement |
 | `ux-problem-statement` | Structured problem definition |
 | `ux-target-audience` | Persona development with behavior mapping |
 | `ux-assumptions` | Assumption tracking and validation planning |
@@ -78,8 +74,8 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 |-------|-------------|
 | `ux-6p-stories` | 6P Stories framework for product narratives |
 | `ux-behavior-mapping` | Behavior mapping and mental model analysis |
-| `ux-psych-framework` | Psychology framework application |
-| `ux-bias-framework` | B.I.A.S. framework (Block, Interpret, Act, Store) |
+| `ux-psych-levels` | Screen-level Psych Levels and NPV analysis |
+| `ux-bias-audit` | B.I.A.S. framework (Block, Interpret, Act, Store) |
 | `ux-journey-mapping` | Journey mapping and improvement tactics |
 | `ux-communicating-decisions` | Communicating design decisions to stakeholders |
 | `ux-ethics-review` | Ethical design review |
@@ -109,11 +105,11 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | Skill | What It Does |
 |-------|-------------|
 | `ui-design-references` | Design intent exploration and reference gathering |
-| `ui-design-critique` | 4-lens craft critique with named design tests |
+| `ui-craft-review` | 4-lens craft critique with named design tests |
 | `ui-figma-workflow` | Figma for AI-assisted development |
 | `ui-figma-handoff` | Figma design structuring and dev handoff preparation |
 | `ui-design-system` | Design system architecture, compliance, and persistence |
-| `ui-visual-review` | Visual UI review with UX non-negotiables |
+| `ui-implementation-review` | Implementation fidelity review with UX non-negotiables |
 | `ui-accessibility` | Accessibility compliance audit |
 
 ### Development (7)
@@ -148,7 +144,7 @@ Every skill can be invoked directly:
 
 ```bash
 # Run a specific research activity
-/ux-big-idea
+/ux-problem-statement
 
 # Run a psychology section
 /psych-cognitive-basics
@@ -172,8 +168,8 @@ The plugin includes five hooks:
 
 Every agent and skill specifies an explicit model in its frontmatter:
 
-- **Opus** (42 components) — psychology analysis, UX research, implementation, design review, orchestration
-- **Sonnet** (17 components) — context reading, template generation, setup wizards, documentation
+- **Opus** (42 components: 36 skills, 6 agents) — psychology analysis, UX research, implementation, design review, orchestration
+- **Sonnet** (17 components: 14 skills, 3 agents) — context reading, template generation, setup wizards, documentation
 
 See `CLAUDE.md` for assignment principles when adding new components.
 

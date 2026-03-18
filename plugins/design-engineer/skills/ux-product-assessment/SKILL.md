@@ -62,7 +62,7 @@ Tell me about the product or feature:
 4. Is there existing documentation I should reference? (6P Stories, journey maps, B.I.A.S. audits, prior reviews)
 </ask-user>
 
-If the user has completed prior skills (`ux-6p-stories`, `ux-behavior-mapping`, `ux-psych-framework`, `ux-bias-framework`, `ux-journey-mapping`, `ux-ethics-review`), reference those deliverables rather than re-doing the work. Note which deliverables exist and which areas have gaps.
+If the user has completed prior skills (`ux-6p-stories`, `ux-behavior-mapping`, `ux-psych-levels`, `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review`), reference those deliverables rather than re-doing the work. Note which deliverables exist and which areas have gaps.
 
 ### Step 3: Area 1 – Understand User Behaviors
 
@@ -139,7 +139,7 @@ Then work through each B.I.A.S. step:
 - Are there opportunities to delight on smaller interactions? (not just fancy animations – simple humanity often delights)
 - Are you creating a positive relationship with users?
 
-For each step, flag specific findings. If deeper analysis is needed, suggest: "For a full B.I.A.S. audit, run `ux-bias-framework`."
+For each step, flag specific findings. If deeper analysis is needed, suggest: "For a full B.I.A.S. audit, run `ux-bias-audit`."
 
 ### Step 5: Area 3 – Create Delightful Journeys
 
@@ -267,15 +267,15 @@ Save the assessment to `{deliverables_path}/reviews/product-assessment.md`.
 
 ## Cross-References
 
-- **ux-bias-framework**: Detailed B.I.A.S. audit for Area 2 deep dives
+- **ux-bias-audit**: Detailed B.I.A.S. audit for Area 2 deep dives
 - **ux-journey-mapping**: Full journey mapping and improvement for Area 3
 - **ux-ethics-review**: Comprehensive ethical review for Area 5
 - **ux-behavior-mapping**: Behavior mapping for Area 1 gaps
 - **ux-6p-stories**: 6P Story creation for Area 1 gaps
-- **ux-psych-framework**: Psych level analysis for Area 1 gaps
+- **ux-psych-levels**: Psych level analysis for Area 1 gaps
 - **ux-communicating-decisions**: Stakeholder communication for Area 4
 - **ui-accessibility**: Accessibility compliance complements Area 2
-- **ui-visual-review**: Visual design review complements Area 2
+- **ui-implementation-review**: Visual design review complements Area 2
 
 ## What Comes Next
 

@@ -265,5 +265,5 @@ Never invent customer motivations. If the user has no customer data, every motiv
 ## Integration Notes
 
 - **Receives from:** ux-6p-stories (the key moment from the 6P Story becomes the behavior to map)
-- **Feeds into:** ux-psych-framework (Motivation and Ability from the BMap become the foundation for Psych analysis)
+- **Feeds into:** ux-psych-levels (Motivation and Ability from the BMap become the foundation for Psych analysis)
 - **Standalone use:** Fully usable independently whenever a team needs to understand why a desired behavior is or is not happening

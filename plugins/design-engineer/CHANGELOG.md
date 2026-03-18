@@ -4,6 +4,48 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.11.0] – 2026-03-18
+
+### Added
+
+- Smart entry point: `/de:setup` now detects project state and routes to three paths — returning projects resume, new products get full setup, existing projects get a capability guide with filtered recommendations
+- Capability guide: existing project users see all plugin capabilities in plain language, answer diagnostic questions, and get filtered recommendations
+- Iterative build enforcement: dev pipeline explicitly requires one-feature-at-a-time development with compound documentation after each cycle
+- `/de:document` command: renamed from `/de:compound`, now includes stakeholder communication option (promotes `ux-communicating-decisions`)
+- Psychology audit merged into `/de:review`: expanded psychology option with master audit, section deep-dive, and god mode
+
+### Removed
+
+- `/de:research` command (subset of `/de:design` — use design with phase jumping or direct access)
+- `/de:statusline` command (status line install handled by `/de:setup`)
+- `/de:psych` command (merged into `/de:review` as expanded psychology option)
+- Agent templates from `dev-agent-pipeline` (users copy actual agents from `agents/` directory instead)
+
+### Renamed
+
+- `ui-design-critique` → `ui-craft-review` (distinguishes from implementation review)
+- `ui-visual-review` → `ui-implementation-review` (clarifies focus on implementation fidelity)
+- `ux-psych-framework` → `ux-psych-levels` (matches the specific technique: Psych Levels + NPV)
+- `meta-compound` → `meta-document` (self-explanatory name)
+- `ux-bias-framework` → `ux-bias-audit` (action-oriented: performs an audit using the B.I.A.S. framework)
+
+### Changed
+
+- Pipeline Phase 1: removed `ux-big-idea` (was a misinterpretation of the article's concept), pipeline now starts with `ux-problem-statement`
+- Pipeline Phase 2: reordered to `ux-behavior-mapping` → `ux-storybrand` → `ux-6p-stories` → `ux-business-plan` (behavior mapping is foundational, informs everything after)
+- Pipeline Phase 4: moved `ux-psych-framework` here from Phase 2 (needs actual designs to analyze Psych Levels)
+- All UX skills: replaced rigid "4-angle perspectives" and predefined question lists with context-based approach — AI shares brief thoughts based on project knowledge, then asks 7-10 context-adapted questions with source-specific concept guidance
+- `/de:setup` description updated to reflect smart entry point behavior
+- `/de:design` prerequisite check now uses `.design-engineer.yaml` (was `design-engineer.local.md`)
+- Documentation fixes: root README counts, plugin README model counts, CLAUDE.md directory listing, stale eval references
+
+### Removed
+
+- `ux-big-idea` skill (directory, references, all cross-references)
+- Parallel group 2a (behavior-mapping and psych-framework no longer parallel)
+- Rigid "Share Initial Perspectives" pattern with fixed 4-angle templates across all skills
+- Predefined strategic question lists across all skills (replaced with context-based guidance)
+
 ## [1.10.1] – 2026-03-18
 
 ### Added

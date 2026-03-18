@@ -19,23 +19,9 @@ deliverables:
   # PHASE 1: DISCOVERY & FOUNDATION
   # ═══════════════════════════════════════════
 
-  big-idea:
-    status: not_started
-    depends_on: []
-    informs:
-      - problem-statement
-      - target-audience
-      - assumptions
-      - storybrand
-    folder: foundation
-    phase: 1
-    skill: ux-big-idea
-    last_updated: null
-
   problem-statement:
     status: not_started
-    depends_on:
-      - big-idea
+    depends_on: []
     informs:
       - target-audience
       - assumptions
@@ -51,7 +37,6 @@ deliverables:
   target-audience:
     status: not_started
     depends_on:
-      - big-idea
       - problem-statement
     informs:
       - assumptions
@@ -70,7 +55,6 @@ deliverables:
   assumptions:
     status: not_started
     depends_on:
-      - big-idea
       - problem-statement
       - target-audience
     informs:
@@ -122,7 +106,6 @@ deliverables:
   storybrand:
     status: not_started
     depends_on:
-      - big-idea
       - problem-statement
       - target-audience
       - competitor-analysis
@@ -189,7 +172,7 @@ deliverables:
       - bias-audit
     folder: design
     phase: 2
-    skill: ux-psych-framework
+    skill: ux-psych-levels
     last_updated: null
 
   # ═══════════════════════════════════════════
@@ -251,7 +234,7 @@ deliverables:
       - product-assessment
     folder: design
     phase: 4
-    skill: ux-bias-framework
+    skill: ux-bias-audit
     last_updated: null
 
   journey-map:
@@ -446,7 +429,7 @@ deliverables:
     informs: []
     folder: solutions
     phase: ongoing
-    skill: meta-compound
+    skill: meta-document
     last_updated: null
 
   solved-problems:
@@ -456,7 +439,7 @@ deliverables:
       - project-status
     folder: solutions
     phase: ongoing
-    skill: meta-compound
+    skill: meta-document
     last_updated: null
 
   learnings:
@@ -466,5 +449,5 @@ deliverables:
       - project-status
     folder: solutions
     phase: ongoing
-    skill: meta-compound
+    skill: meta-document
     last_updated: null

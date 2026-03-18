@@ -345,7 +345,7 @@ After prototyping, suggest the logical next step based on what exists:
 
 - **If no Figma designs exist**: suggest `ui-figma-workflow` to design key screens based on the validated prototype. If the Figma plugin is available, the prototype HTML can be imported into Figma as a starting point for high-fidelity design work (code-to-Figma import creates Figma frames from the prototype that can then be refined manually).
 - **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
-- **If designs exist but need review**: suggest `ui-design-critique` or `ui-visual-review` to evaluate the prototype against design intent
+- **If designs exist but need review**: suggest `ui-craft-review` or `ui-implementation-review` to evaluate the prototype against design intent
 - **If the prototype needs production implementation**: suggest the development pipeline via `/de:dev`
 
 ---

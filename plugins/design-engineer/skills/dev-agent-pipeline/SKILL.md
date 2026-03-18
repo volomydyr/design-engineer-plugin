@@ -69,18 +69,18 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 ---
 
-## Step 3: Generate Agent Files
+## Step 3: Set Up Agent Files
 
-For each agent, generate a markdown file using the adapted templates from:
-- [context-analyzer.md](./references/agent-templates/context-analyzer.md)
-- [test-writer.md](./references/agent-templates/test-writer.md)
-- [backend-implementer.md](./references/agent-templates/backend-implementer.md)
-- [frontend-implementer.md](./references/agent-templates/frontend-implementer.md)
-- [design-system-auditor.md](./references/agent-templates/design-system-auditor.md)
+Copy the agent files from this plugin's `agents/` directory into the user's project. The agents to copy:
+- `context-analyzer.md`
+- `test-writer.md`
+- `backend-implementer.md`
+- `frontend-implementer.md`
+- `design-system-auditor.md`
 
-Planning is handled by Plan Mode (not an agent). See the structured plan template in the project's CLAUDE.md.
+Customize each agent for the user's tech stack, project structure, and existing code. Planning is handled by Plan Mode (not an agent). See the structured plan template in the project's CLAUDE.md.
 
-Customize each template based on the user's tech stack, project structure, and existing code. See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work together in practice.
+See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work together in practice.
 
 ---
 
@@ -123,6 +123,12 @@ PHASE 5: WRAP UP
 
 ## Step 5: Explain Iteration
 
+### Feature-by-Feature Development
+
+**Critical: build one feature at a time.** Do not attempt to build the entire MVP in a single pipeline run. The context-analyzer reads all deliverables (MVP requirements, IA, designs) and identifies what to build next. Each feature goes through the full pipeline cycle (context analysis → plan → tests → backend → frontend → audit → compound). After each cycle, `meta-document` saves progress so the next session can resume.
+
+### Agent Iteration
+
 The first version of agents will not be final. Expect to:
 - Update agent files after discovering what works and what does not
 - Remove agents that overlap or cause confusion
@@ -163,9 +169,4 @@ After the pipeline is set up, the user sends development prompts and the pipelin
 
 ## Resource Files
 
-- [context-analyzer.md](./references/agent-templates/context-analyzer.md) – Adapted context analyzer agent template
-- [test-writer.md](./references/agent-templates/test-writer.md) – Adapted test writer agent template
-- [backend-implementer.md](./references/agent-templates/backend-implementer.md) – Adapted backend implementer agent template
-- [frontend-implementer.md](./references/agent-templates/frontend-implementer.md) – Adapted frontend implementer agent template
-- [design-system-auditor.md](./references/agent-templates/design-system-auditor.md) – Adapted design system auditor agent template
 - [pipeline-guide.md](./references/pipeline-guide.md) – How agents work together in practice with approval checkpoints

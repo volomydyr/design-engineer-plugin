@@ -1,5 +1,5 @@
 ---
-name: ui-visual-review
+name: ui-implementation-review
 description: Reviews implemented UI against design intent and catches common AI-generated issues. Use after implementation to verify visual fidelity or when UI discrepancies are reported.
 disable-model-invocation: true
 model: opus
@@ -83,7 +83,7 @@ Document any non-negotiable violations before proceeding to the visual audit.
 
 ## Step 4: Run the Visual Audit
 
-For each screen or component, check against the common issues catalog in [common-ui-issues.md](./references/common-ui-issues.md). For deeper domain knowledge on typography, color, spacing, motion, and interaction design, consult the [design domain references](../ui-design-critique/references/).
+For each screen or component, check against the common issues catalog in [common-ui-issues.md](./references/common-ui-issues.md). For deeper domain knowledge on typography, color, spacing, motion, and interaction design, consult the [design domain references](../ui-craft-review/references/).
 
 ### Typography Issues
 - Title case used instead of sentence case (extremely common with AI)
@@ -151,11 +151,11 @@ If the user approves, apply fixes directly. Prioritize:
 
 ## What Comes Next
 
-After the visual review, suggest running `ui-design-critique` to evaluate craft quality beyond correctness, `ui-design-system` in audit mode if many design system violations were found, or `ui-accessibility` to check accessibility compliance.
+After the visual review, suggest running `ui-craft-review` to evaluate craft quality beyond correctness, `ui-design-system` in audit mode if many design system violations were found, or `ui-accessibility` to check accessibility compliance.
 
 ---
 
 ## Resource Files
 
 - [common-ui-issues.md](./references/common-ui-issues.md) – Catalog of common AI-generated UI problems and fixes
-- [Design domain references](../ui-design-critique/references/) – Typography, color, spatial design, motion, interaction, responsive, UX writing, and AI anti-patterns (shared with ui-design-critique)
+- [Design domain references](../ui-craft-review/references/) – Typography, color, spatial design, motion, interaction, responsive, UX writing, and AI anti-patterns (shared with ui-craft-review)

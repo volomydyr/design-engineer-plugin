@@ -17,8 +17,6 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         v               v               v
 ========== PHASE 1: DISCOVERY & FOUNDATION ==========
         |
-   ux-big-idea
-        |
    ux-problem-statement
         |
    ux-target-audience
@@ -29,21 +27,19 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ux-user-interviews [optional]
         |
-   meta-compound       <-- save progress
+   meta-document       <-- save progress
         |
 ========== PHASE 2: STRATEGY & POSITIONING ==========
         |
-   ux-storybrand
+   ux-behavior-mapping
         |
-   ux-business-plan
+   ux-storybrand
         |
    ux-6p-stories
         |
-   ux-behavior-mapping [optional] ─┐
-                                    ├─ [parallel-group: 2a]
-   ux-psych-framework [optional]  ─┘
+   ux-business-plan
         |
-   meta-compound       <-- save progress
+   meta-document       <-- save progress
         |
 ========== PHASE 3: PRODUCT PLANNING ==========
         |
@@ -51,11 +47,11 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ux-information-architecture
         |
-   meta-compound       <-- save progress
+   meta-document       <-- save progress
         |
 ========== PHASE 4: DESIGN & VALIDATION ==========
         |
-   ux-bias-framework
+   ux-bias-audit
         |
    ux-journey-mapping
         |
@@ -69,9 +65,11 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ui-figma-handoff [optional]
         |
+   ux-psych-levels
+        |
    ux-product-assessment [optional]
         |
-   meta-compound       <-- save progress
+   meta-document       <-- save progress
         |
     [USER APPROVAL CHECKPOINT]
         |
@@ -96,7 +94,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    dev-context-management [ongoing]
         |
-   meta-compound       <-- final documentation
+   meta-document       <-- final documentation
 ```
 
 ---
@@ -105,58 +103,50 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
 
 The foundation phase. Everything built later depends on these deliverables. Skills must execute in order because each builds on the previous output.
 
-### Skill 1.1: ux-big-idea
+### Skill 1.1: ux-problem-statement
 
 - **Required**: Yes
 - **Depends on**: Nothing (entry point)
-- **Produces**: Big Idea document – the core product vision in clear, simple language
-- **Hands off to**: ux-problem-statement
-- **Notes**: This is where the user explains what they want to build. The skill helps refine a rough idea into a clear vision statement. In Guided mode, the skill shares suggestions from multiple perspectives first, then asks 7-10 questions using AskUserQuestion to deeply understand the idea.
-
-### Skill 1.2: ux-problem-statement
-
-- **Required**: Yes
-- **Depends on**: ux-big-idea (needs the product vision as context)
 - **Produces**: Problem Statement document – defines what problems the product solves, for whom, and why existing solutions fall short
 - **Hands off to**: ux-target-audience
-- **Notes**: Frames the product around user problems rather than features. The deliverable should be specific enough to guide all future design decisions.
+- **Notes**: The starting point of the entire pipeline. The user comes with an idea or a problem. This skill frames it around user needs rather than features. The deliverable should be specific enough to guide all future design decisions.
 
-### Skill 1.3: ux-target-audience
+### Skill 1.2: ux-target-audience
 
 - **Required**: Yes
-- **Depends on**: ux-big-idea, ux-problem-statement
+- **Depends on**: ux-problem-statement
 - **Produces**: Target Audience document – detailed profiles of the people the product serves
 - **Hands off to**: ux-assumptions
 - **Notes**: Defines who the users are, what they care about, what their context is. Not generic personas – specific audience segments grounded in the problem statement.
 
-### Skill 1.4: ux-assumptions
+### Skill 1.3: ux-assumptions
 
 - **Required**: Yes
-- **Depends on**: ux-big-idea, ux-problem-statement, ux-target-audience
+- **Depends on**: ux-problem-statement, ux-target-audience
 - **Produces**: Assumptions document – explicit list of what the team believes to be true but has not validated
 - **Hands off to**: ux-competitor-analysis
 - **Notes**: Tracks assumptions throughout the project. Updated as new information emerges. This document is a living artifact that gets revisited in later phases.
 
-### Skill 1.5: ux-competitor-analysis
+### Skill 1.4: ux-competitor-analysis
 
 - **Required**: Yes
 - **Depends on**: ux-problem-statement, ux-target-audience
 - **Produces**: Competitor Analysis document – structured analysis of existing solutions in the space
-- **Hands off to**: ux-user-interviews (if included) or meta-compound
+- **Hands off to**: ux-user-interviews (if included) or meta-document
 - **Notes**: Uses web search and deep research capabilities when available. Analyzes direct and indirect competitors. Identifies gaps and opportunities.
 
-### Skill 1.6: ux-user-interviews (OPTIONAL)
+### Skill 1.5: ux-user-interviews (OPTIONAL)
 
 - **Required**: No
 - **Depends on**: ux-target-audience, ux-assumptions
 - **Produces**: User Interview findings – synthesized insights from user conversations
-- **Hands off to**: meta-compound
+- **Hands off to**: meta-document
 - **When to include**: When the user has access to real users or potential users and wants to validate assumptions before proceeding. Most useful for products where the target audience is accessible.
 - **When to skip**: Early-stage ideas where no users are available yet, or when the user wants to move faster through discovery.
 
-### Phase 1 Completion: meta-compound
+### Phase 1 Completion: meta-document
 
-After all Phase 1 skills complete, invoke `meta-compound` to:
+After all Phase 1 skills complete, invoke `meta-document` to:
 - Document all discovery deliverables
 - Record key decisions and their rationale
 - Update the project state file with Phase 1 status
@@ -168,51 +158,41 @@ After all Phase 1 skills complete, invoke `meta-compound` to:
 
 Translates discovery findings into product strategy. These skills define how the product will position itself, tell its story, and drive user behavior.
 
-### Skill 2.1: ux-storybrand
+### Skill 2.1: ux-behavior-mapping
 
 - **Required**: Yes
-- **Depends on**: Phase 1 deliverables (big idea, problem statement, target audience)
+- **Depends on**: Phase 1 deliverables (problem statement, target audience)
+- **Produces**: Behavior Mapping document – maps user behaviors, motivations, abilities, and triggers using the BMap framework
+- **Hands off to**: ux-storybrand
+- **Notes**: Foundational strategy skill. Understanding what drives user behavior (Motivation × Ability × Prompt) informs everything that follows — how to position the product, what stories to tell, and how to monetize.
+
+### Skill 2.2: ux-storybrand
+
+- **Required**: Yes
+- **Depends on**: Phase 1 deliverables, ux-behavior-mapping
 - **Produces**: StoryBrand document – brand messaging framework that positions the user as the hero and the product as the guide
-- **Hands off to**: ux-business-plan
-- **Notes**: Applies the StoryBrand framework to create clear product messaging. The output informs copywriting, onboarding flows, and marketing materials.
-
-### Skill 2.2: ux-business-plan
-
-- **Required**: Yes
-- **Depends on**: Phase 1 deliverables, ux-storybrand
-- **Produces**: Business Plan document – monetization strategy, pricing model, growth approach
 - **Hands off to**: ux-6p-stories
-- **Notes**: Covers revenue model, pricing tiers, unit economics. Grounded in the target audience and competitive landscape from Phase 1.
+- **Notes**: Applies the StoryBrand framework to create clear product messaging. Uses behavior mapping insights to craft messaging that connects with real motivations. The output informs copywriting, onboarding flows, and marketing materials.
 
 ### Skill 2.3: ux-6p-stories
 
 - **Required**: Yes
-- **Depends on**: Phase 1 deliverables, ux-storybrand, ux-business-plan
-- **Produces**: 6P Stories document – narrative-driven product scenarios following the 6P framework
-- **Hands off to**: ux-behavior-mapping (if included) or meta-compound
-- **Notes**: Creates story-driven scenarios that illustrate how real users interact with the product. Each story covers the 6P elements. Reveals gaps in the product concept that abstract documents miss.
+- **Depends on**: Phase 1 deliverables, ux-storybrand
+- **Produces**: 6P Stories document – comic-style product scenarios following the 6P framework
+- **Hands off to**: ux-business-plan
+- **Notes**: Creates story-driven scenarios that illustrate how real users interact with the product, using the StoryBrand narrative. Each story covers the 6P elements. Reveals gaps in the product concept that abstract documents miss.
 
-### Skill 2.4: ux-behavior-mapping (OPTIONAL)
+### Skill 2.4: ux-business-plan
 
-- **Required**: No
-- **Depends on**: Phase 1 deliverables, ux-6p-stories
-- **Produces**: Behavior Mapping document – maps user behaviors, motivations, and triggers
-- **Hands off to**: ux-psych-framework (if included) or meta-compound
-- **When to include**: When the product relies heavily on behavior change (habit-forming apps, health products, educational tools) or when the user wants deeper insight into user motivation.
-- **When to skip**: Simpler products where user behavior patterns are straightforward.
+- **Required**: Yes
+- **Depends on**: Phase 1 deliverables, ux-storybrand, ux-6p-stories, ux-behavior-mapping
+- **Produces**: Business Plan document – monetization strategy, pricing model, growth approach
+- **Hands off to**: meta-document
+- **Notes**: Covers revenue model, pricing tiers, unit economics. Informed by behavior mapping (what drives users), StoryBrand (how to communicate value), and 6P stories (user scenarios). Grounded in the target audience and competitive landscape from Phase 1.
 
-### Skill 2.5: ux-psych-framework (OPTIONAL)
+### Phase 2 Completion: meta-document
 
-- **Required**: No
-- **Depends on**: Phase 1 deliverables, ux-6p-stories
-- **Produces**: Psychology Framework document – identifies which psychological principles are most relevant to the product
-- **Hands off to**: meta-compound
-- **When to include**: When the user wants to apply design psychology principles early in the strategy phase rather than waiting for Phase 4 validation.
-- **When to skip**: When the user prefers to handle psychology principles during the Design & Validation phase via ux-bias-framework.
-
-### Phase 2 Completion: meta-compound
-
-After all Phase 2 skills complete, invoke `meta-compound` to:
+After all Phase 2 skills complete, invoke `meta-document` to:
 - Document strategy deliverables
 - Record strategic decisions and positioning choices
 - Update the project state file with Phase 2 status
@@ -237,12 +217,12 @@ Converts strategy into concrete product specifications. These are the blueprints
 - **Required**: Yes
 - **Depends on**: ux-mvp-requirements, Phase 1 and Phase 2 deliverables
 - **Produces**: Information Architecture document – navigation structure, user flows, screen inventory, content hierarchy
-- **Hands off to**: meta-compound
+- **Hands off to**: meta-document
 - **Notes**: Defines the structural backbone of the product. Maps how users navigate between screens and how content is organized. The IA document becomes a critical reference for both design and development phases.
 
-### Phase 3 Completion: meta-compound
+### Phase 3 Completion: meta-document
 
-After all Phase 3 skills complete, invoke `meta-compound` to:
+After all Phase 3 skills complete, invoke `meta-document` to:
 - Document planning deliverables
 - Record scope decisions and trade-offs
 - Update the project state file with Phase 3 status
@@ -254,7 +234,7 @@ After all Phase 3 skills complete, invoke `meta-compound` to:
 
 Applies design principles, creates visual designs, builds prototypes, and validates the product concept. This is the most skill-dense phase.
 
-### Skill 4.1: ux-bias-framework
+### Skill 4.1: ux-bias-audit
 
 - **Required**: Yes
 - **Depends on**: Phase 1-3 deliverables
@@ -265,7 +245,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 ### Skill 4.2: ux-journey-mapping
 
 - **Required**: Yes
-- **Depends on**: ux-bias-framework, Phase 1-3 deliverables
+- **Depends on**: ux-bias-audit, Phase 1-3 deliverables
 - **Produces**: Journey Map document – end-to-end user experience maps showing touchpoints, emotions, pain points, and opportunities
 - **Hands off to**: ux-ethics-review (if included) or ui-design-references
 - **Notes**: Maps the complete user experience from first contact through ongoing use. Incorporates bias framework findings. Reveals experience gaps and emotional low points that need design attention.
@@ -273,7 +253,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 ### Skill 4.3: ux-ethics-review (OPTIONAL)
 
 - **Required**: No
-- **Depends on**: Phase 1-3 deliverables, ux-bias-framework
+- **Depends on**: Phase 1-3 deliverables, ux-bias-audit
 - **Produces**: Ethics Review document – assessment of ethical implications in the product design
 - **Hands off to**: ui-design-references
 - **When to include**: Products that handle sensitive data (health, finance, children), products with persuasive design elements, or when the user wants to ensure ethical design practices.
@@ -300,7 +280,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Required**: Yes
 - **Depends on**: ui-design-references, dev-prototyping, information architecture, MVP requirements
 - **Produces**: High-fidelity Figma designs – complete screen designs following the established design direction
-- **Hands off to**: ux-product-assessment (if included) or meta-compound
+- **Hands off to**: ux-product-assessment (if included) or meta-document
 - **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools. The validated prototype informs which key screens to design in Figma. Focus Figma work on the screens that set the visual style (typically 5-10 screens).
 
 ### Skill 4.7: ui-figma-handoff (OPTIONAL)
@@ -308,23 +288,31 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Required**: No
 - **Depends on**: ui-figma-workflow
 - **Produces**: Structured Figma file with components, tokens, annotations, and dev status badges
-- **Hands off to**: ux-product-assessment (if included) or meta-compound
+- **Hands off to**: ux-product-assessment (if included) or meta-document
 - **When to include**: When Figma Console MCP is available and the user wants higher-quality developer handoff from Figma
 - **When to skip**: When using the minimal Figma workflow without Figma Console MCP, or when the design system is being built entirely in code
 - **Notes**: Automates the structuring of raw Figma designs (components, variables, styles) and prepares them for dev handoff (annotations, sections, connectors, dev status badges). Requires Figma Console MCP.
 
-### Skill 4.8: ux-product-assessment (OPTIONAL)
+### Skill 4.8: ux-psych-levels
+
+- **Required**: Yes
+- **Depends on**: dev-prototyping, ui-figma-workflow, Phase 1-3 deliverables
+- **Produces**: Psychology Framework analysis – screen-level Psych Levels and Net Perceived Value analysis
+- **Hands off to**: ux-product-assessment (if included) or meta-document
+- **Notes**: Analyzes each screen's motivation vs friction using the Psych Framework (NPV = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze — that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
+
+### Skill 4.9: ux-product-assessment (OPTIONAL)
 
 - **Required**: No
 - **Depends on**: dev-prototyping, all Phase 1-4 deliverables
 - **Produces**: Product Assessment document – comprehensive evaluation using a structured checklist
-- **Hands off to**: meta-compound
+- **Hands off to**: meta-document
 - **When to include**: Before moving to development, to catch issues across all dimensions (usability, business viability, technical feasibility, design quality).
 - **When to skip**: When the user is confident in the prototype and wants to move directly to development.
 
-### Phase 4 Completion: meta-compound
+### Phase 4 Completion: meta-document
 
-After all Phase 4 skills complete, invoke `meta-compound` to:
+After all Phase 4 skills complete, invoke `meta-document` to:
 - Document all design and validation deliverables
 - Record design decisions and validation findings
 - Update the project state file with Phase 4 status
@@ -434,7 +422,7 @@ After initial setup, development enters an iterative loop for each feature:
 10. **`/simplify`** (final pass) – review all code changes together
 11. **design-system-auditor** (agent) – verifies new code follows the design system
 12. **Archive tests** – move test scripts from `tests/` to `tests/archive/`
-13. **meta-compound** – documents progress after each feature
+13. **meta-document** – documents progress after each feature
 
 ### Skill 5.7: dev-context-management (ONGOING)
 
@@ -443,9 +431,9 @@ After initial setup, development enters an iterative loop for each feature:
 - **Produces**: Updated context files – maintains project status, development context, and session continuity
 - **Notes**: Keeps the status file updated after every big development phase. Addresses the context degradation problem where AI forgets about components already built, decisions already made, and approaches that did not work. Uses a dedicated status file (separation of concerns) rather than putting everything in CLAUDE.md.
 
-### Phase 5 Completion: meta-compound
+### Phase 5 Completion: meta-document
 
-Final invocation of `meta-compound` to:
+Final invocation of `meta-document` to:
 - Document the complete project from discovery through development
 - Record all learnings across the entire pipeline
 - Update the project state file to reflect completion
@@ -457,7 +445,6 @@ Final invocation of `meta-compound` to:
 
 Skills in the same parallel group have no dependency on each other's output and can execute simultaneously. The groups identified in the pipeline overview are:
 
-- **[parallel-group: 2a]** – `ux-behavior-mapping` and `ux-psych-framework` are both optional and independent. Both depend on Phase 1 deliverables and `ux-6p-stories`, not on each other.
 - **[parallel-group: 5a]** – `dev-kickstart-prompts` and `dev-agent-pipeline` both depend on `dev-claude-md`, not on each other.
 - **[parallel-group: 5b]** – `dev-mcp-setup` and `dev-github-workflow` are independent setup tasks.
 

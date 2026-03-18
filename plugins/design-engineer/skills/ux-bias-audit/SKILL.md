@@ -1,5 +1,5 @@
 ---
-name: ux-bias-framework
+name: ux-bias-audit
 description: Applies the B.I.A.S. Framework (Block, Interpret, Act, Store) to audit or design user experiences systematically. Use when reviewing existing products, designing new screens, or improving conversion flows.
 disable-model-invocation: true
 model: opus

@@ -26,41 +26,41 @@
       "id": 4,
       "skill_name": "meta-orchestrator",
       "prompt": "I want to build a meal planning app for busy parents. Run the entire design pipeline for me autonomously -- I trust your judgment on the details, just check in with me at major milestones.",
-      "expected_output": "Should activate God mode, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: big-idea, problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: storybrand, business-plan, 6p-stories), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-framework, journey-mapping, design-references, figma-workflow, prototyping), running meta-compound after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
+      "expected_output": "Should activate God mode, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: behavior-mapping, storybrand, 6p-stories, business-plan), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-framework, journey-mapping, design-references, prototyping, figma-workflow, psych-framework), running meta-document after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
       "files": []
     },
     {
       "id": 5,
       "skill_name": "meta-orchestrator",
       "prompt": "We have an existing e-commerce platform that already has a problem statement and target audience defined in docs/design/. I want to work through the remaining design pipeline step by step with your guidance.",
-      "expected_output": "Should activate Guided mode, detect project state as partially done, check for existing deliverables in docs/design/, confirm which skills to skip (ux-big-idea, ux-problem-statement, ux-target-audience), and determine the correct entry point. Should proceed skill by skill with explanations, questions, and approval prompts at each step.",
+      "expected_output": "Should activate Guided mode, detect project state as partially done, check for existing deliverables in docs/design/, confirm which skills to skip (ux-problem-statement, ux-target-audience), and determine the correct entry point. Should proceed skill by skill with explanations, questions, and approval prompts at each step.",
       "files": []
     },
     {
       "id": 6,
       "skill_name": "meta-orchestrator",
       "prompt": "I need to jump directly to the information architecture skill. We already have our MVP requirements finalized and I want to build the navigation structure for our health tracking app.",
-      "expected_output": "Should activate Direct access mode, verify that ux-mvp-requirements deliverable exists as an upstream dependency, warn if missing, then load ux-information-architecture directly. After completion, should suggest related next skills like ux-journey-mapping or ux-bias-framework.",
+      "expected_output": "Should activate Direct access mode, verify that ux-mvp-requirements deliverable exists as an upstream dependency, warn if missing, then load ux-information-architecture directly. After completion, should suggest related next skills like ux-journey-mapping or ux-bias-audit.",
       "files": []
     },
     {
       "id": 7,
-      "skill_name": "meta-compound",
-      "prompt": "/de:compound",
+      "skill_name": "meta-document",
+      "prompt": "/de:document",
       "expected_output": "Should ask what to document (current progress, decision, learning, project status, or context refresh), gather context from the conversation, validate YAML frontmatter against compound-schema.yaml, create a documentation entry in project-docs/solutions/[category]/, update status.md, cross-reference existing docs, and present a decision menu.",
       "files": []
     },
     {
       "id": 8,
-      "skill_name": "meta-compound",
+      "skill_name": "meta-document",
       "prompt": "We just finished the competitor analysis phase and made a big decision to pivot from B2C to B2B. I want to document this decision and the rationale so we don't lose it across sessions.",
       "expected_output": "Should detect the trigger as a significant decision, extract the pivot decision and rationale from conversation, validate against compound-schema.yaml, create a documentation entry with the B2C-to-B2B pivot details in the correct category directory, update status.md with the decision in the Key Decisions Log, and check for related entries.",
       "files": []
     },
     {
       "id": 9,
-      "skill_name": "meta-compound",
-      "prompt": "/de:compound status",
+      "skill_name": "meta-document",
+      "prompt": "/de:documentstatus",
       "expected_output": "Should read the current status.md file and display project status including completed phases, current phase, deliverables produced, key decisions log, open questions, and next steps. If no status file exists, should warn the user.",
       "files": []
     },
@@ -82,7 +82,7 @@
       "id": 12,
       "skill_name": "command:de:design",
       "prompt": "/de:design god-mode",
-      "expected_output": "Should verify /de:setup has been run, activate God mode, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-compound after each phase, pausing at the transition checkpoint before development.",
+      "expected_output": "Should verify /de:setup has been run, activate God mode, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
       "files": []
     },
     {
@@ -96,48 +96,48 @@
       "id": 14,
       "skill_name": "command:de:design",
       "prompt": "/de:design phase 3",
-      "expected_output": "Should check for existing Phase 1 and Phase 2 deliverables, warn about any missing upstream dependencies, then jump directly to Phase 3 (Planning) starting with ux-mvp-requirements followed by ux-information-architecture, run meta-compound after completion, and offer to proceed to Phase 4.",
+      "expected_output": "Should check for existing Phase 1 and Phase 2 deliverables, warn about any missing upstream dependencies, then jump directly to Phase 3 (Planning) starting with ux-mvp-requirements followed by ux-information-architecture, run meta-document after completion, and offer to proceed to Phase 4.",
       "files": []
     },
     {
       "id": 15,
-      "skill_name": "command:de:research",
-      "prompt": "/de:research target-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
+      "skill_name": "command:de:design",
+      "prompt": "/de:design direct-accesstarget-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
       "expected_output": "Should load ux-target-audience skill directly, work through persona development for both potential audiences (accountants and business owners), help the user evaluate which is the primary vs secondary persona, produce a target audience deliverable, and ask if they want to run another research activity.",
       "files": []
     },
     {
       "id": 16,
-      "skill_name": "command:de:research",
-      "prompt": "/de:research full -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
-      "expected_output": "Should run the full research pipeline in sequence: ux-big-idea, ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis, ask about ux-user-interviews, ux-business-plan, ux-storybrand. Should run meta-compound after completing the full pipeline to document all research findings.",
+      "skill_name": "command:de:design",
+      "prompt": "/de:design direct-accessfull -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
+      "expected_output": "Should run the full research pipeline in sequence: ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis, ask about ux-user-interviews, ux-business-plan, ux-storybrand. Should run meta-document after completing the full pipeline to document all research findings.",
       "files": []
     },
     {
       "id": 17,
-      "skill_name": "command:de:research",
-      "prompt": "/de:research competitive-analysis",
+      "skill_name": "command:de:design",
+      "prompt": "/de:design direct-accesscompetitive-analysis",
       "expected_output": "Should load ux-competitor-analysis skill directly, ask about current competitive knowledge, identify direct and indirect competitors through web search and user context, analyze strengths/weaknesses, produce a competitive analysis deliverable, then ask if the user wants to run another research activity.",
       "files": []
     },
     {
       "id": 18,
-      "skill_name": "command:de:psych",
-      "prompt": "/de:psych master -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
+      "skill_name": "command:de:review",
+      "prompt": "/de:review psychmaster -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
       "expected_output": "Should load psych-master-audit, gather context about the onboarding screens, run a broad scan across all 10 sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
       "files": []
     },
     {
       "id": 19,
-      "skill_name": "command:de:psych",
-      "prompt": "/de:psych section 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
+      "skill_name": "command:de:review",
+      "prompt": "/de:review psychsection 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
       "expected_output": "Should load psych-engagement-motivation (Section 4, Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
       "files": []
     },
     {
       "id": 20,
-      "skill_name": "command:de:psych",
-      "prompt": "/de:psych god-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
+      "skill_name": "command:de:review",
+      "prompt": "/de:review psychgod-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
       "expected_output": "Should run the complete audit across all 13 sections autonomously: master scan first, then all section skills (cognitive basics through time/behavior), compile a comprehensive psychology audit report with executive summary, section-by-section findings, and prioritized recommendations. Should use browser MCP if available to analyze the live URL.",
       "files": []
     },
@@ -152,21 +152,21 @@
       "id": 22,
       "skill_name": "command:de:dev",
       "prompt": "/de:dev setup -- Full development setup for my new project. I'm using Claude Code in Cursor, building with Remix and Prisma.",
-      "expected_output": "Should run the full development setup sequence: dev-claude-projects, dev-claude-md, dev-kickstart-prompts, dev-agent-pipeline, dev-mcp-setup, dev-github-workflow, dev-context-management. Each skill should be customized for the Remix + Prisma stack and Cursor IDE environment.",
+      "expected_output": "Should run the full development setup sequence: dev-claude-md, dev-kickstart-prompts, dev-agent-pipeline, dev-mcp-setup, dev-github-workflow, dev-context-management. Each skill should be customized for the Remix + Prisma stack and Cursor IDE environment.",
       "files": []
     },
     {
       "id": 23,
       "skill_name": "command:de:dev",
       "prompt": "/de:dev pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
-      "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, enters Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then run test-writer to create failing Playwright CLI test scripts, verify Red (all fail), then run backend-implementer, /simplify, frontend-implementer, /simplify, verify Green (all pass), final /simplify pass, then design-system-auditor, archive tests to tests/archive/. Should run meta-compound to document the session.",
+      "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, enters Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then run test-writer to create failing Playwright CLI test scripts, verify Red (all fail), then run backend-implementer, /simplify, frontend-implementer, /simplify, verify Green (all pass), final /simplify pass, then design-system-auditor, archive tests to tests/archive/. Should run meta-document to document the session.",
       "files": []
     },
     {
       "id": 24,
       "skill_name": "command:de:review",
       "prompt": "/de:review figma -- I just finished designing the checkout flow for our e-commerce app. There are 4 screens: cart summary, shipping info, payment, and order confirmation. Can you review them?",
-      "expected_output": "Should ask for Figma frame link or screenshots, load ui-visual-review for visual quality check, ui-accessibility for accessibility compliance, psych-master-audit for psychology principles scan, compile findings into a structured review report covering all 4 screens, and offer post-review options.",
+      "expected_output": "Should ask for Figma frame link or screenshots, load ui-implementation-review for visual quality check, ui-accessibility for accessibility compliance, psych-master-audit for psychology principles scan, compile findings into a structured review report covering all 4 screens, and offer post-review options.",
       "files": []
     },
     {
@@ -180,35 +180,35 @@
       "id": 26,
       "skill_name": "command:de:review",
       "prompt": "/de:review full -- We're about to launch our event ticketing platform and want a comprehensive review before going live.",
-      "expected_output": "Should run all review dimensions: ui-visual-review, ui-accessibility, psych-master-audit, ux-product-assessment, ux-ethics-review, ux-communicating-decisions. Should compile all findings into a comprehensive review report and offer post-review options including addressing findings, sharing with stakeholders, and documentation.",
+      "expected_output": "Should run all review dimensions: ui-implementation-review, ui-accessibility, psych-master-audit, ux-product-assessment, ux-ethics-review, ux-communicating-decisions. Should compile all findings into a comprehensive review report and offer post-review options including addressing findings, sharing with stakeholders, and documentation.",
       "files": []
     },
     {
       "id": 27,
-      "skill_name": "command:de:compound",
-      "prompt": "/de:compound -- We just finished a 3-hour session working on the information architecture and MVP requirements. Save everything we decided.",
-      "expected_output": "Should load meta-compound, detect that IA and MVP work was completed, gather context from the conversation, validate YAML frontmatter, create documentation entries for both activities, update status.md with completed items, cross-reference related entries, and present the decision menu.",
+      "skill_name": "command:de:document",
+      "prompt": "/de:document-- We just finished a 3-hour session working on the information architecture and MVP requirements. Save everything we decided.",
+      "expected_output": "Should load meta-document, detect that IA and MVP work was completed, gather context from the conversation, validate YAML frontmatter, create documentation entries for both activities, update status.md with completed items, cross-reference related entries, and present the decision menu.",
       "files": []
     },
     {
       "id": 28,
-      "skill_name": "command:de:compound",
-      "prompt": "/de:compound status",
-      "expected_output": "Should load meta-compound, read the current status.md, and display a comprehensive project status showing completed phases, current phase, all deliverables produced with file paths, key decisions log, what has not worked, open questions, and next steps.",
+      "skill_name": "command:de:document",
+      "prompt": "/de:documentstatus",
+      "expected_output": "Should load meta-document, read the current status.md, and display a comprehensive project status showing completed phases, current phase, all deliverables produced with file paths, key decisions log, what has not worked, open questions, and next steps.",
       "files": []
     },
     {
       "id": 29,
-      "skill_name": "ux-big-idea",
+      "skill_name": "ux-problem-statement",
       "prompt": "I have this idea for an app that helps remote workers find coworking-friendly cafes near them. It would show real-time seat availability, WiFi speed, noise level, and power outlet info. But I'm not sure if this is really a problem worth solving or if Google Maps already handles it.",
-      "expected_output": "Should walk through the Big Idea validation process: determine the user's starting point, ask structured questions about the idea, evaluate whether the problem is real and worth solving, check for idea viability, identify risks (Google Maps competition, data collection challenge), refine the concept, and produce a structured Big Idea document.",
+      "expected_output": "Should help define the core problem: share brief initial thoughts based on what the user described, ask context-based questions covering what problem exists, who feels it most, and how the product improves their life. Should evaluate whether the problem is real, identify risks (Google Maps competition, data collection challenge), and produce a structured Problem Statement document.",
       "files": []
     },
     {
       "id": 30,
-      "skill_name": "ux-big-idea",
+      "skill_name": "ux-problem-statement",
       "prompt": "I want to build something in the mental health space for college students but I only have a vague sense of the problem. Can you help me shape this into something concrete?",
-      "expected_output": "Should start with the user's vague idea, ask probing questions to identify the specific problem within the broad mental health space, help narrow the focus to a concrete product concept, evaluate viability, identify risks, and produce a Big Idea document that captures the refined idea with clarity.",
+      "expected_output": "Should start with the user's vague idea, share brief initial thoughts about the mental health space for college students, ask context-based questions to identify the specific problem, help narrow the focus to a concrete problem statement, and produce a structured Problem Statement document that defines what problem exists, who feels it, and why current solutions fall short.",
       "files": []
     },
     {
@@ -339,14 +339,14 @@
     },
     {
       "id": 49,
-      "skill_name": "ux-psych-framework",
+      "skill_name": "ux-psych-levels",
       "prompt": "I want to analyze our checkout flow screen by screen to see where users lose 'Psych' -- that mental energy to keep going. We have 5 screens: cart, account creation, shipping, payment, and confirmation.",
       "expected_output": "Should apply the Psych Framework to calculate Net Perceived Value (Expected Utility minus Expected Interaction Cost) at each of the 5 screens, use the video game health bar analogy to visualize Psych Levels, identify where Psych drops critically low (likely account creation and payment), recommend specific interventions to boost Psych at weak points, and produce a Psych Framework analysis deliverable.",
       "files": []
     },
     {
       "id": 50,
-      "skill_name": "ux-psych-framework",
+      "skill_name": "ux-psych-levels",
       "prompt": "We're designing an onboarding flow for a personal finance app. Can you predict the Psych variations before we build it? I want to know which steps will drain motivation and which will boost it.",
       "expected_output": "Should apply the Psych Framework predictively to a proposed design, evaluate each onboarding step for its Psych impact (additions and subtractions), use variation benchmarks to flag steps that risk dropping below the abandonment threshold, suggest reordering or modifying steps to maintain positive Psych, and produce a proactive Psych Framework analysis.",
       "files": []
@@ -381,21 +381,21 @@
     },
     {
       "id": 55,
-      "skill_name": "ux-bias-framework",
-      "prompt": "/de:psych -- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
+      "skill_name": "ux-bias-audit",
+      "prompt": "/de:review psych-- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
       "expected_output": "Should apply the B.I.A.S. Framework (Block, Interpret, Act, Store) to all 3 screens. Block: check what the brain filters out (possibly too many value props). Interpret: check framing around benefits and familiarity. Act: evaluate friction in permission requests. Store: assess what positive/negative impression is stored. Should flag reactance risk on back-to-back permission requests and produce a structured B.I.A.S. audit with priority actions.",
       "files": []
     },
     {
       "id": 56,
-      "skill_name": "ux-bias-framework",
+      "skill_name": "ux-bias-audit",
       "prompt": "Our pricing page has a 2% conversion rate and we think the design might be the problem. Can you run a B.I.A.S. analysis on it? We have 3 tiers: Free, Pro ($12/mo), and Enterprise (custom pricing).",
       "expected_output": "Should audit the pricing page through all 4 B.I.A.S. steps: Block (what's being filtered out, are users seeing the right tier), Interpret (is value framed as benefits, is the anchor set correctly, is loss aversion leveraged), Act (is friction reduced, are defaults helpful, is there social proof), Store (what impression does this leave). Should provide specific redesign recommendations with expected impact on conversion.",
       "files": []
     },
     {
       "id": 57,
-      "skill_name": "ux-bias-framework",
+      "skill_name": "ux-bias-audit",
       "prompt": "I'm designing a new subscription cancellation flow and I want to make sure I'm not accidentally creating dark patterns. Walk me through the B.I.A.S. framework to balance retention with ethical design.",
       "expected_output": "Should apply B.I.A.S. to the cancellation flow with special attention to the ethical boundary between influence and manipulation. Should check the Regret Test at each step, flag reactance risks, ensure Block does not hide the cancel button, Interpret uses honest framing, Act reduces friction for cancellation while offering genuine alternatives, and Store leaves a positive impression even when users leave.",
       "files": []
@@ -710,14 +710,14 @@
     },
     {
       "id": 102,
-      "skill_name": "ui-visual-review",
+      "skill_name": "ui-implementation-review",
       "prompt": "I just had Claude Code implement my Figma designs for the onboarding flow. Some things look off -- the spacing seems wrong and the colors don't match exactly. Can you do a visual review?",
       "expected_output": "Should check for common AI-generated UI issues: title case vs sentence case errors, incorrect spacing, hardcoded color values instead of design tokens, creative interpretations that deviate from the design, redundant components that duplicate existing ones, and other visual fidelity issues. Should produce a visual review report with specific files and lines to fix.",
       "files": []
     },
     {
       "id": 103,
-      "skill_name": "ui-visual-review",
+      "skill_name": "ui-implementation-review",
       "prompt": "We deployed a new feature and the live site looks different from what we designed in Figma. Some buttons are bigger, fonts seem different, and the card layout spacing is off. Can you compare and identify all the discrepancies?",
       "expected_output": "Should compare the live implementation against design intent, identify specific discrepancies (button sizing, font differences, card spacing), check for hardcoded values vs design tokens, verify component reuse, and produce a detailed visual review with specific fixes needed to match the original design, organized by severity.",
       "files": []
@@ -738,16 +738,16 @@
     },
     {
       "id": 106,
-      "skill_name": "dev-claude-projects",
-      "prompt": "I'm starting a new SaaS product from absolute zero. No code, no designs, just an idea. How do I set up a Claude Projects workspace for the pre-development phase?",
-      "expected_output": "Should guide workspace setup: explain the multi-chat workflow (one activity per chat), help structure project knowledge files, set up rules for the workspace, establish the deliverable-saving workflow, explain how documents build on each other across chats, and produce a Claude Projects configuration that supports the full pre-development pipeline.",
+      "skill_name": "dev-context-management",
+      "prompt": "I'm starting a new SaaS product from absolute zero. No code, no designs, just an idea. How do I set up context management for the pre-development phase?",
+      "expected_output": "Should guide context setup: explain multi-session workflow (one activity per session), help structure project knowledge files with status tracking, establish the deliverable-saving workflow, explain how documents build on each other across sessions, and produce a context management setup that supports the full pre-development pipeline.",
       "files": []
     },
     {
       "id": 107,
-      "skill_name": "dev-claude-projects",
-      "prompt": "I've been using Claude Projects but my chats keep getting messy -- I mix research with design decisions with coding questions all in one chat. How do I restructure my workflow?",
-      "expected_output": "Should diagnose the problem (mixing concerns in single chats causes context degradation), restructure the workflow around one-activity-per-chat principle, explain how to save deliverables between chats, set up proper project knowledge organization, and help the user establish a disciplined multi-chat workflow that prevents context loss.",
+      "skill_name": "dev-context-management",
+      "prompt": "My Claude Code sessions keep getting messy -- I mix research with design decisions with coding questions all in one session. How do I restructure my workflow?",
+      "expected_output": "Should diagnose the problem (mixing concerns causes context degradation), restructure the workflow around one-activity-per-session principle, set up status file tracking, establish proper context organization with compound documentation, and help the user establish a disciplined multi-session workflow that prevents context loss.",
       "files": []
     },
     {

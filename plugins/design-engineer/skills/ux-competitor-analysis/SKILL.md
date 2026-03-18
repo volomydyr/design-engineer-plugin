@@ -46,31 +46,20 @@ If the user has existing competitor lists or research, ask them to share before 
 
 ## Step 2: Share Initial Perspectives
 
-Before asking questions, briefly share your view of the competitive landscape from multiple angles:
+Before asking questions, share your brief initial thoughts about the competitive landscape based on what you already know about the project. Draw on the user's context from Step 1, any existing project documents (problem statement, persona, survey results where users mentioned tools), and your understanding of the domain.
 
-- **Direct competition**: Products that solve the same problem for the same audience
-- **Indirect competition**: Products that solve the same underlying need in a different way
-- **Substitute behavior**: What people do instead of using any product (manual workarounds, ignoring the problem)
-- **Adjacent markets**: Products in related spaces that could expand into your territory
-
-Keep each perspective to 2-3 sentences. Flag what is speculation versus what is based on shared context.
+Flag what is speculation versus what is based on shared context. If you already see obvious competitors or market gaps, mention them. The goal is to give the user starting material for their own thinking – not to follow a rigid template.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 questions to build a comprehensive competitor picture:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
 
-1. **Known competitors**: Who do you already consider as competitors? What makes them competitors?
-2. **User alternatives**: Based on your user research, what tools or methods do your target users currently use to address the problem?
-3. **Pricing awareness**: Do you know what competitors charge? Is the problem area typically solved by free or paid products?
-4. **Strengths you respect**: Is there anything a competitor does really well that you admire or want to learn from?
-5. **Gaps you see**: Where do existing solutions fall short? What complaints have you heard from users about them?
-6. **Differentiation**: What would you do fundamentally differently from what already exists?
-7. **Market maturity**: Is this a crowded space with many players or a relatively new market?
-8. **Community factor**: Do any competitors have strong user communities? How does that affect their position?
-9. **Feature locks**: Do competitors hide their best features behind paywalls? How does that impact user experience?
-10. **Geographic focus**: Are competitors focused on specific markets or regions? Is there a geographic opportunity?
+- Do not skip indirect competitors
+- Use AI research prompts (Perplexity/Liner) but do not just ask AI to "do a competitor analysis"
+- Always click through competitor sites/apps yourself (manual review)
+- Look at community feedback, paywall strategies, user complaints
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 

@@ -29,11 +29,13 @@ plugins/design-engineer/
 │   ├── session_dep_summary.py
 │   ├── de-statusline.js
 │   ├── de-safety-hook.js
-│   └── de-tdd-hook.js
+│   ├── de-tdd-hook.js
+│   ├── de-fidelity-hook.js
+│   └── de-prompt-injection-hook.js
 ├── agents/                         # 9 specialized agents
 ├── commands/
-│   └── de/                         # 9 commands (de: namespace)
-└── skills/                         # 50 hidden skills
+│   └── de/                         # 6 commands (de: namespace)
+└── skills/                         # 49 hidden skills
 ```
 
 ## Skill Compliance Checklist
@@ -106,15 +108,12 @@ model: opus
 
 Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Claude Code's built-in `/review` and `/plan`:
 
-- `/de:setup` - One-time plugin configuration
+- `/de:setup` - Smart entry point (new projects, returning projects, existing projects)
 - `/de:design` - Full design workflow orchestrator
-- `/de:research` - UX research activities
-- `/de:psych` - Psychology audit and deep-dives
 - `/de:prototype` - HTML prototype generation
 - `/de:dev` - Development pipeline
-- `/de:review` - Multi-layer design review
-- `/de:compound` - Knowledge documentation
-- `/de:statusline` - Status line management
+- `/de:review` - Multi-layer design review (includes psychology audit)
+- `/de:document` - Knowledge documentation and stakeholder communication
 
 ## Living Documents
 

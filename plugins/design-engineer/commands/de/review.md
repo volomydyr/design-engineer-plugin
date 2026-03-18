@@ -36,7 +36,7 @@ Ask for a Figma frame link or ask the user to share screenshots.
 
 If Figma plugin is available, use it to analyze the design directly.
 
-1. Load `ui-visual-review` – check visual design quality
+1. Load `ui-implementation-review` – check visual design quality
 2. Load `ui-accessibility` – accessibility compliance
 3. Load `psych-master-audit` – psychology principles scan
 4. Compile findings into a structured review report
@@ -47,7 +47,7 @@ Ask for a URL or screenshots.
 
 If Playwright plugin is available, use it to capture and analyze the live site.
 
-1. Load `ui-visual-review` – compare implementation against design intent
+1. Load `ui-implementation-review` – compare implementation against design intent
 2. Load `ui-accessibility` – accessibility audit
 3. Load `psych-master-audit` – psychology scan
 4. Compile findings into a review report
@@ -66,9 +66,17 @@ If Playwright plugin is available, use it to capture and analyze the live site.
 
 ### Psychology Scan (Option 5)
 
-1. Load `psych-master-audit` – broad scan across 100+ principles
-2. Based on findings, offer targeted section deep-dives
-3. Route to `/de:psych section N` for deep analysis
+Use AskUserQuestion to ask:
+
+**Question:** "How would you like to run the psychology audit?"
+
+1. **Master audit** – Broad scan across all 100+ principles, then targeted deep-dives into problem areas
+2. **Section deep-dive** – Pick 1 of 13 sections to analyze in detail
+3. **God mode** – Full autonomous audit across all 100+ principles
+
+If AskUserQuestion is not available, present options as a numbered list.
+
+Load `psych-master-audit` for all three approaches. The psych-master-audit skill handles routing to the appropriate section skills, deep-dive selection, and god mode sequencing.
 
 ### Ethics Review (Option 6)
 
@@ -85,7 +93,7 @@ Run all review dimensions in parallel where possible:
 
 Then sequentially:
 
-1. Load `ui-visual-review`
+1. Load `ui-implementation-review`
 2. Load `ui-accessibility`
 3. Load `psych-master-audit`
 4. Load `ux-product-assessment` – comprehensive product checklist
@@ -102,7 +110,7 @@ After any review, ask:
 
 1. **Address findings** – Work through the issues identified
 2. **Share with stakeholders** – Use communicating-decisions skill to prepare a presentation
-3. **Document** – Run `/de:compound` to save findings
+3. **Document** – Run `/de:document` to save findings
 4. **Run another review type** – Choose a different review dimension
 
 ## Agents Used

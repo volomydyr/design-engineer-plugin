@@ -257,7 +257,7 @@ This skill enforces User > Docs > AI at every step:
 
 ## What Comes Next
 
-After references are collected, suggest running `ui-figma-workflow` to design the key screens in Figma using these references as visual direction. After implementation, suggest `ui-design-critique` to verify the build reflects the stated intent.
+After references are collected, suggest running `ui-figma-workflow` to design the key screens in Figma using these references as visual direction. After implementation, suggest `ui-craft-review` to verify the build reflects the stated intent.
 
 ---
 

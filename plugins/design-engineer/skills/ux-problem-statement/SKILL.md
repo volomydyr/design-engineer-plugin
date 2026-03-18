@@ -53,31 +53,20 @@ If the user has existing notes or a draft, ask them to share the content before 
 
 ## Step 2: Share Initial Perspectives
 
-Before diving into questions, briefly share how the problem could be viewed from multiple angles. Cover 3-4 perspectives in 2-3 sentences each:
+Before diving into questions, share your brief initial thoughts about the problem statement based on what you already know about the project. Draw on the user's context from Step 1, any existing project documents, and your understanding of the domain.
 
-- **User perspective**: Who might be experiencing this pain daily and what their current workarounds look like
-- **Market perspective**: Why existing solutions might be falling short and what gaps you see
-- **Severity perspective**: How significant this problem is – is it a daily frustration or an occasional inconvenience
-- **Timing perspective**: What has changed recently (technology, behavior, market shifts) that makes solving this problem more viable now
-
-Be honest and direct. If the problem seems narrow or broad, say so. The goal is to give the user starting material for their own thinking.
+Be honest and direct. If the problem seems narrow or broad, say so. If you see potential blind spots or strengths, mention them. The goal is to give the user starting material for their own thinking – not to follow a rigid template.
 
 ---
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 questions to deeply understand the problem. Adapt based on what the user shared in Step 1:
+Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
 
-1. **The pain**: Describe the problem in one sentence as if explaining it to someone who has never heard of your product.
-2. **Frequency**: How often do people encounter this problem? Daily, weekly, occasionally?
-3. **Current solutions**: What do people do today to deal with this? What tools, workarounds, or habits do they rely on?
-4. **Why current solutions fail**: What specifically is wrong with the existing approaches? Where do they break down?
-5. **The sufferer**: If you had to pick one specific person who experiences this problem the most, who would they be? What is their role, situation, context?
-6. **Emotional impact**: How does this problem make people feel? Frustrated, overwhelmed, stuck, anxious?
-7. **Cost of inaction**: What happens if this problem is never solved? What do people lose – time, money, opportunities, confidence?
-8. **Your unique lens**: Why do you see this problem more clearly than others? What personal experience or insight gives you an edge?
-9. **Scale**: Roughly how many people face this problem? Is it a niche or a widespread issue?
-10. **Validation signals**: Have you heard real people complain about this? Where and how?
+- What problem exists right now that is not being solved well?
+- Who feels this pain the most?
+- How will your product make their life better?
+- Warning: avoid "solution mode" – focus on the problem, not features
 
 Ask questions one at a time or in small batches (2-3). Wait for answers before continuing.
 
