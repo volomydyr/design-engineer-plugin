@@ -108,7 +108,7 @@ model: opus
 
 Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Claude Code's built-in `/review` and `/plan`:
 
-- `/de:setup` - Smart entry point (new projects, returning projects, existing projects)
+- `/de:start` - Smart entry point (new projects, returning projects, existing projects)
 - `/de:design` - Full design workflow orchestrator
 - `/de:prototype` - HTML prototype generation
 - `/de:dev` - Development pipeline

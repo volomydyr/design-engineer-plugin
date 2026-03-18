@@ -119,97 +119,33 @@ Explain briefly what each detected (or missing) MCP does:
 - **Figma Console MCP**: Can perform actions in Figma directly (create components, apply tokens, and styles from prompts). More powerful than the official plugin but trickier to set up.
 - **Playwright plugin**: Enables browser-based testing and a TDD approach. Also allows AI to browse live URLs for visual review.
 
-Do not recommend installing everything. Explain that Context7 and the Figma plugin are the essential two for the workflow this plugin teaches. Playwright and Figma Console MCP are advanced tools to explore once the user is comfortable with the basics.
+**Proactive help with missing tools:**
+
+Context7 and the Figma plugin are the essential prerequisites. If either is missing, proactively offer to help install them — explain what they do and guide the user through setup. If Playwright is missing, mention it's needed for testing but can be added later.
+
+If any existing configuration conflicts are detected (e.g., an existing status line, conflicting MCP settings), explain the conflict and ask the user whether to keep their current setup or use the recommended one. Never overwrite existing configuration without asking — explain what will change and why the recommended option is better.
 
 ---
 
-## Step 3: Ask Configuration Questions
+## Step 3: Mode Selection
 
-Ask the following questions sequentially. Each answer shapes the plugin configuration.
-
-### Question 1: Mode Preference
+The only question for new projects. Ask:
 
 ```
-question: "How do you prefer to work with AI?"
-header: "Interaction Mode"
+question: "How do you want to work?"
+header: "Mode"
 options:
   - label: "Guided mode (Recommended)"
-    description: "Step-by-step with questions, AI shares thoughts based on project context, and approval at every stage"
+    description: "Step by step — AI shares thoughts, asks questions adapted to your project, you review and approve every deliverable. Thorough process for building a quality product."
   - label: "God mode"
-    description: "Fully autonomous – provide context and let AI run the entire pipeline end-to-end with minimal input"
-  - label: "Both / decide later"
-    description: "Choose the mode each time you run a command"
-```
-
-### Question 2: Team Size
-
-```
-question: "Who will be working on this project?"
-header: "Team"
-options:
-  - label: "Solo"
-    description: "Just you – all design and development"
-  - label: "Small team (2-5)"
-    description: "A few collaborators sharing context"
-  - label: "Larger team (5+)"
-    description: "Multiple people with distinct roles"
-```
-
-This affects context management strategy. Solo projects can use simpler status tracking. Team projects need more structured handoff documentation.
-
-### Question 3: Design Tool Integration
-
-```
-question: "How do you work with design tools?"
-header: "Design Integration"
-options:
-  - label: "Figma with plugin"
-    description: "Use the Figma plugin to share design data directly with AI"
-  - label: "Figma without plugin"
-    description: "Manually share screenshots or export design specs"
-  - label: "Other design tool"
-    description: "Sketch, Adobe XD, or another tool"
-  - label: "No design tool yet"
-    description: "Will decide later or skip design tooling"
-```
-
-### Question 4: Deliverables Path
-
-```
-question: "Where should design deliverables be saved?"
-header: "Deliverables Location"
-options:
-  - label: "docs/design/ (Recommended)"
-    description: "Standard path inside your project folder with organized subdirectories"
-  - label: "Custom path"
-    description: "Specify your own directory path"
-```
-
-If "Custom path" is selected, ask a follow-up question for the exact path. Default is `docs/design/` inside the project root.
-
-### Question 5: Development Environment (conditional)
-
-Only ask this for new product setups:
-
-```
-question: "What development environment do you plan to use?"
-header: "Dev Environment"
-options:
-  - label: "Claude Code in terminal"
-    description: "Using Claude Code directly in the terminal"
-  - label: "Claude Code inside Cursor"
-    description: "Running Claude Code in Cursor's integrated terminal"
-  - label: "Cursor only"
-    description: "Using Cursor IDE with its built-in AI features"
-  - label: "Other / not sure yet"
-    description: "Different IDE or undecided"
+    description: "Rapid autonomous exploration — 99% automated, spends more tokens, produces the simplest working MVP as fast as possible. Best for quick validation: testing ideas, seeing if someone would pay. Not for building the final polished product."
 ```
 
 ---
 
 ## Step 4: Scaffold Project Structure
 
-Run `scripts/init-project-structure.sh` with the deliverables path from Question 4.
+Run `scripts/init-project-structure.sh` with the default deliverables path `docs/design/`.
 
 This creates the standardized folder structure. See [setup-checklist.md](./references/setup-checklist.md) for the full configuration reference.
 
@@ -238,19 +174,16 @@ The `.dependencies.yaml` file is initialized from the default template. See [dep
 
 ## Step 5: Write Configuration and Finalize
 
-Generate `.design-engineer.yaml` in the project root with all collected answers:
+Generate `.design-engineer.yaml` in the project root:
 
 ```yaml
 # Design-Engineer Plugin Configuration
-# Generated by /de:setup on {current_date}
+# Generated by /de:start on {current_date}
 
 project:
   type: "new"
   mode: "{answer_mode}"
-  team_size: "{answer_team}"
-  design_tool: "{answer_design_tool}"
-  deliverables_path: "{answer_deliverables_path}"
-  dev_environment: "{answer_dev_env_or_null}"
+  deliverables_path: "docs/design/"
 
 environment:
   plugins:
@@ -259,14 +192,9 @@ environment:
     playwright: {true/false}
   mcps:
     figma_console: {true/false}
-  tools:
-    ask_user_question: {true/false}
-    web_search: {true/false}
-    web_fetch: {true/false}
-    agent: {true/false}
 
 dependencies:
-  tracking_file: "{deliverables_path}/.dependencies.yaml"
+  tracking_file: "docs/design/.dependencies.yaml"
   auto_suggest: true
 ```
 
@@ -279,7 +207,7 @@ options:
   - label: "Yes (Recommended)"
     description: "Shows model, usage limits, context bar, and pipeline progress below every prompt"
   - label: "No"
-    description: "Skip – re-run /de:setup later to install"
+    description: "Skip – re-run /de:start later to install"
 ```
 
 If "Yes":
@@ -295,20 +223,17 @@ Initialize dependency tracking by copying [dependencies-default.yaml](./assets/d
 Display a summary of everything configured:
 
 ```
-Setup Complete
-──────────────
-Project type:     New product
+Ready to go
+───────────
 Mode:             {mode}
-Team:             {team_size}
-Design tool:      {design_tool}
-Deliverables:     {deliverables_path}
-Plugins detected: {list}
+Deliverables:     docs/design/
+Plugins:          {detected list}
 Config saved:     .design-engineer.yaml
 Status line:      {installed | skipped}
 
 Next step: Run /de:design to start the full product design pipeline.
 
-Tip: Re-run /de:setup anytime to reconfigure or browse capabilities.
+Tip: Run /de:start anytime to check progress or browse capabilities.
 ```
 
 ---
@@ -354,20 +279,15 @@ DESIGN & VALIDATION
 • Run a full product assessment
 
 DEVELOPMENT
-• Generate project CLAUDE.md rules
-• Set up AI agent development pipeline
-• Build features with TDD (test-first + agents)
-• Manage context across sessions
-• Set up GitHub workflow
-• Configure MCP plugins
+• Set up development environment (CLAUDE.md + agents + GitHub + tools)
+• Build features iteratively (test-first + AI agents)
 
 REVIEW & AUDIT
-• Design craft quality critique
+• Design craft quality review
 • Implementation fidelity check
 • Accessibility audit (WCAG)
 • Psychology scan (100 laws)
-• Design system compliance audit
-• Prepare findings for stakeholders
+• Design system compliance
 ```
 
 ### 6b: Diagnostic Questions (existing projects only)
@@ -432,7 +352,7 @@ For example:
 • Full development pipeline for a feature → /de:dev pipeline
 
 These are recommendations — you can use any capability at any time.
-Come back to /de:setup anytime to see this list again.
+Come back to /de:start anytime to see this list again.
 ```
 
 ### 6d: Minimal Config for Existing Projects

@@ -18,7 +18,7 @@ claude plugin marketplace add https://github.com/volomydyr/design-engineer-plugi
 claude plugin install design-engineer
 
 # Run setup first (mandatory)
-/de:setup
+/de:start
 ```
 
 ## Commands
@@ -27,7 +27,7 @@ You interact with 6 top-level commands. Behind each one, the full engine of 49 s
 
 | Command | What It Does |
 |---------|-------------|
-| `/de:setup` | Smart entry point. Detects your situation — new projects get full setup, returning projects resume, existing projects get a capability guide. |
+| `/de:start` | Smart entry point. Detects your situation — new projects get full setup, returning projects resume, existing projects get a capability guide. |
 | `/de:design` | Full design workflow orchestrator. God mode (autonomous) or Guided mode (step-by-step). Sequences through discovery, strategy, planning, and validation. |
 | `/de:prototype` | HTML prototype generation. New products, new features, or redesigns. |
 | `/de:dev` | Development pipeline. CLAUDE.md generation, agent pipeline setup, context management, kick-start prompts, GitHub workflow, MCP configuration. |

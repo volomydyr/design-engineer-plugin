@@ -1,6 +1,6 @@
 ---
 name: meta-statusline
-description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /de:setup."
+description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /de:start."
 disable-model-invocation: true
 model: sonnet
 ---
@@ -121,8 +121,8 @@ Status line installed.
 The status line will appear on the next Claude Code prompt.
 Usage limits (5h/7d) will appear after the first background API fetch (~1 minute).
 
-To update after a plugin update: /de:setup install
-To remove: /de:setup uninstall
+To update after a plugin update: /de:start install
+To remove: /de:start uninstall
 ```
 
 ---

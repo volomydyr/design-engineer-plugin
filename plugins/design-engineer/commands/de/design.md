@@ -14,7 +14,7 @@ The primary command for product creation. Handles the entire design pipeline fro
 
 ## Prerequisites
 
-Verify that `/de:setup` has been run by checking for `.design-engineer.yaml` in the project root. If not found, instruct the user to run `/de:setup` first.
+Verify that `/de:start` has been run by checking for `.design-engineer.yaml` in the project root. If not found, instruct the user to run `/de:start` first.
 
 ## Mode Selection
 

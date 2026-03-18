@@ -18,7 +18,7 @@
     {
       "id": 3,
       "skill_name": "meta-setup",
-      "prompt": "/de:setup",
+      "prompt": "/de:start",
       "expected_output": "Should trigger the full setup flow: environment detection, sequential configuration questions, project scaffolding, config file creation, dependency tracking initialization, and completion summary with recommended next commands.",
       "files": []
     },
@@ -66,15 +66,15 @@
     },
     {
       "id": 10,
-      "skill_name": "command:de:setup",
-      "prompt": "/de:setup",
+      "skill_name": "command:de:start",
+      "prompt": "/de:start",
       "expected_output": "Should load the meta-setup skill, run environment detection script, report findings (detected MCPs, tools, project state), ask 5-7 sequential configuration questions, run project scaffolding script, create .design-engineer.yaml config file and .dependencies.yaml, and display a setup confirmation summary with next step suggestions based on project state.",
       "files": []
     },
     {
       "id": 11,
-      "skill_name": "command:de:setup",
-      "prompt": "/de:setup -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
+      "skill_name": "command:de:start",
+      "prompt": "/de:start -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
       "expected_output": "Should detect existing project state, ask configuration questions with smart defaults based on the provided context (existing project with docs, team of 3), allow custom deliverables path (product-design), scaffold the folder structure accordingly, and suggest /de:review as the logical next step for existing projects with docs.",
       "files": []
     },
@@ -82,7 +82,7 @@
       "id": 12,
       "skill_name": "command:de:design",
       "prompt": "/de:design god-mode",
-      "expected_output": "Should verify /de:setup has been run, activate God mode, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
+      "expected_output": "Should verify /de:start has been run, activate God mode, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
       "files": []
     },
     {
