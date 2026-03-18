@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.10.0] – 2026-03-18
+
+### Added
+
+- `de-prompt-injection-hook.js` PostToolUse hook — scans tool outputs for indirect prompt injection attempts across 5 categories (instruction override, role-playing/DAN, encoding/obfuscation, context manipulation, instruction smuggling). 55+ patterns ported from lasso-security/claude-hooks to JavaScript. Warns Claude without blocking. Fail-open design.
+
 ## [1.9.3] – 2026-03-18
 
 ### Added

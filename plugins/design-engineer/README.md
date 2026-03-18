@@ -159,11 +159,12 @@ Every skill can be invoked directly:
 
 ## Hooks
 
-The plugin includes three hooks:
+The plugin includes four hooks:
 
 - **PreToolUse** (`de-safety-hook.js`) – context-aware protection against destructive Bash commands (rm -rf, git push --force, DROP TABLE, git add .env, etc.). Shows safer alternatives alongside every block. Fail-open design.
 - **PreToolUse** (`de-tdd-hook.js`) – enforces test-first development by blocking source code writes (Write/Edit/MultiEdit) when no test scripts exist in `tests/` during active implementation. Fail-open design.
 - **PostToolUse** (`check_deliverable_deps.py`) – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
+- **PostToolUse** (`de-prompt-injection-hook.js`) – scans tool outputs (Read, WebFetch, Bash, Grep, Task, MCP) for indirect prompt injection attempts across 5 categories: instruction override, role-playing/DAN, encoding/obfuscation, context manipulation, instruction smuggling. Warns Claude without blocking. Fail-open design.
 - **Stop** (`session_dep_summary.py`) – summarizes which deliverables were updated in this session and which dependents may be stale
 
 ## Model Configuration

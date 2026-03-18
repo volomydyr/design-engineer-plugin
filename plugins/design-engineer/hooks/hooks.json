@@ -1,5 +1,5 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, and TDD enforcement",
+  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, and prompt injection defense",
   "hooks": {
     "PreToolUse": [
       {
@@ -33,6 +33,16 @@
           }
         ],
         "matcher": "Write|Edit|MultiEdit"
+      },
+      {
+        "matcher": "Read|WebFetch|Bash|Grep|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-prompt-injection-hook.js",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "Stop": [

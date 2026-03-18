@@ -2,6 +2,12 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.10.0] – 2026-03-18
+
+### Added
+
+- Prompt injection defender hook: scans tool outputs for indirect prompt injection across 5 categories, 55+ patterns, warn-only
+
 ## [1.9.3] – 2026-03-18
 
 ### Added
