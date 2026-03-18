@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.9.0] – 2026-03-18
+
+### Added
+
+- 8 frontend design reference files in ui-design-critique (typography, color-and-contrast, spatial-design, motion-design, interaction-design, responsive-design, ux-writing, anti-patterns)
+- AI Slop Test as 5th named test in ui-design-critique — checks against documented AI aesthetic fingerprints
+- Cross-references from ui-visual-review to shared design domain references
+
 ## [1.8.0] – 2026-03-16
 
 ### Added

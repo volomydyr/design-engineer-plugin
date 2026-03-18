@@ -2,6 +2,12 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.9.0] – 2026-03-18
+
+### Added
+
+- Frontend design domain knowledge: 8 reference files covering typography, color theory, spatial design, motion, interaction, responsive design, UX writing, and AI anti-patterns
+
 ## [1.8.0] – 2026-03-16
 
 ### Added

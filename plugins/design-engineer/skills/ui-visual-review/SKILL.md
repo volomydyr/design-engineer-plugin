@@ -13,6 +13,8 @@ AI-generated UI frequently contains specific, predictable issues: title case whe
 
 The most common violations are hardcoded values (AI writes specific color values instead of reusing established tokens) and redundant components (AI creates new components from scratch instead of reusing existing ones every time new designs are shared).
 
+Beyond these technical issues, AI-generated UI has recognizable aesthetic fingerprints: the same fonts, the same color palettes, the same card layouts. These patterns are cataloged in the design critique references — consult them when the implementation looks "correct" but feels generic.
+
 ## Interaction Method
 
 If `AskUserQuestion` is available, use it for all prompts below.
@@ -81,7 +83,7 @@ Document any non-negotiable violations before proceeding to the visual audit.
 
 ## Step 4: Run the Visual Audit
 
-For each screen or component, check against the common issues catalog in [common-ui-issues.md](./references/common-ui-issues.md):
+For each screen or component, check against the common issues catalog in [common-ui-issues.md](./references/common-ui-issues.md). For deeper domain knowledge on typography, color, spacing, motion, and interaction design, consult the [design domain references](../ui-design-critique/references/).
 
 ### Typography Issues
 - Title case used instead of sentence case (extremely common with AI)
@@ -156,3 +158,4 @@ After the visual review, suggest running `ui-design-critique` to evaluate craft 
 ## Resource Files
 
 - [common-ui-issues.md](./references/common-ui-issues.md) – Catalog of common AI-generated UI problems and fixes
+- [Design domain references](../ui-design-critique/references/) – Typography, color, spatial design, motion, interaction, responsive, UX writing, and AI anti-patterns (shared with ui-design-critique)

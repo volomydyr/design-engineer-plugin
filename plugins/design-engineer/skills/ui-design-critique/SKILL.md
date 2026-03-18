@@ -73,7 +73,7 @@ Step back. Look at the whole thing.
 
 **Balance** – Heavy elements (large images, dense data tables, dark sections) should balance against lighter areas. Not symmetrically – dynamically. Like a well-composed photograph.
 
-For the full framework with examples, see [critique-framework.md](./references/critique-framework.md).
+For the full framework with examples, see [critique-framework.md](./references/critique-framework.md). For deeper domain knowledge on spacing systems, grids, and visual hierarchy, see [spatial-design.md](./references/spatial-design.md).
 
 ---
 
@@ -89,6 +89,8 @@ Move close. Pixel-close.
 
 **Interactive states** – Every button, link, and clickable region should respond to hover and press. Not dramatically – a subtle shift in background, a gentle darkening. Missing states make an interface feel like a photograph of software instead of software.
 
+For deeper domain knowledge, see [typography.md](./references/typography.md), [color-and-contrast.md](./references/color-and-contrast.md), and [motion-design.md](./references/motion-design.md).
+
 ---
 
 ## Step 4: See the Content
@@ -100,6 +102,8 @@ Read every visible string as a user would. Not checking for typos – checking f
 **Content quality** – Placeholder text like "Lorem ipsum" or obviously fake data ("John Doe", "$1,234.56") breaks the illusion. Good prototypes use realistic data that helps evaluate the design under real conditions.
 
 **Content–design alignment** – Content incoherence breaks the illusion faster than any visual flaw. A beautifully designed interface with nonsensical content is a movie set with no script.
+
+For deeper domain knowledge on copy quality and voice, see [ux-writing.md](./references/ux-writing.md).
 
 ---
 
@@ -138,6 +142,14 @@ If you cannot locate the signature, it does not exist. The interface is generic 
 ### Token Test
 
 Read the design tokens or CSS variables out loud. Do they sound like they belong to this product's world? `--ink`, `--parchment`, `--clinic-teal` tell you what product this is. `--gray-700`, `--surface-2`, `--primary` could belong to anything.
+
+### AI Slop Test
+
+Show this interface to a stranger and say "AI made this." If they believe you immediately — that is the problem.
+
+Check the implementation against every anti-pattern in [anti-patterns.md](./references/anti-patterns.md). The tells are specific: purple gradients, Inter font, cards inside cards, glassmorphism, identical card grids, bounce easing. Each one signals "no one decided this."
+
+The goal is not to avoid AI assistance — it is to avoid AI defaults.
 
 ---
 
@@ -195,3 +207,11 @@ After critique and rebuild, suggest running `ui-visual-review` to catch any rema
 ## Resource Files
 
 - [critique-framework.md](./references/critique-framework.md) – Full 4-lens critique framework with detailed examples, common defaults, and example critique reports
+- [anti-patterns.md](./references/anti-patterns.md) – AI-generated UI anti-patterns and the AI Slop Test
+- [typography.md](./references/typography.md) – Type systems, font pairing, modular scales, OpenType features
+- [color-and-contrast.md](./references/color-and-contrast.md) – OKLCH color, tinted neutrals, dark mode, WCAG contrast
+- [spatial-design.md](./references/spatial-design.md) – Spacing systems, grids, visual hierarchy, container queries
+- [motion-design.md](./references/motion-design.md) – Easing curves, duration rules, stagger patterns, reduced motion
+- [interaction-design.md](./references/interaction-design.md) – Interactive states, focus rings, forms, keyboard navigation
+- [responsive-design.md](./references/responsive-design.md) – Mobile-first, fluid design, input detection, safe areas
+- [ux-writing.md](./references/ux-writing.md) – Button labels, error messages, empty states, voice and tone
