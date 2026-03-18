@@ -231,6 +231,30 @@ All code-producing steps follow Test-Driven Development using Playwright CLI. A 
 
 See `skills/dev-agent-pipeline/references/testing-anti-patterns.md` for the 5 common anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests as afterthought.
 
+## Requirement Fidelity
+
+Two PostToolUse hooks enforce that plans and implementation match user requirements exactly:
+
+- **Command hook** (`de-fidelity-hook.js`) — injects a fidelity reminder after source code writes during active implementation
+- **Prompt hook** (Haiku) — reviews plan files for requirement drift after every write
+
+### What Constitutes Drift
+
+- Features or functionality not explicitly requested by the user
+- Modified copy, text, or naming from what the user specified
+- "Bonus" features, creative additions, or unsolicited improvements
+- Scope expansion beyond what was stated
+
+### What Is NOT Drift
+
+- Implementation details (file structure, variable names, technical approach)
+- Reasonable error handling for stated requirements
+- Standard patterns required by the framework/language
+
+### The Rule
+
+If a feature, behavior, or piece of copy was not explicitly requested by the user, it must not appear in plans or implementation. The ONLY way to introduce something new is to ask the user first using AskUserQuestion.
+
 ## Context Monitoring
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):

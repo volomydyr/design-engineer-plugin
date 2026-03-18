@@ -2,6 +2,12 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.10.1] – 2026-03-18
+
+### Added
+
+- Requirement fidelity enforcement: command hook for source code + Haiku prompt hook for plan files
+
 ## [1.10.0] – 2026-03-18
 
 ### Added

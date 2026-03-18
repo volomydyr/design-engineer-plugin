@@ -1,5 +1,5 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, and prompt injection defense",
+  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, prompt injection defense, and requirement fidelity",
   "hooks": {
     "PreToolUse": [
       {
@@ -33,6 +33,23 @@
           }
         ],
         "matcher": "Write|Edit|MultiEdit"
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-fidelity-hook.js",
+            "timeout": 5
+          },
+          {
+            "type": "prompt",
+            "prompt": "You are a requirement fidelity reviewer. You receive data about a file that was just written.\n\n$ARGUMENTS\n\nFIRST: Check the file_path in tool_input. If it does NOT contain \"plans/\" — respond with NOTHING (empty output). Only review plan files.\n\nIF this is a plan file, review its content for requirement drift:\n\n1. Does the plan add features or functionality not explicitly requested by the user?\n2. Does the plan modify user-specified copy, text, or naming?\n3. Are there \"bonus\" features, creative additions, or unsolicited improvements?\n4. Does the plan contain language like \"I've also added\", \"Additionally\", \"As a bonus\", \"I took the liberty\"?\n\nIf you find ANY drift, respond with JSON:\n{\"decision\": \"block\", \"reason\": \"REQUIREMENT FIDELITY WARNING: [specific items that were added/changed without user approval]. Remove these additions or ask the user first using AskUserQuestion before proceeding.\"}\n\nIf the plan looks faithful to what was requested, respond with nothing.\n\nBe strict. If something wasn't explicitly asked for, it's drift. Implementation details (file structure, variable names, technical approach) are fine — features, scope, copy, and user-facing behavior must match exactly.",
+            "model": "haiku",
+            "timeout": 30,
+            "statusMessage": "Checking requirement fidelity..."
+          }
+        ]
       },
       {
         "matcher": "Read|WebFetch|Bash|Grep|Task",

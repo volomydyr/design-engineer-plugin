@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.10.1] – 2026-03-18
+
+### Added
+
+- `de-fidelity-hook.js` PostToolUse command hook — injects requirement fidelity reminders after source code writes during active implementation
+- Haiku prompt hook for plan files — reviews plans for requirement drift (added features, modified copy, scope expansion) and warns Claude to revert or ask the user
+- Requirement Fidelity section in CLAUDE.md defining drift vs. acceptable implementation details
+
 ## [1.10.0] – 2026-03-18
 
 ### Added
