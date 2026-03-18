@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.9.2] – 2026-03-18
+
+### Added
+
+- advanced-animations.md: clip-path patterns, gesture/drag, WAAPI, debugging
+
+### Changed
+
+- motion-design.md: animation decision framework, never scale(0), popover transform-origin, blur masking, @starting-style, spring configuration, asymmetric timing, Framer Motion/CSS-vs-JS performance
+- ui-design-critique/skill.md: craft philosophy ("taste is trained", Paul Graham quote)
+
 ## [1.9.1] – 2026-03-18
 
 ### Changed

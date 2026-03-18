@@ -2,6 +2,17 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.9.2] – 2026-03-18
+
+### Added
+
+- advanced-animations.md: clip-path animation, gesture/drag, WAAPI, debugging
+
+### Changed
+
+- motion-design.md: animation decision framework, spring animations, popover transform-origin, blur masking, @starting-style, asymmetric timing, framework-specific performance guidance
+- ui-design-critique: craft philosophy additions
+
 ## [1.9.1] – 2026-03-18
 
 ### Changed

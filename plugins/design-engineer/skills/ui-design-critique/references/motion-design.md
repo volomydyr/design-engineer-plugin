@@ -1,5 +1,61 @@
 # Motion Design
 
+## The Animation Decision Framework
+
+Before writing any animation code, answer these questions in order.
+
+### 1. Should this animate at all?
+
+How often users will see it determines everything.
+
+| Frequency | Decision |
+|-----------|----------|
+| 100+ times/day (keyboard shortcuts, command palette) | No animation |
+| Tens of times/day (hover effects, list navigation) | Remove or drastically reduce |
+| Occasional (modals, drawers, toasts) | Standard animation |
+| Rare/first-time (onboarding, celebrations) | Can add delight |
+
+**Never animate keyboard-initiated actions.** These fire hundreds of times daily. Animation makes them feel slow and disconnected from user intent. The optimal experience for something used hundreds of times a day is no animation at all.
+
+### 2. What is the purpose?
+
+Every animation needs a clear "why":
+
+- **Spatial consistency** — toast enters/exits from same direction, making swipe-to-dismiss intuitive
+- **State indication** — morphing feedback button shows a state change
+- **Preventing jarring changes** — elements disappearing without transition feel broken
+- **Feedback** — button scales down on press, confirming the interface heard the user
+- **Explanation** — a marketing animation showing how a feature works
+
+If the purpose is "it looks cool" and the user will see it often, don't animate.
+
+### 3. What easing?
+
+Is the element entering or exiting?
+- **Yes** → `ease-out` (starts fast, feels responsive)
+
+Is it moving or morphing on screen?
+- **Yes** → `ease-in-out` (natural acceleration/deceleration)
+
+Is it a hover or color change?
+- **Yes** → `ease`
+
+Is it constant motion (marquee, progress bar)?
+- **Yes** → `linear`
+
+**Never use `ease-in` for UI animations.** It starts slow — the exact moment the user is watching most closely. A dropdown with `ease-in` at 300ms *feels* slower than `ease-out` at the same 300ms.
+
+### 4. How fast?
+
+UI animations should stay **under 300ms**. A 180ms dropdown feels more responsive than a 400ms one.
+
+| Element | Duration |
+|---------|----------|
+| Button press feedback | 100-160ms |
+| Tooltips, small popovers | 125-200ms |
+| Dropdowns, selects | 150-250ms |
+| Modals, drawers | 200-500ms |
+
 ## Duration: The 100/300/500 Rule
 
 Timing matters more than easing. These durations feel right for most UI:
@@ -37,6 +93,88 @@ Timing matters more than easing. These durations feel right for most UI:
 ```
 
 **Avoid bounce and elastic curves.** They were trendy in 2015 but now feel tacky and amateurish. Real objects don't bounce when they stop—they decelerate smoothly. Overshoot effects draw attention to the animation itself rather than the content.
+
+## Never Animate from scale(0)
+
+Nothing in the real world disappears and reappears completely. Elements animating from `scale(0)` look like they appear out of nowhere.
+
+Start from `scale(0.95)` or higher, combined with opacity. Even a barely-visible initial scale makes the entrance feel more natural — like a balloon that has visible shape even when deflated.
+
+```css
+/* Bad — appears out of nowhere */
+.entering { transform: scale(0); opacity: 0; }
+
+/* Good — has visible shape at start */
+.entering { transform: scale(0.95); opacity: 0; }
+```
+
+## Popover transform-origin
+
+Popovers should scale in from their trigger, not from center. The default `transform-origin: center` is wrong for almost every popover.
+
+**Exception: modals.** Modals are not anchored to a trigger — they appear centered in the viewport. Keep `transform-origin: center` for modals.
+
+```css
+/* Radix UI */
+.popover { transform-origin: var(--radix-popover-content-transform-origin); }
+
+/* Base UI */
+.popover { transform-origin: var(--transform-origin); }
+```
+
+## Blur to Mask Transitions
+
+When a crossfade between two states feels off despite tuning easing and duration, add subtle `filter: blur(2px)` during the transition.
+
+Without blur, crossfades show two distinct states overlapping — the old state and new state swapping visibly. Blur bridges the gap, tricking the eye into perceiving a single smooth transformation.
+
+```css
+.button-content {
+  transition: filter 200ms ease, opacity 200ms ease;
+}
+.button-content.transitioning {
+  filter: blur(2px);
+  opacity: 0.7;
+}
+```
+
+Keep blur under `20px` — heavy blur is expensive, especially in Safari.
+
+## Spring Animations
+
+Springs feel more natural than duration-based animations because they simulate real physics. Use springs for:
+
+- Drag interactions with momentum
+- Elements that should feel alive (not mechanical)
+- Gestures that can be interrupted mid-animation
+
+Springs maintain velocity when interrupted — CSS transitions and keyframes restart from zero.
+
+```js
+// Apple's approach (easier to reason about)
+{ type: "spring", duration: 0.5, bounce: 0.2 }
+
+// Traditional physics (more control)
+{ type: "spring", mass: 1, stiffness: 100, damping: 10 }
+```
+
+Keep bounce subtle (0.1–0.3). Avoid bounce in most UI contexts — use it for drag-to-dismiss and playful interactions only.
+
+For mouse-tracking effects, use `useSpring` to interpolate value changes rather than updating directly — this adds momentum and prevents the artificial "tied to cursor" feel.
+
+## Asymmetric Enter/Exit Timing
+
+Slow where the user is deciding. Fast where the system is responding.
+
+```css
+/* Release: fast */
+.overlay { transition: clip-path 200ms ease-out; }
+
+/* Press: slow and deliberate */
+.button:active .overlay { transition: clip-path 2s linear; }
+```
+
+This pattern applies broadly: a hold-to-delete takes 2s to fill (user controls it), but releases instantly (system responds). Tooltip delays are long (prevents accidents), but subsequent tooltip hovers are instant (system got the message).
 
 ## The Only Two Properties You Should Animate
 
@@ -109,6 +247,25 @@ A subtle scale-down on click gives buttons tactile feedback. **Always use `scale
 ```
 
 Not every button needs this. Add a `static` variant that disables the scale when motion would be distracting (e.g., submit buttons in modals).
+
+## @starting-style: CSS Entry Without JavaScript
+
+The modern CSS way to animate element entry without JavaScript:
+
+```css
+.toast {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms ease, transform 400ms ease;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+```
+
+This replaces the common React pattern of using `useEffect` + `mounted` state just to trigger enter animations. Check browser support for your project; fall back to the `data-mounted` attribute pattern otherwise.
 
 ## Skip Animation on Page Load
 
@@ -196,6 +353,26 @@ Hints the browser to pre-promote an element to its own GPU compositing layer, pr
 ```
 
 Only add when you notice first-frame stutter (Safari benefits most). Don't add preemptively — each compositing layer costs memory.
+
+### Framer Motion Hardware Acceleration
+
+Framer Motion's shorthand props (`x`, `y`, `scale`) run on the main thread via `requestAnimationFrame` — NOT hardware-accelerated. For GPU acceleration, use the full transform string:
+
+```jsx
+// NOT hardware-accelerated (drops frames when main thread is busy)
+<motion.div animate={{ x: 100 }} />
+
+// Hardware-accelerated
+<motion.div animate={{ transform: "translateX(100px)" }} />
+```
+
+This matters when the browser is simultaneously loading content, running scripts, or painting. If you notice dropped frames during page transitions, switching to the full transform string (or pure CSS) will fix it.
+
+### CSS Animations vs. JavaScript Under Load
+
+CSS animations run off the main thread — they stay smooth even when the browser is busy loading a new page or running scripts. JavaScript-driven animations (Framer Motion `requestAnimationFrame`) drop frames under load.
+
+**Use CSS** for predetermined, non-interactive animations. **Use JS** when you need dynamic values, interruptibility, or spring physics.
 
 For scroll-triggered animations, use Intersection Observer instead of scroll events; unobserve after animating once. Create motion tokens for consistency (durations, easings, common transitions).
 
