@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.9.3] – 2026-03-18
+
+### Added
+
+- testing-anti-patterns.md reference in dev-agent-pipeline (5 anti-patterns with code examples, gate functions, common rationalizations, red flags)
+
+### Changed
+
+- test-writer agent: Iron Law, verify RED/GREEN checklists, When Stuck table, Good Tests table, anti-patterns reference link
+- CLAUDE.md TDD section: Iron Law, Red Flags list, detailed verify steps, anti-patterns reference
+
 ## [1.9.2] – 2026-03-18
 
 ### Added

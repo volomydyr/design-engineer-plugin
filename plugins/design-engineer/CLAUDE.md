@@ -196,13 +196,25 @@ Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not 
 
 All code-producing steps follow Test-Driven Development using Playwright CLI. A PreToolUse hook enforces this — source code writes are blocked when no test scripts exist in `tests/`.
 
+### The Iron Law
+
+**No production code without a failing test first.** Wrote code before the test? Delete it. Don't keep as "reference." Don't adapt it. Delete means delete. Implement fresh from tests.
+
 ### TDD Cycle
 
 1. **Red**: `test-writer` agent creates failing test scripts in `tests/`
-2. Run test scripts → verify they fail (expected — feature not built yet)
+2. Run test scripts → verify they fail **correctly** (fails because feature is missing, not because of typos or script errors)
 3. **Green**: Implement the feature (backend-implementer, frontend-implementer)
-4. Run test scripts → verify they pass
+4. Run test scripts → verify they pass, all other tests still pass, output is clean
 5. **Refactor**: `/simplify` cleans up the code
+
+### Red Flags — Stop and Start Over
+
+- Code written before test
+- Test passes immediately on first run
+- Test written after implementation
+- Keeping pre-test code as "reference"
+- Rationalizing "just this once"
 
 ### Test Storage
 
@@ -214,6 +226,10 @@ All code-producing steps follow Test-Driven Development using Playwright CLI. A 
 - After plan approval, before backend-implementer and frontend-implementer
 - After prototype generation in dev-prototyping
 - The hook only activates during implementation (when `plans/` has active plan files)
+
+### Testing Anti-Patterns
+
+See `skills/dev-agent-pipeline/references/testing-anti-patterns.md` for the 5 common anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests as afterthought.
 
 ## Context Monitoring
 

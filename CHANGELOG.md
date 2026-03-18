@@ -2,6 +2,16 @@
 
 All notable changes to this marketplace will be documented in this file.
 
+## [1.9.3] – 2026-03-18
+
+### Added
+
+- Testing anti-patterns reference: 5 anti-patterns with code examples, common rationalizations table, red flags
+
+### Changed
+
+- TDD enforcement strengthened: Iron Law, verify RED/GREEN checklists, When Stuck guide
+
 ## [1.9.2] – 2026-03-18
 
 ### Added
