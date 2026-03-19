@@ -16,7 +16,6 @@ model: opus
 **Reference files:**
 
 - [bmap-framework.md](./references/bmap-framework.md) – Complete BMap formula, Activation Threshold, 10 behavior levers, 3 key questions, GEQs, and the "Replacing X" technique
-- [mental-model-guide.md](./references/mental-model-guide.md) – How to build, use, and validate mental models for product design
 
 ---
 

@@ -276,6 +276,15 @@ If "Yes":
 4. Copy the script: `cp ${CLAUDE_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js`
 5. Read `~/.claude/settings.json`, set `statusLine` to `{"type": "command", "command": "node \"{home}/.claude/hooks/de-statusline.js\""}` (replace `{home}` with the actual home directory path), write back with 2-space indentation
 6. Confirm: "Status line installed. It will appear on the next prompt."
+7. Explain the usage monitor: "The status line shows your model, context usage, and pipeline progress automatically. To also see your 5-hour and 7-day usage limits, you need to run a small monitor in a separate terminal window. Open a new terminal tab and run this command:"
+
+```
+node ~/.claude/hooks/de-statusline.js --watch
+```
+
+"Keep that window open while you work with Claude. It refreshes your usage data every 3 minutes. If you close it, the status line still works — it just won't show the usage limits. This is optional but recommended, especially if you're on a usage-limited plan."
+
+"Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials — only the monitor does, and only in that separate terminal."
 
 Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
 

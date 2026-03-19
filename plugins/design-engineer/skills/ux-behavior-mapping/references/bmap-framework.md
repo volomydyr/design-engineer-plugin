@@ -214,10 +214,3 @@ This illustrates the BMap's primary value: it is a **communication and alignment
 
 **Key insight:** This is why Uber Eats sends notifications around lunch and dinner time. Hunger increases motivation, moving users above the Activation Threshold. The prompt itself does not change – only its timing relative to the user's motivation state.
 
----
-
-## Connecting to Other Activities
-
-- **From 6P Stories:** The key moment or biggest gap identified in the 6P Story becomes the desired behavior to map. The emotions captured in the story panels become input for assessing motivation levers.
-- **To Psych Framework:** The Motivation and Ability axes of the BMap merge into a single "Psych" dimension in the Psych Framework. The lever analysis here directly informs Psych variation calculations.
-- **Customer research integration:** GEQ answers improve the 6P Story (hopes become Panel 6 drivers, pains become struggle panels, barriers become specific obstacles). Always loop insights back.

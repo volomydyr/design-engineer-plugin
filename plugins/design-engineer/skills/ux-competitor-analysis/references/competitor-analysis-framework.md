@@ -1,132 +1,32 @@
 # Competitor Analysis Framework
 
-## Overview
-
-This framework structures competitive research into actionable insights. It combines AI-powered deep web research with manual review to produce reliable, comprehensive analysis.
+Classic competitor analysis can eat up days. Luckily, AI makes it much faster if you know how to set it up.
 
 ---
 
-## 1. Competitor Identification
+## 1. Identify Your Competitors
 
-### 1.1 Direct Competitors
+### Direct Competitors
 
 Products that solve the same problem for the same target audience.
 
-| Competitor | Product Type | Target Audience | Key Differentiator |
-|-----------|-------------|----------------|-------------------|
-| [Name] | [App/Platform/Service] | [Who they serve] | [What makes them unique] |
+### Indirect Competitors
 
-### 1.2 Indirect Competitors
+Products that solve the same underlying need in a different way. Don't skip these — even if it feels like "there's nothing like my product," chances are similar solutions exist in another form.
 
-Products that solve the same underlying need in a different way.
-
-| Competitor | Product Type | How They Address the Need | Why Users Choose Them |
-|-----------|-------------|--------------------------|----------------------|
-| [Name] | [App/Platform/Service] | [Their approach] | [Their appeal] |
-
-### 1.3 Substitute Behaviors
-
-What people do instead of using any product:
-
-- [Manual workaround 1]
-- [Manual workaround 2]
-- [Ignoring the problem entirely – why?]
+**Tip:** If stuck, look back at your survey results. Users often mention tools they already use.
 
 ---
 
-## 2. Per-Competitor Analysis
+## 2. AI-Powered Research
 
-For each competitor (both direct and indirect), document:
+The key point: never just ask AI to "do a competitor analysis." That's how you get garbage. The issue is the prompt.
 
-### 2.1 Business Model Analysis
+Use Perplexity, Liner, or Claude's deep research feature. Both Perplexity and Liner have generous free plans that are enough for a founder-sized study.
 
-- **Pricing structure**: Free, freemium, subscription, one-time purchase
-- **Pricing tiers**: What each tier includes and costs
-- **Value proposition**: What they promise in their own words
-- **Differentiation strategy**: How they position against others
+### Step 1: Generate the prompt in your AI tool
 
-### 2.2 User Experience Evaluation
-
-- **Onboarding**: How new users get started
-- **Content/feature organization**: How they structure their product
-- **Visual design quality**: Overall polish and usability
-- **Key UX strengths**: What they do particularly well
-- **Key UX weaknesses**: Where the experience breaks down
-
-### 2.3 Feature Comparison
-
-- **Core functionality**: What the product does at its foundation
-- **Unique features**: What only this competitor offers
-- **Engagement mechanisms**: How they keep users coming back
-- **Platform support**: Web, mobile, desktop, integrations
-
-### 2.4 User Feedback Analysis
-
-Sources: App Store reviews, Google Play reviews, Reddit discussions, forum posts, social media.
-
-- **Most appreciated features**: What users love and praise
-- **Common pain points**: Recurring complaints and frustrations
-- **Retention challenges**: Why users leave or stop using the product
-- **Feature requests**: What users wish the product would do
-
-### 2.5 Pricing Details
-
-| Tier | Price (Monthly) | Price (Annual) | Key Features |
-|------|----------------|---------------|-------------|
-| Free | $0 | $0 | [Features] |
-| [Plan name] | $X | $Y | [Features] |
-| [Plan name] | $X | $Y | [Features] |
-
----
-
-## 3. Comparison Matrix
-
-Create a feature comparison table across all analyzed competitors:
-
-| Feature / Aspect | Your Product | Competitor A | Competitor B | Competitor C |
-|-----------------|-------------|-------------|-------------|-------------|
-| [Feature 1] | [Yes/No/Planned] | [Yes/No] | [Yes/No] | [Yes/No] |
-| [Feature 2] | [Yes/No/Planned] | [Yes/No] | [Yes/No] | [Yes/No] |
-| Pricing (entry) | [Price] | [Price] | [Price] | [Price] |
-| Target audience | [Who] | [Who] | [Who] | [Who] |
-| Key strength | [What] | [What] | [What] | [What] |
-| Key weakness | [What] | [What] | [What] | [What] |
-
----
-
-## 4. Strategic Opportunities
-
-### 4.1 Gaps in Competitor Offerings
-
-List specific gaps where no competitor adequately serves user needs:
-
-1. [Gap description + evidence]
-2. [Gap description + evidence]
-3. [Gap description + evidence]
-
-### 4.2 Potential Differentiators
-
-Based on competitor weaknesses and gaps, identify how your product can stand out:
-
-1. [Differentiator + why it matters to users]
-2. [Differentiator + why it matters to users]
-3. [Differentiator + why it matters to users]
-
-### 4.3 Positioning Strategy
-
-One paragraph describing how your product should be positioned in the market relative to competitors. Address:
-
-- What makes you different (not just "better")
-- Who you serve that others do not serve well
-- What you deliberately choose NOT to do
-
----
-
-## 5. AI-Powered Research Prompt Template
-
-Use this template to generate a research prompt for deep web research tools (Perplexity, Liner, Claude deep research). First, customize it in your AI tool where your product documentation provides context, then copy the result into the research tool.
-
-**Step 1: Generate the prompt in your AI tool**
+In your Claude Project (where your product documentation already exists), start a new chat and ask:
 
 > Based on all the information gathered in this Claude Project, create a concise research prompt that I can use in AI deep web research tools like Perplexity or Liner. Format the prompt in markdown.
 >
@@ -142,31 +42,23 @@ Use this template to generate a research prompt for deep web research tools (Per
 >
 > Format the analysis as a concise report with actionable recommendations for [my product name]'s market positioning and competitive advantage.
 
-**Step 2:** Copy the generated prompt into Perplexity, Liner, or similar deep research tool.
+### Step 2: Run in a research tool
 
-**Step 3:** Take the AI research results, combine them with your own manual observations from using competitor products, and feed everything back into your AI tool for a final consolidated analysis.
+Copy the generated prompt into Perplexity, Liner, or similar deep research tool.
 
----
+### Step 3: Combine with manual review
 
-## 6. Manual Review Checklist
-
-In addition to AI research, personally review each competitor:
-
-- [ ] Visit their website – note first impressions, messaging clarity, CTA
-- [ ] Sign up / download their product – experience the onboarding
-- [ ] Use the product for at least 15 minutes – note friction points
-- [ ] Read their pricing page – understand the value proposition at each tier
-- [ ] Check their social media – see how they communicate with users
-- [ ] Read 10-20 recent reviews (App Store, Google Play, G2, Capterra)
-- [ ] Search Reddit for mentions – find unfiltered user opinions
-
-Write down your personal impressions. AI cannot replace the insight you get from actually using a product.
+AI isn't enough on its own. Always click through competitor sites and apps yourself, write down impressions, then feed those notes back into the same Claude chat. It sharpens the results and catches mistakes AI might miss.
 
 ---
 
-## 7. Evolution Log
+## 3. What Good Insights Look Like
 
-| Version | Date | Changes | Trigger |
-|---------|------|---------|---------|
-| v1 | [Date] | Initial competitive analysis | Big Idea creation |
-| v2 | [Date] | [What changed] | [New competitor found / market shift / user feedback] |
+Running this kind of AI-powered competitive analysis should give you insights that directly shape your product. For example, from the PDPro analysis:
+
+- Competitors try to cover a broad audience, while PDPro focuses only on IT folks with a personalized flow
+- Many cool features are locked behind paywalls, while PDPro delivers value right from free onboarding
+- Strong products have strong communities, which is the same for PDPro, where users shape the shared experience
+- Clearer sense of typical pricing models in the space
+
+The goal is actionable positioning — understanding not just what competitors do, but where the gaps are that your product can fill.

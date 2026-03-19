@@ -44,7 +44,7 @@ allowMultiSelect: true
 
 ## Step 2: Recommend Based on Needs
 
-Using the catalog from [mcp-catalog.md](./references/mcp-catalog.md), recommend MCPs based on the user's workflow:
+Recommend MCPs based on the user's workflow:
 
 ### Essential (install these first)
 
@@ -97,4 +97,3 @@ After MCPs are configured, suggest `dev-agent-pipeline` to set up agents that le
 
 ## Resource Files
 
-- [mcp-catalog.md](./references/mcp-catalog.md) – Catalog of recommended MCPs with use cases and setup references

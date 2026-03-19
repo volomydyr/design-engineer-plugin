@@ -85,7 +85,7 @@ After AI implements the first iteration, some screens will look good and others 
 
 ## Step 4: Using the Figma Plugin Effectively
 
-Share guidance from [figma-mcp-guide.md](./references/figma-mcp-guide.md) on getting the best results:
+Share guidance on getting the best results with the Figma plugin:
 
 1. Share designs gradually – smaller elements at a time produce better results than complex full pages
 2. Start with functional code first (works well, looks basic), then apply design styles from Figma
@@ -127,4 +127,3 @@ After Figma designs are created, suggest the logical next step:
 ## Resource Files
 
 - [figma-for-ai-dev.md](./references/figma-for-ai-dev.md) – Principles for Figma workflow in AI-assisted development
-- [figma-mcp-guide.md](./references/figma-mcp-guide.md) – How to use Figma integrations effectively for design handoff

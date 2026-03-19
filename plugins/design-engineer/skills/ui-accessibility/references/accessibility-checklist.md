@@ -12,8 +12,8 @@ Building accessible products creates better experiences for all users.
 
 ## 1. Touch and Click Targets
 
-### Minimum Tap Target Size: 56 Points
-Based on Fitts's Law, smaller targets require more precision and slow users down. The minimum tap target size is 56 points (defined as `minTapTargetSize` in the design token system).
+### Minimum Tap Target Size: 44 Points
+Based on Fitts's Law, smaller targets require more precision and slow users down. WCAG 2.2 recommends a minimum of 44x44 CSS pixels. Apple HIG also recommends 44 points; Material Design recommends 48dp. Use at least 44 points as the baseline — your project's design tokens may define a larger value.
 
 - [ ] All buttons meet minimum 56-point tap target size
 - [ ] All interactive icons have at least 56-point touchable area (even if the visual icon is smaller)
@@ -172,7 +172,7 @@ In mobile interfaces, key elements should be placed in the comfort zone of the t
 
 Accessibility constants should be part of the design token system to ensure consistent enforcement:
 
-- [ ] `minTapTargetSize` (56 points) is defined as a design token
+- [ ] Minimum tap target size (at least 44 points) is defined as a design token
 - [ ] Minimum contrast ratios are documented alongside color tokens
 - [ ] Minimum font sizes are enforced through typography tokens
 - [ ] Spacing between interactive elements uses spacing tokens

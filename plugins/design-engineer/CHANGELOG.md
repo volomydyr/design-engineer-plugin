@@ -4,6 +4,44 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.13.0] – 2026-03-19
+
+### Added
+
+- 6P Stories image-generation workflow: Claude crafts story + generates image prompts, user generates in external tool, shares back for review, iterates
+- 5 Meddy 6P Story example images as reference files (health checkup, test results, doctor appointment, prescription, skin mole)
+- Statusline `--watch` mode: user runs in separate terminal for usage limit tracking, Claude never accesses credentials
+- Remotion MCP added to dev-mcp-setup skill (from Article 2)
+- Usage monitor instructions in /de:start setup flow
+
+### Removed
+
+- `mental-model-guide.md` — 95% invented content, sourced concepts already in bmap-framework.md
+- `figma-mcp-guide.md` — redundant with meta-setup environment detection
+- `mcp-catalog.md` — redundant with meta-setup environment detection
+
+### Changed
+
+- **Source fidelity audit**: 12 UX reference files rewritten to match original article/course sources, removing invented templates, scaffolding, and methodologies the sources deliberately left lightweight
+- `analysis-methodology.md` — rewritten from 167→63 lines (was almost entirely invented; now matches Article 1 + Article 2 dual-analysis approach)
+- `problem-statement-template.md` — 135→59 lines (removed invented Target User Snapshot, Success Criteria, Evolution Log)
+- `persona-framework.md` — 155→67 lines (BMap questions separated from persona structure, removed invented sub-decompositions)
+- `competitor-analysis-framework.md` — 173→67 lines (kept AI prompt template, removed redundant documentation templates)
+- `interview-script-template.md` — 169→77 lines (removed 15 invented GEQ questions, kept sourced BMap questions)
+- `storybrand-canvas-template.md` — 212→91 lines (added article's 4-step workflow, removed One-Liner/Application Guide/Messaging Test)
+- `business-plan-template.md` — 178→75 lines (removed invented Financial Projections section, kept article's "simple spreadsheet + Claude" approach)
+- `reference-gathering-guide.md` — 138→47 lines (restored The Component Gallery, removed Dribbble/Behance, invented checklists)
+- `assumptions-template.md` — removed invented Technical Assumptions category, Validation Methods table, Evolution Log
+- `bmap-framework.md` — removed invented cross-referencing section
+- `6p-stories-framework.md` — condensed panel guidance, removed invented "Existing Products" and "Research Integration" sections
+- `6p-stories-examples.md` — removed invented Bad Example #2, review scaffold, product type adaptations
+- `accessibility-checklist.md` — corrected 56pt tap target (Meddy-specific) to 44pt (WCAG 2.2 standard)
+- `de-statusline.js` — removed credential access from Claude-triggered mode; usage fetching now only happens in user-initiated `--watch` mode
+
+### Security
+
+- Statusline no longer accesses macOS Keychain or credentials when triggered by Claude. The `--watch` mode (run by user in separate terminal) is the only code path that touches credentials.
+
 ## [1.12.0] – 2026-03-19
 
 ### Added

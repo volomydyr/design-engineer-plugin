@@ -54,15 +54,6 @@ Beliefs about revenue, growth, and market positioning.
 | B1 | [Statement about business] | High/Med/Low | Unvalidated/Confirmed/Invalidated | [Source or "needs validation"] |
 | B2 | ... | ... | ... | ... |
 
-### 1.4 Technical Assumptions
-
-Beliefs about feasibility, implementation, and technical constraints.
-
-| ID | Assumption | Risk Level | Status | Evidence |
-|----|-----------|------------|--------|----------|
-| T1 | [Statement about technology] | High/Med/Low | Unvalidated/Confirmed/Invalidated | [Source or "needs validation"] |
-| T2 | ... | ... | ... | ... |
-
 ---
 
 ## 2. Converting Assumptions to Hypotheses
@@ -121,20 +112,7 @@ Plot each hypothesis on this matrix to determine testing order:
 
 ---
 
-## 5. Validation Methods Quick Reference
-
-| Method | Best For | Time Required | Sample Size |
-|--------|----------|---------------|-------------|
-| User survey | Quantitative validation of behaviors and preferences | 1-2 weeks to create, distribute, and analyze | 100+ respondents for reliable data |
-| User interview | Deep qualitative understanding of motivations and pain | 1-2 weeks for 5-10 interviews | 5-10 participants |
-| Unmoderated usability test | Validating product/feature assumptions | 1 week to set up and run | 5-10 participants |
-| Competitor analysis | Market and business assumptions | 2-3 days with AI tools | N/A |
-| Landing page test | Demand validation | 1-2 weeks for meaningful traffic | 100+ visitors |
-| Analytics review | Behavioral patterns in existing data | 1-2 days | Depends on traffic |
-
----
-
-## 6. Testing Notes
+## 5. Testing Notes
 
 Testing everything at once is too complex for both you and respondents. Key principles:
 
@@ -144,11 +122,3 @@ Testing everything at once is too complex for both you and respondents. Key prin
 - After each round, update this document: mark confirmed, invalidated, and inconclusive hypotheses
 - New hypotheses are added continuously – this is never a "done" document
 
----
-
-## 7. Evolution Log
-
-| Version | Date | Changes | Trigger |
-|---------|------|---------|---------|
-| v1 | [Date] | Initial assumptions documented | Big Idea creation |
-| v2 | [Date] | [What changed] | [Survey results / interview / competitor analysis] |

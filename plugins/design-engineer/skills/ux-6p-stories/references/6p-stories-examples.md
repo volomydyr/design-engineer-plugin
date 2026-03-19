@@ -29,24 +29,6 @@ Panel 6: User enters the apartment
 - No struggles are shown – it looks like everything goes perfectly
 - No improvement opportunities are visible because no friction is depicted
 
-### Bad Example Pattern #2: Too Abstract / No Specifics
-
-```
-Panel 1: Person is happy about their trip
-Panel 2: Person travels to destination
-Panel 3: Person looks for the place
-Panel 4: Person has some trouble
-Panel 5: Person figures it out
-Panel 6: Person is happy they arrived
-```
-
-**Why this fails:**
-- Vague descriptions that could apply to literally any travel experience
-- "Has some trouble" and "figures it out" contain no specific insight
-- No emotional specificity – just generic "happy" and "trouble"
-- Impossible to identify concrete improvement opportunities
-- The story does not teach you anything about what the customer actually goes through
-
 ### Good Example Pattern: Customer-Centered with Emotional Arc
 
 ```
@@ -122,39 +104,3 @@ Trying to cover the entire customer lifecycle in 6 panels, resulting in enormous
 5. **The hero is a person**, not a user – they have a context, a life, emotions beyond your product
 6. **The emotional arc has at least one dip** – things get worse before they get better
 
----
-
-## Applying Examples During Review
-
-When reviewing a user's 6P Story, compare it against these patterns:
-
-**If the story resembles Bad Pattern #1 (too product-focused):**
-- Ask: "What is the customer doing in real life at this moment, outside of the app?"
-- Ask: "How does the customer FEEL at this point? Excited? Anxious? Bored?"
-- Suggest replacing screen descriptions with real-life context
-
-**If the story resembles Bad Pattern #2 (too abstract):**
-- Ask: "Can you be more specific? What EXACTLY goes wrong?"
-- Ask: "What would this look like if you were filming a movie of this moment?"
-- Suggest adding concrete details from customer research or reasonable assumptions
-
-**If the story matches the Good Pattern:**
-- Confirm which best practices it meets
-- Focus feedback on the weakest of the 5 best practices (empathy, emotions, actions, struggles, opportunities)
-- Ask the user to identify the single biggest improvement opportunity revealed by the story
-
----
-
-## Adapting for Different Product Types
-
-### B2B / SaaS Products
-The hero is still a PERSON, not a company. Pick one specific user (e.g., "the project manager who needs to create a report for Monday's meeting") and tell their story. B2B products often have richer struggle panels because the stakes (job performance, team coordination, deadlines) are higher.
-
-### Consumer Apps
-Focus on the moment of need – what triggers the customer to reach for your product? The context before they even open the app is often the most revealing panel.
-
-### Physical Products / Services
-The blend of digital and physical interactions creates natural friction points that make excellent story material. Show the customer in both worlds.
-
-### Developer Tools
-The hero is a developer with a specific technical problem. The emotions are real: frustration with broken builds, relief when tests pass, anxiety about deploying to production. Avoid making the story about code – make it about the developer's experience.

@@ -1,16 +1,12 @@
 # Business Plan Template
 
-## Document Structure
-
-This is a lean business plan for early-stage products. It covers enough to validate financial viability without requiring an MBA. Update it as you learn more from users and the market.
+Business model, market research, and financial planning often get pushed aside until launch. That approach usually backfires. Better to tackle them early.
 
 ---
 
 ## 1. Business Model
 
-### 1.1 Revenue Model
-
-Choose and describe your primary revenue model:
+Your business model is how the product creates and sells value. Some common ones:
 
 | Model | Description | Example | Best For |
 |-------|------------|---------|----------|
@@ -20,158 +16,50 @@ Choose and describe your primary revenue model:
 | Advertising | Free content, revenue from ads | Instagram | High-traffic platforms |
 | Marketplace | Connecting buyers and sellers, commission | Airbnb | Two-sided platforms |
 
-**Your model:** [Describe which model(s) you will use and why]
-
-**Pricing tiers** (if applicable):
-
-| Tier | Price | What is Included | Why This Tier Exists |
-|------|-------|-----------------|---------------------|
-| Free | $0 | [Features] | [Drives adoption / demonstrates value] |
-| [Plan name] | $X/month | [Features] | [Core value for engaged users] |
-| [Plan name] | $X/month | [Features] | [Advanced features for power users] |
-
-### 1.2 Free vs. Paid Boundary
-
-If offering freemium or free trial, clearly define:
-
-- What users get for free (must be enough to demonstrate real value)
-- What requires payment (must be compelling enough to justify the cost)
-- How you motivate the upgrade (what changes when users hit the limit)
-- Trial duration (if applicable)
-
-Keep it simple at the start. You can combine models later, but begin with one clear approach.
+Pick one that fits what you're selling and who you're selling to. Keep it simple at the start. Subscriptions, for example, are great for products that deliver ongoing value, and they give you predictable revenue. You can combine models later, but begin with one clear approach.
 
 ---
 
 ## 2. Market Research
 
-### 2.1 Market Size Estimation
+Market research helps you estimate the size of your audience and the growth potential of your product. Free reports are rare, so get creative.
 
-Use the TAM-SAM-SOM framework:
+For PDPro, the author looked at the number of registered freelancers by business code in Ukraine to estimate how many designers and developers were active in the country. You can also lean on AI research tools like Perplexity, Liner, or Claude's deep research.
 
-| Level | Definition | Your Estimate | How You Calculated |
-|-------|-----------|---------------|-------------------|
-| TAM (Total Addressable Market) | Everyone who could theoretically use your product | [Number / $] | [Method] |
-| SAM (Serviceable Available Market) | The portion you can realistically reach | [Number / $] | [Method] |
-| SOM (Serviceable Obtainable Market) | What you can capture in the first 1-2 years | [Number / $] | [Method] |
-
-**Research methods used:**
-- [List specific sources: government data, industry reports, competitor user counts, AI deep research tools]
-
-**Important:** Free market reports are rare. Get creative. For example, you can check publicly available data like registered business codes, LinkedIn job counts, app download numbers, or subreddit subscriber counts to triangulate market size.
-
-### 2.2 Market Trends
-
-- [Trend 1 that supports your product's viability]
-- [Trend 2]
-- [Trend 3]
+If you want to dig deeper, look into TAM, SAM, and SOM — Total Addressable Market, Serviceable Available Market, and Serviceable Obtainable Market. These help you think realistically about how much of the total market you can actually reach.
 
 ---
 
-## 3. Financial Projections
+## 3. Financial Planning
 
-### 3.1 Revenue Forecast (Year 1)
+Financial planning means forecasting numbers in a simple spreadsheet, estimating costs, and setting goals for the next year (or more). Even if you're not great with finance, it's worth trying. Until you crunch the numbers, every idea feels "definitely profitable."
 
-| Month | Free Users | Paid Users | Monthly Revenue | Cumulative Revenue |
-|-------|-----------|------------|----------------|-------------------|
-| 1 | [Est.] | [Est.] | $[Est.] | $[Est.] |
-| 3 | [Est.] | [Est.] | $[Est.] | $[Est.] |
-| 6 | [Est.] | [Est.] | $[Est.] | $[Est.] |
-| 12 | [Est.] | [Est.] | $[Est.] | $[Est.] |
+Claude can help draft a financial model and answer questions along the way. Use the **ELI5 approach** ("explain like I'm five") to break down complex terms into easy analogies. Tools like Perplexity Voice are also handy if you want a more interactive way to learn as you go.
 
-### 3.2 Cost Structure
-
-| Category | Monthly Cost | Annual Cost | Notes |
-|----------|-------------|-------------|-------|
-| Development / your time | $[Est.] | $[Est.] | [Hours x rate or opportunity cost] |
-| Hosting / infrastructure | $[Est.] | $[Est.] | [Specific services] |
-| AI API costs | $[Est.] | $[Est.] | [Based on expected usage] |
-| Marketing | $[Est.] | $[Est.] | [Channels and budget] |
-| Tools and subscriptions | $[Est.] | $[Est.] | [Design, analytics, etc.] |
-| Other | $[Est.] | $[Est.] | [Legal, accounting, etc.] |
-| **Total** | **$[Est.]** | **$[Est.]** | |
-
-### 3.3 LTV:CAC Analysis
-
-**Lifetime Value (LTV):**
-> Average revenue per user per month x average months of retention = LTV
-
-| Variable | Value | Basis |
-|----------|-------|-------|
-| Average revenue per user/month | $[Est.] | [Pricing tier breakdown] |
-| Average retention (months) | [Est.] | [Industry benchmark or assumption] |
-| **LTV** | **$[Calculated]** | |
-
-**Customer Acquisition Cost (CAC):**
-> Total marketing and sales cost / number of new customers acquired = CAC
-
-| Variable | Value | Basis |
-|----------|-------|-------|
-| Monthly marketing spend | $[Est.] | [Channel breakdown] |
-| New customers per month | [Est.] | [Based on conversion rates] |
-| **CAC** | **$[Calculated]** | |
-
-**LTV:CAC Ratio:** [Calculated]
-
-**Target benchmarks:**
-- 3:1 or higher for US and European markets
-- 5:1 or higher for markets with higher business complexity
-
-If your ratio is below the target, consider: adjusting the business model, optimizing costs, improving retention, increasing price, or reducing acquisition costs. Do not panic – iterate on the assumptions and look for realistic optimizations.
+The ideal is to create a financial plan with a real accountant, but that comes later — once you've launched your MVP and maybe even attracted users or investors. For now, even a rough plan is better than none.
 
 ---
 
 ## 4. Go-to-Market Strategy (PESO)
 
-### 4.1 Shared Media (Start here – free)
+PESO is a simple framework for thinking about how to get your product out into the world. Four types of media you can use to build visibility.
 
-Content you share on social platforms where your audience lives.
+### Start with Shared (Free)
 
-- **Platform**: [Where your target users spend time]
-- **Content plan**: [What you will post, how often]
-- **Goal**: [Specific, measurable target, e.g., "100 waitlist signups"]
+The easiest entry point: content you share on social platforms. It's free and keeps you in touch with your audience. The trick is to show up where your people already hang out. For PDPro, aimed at designers, that meant LinkedIn.
 
-### 4.2 Earned Media (Builds trust)
+### Earn Trust with Earned
 
-Publicity earned through quality content and community participation.
+Takes more effort but pays off in credibility. "Earned" media is when other people talk about you — a shoutout in a newsletter or a guest talk. Building a personal brand by giving talks and writing articles attracts potential users.
 
-- **Activities**: [Talks, articles, mentoring, open-source contributions]
-- **Target outlets**: [Blogs, podcasts, newsletters in your space]
+### Own Your Channels
 
-### 4.3 Owned Media (You control)
+Your landing page, your blog, your newsletter — platforms you control completely and can track with analytics. A simple landing page already makes your product feel more real.
 
-Platforms you own and control completely.
+### Use Paid as a Last Resort
 
-- **Landing page**: [Status and purpose]
-- **Blog/newsletter**: [Plans]
-- **Analytics**: [Google Analytics, PostHog, or similar]
+Paid media (ads, sponsored content, promotions) can work, but don't rush into it. In the early days, focus on the free channels above and see what sticks. Once you have an MVP and maybe even some funding, that's the right time to test paid campaigns.
 
-### 4.4 Paid Media (Last resort)
+### Put It Into Practice
 
-Use only after validating organic channels.
-
-- **Planned channels**: [If any]
-- **Budget**: [When you plan to start and how much]
-- **Expected CAC from paid**: [Estimate]
-
----
-
-## 5. Critical Evaluation Checklist
-
-Before finalizing, run every number through these checks:
-
-- [ ] **Source verification**: Can you trace every market size number to a real source?
-- [ ] **AI skepticism**: Did AI claim "research shows X"? Did you verify the actual research exists?
-- [ ] **Optimism bias**: Are your user growth projections based on evidence or hope?
-- [ ] **Cost completeness**: Have you included ALL costs, including your own time?
-- [ ] **Conversion reality**: Are your free-to-paid conversion rates realistic? (Industry average for freemium is 2-5%)
-- [ ] **Retention honesty**: Are your retention estimates based on comparable products or wishful thinking?
-
----
-
-## 6. Evolution Log
-
-| Version | Date | Changes | Trigger |
-|---------|------|---------|---------|
-| v1 | [Date] | Initial business plan | Big Idea creation |
-| v2 | [Date] | [What changed] | [User feedback / market data / competitive analysis] |
+Make a content plan so you know what you're posting, where, and when. Set clear goals (e.g., "get 100 people on the waitlist"). Keep showing up, share useful insights, and invest in your personal brand. Check what's working every few weeks and adjust.

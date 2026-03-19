@@ -1,6 +1,6 @@
 {
   "name": "design-engineer",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 6 commands, and 49 skills.",
   "author": {
     "name": "Volodymyr Merlenko",

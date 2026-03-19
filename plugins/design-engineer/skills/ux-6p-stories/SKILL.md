@@ -1,22 +1,29 @@
 ---
 name: ux-6p-stories
-description: "Guides creation of 6P Stories – comic-style product stories with 6 panels that build customer empathy. Use when starting a new product or documenting an existing product's user experience."
+description: "Guides creation of 6P Stories – comic-style visual product stories with 6 panels that build customer empathy. Produces image generation prompts for each panel, reviews generated images, and iterates until the story is right. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
 model: opus
 ---
 
 # ux-6p-stories Skill
 
-**Purpose:** Guide the user through creating a 6P Story – a one-pager comic with six panels depicting what a customer goes through for a given experience. 6P Stories build customer empathy, reveal improvement opportunities, and communicate user problems more effectively than screens alone.
+**Purpose:** Guide the user through creating a 6P Story – a one-pager comic with six panels depicting what a customer goes through for a given experience. The final output is a set of **generated images**, not text descriptions.
 
 **Why stories, not screens?** Screens merely tell you what happens. Only journeys can tell you *why* and *how*. Screens make you focus on your product, not the problem. It is dangerously easy to become attached to existing solutions you have put a lot of effort into (Sunk Cost Fallacy). Stories focus on the customer first.
 
-**When to use:** Both for new products (creating empathy stories from scratch to understand the customer journey before building anything) and for existing products (documenting current user stories to identify gaps and improvement opportunities).
+**Important: 6P Stories are visual.** Claude cannot generate images. The workflow is: Claude helps craft the story and writes image generation prompts → the user generates images in an external tool (ChatGPT/DALL-E, Midjourney, etc.) → the user shares generated images back for review → iterate until the panels are right → store final images in the project.
+
+**When to use:** Both for new products (creating empathy stories from scratch) and for existing products (documenting current user stories to identify gaps).
 
 **Reference files:**
 
-- [6p-stories-framework.md](./references/6p-stories-framework.md) – Complete 6P framework with psychology, panel-by-panel guidance, and best practices
-- [6p-stories-examples.md](./references/6p-stories-examples.md) – Adapted case study examples with good/bad patterns
+- [6p-stories-framework.md](./references/6p-stories-framework.md) – Complete 6P framework with psychology, panel structure, and best practices
+- [6p-stories-examples.md](./references/6p-stories-examples.md) – Good/bad patterns with Airbnb case study
+- [example-meddy-health-checkup.jpg](./references/example-meddy-health-checkup.jpg) – Meddy 6P: birthday health motivation → too many tests → app recommends right ones
+- [example-meddy-test-results.jpg](./references/example-meddy-test-results.jpg) – Meddy 6P: test results arrive → can't understand → anxiety → app explains clearly
+- [example-meddy-doctor-appointment.jpg](./references/example-meddy-doctor-appointment.jpg) – Meddy 6P: need doctor → no info online → friends disagree → app matches perfect doctor
+- [example-meddy-prescription.jpg](./references/example-meddy-prescription.jpg) – Meddy 6P: need medicine → can't read writing → office closed → app reads prescription
+- [example-meddy-skin-mole.jpg](./references/example-meddy-skin-mole.jpg) – Meddy 6P: strange mole → 6-month wait → too expensive → app flags urgency → early catch
 
 ---
 
@@ -43,7 +50,7 @@ To create a meaningful 6P Story, I need to understand your context:
 
 **BLOCKING REQUIREMENT:** Wait for user answers before proceeding. Do not assume or invent customer context.
 
-**After receiving answers**, read [6p-stories-framework.md](./references/6p-stories-framework.md) to internalize the full framework before guiding the user.
+**After receiving answers**, read [6p-stories-framework.md](./references/6p-stories-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good 6P Story looks like — read the relevant example image files from references/.
 </step>
 
 <step number="2" required="true" depends_on="1">
@@ -61,25 +68,19 @@ Briefly explain WHY 6P Stories work, weaving the education into the conversation
 
 **Three psychological principles behind comics specifically:**
 
-1. **Closure** – The brain constantly tries to fill the gaps between comic panels. These gaps act as open-ended questions that force creative thinking and help find solutions. The space between panels is where insights happen.
+1. **Closure** – The brain constantly tries to fill the gaps between comic panels. These gaps act as open-ended questions that force creative thinking and help find solutions.
 
-2. **Miller's Law** – The average person can only keep 7 plus or minus 2 items in working memory. Six panels is short enough to grasp the overall meaning quickly, while leaving enough gaps to imagine improvement opportunities.
+2. **Miller's Law** – Six panels is short enough to grasp the overall meaning quickly, while leaving enough gaps to imagine improvement opportunities.
 
-3. **Pareidolia** – Humans tend to interpret faces and emotions even in abstract shapes and inanimate objects. Even the most basic stick-figure drawing with simple dots for eyes and a curved line for a mouth can convey powerful emotions and build empathy.
+3. **Pareidolia** – Humans tend to interpret faces and emotions even in abstract shapes. Even basic stick-figure drawings can convey powerful emotions.
 
-**Key insight to share with the user:** This is not a drawing competition. Raw stick figures are actually better than "realistic" or "artsy" drawings. The focus should be on faces, eyes, eyebrows, and mouth – simple dots, rectangles, and blobs. The brain is surprisingly good at interpreting human emotions even from simple lines because of pareidolia.
+**Key insight:** This is not a drawing competition. The generated images should be simple, warm, comic-style illustrations focused on the character's emotions and real-life context — not polished marketing art.
 </step>
 
 <step number="3" required="true" depends_on="2">
-### Step 3: Define the Happy Ending
+### Step 3: Craft the Story Narrative
 
-Guide the user to write the 6th panel (bottom right) first – the customer's success moment.
-
-**Instruct the user:**
-
-- Write the happy ending in 5 words maximum
-- This is the customer's success, not the product's success
-- Focus on how the customer FEELS after the experience, not what feature they used
+Guide the user through defining all 6 panels as text first. Start with Panel 6 (the happy ending) and work backward.
 
 **Use AskUserQuestion:**
 
@@ -87,77 +88,96 @@ Guide the user to write the 6th panel (bottom right) first – the customer's su
 Let's start with the ending. In 5 words or fewer, what does success look like for your customer at the end of this experience?
 
 Think about how they FEEL, not what button they clicked. For example:
-- "Finally found the perfect place"
-- "Confident about tomorrow's presentation"
-- "Relief – no more manual work"
+- "I saved money and time"
+- "I'm not worried anymore"
+- "Best doctor ever"
 ```
 
 **BLOCKING REQUIREMENT:** Wait for user input. If the ending focuses on the product rather than the customer, gently redirect.
+
+Then guide through panels 1-5:
+
+- **Panel 1 (Exposition):** The customer's real-life trigger — what starts the journey
+- **Panels 2-3 (Rising Action):** The struggle — confusion, frustration, obstacles in REAL LIFE (not in an app)
+- **Panel 4 (Climax):** The worst moment OR the turning point
+- **Panel 5 (Resolution):** The product helps — this is where your product appears (NOT before)
+- **Panel 6 (Denouement):** Already defined — the happy ending
+
+For each panel, define:
+- A short caption (5 words max) at the top of the panel
+- A speech bubble with the character's thought/words
+- The scene description (what's happening visually)
+
+**Critical pattern from the Meddy examples:** The product only appears in Panel 5. Panels 1-4 show the customer's real-life struggle WITHOUT the product. This is what makes 6P Stories about empathy, not marketing.
 </step>
 
 <step number="4" required="true" depends_on="3">
-### Step 4: Build the Remaining 5 Panels
+### Step 4: Generate Image Prompts
 
-Guide the user through panels 1 through 5, working backward from the happy ending.
+Once all 6 panels are defined, generate image generation prompts for an AI image tool (ChatGPT/DALL-E, Midjourney, etc.).
 
-**Panel structure guidance:**
+**Generate a single prompt** that produces all 6 panels as one image in a 2x3 grid. The prompt should specify:
 
-- **Panel 1 (Exposition):** The customer's starting situation and context. What is their life like before this experience? What triggers the need?
-- **Panels 2-3 (Rising Action):** The customer encounters the problem. Show their struggle, confusion, or frustration. What goes wrong? What obstacles appear?
-- **Panels 4-5 (Climax and Resolution):** The turning point. How does the customer begin to overcome the challenge? What changes?
-- **Panel 6 (Denouement):** Already defined – the happy ending.
+- Comic-style illustration, warm color palette, simple clean lines
+- 2 columns x 3 rows grid layout with panel borders
+- Consistent character appearance across all panels (same hair, clothes, features)
+- Each panel has: a caption at the top, a speech bubble, and a scene
+- Emotional expressions clearly visible (worried, confused, relieved, happy)
+- Real-life settings (not app screens) for panels 1-4
+- The product/app appears only in panel 5
 
-**For each panel, instruct the user to include:**
-
-- A brief caption (5 words maximum per panel)
-- The customer's emotion (frown, smile, confusion, relief)
-- The customer's thought or speech (speech balloon)
-- The real-life context (not just a screen)
-
-**Use AskUserQuestion** to review each panel or batch of panels:
+**Example prompt structure:**
 
 ```
-Now let's fill in the other 5 panels. For each, give me:
-- A short caption (5 words max)
-- What the customer is feeling/thinking
-- What's happening in their real-life context
+Create a 6-panel comic strip (2x3 grid) in a warm, simple illustration style with consistent character design throughout. Each panel has a short caption at top and a speech bubble.
 
-You can describe all 5 at once or we can go panel by panel. Which do you prefer?
-1. All 5 panels at once
-2. One panel at a time
+Panel 1 (top-left): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+Panel 2 (top-right): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+Panel 3 (middle-left): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+Panel 4 (middle-right): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+Panel 5 (bottom-left): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+Panel 6 (bottom-right): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+
+Style: warm color palette, clean comic-style illustration, expressive faces, simple backgrounds. Character should look consistent across all panels.
 ```
 
-**Key reminder to the user:** The main focus should be the customer's life, not your product. You are not just going through the steps in your app, but rather how the customer feels.
+**Share the prompt with the user** and instruct them to run it in their image generation tool.
 </step>
 
 <step number="5" required="true" depends_on="4">
-### Step 5: Review Against Best Practices
+### Step 5: Review Generated Images
 
-Evaluate the 6P Story against five quality criteria. Read [6p-stories-framework.md](./references/6p-stories-framework.md) for the full details on each criterion.
+Ask the user to share the generated image back.
 
-**The most impactful 6P Stories respect the following best practices:**
+**When reviewing, check:**
 
-1. **You start with empathy** – The story focuses more on the customer problem than on your product. You do not merely go through the steps in your app, but rather how the customer feels. The goal is to build empathy to find better solutions.
+1. **Emotional arc visible?** Can you see the character's emotions change across panels? (worry → confusion → frustration → relief → happiness)
+2. **Character consistency?** Does the character look like the same person in all 6 panels?
+3. **Captions readable?** Are the panel captions and speech bubbles legible?
+4. **Real-life context?** Do panels 1-4 show real-life situations, not app screens?
+5. **Product placement correct?** Does the product only appear in panel 5?
+6. **Story arc clear?** Can someone understand the full story in under 30 seconds?
 
-2. **You capture emotions** – Empathy requires emotion, so the story highlights emotions. It conveys a mini rollercoaster of ups and downs from the customer's perspective (smiles, frowns, expressions of doubt).
+**Compare against the Meddy examples** — read the reference images to calibrate quality expectations.
 
-3. **You focus on actions** – The story does not just describe steps. It makes others feel what the protagonist is going through in a real-life context.
+**If issues found:** Suggest specific prompt adjustments and ask the user to regenerate. Common fixes:
+- "Make the character's expression more worried in panel 3"
+- "Add more contrast between the struggle panels (2-4) and resolution panels (5-6)"
+- "The caption text is too small — ask for larger text"
+- "Character looks different in panel 4 — emphasize consistency"
 
-4. **You highlight the hero's struggles** – It is not enough to include an Exposition in panel 1 and a Denouement in panel 6. Great stories focus on the conflict. Panels 2, 3, 4, or 5 should highlight the customer's main doubts, frustrations, or obstacles.
-
-5. **You look for improvement opportunities** – 6P stories naturally highlight gaps in the customer experience. Identify what they are. These become actionable insights for design improvements.
-
-**Provide specific feedback** on which criteria the story meets and which need strengthening. Suggest concrete improvements.
-
-Read [6p-stories-examples.md](./references/6p-stories-examples.md) for good and bad example patterns to reference when giving feedback.
+**Iterate** until the user is satisfied. Usually 2-3 rounds are enough.
 </step>
 
 <step number="6" required="true" depends_on="5">
-### Step 6: Identify Improvement Opportunities
+### Step 6: Store and Extract Insights
 
-After the 6P Story is finalized, guide the user to extract actionable insights.
+Once the final image is approved:
 
-**Ask the user:**
+1. **Store the image** in the project's deliverables folder (e.g., `docs/design/foundation/6p-story-[name].jpg`)
+2. **Update project-map.md** in auto-memory with the new file
+
+Then guide the user to extract actionable insights:
 
 ```
 Now look at your completed 6P Story and consider:
@@ -168,9 +188,9 @@ Now look at your completed 6P Story and consider:
 4. Are there moments where the customer might abandon the journey entirely?
 ```
 
-**Document the improvement opportunities** as a numbered list. These feed directly into the next activities (Behavior Mapping, Psych Framework analysis) if the user continues with the design pipeline.
+**Document the improvement opportunities** as a numbered list. These feed into the next activities (Behavior Mapping, Psych Framework analysis) if the user continues with the design pipeline.
 
-**Final output:** A complete 6P Story description with panel-by-panel breakdown and a list of identified improvement opportunities.
+**Multiple stories:** Each product typically needs 3-5 different 6P Stories covering different user scenarios. Ask the user if they want to create another story for a different slice of the experience.
 </step>
 
 </critical_sequence>
@@ -186,11 +206,3 @@ When creating 6P Stories, always follow this priority:
 3. **AI suggestions** – Only when user has no data and needs a starting point to iterate on
 
 Never invent customer research. If the user has no customer data, the 6P Story becomes a hypothesis to validate, and this must be stated explicitly.
-
----
-
-## Integration Notes
-
-- **Feeds into:** ux-behavior-mapping (the key moment from the 6P Story becomes the focus of the Behavior Map), ux-psych-levels (improvement opportunities become Psych analysis targets)
-- **Receives from:** Any prior customer research or problem statement work
-- **Standalone use:** Fully usable independently for any product at any stage

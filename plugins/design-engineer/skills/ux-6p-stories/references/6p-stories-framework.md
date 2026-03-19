@@ -65,49 +65,16 @@ The 6P Story is arranged as a 2x3 grid (2 columns, 3 rows):
 +-------------------+-------------------+
 ```
 
-### Panel-by-Panel Guidance
+### Panel Guidance
 
-**Panel 1 – Exposition (Top Left)**
-- Introduce the hero (the customer) and their starting context
-- Show their life BEFORE the experience begins
-- Establish the trigger or need that sets the story in motion
-- Caption: 5 words maximum
-- Include: the character's starting emotion, their environment, the situation
+Each panel gets a **5-word maximum caption** and a simple stick-figure illustration showing the customer's context and emotion.
 
-**Panel 2 – Rising Action (Top Right)**
-- The customer encounters the first challenge or takes the first step
-- Show the transition from normal life to engaging with the problem
-- Begin building tension
-- Caption: 5 words maximum
-- Include: what changes, the customer's reaction, emerging friction
-
-**Panel 3 – Rising Action / Complication (Middle Left)**
-- Deepen the conflict or introduce the core struggle
-- This is where things get difficult for the customer
-- Show frustration, confusion, or obstacles
-- Caption: 5 words maximum
-- Include: the main pain point, emotional response, real-life context
-
-**Panel 4 – Climax / Turning Point (Middle Right)**
-- The critical moment where something changes
-- The customer either finds a solution, makes a decision, or gets help
-- This is the highest-tension panel
-- Caption: 5 words maximum
-- Include: the pivotal action, shift in emotion, what makes the difference
-
-**Panel 5 – Resolution (Bottom Left)**
-- The customer starts experiencing the benefits
-- Tension begins to release
-- Show the transition toward success
-- Caption: 5 words maximum
-- Include: evidence of improvement, growing confidence or relief
-
-**Panel 6 – Denouement / Happy Ending (Bottom Right)**
-- The customer achieves their goal
-- Show how their life has improved
-- Focus on the FEELING, not the feature
-- Caption: 5 words maximum
-- Include: the final emotional state, the customer's new reality
+- **Panel 1 – Exposition**: The hero and their starting context, life BEFORE the experience
+- **Panel 2 – Rising Action**: First challenge or first step, tension begins
+- **Panel 3 – Complication**: The core struggle, things get difficult
+- **Panel 4 – Climax**: The turning point, something changes
+- **Panel 5 – Resolution**: Benefits start showing, tension releases
+- **Panel 6 – Denouement**: The happy ending, focus on the FEELING not the feature
 
 ### Key Principle: Start with the Ending
 
@@ -164,37 +131,6 @@ You want to focus on the top 6 moments that really make a difference. If you are
 - If you need more than 6 panels, you are trying to cover too much – split into multiple stories
 - Good scopes: "first-time booking experience", "receiving a negative review", "upgrading from free to paid"
 - Too broad: "the entire onboarding", "using the product", "the customer lifecycle"
-
----
-
-## Creating 6P Stories for Existing Products
-
-6P Stories are not just for new products. For existing products, they serve a different but equally valuable purpose:
-
-1. **Document the current experience** – Create a 6P Story of what customers go through RIGHT NOW. This often reveals pain points that analytics alone cannot surface.
-2. **Compare current vs. ideal** – Create a second 6P Story showing the ideal experience. The gaps between the two stories become your design brief.
-3. **Onboard new team members** – A 6P Story of the core experience is one of the fastest ways to help new team members understand the customer.
-4. **Rally stakeholders** – When proposing changes to an existing product, a 6P Story of the current painful experience is far more persuasive than data slides.
-
----
-
-## Tips for Customer Research Integration
-
-If you have customer research available (from surveys, interviews, analytics), integrate it into your 6P Story:
-
-- **Hopes** from customer interviews become the emotional driver in Panel 6
-- **Pains** from customer research become the struggles in Panels 2-4
-- **Barriers** from customer research become specific obstacles shown in the story
-- **Quotes** from real customers can become the speech balloons in panels
-- **Analytics drop-offs** can indicate where the biggest struggle panel should be
-
-If you do NOT have customer research, the 6P Story becomes a hypothesis. This is still valuable – it makes your assumptions explicit and testable – but it should be clearly labeled as a hypothesis, not a validated story.
-
-The General Empathy Questions (GEQs) from the Behavior Mapping activity are excellent sources of story material:
-
-- **Q1 Hope:** "If you had a magic wand and could instantly X, how would that change your life?"
-- **Q2 Pain:** "What's your #1 challenge when it comes to X? And why is it so challenging?"
-- **Q3 Barrier:** "Tell me about the last time you did X, what was preventing you from Y?"
 
 ---
 

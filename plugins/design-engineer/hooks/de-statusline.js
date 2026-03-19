@@ -2,9 +2,16 @@
 // Design-Engineer Status Line
 // Shows: model + dir | 5h/7d usage limits | context bar | pipeline state
 //
-// Two modes:
-//   Default (stdin): parse session JSON, display statusline, write bridge file
-//   --fetch:         fetch Anthropic API usage data, write cache, exit
+// Three modes:
+//   Default (stdin): parse session JSON, display statusline (reads cache only, never credentials)
+//   --watch:         run in a SEPARATE terminal — fetches usage data every 3 minutes, writes cache
+//                    This is the ONLY mode that accesses credentials. Run by the USER, not by Claude.
+//   --fetch:         single fetch (used internally by --watch)
+//
+// SECURITY: The default statusline mode (triggered by Claude) NEVER accesses credentials,
+// Keychain, API keys, or any authentication data. It only reads a cache file containing
+// usage percentages. The --watch/--fetch modes access credentials but are run by the user
+// in their own terminal, outside of Claude.
 
 const fs = require('fs');
 const path = require('path');
@@ -14,7 +21,7 @@ const https = require('https');
 const homeDir = os.homedir();
 const claudeDir = process.env.CLAUDE_CONFIG_DIR || path.join(homeDir, '.claude');
 const CACHE_PATH = path.join(claudeDir, 'cache', 'de-usage.json');
-const CACHE_MAX_AGE = 60; // seconds
+const WATCH_INTERVAL = 180; // seconds (3 minutes)
 const AUTO_COMPACT_BUFFER_PCT = 16.5;
 
 // Phase names (short, for statusline display)
@@ -26,14 +33,68 @@ const PHASE_NAMES = {
   '5': 'Development'
 };
 
-// ─── Fetch mode ───────────────────────────────────────────────────────────────
-if (process.argv[2] === '--fetch') {
+// ─── Mode routing ────────────────────────────────────────────────────────────
+if (process.argv[2] === '--watch') {
+  runWatch();
+} else if (process.argv[2] === '--fetch') {
   fetchUsage();
 } else {
   runStatusLine();
 }
 
-// ─── Main statusline ─────────────────────────────────────────────────────────
+// ─── Watch mode (user runs this in a separate terminal) ─────────────────────
+function runWatch() {
+  console.log('');
+  console.log('  ╔══════════════════════════════════════════════════════════╗');
+  console.log('  ║  Design Engineer — Usage Monitor                        ║');
+  console.log('  ╠══════════════════════════════════════════════════════════╣');
+  console.log('  ║                                                         ║');
+  console.log('  ║  This tool refreshes your Claude usage data every       ║');
+  console.log('  ║  3 minutes so the status line shows how much of your    ║');
+  console.log('  ║  5-hour and 7-day limits you have used.                 ║');
+  console.log('  ║                                                         ║');
+  console.log('  ║  Keep this window open while you work with Claude.      ║');
+  console.log('  ║  Close it anytime — the status line will still work,    ║');
+  console.log('  ║  it just won\'t show usage limits anymore.               ║');
+  console.log('  ║                                                         ║');
+  console.log('  ║  This tool accesses your Anthropic credentials to       ║');
+  console.log('  ║  check usage. Claude itself never sees your credentials.║');
+  console.log('  ║                                                         ║');
+  console.log('  ╚══════════════════════════════════════════════════════════╝');
+  console.log('');
+
+  // Initial fetch
+  console.log(`  [${timestamp()}] Fetching usage data...`);
+  fetchUsageAndLog();
+
+  // Schedule periodic refresh
+  setInterval(() => {
+    console.log(`  [${timestamp()}] Refreshing...`);
+    fetchUsageAndLog();
+  }, WATCH_INTERVAL * 1000);
+}
+
+function timestamp() {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function fetchUsageAndLog() {
+  fetchUsageAsync((err, data) => {
+    if (err) {
+      console.log(`  [${timestamp()}] Could not fetch: ${err}`);
+      console.log('');
+      console.log('  If this keeps failing, your credentials may have expired.');
+      console.log('  Try logging out and back in to Claude Code: claude logout && claude login');
+      console.log('');
+    } else {
+      const fh = Math.round(data.five_hour?.utilization || 0);
+      const sd = Math.round(data.seven_day?.utilization || 0);
+      console.log(`  [${timestamp()}] 5-hour: ${fh}% used | 7-day: ${sd}% used`);
+    }
+  });
+}
+
+// ─── Main statusline (triggered by Claude — reads cache ONLY) ───────────────
 function runStatusLine() {
   let input = '';
   const stdinTimeout = setTimeout(() => process.exit(0), 3000);
@@ -50,7 +111,7 @@ function runStatusLine() {
       const dir = path.basename(data.workspace?.current_dir || process.cwd());
       segments.push(`\x1b[2m${model} \u2022 ${dir}\x1b[0m`);
 
-      // Segment 2: Usage limits (from cache)
+      // Segment 2: Usage limits (from cache file only — no credential access)
       const usageSeg = buildUsageSegment();
       if (usageSeg) segments.push(usageSeg);
 
@@ -79,13 +140,11 @@ function shortenModel(displayName) {
   // Strip "Claude " prefix
   let name = displayName.replace(/^Claude\s+/i, '');
 
-  // Match family + optional version: "Opus 4", "3.5 Sonnet", "Sonnet 4", "Haiku 4.5"
   // Pattern 1: version-first like "3.5 Sonnet"
   const versionFirst = name.match(/^(\d+\.?\d*)\s+(Opus|Sonnet|Haiku)/i);
   if (versionFirst) {
     const ver = versionFirst[1];
     const family = versionFirst[2];
-    // Show version for older models (< 4)
     return parseFloat(ver) < 4 ? `${family} ${ver}` : family;
   }
 
@@ -94,27 +153,23 @@ function shortenModel(displayName) {
   if (familyFirst) {
     const family = familyFirst[1];
     const ver = familyFirst[2];
-    // Show version only if it has a minor component (e.g., "4.5" but not "4")
     if (ver && ver.includes('.')) return `${family} ${ver}`;
     return family;
   }
 
-  // Unknown format -- return as-is (trimmed)
   return name || displayName;
 }
 
-// ─── Usage limits segment ───────────────────────────────────────────────────
+// ─── Usage limits segment (reads cache file only) ───────────────────────────
 function buildUsageSegment() {
   try {
     if (!fs.existsSync(CACHE_PATH)) return null;
 
     const cache = JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'));
 
-    // Trigger background refresh if stale
+    // Skip if cache is too old (>10 minutes = watch probably stopped)
     const age = Math.floor(Date.now() / 1000) - (cache.fetched_at || 0);
-    if (age > CACHE_MAX_AGE) {
-      triggerBackgroundFetch();
-    }
+    if (age > 600) return null;
 
     const fiveH = cache.five_hour || {};
     const sevenD = cache.seven_day || {};
@@ -155,19 +210,6 @@ function formatReset(isoString) {
   }
 }
 
-function triggerBackgroundFetch() {
-  try {
-    const { spawn } = require('child_process');
-    const child = spawn('node', [__filename, '--fetch'], {
-      detached: true,
-      stdio: 'ignore'
-    });
-    child.unref();
-  } catch (e) {
-    // Silent fail
-  }
-}
-
 // ─── Context bar segment ────────────────────────────────────────────────────
 function buildContextSegment(remaining, session) {
   if (remaining == null) return null;
@@ -197,7 +239,7 @@ function buildContextSegment(remaining, session) {
   const filled = Math.floor(used / 10);
   const bar = '\u2588'.repeat(filled) + '\u2591'.repeat(10 - filled);
 
-  // Color based on thresholds -- no emojis
+  // Color based on thresholds
   if (used < 50) return `\x1b[32m${bar} ${used}%\x1b[0m`;
   if (used < 65) return `\x1b[33m${bar} ${used}%\x1b[0m`;
   if (used < 80) return `\x1b[38;5;208m${bar} ${used}%\x1b[0m`;
@@ -209,7 +251,6 @@ function buildContextSegment(remaining, session) {
 function buildPipelineSegment(dir) {
   if (!dir) return null;
   try {
-    // Find .dependencies.yaml
     const depsPath = findDepsPath(dir);
     if (!depsPath) return null;
 
@@ -217,7 +258,6 @@ function buildPipelineSegment(dir) {
     const deliverables = parseDependenciesYaml(text);
     if (!deliverables || Object.keys(deliverables).length === 0) return null;
 
-    // Group by phase and count
     const phases = {};
     let hasInProgress = false;
     for (const [key, val] of Object.entries(deliverables)) {
@@ -232,10 +272,8 @@ function buildPipelineSegment(dir) {
       }
     }
 
-    // Only show when pipeline is active (something in_progress)
     if (!hasInProgress) return null;
 
-    // Current phase = first phase with in_progress items
     const sortedPhases = Object.keys(phases).sort();
     let currentPhase = null;
     for (const p of sortedPhases) {
@@ -281,7 +319,6 @@ function parseDependenciesYaml(text) {
 
     const indent = line.length - line.trimStart().length;
 
-    // Top-level deliverable key (indent 2)
     if (indent === 2 && stripped.endsWith(':') && !stripped.startsWith('-')) {
       current = stripped.slice(0, -1);
       deliverables[current] = { informs: [], depends_on: [], status: 'not_started', phase: null };
@@ -291,7 +328,6 @@ function parseDependenciesYaml(text) {
 
     if (!current) continue;
 
-    // Property (indent 4)
     if (indent === 4) {
       const m = stripped.match(/^([\w_-]+):\s*(.*)/);
       if (m) {
@@ -319,7 +355,6 @@ function parseDependenciesYaml(text) {
       continue;
     }
 
-    // List item (indent 6)
     if (indent === 6 && stripped.startsWith('- ')) {
       const val = stripped.slice(2).trim().replace(/^['"]|['"]$/g, '');
       if (currentListKey && deliverables[current]?.[currentListKey]) {
@@ -331,29 +366,44 @@ function parseDependenciesYaml(text) {
   return deliverables;
 }
 
-// ─── Fetch mode: get usage from Anthropic API ───────────────────────────────
+// ─── Fetch mode (accesses credentials — ONLY run by user, never by Claude) ──
 function fetchUsage() {
-  try {
-    // Get OAuth token from macOS Keychain
-    const { execFileSync } = require('child_process');
-    let tokenJson;
-    try {
-      tokenJson = execFileSync('security', [
-        'find-generic-password', '-s', 'Claude Code-credentials', '-w'
-      ], { encoding: 'utf8', timeout: 5000 });
-    } catch (e) {
-      // Not on macOS or no credentials -- exit silently
-      process.exit(0);
-    }
+  fetchUsageAsync((err) => {
+    process.exit(err ? 1 : 0);
+  });
+}
 
-    let accessToken;
+function fetchUsageAsync(callback) {
+  try {
+    const { execFileSync } = require('child_process');
+
+    // Try reading token from credentials file first (cross-platform)
+    let accessToken = null;
+    const credsPath = path.join(claudeDir, '.credentials.json');
     try {
-      const creds = JSON.parse(tokenJson.trim());
+      const credsJson = fs.readFileSync(credsPath, 'utf8');
+      const creds = JSON.parse(credsJson);
       accessToken = creds?.claudeAiOauth?.accessToken;
     } catch (e) {
-      process.exit(0);
+      // No credentials file
     }
-    if (!accessToken) process.exit(0);
+
+    // Fallback to macOS Keychain
+    if (!accessToken) {
+      try {
+        const tokenJson = execFileSync('security', [
+          'find-generic-password', '-s', 'Claude Code-credentials', '-w'
+        ], { encoding: 'utf8', timeout: 5000 });
+        const creds = JSON.parse(tokenJson.trim());
+        accessToken = creds?.claudeAiOauth?.accessToken;
+      } catch (e) {
+        // Not on macOS or no credentials
+      }
+    }
+
+    if (!accessToken) {
+      return callback('No credentials found. Make sure you are logged in to Claude Code.');
+    }
 
     // Ensure cache directory exists
     const cacheDir = path.dirname(CACHE_PATH);
@@ -380,26 +430,25 @@ function fetchUsage() {
         try {
           const data = JSON.parse(body);
           if (data.error) {
-            process.exit(0);
+            return callback(data.error.message || 'API error');
           }
-          // Write cache
           const cache = {
             five_hour: data.five_hour || {},
             seven_day: data.seven_day || {},
             fetched_at: Math.floor(Date.now() / 1000)
           };
           fs.writeFileSync(CACHE_PATH, JSON.stringify(cache));
+          callback(null, cache);
         } catch (e) {
-          // Silent fail
+          callback('Could not parse API response');
         }
-        process.exit(0);
       });
     });
 
-    req.on('error', () => process.exit(0));
-    req.on('timeout', () => { req.destroy(); process.exit(0); });
+    req.on('error', (e) => callback(e.message));
+    req.on('timeout', () => { req.destroy(); callback('Request timed out'); });
     req.end();
   } catch (e) {
-    process.exit(0);
+    callback(e.message);
   }
 }
