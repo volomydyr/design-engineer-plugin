@@ -69,7 +69,13 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 ---
 
-## Step 3: Set Up Agent Files
+## Step 3: Read Memory Before Setup
+
+Before setting up agents, read auto-memory if it exists:
+- **project-map.md** — understand the current project structure without exploring
+- **debug-solutions.md** — check for known environment gotchas before configuring
+
+## Step 4: Set Up Agent Files
 
 Copy the agent files from this plugin's `agents/` directory into the user's project. The agents to copy:
 - `context-analyzer.md`
@@ -84,7 +90,7 @@ See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work toge
 
 ---
 
-## Step 4: Configure the Pipeline in CLAUDE.md
+## Step 5: Configure the Pipeline in CLAUDE.md
 
 Add the pipeline sequence and agent descriptions to the project's CLAUDE.md file so the main conversation knows when and how to invoke each agent:
 
@@ -121,11 +127,21 @@ PHASE 5: WRAP UP
 
 ---
 
-## Step 5: Explain Iteration
+## Step 6: Explain Iteration
 
 ### Feature-by-Feature Development
 
 **Critical: build one feature at a time.** Do not attempt to build the entire MVP in a single pipeline run. The context-analyzer reads all deliverables (MVP requirements, IA, designs) and identifies what to build next. Each feature goes through the full pipeline cycle (context analysis → plan → tests → backend → frontend → audit → compound). After each cycle, `meta-document` saves progress so the next session can resume.
+
+### Preserving Debug Solutions
+
+When a debugging session during the development loop takes 3+ attempts or the fix is non-obvious:
+
+1. Save to `memory/debug-solutions.md`: the error, what was tried and failed, what actually fixed it
+2. Before attempting fixes for similar errors in future cycles, read `debug-solutions.md` first
+3. After each feature cycle, update `project-map.md` with any new files or folders created
+
+This prevents re-discovering solutions across sessions. The development loop often spans multiple conversations, and hard-won fixes must survive session boundaries.
 
 ### Agent Iteration
 

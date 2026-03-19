@@ -4,6 +4,23 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.12.0] – 2026-03-19
+
+### Added
+
+- Auto-memory integration: CLAUDE.md now includes a Memory Management section guiding Claude on when to read/write auto-memory across sessions
+- Project Map (`memory/project-map.md`): living file tree with descriptions and "when to read" triggers — replaces ad-hoc filesystem exploration
+- Debug Solutions (`memory/debug-solutions.md`): preserves hard-won debugging fixes (3+ attempts) so they survive session boundaries
+- Memory initialization in `/de:start`: seeds MEMORY.md, project-map.md, and debug-solutions.md for new and existing projects
+- Memory checkpoints in `meta-orchestrator`: reads memory at startup, updates pipeline position and project map after each phase
+- Memory checkpoints in `dev-agent-pipeline`: reads project map and debug solutions before development, saves new fixes during the loop
+- Stop hook memory reminder: prints a reminder to update memory at every session end
+
+### Changed
+
+- `meta-orchestrator` Step 0 now reads auto-memory (MEMORY.md + project-map.md) before checking resume state
+- `dev-agent-pipeline` steps renumbered (3→6) to accommodate new memory read step
+
 ## [1.11.0] – 2026-03-18
 
 ### Added

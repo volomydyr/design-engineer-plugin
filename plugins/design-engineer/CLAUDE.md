@@ -281,3 +281,76 @@ Important:
 - Do NOT warn earlier than ~90% — premature warnings are distracting
 - This is a SUGGESTION, not a requirement — never tell the user they must compact
 - If the user dismisses the suggestion, do not bring it up again in the same session
+
+## Memory Management
+
+This plugin integrates with Claude Code's auto-memory system (`~/.claude/projects/<project>/memory/`) to maintain project awareness across sessions. MEMORY.md auto-loads every session (first 200 lines). Topic files load on demand.
+
+### Project Map (`memory/project-map.md`)
+
+Maintain a living file tree of the project. Every entry follows this format:
+
+```
+path — description (≤10 words) | when to read
+```
+
+**Update rules:**
+- After creating any file or folder → add an entry with path, description, and read trigger
+- After deleting any file or folder → remove its entry
+- After significant restructuring (moving files, renaming directories) → update affected entries
+- Do NOT update entries for minor edits to existing files — only structural changes
+
+**Read project-map.md BEFORE:**
+- Any filesystem exploration or file search
+- Creating implementation plans (Plan Mode)
+- Running context-analyzer or any agent that needs project structure
+
+This replaces ad-hoc exploration. If project-map.md exists, use it instead of globbing or grepping for structure.
+
+### MEMORY.md (Pipeline State + Key Decisions)
+
+Keep MEMORY.md under 150 lines. It stores:
+
+- **Pipeline State**: current phase, last completed skill, next skill, mode
+- **Key Decisions**: one-line entries for cross-cutting decisions that affect multiple downstream deliverables (e.g., "B2B focus", "mobile-first", "subscription model chosen over freemium")
+- **Topic Files routing table**: links to topic files with explicit "read when..." triggers
+
+**What to save to MEMORY.md:**
+- Pipeline position changes (after completing a skill or phase)
+- Business/design decisions that affect 2+ deliverables downstream
+- Mode preference and project type
+
+**What NOT to save anywhere in memory:**
+- Individual deliverable content (already in docs/design/)
+- Resume state details (already in .design-engineer.yaml)
+- Dependency status (already in .dependencies.yaml)
+- Anything already in this CLAUDE.md
+- How the plugin works or what skills exist
+
+### Debug Solutions (`memory/debug-solutions.md`)
+
+Save hard-won debugging fixes that took 3+ attempts or required non-obvious solutions.
+
+Each entry: the error, what was tried and failed, what actually fixed it.
+
+**Read debug-solutions.md BEFORE** attempting fixes for build, deploy, or environment errors — the solution may already be documented.
+
+### When to Read Memory
+
+| Trigger | What to read |
+|---------|-------------|
+| Session start | MEMORY.md auto-loads. Read project-map.md before any exploration. |
+| Before phase transitions | MEMORY.md — verify key decisions still hold |
+| Before implementation/planning | project-map.md — know the project structure |
+| When encountering errors | debug-solutions.md — check for known fixes |
+| After chat compaction | Re-read MEMORY.md for recovered context |
+
+### When to Write Memory
+
+| Trigger | What to update |
+|---------|---------------|
+| File/folder created or deleted | project-map.md — add or remove entry |
+| Cross-cutting design decision made | MEMORY.md "Key Decisions" — one-line entry with date |
+| Skill or phase completed | MEMORY.md "Pipeline State" — update position |
+| Hard bug solved (3+ attempts) | debug-solutions.md — error + failed attempts + fix |
+| Session ending (Stop hook reminder) | All of the above if changes occurred this session |

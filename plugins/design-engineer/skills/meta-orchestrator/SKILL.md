@@ -73,9 +73,11 @@ Additionally, `/de:prototype` provides a standalone entry point for prototyping 
 
 When invoked, determine the user's situation before running any skills.
 
-### Step 0: Check for Resume State
+### Step 0: Check Memory and Resume State
 
-Before asking about mode or project state, check if `.design-engineer.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
+**Memory check**: If auto-memory exists (`~/.claude/projects/<project>/memory/MEMORY.md`), it auto-loaded at session start. Read `project-map.md` for project structure — use this instead of exploring the filesystem. Check MEMORY.md for pipeline state and key decisions from previous sessions. This complements `.design-engineer.yaml` — memory has cross-cutting decisions, the YAML has mechanical resume data.
+
+Then check if `.design-engineer.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
 
 If a `resume:` section exists:
 
@@ -163,19 +165,19 @@ Refer to [pipeline-sequence.md](./references/pipeline-sequence.md) for the compl
 
 ### Phase 1: Discovery and Foundation
 Skills: `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-competitor-analysis`, `ux-user-interviews` (optional)
-Then run: `meta-document`
+Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 2: Strategy and Positioning
 Skills: `ux-behavior-mapping`, `ux-storybrand`, `ux-6p-stories`, `ux-business-plan`
-Then run: `meta-document`
+Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 3: Product Planning
 Skills: `ux-mvp-requirements`, `ux-information-architecture`
-Then run: `meta-document`
+Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 4: Design and Validation
 Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-psych-levels`, `ux-product-assessment` (optional)
-Then run: `meta-document`
+Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### User Approval Checkpoint
 After Phase 4, present a summary of all pre-development work and wait for explicit user approval before proceeding to Phase 5.
@@ -237,6 +239,15 @@ Maintain the project state file at `design-docs/project-state.md` following the 
 - When the user makes a significant decision that affects the pipeline
 
 The project state file is the source of truth for pipeline progress. Always read it at the start of a new session. This addresses the context degradation problem: when conversations hit token limits and earlier parts get compressed or lost, the state file preserves what has been completed, what decisions were made, and what approaches did not work.
+
+## Auto-Memory Updates
+
+In addition to the project state file, update auto-memory when:
+- A **cross-cutting decision** is made (business model choice, target market shift, tech stack decision, architectural choice affecting multiple features) → save a one-line entry to MEMORY.md "Key Decisions" with date
+- A **phase completes** → update MEMORY.md pipeline position (phase, last skill, next skill)
+- **New deliverables are created** → add entries to project-map.md
+
+Do NOT duplicate deliverable content or detailed status into memory — that belongs in project files.
 
 ## Error Recovery
 

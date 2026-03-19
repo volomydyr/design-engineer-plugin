@@ -235,6 +235,13 @@ def main():
         print("No downstream dependents need review.")
     print("---")
 
+    # Memory reminder
+    print("")
+    print("MEMORY: Update auto-memory before session ends:")
+    print("- Update project-map.md if any files/folders were created or removed")
+    print("- Update MEMORY.md pipeline position if phase/skill progress was made")
+    print("- Save to debug-solutions.md if any hard bugs were solved this session")
+
     # Write resume state to .design-engineer.yaml (if it exists)
     project_root = find_project_root(cwd)
     if project_root:

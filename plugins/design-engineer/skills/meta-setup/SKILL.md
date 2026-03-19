@@ -198,6 +198,65 @@ dependencies:
   auto_suggest: true
 ```
 
+### Initialize Auto-Memory
+
+After writing the config, seed the auto-memory structure for this project. Auto-memory lives at `~/.claude/projects/<project>/memory/` and MEMORY.md auto-loads every session (first 200 lines).
+
+**For new projects (Path B, "New product idea"):**
+
+1. Save `MEMORY.md`:
+```markdown
+# [Project Name] — Design Engineer
+
+## Pipeline State
+Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [selected mode]
+
+## Key Decisions
+(none yet)
+
+## Topic Files
+- [project-map.md](./project-map.md) — read BEFORE any exploration, plan creation, or file search
+- [debug-solutions.md](./debug-solutions.md) — read when encountering build/deploy/env errors
+```
+
+2. Save `project-map.md` with the scaffolded structure from Step 4:
+```markdown
+# Project Map
+
+## docs/design/
+├── foundation/ — core product definition deliverables | read at pipeline start
+├── research/ — research findings and analysis | read before positioning
+├── design/ — IA, flows, design references | read before prototyping
+├── psych/ — psychology audit results | read during design review
+├── dev/ — development preparation | read before dev phase
+├── solutions/ — compound docs and status | read for project context
+└── .dependencies.yaml — deliverable dependency graph | read by hooks automatically
+
+## Project Root
+├── .design-engineer.yaml — plugin config and resume state | read by /de:start
+```
+
+3. Save `debug-solutions.md`:
+```markdown
+# Debug Solutions
+
+Hard-won fixes. Read this before attempting fixes for build, deploy, or environment errors.
+
+(none yet)
+```
+
+**For existing projects (Path B, "Existing project"):**
+
+Same structure, but:
+- Pipeline State: `Phase: N/A — using individual capabilities | Mode: N/A`
+- project-map.md: start with only the docs/design/ scaffold and .design-engineer.yaml — do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
+
+**For returning projects (Path A):**
+
+Memory already exists — do not re-initialize. It will be read during the startup sequence.
+
+---
+
 Ask about the status line:
 
 ```
