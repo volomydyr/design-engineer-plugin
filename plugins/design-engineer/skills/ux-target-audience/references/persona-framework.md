@@ -65,3 +65,44 @@ Uncovers friction in their current experience.
 Identifies what stands between the user and success.
 
 These questions feed back into the persona — use the answers to refine the Behaviors, Pain Points, and Goals sections above.
+
+---
+
+## Complete Persona Example
+
+Here's what a completed persona looks like for a learning tool aimed at designers:
+
+### Background
+
+| Field | Content |
+|-------|---------|
+| Name | Daria |
+| Role | Product Designer |
+| Experience | 3 years, mid-level |
+| Context | Works at a mid-size tech company, feeling pressure to constantly upskill |
+| One-line summary | A driven designer trying to keep up with a fast-changing industry while juggling a full-time job |
+
+### Behaviors
+
+- Saves 10-15 interesting links per week (articles, videos, courses) but only gets to 2-3
+- Uses both smartphone and laptop for saving and learning
+- Stores links in browser bookmarks and Telegram — no single system
+- Dedicates 1-3 hours per week to intentional learning, usually on weekends
+- Prefers short articles and video tutorials over long-form courses
+
+### Pain Points
+
+1. Finding time to learn — work always takes priority
+2. Not knowing which skills to focus on next — too many options, no clear path
+3. Staying motivated to complete courses or read long guides
+4. Applying what she learned to actual work projects
+5. Losing track of progress — no way to see how far she's come
+
+### Goals
+
+- Organize scattered learning resources into one place
+- Follow a personalized development plan instead of random browsing
+- Build skills that actually matter for the next career step
+- Track progress and feel a sense of momentum
+
+Notice the level of specificity: exact numbers ("10-15 links per week"), named tools ("Telegram"), observable behaviors ("only gets to 2-3"), and concrete pain points (not "wants better tools" but "not knowing which skills to focus on next").

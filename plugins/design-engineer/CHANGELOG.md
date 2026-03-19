@@ -4,6 +4,19 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.13.1] – 2026-03-19
+
+### Added
+
+- Complete persona example in `persona-framework.md` — shows what a well-written persona looks like with specific, observable details (based on real PDPro product design)
+- Consolidated StoryBrand canvas view in `storybrand-canvas-template.md` — all 7 elements shown together as one cohesive narrative
+- Lean Canvas section in `business-plan-template.md` — one-page business snapshot framework (Ash Maurya)
+- TAM/SAM/SOM structured explanation in `business-plan-template.md` — expanded from a passing mention to actionable definitions
+
+### Fixed
+
+- Removed hallucinated CHANGELOG entry "Remotion MCP added to dev-mcp-setup skill" from v1.13.0 (Remotion is unrelated to this plugin; was removed in v1.5.1)
+
 ## [1.13.0] – 2026-03-19
 
 ### Added
@@ -11,7 +24,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - 6P Stories image-generation workflow: Claude crafts story + generates image prompts, user generates in external tool, shares back for review, iterates
 - 5 Meddy 6P Story example images as reference files (health checkup, test results, doctor appointment, prescription, skin mole)
 - Statusline `--watch` mode: user runs in separate terminal for usage limit tracking, Claude never accesses credentials
-- Remotion MCP added to dev-mcp-setup skill (from Article 2)
 - Usage monitor instructions in /de:start setup flow
 
 ### Removed

@@ -20,13 +20,39 @@ Pick one that fits what you're selling and who you're selling to. Keep it simple
 
 ---
 
+## 1b. Lean Canvas (Optional)
+
+A Lean Canvas is a one-page snapshot of your entire business idea. It forces you to think through every angle before building anything. Useful for quick validation, pitching to others, and keeping yourself honest about what you actually know vs. what you're assuming.
+
+| Section | What to fill in |
+|---------|----------------|
+| Problem | Top 3 problems your users face |
+| Customer Segments | Who has these problems (from your persona) |
+| Unique Value Proposition | Single sentence: why your solution is different |
+| Solution | How you solve each problem |
+| Channels | How you reach your customers |
+| Revenue Streams | How you make money |
+| Cost Structure | Main costs to run the business |
+| Key Metrics | Numbers that tell you if it's working |
+| Unfair Advantage | What can't be easily copied |
+
+You can Google "Lean Canvas template" and pick one you like — they're all based on the same framework by Ash Maurya. Fill it out manually first, then upload to Claude for feedback.
+
+---
+
 ## 2. Market Research
 
-Market research helps you estimate the size of your audience and the growth potential of your product. Free reports are rare, so get creative.
+Market research helps you estimate the size of your audience and the growth potential of your product. Free reports are rare, so get creative — look at industry registries, freelancer statistics, job board data, or use AI research tools like Perplexity, Liner, or Claude's deep research.
 
-For PDPro, the author looked at the number of registered freelancers by business code in Ukraine to estimate how many designers and developers were active in the country. You can also lean on AI research tools like Perplexity, Liner, or Claude's deep research.
+### TAM, SAM, SOM
 
-If you want to dig deeper, look into TAM, SAM, and SOM — Total Addressable Market, Serviceable Available Market, and Serviceable Obtainable Market. These help you think realistically about how much of the total market you can actually reach.
+Three levels that help you think realistically about how much of the total market you can actually reach:
+
+- **TAM (Total Addressable Market):** The entire market if everyone who could use your product did. This is the theoretical ceiling — useful for understanding the space, not for planning.
+- **SAM (Serviceable Available Market):** The segment you can realistically reach given your geography, niche, language, and distribution channels. A subset of TAM.
+- **SOM (Serviceable Obtainable Market):** What you can actually capture in year 1-2 given your current resources, team, and marketing budget. This is the number you plan around.
+
+Start with SOM — that's your realistic goal. TAM is for context, SAM is for ambition, SOM is for planning.
 
 ---
 
