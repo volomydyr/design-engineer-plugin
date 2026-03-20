@@ -3,6 +3,8 @@ name: dev-mcp-setup
 description: Guides setup of essential MCP integrations for AI-assisted development. Use when configuring a new development environment or choosing which MCP servers to install.
 disable-model-invocation: true
 model: sonnet
+license: MIT
+compatibility: "Requires Node.js v18+ for MCP server installation"
 ---
 
 # MCP Setup Guide
@@ -97,3 +99,20 @@ After MCPs are configured, suggest `dev-agent-setup` to set up agents that lever
 
 ## Resource Files
 
+
+
+## Common Issues
+
+### MCP server fails to start
+If an MCP server won't start after installation:
+1. Check Node.js version: `node --version` (must be v18+)
+2. Verify npm dependencies are installed in the MCP server directory
+3. Check for port conflicts if the server uses a specific port
+4. Review the MCP server logs for specific error messages
+
+### API key rejected
+If an MCP server connects but API calls fail:
+1. Verify the API key format matches what the service expects
+2. Check that the key has the required scopes/permissions
+3. Confirm the key has not expired or been rate-limited
+4. Test the key independently outside of the MCP server

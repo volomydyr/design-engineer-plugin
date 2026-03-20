@@ -3,6 +3,8 @@ name: meta-setup
 description: "Smart entry point for the design-engineer plugin. Detects project state and routes to the right flow: new projects get full setup, returning projects resume where they left off, existing projects get a capability guide. Use as the first command for any project."
 disable-model-invocation: true
 model: sonnet
+license: MIT
+compatibility: "Requires Node.js v18+, Python 3, and Bash"
 ---
 
 # Design-Engineer Plugin Setup
@@ -450,3 +452,18 @@ This skill enforces User > Docs > AI at every step:
 - [dependencies-default.yaml](./assets/dependencies-default.yaml) – Default dependency graph for all plugin deliverables
 - [detect-environment.sh](./scripts/detect-environment.sh) – Environment detection script
 - [init-project-structure.sh](./scripts/init-project-structure.sh) – Project structure scaffolding script
+
+## Common Issues
+
+### Environment detection script fails
+If the detection script reports errors or hangs:
+1. Verify Python 3 is installed: `python3 --version`
+2. Verify Bash is available: `bash --version`
+3. Check script permissions: the script needs execute permission
+4. Run `/de:start` again — the script is fail-open and will skip unavailable checks
+
+### Config file not created
+If `.design-engineer.yaml` is not created after setup:
+1. Check write permissions in the project root directory
+2. Ensure no existing `.design-engineer.yaml` is locked by another process
+3. Delete any corrupted `.design-engineer.yaml` and re-run `/de:start`

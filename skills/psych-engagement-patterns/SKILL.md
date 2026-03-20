@@ -1,8 +1,9 @@
 ---
 name: psych-engagement-patterns
-description: "Explores engagement and motivation psychology principles (Laws 31-40) for UX design. Covers flow states, variable rewards, triggers, and feedback loops. Use when auditing onboarding flows, gamification, retention mechanics, or notification systems."
+description: "Explores engagement and motivation psychology principles (Laws 31-40) for UX design. Covers flow states, variable rewards, triggers, and feedback loops. Use when auditing onboarding flows, gamification, retention mechanics, or notification systems. Do NOT use for social dynamics or group behavior; see psych-social-influence instead."
 disable-model-invocation: true
 model: opus
+license: MIT
 ---
 
 # Engagement and Motivation (Laws 31-40)

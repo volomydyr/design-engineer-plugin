@@ -3,6 +3,7 @@ name: ux-story-panels
 description: "Guides creation of Story Panels – comic-style visual product stories with 6 panels that build customer empathy. Produces image generation prompts for each panel, reviews generated images, and iterates until the story is right. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
 model: opus
+license: MIT
 ---
 
 # ux-story-panels Skill

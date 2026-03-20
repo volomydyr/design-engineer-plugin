@@ -3,6 +3,7 @@ name: ux-mvp-requirements
 description: Defines and prioritizes MVP features using the ICE model, separating must-haves from nice-to-haves. Use when deciding what to build first, cutting scope to launch faster, or when the feature list exceeds initial release capacity.
 disable-model-invocation: true
 model: sonnet
+license: MIT
 ---
 
 # MVP Requirements

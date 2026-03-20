@@ -3,6 +3,8 @@ name: dev-prototyping
 description: "Generates a single-file HTML prototype directly in Claude Code. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents, existing codebases, or Figma designs."
 disable-model-invocation: true
 model: opus
+license: MIT
+compatibility: "Requires Bash for prototype generation scripts"
 ---
 
 # Dev Prototyping
@@ -355,3 +357,12 @@ After prototyping, suggest the logical next step based on what exists:
 - [prototyping-workflow.md](./references/prototyping-workflow.md) – Iteration methodology for AI-generated prototypes
 - [testing-analysis-guide.md](./references/testing-analysis-guide.md) – Dual-analysis approach for user testing results
 - [starter-values.md](../ui-design-system/references/starter-values.md) – CSS token baseline when no existing design system is detected
+
+## Common Issues
+
+### Prototype file won't open in browser
+If the generated HTML file does not display correctly:
+1. Verify the file was saved with `.html` extension
+2. Check that Tailwind CDN link is included — if offline, the prototype needs a local CSS fallback
+3. Open the browser developer console to check for JavaScript errors
+4. Try a different browser — some prototypes use modern CSS features not supported in older browsers

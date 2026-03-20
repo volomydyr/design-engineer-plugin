@@ -3,6 +3,7 @@ name: dev-github-workflow
 description: Establishes a GitHub workflow for designers entering development. Covers commits, branches, and recovery strategies. Use when setting up version control for a new project.
 disable-model-invocation: true
 model: sonnet
+license: MIT
 ---
 
 # GitHub Workflow for Designers

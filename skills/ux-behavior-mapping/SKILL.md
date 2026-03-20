@@ -3,6 +3,7 @@ name: ux-behavior-mapping
 description: "Maps user behavior using the Behavior Map framework (Behavior = Motivation x Ability x Prompt). Analyzes activation thresholds, mental models, and prompt validation. Use when user motivation is unclear or for complex products needing behavioral analysis."
 disable-model-invocation: true
 model: opus
+license: MIT
 ---
 
 # ux-behavior-mapping Skill

@@ -1,8 +1,9 @@
 ---
 name: psych-simplification
-description: "Explores efficiency and simplification psychology principles (Laws 51-60) for UX design. Covers simplifying without oversimplifying, signifiers, and intuitive interaction patterns. Use when auditing navigation, complex settings, form simplification, or balancing simplicity with functionality."
+description: "Explores efficiency and simplification psychology principles (Laws 51-60) for UX design. Covers simplifying without oversimplifying, signifiers, and intuitive interaction patterns. Use when auditing navigation, complex settings, form simplification, or balancing simplicity with functionality. Do NOT use for cognitive load analysis or choice architecture; see psych-cognitive-load instead."
 disable-model-invocation: true
 model: opus
+license: MIT
 ---
 
 # Efficiency Principles (Laws 51-60)

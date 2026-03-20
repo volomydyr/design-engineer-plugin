@@ -4,6 +4,19 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.17.0] – 2026-03-20
+
+### Added
+
+- **Eval overhaul**: 222 new evals (196 trigger tests, 6 functional for uncovered skills, 20 error/edge cases). Added `type` field to all evals (`functional`, `trigger_positive`, `trigger_negative`, `error`). Total coverage: 341 evals across all 49 skills and 6 commands.
+- **Negative triggers in descriptions**: 22 skills now include "Do NOT use for..." phrases to prevent cross-triggering, especially among the 14 psychology skill pairs.
+- **Error handling sections**: 6 MCP-dependent skills now have "Common Issues" troubleshooting guides per Anthropic's skill guide.
+- **Optional frontmatter**: `license: MIT` on all 49 skills. `compatibility` on 6 skills with external dependencies.
+
+### Changed
+
+- **CLAUDE.md Skill Compliance Checklist**: Updated to include `license` and `compatibility` (when applicable) as frontmatter fields.
+
 ## [1.16.1] – 2026-03-20
 
 ### Changed

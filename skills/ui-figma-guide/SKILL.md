@@ -1,8 +1,10 @@
 ---
 name: ui-figma-guide
-description: Defines a minimal Figma workflow for AI-assisted development. Use when starting high-fidelity design work or preparing Figma frames for handoff to AI coding tools.
+description: "Defines a minimal Figma workflow for AI-assisted development. Use when starting high-fidelity design work or preparing Figma frames for handoff to AI coding tools. Do NOT use for automated design structuring or dev handoff; see ui-figma-handoff instead."
 disable-model-invocation: true
 model: sonnet
+license: MIT
+compatibility: "Requires Figma MCP (plugin:figma:figma)"
 ---
 
 # Figma Workflow for AI-Assisted Development
@@ -127,3 +129,18 @@ After Figma designs are created, suggest the logical next step:
 ## Resource Files
 
 - [figma-for-ai-dev.md](./references/figma-for-ai-dev.md) – Principles for Figma workflow in AI-assisted development
+
+## Common Issues
+
+### Figma MCP returns no data
+If `get_design_context` or `get_screenshot` returns empty results:
+1. Verify the Figma file URL format — use `figma.com/design/:fileKey/:fileName?node-id=:nodeId`
+2. Convert dashes to colons in node-id parameters (URL uses `-`, API uses `:`)
+3. Ensure the file is not in a team with restricted API access
+4. Try `get_metadata` first to confirm the file is accessible
+
+### Screenshots fail
+If `get_screenshot` returns errors:
+1. Confirm the Figma file is open and the target frame exists
+2. Check that the node-id points to a visible frame (not a hidden or deleted layer)
+3. Try capturing a parent frame if the specific node fails

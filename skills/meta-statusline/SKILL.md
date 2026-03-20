@@ -3,6 +3,8 @@ name: meta-statusline
 description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /de:start."
 disable-model-invocation: true
 model: sonnet
+license: MIT
+compatibility: "Requires Node.js v18+ and write access to ~/.claude/hooks/"
 ---
 
 # Design-Engineer Status Line
@@ -183,3 +185,23 @@ Opus * my-project | 5h: 12% (2h31m) * 7d: 8% | [=======---] 35% | Phase 2: Strat
 1. **User decisions** always override — if the user wants to keep their existing status line, respect that.
 2. **Detected state** informs — check what is currently configured before making changes.
 3. **AI suggestions** fill gaps only when user provides no guidance.
+
+## Common Issues
+
+### Status line not appearing
+If the status line does not show after installation:
+1. Verify `~/.claude/settings.json` has the `statusLine` configuration
+2. Check that the hook script exists at `~/.claude/hooks/de-statusline.js`
+3. Restart Claude Code — status line changes require a session restart
+
+### Script permission denied
+If you see permission errors during installation:
+1. The hook script needs execute permission — check with `ls -la ~/.claude/hooks/de-statusline.js`
+2. Verify write access to `~/.claude/hooks/` directory
+3. Run the installation step manually if the automated install fails
+
+### Status line shows stale data
+If the status line displays outdated information:
+1. Check if `--watch` mode is enabled in the status line configuration
+2. The status line reads from `.design-engineer.yaml` — verify this file is current
+3. Restart Claude Code to force a fresh read

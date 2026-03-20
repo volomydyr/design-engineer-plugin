@@ -1,8 +1,10 @@
 ---
 name: ui-figma-handoff
-description: "Automates Figma design structuring and development handoff preparation using Figma Console MCP. Use when preparing raw designs for development — converts flat frames into components with tokens, then adds annotations, sections, and dev status badges."
+description: "Automates Figma design structuring and development handoff preparation using Figma Console MCP. Use when preparing raw designs for development — converts flat frames into components with tokens, then adds annotations, sections, and dev status badges. Do NOT use for learning Figma workflow basics; see ui-figma-guide instead."
 disable-model-invocation: true
 model: sonnet
+license: MIT
+compatibility: "Requires Figma Console MCP (figma-console-mcp)"
 ---
 
 # Figma Design Structuring and Dev Handoff
@@ -262,3 +264,18 @@ After handoff preparation is complete, suggest the logical next step:
 - [figma-structuring-guide.md](./references/figma-structuring-guide.md) — 7-phase methodology for converting raw Figma designs to structured design files
 - [figma-handoff-guide.md](./references/figma-handoff-guide.md) — Process for preparing Figma designs for developer handoff
 - [figma-console-helpers.md](./references/figma-console-helpers.md) — Code snippets for Figma Console MCP operations
+
+## Common Issues
+
+### Figma Console MCP not connected
+If `figma_execute` calls fail or return connection errors:
+1. Verify Figma Console MCP is running — check your MCP server status
+2. Confirm the Figma desktop app is open with the target file active
+3. Check `.mcp.json` or `settings.json` for correct MCP server configuration
+4. Try `figma_reconnect` to re-establish the connection
+
+### Batch operations timeout
+If batch variable or component operations time out:
+1. Reduce batch size — split large batches (100+ items) into smaller groups
+2. Check that the Figma file is not excessively large (1000+ layers can slow operations)
+3. Verify your network connection is stable — MCP calls require consistent connectivity

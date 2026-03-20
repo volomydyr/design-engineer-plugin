@@ -48,6 +48,8 @@ When adding or modifying skills:
 - [ ] `description:` present, describes what it does AND when to use it
 - [ ] `disable-model-invocation: true` present on ALL skills
 - [ ] `model:` present — `opus` (default) or `sonnet` (mechanical tasks only)
+- [ ] `license: MIT` present on ALL skills
+- [ ] `compatibility:` present when skill has external dependencies (MCP servers, Node.js, Python, Bash)
 
 ### Content Rules (Non-Negotiable)
 

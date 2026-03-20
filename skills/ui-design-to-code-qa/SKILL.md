@@ -1,8 +1,9 @@
 ---
 name: ui-design-to-code-qa
-description: Reviews implemented UI against design intent and catches common AI-generated issues. Use after implementation to verify visual fidelity or when UI discrepancies are reported.
+description: "Reviews implemented UI against design intent and catches common AI-generated issues. Use after implementation to verify visual fidelity or when UI discrepancies are reported. Do NOT use for craft quality or aesthetic judgment; see ui-aesthetic-review instead."
 disable-model-invocation: true
 model: opus
+license: MIT
 ---
 
 # Visual Review
