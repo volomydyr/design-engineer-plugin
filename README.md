@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="logo.svg" width="280" alt="Design Engineer" />
-</p>
+<img src="logo.svg" width="280" alt="Design Engineer" />
 
 # Design Engineer
 
