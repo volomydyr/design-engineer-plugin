@@ -1,49 +1,135 @@
 # Design Engineer
 
-Full-stack product design and AI-assisted development plugin for Claude Code. 49 skills, 9 agents, 6 commands. An opinionated, battle-tested workflow that takes you from initial idea through psychology-informed UX design to production code.
+A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that guides you through every step of building a product — from initial idea through psychology-informed UX design to production code. It teaches you the process while doing the work, not just outputting deliverables.
 
-## Philosophy
+## What You Need
 
-- **Teach while working** – every skill guides the thinking process, not just outputs deliverables
-- **User > Docs > AI** – enforces this decision hierarchy in every skill
-- **Granular and specific** – each skill covers exactly one activity
-- **Opinionated with real context** – prescribes exact workflows based on real product-building experience
-- **Tool-agnostic with recommendations** – does not lock you into specific tools, but recommends proven ones
+Before installing, make sure you have the following:
 
-## Quick Start
+1. **Claude Code** — Anthropic's AI coding tool that runs in your terminal. If you don't have it yet, follow the [official install guide](https://docs.anthropic.com/en/docs/claude-code/getting-started). Claude Code requires an Anthropic account with a Max or Team plan, or API credits.
 
-```bash
-# Install the plugin
-claude plugin marketplace add https://github.com/volomydyr/design-engineer-plugin
-claude plugin install design-engineer
+2. **Node.js v18+** — needed for the plugin's safety hooks and status line. Check with `node --version`. If missing, install from [nodejs.org](https://nodejs.org/) or via `brew install node`.
 
-# Run setup first (mandatory)
+3. **Python 3** — needed for dependency tracking and environment detection. Check with `python3 --version`. Comes pre-installed on macOS and most Linux distributions.
+
+4. **Bash** — needed for setup scripts. Built into macOS and Linux. Windows users need WSL.
+
+## Install
+
+Open Claude Code in your terminal and run:
+
+```
+/install-plugin https://github.com/volomydyr/design-engineer-plugin
+```
+
+That's it. The plugin is now available in every Claude Code session.
+
+## Getting Started
+
+Once installed, start a new Claude Code session in your project directory and type:
+
+```
 /de:start
 ```
 
-## Commands
+This is the only command you need to remember. It detects your situation and routes you automatically:
 
-You interact with 6 top-level commands. Behind each one, the full engine of 49 skills and 9 agents runs silently.
+- **New product?** → Interactive setup: detects your environment, asks how you want to work, scaffolds your project, and walks you into the design pipeline.
+- **Returning?** → Shows where you left off and lets you resume, jump to a different phase, or browse all capabilities.
+- **Existing project?** → Shows everything the plugin can do, asks about your situation, and recommends relevant capabilities.
+
+During setup, the plugin checks for recommended tools (Context7, Figma, Playwright) and offers to help install any that are missing. You don't need to set these up in advance.
+
+## What It Does
+
+You interact with 6 commands. Behind each one, 49 skills and 9 agents run automatically.
 
 | Command | What It Does |
 |---------|-------------|
-| `/de:start` | Smart entry point. Detects your situation — new projects get full setup, returning projects resume, existing projects get a capability guide. |
-| `/de:design` | Full design workflow orchestrator. God mode (autonomous) or Guided mode (step-by-step). Sequences through discovery, strategy, planning, and validation. |
-| `/de:prototype` | HTML prototype generation. New products, new features, or redesigns. |
-| `/de:dev` | Development pipeline. CLAUDE.md generation, agent pipeline setup, context management, kick-start prompts, GitHub workflow, MCP configuration. |
-| `/de:review` | Multi-layer design review. Visual review, accessibility audit, psychology audit (100+ principles), product assessment, design system compliance, ethics review. |
-| `/de:document` | Knowledge documentation and stakeholder communication. Documents decisions, learnings, and project state. Prepares findings for stakeholders. |
+| `/de:start` | Smart entry point — setup, resume, or capability guide depending on your situation |
+| `/de:design` | Full design pipeline — discovery, strategy, planning, and validation. Autonomous or step-by-step. |
+| `/de:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
+| `/de:dev` | Development pipeline — environment setup, test-first development, AI-assisted implementation |
+| `/de:review` | Multi-layer review — visual quality, accessibility, psychology (100+ principles), design system compliance, ethics |
+| `/de:document` | Documents decisions, learnings, and project state. Prepares stakeholder communication. |
 
-### Modes
+### Two Modes
 
-Most commands support two modes:
+Most commands support:
 
-- **God mode** – runs the full pipeline autonomously with minimal user input
-- **Guided mode** – interactive, asks questions at every stage, pauses for approval
+- **Guided mode** — step-by-step, asks questions at every stage, pauses for your approval. Recommended for learning and thorough work.
+- **God mode** — runs autonomously with minimal input. Best for quick validation and rapid exploration.
 
-## Skills (49)
+## How It Works
 
-All skills are hidden from auto-discovery (`disable-model-invocation: true`). Power users can invoke any skill directly.
+The plugin is opinionated. It follows a specific methodology built from real product-building experience:
+
+- **User > Docs > AI** — your decisions override documentation, which overrides AI suggestions. Always.
+- **One activity per skill** — each skill covers exactly one thing well, with specific workflows and reference materials.
+- **Teach the thinking** — skills don't just produce outputs. They walk you through the reasoning, so you learn the process.
+- **Psychology-backed** — 14 psychology skills covering 100+ behavioral principles (cognitive load, decision-making, engagement, persuasion, emotional design) are woven into the design review process.
+
+### Pipeline Phases
+
+When running the full design pipeline (`/de:design`), your project moves through:
+
+1. **Discovery** — problem definition, target audience, assumptions, competitive analysis
+2. **Strategy** — behavior mapping, product narrative, user stories, business model
+3. **Planning** — MVP requirements, information architecture
+4. **Design & Validation** — bias audits, journey mapping, prototyping, design references, psychology analysis
+5. **Development** — environment setup, test-driven implementation with AI agents
+
+Each phase produces deliverables tracked by a dependency graph. When an upstream document changes, the plugin tells you which downstream documents may need review.
+
+### Agents
+
+9 specialized agents handle specific tasks behind the scenes:
+
+| Agent | Role |
+|-------|------|
+| `context-analyzer` | Analyzes project context and codebase structure |
+| `ux-researcher` | Conducts research activities |
+| `deliverable-writer` | Produces structured deliverable documents |
+| `psych-scanner` | Scans designs against 100+ psychology principles |
+| `design-system-auditor` | Audits code against design system rules |
+| `backend-implementer` | Implements backend features |
+| `frontend-implementer` | Implements frontend features |
+| `test-writer` | Writes failing test scripts before implementation (TDD) |
+| `compound-documenter` | Documents decisions and maintains context |
+
+### Safety Hooks
+
+The plugin installs protective hooks that run automatically:
+
+- **Destructive command protection** — blocks `rm -rf`, `git push --force`, `DROP TABLE`, and similar commands, showing safer alternatives
+- **Test-first enforcement** — blocks code writes when no tests exist during active implementation
+- **Prompt injection defense** — scans external tool outputs for manipulation attempts
+- **Requirement fidelity** — flags scope creep in plans and code that wasn't explicitly requested
+- **Dependency tracking** — after editing deliverables, advises which downstream documents may need review
+- **Session summary** — when you stop, summarizes what changed and what may be stale
+
+### Model Configuration
+
+Every agent and skill specifies which Claude model to use:
+
+- **Opus** (42 components) — psychology analysis, UX research, implementation, design review
+- **Sonnet** (17 components) — template generation, setup wizards, documentation
+
+## Recommended Tools
+
+The plugin works on its own, but these tools unlock additional capabilities. Setup (`/de:start`) detects and helps install them automatically.
+
+| Tool | What It Adds | Required? |
+|------|-------------|-----------|
+| **Context7** | Up-to-date documentation for any library — AI doesn't rely on outdated training data | Bundled with the plugin |
+| **Figma** (official plugin) | Reads design data from Figma Dev Mode — structured design info, not screenshots | Recommended for design work |
+| **Playwright** | Browser-based testing and visual review of live pages | Recommended for development |
+| **Figma Console** (MCP) | Performs actions directly in Figma — create components, apply tokens from prompts | Optional, for advanced Figma workflows |
+
+<details>
+<summary><h2>All 49 Skills</h2></summary>
+
+All skills run automatically through commands. Power users can invoke any skill directly (e.g., `/ux-problem-statement`).
 
 ### Meta (4)
 
@@ -54,7 +140,7 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `meta-document` | Knowledge documentation and context engineering |
 | `meta-statusline` | Status line installation and management |
 
-### UX Research (10)
+### UX Research (9)
 
 | Skill | What It Does |
 |-------|-------------|
@@ -68,13 +154,13 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `ux-mvp-requirements` | MVP prioritization and scoping |
 | `ux-information-architecture` | Information architecture design |
 
-### UX Design Activities (8)
+### UX Design (8)
 
 | Skill | What It Does |
 |-------|-------------|
 | `ux-story-panels` | Story Panels framework for product narratives |
 | `ux-behavior-mapping` | Behavior mapping and mental model analysis |
-| `ux-motivation-audit` | Screen-level Motivation Levels and Experience Value analysis |
+| `ux-motivation-audit` | Screen-level motivation and experience value analysis |
 | `ux-bias-audit` | Bias audit process (Identify, Analyze, Design, Document) |
 | `ux-journey-mapping` | Journey mapping and improvement tactics |
 | `ux-communicating-decisions` | Communicating design decisions to stakeholders |
@@ -85,20 +171,20 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 
 | Skill | What It Does |
 |-------|-------------|
-| `psych-full-scan` | Broad scan across all 100+ principles with routing to sections |
-| `psych-cognitive-load` | Laws 1-10: cognitive load, progressive disclosure, recognition |
-| `psych-visual-perception` | Laws 11-20: Gestalt, visual hierarchy, attention |
-| `psych-decision-fundamentals` | Laws 21-25: loss aversion, anchoring, confirmation bias |
-| `psych-decision-persuasion` | Laws 26-30: scarcity, social proof, decoy effect, framing |
-| `psych-engagement-patterns` | Laws 31-40: curiosity gap, variable reward, goal gradient |
-| `psych-delight-design` | Laws 41-45: peak-end rule, delighters, labor illusion |
-| `psych-emotional-retention` | Laws 46-50: endowment effect, storytelling |
-| `psych-simplification` | Laws 51-60: serial position, picture superiority, chunking |
-| `psych-pricing-psychology` | Laws 61-65: sunk cost, reciprocity |
-| `psych-habit-formation` | Laws 66-70: commitment, consistency, reactance |
-| `psych-social-influence` | Laws 71-80: social proof, authority, liking |
-| `psych-cognitive-biases` | Laws 81-90: availability heuristic, negativity bias |
-| `psych-time-perception` | Laws 91-100: familiarity bias, shaping, aha moment |
+| `psych-full-scan` | Broad scan across all 100+ principles with routing to deep-dive sections |
+| `psych-cognitive-load` | Cognitive load, progressive disclosure, recognition over recall |
+| `psych-visual-perception` | Gestalt principles, visual hierarchy, attention |
+| `psych-decision-fundamentals` | Loss aversion, anchoring, confirmation bias |
+| `psych-decision-persuasion` | Scarcity, social proof, decoy effect, framing |
+| `psych-engagement-patterns` | Curiosity gap, variable reward, goal gradient |
+| `psych-delight-design` | Peak-end rule, delighters, labor illusion |
+| `psych-emotional-retention` | Endowment effect, storytelling, emotional design |
+| `psych-simplification` | Serial position, picture superiority, chunking |
+| `psych-pricing-psychology` | Sunk cost, reciprocity, pricing perception |
+| `psych-habit-formation` | Commitment, consistency, reactance |
+| `psych-social-influence` | Social proof, authority, liking |
+| `psych-cognitive-biases` | Availability heuristic, negativity bias |
+| `psych-time-perception` | Familiarity bias, shaping, aha moment |
 
 ### UI Design (7)
 
@@ -110,77 +196,21 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | `ui-figma-handoff` | Figma design structuring and dev handoff preparation |
 | `ui-design-system` | Design system architecture, compliance, and persistence |
 | `ui-design-to-code-qa` | Implementation fidelity review with UX non-negotiables |
-| `ui-accessibility` | Accessibility compliance audit |
+| `ui-accessibility` | Accessibility compliance audit (WCAG) |
 
 ### Development (7)
 
 | Skill | What It Does |
 |-------|-------------|
 | `dev-claude-md` | CLAUDE.md generation and maintenance |
-| `dev-starter-prompts` | IDE kick-start prompt generation |
+| `dev-starter-prompts` | Kick-start prompt generation for new sessions |
 | `dev-agent-setup` | 4-agent development pipeline setup |
 | `dev-status-tracking` | Long-running project context management |
-| `dev-mcp-setup` | MCP configuration guidance |
+| `dev-mcp-setup` | MCP and plugin configuration guidance |
 | `dev-github-workflow` | GitHub workflow for designers |
-| `dev-prototyping` | Single-file HTML prototype generation from planning docs, existing designs, or just an idea |
+| `dev-prototyping` | Single-file HTML prototype generation |
 
-## Agents (9)
-
-| Agent | Role |
-|-------|------|
-| `context-analyzer` | Analyzes project context and codebase structure |
-| `backend-implementer` | Implements backend features |
-| `frontend-implementer` | Implements frontend features |
-| `design-system-auditor` | Audits code against design system rules |
-| `psych-scanner` | Scans designs against 100+ psychology principles |
-| `ux-researcher` | Conducts research activities |
-| `deliverable-writer` | Produces structured deliverable documents |
-| `test-writer` | Writes failing Playwright CLI test scripts before implementation |
-| `compound-documenter` | Documents decisions and maintains context |
-
-## Power User Guide
-
-Every skill can be invoked directly:
-
-```bash
-# Run a specific research activity
-/ux-problem-statement
-
-# Run a psychology section
-/psych-cognitive-load
-
-# Run the full pipeline
-/de:design god-mode
-```
-
-## Hooks
-
-The plugin includes five hooks:
-
-- **PreToolUse** (`de-safety-hook.js`) – context-aware protection against destructive Bash commands (rm -rf, git push --force, DROP TABLE, git add .env, etc.). Shows safer alternatives alongside every block. Fail-open design.
-- **PreToolUse** (`de-tdd-hook.js`) – enforces test-first development by blocking source code writes (Write/Edit/MultiEdit) when no test scripts exist in `tests/` during active implementation. Fail-open design.
-- **PostToolUse** (`check_deliverable_deps.py`) – when a deliverable file is written or edited, checks the dependency graph and advises which downstream documents may need review
-- **PostToolUse** (`de-prompt-injection-hook.js`) – scans tool outputs (Read, WebFetch, Bash, Grep, Task, MCP) for indirect prompt injection attempts across 5 categories: instruction override, role-playing/DAN, encoding/obfuscation, context manipulation, instruction smuggling. Warns Claude without blocking. Fail-open design.
-- **PostToolUse** (`de-fidelity-hook.js` + Haiku prompt) – enforces requirement fidelity after file writes. Command hook injects fidelity reminders for source code during implementation. Prompt hook (Haiku) reviews plan files for requirement drift — features, copy, or scope not explicitly requested by the user.
-- **Stop** (`session_dep_summary.py`) – summarizes which deliverables were updated in this session and which dependents may be stale
-
-## Model Configuration
-
-Every agent and skill specifies an explicit model in its frontmatter:
-
-- **Opus** (42 components: 36 skills, 6 agents) — psychology analysis, UX research, implementation, design review, orchestration
-- **Sonnet** (17 components: 14 skills, 3 agents) — context reading, template generation, setup wizards, documentation
-
-See `CLAUDE.md` for assignment principles when adding new components.
-
-## Requirements
-
-- **Claude Code CLI**
-- **Node.js** (v18+) — runs the safety hook and status line
-- **Python 3** — runs dependency tracking hooks and environment detection
-- **Bash** — runs setup scripts (macOS/Linux built-in)
-- Recommended plugins: Context7 (bundled), Figma, Playwright
-- Optional MCP: Figma Console
+</details>
 
 ## Feedback
 

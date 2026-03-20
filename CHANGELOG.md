@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.16.1] – 2026-03-20
+
+### Changed
+
+- **README rewrite for newcomers**: Prerequisites with install links, getting started guide, how-it-works overview, recommended tools table, collapsible skill reference. Written for someone who may have never used Claude Code before.
+
 ## [1.16.0] – 2026-03-20
 
 ### Changed
