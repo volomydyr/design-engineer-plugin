@@ -1,4 +1,4 @@
-<img src="logo.svg" width="280" alt="Design Engineer" />
+<img src="logo.svg" width="200" alt="Design Engineer" />
 
 # Design Engineer
 

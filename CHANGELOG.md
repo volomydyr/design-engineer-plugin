@@ -66,54 +66,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
-- **Standardized terminology across all skills
-- `ux-story-panels` → `ux-story-panels` – skill directory, reference files, and all cross-references
-- `ux-motivation-audit` → `ux-motivation-audit` – skill directory, reference files, and all cross-references
-- Standardized bias audit framework terminology
-- Standardized behavior mapping terminology
-- Standardized research question terminology
-- Standardized experience value terminology
-- Standardized motivation framework terminology
-
-
+- Renamed 2 skills for clarity: `ux-story-panels`, `ux-motivation-audit`
+- Standardized framework terminology across all skills and references
 
 ## [1.13.1] – 2026-03-19
 
 ### Added
 
-- Complete persona example in `persona-framework.md` – shows what a well-written persona looks like with specific, observable details (based on real product design)
-- Consolidated StoryBrand canvas view in `storybrand-canvas-template.md` – all 7 elements shown together as one cohesive narrative
-- Lean Canvas section in `business-plan-template.md` – one-page business snapshot framework (Ash Maurya)
-- TAM/SAM/SOM structured explanation in `business-plan-template.md` – expanded from a passing mention to actionable definitions
-
-### Fixed
-
-- Removed hallucinated CHANGELOG entry "Remotion MCP added to dev-mcp-setup skill" from v1.13.0 (Remotion is unrelated to this plugin; was removed in v1.5.1)
+- Complete persona example in `persona-framework.md`
+- Consolidated StoryBrand canvas view in `storybrand-canvas-template.md`
+- Lean Canvas section in `business-plan-template.md` (Ash Maurya)
+- TAM/SAM/SOM structured explanation in `business-plan-template.md`
 
 ## [1.13.0] – 2026-03-19
 
 ### Added
 
-- Story Panels image-generation workflow: Claude crafts story + generates image prompts, user generates in external tool, shares back for review, iterates
-- 5 Story Panel example images as reference files (health checkup, test results, doctor appointment, prescription, skin mole)
-- Statusline `--watch` mode: user runs in separate terminal for usage limit tracking, Claude never accesses credentials
+- Story Panels image-generation workflow with example images
+- Statusline `--watch` mode for usage limit tracking
 - Usage monitor instructions in /de:start setup flow
 
 ### Removed
 
-- `mental-model-guide.md` – 95% invented content, sourced concepts already in behavior-map-framework.md
-- `figma-mcp-guide.md` – redundant with meta-setup environment detection
-- `mcp-catalog.md` – redundant with meta-setup environment detection
+- 3 redundant reference files consolidated into existing ones
 
 ### Changed
 
-- **12 UX reference files trimmed and improved
-- `accessibility-checklist.md` – corrected 56pt tap target to 44pt (WCAG 2.2 standard)
-- `de-statusline.js` – removed credential access from Claude-triggered mode; usage fetching now only happens in user-initiated `--watch` mode
+- 12 UX reference files trimmed and improved
+- Corrected tap target size to 44pt (WCAG 2.2 standard)
+- Statusline credential access restricted to user-initiated `--watch` mode only
 
 ### Security
 
-- Statusline no longer accesses macOS Keychain or credentials when triggered by Claude. The `--watch` mode (run by user in separate terminal) is the only code path that touches credentials.
+- Statusline no longer accesses macOS Keychain or credentials when triggered by Claude
 
 ## [1.12.0] – 2026-03-19
 
