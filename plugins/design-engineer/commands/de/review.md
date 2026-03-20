@@ -36,9 +36,9 @@ Ask for a Figma frame link or ask the user to share screenshots.
 
 If Figma plugin is available, use it to analyze the design directly.
 
-1. Load `ui-implementation-review` – check visual design quality
+1. Load `ui-design-to-code-qa` – check visual design quality
 2. Load `ui-accessibility` – accessibility compliance
-3. Load `psych-master-audit` – psychology principles scan
+3. Load `psych-full-scan` – psychology principles scan
 4. Compile findings into a structured review report
 
 ### Live Implementation (Option 2)
@@ -47,9 +47,9 @@ Ask for a URL or screenshots.
 
 If Playwright plugin is available, use it to capture and analyze the live site.
 
-1. Load `ui-implementation-review` – compare implementation against design intent
+1. Load `ui-design-to-code-qa` – compare implementation against design intent
 2. Load `ui-accessibility` – accessibility audit
-3. Load `psych-master-audit` – psychology scan
+3. Load `psych-full-scan` – psychology scan
 4. Compile findings into a review report
 
 ### Codebase (Option 3)
@@ -76,7 +76,7 @@ Use AskUserQuestion to ask:
 
 If AskUserQuestion is not available, present options as a numbered list.
 
-Load `psych-master-audit` for all three approaches. The psych-master-audit skill handles routing to the appropriate section skills, deep-dive selection, and god mode sequencing.
+Load `psych-full-scan` for all three approaches. The psych-full-scan skill handles routing to the appropriate section skills, deep-dive selection, and god mode sequencing.
 
 ### Ethics Review (Option 6)
 
@@ -93,10 +93,10 @@ Run all review dimensions in parallel where possible:
 
 Then sequentially:
 
-1. Load `ui-implementation-review`
+1. Load `ui-design-to-code-qa`
 2. Load `ui-accessibility`
-3. Load `psych-master-audit`
-4. Load `ux-product-assessment` – comprehensive product checklist
+3. Load `psych-full-scan`
+4. Load `ux-full-review` – comprehensive product checklist
 5. Load `ux-ethics-review`
 6. Load `ux-communicating-decisions` – prepare findings for stakeholders
 

@@ -169,6 +169,6 @@ Structure findings as:
 - **ux-journey-mapping**: Bias audit feeds into journey improvement tactics
 - **ux-ethics-review**: Ethical boundary checks complement bias audit analysis
 - **ux-communicating-decisions**: Bias audit vocabulary helps justify design decisions to stakeholders
-- **psych-cognitive-basics**: Hick's Law, Cognitive Load, Progressive Disclosure overlap with Identify and Design
-- **psych-decision-making-core**: Loss Aversion, Anchoring, Confirmation Bias overlap with Analyze
-- **psych-decision-making-advanced**: Scarcity, Social Proof overlap with Design nudges
+- **psych-cognitive-load**: Hick's Law, Cognitive Load, Progressive Disclosure overlap with Identify and Design
+- **psych-decision-fundamentals**: Loss Aversion, Anchoring, Confirmation Bias overlap with Analyze
+- **psych-decision-persuasion**: Scarcity, Social Proof overlap with Design nudges

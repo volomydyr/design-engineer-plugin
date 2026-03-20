@@ -118,7 +118,7 @@ Suggest the user ask AI to update the file after completing each significant fea
 
 ## What Comes Next
 
-After CLAUDE.md is created, suggest `dev-kickstart-prompts` to generate initial development prompts, or `dev-agent-pipeline` to set up the agent pipeline referenced in the rules.
+After CLAUDE.md is created, suggest `dev-starter-prompts` to generate initial development prompts, or `dev-agent-setup` to set up the agent pipeline referenced in the rules.
 
 ---
 

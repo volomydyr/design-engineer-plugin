@@ -91,7 +91,7 @@ Help the user add MCP usage rules to their CLAUDE.md:
 
 ## What Comes Next
 
-After MCPs are configured, suggest `dev-agent-pipeline` to set up agents that leverage these MCPs, or `dev-claude-md` to add MCP usage rules to the global configuration.
+After MCPs are configured, suggest `dev-agent-setup` to set up agents that leverage these MCPs, or `dev-claude-md` to add MCP usage rules to the global configuration.
 
 ---
 

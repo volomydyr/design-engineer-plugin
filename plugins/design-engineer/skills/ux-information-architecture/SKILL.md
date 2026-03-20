@@ -192,7 +192,7 @@ After IA is finalized, suggest:
 
 1. Create wireframes or AI-generated prototypes based on the IA
 2. Begin UI design using the IA as a checklist of what to design
-3. `ui-design-references` – Collect design references organized by IA sections
+3. `ui-references-moodboard` – Collect design references organized by IA sections
 
 ---
 

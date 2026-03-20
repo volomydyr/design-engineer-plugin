@@ -74,42 +74,42 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 |-------|-------------|
 | `ux-story-panels` | Story Panels framework for product narratives |
 | `ux-behavior-mapping` | Behavior mapping and mental model analysis |
-| `ux-motivation-levels` | Screen-level Motivation Levels and Experience Value analysis |
+| `ux-motivation-audit` | Screen-level Motivation Levels and Experience Value analysis |
 | `ux-bias-audit` | Bias audit process (Identify, Analyze, Design, Document) |
 | `ux-journey-mapping` | Journey mapping and improvement tactics |
 | `ux-communicating-decisions` | Communicating design decisions to stakeholders |
 | `ux-ethics-review` | Ethical design review |
-| `ux-product-assessment` | Comprehensive product assessment checklist |
+| `ux-full-review` | Comprehensive product assessment checklist |
 
 ### Psychology (14)
 
 | Skill | What It Does |
 |-------|-------------|
-| `psych-master-audit` | Broad scan across all 100+ principles with routing to sections |
-| `psych-cognitive-basics` | Laws 1-10: cognitive load, progressive disclosure, recognition |
+| `psych-full-scan` | Broad scan across all 100+ principles with routing to sections |
+| `psych-cognitive-load` | Laws 1-10: cognitive load, progressive disclosure, recognition |
 | `psych-visual-perception` | Laws 11-20: Gestalt, visual hierarchy, attention |
-| `psych-decision-making-core` | Laws 21-25: loss aversion, anchoring, confirmation bias |
-| `psych-decision-making-advanced` | Laws 26-30: scarcity, social proof, decoy effect, framing |
-| `psych-engagement-motivation` | Laws 31-40: curiosity gap, variable reward, goal gradient |
-| `psych-emotional-design-core` | Laws 41-45: peak-end rule, delighters, labor illusion |
-| `psych-emotional-design-advanced` | Laws 46-50: endowment effect, storytelling |
-| `psych-efficiency` | Laws 51-60: serial position, picture superiority, chunking |
-| `psych-behavioral-economics-core` | Laws 61-65: sunk cost, reciprocity |
-| `psych-behavioral-economics-habits` | Laws 66-70: commitment, consistency, reactance |
+| `psych-decision-fundamentals` | Laws 21-25: loss aversion, anchoring, confirmation bias |
+| `psych-decision-persuasion` | Laws 26-30: scarcity, social proof, decoy effect, framing |
+| `psych-engagement-patterns` | Laws 31-40: curiosity gap, variable reward, goal gradient |
+| `psych-delight-design` | Laws 41-45: peak-end rule, delighters, labor illusion |
+| `psych-emotional-retention` | Laws 46-50: endowment effect, storytelling |
+| `psych-simplification` | Laws 51-60: serial position, picture superiority, chunking |
+| `psych-pricing-psychology` | Laws 61-65: sunk cost, reciprocity |
+| `psych-habit-formation` | Laws 66-70: commitment, consistency, reactance |
 | `psych-social-influence` | Laws 71-80: social proof, authority, liking |
 | `psych-cognitive-biases` | Laws 81-90: availability heuristic, negativity bias |
-| `psych-time-behavior` | Laws 91-100: familiarity bias, shaping, aha moment |
+| `psych-time-perception` | Laws 91-100: familiarity bias, shaping, aha moment |
 
 ### UI Design (7)
 
 | Skill | What It Does |
 |-------|-------------|
-| `ui-design-references` | Design intent exploration and reference gathering |
-| `ui-craft-review` | 4-lens craft critique with named design tests |
-| `ui-figma-workflow` | Figma for AI-assisted development |
+| `ui-references-moodboard` | Design intent exploration and reference gathering |
+| `ui-aesthetic-review` | 4-lens craft critique with named design tests |
+| `ui-figma-guide` | Figma for AI-assisted development |
 | `ui-figma-handoff` | Figma design structuring and dev handoff preparation |
 | `ui-design-system` | Design system architecture, compliance, and persistence |
-| `ui-implementation-review` | Implementation fidelity review with UX non-negotiables |
+| `ui-design-to-code-qa` | Implementation fidelity review with UX non-negotiables |
 | `ui-accessibility` | Accessibility compliance audit |
 
 ### Development (7)
@@ -117,9 +117,9 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 | Skill | What It Does |
 |-------|-------------|
 | `dev-claude-md` | CLAUDE.md generation and maintenance |
-| `dev-kickstart-prompts` | IDE kick-start prompt generation |
-| `dev-agent-pipeline` | 4-agent development pipeline setup |
-| `dev-context-management` | Long-running project context management |
+| `dev-starter-prompts` | IDE kick-start prompt generation |
+| `dev-agent-setup` | 4-agent development pipeline setup |
+| `dev-status-tracking` | Long-running project context management |
 | `dev-mcp-setup` | MCP configuration guidance |
 | `dev-github-workflow` | GitHub workflow for designers |
 | `dev-prototyping` | Single-file HTML prototype generation from planning docs, existing designs, or just an idea |
@@ -147,7 +147,7 @@ Every skill can be invoked directly:
 /ux-problem-statement
 
 # Run a psychology section
-/psych-cognitive-basics
+/psych-cognitive-load
 
 # Run the full pipeline
 /de:design god-mode

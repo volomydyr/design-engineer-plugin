@@ -130,5 +130,5 @@ How would you like the results?
 - **ux-bias-audit**: Design step nudges need ethical review
 - **ux-communicating-decisions**: Ethics arguments help justify decisions
 - **ux-journey-mapping**: Journey improvements should pass ethical tests
-- **psych-decision-making-advanced**: Scarcity, Social Proof, and Framing carry ethical risk
-- **psych-behavioral-economics-habits**: Reactance and Commitment patterns need ethical checks
+- **psych-decision-persuasion**: Scarcity, Social Proof, and Framing carry ethical risk
+- **psych-habit-formation**: Reactance and Commitment patterns need ethical checks

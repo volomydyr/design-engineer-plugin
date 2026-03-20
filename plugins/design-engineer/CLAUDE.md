@@ -228,7 +228,7 @@ All code-producing steps follow Test-Driven Development using Playwright CLI. A 
 
 ### Testing Anti-Patterns
 
-See `skills/dev-agent-pipeline/references/testing-anti-patterns.md` for the 5 common anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests as afterthought.
+See `skills/dev-agent-setup/references/testing-anti-patterns.md` for the 5 common anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests as afterthought.
 
 ## Requirement Fidelity
 

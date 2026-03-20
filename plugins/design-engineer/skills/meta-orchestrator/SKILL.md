@@ -176,14 +176,14 @@ Skills: `ux-mvp-requirements`, `ux-information-architecture`
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 4: Design and Validation
-Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-motivation-levels`, `ux-product-assessment` (optional)
+Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-references-moodboard`, `dev-prototyping`, `ui-figma-guide`, `ui-figma-handoff` (optional), `ux-motivation-audit`, `ux-full-review` (optional)
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### User Approval Checkpoint
 After Phase 4, present a summary of all pre-development work and wait for explicit user approval before proceeding to Phase 5.
 
 ### Phase 5: Development
-Skills: `dev-claude-md`, `dev-kickstart-prompts`, `dev-agent-pipeline`, `dev-mcp-setup`, `dev-github-workflow`, `ui-design-system`
+Skills: `dev-claude-md`, `dev-starter-prompts`, `dev-agent-setup`, `dev-mcp-setup`, `dev-github-workflow`, `ui-design-system`
 Then enter the development loop and run: `meta-document` (final documentation)
 
 ## Skill Invocation Pattern

@@ -86,7 +86,7 @@ All notable changes to this marketplace will be documented in this file.
 ### Changed
 
 - Merged `plan-creator` agent into Plan Mode flow — planning now happens in the main conversation with full context, not a sub-agent
-- `dev-agent-pipeline` Phase 2 uses Plan Mode instead of plan-creator sub-agent
+- `dev-agent-setup` Phase 2 uses Plan Mode instead of plan-creator sub-agent
 - Pipeline development loop updated across orchestrator, commands, and agent references
 - Agent count 9 → 8, version 1.5.2 → 1.6.0
 
@@ -129,7 +129,7 @@ All notable changes to this marketplace will be documented in this file.
 ### Added
 
 - New `ui-figma-handoff` skill — automates Figma design structuring and dev handoff preparation using Figma Console MCP
-- Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-workflow`
+- Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-guide`
 - `figma-handoff` deliverable in dependency graph
 
 ### Changed
@@ -146,18 +146,18 @@ All notable changes to this marketplace will be documented in this file.
 - Rewrote `dev-prototyping`: question-based context gathering (planning docs, existing codebase, Figma designs, or just an idea), generates single-file HTML prototypes in Claude Code, applies design intent and starter values
 - Added `prototype` deliverable to dependency graph with full upstream/downstream tracking
 - Added "HTML prototype" as review target in `ui-design-critique`, `ui-visual-review`, and `ui-accessibility`
-- Added `references/multi-session-workflow.md` to `dev-context-management` with tool-agnostic session management rules
+- Added `references/multi-session-workflow.md` to `dev-status-tracking` with tool-agnostic session management rules
 
 ### Changed
 
-- Phase 4 pipeline restructured: `dev-prototyping` now runs sequentially AFTER `ui-design-references` and BEFORE `ui-figma-workflow` (was parallel with figma-workflow)
-- `ui-figma-workflow` now depends on prototype deliverable (prototype informs which key screens to design in Figma)
+- Phase 4 pipeline restructured: `dev-prototyping` now runs sequentially AFTER `ui-references-moodboard` and BEFORE `ui-figma-guide` (was parallel with figma-workflow)
+- `ui-figma-guide` now depends on prototype deliverable (prototype informs which key screens to design in Figma)
 - `dev-prototyping` removed from `/de:dev` command (now accessed via `/de:prototype` or pipeline)
 - Cleaned up ~17 "Claude Projects" references across 12 files to be tool-agnostic or Claude Code-specific
 
 ### Removed
 
-- Removed `dev-claude-projects` skill (content merged into `dev-context-management` and `meta-compound`)
+- Removed `dev-claude-projects` skill (content merged into `dev-status-tracking` and `meta-compound`)
 - Removed parallel-group 4a from pipeline sequence
 - Skill count 49 → 48, Development category 8 → 7, Command count 7 → 8
 
@@ -183,7 +183,7 @@ All notable changes to this marketplace will be documented in this file.
 ### Added
 
 - New `ui-design-critique` skill – 4-lens craft critique framework (Composition, Craft, Content, Structure) with 4 named tests (Swap, Squint, Signature, Token)
-- Design intent guide for `ui-design-references` – "Where Defaults Hide" philosophy, Intent-First framework, Product Domain Exploration, WHY checkpoint
+- Design intent guide for `ui-references-moodboard` – "Where Defaults Hide" philosophy, Intent-First framework, Product Domain Exploration, WHY checkpoint
 - Starter values reference for `ui-design-system` – spacing scales, typography scales, text hierarchy, border progression, surface elevation, depth strategies
 - Prompt templates reference for `ui-design-system` – visual polish pass, glance test, component spec, accessibility check, responsive spec, token audit
 - Design system persistence – save/load decisions to `.design-system/system.md` across sessions
@@ -192,7 +192,7 @@ All notable changes to this marketplace will be documented in this file.
 
 ### Changed
 
-- `ui-design-references` expanded from reference collection to full design thinking skill (intent-first, domain exploration, WHY mandate)
+- `ui-references-moodboard` expanded from reference collection to full design thinking skill (intent-first, domain exploration, WHY mandate)
 - `ui-visual-review` now runs UX non-negotiables check before visual audit (Steps renumbered 1–6)
 - `ui-design-system` checks for saved decisions on startup and offers to save on completion
 - Plugin version bumped to 1.1.0, skill count 48 → 49

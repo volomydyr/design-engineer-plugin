@@ -59,7 +59,7 @@ For each selected source, follow the corresponding path below. Multiple paths ca
 
 Read from `design-docs/` and extract:
 
-- **Design feel, palette, depth, typography, spacing** from `references.md` (if it exists from `ui-design-references`)
+- **Design feel, palette, depth, typography, spacing** from `references.md` (if it exists from `ui-references-moodboard`)
 - **Screens, flows, navigation structure** from the Information Architecture document
 - **Feature priorities and acceptance criteria** from MVP Requirements
 - **Psychology insights and bias considerations** from `bias-audit.md` and `journey-map.md` (if they exist)
@@ -343,9 +343,9 @@ Save `design-docs/prototype/prototype-notes.md` with:
 
 After prototyping, suggest the logical next step based on what exists:
 
-- **If no Figma designs exist**: suggest `ui-figma-workflow` to design key screens based on the validated prototype. If the Figma plugin is available, the prototype HTML can be imported into Figma as a starting point for high-fidelity design work (code-to-Figma import creates Figma frames from the prototype that can then be refined manually).
+- **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype. If the Figma plugin is available, the prototype HTML can be imported into Figma as a starting point for high-fidelity design work (code-to-Figma import creates Figma frames from the prototype that can then be refined manually).
 - **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
-- **If designs exist but need review**: suggest `ui-craft-review` or `ui-implementation-review` to evaluate the prototype against design intent
+- **If designs exist but need review**: suggest `ui-aesthetic-review` or `ui-design-to-code-qa` to evaluate the prototype against design intent
 - **If the prototype needs production implementation**: suggest the development pipeline via `/de:dev`
 
 ---

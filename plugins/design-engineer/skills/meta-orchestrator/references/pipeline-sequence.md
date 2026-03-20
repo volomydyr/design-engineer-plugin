@@ -57,17 +57,17 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ux-ethics-review [optional]
         |
-   ui-design-references
+   ui-references-moodboard
         |
    dev-prototyping
         |
-   ui-figma-workflow
+   ui-figma-guide
         |
    ui-figma-handoff [optional]
         |
-   ux-motivation-levels
+   ux-motivation-audit
         |
-   ux-product-assessment [optional]
+   ux-full-review [optional]
         |
    meta-document       <-- save progress
         |
@@ -77,9 +77,9 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    dev-claude-md
         |
-   dev-kickstart-prompts ─────────────┐
+   dev-starter-prompts ─────────────┐
                                      ├─ [parallel-group: 5a]
-   dev-agent-pipeline   ────────────┘
+   dev-agent-setup   ────────────┘
         |
    dev-mcp-setup  ──────────────────┐
                                      ├─ [parallel-group: 5b]
@@ -92,7 +92,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
     frontend -> /simplify -> tests (Green) ->
     /simplify (final) -> design-system-auditor -> archive tests -> compound]
         |
-   dev-context-management [ongoing]
+   dev-status-tracking [ongoing]
         |
    meta-document       <-- final documentation
 ```
@@ -247,7 +247,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Required**: Yes
 - **Depends on**: ux-bias-audit, Phase 1-3 deliverables
 - **Produces**: Journey Map document – end-to-end user experience maps showing touchpoints, emotions, pain points, and opportunities
-- **Hands off to**: ux-ethics-review (if included) or ui-design-references
+- **Hands off to**: ux-ethics-review (if included) or ui-references-moodboard
 - **Notes**: Maps the complete user experience from first contact through ongoing use. Incorporates bias framework findings. Reveals experience gaps and emotional low points that need design attention.
 
 ### Skill 4.3: ux-ethics-review (OPTIONAL)
@@ -255,11 +255,11 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Required**: No
 - **Depends on**: Phase 1-3 deliverables, ux-bias-audit
 - **Produces**: Ethics Review document – assessment of ethical implications in the product design
-- **Hands off to**: ui-design-references
+- **Hands off to**: ui-references-moodboard
 - **When to include**: Products that handle sensitive data (health, finance, children), products with persuasive design elements, or when the user wants to ensure ethical design practices.
 - **When to skip**: Straightforward utility products with minimal ethical risk.
 
-### Skill 4.4: ui-design-references
+### Skill 4.4: ui-references-moodboard
 
 - **Required**: Yes
 - **Depends on**: Phase 1-3 deliverables, ux-journey-mapping
@@ -270,38 +270,38 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 ### Skill 4.5: dev-prototyping
 
 - **Required**: Yes
-- **Depends on**: ui-design-references, information-architecture, mvp-requirements, journey-map, bias-audit
+- **Depends on**: ui-references-moodboard, information-architecture, mvp-requirements, journey-map, bias-audit
 - **Produces**: Working HTML prototype – single-file prototype saved to `design-docs/prototype/prototype.html`
-- **Hands off to**: ui-figma-workflow
+- **Hands off to**: ui-figma-guide
 - **Notes**: Generates a single-file HTML prototype directly in Claude Code. Pulls design context from upstream deliverables (design references, IA, journey map, bias audit) and applies design intent, typography, spacing, and color from the established design direction. The prototype serves as both a validation tool and a reference for which key screens to design in Figma.
 
-### Skill 4.6: ui-figma-workflow
+### Skill 4.6: ui-figma-guide
 
 - **Required**: Yes
-- **Depends on**: ui-design-references, dev-prototyping, information architecture, MVP requirements
+- **Depends on**: ui-references-moodboard, dev-prototyping, information architecture, MVP requirements
 - **Produces**: High-fidelity Figma designs – complete screen designs following the established design direction
-- **Hands off to**: ux-product-assessment (if included) or meta-document
+- **Hands off to**: ux-full-review (if included) or meta-document
 - **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools. The validated prototype informs which key screens to design in Figma. Focus Figma work on the screens that set the visual style (typically 5-10 screens).
 
 ### Skill 4.7: ui-figma-handoff (OPTIONAL)
 
 - **Required**: No
-- **Depends on**: ui-figma-workflow
+- **Depends on**: ui-figma-guide
 - **Produces**: Structured Figma file with components, tokens, annotations, and dev status badges
-- **Hands off to**: ux-product-assessment (if included) or meta-document
+- **Hands off to**: ux-full-review (if included) or meta-document
 - **When to include**: When Figma Console MCP is available and the user wants higher-quality developer handoff from Figma
 - **When to skip**: When using the minimal Figma workflow without Figma Console MCP, or when the design system is being built entirely in code
 - **Notes**: Automates the structuring of raw Figma designs (components, variables, styles) and prepares them for dev handoff (annotations, sections, connectors, dev status badges). Requires Figma Console MCP.
 
-### Skill 4.8: ux-motivation-levels
+### Skill 4.8: ux-motivation-audit
 
 - **Required**: Yes
-- **Depends on**: dev-prototyping, ui-figma-workflow, Phase 1-3 deliverables
+- **Depends on**: dev-prototyping, ui-figma-guide, Phase 1-3 deliverables
 - **Produces**: Motivation Framework analysis – screen-level Motivation Levels and Experience Value analysis
-- **Hands off to**: ux-product-assessment (if included) or meta-document
+- **Hands off to**: ux-full-review (if included) or meta-document
 - **Notes**: Analyzes each screen's motivation vs friction using the Motivation Framework (Experience Value = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze — that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
 
-### Skill 4.9: ux-product-assessment (OPTIONAL)
+### Skill 4.9: ux-full-review (OPTIONAL)
 
 - **Required**: No
 - **Depends on**: dev-prototyping, all Phase 1-4 deliverables
@@ -363,21 +363,21 @@ Sets up the development environment, creates implementation guides, and manages 
 - **Required**: Yes
 - **Depends on**: Phase 1-4 deliverables
 - **Produces**: CLAUDE.md file – global rules for AI-assisted development
-- **Hands off to**: dev-kickstart-prompts
+- **Hands off to**: dev-starter-prompts
 - **Notes**: Creates the rules file that governs AI behavior during development. Covers tech stack specifications, non-negotiable requirements, development pipeline, conflict resolution, and project status tracking.
 
-### Skill 5.2: dev-kickstart-prompts
+### Skill 5.2: dev-starter-prompts
 
 - **Required**: Yes
 - **Depends on**: dev-claude-md, Phase 1-4 deliverables
 - **Produces**: Kick-start prompts – 3-5 focused prompts for beginning development
-- **Hands off to**: dev-agent-pipeline
+- **Hands off to**: dev-agent-setup
 - **Notes**: Generates high-level starting prompts that reference context documents. These are not deep technical prompts – they are references that point to the existing deliverables. Simple and focused.
 
-### Skill 5.3: dev-agent-pipeline
+### Skill 5.3: dev-agent-setup
 
 - **Required**: Yes
-- **Depends on**: dev-claude-md, dev-kickstart-prompts
+- **Depends on**: dev-claude-md, dev-starter-prompts
 - **Produces**: Agent pipeline configuration – specialized AI agents for the development workflow
 - **Hands off to**: dev-mcp-setup
 - **Notes**: Sets up the sequence of specialized agents that run for each development task (context analysis, planning, backend, frontend, design system auditing, compounding).
@@ -385,7 +385,7 @@ Sets up the development environment, creates implementation guides, and manages 
 ### Skill 5.4: dev-mcp-setup
 
 - **Required**: Yes
-- **Depends on**: dev-agent-pipeline
+- **Depends on**: dev-agent-setup
 - **Produces**: MCP configuration – configured Model Context Protocol servers for the project
 - **Hands off to**: dev-github-workflow
 - **Notes**: Configures relevant MCP servers based on the project's needs and the user's environment. Uses the environment detection from meta-setup.
@@ -401,7 +401,7 @@ Sets up the development environment, creates implementation guides, and manages 
 ### Skill 5.6: ui-design-system
 
 - **Required**: Yes
-- **Depends on**: ui-figma-workflow, dev-claude-md
+- **Depends on**: ui-figma-guide, dev-claude-md
 - **Produces**: Design system implementation – code-level design tokens, component architecture, semantic naming
 - **Hands off to**: Development loop
 - **Notes**: Translates the Figma design system into code. Establishes the atomic architecture pattern: tokens, semantics, components.
@@ -424,7 +424,7 @@ After initial setup, development enters an iterative loop for each feature:
 12. **Archive tests** – move test scripts from `tests/` to `tests/archive/`
 13. **meta-document** – documents progress after each feature
 
-### Skill 5.7: dev-context-management (ONGOING)
+### Skill 5.7: dev-status-tracking (ONGOING)
 
 - **Required**: Yes (runs throughout development)
 - **Depends on**: All development skills
@@ -445,7 +445,7 @@ Final invocation of `meta-document` to:
 
 Skills in the same parallel group have no dependency on each other's output and can execute simultaneously. The groups identified in the pipeline overview are:
 
-- **[parallel-group: 5a]** – `dev-kickstart-prompts` and `dev-agent-pipeline` both depend on `dev-claude-md`, not on each other.
+- **[parallel-group: 5a]** – `dev-starter-prompts` and `dev-agent-setup` both depend on `dev-claude-md`, not on each other.
 - **[parallel-group: 5b]** – `dev-mcp-setup` and `dev-github-workflow` are independent setup tasks.
 
 ### How to Execute Parallel Groups

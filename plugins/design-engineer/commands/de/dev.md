@@ -39,11 +39,11 @@ Load the corresponding skill:
 |-----------|---------------|
 | 1 | Run skills 2-7 in sequence |
 | 2 | `dev-claude-md` |
-| 3 | `dev-agent-pipeline` |
-| 4 | `dev-context-management` |
+| 3 | `dev-agent-setup` |
+| 4 | `dev-status-tracking` |
 | 5 | `dev-github-workflow` |
 | 6 | `dev-mcp-setup` |
-| 7 | `dev-kickstart-prompts` |
+| 7 | `dev-starter-prompts` |
 
 ### Development Pipeline Execution (Option 8)
 
@@ -74,11 +74,11 @@ After each cycle, show progress and ask: "Feature complete. What would you like 
 Run in sequence:
 
 1. Load `dev-claude-md` – CLAUDE.md generation
-2. Load `dev-kickstart-prompts` – kick-start prompt generation
-3. Load `dev-agent-pipeline` – agent pipeline configuration
+2. Load `dev-starter-prompts` – kick-start prompt generation
+3. Load `dev-agent-setup` – agent pipeline configuration
 4. Load `dev-mcp-setup` – MCP server configuration
 5. Load `dev-github-workflow` – GitHub workflow setup
-6. Load `dev-context-management` – context tracking setup
+6. Load `dev-status-tracking` – context tracking setup
 
 ## Mode
 

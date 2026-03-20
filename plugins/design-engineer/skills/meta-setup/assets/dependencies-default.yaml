@@ -172,7 +172,7 @@ deliverables:
       - bias-audit
     folder: design
     phase: 2
-    skill: ux-motivation-levels
+    skill: ux-motivation-audit
     last_updated: null
 
   # ═══════════════════════════════════════════
@@ -276,7 +276,7 @@ deliverables:
       - prototype
     folder: design
     phase: 4
-    skill: ui-design-references
+    skill: ui-references-moodboard
     last_updated: null
 
   prototype:
@@ -308,7 +308,7 @@ deliverables:
       - kickstart-prompts
     folder: design
     phase: 4
-    skill: ui-figma-workflow
+    skill: ui-figma-guide
     last_updated: null
 
   figma-handoff:
@@ -335,7 +335,7 @@ deliverables:
       - claude-md-draft
     folder: design
     phase: 4
-    skill: ux-product-assessment
+    skill: ux-full-review
     last_updated: null
 
   # ═══════════════════════════════════════════
@@ -367,7 +367,7 @@ deliverables:
       - agent-pipeline
     folder: dev
     phase: 5
-    skill: dev-kickstart-prompts
+    skill: dev-starter-prompts
     last_updated: null
 
   agent-pipeline:
@@ -380,7 +380,7 @@ deliverables:
       - mcp-notes
     folder: dev
     phase: 5
-    skill: dev-agent-pipeline
+    skill: dev-agent-setup
     last_updated: null
 
   mcp-notes:
@@ -416,7 +416,7 @@ deliverables:
       - product-assessment
     folder: psych
     phase: any
-    skill: psych-master-audit
+    skill: psych-full-scan
     last_updated: null
 
   # ═══════════════════════════════════════════

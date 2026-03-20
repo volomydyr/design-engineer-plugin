@@ -100,7 +100,7 @@ After user testing, you move to analysis (see the testing-analysis-guide). Based
 
 Once the prototype is validated:
 
-1. **Collect design references** – if not already gathered upstream (via `ui-design-references`), look at similar products on platforms like Mobbin to understand common patterns
+1. **Collect design references** – if not already gathered upstream (via `ui-references-moodboard`), look at similar products on platforms like Mobbin to understand common patterns
 2. **Design key screens only** – not every screen, just the building blocks that set the visual style (typically 5-10 screens)
 3. **Let AI develop the rest** – give Claude Code your key Figma screens along with requirements and architecture documents, and it will develop additional screens to match the established UI
 4. **Design corrections for mistakes** – when AI's implementation of non-designed screens looks off, design corrections only for those specific frames, share them via the Figma plugin, and let AI adjust

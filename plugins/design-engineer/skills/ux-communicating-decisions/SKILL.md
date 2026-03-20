@@ -127,4 +127,4 @@ Would you like to:
 
 - **ux-bias-audit**: Bias audit vocabulary and principles used in communication
 - **ux-ethics-review**: Ethics arguments strengthen decision justification
-- **ux-product-assessment**: Assessment findings provide evidence for decisions
+- **ux-full-review**: Assessment findings provide evidence for decisions

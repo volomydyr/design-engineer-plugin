@@ -264,5 +264,5 @@ Never invent customer motivations. If the user has no customer data, every motiv
 ## Integration Notes
 
 - **Receives from:** ux-story-panels (the key moment from the Story Panel becomes the behavior to map)
-- **Feeds into:** ux-motivation-levels (Motivation and Ability from the Behavior Map become the foundation for Motivation analysis)
+- **Feeds into:** ux-motivation-audit (Motivation and Ability from the Behavior Map become the foundation for Motivation analysis)
 - **Standalone use:** Fully usable independently whenever a team needs to understand why a desired behavior is or is not happening

@@ -251,8 +251,8 @@ Show the user what was structured/prepared:
 After handoff preparation is complete, suggest the logical next step:
 
 - **Use the Figma plugin** to export structured designs to Claude Code for development
-- **Run `ui-implementation-review`** to review the structured designs against the original intent
-- **Run `ui-craft-review`** for a craft critique of the final designs
+- **Run `ui-design-to-code-qa`** to review the structured designs against the original intent
+- **Run `ui-aesthetic-review`** for a craft critique of the final designs
 - **Proceed to `/de:dev`** to begin the development pipeline
 
 ---

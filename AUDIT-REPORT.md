@@ -82,7 +82,7 @@ Project status check ──► Continue / Start fresh / Jump to phase
 │                                                                 │
 │   ux-storybrand ──► ux-business-plan                            │
 │   ──► [parallel] ux-story-panels + ux-behavior-mapping           │
-│   ──► ux-motivation-levels                                       │
+│   ──► ux-motivation-audit                                       │
 │                                                                 │
 │   Agent: deliverable-writer                                     │
 │   Agent: compound-documenter                                    │
@@ -103,9 +103,9 @@ Project status check ──► Continue / Start fresh / Jump to phase
 │                                                                 │
 │   [parallel] ux-bias-audit + ux-journey-mapping                  │
 │   ──► ux-ethics-review (optional)                               │
-│   ──► ui-design-references ──► dev-prototyping                  │
-│   ──► ui-figma-workflow ──► ui-figma-handoff (optional)         │
-│   ──► ux-product-assessment (optional)                          │
+│   ──► ui-references-moodboard ──► dev-prototyping                  │
+│   ──► ui-figma-guide ──► ui-figma-handoff (optional)         │
+│   ──► ux-full-review (optional)                          │
 │                                                                 │
 │   Agent: psych-scanner (during bias/journey work)               │
 │   Agent: deliverable-writer                                     │
@@ -156,23 +156,23 @@ Approach selection ──► AskUserQuestion:
     3. God mode (full autonomous audit)
     │
     ▼
-psych-master-audit ──► scans all 100 principles
+psych-full-scan ──► scans all 100 principles
     │
     ▼
 Routes to section skills based on findings:
-    psych-cognitive-basics (laws 1-10)
+    psych-cognitive-load (laws 1-10)
     psych-visual-perception (laws 11-20)
-    psych-decision-making-core (laws 21-25)
-    psych-decision-making-advanced (laws 26-30)
-    psych-engagement-motivation (laws 31-40)
-    psych-emotional-design-core (laws 41-45)
-    psych-emotional-design-advanced (laws 46-50)
-    psych-efficiency (laws 51-60)
-    psych-behavioral-economics-core (laws 61-65)
-    psych-behavioral-economics-habits (laws 66-70)
+    psych-decision-fundamentals (laws 21-25)
+    psych-decision-persuasion (laws 26-30)
+    psych-engagement-patterns (laws 31-40)
+    psych-delight-design (laws 41-45)
+    psych-emotional-retention (laws 46-50)
+    psych-simplification (laws 51-60)
+    psych-pricing-psychology (laws 61-65)
+    psych-habit-formation (laws 66-70)
     psych-social-influence (laws 71-80)
     psych-cognitive-biases (laws 81-90)
-    psych-time-behavior (laws 91-100)
+    psych-time-perception (laws 91-100)
     │
     ▼
 Agent: psych-scanner (broad scan), deliverable-writer (report)
@@ -208,11 +208,11 @@ Verify: tests pass (TDD Green phase)
 Activity selection ──► AskUserQuestion (8 options):
     1. Full development setup
     2. CLAUDE.md setup (dev-claude-md)
-    3. Agent pipeline setup (dev-agent-pipeline)
-    4. Context management (dev-context-management)
+    3. Agent pipeline setup (dev-agent-setup)
+    4. Context management (dev-status-tracking)
     5. GitHub workflow (dev-github-workflow)
     6. MCP configuration (dev-mcp-setup)
-    7. Kick-start prompts (dev-kickstart-prompts)
+    7. Kick-start prompts (dev-starter-prompts)
     8. Run development pipeline
     │
     ▼ (option 8: full pipeline)
@@ -234,9 +234,9 @@ Review type ──► AskUserQuestion (7 options):
     2. Live implementation → ui-visual-review + ui-design-critique
     3. Codebase → ui-design-system + design-system-auditor
     4. Accessibility → ui-accessibility
-    5. Psychology scan → psych-master-audit → section skills
+    5. Psychology scan → psych-full-scan → section skills
     6. Ethics review → ux-ethics-review
-    7. Full product assessment → ux-product-assessment
+    7. Full product assessment → ux-full-review
     │
     ▼
 Post-review ──► AskUserQuestion:
@@ -357,29 +357,29 @@ meta-statusline skill ──► copy script + configure settings.json
 | **ux-business-plan** | /de:design (P2), /de:research |
 | **ux-story-panels** | /de:design (P2) |
 | **ux-behavior-mapping** | /de:design (P2) |
-| **ux-motivation-levels** | /de:design (P2) |
+| **ux-motivation-audit** | /de:design (P2) |
 | **ux-mvp-requirements** | /de:design (P3) |
 | **ux-information-architecture** | /de:design (P3) |
 | **ux-bias-audit** | /de:design (P4) |
 | **ux-journey-mapping** | /de:design (P4) |
 | **ux-ethics-review** | /de:design (P4 opt), /de:review |
-| **ux-product-assessment** | /de:design (P4 opt), /de:review |
+| **ux-full-review** | /de:design (P4 opt), /de:review |
 | **ux-communicating-decisions** | /de:review (post-review option) |
-| **ui-design-references** | /de:design (P4) |
+| **ui-references-moodboard** | /de:design (P4) |
 | **ui-design-critique** | /de:review |
 | **ui-design-system** | /de:review (codebase), /de:design (P5 via orchestrator) |
-| **ui-figma-workflow** | /de:design (P4) |
+| **ui-figma-guide** | /de:design (P4) |
 | **ui-figma-handoff** | /de:design (P4 opt, via orchestrator + figma-workflow cross-ref) |
 | **ui-visual-review** | /de:review |
 | **ui-accessibility** | /de:review |
-| **dev-agent-pipeline** | /de:dev |
+| **dev-agent-setup** | /de:dev |
 | **dev-claude-md** | /de:dev |
-| **dev-context-management** | /de:dev |
+| **dev-status-tracking** | /de:dev |
 | **dev-github-workflow** | /de:dev |
-| **dev-kickstart-prompts** | /de:dev |
+| **dev-starter-prompts** | /de:dev |
 | **dev-mcp-setup** | /de:dev |
 | **dev-prototyping** | /de:prototype, /de:design (P4) |
-| **psych-master-audit** | /de:psych, /de:review (psych option) |
+| **psych-full-scan** | /de:psych, /de:review (psych option) |
 | **psych-* (13 section skills)** | /de:psych (via master-audit routing) |
 
 **All 50 skills are reachable.** No dead code.
@@ -423,7 +423,7 @@ meta-statusline skill ──► copy script + configure settings.json
 
 #### M2: Agent templates create dual maintenance burden
 
-**Location:** `skills/dev-agent-pipeline/references/agent-templates/` (5 files)
+**Location:** `skills/dev-agent-setup/references/agent-templates/` (5 files)
 **Problem:** Contains simplified templates for 5 of 9 agents (context-analyzer, backend-implementer, frontend-implementer, design-system-auditor, test-writer). These are parameterized starter templates for user projects, NOT copies of plugin agents. However:
 - They can drift from actual agents as the plugin evolves
 - Only 5 of 9 agents have templates (missing compound-documenter, deliverable-writer, psych-scanner, ux-researcher)
@@ -440,7 +440,7 @@ meta-statusline skill ──► copy script + configure settings.json
 
 #### M4: `/de:psych` section numbering (1-13) vs skill naming inconsistency
 
-**Problem:** The `/de:psych` command presents 13 sections numbered 1-13 to the user. But the skill names use descriptive suffixes (psych-cognitive-basics, psych-decision-making-core, etc.) not numbers. A user selecting "Section 3: Decision Making Core" then sees a skill called `psych-decision-making-core`. The mapping works but isn't obvious.
+**Problem:** The `/de:psych` command presents 13 sections numbered 1-13 to the user. But the skill names use descriptive suffixes (psych-cognitive-load, psych-decision-fundamentals, etc.) not numbers. A user selecting "Section 3: Decision Making Core" then sees a skill called `psych-decision-fundamentals`. The mapping works but isn't obvious.
 **Impact:** Minor confusion. No functional issue.
 
 #### M5: Hooks directory not listed in CLAUDE.md structure completely
@@ -466,7 +466,7 @@ The `ui-design-system` skill appears in the orchestrator's Phase 5 (Development)
 
 Examples:
 - `ui-design-critique/references/typography.md` overlaps with content principles in `ux-writing.md`
-- `psych-engagement-motivation/references/section-4-case-studies.md` contains journey-like analysis that overlaps with `ux-journey-mapping/references/journey-case-study.md`
+- `psych-engagement-patterns/references/section-4-case-studies.md` contains journey-like analysis that overlaps with `ux-journey-mapping/references/journey-case-study.md`
 - `ui-design-critique/references/interaction-design.md` contains accessibility guidance that partially overlaps `ui-accessibility/references/accessibility-checklist.md`
 
 **Impact:** Minimal — reference files are loaded per-skill, so overlap doesn't cause confusion during use. It's only a maintenance consideration.
@@ -517,9 +517,9 @@ This is probably intentional (different workloads) but not documented why.
 
 | Current name | Proposed name | Why |
 |-------------|---------------|-----|
-| `ui-design-critique` | `ui-craft-review` | Distinguishes from `ui-visual-review`. "Craft" signals this is about design quality, not bug-catching. |
-| `ui-visual-review` | `ui-implementation-review` | Clarifies this is about implementation fidelity (AI-generated issues, token compliance), not visual design. |
-| `ux-psych-framework` | `ux-motivation-levels` | The skill is specifically about Motivation Levels and Experience Value. "Framework" is too generic. |
+| `ui-design-critique` | `ui-aesthetic-review` | Distinguishes from `ui-visual-review`. "Craft" signals this is about design quality, not bug-catching. |
+| `ui-visual-review` | `ui-design-to-code-qa` | Clarifies this is about implementation fidelity (AI-generated issues, token compliance), not visual design. |
+| `ux-psych-framework` | `ux-motivation-audit` | The skill is specifically about Motivation Levels and Experience Value. "Framework" is too generic. |
 | `meta-compound` | `meta-document` | Matches the renamed command. |
 | `ux-bias-framework` | `ux-bias-audit` | More action-oriented. The bias audit process is the methodology, and the skill performs an audit. |
 
@@ -531,7 +531,7 @@ This is probably intentional (different workloads) but not documented why.
 
 **Current state:** Two commands offer psychology review:
 - `/de:psych` — dedicated psychology audit with 13 sections
-- `/de:review` option 5 — "Psychology scan" that loads psych-master-audit
+- `/de:review` option 5 — "Psychology scan" that loads psych-full-scan
 
 **Proposed:** Merge `/de:psych` into `/de:review` as an expanded psychology option. When user selects "Psychology" in review, present the same 3 approaches (master audit, section deep-dive, god mode).
 
@@ -545,11 +545,11 @@ This is probably intentional (different workloads) but not documented why.
 
 ### Proposal S4: Complete or remove agent templates
 
-**Current:** 5 agent templates in `dev-agent-pipeline/references/agent-templates/`. Missing 4.
+**Current:** 5 agent templates in `dev-agent-setup/references/agent-templates/`. Missing 4.
 
 **Option A (Complete):** Add templates for the missing 4 agents (compound-documenter, deliverable-writer, psych-scanner, ux-researcher). Add a README explaining these are user project starter templates.
 
-**Option B (Remove):** Delete the templates directory. The `dev-agent-pipeline` skill can instruct users to copy agents from the plugin's `agents/` directory and customize. Simpler, no drift risk.
+**Option B (Remove):** Delete the templates directory. The `dev-agent-setup` skill can instruct users to copy agents from the plugin's `agents/` directory and customize. Simpler, no drift risk.
 
 **Recommendation:** Option B. The actual agents ARE the templates. Maintaining a second simplified version is overhead with drift risk.
 
@@ -558,7 +558,7 @@ This is probably intentional (different workloads) but not documented why.
 ### Proposal S5: Update stale evals
 
 **Fix:** Update `evals/evals.json` to replace:
-- `dev-claude-projects` references → `dev-context-management`
+- `dev-claude-projects` references → `dev-status-tracking`
 - `plan-creator` agent expectations → Plan Mode behavior
 - Verify all skill names in eval definitions match current skill inventory
 
@@ -610,7 +610,7 @@ Quick fixes (can all be done in one commit):
 
 **Phase ordering note:** Article presents IA (Phase 4) before MVP (Phase 5). Plugin reverses this: MVP before IA in Phase 3. This is a deliberate reorganization — defining scope (MVP) before structure (IA) makes sense. Not a misalignment.
 
-**Missing from article, added in plugin:** ux-story-panels, ux-behavior-mapping, ux-motivation-levels, ux-bias-audit, ux-journey-mapping, ux-ethics-review, ux-product-assessment. These come from UX strategy methodology, not the articles. This is correct — the plugin integrates both sources.
+**Missing from article, added in plugin:** ux-story-panels, ux-behavior-mapping, ux-motivation-audit, ux-bias-audit, ux-journey-mapping, ux-ethics-review, ux-full-review. These come from UX strategy methodology, not the articles. This is correct — the plugin integrates both sources.
 
 ### 5.2 Article 2 (Dev Workflow) → Plugin Phase 5
 
@@ -621,9 +621,9 @@ Quick fixes (can all be done in one commit):
 | Backend Implementer agent | backend-implementer agent | ✅ Aligned |
 | Frontend Implementer agent | frontend-implementer agent | ✅ Aligned |
 | Design System Auditor agent | design-system-auditor agent | ✅ Aligned |
-| Claude Projects for context | dev-context-management | ✅ Adapted (tool-agnostic now) |
+| Claude Projects for context | dev-status-tracking | ✅ Adapted (tool-agnostic now) |
 | AI Prototyping | dev-prototyping | ✅ Aligned |
-| Kickstart Prompts | dev-kickstart-prompts | ✅ Aligned |
+| Kickstart Prompts | dev-starter-prompts | ✅ Aligned |
 | MCP Server setup | dev-mcp-setup | ✅ Aligned |
 | GitHub workflow | dev-github-workflow | ✅ Aligned |
 
@@ -636,29 +636,29 @@ Quick fixes (can all be done in one commit):
 | Behavior Map Framework | ux-behavior-mapping | ✅ Aligned — critical sequence enforced |
 | Bias Audit | ux-bias-audit | ✅ Aligned |
 | Story Panels | ux-story-panels | ✅ Aligned — critical sequence enforced |
-| Motivation Framework (Experience Value, Motivation Levels) | ux-motivation-levels | ✅ Aligned — critical sequence enforced |
+| Motivation Framework (Experience Value, Motivation Levels) | ux-motivation-audit | ✅ Aligned — critical sequence enforced |
 | Journey Mapping | ux-journey-mapping | ✅ Aligned |
 | Ethics (Regret/Black Mirror tests) | ux-ethics-review | ✅ Aligned |
-| Product Assessment | ux-product-assessment | ✅ Aligned |
+| Product Assessment | ux-full-review | ✅ Aligned |
 | Communicating Decisions | ux-communicating-decisions | ⚠️ Created but barely accessible (see M3) |
 
 ### 5.4 Psychology Book (100 Laws) → Psych Skills
 
 | Book Section | Plugin Skill | Laws | Alignment |
 |-------------|-------------|------|-----------|
-| Cognitive Basics | psych-cognitive-basics | 1-10 | ✅ Aligned |
+| Cognitive Basics | psych-cognitive-load | 1-10 | ✅ Aligned |
 | Visual Perception | psych-visual-perception | 11-20 | ✅ Aligned |
-| Decision Making Core | psych-decision-making-core | 21-25 | ✅ Aligned |
-| Decision Making Advanced | psych-decision-making-advanced | 26-30 | ✅ Aligned |
-| Engagement & Motivation | psych-engagement-motivation | 31-40 | ✅ Aligned |
-| Emotional Design Core | psych-emotional-design-core | 41-45 | ✅ Aligned |
-| Emotional Design Advanced | psych-emotional-design-advanced | 46-50 | ✅ Aligned |
-| Efficiency | psych-efficiency | 51-60 | ✅ Aligned |
-| Behavioral Economics Core | psych-behavioral-economics-core | 61-65 | ✅ Aligned |
-| Behavioral Economics Habits | psych-behavioral-economics-habits | 66-70 | ✅ Aligned |
+| Decision Making Core | psych-decision-fundamentals | 21-25 | ✅ Aligned |
+| Decision Making Advanced | psych-decision-persuasion | 26-30 | ✅ Aligned |
+| Engagement & Motivation | psych-engagement-patterns | 31-40 | ✅ Aligned |
+| Emotional Design Core | psych-delight-design | 41-45 | ✅ Aligned |
+| Emotional Design Advanced | psych-emotional-retention | 46-50 | ✅ Aligned |
+| Efficiency | psych-simplification | 51-60 | ✅ Aligned |
+| Behavioral Economics Core | psych-pricing-psychology | 61-65 | ✅ Aligned |
+| Behavioral Economics Habits | psych-habit-formation | 66-70 | ✅ Aligned |
 | Social Influence | psych-social-influence | 71-80 | ✅ Aligned |
 | Cognitive Biases | psych-cognitive-biases | 81-90 | ✅ Aligned |
-| Time & Behavior | psych-time-behavior | 91-100 | ✅ Aligned |
+| Time & Behavior | psych-time-perception | 91-100 | ✅ Aligned |
 
 All 100 laws are covered across 13 section skills with full reference files (principles + case studies for key sections).
 

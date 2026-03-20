@@ -100,7 +100,7 @@ Help the user:
 
 ## What Comes Next
 
-After GitHub is set up, suggest `dev-context-management` to add status tracking (which GitHub commits complement), or `dev-agent-pipeline` to set up development agents.
+After GitHub is set up, suggest `dev-status-tracking` to add status tracking (which GitHub commits complement), or `dev-agent-setup` to set up development agents.
 
 ---
 

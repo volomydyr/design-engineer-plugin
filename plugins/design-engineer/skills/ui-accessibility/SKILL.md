@@ -116,7 +116,7 @@ Guide the user through fixing issues in priority order:
 
 ## What Comes Next
 
-After the accessibility review, suggest running `ui-implementation-review` for a broader visual audit, or `ui-design-system` to ensure accessibility constants (like minimum tap target size) are part of the design token system.
+After the accessibility review, suggest running `ui-design-to-code-qa` for a broader visual audit, or `ui-design-system` to ensure accessibility constants (like minimum tap target size) are part of the design token system.
 
 ---
 

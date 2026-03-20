@@ -83,11 +83,11 @@ Skills executed in sequence:
 1. Load `ux-bias-audit` – bias audit
 2. Load `ux-journey-mapping` – journey mapping
 3. Load `ux-ethics-review` – ethical review *(optional)*
-4. Load `ui-design-references` – reference gathering
+4. Load `ui-references-moodboard` – reference gathering
 5. Load `dev-prototyping` – prototyping and testing
-6. Load `ui-figma-workflow` – Figma workflow
-7. Load `ux-motivation-levels` – screen-level psychology analysis (Motivation Levels)
-8. Load `ux-product-assessment` – product assessment *(optional)*
+6. Load `ui-figma-guide` – Figma workflow
+7. Load `ux-motivation-audit` – screen-level psychology analysis (Motivation Levels)
+8. Load `ux-full-review` – product assessment *(optional)*
 
 After Phase 4, run `meta-document` to document progress.
 

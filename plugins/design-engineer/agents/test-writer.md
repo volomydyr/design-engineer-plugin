@@ -114,7 +114,7 @@ After implementation, run all tests and confirm:
 5. **Always clean up sessions** — use trap to close sessions on exit
 6. **Use exit codes** — exit 0 for pass, exit 1 for fail
 7. **Use the AskUserQuestion tool** if feature requirements are unclear
-8. **Test real behavior** — mocks only when absolutely unavoidable. See [testing-anti-patterns.md](../skills/dev-agent-pipeline/references/testing-anti-patterns.md)
+8. **Test real behavior** — mocks only when absolutely unavoidable. See [testing-anti-patterns.md](../skills/dev-agent-setup/references/testing-anti-patterns.md)
 
 ## When Stuck
 

@@ -124,14 +124,14 @@
       "id": 18,
       "skill_name": "command:de:review",
       "prompt": "/de:review psychmaster -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
-      "expected_output": "Should load psych-master-audit, gather context about the onboarding screens, run a broad scan across all 10 sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
+      "expected_output": "Should load psych-full-scan, gather context about the onboarding screens, run a broad scan across all 10 sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
       "files": []
     },
     {
       "id": 19,
       "skill_name": "command:de:review",
       "prompt": "/de:review psychsection 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
-      "expected_output": "Should load psych-engagement-motivation (Section 4, Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
+      "expected_output": "Should load psych-engagement-patterns (Section 4, Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
       "files": []
     },
     {
@@ -152,7 +152,7 @@
       "id": 22,
       "skill_name": "command:de:dev",
       "prompt": "/de:dev setup -- Full development setup for my new project. I'm using Claude Code in Cursor, building with Remix and Prisma.",
-      "expected_output": "Should run the full development setup sequence: dev-claude-md, dev-kickstart-prompts, dev-agent-pipeline, dev-mcp-setup, dev-github-workflow, dev-context-management. Each skill should be customized for the Remix + Prisma stack and Cursor IDE environment.",
+      "expected_output": "Should run the full development setup sequence: dev-claude-md, dev-starter-prompts, dev-agent-setup, dev-mcp-setup, dev-github-workflow, dev-status-tracking. Each skill should be customized for the Remix + Prisma stack and Cursor IDE environment.",
       "files": []
     },
     {
@@ -166,7 +166,7 @@
       "id": 24,
       "skill_name": "command:de:review",
       "prompt": "/de:review figma -- I just finished designing the checkout flow for our e-commerce app. There are 4 screens: cart summary, shipping info, payment, and order confirmation. Can you review them?",
-      "expected_output": "Should ask for Figma frame link or screenshots, load ui-implementation-review for visual quality check, ui-accessibility for accessibility compliance, psych-master-audit for psychology principles scan, compile findings into a structured review report covering all 4 screens, and offer post-review options.",
+      "expected_output": "Should ask for Figma frame link or screenshots, load ui-design-to-code-qa for visual quality check, ui-accessibility for accessibility compliance, psych-full-scan for psychology principles scan, compile findings into a structured review report covering all 4 screens, and offer post-review options.",
       "files": []
     },
     {
@@ -180,7 +180,7 @@
       "id": 26,
       "skill_name": "command:de:review",
       "prompt": "/de:review full -- We're about to launch our event ticketing platform and want a comprehensive review before going live.",
-      "expected_output": "Should run all review dimensions: ui-implementation-review, ui-accessibility, psych-master-audit, ux-product-assessment, ux-ethics-review, ux-communicating-decisions. Should compile all findings into a comprehensive review report and offer post-review options including addressing findings, sharing with stakeholders, and documentation.",
+      "expected_output": "Should run all review dimensions: ui-design-to-code-qa, ui-accessibility, psych-full-scan, ux-full-review, ux-ethics-review, ux-communicating-decisions. Should compile all findings into a comprehensive review report and offer post-review options including addressing findings, sharing with stakeholders, and documentation.",
       "files": []
     },
     {
@@ -339,14 +339,14 @@
     },
     {
       "id": 49,
-      "skill_name": "ux-motivation-levels",
+      "skill_name": "ux-motivation-audit",
       "prompt": "I want to analyze our checkout flow screen by screen to see where users lose 'Motivation' -- that mental energy to keep going. We have 5 screens: cart, account creation, shipping, payment, and confirmation.",
       "expected_output": "Should apply the Motivation Framework to calculate Experience Value (Expected Utility minus Expected Interaction Cost) at each of the 5 screens, use the video game health bar analogy to visualize Motivation Levels, identify where Motivation drops critically low (likely account creation and payment), recommend specific interventions to boost Motivation at weak points, and produce a Motivation Framework analysis deliverable.",
       "files": []
     },
     {
       "id": 50,
-      "skill_name": "ux-motivation-levels",
+      "skill_name": "ux-motivation-audit",
       "prompt": "We're designing an onboarding flow for a personal finance app. Can you predict the Motivation variations before we build it? I want to know which steps will drain motivation and which will boost it.",
       "expected_output": "Should apply the Motivation Framework predictively to a proposed design, evaluate each onboarding step for its Motivation impact (additions and subtractions), use variation benchmarks to flag steps that risk dropping below the abandonment threshold, suggest reordering or modifying steps to maintain positive Motivation, and produce a proactive Motivation Framework analysis.",
       "files": []
@@ -430,14 +430,14 @@
     },
     {
       "id": 62,
-      "skill_name": "ux-product-assessment",
+      "skill_name": "ux-full-review",
       "prompt": "We're about to submit our healthcare appointment app for a design review with leadership. Can you run the full product assessment checklist first so we can catch anything before they do?",
       "expected_output": "Should run the 5-area product assessment checklist: user behaviors analysis, bias audit gaps identification, journey improvements, decision communication preparation, and ethical review. Should identify the highest-impact improvements across all dimensions and produce a comprehensive Product Assessment deliverable.",
       "files": []
     },
     {
       "id": 63,
-      "skill_name": "ux-product-assessment",
+      "skill_name": "ux-full-review",
       "prompt": "Our fintech app has been live for 6 months and we're planning v2. Run a comprehensive assessment to figure out what to improve, what to keep, and what to cut.",
       "expected_output": "Should run the complete product assessment across all 5 areas using real usage data context, evaluate what is working well vs what is underperforming, identify features to improve/keep/cut for v2, and produce an assessment report that serves as a quality gate and v2 planning input.",
       "files": []
@@ -458,28 +458,28 @@
     },
     {
       "id": 66,
-      "skill_name": "psych-master-audit",
+      "skill_name": "psych-full-scan",
       "prompt": "I want to run a psychology audit on my e-learning platform. Students are completing courses but reporting that the experience feels 'boring and mechanical.' Here are screenshots of the main course page, lesson view, and progress dashboard.",
       "expected_output": "Should gather context (e-learning platform, 'boring' feedback), run the master scan across all 10 sections, likely flag issues in Engagement & Motivation (missing variable rewards, weak curiosity gap), Emotional Design (no delighters, flat endings), and Efficiency (mechanical feel). Should produce a findings report with section scores, prioritized findings, and route to recommended deep-dive sections.",
       "files": []
     },
     {
       "id": 67,
-      "skill_name": "psych-master-audit",
+      "skill_name": "psych-full-scan",
       "prompt": "Can you scan our signup flow for psychology issues? It's a simple 3-step form: email/password, personal info, preferences. The conversion from step 1 to step 2 is only 40%.",
       "expected_output": "Should run a targeted master scan on the signup flow, identify likely issues: Cognitive Basics (too much info at once), Decision-Making (no defaults, too many preference options), Engagement (no progress feedback, missing goal gradient), Efficiency (unnecessary fields). Should prioritize the 60% drop-off between steps 1 and 2 as the critical finding and recommend specific section deep-dives.",
       "files": []
     },
     {
       "id": 68,
-      "skill_name": "psych-cognitive-basics",
+      "skill_name": "psych-cognitive-load",
       "prompt": "Our settings page has 35 options spread across one long scrollable page. Users keep calling support because they can't find what they need. Analyze this from a cognitive basics perspective.",
       "expected_output": "Should apply Laws 1-10 focusing on cognitive load, progressive disclosure, recognition over recall, and information grouping. Should identify Hick's Law violation (too many choices), Miller's Law issues (exceeding working memory), lack of progressive disclosure, and missing recognition patterns. Should provide specific restructuring recommendations.",
       "files": []
     },
     {
       "id": 69,
-      "skill_name": "psych-cognitive-basics",
+      "skill_name": "psych-cognitive-load",
       "prompt": "I'm designing a dashboard for a fleet management system. There will be a lot of data -- vehicle locations, fuel levels, driver status, maintenance alerts. How do I present this without overwhelming the user?",
       "expected_output": "Should apply cognitive basics principles to a data-heavy dashboard: chunking information into groups, applying cognitive load theory to limit simultaneous data points, using progressive disclosure for detail levels, designing for recognition over recall, and applying Fitts's Law for interactive elements. Should provide specific design recommendations for managing information density.",
       "files": []
@@ -500,112 +500,112 @@
     },
     {
       "id": 72,
-      "skill_name": "psych-decision-making-core",
+      "skill_name": "psych-decision-fundamentals",
       "prompt": "Our filter system on a real estate search has 14 filter categories and users are abandoning the search after applying 2-3 filters. Is this a decision-making problem?",
       "expected_output": "Should analyze using Laws 21-25: identify Decision Fatigue from too many filter categories, missing Default Bias (no smart defaults pre-selected), potential Anchoring issues (no reference points for price ranges), and Confirmation Bias (not showing results that validate initial preferences). Should recommend reducing visible filters, adding smart defaults, and progressive filter disclosure.",
       "files": []
     },
     {
       "id": 73,
-      "skill_name": "psych-decision-making-core",
+      "skill_name": "psych-decision-fundamentals",
       "prompt": "We have a pricing page with Annual and Monthly billing options. Most users pick Monthly even though Annual saves them 20%. How can we ethically nudge them toward the better value option?",
       "expected_output": "Should apply Loss Aversion (frame what they lose by choosing monthly), Anchoring Bias (show annual price first as the reference point), Default Bias (pre-select annual), while checking for ethical boundaries. Should discuss the line between helping users make better decisions and manipulating them, and provide specific pricing page recommendations.",
       "files": []
     },
     {
       "id": 74,
-      "skill_name": "psych-decision-making-advanced",
+      "skill_name": "psych-decision-persuasion",
       "prompt": "We want to add social proof and scarcity signals to our course enrollment page. 'Only 5 spots left' and '2,847 students enrolled.' How do we do this without crossing into dark patterns?",
       "expected_output": "Should analyze Laws 26-30: Social Proof (student count is legitimate if real), Scarcity Effect ('5 spots left' is ethical only if real scarcity, manipulative if artificial), Authority Bias (instructor credentials), Framing Effect (how the enrollment value is presented). Should clearly delineate the ethical boundary for each tactic and provide specific implementation guidance that stays honest.",
       "files": []
     },
     {
       "id": 75,
-      "skill_name": "psych-decision-making-advanced",
+      "skill_name": "psych-decision-persuasion",
       "prompt": "Our trial-to-paid conversion is low. Users love the product during the trial but hesitate at the payment screen. What advanced decision-making principles could help?",
       "expected_output": "Should apply Framing Effect (reframe price as daily cost or value gained), Social Proof (show how many converted and their success), Authority Bias (expert endorsements), Anchoring (anchor against competitor pricing or cost of not having the product). Should discuss Availability Heuristic (making trial benefits vivid at decision point). Should provide specific conversion optimization recommendations with ethical guardrails.",
       "files": []
     },
     {
       "id": 76,
-      "skill_name": "psych-engagement-motivation",
+      "skill_name": "psych-engagement-patterns",
       "prompt": "We built a gamified recycling app with points, badges, and a leaderboard but engagement drops off after 3 weeks. The gamification just isn't sticking. Can you analyze what's going wrong?",
       "expected_output": "Should analyze Laws 31-40: check for Variable Reward (are rewards predictable and boring?), Goal Gradient (is progress visible and accelerating?), Flow State (is difficulty balanced?), Investment Loops (are users building something they'd lose?), Internal vs External Triggers (is the app relying too heavily on external triggers?). Should identify why engagement fades and recommend specific motivation design changes.",
       "files": []
     },
     {
       "id": 77,
-      "skill_name": "psych-engagement-motivation",
+      "skill_name": "psych-engagement-patterns",
       "prompt": "I'm designing the onboarding for a productivity tool. How do I create an 'Aha moment' early enough that users see the value before they bounce?",
       "expected_output": "Should focus on Aha! Moment, Curiosity Gap, Feedback Loop, and Goal Gradient principles. Should help identify what the product's Aha moment is, design the shortest path to reach it during onboarding, use curiosity gaps to keep users moving forward, and provide clear feedback at each step. Should produce specific onboarding design recommendations.",
       "files": []
     },
     {
       "id": 78,
-      "skill_name": "psych-emotional-design-core",
+      "skill_name": "psych-delight-design",
       "prompt": "Our task management app works great functionally but users describe it as 'soulless.' We want to add emotional moments without making it feel gimmicky. Where should we add delight?",
       "expected_output": "Should apply Laws 41-45: Peak-End Rule (identify key moments to add emotional peaks), Delighters (micro-interactions that exceed expectations), Labor Illusion (show work being done on behalf of the user), IKEA Effect (let users customize and feel ownership), Sensory Appeal. Should identify specific moments for adding delight that feel authentic rather than forced, focusing on task completion celebrations and progress milestones.",
       "files": []
     },
     {
       "id": 79,
-      "skill_name": "psych-emotional-design-core",
+      "skill_name": "psych-delight-design",
       "prompt": "Our loading screens are just a spinning circle and users hate waiting. How can I use psychology to make the wait feel shorter or even enjoyable?",
       "expected_output": "Should apply Labor Illusion (show what the system is doing during the wait), Sensory Appeal (visual/animation interest), Peak-End Rule (end the loading with a positive transition), and Delighters (unexpected moments during loading). Should provide specific loading state design recommendations with examples of how to transform a frustrating wait into a neutral or positive experience.",
       "files": []
     },
     {
       "id": 80,
-      "skill_name": "psych-emotional-design-advanced",
+      "skill_name": "psych-emotional-retention",
       "prompt": "We have a free trial that expires after 14 days. Users who don't convert often come back weeks later asking if they can try again. How do I use the Endowment Effect and Fresh Start Effect to improve trial-to-paid conversion?",
       "expected_output": "Should apply Endowment Effect (make users feel ownership of their data/customizations during trial), Fresh Start Effect (time conversion prompts with natural fresh starts like Monday, month start), Spacing Effect (spread conversion reminders appropriately), and Feedforward (preview what they'll lose). Should provide specific trial design recommendations that leverage ownership psychology ethically.",
       "files": []
     },
     {
       "id": 81,
-      "skill_name": "psych-emotional-design-advanced",
+      "skill_name": "psych-emotional-retention",
       "prompt": "Our educational platform needs better content retention. Students watch videos but forget the material within a week. How can emotional design principles help with learning retention?",
       "expected_output": "Should apply Storytelling Effect (embed concepts in narratives), Spacing Effect (distribute learning over time rather than cramming), Fresh Start Effect (leverage natural restart points for review), and Feedforward (preview what's coming next to build anticipation). Should provide specific recommendations for improving content retention through emotional design.",
       "files": []
     },
     {
       "id": 82,
-      "skill_name": "psych-efficiency",
+      "skill_name": "psych-simplification",
       "prompt": "We're redesigning our enterprise CRM's settings panel. It currently has 200+ options and users spend an average of 15 minutes trying to find what they need. How do we simplify without removing necessary functionality?",
       "expected_output": "Should apply Laws 51-60: Tesler's Law (complexity cannot be eliminated, only moved to the right place), Signifiers (clear labels and affordances), Occam's Razor (simplest effective design), Method of Loci (spatial organization), and Weber's Law (meaningful distinctions between options). Should provide specific restructuring recommendations that simplify the interface without losing needed functionality.",
       "files": []
     },
     {
       "id": 83,
-      "skill_name": "psych-efficiency",
+      "skill_name": "psych-simplification",
       "prompt": "Our mobile app has a bottom navigation with 5 tabs, a side drawer with 8 items, and a floating action button with 3 options. Users report feeling 'lost.' Is our navigation too complex?",
       "expected_output": "Should analyze using Tesler's Law (is complexity in the right place?), Signifiers (are navigation items clearly labeled?), Exit Points (can users easily recover from wrong navigation?), Law of the Instrument (are we using too many navigation patterns?), and Second-Order Effects (unintended consequences of multiple nav systems). Should provide specific recommendations for consolidating navigation.",
       "files": []
     },
     {
       "id": 84,
-      "skill_name": "psych-behavioral-economics-core",
+      "skill_name": "psych-pricing-psychology",
       "prompt": "We're designing a pricing page for our SaaS tool with 3 tiers: Basic ($19), Pro ($49), and Enterprise ($99). Should we add a 4th tier as a decoy? How do we ethically use behavioral economics on a pricing page?",
       "expected_output": "Should analyze Laws 61-65: Decoy Effect (whether a 4th tier would ethically shift preferences), Hyperbolic Discounting (annual vs monthly pricing psychology), Cashless Effect (reducing payment pain), Pareto Principle (focusing on the 20% of features that matter most per tier). Should discuss ethical use of the Decoy Effect and whether it helps or manipulates in this context.",
       "files": []
     },
     {
       "id": 85,
-      "skill_name": "psych-behavioral-economics-core",
+      "skill_name": "psych-pricing-psychology",
       "prompt": "Users who invest significant time setting up their workspace in our project tool rarely cancel, but new users churn at high rates. How does sunk cost psychology explain this and how can we ethically leverage it?",
       "expected_output": "Should apply Sunk Cost Effect (investment creates switching barriers), analyze ethical implications of deliberately increasing sunk costs, discuss the line between creating genuine value through investment and trapping users. Should recommend ways to front-load meaningful setup that benefits the user while naturally creating switching costs, not artificially inflating them.",
       "files": []
     },
     {
       "id": 86,
-      "skill_name": "psych-behavioral-economics-habits",
+      "skill_name": "psych-habit-formation",
       "prompt": "We want to build a habit loop for our language learning app. Users should practice daily for 10 minutes. How do I use commitment and consistency, reciprocity, and temptation bundling to make this happen?",
       "expected_output": "Should apply Laws 66-70: Commitment and Consistency (start with small public commitments that escalate), Reciprocity (give valuable free content to create obligation), Temptation Bundling (pair practice with enjoyable activities), Pseudo-Set Framing (create completion sets that motivate progress). Should discuss building genuine habits vs creating dependency, with specific design recommendations for the 10-minute daily practice goal.",
       "files": []
     },
     {
       "id": 87,
-      "skill_name": "psych-behavioral-economics-habits",
+      "skill_name": "psych-habit-formation",
       "prompt": "Our nonprofit donation platform wants to increase recurring donations. Most donors give once and never return. How can behavioral economics principles help without being manipulative?",
       "expected_output": "Should apply Commitment and Consistency (small initial commitment leads to larger ones), Reciprocity (show impact of donations to create grateful reciprocity), Noble Edge Effect (highlight the organization's genuine mission), and Pseudo-Set Framing (create giving milestones). Should be especially careful about ethical boundaries with nonprofit donations and provide transparent, non-manipulative design recommendations.",
       "files": []
@@ -640,14 +640,14 @@
     },
     {
       "id": 92,
-      "skill_name": "psych-time-behavior",
+      "skill_name": "psych-time-perception",
       "prompt": "Our page loads in 3 seconds but users perceive it as slow. Meanwhile our competitor loads in 4 seconds but users think it's faster. What time perception principles are at play and how do we fix this?",
       "expected_output": "Should apply Laws 91-100 focusing on Chronoception (subjective time perception), Familiarity Bias (competitor's familiar patterns feel faster), and Shaping (gradually training users' expectations). Should identify that perceived speed is about visual feedback and progressive loading, not just actual speed, and provide specific recommendations for making 3-second loads feel instant through animation, progressive content rendering, and skeleton screens.",
       "files": []
     },
     {
       "id": 93,
-      "skill_name": "psych-time-behavior",
+      "skill_name": "psych-time-perception",
       "prompt": "We want our personal finance app to become a daily habit but users currently open it once a week at most. How do I use time and behavior management principles to increase usage frequency without being annoying?",
       "expected_output": "Should apply Parkinson's Law (work expands to fill time -- give users daily micro-tasks), Shaping (gradually increase engagement through small steps), Familiarity Bias (build consistent patterns users can rely on), Spark Effect (create daily moments that trigger the habit), and Attentional Bias (make financial awareness salient at key moments). Should provide specific recommendations for increasing daily engagement without crossing into notification spam or manipulation.",
       "files": []
@@ -668,14 +668,14 @@
     },
     {
       "id": 96,
-      "skill_name": "ui-design-references",
+      "skill_name": "ui-references-moodboard",
       "prompt": "I'm about to start the UI design for our pet care marketplace app. Before I open Figma, help me gather design references -- I want to look at what other pet apps, marketplaces, and booking platforms are doing visually.",
       "expected_output": "Should guide the user through gathering design references from platforms like Mobbin, Dribbble, and competitors, organize references by category (pet apps, marketplace patterns, booking flows), identify common visual patterns relevant to the product type, create a reference collection that establishes visual vocabulary, and produce a design references deliverable that prevents blank-canvas paralysis.",
       "files": []
     },
     {
       "id": 97,
-      "skill_name": "ui-design-references",
+      "skill_name": "ui-references-moodboard",
       "prompt": "We're redesigning our B2B analytics dashboard and want it to feel modern but professional -- not too playful, not too corporate. Help me find the right visual direction through references.",
       "expected_output": "Should help gather references specifically for B2B analytics dashboards, filter for the 'modern but professional' aesthetic, identify patterns in data visualization, layout, typography, and color usage, compare different visual approaches (dark mode vs light, card-based vs data-dense), and produce a curated reference collection that defines the visual direction.",
       "files": []
@@ -696,28 +696,28 @@
     },
     {
       "id": 100,
-      "skill_name": "ui-figma-workflow",
+      "skill_name": "ui-figma-guide",
       "prompt": "I'm a developer who's never used Figma before but I need to create some key screens for our app before coding. What's the minimal Figma workflow I need for AI-assisted development?",
       "expected_output": "Should explain the minimal Figma workflow: design only 5-8 key screens that establish visual style, focus on visual direction rather than documenting every state, explain how Figma MCP shares design data with AI, teach the handoff process from Figma to code, and help the user set up an efficient workflow that avoids over-designing.",
       "files": []
     },
     {
       "id": 101,
-      "skill_name": "ui-figma-workflow",
+      "skill_name": "ui-figma-guide",
       "prompt": "I have 30+ Figma frames for every possible state of every screen. My developer says this is overkill for AI-assisted development. Is he right? How should I restructure my Figma work?",
       "expected_output": "Should confirm that 30+ frames is excessive for AI-assisted development, explain that AI can generate variations from a few key screens, recommend which 5-8 screens to keep as the style guide, teach the user how to let AI handle state variations and responsive layouts, and help restructure the Figma workflow to be minimal and effective.",
       "files": []
     },
     {
       "id": 102,
-      "skill_name": "ui-implementation-review",
+      "skill_name": "ui-design-to-code-qa",
       "prompt": "I just had Claude Code implement my Figma designs for the onboarding flow. Some things look off -- the spacing seems wrong and the colors don't match exactly. Can you do a visual review?",
       "expected_output": "Should check for common AI-generated UI issues: title case vs sentence case errors, incorrect spacing, hardcoded color values instead of design tokens, creative interpretations that deviate from the design, redundant components that duplicate existing ones, and other visual fidelity issues. Should produce a visual review report with specific files and lines to fix.",
       "files": []
     },
     {
       "id": 103,
-      "skill_name": "ui-implementation-review",
+      "skill_name": "ui-design-to-code-qa",
       "prompt": "We deployed a new feature and the live site looks different from what we designed in Figma. Some buttons are bigger, fonts seem different, and the card layout spacing is off. Can you compare and identify all the discrepancies?",
       "expected_output": "Should compare the live implementation against design intent, identify specific discrepancies (button sizing, font differences, card spacing), check for hardcoded values vs design tokens, verify component reuse, and produce a detailed visual review with specific fixes needed to match the original design, organized by severity.",
       "files": []
@@ -738,28 +738,28 @@
     },
     {
       "id": 106,
-      "skill_name": "dev-context-management",
+      "skill_name": "dev-status-tracking",
       "prompt": "I'm starting a new SaaS product from absolute zero. No code, no designs, just an idea. How do I set up context management for the pre-development phase?",
       "expected_output": "Should guide context setup: explain multi-session workflow (one activity per session), help structure project knowledge files with status tracking, establish the deliverable-saving workflow, explain how documents build on each other across sessions, and produce a context management setup that supports the full pre-development pipeline.",
       "files": []
     },
     {
       "id": 107,
-      "skill_name": "dev-context-management",
+      "skill_name": "dev-status-tracking",
       "prompt": "My Claude Code sessions keep getting messy -- I mix research with design decisions with coding questions all in one session. How do I restructure my workflow?",
       "expected_output": "Should diagnose the problem (mixing concerns causes context degradation), restructure the workflow around one-activity-per-session principle, set up status file tracking, establish proper context organization with compound documentation, and help the user establish a disciplined multi-session workflow that prevents context loss.",
       "files": []
     },
     {
       "id": 108,
-      "skill_name": "dev-context-management",
+      "skill_name": "dev-status-tracking",
       "prompt": "We're 2 months into development and Claude keeps forgetting things we already built. It suggested creating a Button component yesterday when we already have one. How do I fix this context loss problem?",
       "expected_output": "Should explain the context degradation problem (token limits, chat compaction), set up a status file for AI to read at the start of every task, establish component registry tracking, configure sub-agent workflows to preserve main conversation budget, implement a systematic approach to recording what exists and what has been decided, and produce a context management setup that prevents repeated work.",
       "files": []
     },
     {
       "id": 109,
-      "skill_name": "dev-context-management",
+      "skill_name": "dev-status-tracking",
       "prompt": "I'm about to start a complex project that will take 6+ months. What context management strategy should I put in place from day one so I don't lose decisions and learnings over time?",
       "expected_output": "Should set up comprehensive context management from the start: status file structure, compound documentation workflow, sub-agent token preservation strategy, manual compaction guidelines, separation of concerns across small dedicated files, and a systematic approach to maintaining project memory over a 6+ month timeline.",
       "files": []
@@ -794,28 +794,28 @@
     },
     {
       "id": 114,
-      "skill_name": "dev-kickstart-prompts",
+      "skill_name": "dev-starter-prompts",
       "prompt": "I have all my design docs ready (problem statement, MVP requirements, IA, design references) and I'm about to open Cursor for the first time. Generate the kick-start prompts I should use to get the project going.",
       "expected_output": "Should generate high-level kick-start prompts that reference the existing planning documents, keep prompts simple and avoid deep technical details, structure prompts for a logical development sequence (project setup, core features, UI implementation), and produce a set of ready-to-use kick-start prompts tailored to the user's specific project and tech stack.",
       "files": []
     },
     {
       "id": 115,
-      "skill_name": "dev-kickstart-prompts",
+      "skill_name": "dev-starter-prompts",
       "prompt": "I'm starting development on a React Native app with Expo, Firebase, and a Node.js backend. I have MVP requirements and an IA doc. Create kick-start prompts that will set up the project correctly.",
       "expected_output": "Should generate kick-start prompts specific to the React Native + Expo + Firebase + Node.js stack, reference the existing MVP requirements and IA documents, include prompts for project scaffolding, backend setup, frontend setup, and design system initialization, keeping them high-level with pointers to context documents rather than code snippets.",
       "files": []
     },
     {
       "id": 116,
-      "skill_name": "dev-agent-pipeline",
+      "skill_name": "dev-agent-setup",
       "prompt": "I want to set up the 4-agent pipeline for my development workflow. I'm building a Vue.js app with a Python FastAPI backend. Walk me through configuring each agent.",
       "expected_output": "Should set up the 4-agent pipeline + Plan Mode (context-analyzer, Plan Mode for planning, test-writer for TDD, backend-implementer, frontend-implementer, plus design-system-auditor), customize each agent's configuration for the Vue.js + FastAPI stack, explain how sub-agents preserve main conversation token budget, establish the execution sequence with test-writer before implementation and /simplify after each implementation step, and produce agent pipeline configuration files.",
       "files": []
     },
     {
       "id": 117,
-      "skill_name": "dev-agent-pipeline",
+      "skill_name": "dev-agent-setup",
       "prompt": "I tried using 8 agents but it was chaos -- the main conversation kept forgetting to run some of them. Help me consolidate down to the essential 4 and set up a reliable pipeline.",
       "expected_output": "Should acknowledge the common problem of too many agents, help consolidate from 8 to 4 essential agents, explain why 4 is the practical limit, define clear responsibilities for each agent (context analysis, planning, backend implementation, frontend implementation), set up the execution sequence so nothing gets forgotten, and produce a streamlined pipeline configuration.",
       "files": []

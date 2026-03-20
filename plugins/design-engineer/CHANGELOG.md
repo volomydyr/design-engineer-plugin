@@ -4,13 +4,27 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.15.0] – 2026-03-20
+
+### Changed
+
+- **Skill name clarity**: Renamed 20 skills for clear, unambiguous names that are impossible to confuse with each other
+- UI skills: `ui-craft-review` → `ui-aesthetic-review`, `ui-implementation-review` → `ui-design-to-code-qa`, `ui-design-references` → `ui-references-moodboard`, `ui-figma-workflow` → `ui-figma-guide`
+- Dev skills: `dev-context-management` → `dev-status-tracking`, `dev-agent-pipeline` → `dev-agent-setup`, `dev-kickstart-prompts` → `dev-starter-prompts`
+- UX skills: `ux-product-assessment` → `ux-full-review`, `ux-motivation-levels` → `ux-motivation-audit`
+- Psych skills: `psych-master-audit` → `psych-full-scan`, `psych-cognitive-basics` → `psych-cognitive-load`, `psych-engagement-motivation` → `psych-engagement-patterns`, `psych-efficiency` → `psych-simplification`, `psych-time-behavior` → `psych-time-perception`
+- Psych econ/decision/emotion pairs: `psych-behavioral-economics-core` → `psych-pricing-psychology`, `psych-behavioral-economics-habits` → `psych-habit-formation`, `psych-decision-making-core` → `psych-decision-fundamentals`, `psych-decision-making-advanced` → `psych-decision-persuasion`, `psych-emotional-design-core` → `psych-delight-design`, `psych-emotional-design-advanced` → `psych-emotional-retention`
+- Updated all cross-references: pipeline-sequence, commands, agents, evals.json, README, CHANGELOG, AUDIT-REPORT
+- Renamed 17 eval workspace directories to match new skill names
+- Eval workspace content (transcripts, grading) left as frozen historical artifacts
+
 ## [1.14.0] – 2026-03-20
 
 ### Changed
 
 - **Source fingerprint removal**: Renamed all Growth Design course-specific terminology to generic equivalents for public release
 - `ux-6p-stories` → `ux-story-panels` — skill directory, reference files, and all cross-references
-- `ux-psych-levels` → `ux-motivation-levels` — skill directory, reference files, and all cross-references
+- `ux-psych-levels` → `ux-motivation-audit` — skill directory, reference files, and all cross-references
 - B.I.A.S. Framework (Block, Interpret, Act, Store) → bias audit process (Identify, Analyze, Design, Document) — reference files renamed, all cross-references
 - "BMap" abbreviation → "Behavior Map" (spelled out) — reference file renamed, all cross-references
 - "GEQ" / "General Empathy Questions" → "empathy questions" — all cross-references
@@ -87,13 +101,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Debug Solutions (`memory/debug-solutions.md`): preserves hard-won debugging fixes (3+ attempts) so they survive session boundaries
 - Memory initialization in `/de:start`: seeds MEMORY.md, project-map.md, and debug-solutions.md for new and existing projects
 - Memory checkpoints in `meta-orchestrator`: reads memory at startup, updates pipeline position and project map after each phase
-- Memory checkpoints in `dev-agent-pipeline`: reads project map and debug solutions before development, saves new fixes during the loop
+- Memory checkpoints in `dev-agent-setup`: reads project map and debug solutions before development, saves new fixes during the loop
 - Stop hook memory reminder: prints a reminder to update memory at every session end
 
 ### Changed
 
 - `meta-orchestrator` Step 0 now reads auto-memory (MEMORY.md + project-map.md) before checking resume state
-- `dev-agent-pipeline` steps renumbered (3→6) to accommodate new memory read step
+- `dev-agent-setup` steps renumbered (3→6) to accommodate new memory read step
 
 ## [1.11.0] – 2026-03-18
 
@@ -110,13 +124,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - `/de:research` command (subset of `/de:design` — use design with phase jumping or direct access)
 - `/de:statusline` command (status line install handled by `/de:setup`)
 - `/de:psych` command (merged into `/de:review` as expanded psychology option)
-- Agent templates from `dev-agent-pipeline` (users copy actual agents from `agents/` directory instead)
+- Agent templates from `dev-agent-setup` (users copy actual agents from `agents/` directory instead)
 
 ### Renamed
 
-- `ui-design-critique` → `ui-craft-review` (distinguishes from implementation review)
-- `ui-visual-review` → `ui-implementation-review` (clarifies focus on implementation fidelity)
-- `ux-psych-framework` → `ux-motivation-levels` (matches the specific technique: Motivation Levels + Experience Value)
+- `ui-design-critique` → `ui-aesthetic-review` (distinguishes from implementation review)
+- `ui-visual-review` → `ui-design-to-code-qa` (clarifies focus on implementation fidelity)
+- `ux-psych-framework` → `ux-motivation-audit` (matches the specific technique: Motivation Levels + Experience Value)
 - `meta-compound` → `meta-document` (self-explanatory name)
 - `ux-bias-framework` → `ux-bias-audit` (action-oriented: performs a bias audit)
 
@@ -155,7 +169,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- testing-anti-patterns.md reference in dev-agent-pipeline (5 anti-patterns with code examples, gate functions, common rationalizations, red flags)
+- testing-anti-patterns.md reference in dev-agent-setup (5 anti-patterns with code examples, gate functions, common rationalizations, red flags)
 
 ### Changed
 
@@ -249,7 +263,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 
 - Merged `plan-creator` agent into Plan Mode flow — planning now happens in the main conversation with full context, not a sub-agent
-- `dev-agent-pipeline` Phase 2 uses Plan Mode instead of plan-creator sub-agent
+- `dev-agent-setup` Phase 2 uses Plan Mode instead of plan-creator sub-agent
 - Pipeline development loop updated across orchestrator, commands, and agent references
 - Agent count 9 → 8, version 1.5.2 → 1.6.0
 
@@ -319,15 +333,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 - New `ui-figma-handoff` skill — automates Figma design structuring (components, tokens, variables, styles) and dev handoff preparation (annotations, sections, connectors, dev status) using Figma Console MCP
 - Three new reference files: `figma-structuring-guide.md` (7-phase methodology), `figma-handoff-guide.md` (handoff preparation process), `figma-console-helpers.md` (code snippets for Figma Console MCP)
-- Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-workflow`
+- Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-guide`
 - `figma-handoff` deliverable in dependency graph with upstream/downstream tracking
 
 ### Changed
 
 - Rewrote `figma-for-ai-dev.md` — no longer says "skip components and tokens"; now recommends automating with Figma Console MCP when available, with minimal approach as fallback
 - Updated `figma-mcp-guide.md` — renamed to Figma Integration Guide, added code-to-Figma import capability and `ui-figma-handoff` reference
-- `ui-figma-workflow` Step 3 updated: conditional guidance based on Figma Console MCP availability
-- Phase 4 pipeline: `ui-figma-handoff` added as optional step after `ui-figma-workflow`
+- `ui-figma-guide` Step 3 updated: conditional guidance based on Figma Console MCP availability
+- Phase 4 pipeline: `ui-figma-handoff` added as optional step after `ui-figma-guide`
 - Standardized Figma tool names across all files: "Figma plugin" (official) and "Figma Console MCP"
 - Skill count 48 → 49, UI Design category 6 → 7
 
@@ -339,18 +353,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Rewrote `dev-prototyping`: question-based context gathering (planning docs, existing codebase, Figma designs, or just an idea), generates single-file HTML prototypes in Claude Code, applies design intent and starter values
 - Added `prototype` deliverable to dependency graph with full upstream/downstream tracking
 - Added "HTML prototype" as review target in `ui-design-critique`, `ui-visual-review`, and `ui-accessibility`
-- Added `references/multi-session-workflow.md` to `dev-context-management` with tool-agnostic session management rules
+- Added `references/multi-session-workflow.md` to `dev-status-tracking` with tool-agnostic session management rules
 
 ### Changed
 
-- Phase 4 pipeline restructured: `dev-prototyping` now runs sequentially AFTER `ui-design-references` and BEFORE `ui-figma-workflow` (was parallel with figma-workflow)
-- `ui-figma-workflow` now depends on prototype deliverable (prototype informs which key screens to design in Figma)
+- Phase 4 pipeline restructured: `dev-prototyping` now runs sequentially AFTER `ui-references-moodboard` and BEFORE `ui-figma-guide` (was parallel with figma-workflow)
+- `ui-figma-guide` now depends on prototype deliverable (prototype informs which key screens to design in Figma)
 - `dev-prototyping` removed from `/de:dev` command (now accessed via `/de:prototype` or pipeline)
 - Cleaned up ~17 "Claude Projects" references across 12 files to be tool-agnostic or Claude Code-specific
 
 ### Removed
 
-- Removed `dev-claude-projects` skill (content merged into `dev-context-management` and `meta-compound`)
+- Removed `dev-claude-projects` skill (content merged into `dev-status-tracking` and `meta-compound`)
 - Removed parallel-group 4a from pipeline sequence
 - Skill count 49 → 48, Development category 8 → 7, Command count 7 → 8
 
@@ -361,7 +375,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Session pause/resume – Stop hook now writes resume state to `.design-engineer.yaml`; orchestrator detects it on startup and offers to continue where you left off
 - Progress routing – orchestrator shows phase completion summary from `.dependencies.yaml` before asking project state
 - Parallel group annotations in pipeline sequence for 4 skill groups (Phases 2, 4, 5) with execution guidance for god/guided modes
-- AskUserQuestion preview mockups in `ui-design-references` (design feel), `ui-design-system` (depth strategy), and `ux-information-architecture` (navigation model)
+- AskUserQuestion preview mockups in `ui-references-moodboard` (design feel), `ui-design-system` (depth strategy), and `ux-information-architecture` (navigation model)
 - Context monitoring instruction in CLAUDE.md – suggests compaction at ~90% usage with state-preserving compact message
 - Model recommendations in orchestrator – suggests Opus for planning phases, asks user preference (Sonnet default) at Phase 5 transition
 - Preview usage rule added to Skill Compliance Checklist
@@ -378,7 +392,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 
 - New `ui-design-critique` skill with 4-lens craft critique framework (Composition, Craft, Content, Structure) and 4 named tests (Swap, Squint, Signature, Token)
-- Design intent guide reference for `ui-design-references` with "Where Defaults Hide" philosophy, Intent-First framework, Product Domain Exploration, and WHY checkpoint
+- Design intent guide reference for `ui-references-moodboard` with "Where Defaults Hide" philosophy, Intent-First framework, Product Domain Exploration, and WHY checkpoint
 - Starter values reference for `ui-design-system` with spacing, typography, text hierarchy, border progression, surface elevation, depth strategies, and shadow scales
 - Prompt templates reference for `ui-design-system` with 6 curated task-specific prompts
 - Design system persistence mechanism (`.design-system/system.md` save/load)
@@ -387,7 +401,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
-- `ui-design-references` expanded from reference collection to full design thinking skill
+- `ui-references-moodboard` expanded from reference collection to full design thinking skill
 - `ui-visual-review` adds UX non-negotiables check before visual audit
 - `ui-design-system` checks for saved decisions on startup and offers persistence on completion
 - Skill count 48 → 49, UI Design category 5 → 6

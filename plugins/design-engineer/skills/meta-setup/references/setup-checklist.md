@@ -51,7 +51,7 @@ Determines how design-related skills interact with the user's design workflow.
 
 | Option | Effect |
 |--------|--------|
-| **Figma with plugin** | Skills that reference designs (ui-figma-workflow, ui-implementation-review, ui-design-system) use Figma plugin to read design data directly. Provides adapted code based on the project's tech stack. |
+| **Figma with plugin** | Skills that reference designs (ui-figma-guide, ui-design-to-code-qa, ui-design-system) use Figma plugin to read design data directly. Provides adapted code based on the project's tech stack. |
 | **Figma without plugin** | Skills prompt the user to share screenshots or exported design specs manually. Instructions for manual sharing are provided at each step. |
 | **Other design tool** | Skills provide tool-agnostic design guidance. User provides design references through their preferred method. |
 | **No design tool yet** | Design tool steps are deferred. Skills focus on conceptual and structural deliverables until the user decides on a tool. |

@@ -13,7 +13,7 @@ A good customer journey map will help you:
 
 1. Distill customer experiences to their top 5-8 moments.
 2. Support and complement Story Panels (see `ux-story-panels`).
-3. Systemize the Motivation Lead and lessons of your experience (see `ux-motivation-levels`).
+3. Systemize the Motivation Lead and lessons of your experience (see `ux-motivation-audit`).
 
 Unfortunately, many people believe they need incredibly detailed customer journey maps. But a customer journey map that is too exhaustive is:
 
