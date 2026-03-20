@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.17.1] – 2026-03-20
+
+### Added
+
+- **Swiss knife branding**: Logo (`logo.svg`) added to repo and README header. Philosophy section rewritten with swiss knife identity and 6 methodology points (restored "Teach while working" and "Tool-agnostic" from v1.11.0). Branded welcome line in `/de:start`.
+
 ## [1.17.0] – 2026-03-20
 
 ### Added

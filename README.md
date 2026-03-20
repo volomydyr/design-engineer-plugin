@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.svg" width="120" alt="Design Engineer" />
+</p>
+
 # Design Engineer
 
 A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that guides you through every step of building a product — from initial idea through psychology-informed UX design to production code. It teaches you the process while doing the work, not just outputting deliverables.
@@ -62,12 +66,16 @@ Most commands support:
 
 ## How It Works
 
-The plugin is opinionated. It follows a specific methodology built from real product-building experience:
+Think of it as a swiss knife for product design. It packs a full methodology into one tool — research, psychology, prototyping, development — but stays easy to pick up. You run one command, it figures out where you are, and opens the right instrument.
 
+The methodology behind it:
+
+- **Teach while working** — skills guide the thinking process, not just output deliverables. You learn the method by doing the work.
 - **User > Docs > AI** — your decisions override documentation, which overrides AI suggestions. Always.
 - **One activity per skill** — each skill covers exactly one thing well, with specific workflows and reference materials.
-- **Teach the thinking** — skills don't just produce outputs. They walk you through the reasoning, so you learn the process.
-- **Psychology-backed** — 14 psychology skills covering 100+ behavioral principles (cognitive load, decision-making, engagement, persuasion, emotional design) are woven into the design review process.
+- **Opinionated from experience** — prescribes exact workflows from real product-building, not generic best practices.
+- **Tool-agnostic with recommendations** — works with whatever you have, recommends what's proven.
+- **Psychology-backed** — 100+ behavioral principles woven into the design review process, not bolted on.
 
 ### Pipeline Phases
 
