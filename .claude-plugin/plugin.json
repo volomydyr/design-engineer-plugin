@@ -1,0 +1,19 @@
+{
+  "name": "design-engineer",
+  "version": "1.16.0",
+  "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 6 commands, and 49 skills.",
+  "author": {
+    "name": "Volodymyr Merlenko",
+    "url": "https://github.com/volomydyr"
+  },
+  "homepage": "https://github.com/volomydyr/design-engineer-plugin",
+  "repository": "https://github.com/volomydyr/design-engineer-plugin",
+  "license": "MIT",
+  "keywords": ["design-engineering", "ux-design", "product-psychology", "design-systems", "ai-development", "living-documents"],
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
