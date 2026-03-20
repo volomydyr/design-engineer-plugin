@@ -36,23 +36,23 @@ A Lean Canvas is a one-page snapshot of your entire business idea. It forces you
 | Key Metrics | Numbers that tell you if it's working |
 | Unfair Advantage | What can't be easily copied |
 
-You can Google "Lean Canvas template" and pick one you like — they're all based on the same framework by Ash Maurya. Fill it out manually first, then upload to Claude for feedback.
+You can Google "Lean Canvas template" and pick one you like – they're all based on the same framework by Ash Maurya. Fill it out manually first, then upload to Claude for feedback.
 
 ---
 
 ## 2. Market Research
 
-Market research helps you estimate the size of your audience and the growth potential of your product. Free reports are rare, so get creative — look at industry registries, freelancer statistics, job board data, or use AI research tools like Perplexity, Liner, or Claude's deep research.
+Market research helps you estimate the size of your audience and the growth potential of your product. Free reports are rare, so get creative – look at industry registries, freelancer statistics, job board data, or use AI research tools like Perplexity, Liner, or Claude's deep research.
 
 ### TAM, SAM, SOM
 
 Three levels that help you think realistically about how much of the total market you can actually reach:
 
-- **TAM (Total Addressable Market):** The entire market if everyone who could use your product did. This is the theoretical ceiling — useful for understanding the space, not for planning.
+- **TAM (Total Addressable Market):** The entire market if everyone who could use your product did. This is the theoretical ceiling – useful for understanding the space, not for planning.
 - **SAM (Serviceable Available Market):** The segment you can realistically reach given your geography, niche, language, and distribution channels. A subset of TAM.
 - **SOM (Serviceable Obtainable Market):** What you can actually capture in year 1-2 given your current resources, team, and marketing budget. This is the number you plan around.
 
-Start with SOM — that's your realistic goal. TAM is for context, SAM is for ambition, SOM is for planning.
+Start with SOM – that's your realistic goal. TAM is for context, SAM is for ambition, SOM is for planning.
 
 ---
 
@@ -62,7 +62,7 @@ Financial planning means forecasting numbers in a simple spreadsheet, estimating
 
 Claude can help draft a financial model and answer questions along the way. Use the **ELI5 approach** ("explain like I'm five") to break down complex terms into easy analogies. Tools like Perplexity Voice are also handy if you want a more interactive way to learn as you go.
 
-The ideal is to create a financial plan with a real accountant, but that comes later — once you've launched your MVP and maybe even attracted users or investors. For now, even a rough plan is better than none.
+The ideal is to create a financial plan with a real accountant, but that comes later – once you've launched your MVP and maybe even attracted users or investors. For now, even a rough plan is better than none.
 
 ---
 
@@ -76,11 +76,11 @@ The easiest entry point: content you share on social platforms. It's free and ke
 
 ### Earn Trust with Earned
 
-Takes more effort but pays off in credibility. "Earned" media is when other people talk about you — a shoutout in a newsletter or a guest talk. Building a personal brand by giving talks and writing articles attracts potential users.
+Takes more effort but pays off in credibility. "Earned" media is when other people talk about you – a shoutout in a newsletter or a guest talk. Building a personal brand by giving talks and writing articles attracts potential users.
 
 ### Own Your Channels
 
-Your landing page, your blog, your newsletter — platforms you control completely and can track with analytics. A simple landing page already makes your product feel more real.
+Your landing page, your blog, your newsletter – platforms you control completely and can track with analytics. A simple landing page already makes your product feel more real.
 
 ### Use Paid as a Last Resort
 

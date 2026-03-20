@@ -4,19 +4,19 @@
 
 # Design Engineer
 
-A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that guides you through every step of building a product — from initial idea through psychology-informed UX design to production code. It teaches you the process while doing the work, not just outputting deliverables.
+A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that walks you through building a product, start to finish. Research, design, psychology, code – it covers every phase and teaches you the thinking along the way.
 
-## What You Need
+## What you need
 
-Before installing, make sure you have the following:
+Before installing, check that you have these:
 
-1. **Claude Code** — Anthropic's AI coding tool that runs in your terminal. If you don't have it yet, follow the [official install guide](https://docs.anthropic.com/en/docs/claude-code/getting-started). Claude Code requires an Anthropic account with a Max or Team plan, or API credits.
+1. **Claude Code** – Anthropic's AI coding tool that runs in your terminal. If you don't have it yet, follow the [official install guide](https://docs.anthropic.com/en/docs/claude-code/getting-started). You'll need an Anthropic account with a Max or Team plan, or API credits.
 
-2. **Node.js v18+** — needed for the plugin's safety hooks and status line. Check with `node --version`. If missing, install from [nodejs.org](https://nodejs.org/) or via `brew install node`.
+2. **Node.js v18+** – the plugin's safety hooks and status line need it. Check with `node --version`. If missing, grab it from [nodejs.org](https://nodejs.org/) or run `brew install node`.
 
-3. **Python 3** — needed for dependency tracking and environment detection. Check with `python3 --version`. Comes pre-installed on macOS and most Linux distributions.
+3. **Python 3** – used for dependency tracking and environment detection. Check with `python3 --version`. Already installed on macOS and most Linux distributions.
 
-4. **Bash** — needed for setup scripts. Built into macOS and Linux. Windows users need WSL.
+4. **Bash** – runs the setup scripts. Built into macOS and Linux. Windows users need WSL.
 
 ## Install
 
@@ -26,160 +26,160 @@ Open Claude Code in your terminal and run:
 /install-plugin https://github.com/volomydyr/design-engineer-plugin
 ```
 
-That's it. The plugin is now available in every Claude Code session.
+That's it. The plugin is available in every Claude Code session from now on.
 
-## Getting Started
+## Getting started
 
-Once installed, start a new Claude Code session in your project directory and type:
+Start a new Claude Code session in your project directory and type:
 
 ```
 /de:start
 ```
 
-This is the only command you need to remember. It detects your situation and routes you automatically:
+This is the only command you need to remember. It figures out your situation and takes you where you need to go:
 
-- **New product?** → Interactive setup: detects your environment, asks how you want to work, scaffolds your project, and walks you into the design pipeline.
-- **Returning?** → Shows where you left off and lets you resume, jump to a different phase, or browse all capabilities.
-- **Existing project?** → Shows everything the plugin can do, asks about your situation, and recommends relevant capabilities.
+- **New product?** It detects your environment, asks a few questions, scaffolds the project, and walks you into the design pipeline.
+- **Coming back?** It shows where you left off. Resume, jump to a different phase, or browse everything the plugin can do.
+- **Existing project?** It shows all capabilities, asks about your situation, and recommends what's relevant.
 
-During setup, the plugin checks for recommended tools (Context7, Figma, Playwright) and offers to help install any that are missing. You don't need to set these up in advance.
+The plugin also checks for recommended tools (Context7, Figma, Playwright) during setup and helps install anything that's missing. No prep needed.
 
-## What It Does
+## What it does
 
-You interact with 6 commands. Behind each one, 49 skills and 9 agents run automatically.
+You interact with 6 commands. Behind each one, 49 skills and 9 agents handle the work.
 
-| Command | What It Does |
+| Command | What it does |
 |---------|-------------|
-| `/de:start` | Smart entry point — setup, resume, or capability guide depending on your situation |
-| `/de:design` | Full design pipeline — discovery, strategy, planning, and validation. Autonomous or step-by-step. |
+| `/de:start` | Detects your situation – setup, resume, or capability guide |
+| `/de:design` | Runs the design workflow – discovery, strategy, planning, validation. Autonomous or step-by-step |
 | `/de:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
-| `/de:dev` | Development pipeline — environment setup, test-first development, AI-assisted implementation |
-| `/de:review` | Multi-layer review — visual quality, accessibility, psychology (100+ principles), design system compliance, ethics |
-| `/de:document` | Documents decisions, learnings, and project state. Prepares stakeholder communication. |
+| `/de:dev` | Development workflow – environment setup, test-first development, AI-assisted implementation |
+| `/de:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
+| `/de:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
 
-### Two Modes
+### Two modes
 
-Most commands support:
+Most commands work in two ways:
 
-- **Guided mode** — step-by-step, asks questions at every stage, pauses for your approval. Recommended for learning and thorough work.
-- **God mode** — runs autonomously with minimal input. Best for quick validation and rapid exploration.
+- **Guided** – step-by-step, asks questions at every stage, pauses for your approval. Good for learning or thorough work.
+- **God mode** – runs on its own with minimal input. Good for quick validation or when you trust the process.
 
-## How It Works
+## How it works
 
-Think of it as a swiss knife for product design. It packs a full methodology into one tool — research, psychology, prototyping, development — but stays easy to pick up. You run one command, it figures out where you are, and opens the right instrument.
+Think of it as a swiss knife for product design. It packs a full methodology into one tool – research, psychology, prototyping, development – but stays easy to pick up. You run one command, it figures out where you are, and opens the right instrument.
 
 The methodology behind it:
 
-- **Teach while working** — skills guide the thinking process, not just output deliverables. You learn the method by doing the work.
-- **User > Docs > AI** — your decisions override documentation, which overrides AI suggestions. Always.
-- **One activity per skill** — each skill covers exactly one thing well, with specific workflows and reference materials.
-- **Opinionated from experience** — prescribes exact workflows from real product-building, not generic best practices.
-- **Tool-agnostic with recommendations** — works with whatever you have, recommends what's proven.
-- **Psychology-backed** — 100+ behavioral principles woven into the design review process, not bolted on.
+- **Teach while working** – skills walk you through the thinking, not just produce documents. You learn the method by doing it.
+- **User > Docs > AI** – your decisions override documentation, which overrides AI suggestions. Always.
+- **One activity per skill** – each skill does exactly one thing well, with specific workflows and references.
+- **Opinionated from experience** – real workflows from real product-building. Not generic best practices.
+- **Tool-agnostic with recommendations** – works with whatever you have. Recommends what's proven.
+- **Psychology-backed** – 100+ behavioral principles are part of the design review process, not an afterthought.
 
-### Pipeline Phases
+### Pipeline phases
 
-When running the full design pipeline (`/de:design`), your project moves through:
+The full design pipeline (`/de:design`) moves through five phases:
 
-1. **Discovery** — problem definition, target audience, assumptions, competitive analysis
-2. **Strategy** — behavior mapping, product narrative, user stories, business model
-3. **Planning** — MVP requirements, information architecture
-4. **Design & Validation** — bias audits, journey mapping, prototyping, design references, psychology analysis
-5. **Development** — environment setup, test-driven implementation with AI agents
+1. **Discovery** – problem definition, target audience, assumptions, competitive analysis
+2. **Strategy** – behavior mapping, product narrative, user stories, business model
+3. **Planning** – MVP requirements, information architecture
+4. **Design & validation** – bias audits, journey mapping, prototyping, design references, psychology analysis
+5. **Development** – environment setup, test-driven implementation with AI agents
 
-Each phase produces deliverables tracked by a dependency graph. When an upstream document changes, the plugin tells you which downstream documents may need review.
+Each phase creates documents. When one changes, the plugin tells you which others might need updating.
 
 ### Agents
 
-9 specialized agents handle specific tasks behind the scenes:
+9 agents handle specific tasks in the background:
 
-| Agent | Role |
+| Agent | What it does |
 |-------|------|
-| `context-analyzer` | Analyzes project context and codebase structure |
-| `ux-researcher` | Conducts research activities |
-| `deliverable-writer` | Produces structured deliverable documents |
-| `psych-scanner` | Scans designs against 100+ psychology principles |
-| `design-system-auditor` | Audits code against design system rules |
-| `backend-implementer` | Implements backend features |
-| `frontend-implementer` | Implements frontend features |
-| `test-writer` | Writes failing test scripts before implementation (TDD) |
-| `compound-documenter` | Documents decisions and maintains context |
+| `context-analyzer` | Reads the project structure and codebase |
+| `ux-researcher` | Runs research activities |
+| `deliverable-writer` | Writes structured documents |
+| `psych-scanner` | Checks designs against 100+ psychology principles |
+| `design-system-auditor` | Checks code against design system rules |
+| `backend-implementer` | Builds backend features |
+| `frontend-implementer` | Builds frontend features |
+| `test-writer` | Writes failing tests before implementation (TDD) |
+| `compound-documenter` | Records decisions and keeps context |
 
-### Safety Hooks
+### Safety hooks
 
-The plugin installs protective hooks that run automatically:
+The plugin installs a few protective hooks that run on their own:
 
-- **Destructive command protection** — blocks `rm -rf`, `git push --force`, `DROP TABLE`, and similar commands, showing safer alternatives
-- **Test-first enforcement** — blocks code writes when no tests exist during active implementation
-- **Prompt injection defense** — scans external tool outputs for manipulation attempts
-- **Requirement fidelity** — flags scope creep in plans and code that wasn't explicitly requested
-- **Dependency tracking** — after editing deliverables, advises which downstream documents may need review
-- **Session summary** — when you stop, summarizes what changed and what may be stale
+- **Destructive command protection** – catches `rm -rf`, `git push --force`, `DROP TABLE`, and similar mistakes before they happen. Shows safer alternatives.
+- **Test-first enforcement** – won't let you write code until tests exist. Keeps TDD honest.
+- **Prompt injection defense** – watches for manipulation attempts in external tool outputs.
+- **Requirement fidelity** – catches scope creep. If it wasn't requested, it gets flagged.
+- **Dependency tracking** – tells you which documents might need updating after you change something.
+- **Session summary** – when you stop, you get a summary of what changed and what might be stale.
 
-### Model Configuration
+### Model configuration
 
 Every agent and skill specifies which Claude model to use:
 
-- **Opus** (42 components) — psychology analysis, UX research, implementation, design review
-- **Sonnet** (17 components) — template generation, setup wizards, documentation
+- **Opus** (42 components) – psychology analysis, UX research, implementation, design review
+- **Sonnet** (17 components) – template generation, setup wizards, documentation
 
-## Recommended Tools
+## Recommended tools
 
-The plugin works on its own, but these tools unlock additional capabilities. Setup (`/de:start`) detects and helps install them automatically.
+The plugin works on its own, but these add extra capabilities. Setup (`/de:start`) detects and helps install them.
 
-| Tool | What It Adds | Required? |
+| Tool | What it adds | Required? |
 |------|-------------|-----------|
-| **Context7** | Up-to-date documentation for any library — AI doesn't rely on outdated training data | Bundled with the plugin |
-| **Figma** (official plugin) | Reads design data from Figma Dev Mode — structured design info, not screenshots | Recommended for design work |
+| **Context7** | Up-to-date docs for any library, so AI doesn't rely on stale training data | Bundled with the plugin |
+| **Figma** (official plugin) | Reads design data from Figma Dev Mode – real design info, not screenshots | Recommended for design work |
 | **Playwright** | Browser-based testing and visual review of live pages | Recommended for development |
-| **Figma Console** (MCP) | Performs actions directly in Figma — create components, apply tokens from prompts | Optional, for advanced Figma workflows |
+| **Figma Console** (MCP) | Lets you create components and apply tokens directly in Figma from prompts | Optional |
 
 <details>
-<summary><h2>All 49 Skills</h2></summary>
+<summary><h2>All 49 skills</h2></summary>
 
-All skills run automatically through commands. Power users can invoke any skill directly (e.g., `/ux-problem-statement`).
+All skills run automatically through commands. If you want, you can also call any skill directly (e.g., `/ux-problem-statement`).
 
 ### Meta (4)
 
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
-| `meta-setup` | Interactive environment setup and project scaffolding |
-| `meta-orchestrator` | Central controller for the design pipeline |
-| `meta-document` | Knowledge documentation and context engineering |
-| `meta-statusline` | Status line installation and management |
+| `meta-setup` | Environment setup and project scaffolding |
+| `meta-orchestrator` | Controls the design pipeline |
+| `meta-document` | Documents knowledge and maintains context |
+| `meta-statusline` | Installs and manages the status line |
 
-### UX Research (9)
+### UX research (9)
 
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
-| `ux-problem-statement` | Structured problem definition |
-| `ux-target-audience` | Persona development with behavior mapping |
+| `ux-problem-statement` | Problem definition |
+| `ux-target-audience` | Persona development and behavior mapping |
 | `ux-assumptions` | Assumption tracking and validation planning |
 | `ux-competitor-analysis` | Competitive landscape analysis |
-| `ux-user-interviews` | Interview design, preparation, and analysis |
+| `ux-user-interviews` | Interview design, prep, and analysis |
 | `ux-storybrand` | StoryBrand messaging framework |
 | `ux-business-plan` | Revenue model, market size, go-to-market |
 | `ux-mvp-requirements` | MVP prioritization and scoping |
-| `ux-information-architecture` | Information architecture design |
+| `ux-information-architecture` | Information architecture |
 
-### UX Design (8)
+### UX design (8)
 
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
-| `ux-story-panels` | Story Panels framework for product narratives |
-| `ux-behavior-mapping` | Behavior mapping and mental model analysis |
-| `ux-motivation-audit` | Screen-level motivation and experience value analysis |
-| `ux-bias-audit` | Bias audit process (Identify, Analyze, Design, Document) |
+| `ux-story-panels` | Visual product narratives (Story Panels) |
+| `ux-behavior-mapping` | Behavior mapping and mental models |
+| `ux-motivation-audit` | Screen-level motivation analysis |
+| `ux-bias-audit` | Bias audit (Identify, Analyze, Design, Document) |
 | `ux-journey-mapping` | Journey mapping and improvement tactics |
 | `ux-communicating-decisions` | Communicating design decisions to stakeholders |
 | `ux-ethics-review` | Ethical design review |
-| `ux-full-review` | Comprehensive product assessment checklist |
+| `ux-full-review` | Full product assessment checklist |
 
 ### Psychology (14)
 
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
-| `psych-full-scan` | Broad scan across all 100+ principles with routing to deep-dive sections |
+| `psych-full-scan` | Broad scan across 100+ principles, routes to deep-dives |
 | `psych-cognitive-load` | Cognitive load, progressive disclosure, recognition over recall |
 | `psych-visual-perception` | Gestalt principles, visual hierarchy, attention |
 | `psych-decision-fundamentals` | Loss aversion, anchoring, confirmation bias |
@@ -194,27 +194,27 @@ All skills run automatically through commands. Power users can invoke any skill 
 | `psych-cognitive-biases` | Availability heuristic, negativity bias |
 | `psych-time-perception` | Familiarity bias, shaping, aha moment |
 
-### UI Design (7)
+### UI design (7)
 
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
-| `ui-references-moodboard` | Design intent exploration and reference gathering |
+| `ui-references-moodboard` | Design references and inspiration gathering |
 | `ui-aesthetic-review` | 4-lens craft critique with named design tests |
-| `ui-figma-guide` | Figma for AI-assisted development |
-| `ui-figma-handoff` | Figma design structuring and dev handoff preparation |
-| `ui-design-system` | Design system architecture, compliance, and persistence |
-| `ui-design-to-code-qa` | Implementation fidelity review with UX non-negotiables |
-| `ui-accessibility` | Accessibility compliance audit (WCAG) |
+| `ui-figma-guide` | Figma workflow for AI-assisted development |
+| `ui-figma-handoff` | Figma design structuring and dev handoff |
+| `ui-design-system` | Design system architecture and compliance |
+| `ui-design-to-code-qa` | Checks if the code matches the design |
+| `ui-accessibility` | Accessibility audit (WCAG) |
 
 ### Development (7)
 
-| Skill | What It Does |
+| Skill | What it does |
 |-------|-------------|
 | `dev-claude-md` | CLAUDE.md generation and maintenance |
-| `dev-starter-prompts` | Kick-start prompt generation for new sessions |
+| `dev-starter-prompts` | Starter prompts for new coding sessions |
 | `dev-agent-setup` | 4-agent development pipeline setup |
-| `dev-status-tracking` | Long-running project context management |
-| `dev-mcp-setup` | MCP and plugin configuration guidance |
+| `dev-status-tracking` | Context management for long-running projects |
+| `dev-mcp-setup` | MCP and plugin configuration |
 | `dev-github-workflow` | GitHub workflow for designers |
 | `dev-prototyping` | Single-file HTML prototype generation |
 
@@ -222,7 +222,7 @@ All skills run automatically through commands. Power users can invoke any skill 
 
 ## Feedback
 
-Report issues at [github.com/volomydyr/design-engineer-plugin/issues](https://github.com/volomydyr/design-engineer-plugin/issues)
+Found a problem? [Open an issue](https://github.com/volomydyr/design-engineer-plugin/issues).
 
 ## License
 

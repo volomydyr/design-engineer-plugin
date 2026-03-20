@@ -12,7 +12,7 @@ Products that solve the same problem for the same target audience.
 
 ### Indirect Competitors
 
-Products that solve the same underlying need in a different way. Don't skip these — even if it feels like "there's nothing like my product," chances are similar solutions exist in another form.
+Products that solve the same underlying need in a different way. Don't skip these – even if it feels like "there's nothing like my product," chances are similar solutions exist in another form.
 
 **Tip:** If stuck, look back at your survey results. Users often mention tools they already use.
 
@@ -61,4 +61,4 @@ Running this kind of AI-powered competitive analysis should give you insights th
 - Strong products have strong communities, which is the same for PDPro, where users shape the shared experience
 - Clearer sense of typical pricing models in the space
 
-The goal is actionable positioning — understanding not just what competitors do, but where the gaps are that your product can fill.
+The goal is actionable positioning – understanding not just what competitors do, but where the gaps are that your product can fill.

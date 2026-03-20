@@ -72,13 +72,13 @@ Auto-layouts are essential. AI needs them to understand how to make code respons
 
 ### Components and Tokens
 
-**With Figma Console MCP**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes and produces better development handoff results — structured files with proper variable bindings, component instances, and dev-ready annotations.
+**With Figma Console MCP**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
 
-**Without Figma Console MCP**: There is no need to name layers properly — Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
+**Without Figma Console MCP**: There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
 
 ### Code-to-Figma Import
 
-If the user has an HTML prototype from `dev-prototyping`, the Figma plugin can import it into Figma as a starting point for high-fidelity design work. This creates Figma frames from the prototype that can then be refined manually — useful for going from code back to design.
+If the user has an HTML prototype from `dev-prototyping`, the Figma plugin can import it into Figma as a starting point for high-fidelity design work. This creates Figma frames from the prototype that can then be refined manually – useful for going from code back to design.
 
 ### Design Corrections, Not Full Coverage
 After AI implements the first iteration, some screens will look good and others will have issues. Design corrections only for the frames where AI made mistakes, share them via the chosen integration method, and let AI adjust the code based on the new references.
@@ -134,7 +134,7 @@ After Figma designs are created, suggest the logical next step:
 
 ### Figma MCP returns no data
 If `get_design_context` or `get_screenshot` returns empty results:
-1. Verify the Figma file URL format — use `figma.com/design/:fileKey/:fileName?node-id=:nodeId`
+1. Verify the Figma file URL format – use `figma.com/design/:fileKey/:fileName?node-id=:nodeId`
 2. Convert dashes to colons in node-id parameters (URL uses `-`, API uses `:`)
 3. Ensure the file is not in a team with restricted API access
 4. Try `get_metadata` first to confirm the file is accessible

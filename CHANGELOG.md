@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.17.2] – 2026-03-20
+
+### Changed
+
+- **En dash cleanup**: Replaced 503 em dashes with en dashes (–) across 45 files. The plugin now uses en dashes consistently everywhere.
+- **README humanized**: Rewrote for beginners – removed promotional language, title case headers, jargon ("dependency graph", "deliverables tracked by"), and AI writing patterns. Sentence case throughout. Simpler descriptions in all tables.
+
 ## [1.17.1] – 2026-03-20
 
 ### Added
@@ -60,8 +67,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 
 - **Standardized terminology across all skills
-- `ux-story-panels` → `ux-story-panels` — skill directory, reference files, and all cross-references
-- `ux-motivation-audit` → `ux-motivation-audit` — skill directory, reference files, and all cross-references
+- `ux-story-panels` → `ux-story-panels` – skill directory, reference files, and all cross-references
+- `ux-motivation-audit` → `ux-motivation-audit` – skill directory, reference files, and all cross-references
 - Standardized bias audit framework terminology
 - Standardized behavior mapping terminology
 - Standardized research question terminology
@@ -74,10 +81,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- Complete persona example in `persona-framework.md` — shows what a well-written persona looks like with specific, observable details (based on real product design)
-- Consolidated StoryBrand canvas view in `storybrand-canvas-template.md` — all 7 elements shown together as one cohesive narrative
-- Lean Canvas section in `business-plan-template.md` — one-page business snapshot framework (Ash Maurya)
-- TAM/SAM/SOM structured explanation in `business-plan-template.md` — expanded from a passing mention to actionable definitions
+- Complete persona example in `persona-framework.md` – shows what a well-written persona looks like with specific, observable details (based on real product design)
+- Consolidated StoryBrand canvas view in `storybrand-canvas-template.md` – all 7 elements shown together as one cohesive narrative
+- Lean Canvas section in `business-plan-template.md` – one-page business snapshot framework (Ash Maurya)
+- TAM/SAM/SOM structured explanation in `business-plan-template.md` – expanded from a passing mention to actionable definitions
 
 ### Fixed
 
@@ -94,15 +101,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Removed
 
-- `mental-model-guide.md` — 95% invented content, sourced concepts already in behavior-map-framework.md
-- `figma-mcp-guide.md` — redundant with meta-setup environment detection
-- `mcp-catalog.md` — redundant with meta-setup environment detection
+- `mental-model-guide.md` – 95% invented content, sourced concepts already in behavior-map-framework.md
+- `figma-mcp-guide.md` – redundant with meta-setup environment detection
+- `mcp-catalog.md` – redundant with meta-setup environment detection
 
 ### Changed
 
 - **12 UX reference files trimmed and improved
-- `accessibility-checklist.md` — corrected 56pt tap target to 44pt (WCAG 2.2 standard)
-- `de-statusline.js` — removed credential access from Claude-triggered mode; usage fetching now only happens in user-initiated `--watch` mode
+- `accessibility-checklist.md` – corrected 56pt tap target to 44pt (WCAG 2.2 standard)
+- `de-statusline.js` – removed credential access from Claude-triggered mode; usage fetching now only happens in user-initiated `--watch` mode
 
 ### Security
 
@@ -113,7 +120,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 
 - Auto-memory integration: CLAUDE.md now includes a Memory Management section guiding Claude on when to read/write auto-memory across sessions
-- Project Map (`memory/project-map.md`): living file tree with descriptions and "when to read" triggers — replaces ad-hoc filesystem exploration
+- Project Map (`memory/project-map.md`): living file tree with descriptions and "when to read" triggers – replaces ad-hoc filesystem exploration
 - Debug Solutions (`memory/debug-solutions.md`): preserves hard-won debugging fixes (3+ attempts) so they survive session boundaries
 - Memory initialization in `/de:start`: seeds MEMORY.md, project-map.md, and debug-solutions.md for new and existing projects
 - Memory checkpoints in `meta-orchestrator`: reads memory at startup, updates pipeline position and project map after each phase
@@ -129,7 +136,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- Smart entry point: `/de:setup` now detects project state and routes to three paths — returning projects resume, new products get full setup, existing projects get a capability guide with filtered recommendations
+- Smart entry point: `/de:setup` now detects project state and routes to three paths – returning projects resume, new products get full setup, existing projects get a capability guide with filtered recommendations
 - Capability guide: existing project users see all plugin capabilities in plain language, answer diagnostic questions, and get filtered recommendations
 - Iterative build enforcement: dev pipeline explicitly requires one-feature-at-a-time development with compound documentation after each cycle
 - `/de:document` command: renamed from `/de:compound`, now includes stakeholder communication option (promotes `ux-communicating-decisions`)
@@ -137,7 +144,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Removed
 
-- `/de:research` command (subset of `/de:design` — use design with phase jumping or direct access)
+- `/de:research` command (subset of `/de:design` – use design with phase jumping or direct access)
 - `/de:statusline` command (status line install handled by `/de:setup`)
 - `/de:psych` command (merged into `/de:review` as expanded psychology option)
 - Agent templates from `dev-agent-setup` (users copy actual agents from `agents/` directory instead)
@@ -155,7 +162,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Pipeline Phase 1: removed `ux-big-idea` (was a misinterpretation of the article's concept), pipeline now starts with `ux-problem-statement`
 - Pipeline Phase 2: reordered to `ux-behavior-mapping` → `ux-storybrand` → `ux-story-panels` → `ux-business-plan` (behavior mapping is foundational, informs everything after)
 - Pipeline Phase 4: moved `ux-psych-framework` here from Phase 2 (needs actual designs to analyze Motivation Levels)
-- All UX skills: replaced rigid "4-angle perspectives" and predefined question lists with context-based approach — AI shares brief thoughts based on project knowledge, then asks 7-10 context-adapted questions with source-specific concept guidance
+- All UX skills: replaced rigid "4-angle perspectives" and predefined question lists with context-based approach – AI shares brief thoughts based on project knowledge, then asks 7-10 context-adapted questions with source-specific concept guidance
 - `/de:setup` description updated to reflect smart entry point behavior
 - `/de:design` prerequisite check now uses `.design-engineer.yaml` (was `design-engineer.local.md`)
 - Documentation fixes: root README counts, plugin README model counts, CLAUDE.md directory listing, stale eval references
@@ -171,15 +178,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- `de-fidelity-hook.js` PostToolUse command hook — injects requirement fidelity reminders after source code writes during active implementation
-- Haiku prompt hook for plan files — reviews plans for requirement drift (added features, modified copy, scope expansion) and warns Claude to revert or ask the user
+- `de-fidelity-hook.js` PostToolUse command hook – injects requirement fidelity reminders after source code writes during active implementation
+- Haiku prompt hook for plan files – reviews plans for requirement drift (added features, modified copy, scope expansion) and warns Claude to revert or ask the user
 - Requirement Fidelity section in CLAUDE.md defining drift vs. acceptable implementation details
 
 ## [1.10.0] – 2026-03-18
 
 ### Added
 
-- `de-prompt-injection-hook.js` PostToolUse hook — scans tool outputs for indirect prompt injection attempts across 5 categories (instruction override, role-playing/DAN, encoding/obfuscation, context manipulation, instruction smuggling). 55+ patterns ported from lasso-security/claude-hooks to JavaScript. Warns Claude without blocking. Fail-open design.
+- `de-prompt-injection-hook.js` PostToolUse hook – scans tool outputs for indirect prompt injection attempts across 5 categories (instruction override, role-playing/DAN, encoding/obfuscation, context manipulation, instruction smuggling). 55+ patterns ported from lasso-security/claude-hooks to JavaScript. Warns Claude without blocking. Fail-open design.
 
 ## [1.9.3] – 2026-03-18
 
@@ -217,7 +224,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 
 - 8 frontend design reference files in ui-design-critique (typography, color-and-contrast, spatial-design, motion-design, interaction-design, responsive-design, ux-writing, anti-patterns)
-- AI Slop Test as 5th named test in ui-design-critique — checks against documented common AI aesthetic patterns
+- AI Slop Test as 5th named test in ui-design-critique – checks against documented common AI aesthetic patterns
 - Cross-references from ui-visual-review to shared design domain references
 
 ## [1.8.0] – 2026-03-16
@@ -238,9 +245,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- TDD with Playwright CLI — mandatory test-first development for all code-producing steps
-- New `test-writer` agent — writes failing Playwright CLI test scripts before implementation (context-isolated)
-- New `de-tdd-hook.js` PreToolUse hook — blocks source code writes when no test scripts exist in `tests/`
+- TDD with Playwright CLI – mandatory test-first development for all code-producing steps
+- New `test-writer` agent – writes failing Playwright CLI test scripts before implementation (context-isolated)
+- New `de-tdd-hook.js` PreToolUse hook – blocks source code writes when no test scripts exist in `tests/`
 - Test archival pattern: active tests in `tests/`, archived to `tests/archive/` after feature completion
 - New agent template `test-writer.md` for user project customization
 
@@ -256,7 +263,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- `/simplify` integration — mandatory code quality pass after every code-producing step
+- `/simplify` integration – mandatory code quality pass after every code-producing step
 - Runs after backend-implementer, after frontend-implementer, and as a final pass before design-system-auditor
 - Runs after prototype generation and final iteration in dev-prototyping
 - Code quality rule added to CLAUDE.md and CLAUDE.md template
@@ -271,14 +278,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- Plan Mode integration — Claude now uses EnterPlanMode for all non-trivial planning instead of text-based plans
+- Plan Mode integration – Claude now uses EnterPlanMode for all non-trivial planning instead of text-based plans
 - Project-local plan storage in `plans/` with date-prefixed filenames
 - Plan archival to `plans/archive/` when implementation completes
 - Structured plan template (summary, architectural decisions, phased breakdown, risk assessment) embedded in CLAUDE.md
 
 ### Changed
 
-- Merged `plan-creator` agent into Plan Mode flow — planning now happens in the main conversation with full context, not a sub-agent
+- Merged `plan-creator` agent into Plan Mode flow – planning now happens in the main conversation with full context, not a sub-agent
 - `dev-agent-setup` Phase 2 uses Plan Mode instead of plan-creator sub-agent
 - Pipeline development loop updated across orchestrator, commands, and agent references
 - Agent count 9 → 8, version 1.5.2 → 1.6.0
@@ -291,7 +298,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
-- Context monitoring now includes a ready-to-use compact message proactively in the warning — no extra round-trip needed
+- Context monitoring now includes a ready-to-use compact message proactively in the warning – no extra round-trip needed
 - Updated compaction guidance in context-engineering-guide, context-survival-guide, meta-compound skill, and CLAUDE.md template to match the proactive pattern
 
 ## [1.5.1] – 2026-03-12
@@ -314,7 +321,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- New `de-safety-hook.js` PreToolUse hook — context-aware protection against destructive Bash commands
+- New `de-safety-hook.js` PreToolUse hook – context-aware protection against destructive Bash commands
   - Filesystem: blocks `rm -rf`, `chmod 777`
   - Git: blocks force push, `reset --hard`, `clean -f`, `checkout --`, `branch -D`, `stash drop/clear`
   - Database: blocks `DROP TABLE/DATABASE/SCHEMA`, `TRUNCATE`, `DELETE` without `WHERE`
@@ -331,8 +338,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- New `de-statusline.js` hook — status line showing model, usage limits (5h/7d with reset times), context bar, and pipeline progress
-- New `meta-statusline` skill — manages status line installation, uninstallation, and status checking
+- New `de-statusline.js` hook – status line showing model, usage limits (5h/7d with reset times), context bar, and pipeline progress
+- New `meta-statusline` skill – manages status line installation, uninstallation, and status checking
 - New `/de:statusline` command with install | uninstall | status subcommands
 - Status line question added to `/de:setup` flow (new Step 6)
 - Bridge file compatibility with GSD context monitor (`/tmp/claude-ctx-{session}.json`)
@@ -347,15 +354,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- New `ui-figma-handoff` skill — automates Figma design structuring (components, tokens, variables, styles) and dev handoff preparation (annotations, sections, connectors, dev status) using Figma Console MCP
+- New `ui-figma-handoff` skill – automates Figma design structuring (components, tokens, variables, styles) and dev handoff preparation (annotations, sections, connectors, dev status) using Figma Console MCP
 - Three new reference files: `figma-structuring-guide.md` (7-phase methodology), `figma-handoff-guide.md` (handoff preparation process), `figma-console-helpers.md` (code snippets for Figma Console MCP)
 - Code-to-Figma import guidance in `dev-prototyping` and `ui-figma-guide`
 - `figma-handoff` deliverable in dependency graph with upstream/downstream tracking
 
 ### Changed
 
-- Rewrote `figma-for-ai-dev.md` — no longer says "skip components and tokens"; now recommends automating with Figma Console MCP when available, with minimal approach as fallback
-- Updated `figma-mcp-guide.md` — renamed to Figma Integration Guide, added code-to-Figma import capability and `ui-figma-handoff` reference
+- Rewrote `figma-for-ai-dev.md` – no longer says "skip components and tokens"; now recommends automating with Figma Console MCP when available, with minimal approach as fallback
+- Updated `figma-mcp-guide.md` – renamed to Figma Integration Guide, added code-to-Figma import capability and `ui-figma-handoff` reference
 - `ui-figma-guide` Step 3 updated: conditional guidance based on Figma Console MCP availability
 - Phase 4 pipeline: `ui-figma-handoff` added as optional step after `ui-figma-guide`
 - Standardized Figma tool names across all files: "Figma plugin" (official) and "Figma Console MCP"

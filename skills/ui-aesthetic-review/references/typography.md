@@ -4,7 +4,7 @@
 
 ### Vertical Rhythm
 
-Your line-height should be the base unit for ALL vertical spacing. If body text has `line-height: 1.5` on `16px` type (= 24px), spacing values should be multiples of 24px. This creates subconscious harmony—text and space share a mathematical foundation.
+Your line-height should be the base unit for ALL vertical spacing. If body text has `line-height: 1.5` on `16px` type (= 24px), spacing values should be multiples of 24px. This creates subconscious harmony–text and space share a mathematical foundation.
 
 ### Modular Scale & Hierarchy
 
@@ -24,7 +24,7 @@ Popular ratios: 1.25 (major third), 1.333 (perfect fourth), 1.5 (perfect fifth).
 
 ### Readability & Measure
 
-Use `ch` units for character-based measure (`max-width: 65ch`). Line-height scales inversely with line length—narrow columns need tighter leading, wide columns need more.
+Use `ch` units for character-based measure (`max-width: 65ch`). Line-height scales inversely with line length–narrow columns need tighter leading, wide columns need more.
 
 **Non-obvious**: Increase line-height for light text on dark backgrounds. The perceived weight is lighter, so text needs more breathing room. Add 0.05-0.1 to your normal line-height.
 
@@ -32,7 +32,7 @@ Use `ch` units for character-based measure (`max-width: 65ch`). Line-height scal
 
 ### Choosing Distinctive Fonts
 
-**Avoid the invisible defaults**: Inter, Roboto, Open Sans, Lato, Montserrat. These are everywhere, making your design feel generic. They're fine for documentation or tools where personality isn't the goal—but if you want distinctive design, look elsewhere.
+**Avoid the invisible defaults**: Inter, Roboto, Open Sans, Lato, Montserrat. These are everywhere, making your design feel generic. They're fine for documentation or tools where personality isn't the goal–but if you want distinctive design, look elsewhere.
 
 **Better Google Fonts alternatives**:
 - Instead of Inter → **Instrument Sans**, **Plus Jakarta Sans**, **Outfit**
@@ -86,11 +86,11 @@ Tools like [Fontaine](https://github.com/unjs/fontaine) calculate these override
 
 ### Fluid Type
 
-Fluid typography via `clamp(min, preferred, max)` scales text smoothly with the viewport. The middle value (e.g., `5vw + 1rem`) controls scaling rate—higher vw = faster scaling. Add a rem offset so it doesn't collapse to 0 on small screens.
+Fluid typography via `clamp(min, preferred, max)` scales text smoothly with the viewport. The middle value (e.g., `5vw + 1rem`) controls scaling rate–higher vw = faster scaling. Add a rem offset so it doesn't collapse to 0 on small screens.
 
 **Use fluid type for**: Headings and display text on marketing/content pages where text dominates the layout and needs to breathe across viewport sizes.
 
-**Use fixed `rem` scales for**: App UIs, dashboards, and data-dense interfaces. No major app design system (Material, Polaris, Primer, Carbon) uses fluid type in product UI — fixed scales with optional breakpoint adjustments give the spatial predictability that container-based layouts need. Body text should also be fixed even on marketing pages, since the size difference across viewports is too small to warrant it.
+**Use fixed `rem` scales for**: App UIs, dashboards, and data-dense interfaces. No major app design system (Material, Polaris, Primer, Carbon) uses fluid type in product UI – fixed scales with optional breakpoint adjustments give the spatial predictability that container-based layouts need. Body text should also be fixed even on marketing pages, since the size difference across viewports is too small to warrant it.
 
 ### OpenType Features
 
@@ -117,9 +117,9 @@ body { font-kerning: normal; }
 
 ### Text Wrapping
 
-Use `text-wrap: balance` on headings to distribute text evenly across lines, preventing orphans. The algorithm is computationally expensive — browsers limit it to **6 lines or fewer** (Chromium) and 10 lines or fewer (Firefox). Never apply to long paragraphs.
+Use `text-wrap: balance` on headings to distribute text evenly across lines, preventing orphans. The algorithm is computationally expensive – browsers limit it to **6 lines or fewer** (Chromium) and 10 lines or fewer (Firefox). Never apply to long paragraphs.
 
-Use `text-wrap: pretty` for body copy — it optimizes the last line to avoid orphans without the 6-line constraint.
+Use `text-wrap: pretty` for body copy – it optimizes the last line to avoid orphans without the 6-line constraint.
 
 ```css
 h1, h2, h3 { text-wrap: balance; }  /* even line lengths, headings only */
@@ -134,7 +134,7 @@ p           { text-wrap: pretty; }   /* prevents orphans, safe on long text */
 
 ### Font Smoothing
 
-On macOS, text renders heavier than intended by default. Apply antialiased smoothing once at the root — all text will render crisper and thinner. Other platforms ignore these properties, so applying universally is safe.
+On macOS, text renders heavier than intended by default. Apply antialiased smoothing once at the root – all text will render crisper and thinner. Other platforms ignore these properties, so applying universally is safe.
 
 ```css
 html {
@@ -143,7 +143,7 @@ html {
 }
 ```
 
-Apply at the root once. **Never per-element** — inconsistent smoothing across heading and body text is worse than no smoothing.
+Apply at the root once. **Never per-element** – inconsistent smoothing across heading and body text is worse than no smoothing.
 
 ### Tabular Numbers: When to Use
 
@@ -156,7 +156,7 @@ Apply at the root once. **Never per-element** — inconsistent smoothing across 
 | Animated number transitions | Phone numbers, zip codes |
 | Scoreboards, dashboards | Version strings (v2.1.0) |
 
-**Caveat**: Some fonts (including Inter) change the visual appearance of `1` with this property — it becomes wider and centered. This is expected and usually desirable for alignment, but verify in your specific typeface.
+**Caveat**: Some fonts (including Inter) change the visual appearance of `1` with this property – it becomes wider and centered. This is expected and usually desirable for alignment, but verify in your specific typeface.
 
 ## Typography System Architecture
 

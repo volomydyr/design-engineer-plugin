@@ -71,7 +71,7 @@ A quick flick should dismiss even if the distance is short. This matches the phy
 
 ### Damping at Boundaries
 
-When a user drags past a natural boundary (e.g., pulling a drawer further than fully open), apply damping — the more they drag, the less the element moves. Things in the real world don't suddenly stop; they slow down first.
+When a user drags past a natural boundary (e.g., pulling a drawer further than fully open), apply damping – the more they drag, the less the element moves. Things in the real world don't suddenly stop; they slow down first.
 
 ```js
 const dampenedDistance = Math.pow(rawDistance, 0.7); // progressive resistance
@@ -99,13 +99,13 @@ function onPointerDown(event) {
 
 ### Friction Instead of Hard Stops
 
-Instead of preventing upward drag entirely, allow it with increasing friction. It feels more natural than hitting an invisible wall — the element slows and communicates resistance without snapping.
+Instead of preventing upward drag entirely, allow it with increasing friction. It feels more natural than hitting an invisible wall – the element slows and communicates resistance without snapping.
 
 ---
 
 ## Web Animations API (WAAPI)
 
-The Web Animations API gives JavaScript control with CSS-level performance — hardware-accelerated, interruptible, no library needed.
+The Web Animations API gives JavaScript control with CSS-level performance – hardware-accelerated, interruptible, no library needed.
 
 ```js
 element.animate(
@@ -134,7 +134,7 @@ Play animations at reduced speed to spot issues invisible at full speed. Tempora
 Look for:
 - Two distinct states overlapping during a crossfade (add blur to mask)
 - Easing that starts or stops abruptly (wrong curve)
-- Scale origin is off — element scales from wrong point
+- Scale origin is off – element scales from wrong point
 - Multiple animated properties (opacity, transform) out of sync
 
 ### Frame-by-Frame Inspection

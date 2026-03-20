@@ -14,7 +14,7 @@ test('renders sidebar', () => {
 
 You're verifying the mock works, not that the component works. The test passes when the mock is present, fails when it's removed. This tells you nothing about real behavior.
 
-**Fix:** Test the real component, or if the dependency must be mocked for isolation, don't assert on the mock — assert on the behavior of the component under test.
+**Fix:** Test the real component, or if the dependency must be mocked for isolation, don't assert on the mock – assert on the behavior of the component under test.
 
 **Gate:** Before asserting on any mock element, ask: "Am I testing real behavior or mock existence?" If mock existence, delete the assertion.
 
@@ -55,7 +55,7 @@ vi.mock('ToolCatalog', () => ({
 }));
 
 await addServer(config);
-await addServer(config);  // Should throw duplicate — but won't
+await addServer(config);  // Should throw duplicate – but won't
 ```
 
 The mocked method had a side effect (writing config) that the test depended on. Over-mocking "to be safe" broke the behavior being tested.
@@ -65,8 +65,8 @@ The mocked method had a side effect (writing config) that the test depended on. 
 **Gate:** Before mocking any method:
 1. What side effects does the real method have?
 2. Does this test depend on any of those side effects?
-3. If yes — mock at a lower level, not this method
-4. If unsure — run the test with the real implementation first, observe what happens, then add minimal mocking
+3. If yes – mock at a lower level, not this method
+4. If unsure – run the test with the real implementation first, observe what happens, then add minimal mocking
 
 **Red flags:** "I'll mock this to be safe." "This might be slow, better mock it." Mocking without understanding the dependency chain.
 
@@ -110,7 +110,7 @@ Testing is part of implementation, not an optional follow-up. If TDD was followe
 | "TDD will slow me down" | TDD is faster than debugging. You pay now or pay more later. |
 | "This is different because..." | It's not. All of these excuses lead to the same place: untested code. |
 
-## Red Flags — Stop and Start Over
+## Red Flags – Stop and Start Over
 
 Any of these mean TDD was violated:
 
@@ -132,5 +132,5 @@ Any of these mean TDD was violated:
 | Test-only methods in production | Move to test utilities |
 | Mock without understanding | Understand dependencies first, mock minimally |
 | Incomplete mocks | Mirror real API response completely |
-| Tests as afterthought | TDD — tests first, always |
+| Tests as afterthought | TDD – tests first, always |
 | Mock setup > 50% of test | Consider integration tests with real components |

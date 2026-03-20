@@ -4,7 +4,7 @@ description: Universal entry point. New projects get setup, returning projects r
 argument-hint: ""
 ---
 
-# Design Engineer — Start
+# Design Engineer – Start
 
 *Let's find the right tool for where you are.*
 

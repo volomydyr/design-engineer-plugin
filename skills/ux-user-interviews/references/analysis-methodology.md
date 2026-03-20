@@ -6,9 +6,9 @@ The dual-analysis approach for interpreting user research results. The core prin
 
 ## Why Dual Analysis
 
-Don't just share the testing results with AI and ask for analysis — you'll miss important details and AI will definitely make up things that aren't there.
+Don't just share the testing results with AI and ask for analysis – you'll miss important details and AI will definitely make up things that aren't there.
 
-If you share your conclusions first, AI will confirm them — even when the data does not support them. Your human analysis catches context and nuance that AI misses. AI analysis catches volume-based patterns that humans overlook. Combined, they produce the most reliable insights.
+If you share your conclusions first, AI will confirm them – even when the data does not support them. Your human analysis catches context and nuance that AI misses. AI analysis catches volume-based patterns that humans overlook. Combined, they produce the most reliable insights.
 
 ---
 
@@ -18,8 +18,8 @@ Watch every user test recording, read every survey response. Take your own notes
 
 - Your top 3-5 key findings (in order of importance)
 - Supporting evidence for each (specific responses, behaviors, quotes)
-- Surprises — things you did not expect
-- Concerns — findings that challenge your assumptions
+- Surprises – things you did not expect
+- Concerns – findings that challenge your assumptions
 
 Do NOT share this with AI yet.
 
@@ -41,7 +41,7 @@ This way AI isn't biased by your interpretation.
 
 When AI makes a claim, ask it to provide the specific quotes or data points that support it. Then search for those exact data points in your raw results. If you cannot find them, AI probably invented them.
 
-AI will confidently state things like "research proves users prefer quarterly payments" when the data only shows "users dislike monthly subscriptions" — which is not the same claim at all.
+AI will confidently state things like "research proves users prefer quarterly payments" when the data only shows "users dislike monthly subscriptions" – which is not the same claim at all.
 
 ---
 

@@ -50,21 +50,21 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 3. User answers questions
 
 ### Phase 2: Planning (Wait for Approval)
-4. Enter **Plan Mode** (`EnterPlanMode`) — write a structured implementation plan to the plan file, then `ExitPlanMode` for user approval
+4. Enter **Plan Mode** (`EnterPlanMode`) – write a structured implementation plan to the plan file, then `ExitPlanMode` for user approval
 5. Plan includes: summary, architectural decisions, files to create/modify, components to reuse vs. create, step-by-step approach, success criteria
 6. **Stop and wait** – user must approve before any implementation begins
 
 ### Phase 3: TDD + Implementation (Only After Approval)
 7. **Test Writer** creates failing test scripts in `tests/` using Playwright CLI
-8. Run test scripts → verify Red (all tests fail — feature not built yet)
+8. Run test scripts → verify Red (all tests fail – feature not built yet)
 9. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
-10. Run `/simplify` — review backend changes for reuse, quality, and efficiency
+10. Run `/simplify` – review backend changes for reuse, quality, and efficiency
 11. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
-12. Run `/simplify` — review frontend changes for reuse, quality, and efficiency
+12. Run `/simplify` – review frontend changes for reuse, quality, and efficiency
 13. Run test scripts → verify Green (all tests pass)
 
 ### Phase 4: Quality Audit
-14. Run `/simplify` — final pass reviewing all code changes together
+14. Run `/simplify` – final pass reviewing all code changes together
 15. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
 16. Output: violation report + fixes applied
 
@@ -73,8 +73,8 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 ## Step 3: Read Memory Before Setup
 
 Before setting up agents, read auto-memory if it exists:
-- **project-map.md** — understand the current project structure without exploring
-- **debug-solutions.md** — check for known environment gotchas before configuring
+- **project-map.md** – understand the current project structure without exploring
+- **debug-solutions.md** – check for known environment gotchas before configuring
 
 ## Step 4: Set Up Agent Files
 

@@ -30,6 +30,6 @@ If an argument was provided, use it to pre-select the answer in Step 1 (Understa
 | `feature` | "New feature for existing product" |
 | `redesign` | "Redesign of existing feature" |
 
-When pre-selecting, confirm the selection with the user ("Starting a prototype for a new product from scratch — correct?") and proceed directly to Step 2.
+When pre-selecting, confirm the selection with the user ("Starting a prototype for a new product from scratch – correct?") and proceed directly to Step 2.
 
 If no argument was provided, or the argument does not match any of the above, proceed normally with the Step 1 question.

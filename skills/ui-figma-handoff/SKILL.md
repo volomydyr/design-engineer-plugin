@@ -1,6 +1,6 @@
 ---
 name: ui-figma-handoff
-description: "Automates Figma design structuring and development handoff preparation using Figma Console MCP. Use when preparing raw designs for development — converts flat frames into components with tokens, then adds annotations, sections, and dev status badges. Do NOT use for learning Figma workflow basics; see ui-figma-guide instead."
+description: "Automates Figma design structuring and development handoff preparation using Figma Console MCP. Use when preparing raw designs for development – converts flat frames into components with tokens, then adds annotations, sections, and dev status badges. Do NOT use for learning Figma workflow basics; see ui-figma-guide instead."
 disable-model-invocation: true
 model: sonnet
 license: MIT
@@ -9,7 +9,7 @@ compatibility: "Requires Figma Console MCP (figma-console-mcp)"
 
 # Figma Design Structuring and Dev Handoff
 
-Automate the transformation of raw Figma designs into properly structured design files with components, tokens, variables, and styles — then prepare them for developer handoff with annotations, sections, connectors, and dev status badges.
+Automate the transformation of raw Figma designs into properly structured design files with components, tokens, variables, and styles – then prepare them for developer handoff with annotations, sections, connectors, and dev status badges.
 
 This skill requires the **Figma Console MCP** (github.com/southleft/figma-console-mcp). It uses `figma_execute` for all creation and modification, and batch tools for bulk operations.
 
@@ -32,13 +32,13 @@ options:
   - label: "Prepare for dev handoff"
     description: "Add annotations, sections, connectors, and dev status badges to structured designs"
   - label: "Full preparation"
-    description: "Both — structure first, then prepare for handoff"
+    description: "Both – structure first, then prepare for handoff"
   - label: "Existing structured file"
-    description: "I already have components and tokens — just need handoff prep"
+    description: "I already have components and tokens – just need handoff prep"
 allowMultiSelect: false
 ```
 
-Store the selection — it determines which steps are relevant below.
+Store the selection – it determines which steps are relevant below.
 
 ---
 
@@ -72,7 +72,7 @@ question: "How should the design system be structured?"
 header: "Structuring Preferences"
 options:
   - label: "Light mode only"
-    description: "Single mode — no dark mode or multi-theme support"
+    description: "Single mode – no dark mode or multi-theme support"
   - label: "Light and dark modes"
     description: "Two modes with semantic tokens that switch between them"
   - label: "Multiple themes"
@@ -113,7 +113,7 @@ Use `figma_batch_create_variables` for solid hex colors and floats (10-50x faste
 
 Create three style types:
 
-- **Text styles**: Font properties only — no color
+- **Text styles**: Font properties only – no color
 - **Effect styles**: Shadows and blurs
 - **Paint styles**: Critical for mixed-style text where variables cannot be bound per-range
 
@@ -159,7 +159,7 @@ Within each section, arrange frames in rows by feature or flow. Left-to-right in
 
 ### 4b: Add Canvas Headers
 
-Add minimal text headers for navigation — the only text elements on the canvas:
+Add minimal text headers for navigation – the only text elements on the canvas:
 
 - **Section headers**: Bold 24px, dark gray (#262626), with 16px subtitle
 - **Row headers**: Bold 24px for multi-row sections, with subtitle for scope/context
@@ -168,7 +168,7 @@ Add minimal text headers for navigation — the only text elements on the canvas
 
 Use the `annotations` property on frames. These appear in Dev Mode inspect panel.
 
-Include: flow context, state transitions, implementation hints, edge cases, data flow, sequencing. Keep annotations concise — 2-4 sentences per frame.
+Include: flow context, state transitions, implementation hints, edge cases, data flow, sequencing. Keep annotations concise – 2-4 sentences per frame.
 
 Do NOT include: descriptions of visible elements, popover text, button labels, or generic statements.
 
@@ -185,8 +185,8 @@ Use the native `description` property on Component Sets and Components:
 
 Set `devStatus` on all handoff frames:
 
-- `READY_FOR_DEV` — design is final and approved
-- `COMPLETED` — implementation is done and verified
+- `READY_FOR_DEV` – design is final and approved
+- `COMPLETED` – implementation is done and verified
 
 ### 4f: Add Visual Connectors
 
@@ -242,9 +242,9 @@ Show the user what was structured/prepared:
 
 ## Decision Hierarchy
 
-1. **User's direct input** — their design decisions take priority
-2. **Existing documentation** — planning docs, design references, design system decisions
-3. **AI suggestions** — fill gaps only, always presented as suggestions
+1. **User's direct input** – their design decisions take priority
+2. **Existing documentation** – planning docs, design references, design system decisions
+3. **AI suggestions** – fill gaps only, always presented as suggestions
 
 ---
 
@@ -261,21 +261,21 @@ After handoff preparation is complete, suggest the logical next step:
 
 ## Resource Files
 
-- [figma-structuring-guide.md](./references/figma-structuring-guide.md) — 7-phase methodology for converting raw Figma designs to structured design files
-- [figma-handoff-guide.md](./references/figma-handoff-guide.md) — Process for preparing Figma designs for developer handoff
-- [figma-console-helpers.md](./references/figma-console-helpers.md) — Code snippets for Figma Console MCP operations
+- [figma-structuring-guide.md](./references/figma-structuring-guide.md) – 7-phase methodology for converting raw Figma designs to structured design files
+- [figma-handoff-guide.md](./references/figma-handoff-guide.md) – Process for preparing Figma designs for developer handoff
+- [figma-console-helpers.md](./references/figma-console-helpers.md) – Code snippets for Figma Console MCP operations
 
 ## Common Issues
 
 ### Figma Console MCP not connected
 If `figma_execute` calls fail or return connection errors:
-1. Verify Figma Console MCP is running — check your MCP server status
+1. Verify Figma Console MCP is running – check your MCP server status
 2. Confirm the Figma desktop app is open with the target file active
 3. Check `.mcp.json` or `settings.json` for correct MCP server configuration
 4. Try `figma_reconnect` to re-establish the connection
 
 ### Batch operations timeout
 If batch variable or component operations time out:
-1. Reduce batch size — split large batches (100+ items) into smaller groups
+1. Reduce batch size – split large batches (100+ items) into smaller groups
 2. Check that the Figma file is not excessively large (1000+ layers can slow operations)
-3. Verify your network connection is stable — MCP calls require consistent connectivity
+3. Verify your network connection is stable – MCP calls require consistent connectivity

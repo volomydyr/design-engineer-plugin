@@ -14,7 +14,7 @@ AI-generated UI frequently contains specific, predictable issues: title case whe
 
 The most common violations are hardcoded values (AI writes specific color values instead of reusing established tokens) and redundant components (AI creates new components from scratch instead of reusing existing ones every time new designs are shared).
 
-Beyond these technical issues, AI-generated UI has recognizable aesthetic fingerprints: the same fonts, the same color palettes, the same card layouts. These patterns are cataloged in the design critique references — consult them when the implementation looks "correct" but feels generic.
+Beyond these technical issues, AI-generated UI has recognizable aesthetic fingerprints: the same fonts, the same color palettes, the same card layouts. These patterns are cataloged in the design critique references – consult them when the implementation looks "correct" but feels generic.
 
 ## Interaction Method
 

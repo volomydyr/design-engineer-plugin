@@ -76,7 +76,7 @@ When invoked, determine the user's situation before running any skills.
 
 ### Step 0: Check Memory and Resume State
 
-**Memory check**: If auto-memory exists (`~/.claude/projects/<project>/memory/MEMORY.md`), it auto-loaded at session start. Read `project-map.md` for project structure — use this instead of exploring the filesystem. Check MEMORY.md for pipeline state and key decisions from previous sessions. This complements `.design-engineer.yaml` — memory has cross-cutting decisions, the YAML has mechanical resume data.
+**Memory check**: If auto-memory exists (`~/.claude/projects/<project>/memory/MEMORY.md`), it auto-loaded at session start. Read `project-map.md` for project structure – use this instead of exploring the filesystem. Check MEMORY.md for pipeline state and key decisions from previous sessions. This complements `.design-engineer.yaml` – memory has cross-cutting decisions, the YAML has mechanical resume data.
 
 Then check if `.design-engineer.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
 
@@ -248,7 +248,7 @@ In addition to the project state file, update auto-memory when:
 - A **phase completes** → update MEMORY.md pipeline position (phase, last skill, next skill)
 - **New deliverables are created** → add entries to project-map.md
 
-Do NOT duplicate deliverable content or detailed status into memory — that belongs in project files.
+Do NOT duplicate deliverable content or detailed status into memory – that belongs in project files.
 
 ## Error Recovery
 

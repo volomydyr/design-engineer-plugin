@@ -6,10 +6,10 @@ A consistent process for preparing Figma design pages for developer handoff. Opt
 
 ## Core Principles
 
-1. **Native tools over canvas clutter** — Use Figma's built-in Dev Mode features instead of adding text frames, sticky notes, or comment-style elements on the canvas.
-2. **Don't repeat what's visible** — Annotations should explain logic, flow, and implementation context — not describe what a developer can already see by looking at the frame.
-3. **Minimal canvas additions** — Only add elements that aid navigation or show relationships between screens. Every added element should earn its place.
-4. **Consistent structure** — Follow the same layout, naming, and annotation patterns across all handoff pages so developers always know where to find information.
+1. **Native tools over canvas clutter** – Use Figma's built-in Dev Mode features instead of adding text frames, sticky notes, or comment-style elements on the canvas.
+2. **Don't repeat what's visible** – Annotations should explain logic, flow, and implementation context – not describe what a developer can already see by looking at the frame.
+3. **Minimal canvas additions** – Only add elements that aid navigation or show relationships between screens. Every added element should earn its place.
+4. **Consistent structure** – Follow the same layout, naming, and annotation patterns across all handoff pages so developers always know where to find information.
 
 ---
 
@@ -25,7 +25,7 @@ Organize the handoff page into clearly labeled **Figma Sections**:
 
 ### Layout Rules
 
-- Use Figma **Sections** (not just frames) to group related content — they appear in the page sidebar and are easier to navigate.
+- Use Figma **Sections** (not just frames) to group related content – they appear in the page sidebar and are easier to navigate.
 - Within each section, organize frames in **rows by feature or user flow**. One row = one logical flow or task.
 - Keep consistent spacing: ~200px gap between frames in a row, ~1400px between rows.
 - Place frames left-to-right in the order the user would encounter them.
@@ -79,7 +79,7 @@ Focus on information that is NOT visible from looking at the design:
 
 - Write in direct, technical language aimed at developers.
 - Use hyphens (-) not em dashes.
-- Keep annotations concise — aim for 2-4 sentences per frame.
+- Keep annotations concise – aim for 2-4 sentences per frame.
 - Start with the most important context (entry point or trigger).
 
 ---
@@ -95,7 +95,7 @@ Include:
 - State logic (what drives variant switching at runtime)
 - Placement context (where this component appears in the UI)
 
-Do NOT add separate annotations on components if descriptions are already set — avoid duplication.
+Do NOT add separate annotations on components if descriptions are already set – avoid duplication.
 
 ---
 

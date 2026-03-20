@@ -10,7 +10,7 @@ Recursively walk a node tree and extract all unique design tokens. Use during Ph
 
 ```javascript
 async function extractTokens(node, results) {
-  // Skip hidden elements — they are often junk or forgotten layers
+  // Skip hidden elements – they are often junk or forgotten layers
   if (node.visible === false) return;
 
   // Colors (fills)
@@ -88,7 +88,7 @@ async function fullAudit(node, path, results) {
   // 2. Check text styles
   if (node.type === 'TEXT') {
     if (node.textStyleId === figma.mixed) {
-      // Mixed-style text — check per-range
+      // Mixed-style text – check per-range
       const len = node.characters.length;
       for (let i = 0; i < len; i++) {
         const tsId = node.getRangeTextStyleId(i, i+1);

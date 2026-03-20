@@ -21,11 +21,11 @@ How often users will see it determines everything.
 
 Every animation needs a clear "why":
 
-- **Spatial consistency** — toast enters/exits from same direction, making swipe-to-dismiss intuitive
-- **State indication** — morphing feedback button shows a state change
-- **Preventing jarring changes** — elements disappearing without transition feel broken
-- **Feedback** — button scales down on press, confirming the interface heard the user
-- **Explanation** — a marketing animation showing how a feature works
+- **Spatial consistency** – toast enters/exits from same direction, making swipe-to-dismiss intuitive
+- **State indication** – morphing feedback button shows a state change
+- **Preventing jarring changes** – elements disappearing without transition feel broken
+- **Feedback** – button scales down on press, confirming the interface heard the user
+- **Explanation** – a marketing animation showing how a feature works
 
 If the purpose is "it looks cool" and the user will see it often, don't animate.
 
@@ -43,7 +43,7 @@ Is it a hover or color change?
 Is it constant motion (marquee, progress bar)?
 - **Yes** → `linear`
 
-**Never use `ease-in` for UI animations.** It starts slow — the exact moment the user is watching most closely. A dropdown with `ease-in` at 300ms *feels* slower than `ease-out` at the same 300ms.
+**Never use `ease-in` for UI animations.** It starts slow – the exact moment the user is watching most closely. A dropdown with `ease-in` at 300ms *feels* slower than `ease-out` at the same 300ms.
 
 ### 4. How fast?
 
@@ -67,7 +67,7 @@ Timing matters more than easing. These durations feel right for most UI:
 | **300-500ms** | Layout changes | Accordion, modal, drawer |
 | **500-800ms** | Entrance animations | Page load, hero reveals |
 
-**Exit animations are faster than entrances**—use ~75% of enter duration.
+**Exit animations are faster than entrances**–use ~75% of enter duration.
 
 ## Easing: Pick the Right Curve
 
@@ -79,7 +79,7 @@ Timing matters more than easing. These durations feel right for most UI:
 | **ease-in** | Elements leaving | `cubic-bezier(0.7, 0, 0.84, 0)` |
 | **ease-in-out** | State toggles (there → back) | `cubic-bezier(0.65, 0, 0.35, 1)` |
 
-**For micro-interactions, use exponential curves**—they feel natural because they mimic real physics (friction, deceleration):
+**For micro-interactions, use exponential curves**–they feel natural because they mimic real physics (friction, deceleration):
 
 ```css
 /* Quart out - smooth, refined (recommended default) */
@@ -92,19 +92,19 @@ Timing matters more than easing. These durations feel right for most UI:
 --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 ```
 
-**Avoid bounce and elastic curves.** They were trendy in 2015 but now feel tacky and amateurish. Real objects don't bounce when they stop—they decelerate smoothly. Overshoot effects draw attention to the animation itself rather than the content.
+**Avoid bounce and elastic curves.** They were trendy in 2015 but now feel tacky and amateurish. Real objects don't bounce when they stop–they decelerate smoothly. Overshoot effects draw attention to the animation itself rather than the content.
 
 ## Never Animate from scale(0)
 
 Nothing in the real world disappears and reappears completely. Elements animating from `scale(0)` look like they appear out of nowhere.
 
-Start from `scale(0.95)` or higher, combined with opacity. Even a barely-visible initial scale makes the entrance feel more natural — like a balloon that has visible shape even when deflated.
+Start from `scale(0.95)` or higher, combined with opacity. Even a barely-visible initial scale makes the entrance feel more natural – like a balloon that has visible shape even when deflated.
 
 ```css
-/* Bad — appears out of nowhere */
+/* Bad – appears out of nowhere */
 .entering { transform: scale(0); opacity: 0; }
 
-/* Good — has visible shape at start */
+/* Good – has visible shape at start */
 .entering { transform: scale(0.95); opacity: 0; }
 ```
 
@@ -112,7 +112,7 @@ Start from `scale(0.95)` or higher, combined with opacity. Even a barely-visible
 
 Popovers should scale in from their trigger, not from center. The default `transform-origin: center` is wrong for almost every popover.
 
-**Exception: modals.** Modals are not anchored to a trigger — they appear centered in the viewport. Keep `transform-origin: center` for modals.
+**Exception: modals.** Modals are not anchored to a trigger – they appear centered in the viewport. Keep `transform-origin: center` for modals.
 
 ```css
 /* Radix UI */
@@ -126,7 +126,7 @@ Popovers should scale in from their trigger, not from center. The default `trans
 
 When a crossfade between two states feels off despite tuning easing and duration, add subtle `filter: blur(2px)` during the transition.
 
-Without blur, crossfades show two distinct states overlapping — the old state and new state swapping visibly. Blur bridges the gap, tricking the eye into perceiving a single smooth transformation.
+Without blur, crossfades show two distinct states overlapping – the old state and new state swapping visibly. Blur bridges the gap, tricking the eye into perceiving a single smooth transformation.
 
 ```css
 .button-content {
@@ -138,7 +138,7 @@ Without blur, crossfades show two distinct states overlapping — the old state 
 }
 ```
 
-Keep blur under `20px` — heavy blur is expensive, especially in Safari.
+Keep blur under `20px` – heavy blur is expensive, especially in Safari.
 
 ## Spring Animations
 
@@ -148,7 +148,7 @@ Springs feel more natural than duration-based animations because they simulate r
 - Elements that should feel alive (not mechanical)
 - Gestures that can be interrupted mid-animation
 
-Springs maintain velocity when interrupted — CSS transitions and keyframes restart from zero.
+Springs maintain velocity when interrupted – CSS transitions and keyframes restart from zero.
 
 ```js
 // Apple's approach (easier to reason about)
@@ -158,9 +158,9 @@ Springs maintain velocity when interrupted — CSS transitions and keyframes res
 { type: "spring", mass: 1, stiffness: 100, damping: 10 }
 ```
 
-Keep bounce subtle (0.1–0.3). Avoid bounce in most UI contexts — use it for drag-to-dismiss and playful interactions only.
+Keep bounce subtle (0.1–0.3). Avoid bounce in most UI contexts – use it for drag-to-dismiss and playful interactions only.
 
-For mouse-tracking effects, use `useSpring` to interpolate value changes rather than updating directly — this adds momentum and prevents the artificial "tied to cursor" feel.
+For mouse-tracking effects, use `useSpring` to interpolate value changes rather than updating directly – this adds momentum and prevents the artificial "tied to cursor" feel.
 
 ## Asymmetric Enter/Exit Timing
 
@@ -178,20 +178,20 @@ This pattern applies broadly: a hold-to-delete takes 2s to fill (user controls i
 
 ## The Only Two Properties You Should Animate
 
-**transform** and **opacity** only—everything else causes layout recalculation. For height animations (accordions), use `grid-template-rows: 0fr → 1fr` instead of animating `height` directly.
+**transform** and **opacity** only–everything else causes layout recalculation. For height animations (accordions), use `grid-template-rows: 0fr → 1fr` instead of animating `height` directly.
 
 ## Interruptible Animations
 
-Users change intent mid-interaction. Use **CSS transitions** for interactive state changes — they retarget smoothly mid-animation. Reserve **keyframe animations** for one-shot sequences that run to completion.
+Users change intent mid-interaction. Use **CSS transitions** for interactive state changes – they retarget smoothly mid-animation. Reserve **keyframe animations** for one-shot sequences that run to completion.
 
 | | CSS Transitions | Keyframe Animations |
 |--|-----------------|---------------------|
-| **Interruptible** | Yes — retargets mid-animation | No — restarts from beginning |
+| **Interruptible** | Yes – retargets mid-animation | No – restarts from beginning |
 | **Use for** | Hover, toggle, open/close | Enter animations, loading |
 | **Duration** | Adapts to remaining distance | Fixed regardless of state |
 
 ```css
-/* Good — interruptible transition */
+/* Good – interruptible transition */
 .drawer {
   transform: translateX(-100%);
   transition: transform 200ms ease-out;
@@ -199,23 +199,23 @@ Users change intent mid-interaction. Use **CSS transitions** for interactive sta
 .drawer.open { transform: translateX(0); }
 /* Clicking again mid-animation smoothly reverses */
 
-/* Bad — keyframe for interactive element */
+/* Bad – keyframe for interactive element */
 .drawer.open { animation: slideIn 200ms ease-out forwards; }
 /* Closing mid-animation snaps or restarts */
 ```
 
 ## Contextual Icon Animations
 
-When icons appear or disappear contextually (on hover, on state change), animate with `opacity`, `scale`, and `blur` rather than toggling visibility. Always use exactly these values — do not deviate:
+When icons appear or disappear contextually (on hover, on state change), animate with `opacity`, `scale`, and `blur` rather than toggling visibility. Always use exactly these values – do not deviate:
 
 - `scale`: `0.25` → `1` (never `0.5` or `0.6`)
 - `opacity`: `0` → `1`
 - `filter`: `blur(4px)` → `blur(0px)`
-- Spring: `duration: 0.3, bounce: 0` — **bounce must always be `0`**
+- Spring: `duration: 0.3, bounce: 0` – **bounce must always be `0`**
 
 ```css
 /* CSS cross-fade approach (no library dependency) */
-/* Keep both icons in DOM — one absolutely positioned */
+/* Keep both icons in DOM – one absolutely positioned */
 .icon-enter {
   position: absolute;
   scale: 0.25;
@@ -235,7 +235,7 @@ When to animate icons: state-change icons (play→pause), icons appearing on hov
 
 ## Scale on Press
 
-A subtle scale-down on click gives buttons tactile feedback. **Always use `scale(0.96)`.** Never go below `0.95` — anything smaller feels exaggerated. Use a CSS transition so mid-press release animates smoothly back.
+A subtle scale-down on click gives buttons tactile feedback. **Always use `scale(0.96)`.** Never go below `0.95` – anything smaller feels exaggerated. Use a CSS transition so mid-press release animates smoothly back.
 
 ```css
 .button {
@@ -269,15 +269,15 @@ This replaces the common React pattern of using `useEffect` + `mounted` state ju
 
 ## Skip Animation on Page Load
 
-Use `initial={false}` on `AnimatePresence` to prevent enter animations from firing on first render. Elements already in their default state shouldn't animate in on page load — only on subsequent state changes.
+Use `initial={false}` on `AnimatePresence` to prevent enter animations from firing on first render. Elements already in their default state shouldn't animate in on page load – only on subsequent state changes.
 
 Works well for: icon swaps, toggles, tabs, segmented controls.
 
-**Do not use** when the component relies on its `initial` prop for a first-time entrance (staggered page heroes, loading states) — `initial={false}` would skip the entire entrance.
+**Do not use** when the component relies on its `initial` prop for a first-time entrance (staggered page heroes, loading states) – `initial={false}` would skip the entire entrance.
 
 ## Staggered Animations
 
-Use CSS custom properties for cleaner stagger: `animation-delay: calc(var(--i, 0) * 50ms)` with `style="--i: 0"` on each item. **Cap total stagger time**—10 items at 50ms = 500ms total. For many items, reduce per-item delay or cap staggered count.
+Use CSS custom properties for cleaner stagger: `animation-delay: calc(var(--i, 0) * 50ms)` with `style="--i: 0"` on each item. **Cap total stagger time**–10 items at 50ms = 500ms total. For many items, reduce per-item delay or cap staggered count.
 
 ## Reduced Motion
 
@@ -305,18 +305,18 @@ This is not optional. Vestibular disorders affect ~35% of adults over 40.
 }
 ```
 
-**What to preserve**: Functional animations like progress bars, loading spinners (slowed down), and focus indicators should still work—just without spatial movement.
+**What to preserve**: Functional animations like progress bars, loading spinners (slowed down), and focus indicators should still work–just without spatial movement.
 
 ## Perceived Performance
 
-**Nobody cares how fast your site is—just how fast it feels.** Perception can be as effective as actual performance.
+**Nobody cares how fast your site is–just how fast it feels.** Perception can be as effective as actual performance.
 
 **The 80ms threshold**: Our brains buffer sensory input for ~80ms to synchronize perception. Anything under 80ms feels instant and simultaneous. This is your target for micro-interactions.
 
 **Active vs passive time**: Passive waiting (staring at a spinner) feels longer than active engagement. Strategies to shift the balance:
 
 - **Preemptive start**: Begin transitions immediately while loading (skeleton UI). Users perceive work happening.
-- **Early completion**: Show content progressively—don't wait for everything. Progressive images, streaming HTML.
+- **Early completion**: Show content progressively–don't wait for everything. Progressive images, streaming HTML.
 - **Optimistic UI**: Update the interface immediately, handle failures gracefully. Use for low-stakes actions; avoid for payments or destructive operations.
 
 **Easing affects perceived duration**: Ease-in (accelerating toward completion) makes tasks feel shorter because the peak-end effect weights final moments heavily.
@@ -327,7 +327,7 @@ This is not optional. Vestibular disorders affect ~35% of adults over 40.
 
 ### Transition Specificity
 
-**Never use `transition: all`** — it forces the browser to watch every property for changes, causes unexpected transitions, and prevents optimizations. Always specify exact properties.
+**Never use `transition: all`** – it forces the browser to watch every property for changes, causes unexpected transitions, and prevents optimizations. Always specify exact properties.
 
 ```css
 /* Good */
@@ -337,11 +337,11 @@ This is not optional. Vestibular disorders affect ~35% of adults over 40.
 .button { transition: all 150ms ease-out; }
 ```
 
-In Tailwind: `transition-[scale,background-color]` not `transition` (which maps to `all`). Note: `transition-transform` covers `transform, translate, scale, rotate` — use it when only animating transforms.
+In Tailwind: `transition-[scale,background-color]` not `transition` (which maps to `all`). Note: `transition-transform` covers `transform, translate, scale, rotate` – use it when only animating transforms.
 
 ### `will-change`
 
-Hints the browser to pre-promote an element to its own GPU compositing layer, preventing first-frame stutter. Only useful for `transform`, `opacity`, and `filter` — properties the GPU can composite. Never `will-change: all`.
+Hints the browser to pre-promote an element to its own GPU compositing layer, preventing first-frame stutter. Only useful for `transform`, `opacity`, and `filter` – properties the GPU can composite. Never `will-change: all`.
 
 ```css
 /* Good */
@@ -352,11 +352,11 @@ Hints the browser to pre-promote an element to its own GPU compositing layer, pr
 .animated-card { will-change: background-color; } /* Can't GPU-composite */
 ```
 
-Only add when you notice first-frame stutter (Safari benefits most). Don't add preemptively — each compositing layer costs memory.
+Only add when you notice first-frame stutter (Safari benefits most). Don't add preemptively – each compositing layer costs memory.
 
 ### Framer Motion Hardware Acceleration
 
-Framer Motion's shorthand props (`x`, `y`, `scale`) run on the main thread via `requestAnimationFrame` — NOT hardware-accelerated. For GPU acceleration, use the full transform string:
+Framer Motion's shorthand props (`x`, `y`, `scale`) run on the main thread via `requestAnimationFrame` – NOT hardware-accelerated. For GPU acceleration, use the full transform string:
 
 ```jsx
 // NOT hardware-accelerated (drops frames when main thread is busy)
@@ -370,7 +370,7 @@ This matters when the browser is simultaneously loading content, running scripts
 
 ### CSS Animations vs. JavaScript Under Load
 
-CSS animations run off the main thread — they stay smooth even when the browser is busy loading a new page or running scripts. JavaScript-driven animations (Framer Motion `requestAnimationFrame`) drop frames under load.
+CSS animations run off the main thread – they stay smooth even when the browser is busy loading a new page or running scripts. JavaScript-driven animations (Framer Motion `requestAnimationFrame`) drop frames under load.
 
 **Use CSS** for predetermined, non-interactive animations. **Use JS** when you need dynamic values, interruptibility, or spring physics.
 

@@ -32,7 +32,7 @@ options:
   - label: "Context7 plugin"
     description: "Already have up-to-date documentation access"
   - label: "Figma plugin"
-    description: "Already have Figma design data access (bidirectional — design→code and code→design)"
+    description: "Already have Figma design data access (bidirectional – design→code and code→design)"
   - label: "Figma Console MCP"
     description: "Already have the Figma Console MCP for programmatic Figma actions"
   - label: "Playwright plugin"
@@ -52,7 +52,7 @@ Recommend MCPs based on the user's workflow:
 
 **Context7 plugin** – Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this plugin on its own otherwise.
 
-**Figma plugin** – Gives AI access to design data from Figma Dev Mode — code, not screenshots. The plugin adapts code to your tech stack automatically and supports bidirectional workflows (design→code and code→design import). Use it gradually (smaller elements at a time) for best results.
+**Figma plugin** – Gives AI access to design data from Figma Dev Mode – code, not screenshots. The plugin adapts code to your tech stack automatically and supports bidirectional workflows (design→code and code→design import). Use it gradually (smaller elements at a time) for best results.
 
 ### Recommended (install when needed)
 

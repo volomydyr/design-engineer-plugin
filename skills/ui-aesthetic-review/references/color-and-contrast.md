@@ -2,7 +2,7 @@
 
 ## Color Spaces: Use OKLCH
 
-**Stop using HSL.** Use OKLCH (or LCH) instead. It's perceptually uniform, meaning equal steps in lightness *look* equal—unlike HSL where 50% lightness in yellow looks bright while 50% in blue looks dark.
+**Stop using HSL.** Use OKLCH (or LCH) instead. It's perceptually uniform, meaning equal steps in lightness *look* equal–unlike HSL where 50% lightness in yellow looks bright while 50% in blue looks dark.
 
 ```css
 /* OKLCH: lightness (0-100%), chroma (0-0.4+), hue (0-360) */
@@ -53,8 +53,8 @@ A complete system needs:
 This rule is about **visual weight**, not pixel count:
 
 - **60%**: Neutral backgrounds, white space, base surfaces
-- **30%**: Secondary colors—text, borders, inactive states
-- **10%**: Accent—CTAs, highlights, focus states
+- **30%**: Secondary colors–text, borders, inactive states
+- **10%**: Accent–CTAs, highlights, focus states
 
 The common mistake: using the accent color everywhere because it's "the brand color." Accent colors work *because* they're rare. Overuse kills their power.
 
@@ -76,15 +76,15 @@ The common mistake: using the accent color everywhere because it's "the brand co
 These commonly fail contrast or cause readability issues:
 
 - Light gray text on white (the #1 accessibility fail)
-- **Gray text on any colored background**—gray looks washed out and dead on color. Use a darker shade of the background color, or transparency
-- Red text on green background (or vice versa)—8% of men can't distinguish these
+- **Gray text on any colored background**–gray looks washed out and dead on color. Use a darker shade of the background color, or transparency
+- Red text on green background (or vice versa)–8% of men can't distinguish these
 - Blue text on red background (vibrates visually)
 - Yellow text on white (almost always fails)
 - Thin light text on images (unpredictable contrast)
 
 ### Never Use Pure Gray or Pure Black
 
-Pure gray (`oklch(50% 0 0)`) and pure black (`#000`) don't exist in nature—real shadows and surfaces always have a color cast. Even a chroma of 0.005-0.01 is enough to feel natural without being obviously tinted.
+Pure gray (`oklch(50% 0 0)`) and pure black (`#000`) don't exist in nature–real shadows and surfaces always have a color cast. Even a chroma of 0.005-0.01 is enough to feel natural without being obviously tinted.
 
 ### Testing
 
@@ -105,7 +105,7 @@ You can't just swap colors. Dark mode requires different design decisions:
 | Shadows for depth | Lighter surfaces for depth (no shadows) |
 | Dark text on light | Light text on dark (reduce font weight) |
 | Vibrant accents | Desaturate accents slightly |
-| White backgrounds | Never pure black—use dark gray (oklch 12-18%) |
+| White backgrounds | Never pure black–use dark gray (oklch 12-18%) |
 
 ```css
 /* Dark mode depth via surface color, not shadow */
@@ -121,7 +121,7 @@ You can't just swap colors. Dark mode requires different design decisions:
 
 ### Token Hierarchy
 
-Use two layers: primitive tokens (`--blue-500`) and semantic tokens (`--color-primary: var(--blue-500)`). For dark mode, only redefine the semantic layer—primitives stay the same.
+Use two layers: primitive tokens (`--blue-500`) and semantic tokens (`--color-primary: var(--blue-500)`). For dark mode, only redefine the semantic layer–primitives stay the same.
 
 ## Alpha Is A Design Smell
 

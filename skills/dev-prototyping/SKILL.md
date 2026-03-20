@@ -26,7 +26,7 @@ question: "What are you prototyping?"
 header: "Prototype Type"
 options:
   - label: "New product from scratch"
-    description: "Full pipeline — planning docs exist (MVP requirements, IA, references)"
+    description: "Full pipeline – planning docs exist (MVP requirements, IA, references)"
   - label: "New feature for existing product"
     description: "Adding to a product that already has designs or code"
   - label: "Redesign of existing feature"
@@ -34,7 +34,7 @@ options:
 allowMultiSelect: false
 ```
 
-Store the selection — it determines which context-gathering paths are relevant in Step 2.
+Store the selection – it determines which context-gathering paths are relevant in Step 2.
 
 ---
 
@@ -49,9 +49,9 @@ options:
   - label: "Existing codebase with design tokens"
     description: "CSS variables, Tailwind config, design system in code"
   - label: "Figma designs I can share"
-    description: "Figma Desktop open with file — can share link"
+    description: "Figma Desktop open with file – can share link"
   - label: "Just an idea"
-    description: "No formal context — will describe what I want"
+    description: "No formal context – will describe what I want"
 allowMultiSelect: true
 ```
 
@@ -75,7 +75,7 @@ Present a summary of what was found:
 > - Navigation model: [extracted]
 > - Psychology considerations: [extracted or "none found"]
 
-If critical documents are missing (MVP Requirements or IA), warn the user and suggest running those skills first — but do not block progress.
+If critical documents are missing (MVP Requirements or IA), warn the user and suggest running those skills first – but do not block progress.
 
 ### Path B: Existing Codebase
 
@@ -91,12 +91,12 @@ options:
     description: "tailwind.config.js or tailwind.config.ts"
   - label: "Theme/tokens file"
     description: "A JS/TS/JSON file exporting design tokens"
-  - label: "Not sure — search for me"
+  - label: "Not sure – search for me"
     description: "I will look for common patterns in the codebase"
 allowMultiSelect: true
 ```
 
-For "Not sure — search for me": look for files matching `**/tailwind.config.*`, `**/theme.*`, `**/tokens.*`, `**/variables.css`, `**/_variables.scss`. Read them and extract colors, typography, spacing as the baseline for prototype styling.
+For "Not sure – search for me": look for files matching `**/tailwind.config.*`, `**/theme.*`, `**/tokens.*`, `**/variables.css`, `**/_variables.scss`. Read them and extract colors, typography, spacing as the baseline for prototype styling.
 
 Present what was found and confirm with the user before using.
 
@@ -108,7 +108,7 @@ Explain prerequisites:
 2. **Dev mode access** requires a paid Figma plan
 3. **Figma plugin** must be installed and connected
 
-Ask the user to share a link to specific frames they want to prototype. Use the Figma plugin tools to read design context — layout structure, colors, typography, spacing, component hierarchy.
+Ask the user to share a link to specific frames they want to prototype. Use the Figma plugin tools to read design context – layout structure, colors, typography, spacing, component hierarchy.
 
 If the Figma plugin is not available or not working, fall back to asking the user to describe the designs manually or share screenshots.
 
@@ -158,7 +158,7 @@ Ask for explicit approval before generating:
 question: "Does this brief look correct?"
 header: "Brief Review"
 options:
-  - label: "Looks good — generate the prototype"
+  - label: "Looks good – generate the prototype"
     description: "Proceed with this brief as-is"
   - label: "Needs adjustments"
     description: "I will tell you what to change"
@@ -171,23 +171,23 @@ If adjustments are needed, iterate on the brief until approved.
 
 ## TDD: Write Tests First
 
-Before generating the prototype file, use the `test-writer` agent to create Playwright CLI test scripts in `tests/` that verify the expected prototype behavior. Run the test scripts to confirm they fail (Red phase — the prototype does not exist yet).
+Before generating the prototype file, use the `test-writer` agent to create Playwright CLI test scripts in `tests/` that verify the expected prototype behavior. Run the test scripts to confirm they fail (Red phase – the prototype does not exist yet).
 
 ---
 
 ## Step 4: Generate the Prototype
 
-Write a single HTML file with all CSS in `<style>` and all JS in `<script>`. No external dependencies — everything self-contained.
+Write a single HTML file with all CSS in `<style>` and all JS in `<script>`. No external dependencies – everything self-contained.
 
 ### Generation Guidelines
 
-1. **Apply design intent from context** — not generic Bootstrap-like styling. Use the colors, typography, and spacing extracted in Step 2
+1. **Apply design intent from context** – not generic Bootstrap-like styling. Use the colors, typography, and spacing extracted in Step 2
 2. **Use CSS custom properties** for all design tokens (colors, spacing, typography, radii, shadows). Define them in `:root {}`
-3. **Cover all key user flows** from the brief — every screen, every navigation path
-4. **Include navigation** — functional links/tabs/sidebar that switch between screens
-5. **Include interactive elements** — buttons that do things, forms that respond, state transitions that are visible
-6. **Functional first** — the prototype should feel like a real product when clicking through, even if it looks basic
-7. **Handle main states** — default, active, hover, selected. Skip loading/error/empty states unless specifically requested
+3. **Cover all key user flows** from the brief – every screen, every navigation path
+4. **Include navigation** – functional links/tabs/sidebar that switch between screens
+5. **Include interactive elements** – buttons that do things, forms that respond, state transitions that are visible
+6. **Functional first** – the prototype should feel like a real product when clicking through, even if it looks basic
+7. **Handle main states** – default, active, hover, selected. Skip loading/error/empty states unless specifically requested
 
 ### File Location
 
@@ -199,7 +199,7 @@ Create the directory if it does not exist.
 
 Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for the iteration approach. Key principles:
 
-- Do not build immediately — first share your development plan and get approval
+- Do not build immediately – first share your development plan and get approval
 - Ask clarifying questions about interactions, flows, and edge cases before generating
 - The first generation is a starting point, not a final product
 
@@ -215,7 +215,7 @@ After generating the prototype and running `/simplify`, run the test scripts fro
 
 ## Step 5: Iterate with User
 
-This is the core of the prototyping process. Expect many rounds of refinement — dozens or more. Each round of feedback gets the prototype closer to the idea in the user's head.
+This is the core of the prototyping process. Expect many rounds of refinement – dozens or more. Each round of feedback gets the prototype closer to the idea in the user's head.
 
 Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for iteration methodology.
 
@@ -257,9 +257,9 @@ After the last iteration round, run `/simplify` one final time to ensure the com
 question: "Would you like to test this prototype with users?"
 header: "User Testing"
 options:
-  - label: "Yes — help me set up testing"
+  - label: "Yes – help me set up testing"
     description: "I will host the prototype and run unmoderated user tests"
-  - label: "No — skip to saving deliverables"
+  - label: "No – skip to saving deliverables"
     description: "The prototype is good enough for now"
 allowMultiSelect: false
 ```
@@ -270,7 +270,7 @@ allowMultiSelect: false
 
 - **Local hosting**: Run `python3 -m http.server` from the `design-docs/prototype/` directory, then open `http://localhost:8000/prototype.html` in a browser
 - **Static hosting**: Deploy to Vercel, Netlify, or GitHub Pages for a shareable URL
-- **Simple share**: For quick sharing, any static file host works — the prototype is a single HTML file with no dependencies
+- **Simple share**: For quick sharing, any static file host works – the prototype is a single HTML file with no dependencies
 
 **Setting up tests:**
 
@@ -279,7 +279,7 @@ allowMultiSelect: false
 3. Create a test script with specific tasks for users to complete
 4. If unfamiliar with the testing tool, ask for help navigating the interface (share screenshots when guidance does not match what you see)
 
-**Ask for help writing the test script** if needed — good tasks are specific, realistic, ordered to follow a natural user journey, and written without leading language.
+**Ask for help writing the test script** if needed – good tasks are specific, realistic, ordered to follow a natural user journey, and written without leading language.
 
 **Wait for the user to return with results.** Do not proceed until test results are available.
 
@@ -288,10 +288,10 @@ allowMultiSelect: false
 Apply the dual-analysis method from [testing-analysis-guide.md](./references/testing-analysis-guide.md):
 
 1. **Ask the user to watch every test recording first** and form their own conclusions
-2. **Do not ask the user to share their conclusions yet** — keep them private
-3. **Analyze the raw results independently** — without knowing the user's interpretation, to avoid bias
+2. **Do not ask the user to share their conclusions yet** – keep them private
+3. **Analyze the raw results independently** – without knowing the user's interpretation, to avoid bias
 4. **Then ask the user to share their analysis** and identify what might have been missed
-5. **Combine the best from both versions** — user insights plus independent analysis
+5. **Combine the best from both versions** – user insights plus independent analysis
 
 AI tends to invent findings that are not supported by data. Always verify claims against actual test results.
 
@@ -316,7 +316,7 @@ Save `design-docs/prototype/prototype-notes.md` with:
 - [List every screen in the prototype]
 
 ## Design Decisions
-- [Key decisions made during iteration — why things are the way they are]
+- [Key decisions made during iteration – why things are the way they are]
 
 ## Context Sources
 - [Which sources were used: planning docs, codebase, Figma, idea-only]
@@ -334,10 +334,10 @@ Save `design-docs/prototype/prototype-notes.md` with:
 
 ## Decision Hierarchy
 
-1. **User's direct input** — their vision for the product takes priority
-2. **Planning documents** — what has already been decided and documented
-3. **Existing design system** — tokens and patterns from the codebase or Figma
-4. **AI suggestions** — lowest weight, must be verified against context
+1. **User's direct input** – their vision for the product takes priority
+2. **Planning documents** – what has already been decided and documented
+3. **Existing design system** – tokens and patterns from the codebase or Figma
+4. **AI suggestions** – lowest weight, must be verified against context
 
 ---
 
@@ -363,6 +363,6 @@ After prototyping, suggest the logical next step based on what exists:
 ### Prototype file won't open in browser
 If the generated HTML file does not display correctly:
 1. Verify the file was saved with `.html` extension
-2. Check that Tailwind CDN link is included — if offline, the prototype needs a local CSS fallback
+2. Check that Tailwind CDN link is included – if offline, the prototype needs a local CSS fallback
 3. Open the browser developer console to check for JavaScript errors
-4. Try a different browser — some prototypes use modern CSS features not supported in older browsers
+4. Try a different browser – some prototypes use modern CSS features not supported in older browsers

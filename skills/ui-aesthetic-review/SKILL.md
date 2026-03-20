@@ -16,9 +16,9 @@ Your first output lives in correct. This skill pulls it toward crafted.
 
 This is not about finding bugs or catching design system violations – that is what `ui-design-to-code-qa` does. This skill asks a different question: "Would a design lead put their name on this?"
 
-Good taste is trained, not innate. Develop it by surrounding yourself with great work, thinking deeply about why something feels right, and studying the best interfaces with curiosity — reverse-engineer animations, inspect spacing, understand hierarchy.
+Good taste is trained, not innate. Develop it by surrounding yourself with great work, thinking deeply about why something feels right, and studying the best interfaces with curiosity – reverse-engineer animations, inspect spacing, understand hierarchy.
 
-"All those unseen details combine to produce something that's just stunning, like a thousand barely audible voices all singing in tune." — Paul Graham. Beauty is underutilized in software. Most teams stop at correct. Craft is leverage.
+"All those unseen details combine to produce something that's just stunning, like a thousand barely audible voices all singing in tune." – Paul Graham. Beauty is underutilized in software. Most teams stop at correct. Craft is leverage.
 
 ## Interaction Method
 
@@ -150,11 +150,11 @@ Read the design tokens or CSS variables out loud. Do they sound like they belong
 
 ### AI Slop Test
 
-Show this interface to a stranger and say "AI made this." If they believe you immediately — that is the problem.
+Show this interface to a stranger and say "AI made this." If they believe you immediately – that is the problem.
 
 Check the implementation against every anti-pattern in [anti-patterns.md](./references/anti-patterns.md). The tells are specific: purple gradients, Inter font, cards inside cards, glassmorphism, identical card grids, bounce easing. Each one signals "no one decided this."
 
-The goal is not to avoid AI assistance — it is to avoid AI defaults.
+The goal is not to avoid AI assistance – it is to avoid AI defaults.
 
 ---
 

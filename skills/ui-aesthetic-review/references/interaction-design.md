@@ -42,11 +42,11 @@ button:focus-visible {
 
 ## Form Design: The Non-Obvious
 
-**Placeholders aren't labels**—they disappear on input. Always use visible `<label>` elements. **Validate on blur**, not on every keystroke (exception: password strength). Place errors **below** fields with `aria-describedby` connecting them.
+**Placeholders aren't labels**–they disappear on input. Always use visible `<label>` elements. **Validate on blur**, not on every keystroke (exception: password strength). Place errors **below** fields with `aria-describedby` connecting them.
 
 ## Loading States
 
-**Optimistic updates**: Show success immediately, rollback on failure. Use for low-stakes actions (likes, follows), not payments or destructive actions. **Skeleton screens > spinners**—they preview content shape and feel faster than generic spinners.
+**Optimistic updates**: Show success immediately, rollback on failure. Use for low-stakes actions (likes, follows), not payments or destructive actions. **Skeleton screens > spinners**–they preview content shape and feel faster than generic spinners.
 
 ## Modals: The Inert Approach
 
@@ -86,7 +86,7 @@ For tooltips, dropdowns, and non-modal overlays, use native popovers:
 
 ## Destructive Actions: Undo > Confirm
 
-**Undo is better than confirmation dialogs**—users click through confirmations mindlessly. Remove from UI immediately, show undo toast, actually delete after toast expires. Use confirmation only for truly irreversible actions (account deletion), high-cost actions, or batch operations.
+**Undo is better than confirmation dialogs**–users click through confirmations mindlessly. Remove from UI immediately, show undo toast, actually delete after toast expires. Use confirmation only for truly irreversible actions (account deletion), high-cost actions, or batch operations.
 
 ## Keyboard Navigation Patterns
 
@@ -131,7 +131,7 @@ Interactive elements need at least **40×40px** hit area (WCAG recommends 44×44
 }
 ```
 
-**Collision rule**: If two interactive elements are adjacent, their extended hit areas must not overlap. Shrink the pseudo-element until there's no collision — but keep it as large as possible.
+**Collision rule**: If two interactive elements are adjacent, their extended hit areas must not overlap. Shrink the pseudo-element until there's no collision – but keep it as large as possible.
 
 ## Gesture Discoverability
 

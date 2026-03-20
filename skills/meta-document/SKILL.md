@@ -355,7 +355,7 @@ Documentation is successful when ALL of the following are true:
 **Token limit warning:**
 
 - If conversation is approaching token limits, prioritize updating status.md immediately
-- Proactively suggest compacting with a ready-to-use compact message included in the same response — do not wait for the user to agree before generating it
+- Proactively suggest compacting with a ready-to-use compact message included in the same response – do not wait for the user to agree before generating it
 - The compact message must contain actual session values (project state, decisions, phase, next steps), not placeholders
 
 ---

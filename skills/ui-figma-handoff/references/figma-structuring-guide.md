@@ -27,7 +27,7 @@ Phase 7: QUALITY PASS  → Screen-by-screen deep comparison, fix every differenc
 | `figma_execute` | ALL creation, modification, and property reading | Primary tool. Uses CDP (no API quota). Always reliable. |
 | `figma_batch_create_variables` | Bulk variable creation (solid hex colors + floats) | 10-50x faster than individual calls. Cannot handle RGBA. |
 | `figma_batch_update_variables` | Bulk variable value updates | Same performance advantage as batch create. |
-| `figma_capture_screenshot` | Visual spot-checks only | NOT for verification — use `figma_execute` to read properties. |
+| `figma_capture_screenshot` | Visual spot-checks only | NOT for verification – use `figma_execute` to read properties. |
 
 ### Key Decisions (Ask User Before Starting)
 
@@ -58,7 +58,7 @@ Scan ALL screens systematically and catalog:
 
 Use `figma_execute` with the `extractTokens` helper from [figma-console-helpers.md](./figma-console-helpers.md).
 
-**Critical**: Ignore hidden nodes (`visible === false`). Do not extract tokens from hidden layers — they are often junk or forgotten layers.
+**Critical**: Ignore hidden nodes (`visible === false`). Do not extract tokens from hidden layers – they are often junk or forgotten layers.
 
 ### Present Results
 
@@ -80,8 +80,8 @@ Get user confirmation before proceeding to Phase 2.
 
 ### Collection Structure
 
-- **Primitives Collection**: Raw values — colors by hue/shade, spacing scales, radius scales.
-- **Semantic Collection**: Purpose-based aliases pointing to Primitives — `bg/primary` → `blue/500`.
+- **Primitives Collection**: Raw values – colors by hue/shade, spacing scales, radius scales.
+- **Semantic Collection**: Purpose-based aliases pointing to Primitives – `bg/primary` → `blue/500`.
 
 ### Creation Strategy
 
@@ -105,7 +105,7 @@ Get user confirmation before proceeding to Phase 2.
 
 ### Three Style Types
 
-1. **Text Styles**: Font family, size, weight, line height, letter spacing. Do NOT include color — colors are handled by paint styles and variables.
+1. **Text Styles**: Font family, size, weight, line height, letter spacing. Do NOT include color – colors are handled by paint styles and variables.
 2. **Effect Styles**: Shadows and blurs.
 3. **Paint Styles**: Critical for mixed-style text.
 
@@ -131,7 +131,7 @@ See the `applyMixedTextStyles` helper in [figma-console-helpers.md](./figma-cons
 
 For EACH component:
 
-1. `figma.createComponent()` — create the base
+1. `figma.createComponent()` – create the base
 2. Set auto-layout (padding, spacing, alignment)
 3. Bind fills/strokes to semantic variables
 4. Bind radius/spacing to primitive variables
@@ -143,7 +143,7 @@ For EACH component:
 ### Critical Component Rules
 
 - **Mixed-Style Text**: NEVER add text properties to components with mixed-style text (bold keywords, colored ranges). It destroys per-character formatting. Leave the text node as a regular child.
-- **Icon Swaps**: Expose on the Component/Set level. Nested icon properties do not propagate automatically — set directly on the nested instance.
+- **Icon Swaps**: Expose on the Component/Set level. Nested icon properties do not propagate automatically – set directly on the nested instance.
 - **Variant Naming**: Name children `property=value` (e.g., `state=hover`, `size=large`).
 
 ---
@@ -156,7 +156,7 @@ For EACH component:
 
 ### CHECKPOINT
 
-**Stop here.** Present a screenshot and summary to the user. Ask for explicit approval before rebuilding screens. This is the point of no return — rebuilding screens is the most time-consuming phase.
+**Stop here.** Present a screenshot and summary to the user. Ask for explicit approval before rebuilding screens. This is the point of no return – rebuilding screens is the most time-consuming phase.
 
 ---
 
@@ -269,7 +269,7 @@ node.fills = fills;
 const collection = await figma.variables.getVariableCollectionByIdAsync(collectionId);
 for (const varId of collection.variableIds) {
   const v = await figma.variables.getVariableByIdAsync(varId);
-  // Use v.name and v.id — these are the truth
+  // Use v.name and v.id – these are the truth
 }
 ```
 
@@ -301,4 +301,4 @@ for (const varId of collection.variableIds) {
 
 **Symptom**: Original design uses a color not in the extracted palette.
 
-**Solution**: Add it as a new primitive + semantic token immediately. Do not skip — zero raw values is non-negotiable.
+**Solution**: Add it as a new primitive + semantic token immediately. Do not skip – zero raw values is non-negotiable.

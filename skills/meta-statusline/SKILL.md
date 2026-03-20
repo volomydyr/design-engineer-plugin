@@ -64,7 +64,7 @@ A status line is already configured:
   {current command value}
 
 Installing the design-engineer status line will replace it.
-The previous script file will NOT be deleted — only the settings.json pointer changes.
+The previous script file will NOT be deleted – only the settings.json pointer changes.
 ```
 
 Then ask for confirmation:
@@ -173,17 +173,17 @@ When installed, the status line displays below every Claude Code prompt:
 Opus * my-project | 5h: 12% (2h31m) * 7d: 8% | [=======---] 35% | Phase 2: Strategy * 3/7
 ```
 
-- **Model + directory** — shortened model name and project folder
-- **Usage limits** — 5-hour and 7-day utilization with reset time (fetched from Anthropic API, cached 60s)
-- **Context bar** — context window usage with color coding (green/yellow/orange/red)
-- **Pipeline state** — current phase and deliverable progress (only shown when a design pipeline is active)
+- **Model + directory** – shortened model name and project folder
+- **Usage limits** – 5-hour and 7-day utilization with reset time (fetched from Anthropic API, cached 60s)
+- **Context bar** – context window usage with color coding (green/yellow/orange/red)
+- **Pipeline state** – current phase and deliverable progress (only shown when a design pipeline is active)
 
 ---
 
 ## Decision Hierarchy
 
-1. **User decisions** always override — if the user wants to keep their existing status line, respect that.
-2. **Detected state** informs — check what is currently configured before making changes.
+1. **User decisions** always override – if the user wants to keep their existing status line, respect that.
+2. **Detected state** informs – check what is currently configured before making changes.
 3. **AI suggestions** fill gaps only when user provides no guidance.
 
 ## Common Issues
@@ -192,16 +192,16 @@ Opus * my-project | 5h: 12% (2h31m) * 7d: 8% | [=======---] 35% | Phase 2: Strat
 If the status line does not show after installation:
 1. Verify `~/.claude/settings.json` has the `statusLine` configuration
 2. Check that the hook script exists at `~/.claude/hooks/de-statusline.js`
-3. Restart Claude Code — status line changes require a session restart
+3. Restart Claude Code – status line changes require a session restart
 
 ### Script permission denied
 If you see permission errors during installation:
-1. The hook script needs execute permission — check with `ls -la ~/.claude/hooks/de-statusline.js`
+1. The hook script needs execute permission – check with `ls -la ~/.claude/hooks/de-statusline.js`
 2. Verify write access to `~/.claude/hooks/` directory
 3. Run the installation step manually if the automated install fails
 
 ### Status line shows stale data
 If the status line displays outdated information:
 1. Check if `--watch` mode is enabled in the status line configuration
-2. The status line reads from `.design-engineer.yaml` — verify this file is current
+2. The status line reads from `.design-engineer.yaml` – verify this file is current
 3. Restart Claude Code to force a fresh read

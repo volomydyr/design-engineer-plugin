@@ -14,9 +14,9 @@ Adapt the bracketed parts to match your specific product and problem.
 
 > "If you had a magic wand and could instantly [get the value your product promises], how would that change your life?"
 
-Reveals why users care — their intrinsic motivation and the emotional outcome they are seeking.
+Reveals why users care – their intrinsic motivation and the emotional outcome they are seeking.
 
-**Example for a learning app:** "If you had a magic wand and could instantly organize all your learning materials — articles, videos, courses — in one place, how would that change your life?"
+**Example for a learning app:** "If you had a magic wand and could instantly organize all your learning materials – articles, videos, courses – in one place, how would that change your life?"
 
 ### Question 2: Pain (Challenge)
 
@@ -30,7 +30,7 @@ Reveals the real obstacles users face. Often different from what you assume.
 
 > "Tell me about the last time you tried to [do the action your product enables]. What was it like? What was preventing you from [reaching the goal]?"
 
-Reveals real friction points — the gap between intention and action.
+Reveals real friction points – the gap between intention and action.
 
 **Example for a learning app:** "Tell me about the last time you tried to stick to a professional development plan. How did it go? What stopped you from finishing it?"
 
@@ -42,7 +42,7 @@ Every product replaces something. Even if there is no direct competitor, users w
 
 Ask: "Before [your product/solution category], how did you handle [the problem]? What tools, habits, or workarounds did you use?"
 
-Users do not compare your product to competitors in a vacuum. They compare it to their current state — which might be a spreadsheet, a sticky note, a conversation with a friend, or simply ignoring the problem.
+Users do not compare your product to competitors in a vacuum. They compare it to their current state – which might be a spreadsheet, a sticky note, a conversation with a friend, or simply ignoring the problem.
 
 ---
 
@@ -69,4 +69,4 @@ Never ask about hypothetical behavior. Always ask about real past experience.
 
 The first approach gets you wishes. The second gets you evidence.
 
-**Always collect contacts at the end** — "Would you be willing to participate in a short usability test? Leave your email if yes." This part is easy to forget but critical for the next round of research.
+**Always collect contacts at the end** – "Would you be willing to participate in a short usability test? Leave your email if yes." This part is easy to forget but critical for the next round of research.

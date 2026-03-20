@@ -164,7 +164,7 @@ Translates discovery findings into product strategy. These skills define how the
 - **Depends on**: Phase 1 deliverables (problem statement, target audience)
 - **Produces**: Behavior Mapping document – maps user behaviors, motivations, abilities, and triggers using the Behavior Map framework
 - **Hands off to**: ux-storybrand
-- **Notes**: Foundational strategy skill. Understanding what drives user behavior (Motivation × Ability × Prompt) informs everything that follows — how to position the product, what stories to tell, and how to monetize.
+- **Notes**: Foundational strategy skill. Understanding what drives user behavior (Motivation × Ability × Prompt) informs everything that follows – how to position the product, what stories to tell, and how to monetize.
 
 ### Skill 2.2: ux-storybrand
 
@@ -299,7 +299,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Depends on**: dev-prototyping, ui-figma-guide, Phase 1-3 deliverables
 - **Produces**: Motivation Framework analysis – screen-level Motivation Levels and Experience Value analysis
 - **Hands off to**: ux-full-review (if included) or meta-document
-- **Notes**: Analyzes each screen's motivation vs friction using the Motivation Framework (Experience Value = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze — that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
+- **Notes**: Analyzes each screen's motivation vs friction using the Motivation Framework (Experience Value = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze – that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
 
 ### Skill 4.9: ux-full-review (OPTIONAL)
 
@@ -413,7 +413,7 @@ After initial setup, development enters an iterative loop for each feature:
 1. **context-analyzer** (agent) – reads project state, understands what has been built
 2. **Plan Mode** – enter Plan Mode, write structured plan, get approval, save to `plans/`
 3. **test-writer** (agent) – writes failing Playwright CLI test scripts to `tests/`
-4. **Run tests** – verify Red phase (all tests fail — feature not built yet)
+4. **Run tests** – verify Red phase (all tests fail – feature not built yet)
 5. **Backend implementation** – server-side code
 6. **`/simplify`** – review backend changes for reuse, quality, and efficiency
 7. **Frontend implementation** – client-side code and UI

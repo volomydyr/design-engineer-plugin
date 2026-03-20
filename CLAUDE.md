@@ -47,7 +47,7 @@ When adding or modifying skills:
 - [ ] `name:` present and matches directory name
 - [ ] `description:` present, describes what it does AND when to use it
 - [ ] `disable-model-invocation: true` present on ALL skills
-- [ ] `model:` present — `opus` (default) or `sonnet` (mechanical tasks only)
+- [ ] `model:` present – `opus` (default) or `sonnet` (mechanical tasks only)
 - [ ] `license: MIT` present on ALL skills
 - [ ] `compatibility:` present when skill has external dependencies (MCP servers, Node.js, Python, Bash)
 
@@ -83,10 +83,10 @@ Every agent and skill MUST have an explicit `model:` field in its frontmatter.
 
 ### Assignment Principles
 
-- **`model: opus`** — default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation
-- **`model: sonnet`** — for mechanical tasks: file reading, template generation, setup wizards, documentation formatting
-- **No `model: inherit`** — plugin should be explicit about quality expectations
-- **No `model: haiku`** — not used in this plugin
+- **`model: opus`** – default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation
+- **`model: sonnet`** – for mechanical tasks: file reading, template generation, setup wizards, documentation formatting
+- **No `model: inherit`** – plugin should be explicit about quality expectations
+- **No `model: haiku`** – not used in this plugin
 
 ### Skill Frontmatter
 
@@ -123,7 +123,7 @@ Deliverables created by this plugin are living documents tracked via `.dependenc
 
 ## Plan Mode
 
-Always use `EnterPlanMode` for any non-trivial implementation planning — never output plans as plain text messages.
+Always use `EnterPlanMode` for any non-trivial implementation planning – never output plans as plain text messages.
 
 ### When to Use Plan Mode
 
@@ -172,8 +172,8 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 
 ### Workflow
 
-1. `EnterPlanMode` — write a structured plan to the plan file
-2. `ExitPlanMode` — present the plan for user approval
+1. `EnterPlanMode` – write a structured plan to the plan file
+2. `ExitPlanMode` – present the plan for user approval
 3. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
 4. Implement the plan
 5. After completion, move the plan to `plans/archive/`
@@ -195,7 +195,7 @@ Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not 
 
 ## TDD with Playwright CLI
 
-All code-producing steps follow Test-Driven Development using Playwright CLI. A PreToolUse hook enforces this — source code writes are blocked when no test scripts exist in `tests/`.
+All code-producing steps follow Test-Driven Development using Playwright CLI. A PreToolUse hook enforces this – source code writes are blocked when no test scripts exist in `tests/`.
 
 ### The Iron Law
 
@@ -209,7 +209,7 @@ All code-producing steps follow Test-Driven Development using Playwright CLI. A 
 4. Run test scripts → verify they pass, all other tests still pass, output is clean
 5. **Refactor**: `/simplify` cleans up the code
 
-### Red Flags — Stop and Start Over
+### Red Flags – Stop and Start Over
 
 - Code written before test
 - Test passes immediately on first run
@@ -236,8 +236,8 @@ See `skills/dev-agent-setup/references/testing-anti-patterns.md` for the 5 commo
 
 Two PostToolUse hooks enforce that plans and implementation match user requirements exactly:
 
-- **Command hook** (`de-fidelity-hook.js`) — injects a fidelity reminder after source code writes during active implementation
-- **Prompt hook** (Haiku) — reviews plan files for requirement drift after every write
+- **Command hook** (`de-fidelity-hook.js`) – injects a fidelity reminder after source code writes during active implementation
+- **Prompt hook** (Haiku) – reviews plan files for requirement drift after every write
 
 ### What Constitutes Drift
 
@@ -260,7 +260,7 @@ If a feature, behavior, or piece of copy was not explicitly requested by the use
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):
 
-Proactively suggest compacting **with a ready-to-use compact message included in the same response**. Do not wait for the user to agree before generating the message — include it immediately so they can copy-paste it into `/compact` with no extra round-trip.
+Proactively suggest compacting **with a ready-to-use compact message included in the same response**. Do not wait for the user to agree before generating the message – include it immediately so they can copy-paste it into `/compact` with no extra round-trip.
 
 The compact message must preserve:
 - Current project name, path, and version
@@ -273,15 +273,15 @@ The compact message must preserve:
 
 Format the suggestion like this:
 
-> This session has covered a lot of ground. Context is getting heavy — if you'd like to compact, here's a message you can use with `/compact`:
+> This session has covered a lot of ground. Context is getting heavy – if you'd like to compact, here's a message you can use with `/compact`:
 >
 > `Keep full context of [project] at [path]. Current state: v[X], running /de:[command] in [mode] mode. Phase [N] ([name]): completed [skills], next is [skill]. Key decisions: [list]. Deliverables updated: [list]. Stale dependents: [list]. Next step: [action]. [Any blockers or open questions].`
 
-Fill in the template with actual values from the current session — never output the template with placeholders.
+Fill in the template with actual values from the current session – never output the template with placeholders.
 
 Important:
-- Do NOT warn earlier than ~90% — premature warnings are distracting
-- This is a SUGGESTION, not a requirement — never tell the user they must compact
+- Do NOT warn earlier than ~90% – premature warnings are distracting
+- This is a SUGGESTION, not a requirement – never tell the user they must compact
 - If the user dismisses the suggestion, do not bring it up again in the same session
 
 ## Memory Management
@@ -293,14 +293,14 @@ This plugin integrates with Claude Code's auto-memory system (`~/.claude/project
 Maintain a living file tree of the project. Every entry follows this format:
 
 ```
-path — description (≤10 words) | when to read
+path – description (≤10 words) | when to read
 ```
 
 **Update rules:**
 - After creating any file or folder → add an entry with path, description, and read trigger
 - After deleting any file or folder → remove its entry
 - After significant restructuring (moving files, renaming directories) → update affected entries
-- Do NOT update entries for minor edits to existing files — only structural changes
+- Do NOT update entries for minor edits to existing files – only structural changes
 
 **Read project-map.md BEFORE:**
 - Any filesystem exploration or file search
@@ -335,24 +335,24 @@ Save hard-won debugging fixes that took 3+ attempts or required non-obvious solu
 
 Each entry: the error, what was tried and failed, what actually fixed it.
 
-**Read debug-solutions.md BEFORE** attempting fixes for build, deploy, or environment errors — the solution may already be documented.
+**Read debug-solutions.md BEFORE** attempting fixes for build, deploy, or environment errors – the solution may already be documented.
 
 ### When to Read Memory
 
 | Trigger | What to read |
 |---------|-------------|
 | Session start | MEMORY.md auto-loads. Read project-map.md before any exploration. |
-| Before phase transitions | MEMORY.md — verify key decisions still hold |
-| Before implementation/planning | project-map.md — know the project structure |
-| When encountering errors | debug-solutions.md — check for known fixes |
+| Before phase transitions | MEMORY.md – verify key decisions still hold |
+| Before implementation/planning | project-map.md – know the project structure |
+| When encountering errors | debug-solutions.md – check for known fixes |
 | After chat compaction | Re-read MEMORY.md for recovered context |
 
 ### When to Write Memory
 
 | Trigger | What to update |
 |---------|---------------|
-| File/folder created or deleted | project-map.md — add or remove entry |
-| Cross-cutting design decision made | MEMORY.md "Key Decisions" — one-line entry with date |
-| Skill or phase completed | MEMORY.md "Pipeline State" — update position |
-| Hard bug solved (3+ attempts) | debug-solutions.md — error + failed attempts + fix |
+| File/folder created or deleted | project-map.md – add or remove entry |
+| Cross-cutting design decision made | MEMORY.md "Key Decisions" – one-line entry with date |
+| Skill or phase completed | MEMORY.md "Pipeline State" – update position |
+| Hard bug solved (3+ attempts) | debug-solutions.md – error + failed attempts + fix |
 | Session ending (Stop hook reminder) | All of the above if changes occurred this session |

@@ -56,7 +56,7 @@ Determines how design-related skills interact with the user's design workflow.
 | **Other design tool** | Skills provide tool-agnostic design guidance. User provides design references through their preferred method. |
 | **No design tool yet** | Design tool steps are deferred. Skills focus on conceptual and structural deliverables until the user decides on a tool. |
 
-**Gradual Figma plugin usage**: When the Figma plugin is available, skills use it for smaller elements at a time rather than sharing entire complex designs at once. The approach is to start with working prototypes that look rough, then apply design polish through the Figma plugin — functionality first, aesthetics second.
+**Gradual Figma plugin usage**: When the Figma plugin is available, skills use it for smaller elements at a time rather than sharing entire complex designs at once. The approach is to start with working prototypes that look rough, then apply design polish through the Figma plugin – functionality first, aesthetics second.
 
 ---
 

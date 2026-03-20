@@ -58,7 +58,7 @@ For pre-development work in browser-based AI tools (Claude.ai, ChatGPT, or simil
 
 When approaching the 200k token limit, Claude automatically compresses the earlier conversation. This auto-compaction is smart but loses details.
 
-**The better approach:** Configure AI to proactively suggest compacting **with a ready-to-use compact message** when context gets heavy. The message should include actual session values (project state, decisions made, current phase, next steps) so the user can immediately run `/compact` with it — no extra round-trip needed.
+**The better approach:** Configure AI to proactively suggest compacting **with a ready-to-use compact message** when context gets heavy. The message should include actual session values (project state, decisions made, current phase, next steps) so the user can immediately run `/compact` with it – no extra round-trip needed.
 
 **How to set it up:**
 - Add a context monitoring rule to CLAUDE.md

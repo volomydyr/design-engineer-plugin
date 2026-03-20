@@ -83,9 +83,9 @@ question: "Welcome to Design Engineer. What brings you here?"
 header: "Project Type"
 options:
   - label: "New product idea"
-    description: "Starting from scratch — I have an idea or a problem I want to solve"
+    description: "Starting from scratch – I have an idea or a problem I want to solve"
   - label: "Existing project"
-    description: "I already have a product, codebase, or designs — I want to improve, review, or add features"
+    description: "I already have a product, codebase, or designs – I want to improve, review, or add features"
 ```
 
 If "New product idea": proceed to **Step 2: Environment Detection** (full setup flow).
@@ -117,15 +117,15 @@ Project:        Git initialized, no existing deliverables
 Explain briefly what each detected (or missing) MCP does:
 
 - **Context7 plugin**: Gives AI access to up-to-date technical documentation so it does not rely on outdated training data.
-- **Figma plugin**: Provides design data from Figma Dev Mode — not screenshots, but structured design information adapted to the project's tech stack. Supports bidirectional workflows (design→code and code→design import).
+- **Figma plugin**: Provides design data from Figma Dev Mode – not screenshots, but structured design information adapted to the project's tech stack. Supports bidirectional workflows (design→code and code→design import).
 - **Figma Console MCP**: Can perform actions in Figma directly (create components, apply tokens, and styles from prompts). More powerful than the official plugin but trickier to set up.
 - **Playwright plugin**: Enables browser-based testing and a TDD approach. Also allows AI to browse live URLs for visual review.
 
 **Proactive help with missing tools:**
 
-Context7 and the Figma plugin are the essential prerequisites. If either is missing, proactively offer to help install them — explain what they do and guide the user through setup. If Playwright is missing, mention it's needed for testing but can be added later.
+Context7 and the Figma plugin are the essential prerequisites. If either is missing, proactively offer to help install them – explain what they do and guide the user through setup. If Playwright is missing, mention it's needed for testing but can be added later.
 
-If any existing configuration conflicts are detected (e.g., an existing status line, conflicting MCP settings), explain the conflict and ask the user whether to keep their current setup or use the recommended one. Never overwrite existing configuration without asking — explain what will change and why the recommended option is better.
+If any existing configuration conflicts are detected (e.g., an existing status line, conflicting MCP settings), explain the conflict and ask the user whether to keep their current setup or use the recommended one. Never overwrite existing configuration without asking – explain what will change and why the recommended option is better.
 
 ---
 
@@ -138,9 +138,9 @@ question: "How do you want to work?"
 header: "Mode"
 options:
   - label: "Guided mode (Recommended)"
-    description: "Step by step — AI shares thoughts, asks questions adapted to your project, you review and approve every deliverable. Thorough process for building a quality product."
+    description: "Step by step – AI shares thoughts, asks questions adapted to your project, you review and approve every deliverable. Thorough process for building a quality product."
   - label: "God mode"
-    description: "Rapid autonomous exploration — 99% automated, spends more tokens, produces the simplest working MVP as fast as possible. Best for quick validation: testing ideas, seeing if someone would pay. Not for building the final polished product."
+    description: "Rapid autonomous exploration – 99% automated, spends more tokens, produces the simplest working MVP as fast as possible. Best for quick validation: testing ideas, seeing if someone would pay. Not for building the final polished product."
 ```
 
 ---
@@ -208,7 +208,7 @@ After writing the config, seed the auto-memory structure for this project. Auto-
 
 1. Save `MEMORY.md`:
 ```markdown
-# [Project Name] — Design Engineer
+# [Project Name] – Design Engineer
 
 ## Pipeline State
 Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [selected mode]
@@ -217,8 +217,8 @@ Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [select
 (none yet)
 
 ## Topic Files
-- [project-map.md](./project-map.md) — read BEFORE any exploration, plan creation, or file search
-- [debug-solutions.md](./debug-solutions.md) — read when encountering build/deploy/env errors
+- [project-map.md](./project-map.md) – read BEFORE any exploration, plan creation, or file search
+- [debug-solutions.md](./debug-solutions.md) – read when encountering build/deploy/env errors
 ```
 
 2. Save `project-map.md` with the scaffolded structure from Step 4:
@@ -226,16 +226,16 @@ Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [select
 # Project Map
 
 ## docs/design/
-├── foundation/ — core product definition deliverables | read at pipeline start
-├── research/ — research findings and analysis | read before positioning
-├── design/ — IA, flows, design references | read before prototyping
-├── psych/ — psychology audit results | read during design review
-├── dev/ — development preparation | read before dev phase
-├── solutions/ — compound docs and status | read for project context
-└── .dependencies.yaml — deliverable dependency graph | read by hooks automatically
+├── foundation/ – core product definition deliverables | read at pipeline start
+├── research/ – research findings and analysis | read before positioning
+├── design/ – IA, flows, design references | read before prototyping
+├── psych/ – psychology audit results | read during design review
+├── dev/ – development preparation | read before dev phase
+├── solutions/ – compound docs and status | read for project context
+└── .dependencies.yaml – deliverable dependency graph | read by hooks automatically
 
 ## Project Root
-├── .design-engineer.yaml — plugin config and resume state | read by /de:start
+├── .design-engineer.yaml – plugin config and resume state | read by /de:start
 ```
 
 3. Save `debug-solutions.md`:
@@ -250,12 +250,12 @@ Hard-won fixes. Read this before attempting fixes for build, deploy, or environm
 **For existing projects (Path B, "Existing project"):**
 
 Same structure, but:
-- Pipeline State: `Phase: N/A — using individual capabilities | Mode: N/A`
-- project-map.md: start with only the docs/design/ scaffold and .design-engineer.yaml — do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
+- Pipeline State: `Phase: N/A – using individual capabilities | Mode: N/A`
+- project-map.md: start with only the docs/design/ scaffold and .design-engineer.yaml – do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
 
 **For returning projects (Path A):**
 
-Memory already exists — do not re-initialize. It will be read during the startup sequence.
+Memory already exists – do not re-initialize. It will be read during the startup sequence.
 
 ---
 
@@ -284,9 +284,9 @@ If "Yes":
 node ~/.claude/hooks/de-statusline.js --watch
 ```
 
-"Keep that window open while you work with Claude. It refreshes your usage data every 3 minutes. If you close it, the status line still works — it just won't show the usage limits. This is optional but recommended, especially if you're on a usage-limited plan."
+"Keep that window open while you work with Claude. It refreshes your usage data every 3 minutes. If you close it, the status line still works – it just won't show the usage limits. This is optional but recommended, especially if you're on a usage-limited plan."
 
-"Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials — only the monitor does, and only in that separate terminal."
+"Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials – only the monitor does, and only in that separate terminal."
 
 Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
 
@@ -421,7 +421,7 @@ For example:
 • Prototype a new feature → /de:prototype feature
 • Full development pipeline for a feature → /de:dev pipeline
 
-These are recommendations — you can use any capability at any time.
+These are recommendations – you can use any capability at any time.
 Come back to /de:start anytime to see this list again.
 ```
 
@@ -433,7 +433,7 @@ If the user arrived via Path B (existing project, first time with plugin):
 2. Ask only essential config: deliverables path and design tool integration
 3. Write `.design-engineer.yaml` with `project.type: "existing"`
 4. Scaffold folders (Step 4)
-5. Do NOT ask about mode preference, team size, or dev environment — these are relevant for the full pipeline, not ad-hoc usage
+5. Do NOT ask about mode preference, team size, or dev environment – these are relevant for the full pipeline, not ad-hoc usage
 
 ---
 
@@ -460,7 +460,7 @@ If the detection script reports errors or hangs:
 1. Verify Python 3 is installed: `python3 --version`
 2. Verify Bash is available: `bash --version`
 3. Check script permissions: the script needs execute permission
-4. Run `/de:start` again — the script is fail-open and will skip unavailable checks
+4. Run `/de:start` again – the script is fail-open and will skip unavailable checks
 
 ### Config file not created
 If `.design-engineer.yaml` is not created after setup:

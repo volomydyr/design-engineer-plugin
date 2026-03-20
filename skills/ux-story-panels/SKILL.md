@@ -51,7 +51,7 @@ To create a meaningful Story Panel, I need to understand your context:
 
 **BLOCKING REQUIREMENT:** Wait for user answers before proceeding. Do not assume or invent customer context.
 
-**After receiving answers**, read [story-panels-framework.md](./references/story-panels-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good Story Panel looks like — read the relevant example image files from references/.
+**After receiving answers**, read [story-panels-framework.md](./references/story-panels-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good Story Panel looks like – read the relevant example image files from references/.
 </step>
 
 <step number="2" required="true" depends_on="1">
@@ -75,7 +75,7 @@ Briefly explain WHY Story Panels work, weaving the education into the conversati
 
 3. **Pareidolia** – Humans tend to interpret faces and emotions even in abstract shapes. Even basic stick-figure drawings can convey powerful emotions.
 
-**Key insight:** This is not a drawing competition. The generated images should be simple, warm, comic-style illustrations focused on the character's emotions and real-life context — not polished marketing art.
+**Key insight:** This is not a drawing competition. The generated images should be simple, warm, comic-style illustrations focused on the character's emotions and real-life context – not polished marketing art.
 </step>
 
 <step number="3" required="true" depends_on="2">
@@ -98,11 +98,11 @@ Think about how they FEEL, not what button they clicked. For example:
 
 Then guide through panels 1-5:
 
-- **Panel 1 (Exposition):** The customer's real-life trigger — what starts the journey
-- **Panels 2-3 (Rising Action):** The struggle — confusion, frustration, obstacles in REAL LIFE (not in an app)
+- **Panel 1 (Exposition):** The customer's real-life trigger – what starts the journey
+- **Panels 2-3 (Rising Action):** The struggle – confusion, frustration, obstacles in REAL LIFE (not in an app)
 - **Panel 4 (Climax):** The worst moment OR the turning point
-- **Panel 5 (Resolution):** The product helps — this is where your product appears (NOT before)
-- **Panel 6 (Denouement):** Already defined — the happy ending
+- **Panel 5 (Resolution):** The product helps – this is where your product appears (NOT before)
+- **Panel 6 (Denouement):** Already defined – the happy ending
 
 For each panel, define:
 - A short caption (5 words max) at the top of the panel
@@ -132,12 +132,12 @@ Once all 6 panels are defined, generate image generation prompts for an AI image
 ```
 Create a 6-panel comic strip (2x3 grid) in a warm, simple illustration style with consistent character design throughout. Each panel has a short caption at top and a speech bubble.
 
-Panel 1 (top-left): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
-Panel 2 (top-right): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
-Panel 3 (middle-left): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
-Panel 4 (middle-right): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
-Panel 5 (bottom-left): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
-Panel 6 (bottom-right): "[Caption]" — [Scene description]. Speech bubble: "[Text]"
+Panel 1 (top-left): "[Caption]" – [Scene description]. Speech bubble: "[Text]"
+Panel 2 (top-right): "[Caption]" – [Scene description]. Speech bubble: "[Text]"
+Panel 3 (middle-left): "[Caption]" – [Scene description]. Speech bubble: "[Text]"
+Panel 4 (middle-right): "[Caption]" – [Scene description]. Speech bubble: "[Text]"
+Panel 5 (bottom-left): "[Caption]" – [Scene description]. Speech bubble: "[Text]"
+Panel 6 (bottom-right): "[Caption]" – [Scene description]. Speech bubble: "[Text]"
 
 Style: warm color palette, clean comic-style illustration, expressive faces, simple backgrounds. Character should look consistent across all panels.
 ```
@@ -159,13 +159,13 @@ Ask the user to share the generated image back.
 5. **Product placement correct?** Does the product only appear in panel 5?
 6. **Story arc clear?** Can someone understand the full story in under 30 seconds?
 
-**Compare against the Meddy examples** — read the reference images to calibrate quality expectations.
+**Compare against the Meddy examples** – read the reference images to calibrate quality expectations.
 
 **If issues found:** Suggest specific prompt adjustments and ask the user to regenerate. Common fixes:
 - "Make the character's expression more worried in panel 3"
 - "Add more contrast between the struggle panels (2-4) and resolution panels (5-6)"
-- "The caption text is too small — ask for larger text"
-- "Character looks different in panel 4 — emphasize consistency"
+- "The caption text is too small – ask for larger text"
+- "Character looks different in panel 4 – emphasize consistency"
 
 **Iterate** until the user is satisfied. Usually 2-3 rounds are enough.
 </step>
