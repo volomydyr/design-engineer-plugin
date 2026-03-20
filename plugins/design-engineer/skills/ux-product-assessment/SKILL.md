@@ -25,8 +25,8 @@ Every decision follows a strict hierarchy:
 
 The Product Assessment Checklist is a step-by-step process that covers five areas in order:
 
-1. **Understand User Behaviors** – empathy, motivations, abilities, prompts, stories, psych variations
-2. **Find the Gaps (B.I.A.S. Framework)** – Block, Interpret, Act, Store analysis
+1. **Understand User Behaviors** – empathy, motivations, abilities, prompts, stories, motivation variations
+2. **Find the Gaps (Bias Audit)** – Identify, Analyze, Design, Document
 3. **Create Delightful Journeys** – journey element analysis and improvement tactics
 4. **Communicate Product Decisions** – business alignment and stakeholder communication
 5. **Create Ethical and Humane Products** – Regret Test, Black Mirror Test, Humane Principles
@@ -59,10 +59,10 @@ Tell me about the product or feature:
 1. What is the product or feature name?
 2. Who is the target user?
 3. What is the core value proposition?
-4. Is there existing documentation I should reference? (6P Stories, journey maps, B.I.A.S. audits, prior reviews)
+4. Is there existing documentation I should reference? (Story Panels, journey maps, bias audits, prior reviews)
 </ask-user>
 
-If the user has completed prior skills (`ux-6p-stories`, `ux-behavior-mapping`, `ux-psych-levels`, `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review`), reference those deliverables rather than re-doing the work. Note which deliverables exist and which areas have gaps.
+If the user has completed prior skills (`ux-story-panels`, `ux-behavior-mapping`, `ux-motivation-levels`, `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review`), reference those deliverables rather than re-doing the work. Note which deliverables exist and which areas have gaps.
 
 ### Step 3: Area 1 – Understand User Behaviors
 
@@ -70,7 +70,7 @@ Refer to the "Understand User Behaviors" section of [product-assessment-checklis
 
 Work through each checklist item:
 
-1. **General Empathy Questions (GEQs)** – Do you have 5 customer answers for each of the 3 GEQs?
+1. **Empathy Questions** – Do you have 5 customer answers for each of the 3 empathy questions?
    - Q1 Hope: "If you had a magic wand and could instantly X, how would that change your life?"
    - Q2 Pain: "What is your number one challenge when it comes to X? And why is it so challenging?"
    - Q3 Barrier: "Tell me about the last time you did X, what was preventing you from Y?"
@@ -85,17 +85,17 @@ Work through each checklist item:
 
 6. **Prompt Validation** – Do you offer the user a clear nudge to act at the right moment? Without a prompt there is no action.
 
-7. **6P Story** – Have you sketched a 6P Story showing how your product fits in the real-life story of your customer?
+7. **Story Panel** – Have you sketched a Story Panel showing how your product fits in the real-life story of your customer?
 
 8. **Specific Empathy Questions (SEQs)** – Do you have 5 customer answers for each of the 3 SEQs to identify Behavior Blockers and Enablers for both successful and dropout customers?
 
-9. **Psych Variations** – Have you analyzed the psych variations of your key screens to see where the biggest drops are?
+9. **Motivation Variations** – Have you analyzed the motivation variations of your key screens to see where the biggest drops are?
 
 For each item, mark it as: Complete (reference the deliverable), Partially done (note what is missing), or Not done (flag as a gap).
 
-If critical gaps exist in this area, suggest: "For a deeper dive, run `ux-behavior-mapping` or `ux-6p-stories`."
+If critical gaps exist in this area, suggest: "For a deeper dive, run `ux-behavior-mapping` or `ux-story-panels`."
 
-### Step 4: Area 2 – Find the Gaps (B.I.A.S. Framework)
+### Step 4: Area 2 – Find the Gaps (Bias Audit)
 
 Refer to the "Find the Gaps" section of [product-assessment-checklist.md](./references/product-assessment-checklist.md).
 
@@ -103,9 +103,9 @@ Start with the high-level check:
 
 > Put yourself in your customers' shoes and ask yourself: Does this pass my brain filters? What do I understand from this? How can I take action? Was the overall interaction satisfying? Was it clear and reassuring?
 
-Then work through each B.I.A.S. step:
+Then work through each bias audit step:
 
-**Block – Help users see what is important:**
+**Identify – Help users see what is important:**
 - Are things redundant or unrelated?
 - Does it look like a high-effort commitment?
 - Does it look like an ad? Is it placed close to an ad? Or at a usual ad location?
@@ -114,7 +114,7 @@ Then work through each B.I.A.S. step:
 - Do you create value based on customers' hopes and pains to capture attention?
 - Are there new, unexpected, and personalized touchpoints?
 
-**Interpret – Help users establish a good frame of reference:**
+**Analyze – Help users establish a good frame of reference:**
 - Is cognitive load minimized (visuals, text-heaviness)?
 - Are you building on familiar patterns?
 - Are anchors used to compare elements that can be evaluated?
@@ -124,14 +124,14 @@ Then work through each B.I.A.S. step:
 - Is loss aversion addressed (tied to benefits, not fear)?
 - Is labor illusion used to show work done on the user's behalf?
 
-**Act – Help users achieve their goals:**
+**Design – Help users achieve their goals:**
 - How many decisions per page?
 - Can you remove options whenever possible?
 - Are there valid defaults to minimize user input?
 - Can steps be split into smaller steps?
 - Are features revealed gradually (Progressive Disclosure)?
 
-**Store – Make every interaction count:**
+**Document – Make every interaction count:**
 - Are you covering basic expectations from users?
 - Are you providing clear feedback?
 - Do users feel reassured when taking action?
@@ -139,7 +139,7 @@ Then work through each B.I.A.S. step:
 - Are there opportunities to delight on smaller interactions? (not just fancy animations – simple humanity often delights)
 - Are you creating a positive relationship with users?
 
-For each step, flag specific findings. If deeper analysis is needed, suggest: "For a full B.I.A.S. audit, run `ux-bias-audit`."
+For each step, flag specific findings. If deeper analysis is needed, suggest: "For a full bias audit, run `ux-bias-audit`."
 
 ### Step 5: Area 3 – Create Delightful Journeys
 
@@ -148,11 +148,11 @@ Refer to the "Create Delightful Journeys" section of [product-assessment-checkli
 Evaluate the journey's key components:
 
 1. **Root cause of biggest Jump** – Look for how that Jump relates to the context and user motivations
-2. **Root cause of biggest Drop** – Pay attention not only to what is happening at that step, but slightly before it. Revisit Motivation, Ability, and Prompts and the B.I.A.S. Framework
+2. **Root cause of biggest Drop** – Pay attention not only to what is happening at that step, but slightly before it. Revisit Motivation, Ability, and Prompts and the bias audit process
 3. **Fill the Pit** – Is the biggest pit the result of a slow downward slope or a sharp drop? How could this be avoided?
 4. **Elevate the Peak** – Think carefully about the customer's motivations (hopes, fears)
 5. **Mark the Transitions** – Is the clarity of the transition proportional to the importance of the milestone? Make sure users feel like every milestone is adequately celebrated
-6. **Reorder steps** – Could the experience be simpler and more memorable by shifting things around? Make sure users have enough psych to go through all journey steps and still finish on a high note (Peak-End Rule)
+6. **Reorder steps** – Could the experience be simpler and more memorable by shifting things around? Make sure users have enough motivation to go through all journey steps and still finish on a high note (Peak-End Rule)
 7. **Leverage waiting periods** – How might waiting periods be shortened or used as an opportunity to educate, reassure, or delight? (think: Labor Illusion Effect)
 8. **The "In Real Life" test** – If your experience is mainly digital, which part would feel the most awkward in its real-life equivalent?
 
@@ -231,11 +231,11 @@ Save the assessment to `{deliverables_path}/reviews/product-assessment.md`.
 - **Gaps to address**: [what is missing]
 - **Recommended skill**: [if deeper work needed]
 
-### Area 2: Find the Gaps (B.I.A.S.)
-- **Block**: [findings]
-- **Interpret**: [findings]
-- **Act**: [findings]
-- **Store**: [findings]
+### Area 2: Find the Gaps (Bias Audit)
+- **Identify**: [findings]
+- **Analyze**: [findings]
+- **Design**: [findings]
+- **Document**: [findings]
 - **Recommended skill**: [if deeper work needed]
 
 ### Area 3: Delightful Journeys
@@ -267,12 +267,12 @@ Save the assessment to `{deliverables_path}/reviews/product-assessment.md`.
 
 ## Cross-References
 
-- **ux-bias-audit**: Detailed B.I.A.S. audit for Area 2 deep dives
+- **ux-bias-audit**: Detailed bias audit for Area 2 deep dives
 - **ux-journey-mapping**: Full journey mapping and improvement for Area 3
 - **ux-ethics-review**: Comprehensive ethical review for Area 5
 - **ux-behavior-mapping**: Behavior mapping for Area 1 gaps
-- **ux-6p-stories**: 6P Story creation for Area 1 gaps
-- **ux-psych-levels**: Psych level analysis for Area 1 gaps
+- **ux-story-panels**: Story Panel creation for Area 1 gaps
+- **ux-motivation-levels**: Motivation level analysis for Area 1 gaps
 - **ux-communicating-decisions**: Stakeholder communication for Area 4
 - **ui-accessibility**: Accessibility compliance complements Area 2
 - **ui-implementation-review**: Visual design review complements Area 2

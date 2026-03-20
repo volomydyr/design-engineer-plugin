@@ -7,7 +7,7 @@ model: sonnet
 
 # meta-document Skill
 
-**Purpose:** Document solutions, store project status, and maintain living context files that enable long-term complex projects across sessions, chat compaction, and team handoffs. Adapted from compound-engineering's compound-docs pattern for design + development workflows.
+**Purpose:** Document solutions, store project status, and maintain living context files that enable long-term complex projects across sessions, chat compaction, and team handoffs.
 
 ## Overview
 

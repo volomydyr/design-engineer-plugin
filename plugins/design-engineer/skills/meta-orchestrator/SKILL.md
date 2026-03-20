@@ -168,7 +168,7 @@ Skills: `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-comp
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 2: Strategy and Positioning
-Skills: `ux-behavior-mapping`, `ux-storybrand`, `ux-6p-stories`, `ux-business-plan`
+Skills: `ux-behavior-mapping`, `ux-storybrand`, `ux-story-panels`, `ux-business-plan`
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 3: Product Planning
@@ -176,7 +176,7 @@ Skills: `ux-mvp-requirements`, `ux-information-architecture`
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### Phase 4: Design and Validation
-Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-psych-levels`, `ux-product-assessment` (optional)
+Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-design-references`, `dev-prototyping`, `ui-figma-workflow`, `ui-figma-handoff` (optional), `ux-motivation-levels`, `ux-product-assessment` (optional)
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
 ### User Approval Checkpoint

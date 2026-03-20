@@ -1,10 +1,10 @@
-# B.I.A.S. Interpret: 7 Principles to Help People Construct Meaning Rapidly
+# Analyze: 7 Principles to Help People Construct Meaning Rapidly
 
-Establishing the right frame of reference is the key to helping people understand what is going on quickly. Once content passes the brain's filters (Block), it needs to be interpreted. These 7 psychological principles help you re-frame any context so users understand better.
+Establishing the right frame of reference is the key to helping people understand what is going on quickly. Once content passes the brain's filters (Identify), it needs to be analyzed. These 7 psychological principles help you re-frame any context so users understand better.
 
 ---
 
-## The 7 Interpret Principles
+## The 7 Analyze Principles
 
 ### 1. Familiarity
 
@@ -25,7 +25,7 @@ Reusing existing patterns can facilitate overall interpretation. When people enc
 - Do similar actions look and behave the same way throughout the product?
 - Is the user being asked to learn something new when an existing pattern would work?
 
-**Important distinction – Familiarity vs. Redundancy**: These are the same psychological concept used in different situations. A UX pattern you have used before is redundant when trying to capture attention (Block step), but familiar when trying to simplify interpretation and action (Interpret step). Rule of thumb: do not use redundant elements when trying to capture attention; use familiarity when trying to simplify interpretation and action.
+**Important distinction – Familiarity vs. Redundancy**: These are the same psychological concept used in different situations. A UX pattern you have used before is redundant when trying to capture attention (Identify step), but familiar when trying to simplify interpretation and action (Analyze step). Rule of thumb: do not use redundant elements when trying to capture attention; use familiarity when trying to simplify interpretation and action.
 
 ### 2. Cognitive Load
 
@@ -171,7 +171,7 @@ Always ask: "If the user fully understood how and why this was designed this way
 
 ---
 
-## Interpret Audit Checklist
+## Analyze Audit Checklist
 
 Use these questions to evaluate any screen or flow:
 

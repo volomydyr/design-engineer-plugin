@@ -26,7 +26,7 @@
       "id": 4,
       "skill_name": "meta-orchestrator",
       "prompt": "I want to build a meal planning app for busy parents. Run the entire design pipeline for me autonomously -- I trust your judgment on the details, just check in with me at major milestones.",
-      "expected_output": "Should activate God mode, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: behavior-mapping, storybrand, 6p-stories, business-plan), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-framework, journey-mapping, design-references, prototyping, figma-workflow, psych-framework), running meta-document after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
+      "expected_output": "Should activate God mode, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: behavior-mapping, storybrand, story-panels, business-plan), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-audit, journey-mapping, design-references, prototyping, figma-workflow, motivation-levels), running meta-document after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
       "files": []
     },
     {
@@ -271,7 +271,7 @@
       "id": 39,
       "skill_name": "ux-user-interviews",
       "prompt": "I need to set up user interviews for my grocery delivery app. I've never done interviews before and I'm kind of nervous about it. Can you help me prepare a script and tell me what to avoid?",
-      "expected_output": "Should operate in guided mode, prepare an interview script using General Empathy Questions (GEQs) and the 'Replacing X' technique, teach the user to ask about past behavior rather than hypothetical futures, provide tips for nervous first-time interviewers, discuss finding participants, and prepare the dual-analysis methodology for after the interviews.",
+      "expected_output": "Should operate in guided mode, prepare an interview script using empathy questions and the 'Replacing X' technique, teach the user to ask about past behavior rather than hypothetical futures, provide tips for nervous first-time interviewers, discuss finding participants, and prepare the dual-analysis methodology for after the interviews.",
       "files": []
     },
     {
@@ -311,44 +311,44 @@
     },
     {
       "id": 45,
-      "skill_name": "ux-6p-stories",
-      "prompt": "I want to create a 6P story for my dog walking app. The main scenario is: a busy professional needs someone to walk their dog during work hours but worries about trusting a stranger with their pet.",
-      "expected_output": "Should guide creation of a 6-panel comic-style story covering the dog owner's journey: the trigger situation, the frustration/anxiety, discovering the solution, the experience, the resolution, and the transformed state. Should build customer empathy, focus on the user's emotional journey rather than app screens, and produce a 6P Story deliverable.",
+      "skill_name": "ux-story-panels",
+      "prompt": "I want to create a story panel for my dog walking app. The main scenario is: a busy professional needs someone to walk their dog during work hours but worries about trusting a stranger with their pet.",
+      "expected_output": "Should guide creation of a comic-style story panel covering the dog owner's journey: the trigger situation, the frustration/anxiety, discovering the solution, the experience, the resolution, and the transformed state. Should build customer empathy, focus on the user's emotional journey rather than app screens, and produce a Story Panel deliverable.",
       "files": []
     },
     {
       "id": 46,
-      "skill_name": "ux-6p-stories",
-      "prompt": "We already have a live budgeting app but users are churning after the first month. Help me create a 6P story for the current experience to identify where we're losing people.",
-      "expected_output": "Should create a 6P story documenting the current (problematic) user experience to identify gaps and drop-off points, reveal through the story format where the experience breaks down, compare what the panels should look like in an ideal scenario vs current reality, and surface improvement opportunities that explain the churn.",
+      "skill_name": "ux-story-panels",
+      "prompt": "We already have a live budgeting app but users are churning after the first month. Help me create a story panel for the current experience to identify where we're losing people.",
+      "expected_output": "Should create a story panel documenting the current (problematic) user experience to identify gaps and drop-off points, reveal through the story format where the experience breaks down, compare what the panels should look like in an ideal scenario vs current reality, and surface improvement opportunities that explain the churn.",
       "files": []
     },
     {
       "id": 47,
       "skill_name": "ux-behavior-mapping",
-      "prompt": "Users are signing up for our online course platform but only 15% actually start watching the first lesson. We can't figure out why. Can you help us map the behavior gap using BMap?",
-      "expected_output": "Should apply the BMap framework (Behavior = Motivation x Ability x Prompt), analyze the Activation Threshold for starting the first lesson, evaluate motivation (why users signed up vs what changes after signup), ability (friction between signup and first lesson), and prompts (what triggers exist). Should identify the most efficient behavior levers and produce a Behavior Map deliverable with specific interventions.",
+      "prompt": "Users are signing up for our online course platform but only 15% actually start watching the first lesson. We can't figure out why. Can you help us map the behavior gap using a Behavior Map?",
+      "expected_output": "Should apply the Behavior Map framework (Behavior = Motivation x Ability x Prompt), analyze the Activation Threshold for starting the first lesson, evaluate motivation (why users signed up vs what changes after signup), ability (friction between signup and first lesson), and prompts (what triggers exist). Should identify the most efficient behavior levers and produce a Behavior Map deliverable with specific interventions.",
       "files": []
     },
     {
       "id": 48,
       "skill_name": "ux-behavior-mapping",
       "prompt": "I'm designing a new habit-forming feature for our meditation app. Before I build it, I want to map out the expected behaviors and figure out what would motivate users to meditate daily. Help me create a behavior map.",
-      "expected_output": "Should apply BMap to a new product feature, use the 3 key questions and General Empathy Questions to understand motivations, analyze the ability dimension (time, effort, mental cost), evaluate potential prompts (notifications, streaks, social triggers), build a Mental Model for the target behavior, and produce a Behavior Map predicting engagement patterns.",
+      "expected_output": "Should apply the Behavior Map framework to a new product feature, use the 3 key questions and empathy questions to understand motivations, analyze the ability dimension (time, effort, mental cost), evaluate potential prompts (notifications, streaks, social triggers), build a Mental Model for the target behavior, and produce a Behavior Map predicting engagement patterns.",
       "files": []
     },
     {
       "id": 49,
-      "skill_name": "ux-psych-levels",
-      "prompt": "I want to analyze our checkout flow screen by screen to see where users lose 'Psych' -- that mental energy to keep going. We have 5 screens: cart, account creation, shipping, payment, and confirmation.",
-      "expected_output": "Should apply the Psych Framework to calculate Net Perceived Value (Expected Utility minus Expected Interaction Cost) at each of the 5 screens, use the video game health bar analogy to visualize Psych Levels, identify where Psych drops critically low (likely account creation and payment), recommend specific interventions to boost Psych at weak points, and produce a Psych Framework analysis deliverable.",
+      "skill_name": "ux-motivation-levels",
+      "prompt": "I want to analyze our checkout flow screen by screen to see where users lose 'Motivation' -- that mental energy to keep going. We have 5 screens: cart, account creation, shipping, payment, and confirmation.",
+      "expected_output": "Should apply the Motivation Framework to calculate Experience Value (Expected Utility minus Expected Interaction Cost) at each of the 5 screens, use the video game health bar analogy to visualize Motivation Levels, identify where Motivation drops critically low (likely account creation and payment), recommend specific interventions to boost Motivation at weak points, and produce a Motivation Framework analysis deliverable.",
       "files": []
     },
     {
       "id": 50,
-      "skill_name": "ux-psych-levels",
-      "prompt": "We're designing an onboarding flow for a personal finance app. Can you predict the Psych variations before we build it? I want to know which steps will drain motivation and which will boost it.",
-      "expected_output": "Should apply the Psych Framework predictively to a proposed design, evaluate each onboarding step for its Psych impact (additions and subtractions), use variation benchmarks to flag steps that risk dropping below the abandonment threshold, suggest reordering or modifying steps to maintain positive Psych, and produce a proactive Psych Framework analysis.",
+      "skill_name": "ux-motivation-levels",
+      "prompt": "We're designing an onboarding flow for a personal finance app. Can you predict the Motivation variations before we build it? I want to know which steps will drain motivation and which will boost it.",
+      "expected_output": "Should apply the Motivation Framework predictively to a proposed design, evaluate each onboarding step for its Motivation impact (additions and subtractions), use variation benchmarks to flag steps that risk dropping below the abandonment threshold, suggest reordering or modifying steps to maintain positive Motivation, and produce a proactive Motivation Framework analysis.",
       "files": []
     },
     {
@@ -383,35 +383,35 @@
       "id": 55,
       "skill_name": "ux-bias-audit",
       "prompt": "/de:review psych-- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
-      "expected_output": "Should apply the B.I.A.S. Framework (Block, Interpret, Act, Store) to all 3 screens. Block: check what the brain filters out (possibly too many value props). Interpret: check framing around benefits and familiarity. Act: evaluate friction in permission requests. Store: assess what positive/negative impression is stored. Should flag reactance risk on back-to-back permission requests and produce a structured B.I.A.S. audit with priority actions.",
+      "expected_output": "Should apply the bias audit process (Identify, Analyze, Design, Document) to all 3 screens. Identify: check what the brain filters out (possibly too many value props). Analyze: check framing around benefits and familiarity. Design: evaluate friction in permission requests. Document: assess what positive/negative impression is stored. Should flag reactance risk on back-to-back permission requests and produce a structured bias audit with priority actions.",
       "files": []
     },
     {
       "id": 56,
       "skill_name": "ux-bias-audit",
-      "prompt": "Our pricing page has a 2% conversion rate and we think the design might be the problem. Can you run a B.I.A.S. analysis on it? We have 3 tiers: Free, Pro ($12/mo), and Enterprise (custom pricing).",
-      "expected_output": "Should audit the pricing page through all 4 B.I.A.S. steps: Block (what's being filtered out, are users seeing the right tier), Interpret (is value framed as benefits, is the anchor set correctly, is loss aversion leveraged), Act (is friction reduced, are defaults helpful, is there social proof), Store (what impression does this leave). Should provide specific redesign recommendations with expected impact on conversion.",
+      "prompt": "Our pricing page has a 2% conversion rate and we think the design might be the problem. Can you run a bias audit on it? We have 3 tiers: Free, Pro ($12/mo), and Enterprise (custom pricing).",
+      "expected_output": "Should audit the pricing page through all 4 bias audit steps: Identify (what's being filtered out, are users seeing the right tier), Analyze (is value framed as benefits, is the anchor set correctly, is loss aversion leveraged), Design (is friction reduced, are defaults helpful, is there social proof), Document (what impression does this leave). Should provide specific redesign recommendations with expected impact on conversion.",
       "files": []
     },
     {
       "id": 57,
       "skill_name": "ux-bias-audit",
-      "prompt": "I'm designing a new subscription cancellation flow and I want to make sure I'm not accidentally creating dark patterns. Walk me through the B.I.A.S. framework to balance retention with ethical design.",
-      "expected_output": "Should apply B.I.A.S. to the cancellation flow with special attention to the ethical boundary between influence and manipulation. Should check the Regret Test at each step, flag reactance risks, ensure Block does not hide the cancel button, Interpret uses honest framing, Act reduces friction for cancellation while offering genuine alternatives, and Store leaves a positive impression even when users leave.",
+      "prompt": "I'm designing a new subscription cancellation flow and I want to make sure I'm not accidentally creating dark patterns. Walk me through the bias audit process to balance retention with ethical design.",
+      "expected_output": "Should apply the bias audit to the cancellation flow with special attention to the ethical boundary between influence and manipulation. Should check the Regret Test at each step, flag reactance risks, ensure Identify does not hide the cancel button, Analyze uses honest framing, Design reduces friction for cancellation while offering genuine alternatives, and Document leaves a positive impression even when users leave.",
       "files": []
     },
     {
       "id": 58,
       "skill_name": "ux-journey-mapping",
       "prompt": "Create a customer journey map for our hotel booking app. The key moments are: searching for hotels, comparing options, booking, pre-arrival communication, check-in, during stay, and post-stay review.",
-      "expected_output": "Should distill the hotel booking experience into 5-8 key moments, map the emotional arc across the journey, identify peak moments and low points, apply improvement tactics to weak moments, consider the Peak-End Rule for ending on a high note, and produce a journey map deliverable that complements 6P Stories.",
+      "expected_output": "Should distill the hotel booking experience into 5-8 key moments, map the emotional arc across the journey, identify peak moments and low points, apply improvement tactics to weak moments, consider the Peak-End Rule for ending on a high note, and produce a journey map deliverable that complements Story Panels.",
       "files": []
     },
     {
       "id": 59,
       "skill_name": "ux-journey-mapping",
       "prompt": "We've been getting complaints that our car insurance claims process feels 'cold and frustrating.' Help me map the current journey and identify where we can add empathy and reduce frustration.",
-      "expected_output": "Should map the current claims journey identifying emotional low points (cold interactions, long waits, confusing status updates), apply proven improvement tactics at each friction point, leverage Psych Framework concepts to boost emotional state during a naturally stressful process, and produce a journey map with specific improvement recommendations.",
+      "expected_output": "Should map the current claims journey identifying emotional low points (cold interactions, long waits, confusing status updates), apply proven improvement tactics at each friction point, leverage Motivation Framework concepts to boost emotional state during a naturally stressful process, and produce a journey map with specific improvement recommendations.",
       "files": []
     },
     {
@@ -432,7 +432,7 @@
       "id": 62,
       "skill_name": "ux-product-assessment",
       "prompt": "We're about to submit our healthcare appointment app for a design review with leadership. Can you run the full product assessment checklist first so we can catch anything before they do?",
-      "expected_output": "Should run the 5-area product assessment checklist: user behaviors analysis, B.I.A.S. gaps identification, journey improvements, decision communication preparation, and ethical review. Should identify the highest-impact improvements across all dimensions and produce a comprehensive Product Assessment deliverable.",
+      "expected_output": "Should run the 5-area product assessment checklist: user behaviors analysis, bias audit gaps identification, journey improvements, decision communication preparation, and ethical review. Should identify the highest-impact improvements across all dimensions and produce a comprehensive Product Assessment deliverable.",
       "files": []
     },
     {
@@ -446,7 +446,7 @@
       "id": 64,
       "skill_name": "ux-communicating-decisions",
       "prompt": "I have a design review meeting with stakeholders tomorrow. They're going to push back on my decision to remove the dashboard and replace it with a feed-based home screen. Help me prepare to defend this decision.",
-      "expected_output": "Should apply B.I.A.S. principles to stakeholder communication, prepare the 4 communication tactics with key sentences, use the 3-step feedback response process, create a meeting preparation using the template, help frame the dashboard-to-feed decision with data and psychology principles, anticipate objections, and produce a presentation-ready justification.",
+      "expected_output": "Should apply bias audit principles to stakeholder communication, prepare the 4 communication tactics with key sentences, use the 3-step feedback response process, create a meeting preparation using the template, help frame the dashboard-to-feed decision with data and psychology principles, anticipate objections, and produce a presentation-ready justification.",
       "files": []
     },
     {

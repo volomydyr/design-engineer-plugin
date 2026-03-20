@@ -1,10 +1,10 @@
-# 6P Stories Framework – Complete Reference
+# Story Panels Framework – Complete Reference
 
-## What Is a 6P Story?
+## What Is a Story Panel?
 
-A 6P Story is a one-pager comic with six panels depicting what your customer is going through for a given experience. It is a minimum viable story – the simplest possible format that still captures the emotional arc of a customer journey.
+A Story Panel is a one-pager comic with six panels depicting what your customer is going through for a given experience. It is a minimum viable story – the simplest possible format that still captures the emotional arc of a customer journey.
 
-6P Stories are for **customer empathy**, not marketing. Their purpose is to help product teams understand what users really need and the context of interaction with a product. Stories are often better than screens for this because:
+Story Panels are for **customer empathy**, not marketing. Their purpose is to help product teams understand what users really need and the context of interaction with a product. Stories are often better than screens for this because:
 
 - **Screens merely tell you what happens.** Only journeys can tell you why and how.
 - **Screens make you focus on your product.** Not the problem. It is dangerously easy to become attached to existing solutions you have put a lot of effort into (Sunk Cost Fallacy). Stories focus on the customer first.
@@ -14,7 +14,7 @@ Storytelling has been an integral part of companies like Airbnb's product cultur
 
 ---
 
-## The Psychology Behind 6P Stories
+## The Psychology Behind Story Panels
 
 ### Why Storytelling Works
 
@@ -24,10 +24,10 @@ Three psychological principles make storytelling effective for product design:
 Humans are wired to make sense of the world through stories. The brain processes narrative information more effectively than data, lists, or screen descriptions. When you frame a customer experience as a story, your team naturally engages with it more deeply and retains the insights longer.
 
 **2. Singularity Effect**
-People empathize far more with a single individual than with a large group. Saying "23% of users drop off at checkout" creates distance. Showing one person named Sarah struggling with a confusing checkout page creates connection. A 6P Story starring one specific customer generates stronger emotional engagement than any amount of aggregate analytics data.
+People empathize far more with a single individual than with a large group. Saying "23% of users drop off at checkout" creates distance. Showing one person named Sarah struggling with a confusing checkout page creates connection. A Story Panel starring one specific customer generates stronger emotional engagement than any amount of aggregate analytics data.
 
 **3. Character Identification Effect**
-Stories make your brain feel like YOU are experiencing the journey. When reading a 6P Story, team members develop genuine empathy for the hero because their brains simulate the experience. This leads to better design decisions because the team intuitively understands what the customer needs.
+Stories make your brain feel like YOU are experiencing the journey. When reading a Story Panel, team members develop genuine empathy for the hero because their brains simulate the experience. This leads to better design decisions because the team intuitively understands what the customer needs.
 
 ### Why Comics Specifically Work
 
@@ -50,7 +50,7 @@ This is explicitly **not a drawing competition**. Raw stick figures are actually
 
 ### Panel Layout
 
-The 6P Story is arranged as a 2x3 grid (2 columns, 3 rows):
+The Story Panel is arranged as a 2x3 grid (2 columns, 3 rows):
 
 ```
 +-------------------+-------------------+
@@ -82,11 +82,11 @@ Always define Panel 6 first. Knowing the happy ending gives the entire story dir
 
 ---
 
-## Five Best Practices for Impactful 6P Stories
+## Five Best Practices for Impactful Story Panels
 
 ### 1. Start with Empathy
 
-Your 6P Story focuses more on the customer problem than on your product. You do not merely go through the steps in your app, but rather how the customer feels. Remember that the goal of your story is to build empathy to find better solutions.
+Your Story Panel focuses more on the customer problem than on your product. You do not merely go through the steps in your app, but rather how the customer feels. Remember that the goal of your story is to build empathy to find better solutions.
 
 **Check:** Does the story make you feel something for the customer? If you removed your product from the story, would the problem still be clear and compelling?
 
@@ -98,7 +98,7 @@ Empathy requires emotion, so your story highlights emotions. Try to convey a min
 
 ### 3. Focus on Actions
 
-Your 6P Story does not just describe steps. It makes others feel what the protagonist is going through in a real-life context. Imagine if a product case study were just a series of screen descriptions – it would not be very exciting or insightful.
+Your Story Panel does not just describe steps. It makes others feel what the protagonist is going through in a real-life context. Imagine if a product case study were just a series of screen descriptions – it would not be very exciting or insightful.
 
 **Check:** Does each panel show the customer DOING something in their real life, or is it just a description of an interface? Can you picture the scene as if you were watching a movie?
 
@@ -112,7 +112,7 @@ The six types of story arcs (Rags to Riches, Riches to Rags, Man in a Hole, Icar
 
 ### 5. Look for Improvement Opportunities
 
-6P stories will naturally highlight some gaps in the customer experience. Make a mental note of what they are. These gaps become the foundation for design improvements in subsequent activities (Behavior Mapping, Psych Framework analysis, B.I.A.S. audit).
+Story Panels will naturally highlight some gaps in the customer experience. Make a mental note of what they are. These gaps become the foundation for design improvements in subsequent activities (Behavior Mapping, Motivation Framework analysis, bias audit).
 
 **Check:** After completing the story, can you point to at least one specific moment where the experience could be better? Is there a gap between two panels where something important is being lost?
 
@@ -136,7 +136,7 @@ You want to focus on the top 6 moments that really make a difference. If you are
 
 ## Practical Exercise Template
 
-To create a 6P Story, follow this checklist:
+To create a Story Panel, follow this checklist:
 
 1. **Choose your customer story** – Pick a slice of customer experience to improve
 2. **Print or draw the template** – A page folded into 6 sections works perfectly

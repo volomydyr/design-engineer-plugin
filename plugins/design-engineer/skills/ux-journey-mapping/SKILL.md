@@ -12,8 +12,8 @@ model: opus
 A good customer journey map will help you:
 
 1. Distill customer experiences to their top 5-8 moments.
-2. Support and complement 6P Stories (see `ux-6p-stories`).
-3. Systemize the Psych Lead and lessons of your experience (see `ux-psych-levels`).
+2. Support and complement Story Panels (see `ux-story-panels`).
+3. Systemize the Motivation Lead and lessons of your experience (see `ux-motivation-levels`).
 
 Unfortunately, many people believe they need incredibly detailed customer journey maps. But a customer journey map that is too exhaustive is:
 
@@ -21,7 +21,7 @@ Unfortunately, many people believe they need incredibly detailed customer journe
 - Difficult to share between colleagues
 - Hard to use constantly during product initiatives
 
-You should instead boil down your experiences to their top 5-8 moments. Your resulting customer journey map will contain 5 types of elements that represent the emotional highs, lows, and transitions of the user's experience. Just like with 6P Stories, this structure allows your brain to remember and use this journey map more easily, so you can make significant improvements to your experience.
+You should instead boil down your experiences to their top 5-8 moments. Your resulting customer journey map will contain 5 types of elements that represent the emotional highs, lows, and transitions of the user's experience. Just like with Story Panels, this structure allows your brain to remember and use this journey map more easily, so you can make significant improvements to your experience.
 
 ## Reference Files
 
@@ -63,11 +63,11 @@ If the user selects option 2, skip to Step 5.
 Before mapping, gather context about the product and user experience. Ask:
 
 1. **What product or feature are we mapping?** Get a clear description of the scope.
-2. **Who is the user?** If the user has already completed `ux-target-audience` or `ux-6p-stories`, reference those deliverables. Otherwise, ask for a brief description of the target user.
+2. **Who is the user?** If the user has already completed `ux-target-audience` or `ux-story-panels`, reference those deliverables. Otherwise, ask for a brief description of the target user.
 3. **What is the starting trigger?** What brings the user to this experience? (e.g., an ad, a search result, a recommendation, a need)
 4. **What is the desired end state?** What does success look like for both the user and the business?
 
-If the user has existing notes, documents, or a 6P Story, ask them to share that content before proceeding.
+If the user has existing notes, documents, or a Story Panel, ask them to share that content before proceeding.
 
 ---
 
@@ -81,8 +81,8 @@ Explain the 5 element types briefly:
 |--------|---------|-------------|
 | Peak | Highest delight mark in your experience |
 | Pit | Lowest delight point in your experience |
-| Jump/Rise | Psych increase in your experience |
-| Drop | Psych decrease in your experience |
+| Jump/Rise | Motivation increase in your experience |
+| Drop | Motivation decrease in your experience |
 | Transition | Natural boundary between one part and another |
 
 Walk through the experience chronologically and ask the user to identify each key moment:
@@ -234,7 +234,7 @@ The document should include:
 
 ## Comparing Journeys: Existing vs Ideal
 
-The 6P Story you described in `ux-6p-stories` was probably an "ideal" scenario. Once done, it is always a good idea to compare with reality. If you have an existing product, map the current journey alongside the ideal one to identify the biggest gaps.
+The Story Panel you described in `ux-story-panels` was probably an "ideal" scenario. Once done, it is always a good idea to compare with reality. If you have an existing product, map the current journey alongside the ideal one to identify the biggest gaps.
 
 ---
 
@@ -243,7 +243,7 @@ The 6P Story you described in `ux-6p-stories` was probably an "ideal" scenario. 
 This skill enforces User > Docs > AI at every step:
 
 1. **User's direct input** always overrides everything – their experience, their product, their call
-2. **Existing documentation** (6P Stories, research, prior journey maps) informs suggestions
+2. **Existing documentation** (Story Panels, research, prior journey maps) informs suggestions
 3. **AI suggestions** fill gaps only when user and docs provide no guidance – and are always presented as suggestions, not decisions
 
 ---
@@ -252,6 +252,6 @@ This skill enforces User > Docs > AI at every step:
 
 After the journey map is complete, suggest:
 
-1. `ux-bias-audit` – Apply the B.I.A.S. Framework to audit specific moments
+1. `ux-bias-audit` – Apply the bias audit process to audit specific moments
 2. `ux-ethics-review` – Ensure improvements are ethical and humane (optional but recommended)
 3. `ux-communicating-decisions` – Prepare to present journey findings to stakeholders

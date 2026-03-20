@@ -35,7 +35,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ux-storybrand
         |
-   ux-6p-stories
+   ux-story-panels
         |
    ux-business-plan
         |
@@ -65,7 +65,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ui-figma-handoff [optional]
         |
-   ux-psych-levels
+   ux-motivation-levels
         |
    ux-product-assessment [optional]
         |
@@ -162,7 +162,7 @@ Translates discovery findings into product strategy. These skills define how the
 
 - **Required**: Yes
 - **Depends on**: Phase 1 deliverables (problem statement, target audience)
-- **Produces**: Behavior Mapping document – maps user behaviors, motivations, abilities, and triggers using the BMap framework
+- **Produces**: Behavior Mapping document – maps user behaviors, motivations, abilities, and triggers using the Behavior Map framework
 - **Hands off to**: ux-storybrand
 - **Notes**: Foundational strategy skill. Understanding what drives user behavior (Motivation × Ability × Prompt) informs everything that follows — how to position the product, what stories to tell, and how to monetize.
 
@@ -171,24 +171,24 @@ Translates discovery findings into product strategy. These skills define how the
 - **Required**: Yes
 - **Depends on**: Phase 1 deliverables, ux-behavior-mapping
 - **Produces**: StoryBrand document – brand messaging framework that positions the user as the hero and the product as the guide
-- **Hands off to**: ux-6p-stories
+- **Hands off to**: ux-story-panels
 - **Notes**: Applies the StoryBrand framework to create clear product messaging. Uses behavior mapping insights to craft messaging that connects with real motivations. The output informs copywriting, onboarding flows, and marketing materials.
 
-### Skill 2.3: ux-6p-stories
+### Skill 2.3: ux-story-panels
 
 - **Required**: Yes
 - **Depends on**: Phase 1 deliverables, ux-storybrand
-- **Produces**: 6P Stories document – comic-style product scenarios following the 6P framework
+- **Produces**: Story Panels document – comic-style product scenarios following the story panels framework
 - **Hands off to**: ux-business-plan
-- **Notes**: Creates story-driven scenarios that illustrate how real users interact with the product, using the StoryBrand narrative. Each story covers the 6P elements. Reveals gaps in the product concept that abstract documents miss.
+- **Notes**: Creates story-driven scenarios that illustrate how real users interact with the product, using the StoryBrand narrative. Each story covers the panel elements. Reveals gaps in the product concept that abstract documents miss.
 
 ### Skill 2.4: ux-business-plan
 
 - **Required**: Yes
-- **Depends on**: Phase 1 deliverables, ux-storybrand, ux-6p-stories, ux-behavior-mapping
+- **Depends on**: Phase 1 deliverables, ux-storybrand, ux-story-panels, ux-behavior-mapping
 - **Produces**: Business Plan document – monetization strategy, pricing model, growth approach
 - **Hands off to**: meta-document
-- **Notes**: Covers revenue model, pricing tiers, unit economics. Informed by behavior mapping (what drives users), StoryBrand (how to communicate value), and 6P stories (user scenarios). Grounded in the target audience and competitive landscape from Phase 1.
+- **Notes**: Covers revenue model, pricing tiers, unit economics. Informed by behavior mapping (what drives users), StoryBrand (how to communicate value), and Story Panels (user scenarios). Grounded in the target audience and competitive landscape from Phase 1.
 
 ### Phase 2 Completion: meta-document
 
@@ -293,13 +293,13 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **When to skip**: When using the minimal Figma workflow without Figma Console MCP, or when the design system is being built entirely in code
 - **Notes**: Automates the structuring of raw Figma designs (components, variables, styles) and prepares them for dev handoff (annotations, sections, connectors, dev status badges). Requires Figma Console MCP.
 
-### Skill 4.8: ux-psych-levels
+### Skill 4.8: ux-motivation-levels
 
 - **Required**: Yes
 - **Depends on**: dev-prototyping, ui-figma-workflow, Phase 1-3 deliverables
-- **Produces**: Psychology Framework analysis – screen-level Psych Levels and Net Perceived Value analysis
+- **Produces**: Motivation Framework analysis – screen-level Motivation Levels and Experience Value analysis
 - **Hands off to**: ux-product-assessment (if included) or meta-document
-- **Notes**: Analyzes each screen's motivation vs friction using the Psych Framework (NPV = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze — that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
+- **Notes**: Analyzes each screen's motivation vs friction using the Motivation Framework (Experience Value = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze — that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
 
 ### Skill 4.9: ux-product-assessment (OPTIONAL)
 

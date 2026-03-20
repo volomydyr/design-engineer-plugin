@@ -213,11 +213,9 @@ A social media platform considers adding an "auto-play next video" feature. Befo
 
 A news site adds infinite scroll to increase page views. Direct effect: page views increase 40%. Second-order effects: users lose their place and abandon articles mid-read, footer content (contact info, about page, legal links) becomes unreachable, browser performance degrades on long sessions, and users report feeling "trapped" in the feed. The metric improved, but the experience worsened.
 
-### From 106 Cognitive Biases: Second-Order Effect
-
 Every decision has consequences beyond the obvious first impact. Designers often optimize for the immediate, measurable first-order effect while ignoring harder-to-measure second and third-order effects.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Feature addition second-order effects**: Adding a feature (first order: users gain capability) can increase cognitive load for all users (second order), slow app performance (second order), and create maintenance burden that slows future development (third order).
 - **Simplification second-order effects**: Removing a feature (first order: simpler interface) can frustrate power users who depended on it (second order), causing them to leave and reducing community knowledge (third order).

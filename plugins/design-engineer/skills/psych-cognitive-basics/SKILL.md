@@ -166,7 +166,7 @@ For each critical or warning finding, find the most relevant case study and expl
 
 ## Key Relationships to Other Principles
 
-Several principles in this section overlap with content from the 106 Cognitive Biases framework. The reference file merges these sources for a unified perspective:
+Several principles in this section have been enriched with additional research and practical applications. The reference file merges these sources for a unified perspective:
 
 - **Cognitive Load** – expanded with cognitive load theory (intrinsic, extraneous, germane) and practical reduction strategies
 - **Hick's Law** – enriched with logarithmic decision-time relationship and category-based chunking strategies

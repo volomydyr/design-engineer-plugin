@@ -20,18 +20,16 @@ A booking platform shows "12 people are looking at this hotel right now" with a 
 
 An online course platform shows "50,000 students enrolled!" on every course, including ones launched yesterday. The inflated numbers feel dishonest, and users who investigate lose trust in all the platform's claims – even legitimate ones.
 
-### From 106 Cognitive Biases: Social Proof
-
 We tend to copy the actions of others in an attempt to reflect correct behavior in a given situation.
 
 **Key insight**: Social proof is most powerful when it comes from people similar to the user. "10,000 people use this" is less persuasive than "500 designers like you use this."
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Specific over generic**: "Rated 4.8 by 2,340 product designers" is stronger than "Highly rated by thousands"
 - **Real-time social proof**: Showing current activity ("Sarah from London just purchased...") creates urgency and validation simultaneously
 - **Negative social proof trap**: Saying "90% of users don't complete their profile" accidentally normalizes non-completion. Always frame social proof positively.
-- **B.I.A.S. Act module**: Social proof is one of the three primary nudge mechanisms (alongside Curiosity Gap and Scarcity) for getting users to take action
+- **Design step**: Social proof is one of the three primary nudge mechanisms (alongside Curiosity Gap and Scarcity) for getting users to take action
 - **Ethical checkpoint**: Is the social proof truthful and verifiable? Fabricated social proof destroys trust permanently when discovered.
 
 ---
@@ -235,18 +233,16 @@ A newsletter signup appears as a quiet banner at the bottom of an article: "Enjo
 
 A website displays a fullscreen popup on arrival: "Subscribe to our newsletter!" with a dismiss button labeled "No thanks, I prefer to stay uninformed." Closing it triggers a second popup. Scrolling reveals a sticky footer bar with the same ask. Users feel trapped and hostile – even those who might have subscribed voluntarily now refuse out of spite.
 
-### From 106 Cognitive Biases: Reactance
-
 When we feel our freedom is being taken away, we want the restricted thing even more – and we push back against the restriction.
 
 **Key insight**: Every forced action in your interface risks triggering reactance. The more aggressively you push, the more users resist.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Forced actions backfire**: Mandatory newsletter signups, forced app downloads ("view in app only"), and required social logins all trigger reactance. Offer them as options, never requirements.
 - **Confirm-shaming is toxic**: Dismiss buttons worded to guilt users ("No, I hate saving money") create reactance and brand hostility. Use neutral language for all choices.
 - **Cookie banners**: The way you ask for data consent directly affects trust. "We use cookies to improve your experience. Here's exactly what each type does" respects autonomy. "Accept all" as the only prominent button triggers reactance.
-- **B.I.A.S. Act module warning**: Reactance is the primary risk when nudging users to act. Overuse of Social Proof, Scarcity, or Curiosity Gap nudges creates reactance that undermines all future nudges.
+- **Design step warning**: Reactance is the primary risk when nudging users to act. Overuse of Social Proof, Scarcity, or Curiosity Gap nudges creates reactance that undermines all future nudges.
 - **Ethical checkpoint**: Does the user feel in control? Can they easily say no without consequences or guilt?
 
 ---

@@ -81,8 +81,8 @@ Project status check ──► Continue / Start fresh / Jump to phase
 │ Phase 2: STRATEGY                                               │
 │                                                                 │
 │   ux-storybrand ──► ux-business-plan                            │
-│   ──► [parallel] ux-6p-stories + ux-behavior-mapping            │
-│   ──► ux-psych-framework                                        │
+│   ──► [parallel] ux-story-panels + ux-behavior-mapping           │
+│   ──► ux-motivation-levels                                       │
 │                                                                 │
 │   Agent: deliverable-writer                                     │
 │   Agent: compound-documenter                                    │
@@ -101,7 +101,7 @@ Project status check ──► Continue / Start fresh / Jump to phase
 ┌─────────────────────────────────────────────────────────────────┐
 │ Phase 4: DESIGN & VALIDATION                                    │
 │                                                                 │
-│   [parallel] ux-bias-framework + ux-journey-mapping             │
+│   [parallel] ux-bias-audit + ux-journey-mapping                  │
 │   ──► ux-ethics-review (optional)                               │
 │   ──► ui-design-references ──► dev-prototyping                  │
 │   ──► ui-figma-workflow ──► ui-figma-handoff (optional)         │
@@ -355,12 +355,12 @@ meta-statusline skill ──► copy script + configure settings.json
 | **ux-user-interviews** | /de:design (P1), /de:research |
 | **ux-storybrand** | /de:design (P2), /de:research |
 | **ux-business-plan** | /de:design (P2), /de:research |
-| **ux-6p-stories** | /de:design (P2) |
+| **ux-story-panels** | /de:design (P2) |
 | **ux-behavior-mapping** | /de:design (P2) |
-| **ux-psych-framework** | /de:design (P2) |
+| **ux-motivation-levels** | /de:design (P2) |
 | **ux-mvp-requirements** | /de:design (P3) |
 | **ux-information-architecture** | /de:design (P3) |
-| **ux-bias-framework** | /de:design (P4) |
+| **ux-bias-audit** | /de:design (P4) |
 | **ux-journey-mapping** | /de:design (P4) |
 | **ux-ethics-review** | /de:design (P4 opt), /de:review |
 | **ux-product-assessment** | /de:design (P4 opt), /de:review |
@@ -435,7 +435,7 @@ meta-statusline skill ──► copy script + configure settings.json
 
 **Reached via:** `/de:review` → complete a review → post-review option 2 ("Share with stakeholders")
 **Problem:** This is the hardest skill to reach in the entire plugin — it requires completing a full review, then choosing a specific post-review option. It's never a primary entry point and isn't listed in any command's initial menu.
-**Impact:** Content from the Growth Design course (communicating design decisions) is essentially buried. Users who specifically need stakeholder communication guidance have no direct path to it.
+**Impact:** Content about communicating design decisions is essentially buried. Users who specifically need stakeholder communication guidance have no direct path to it.
 **Fix:** Consider adding it as option in `/de:research` or making it reachable via `/de:compound`.
 
 #### M4: `/de:psych` section numbering (1-13) vs skill naming inconsistency
@@ -502,7 +502,7 @@ This is probably intentional (different workloads) but not documented why.
 | `/de:prototype` | **Keep** | Distinct — quick HTML prototyping |
 | `/de:dev` | **Keep** | Distinct — development pipeline |
 | `/de:review` | **Keep** → absorb psych option naturally | Already has "Psychology scan" as option 5 |
-| `/de:compound` | **Rename** → `/de:document` | "Compound" is jargon from compound engineering. "Document" is self-explanatory. |
+| `/de:compound` | **Rename** → `/de:document` | "Compound" is internal jargon. "Document" is self-explanatory. |
 | `/de:statusline` | **Remove** → fold into `/de:setup` | Utility command. Install during setup, manage via setup reconfiguration. |
 
 **Result:** 6 commands: `setup`, `design`, `psych`, `prototype`, `dev`, `document`
@@ -519,9 +519,9 @@ This is probably intentional (different workloads) but not documented why.
 |-------------|---------------|-----|
 | `ui-design-critique` | `ui-craft-review` | Distinguishes from `ui-visual-review`. "Craft" signals this is about design quality, not bug-catching. |
 | `ui-visual-review` | `ui-implementation-review` | Clarifies this is about implementation fidelity (AI-generated issues, token compliance), not visual design. |
-| `ux-psych-framework` | `ux-psych-levels` | The skill is specifically about Psych Levels and NPV. "Framework" is too generic. |
+| `ux-psych-framework` | `ux-motivation-levels` | The skill is specifically about Motivation Levels and Experience Value. "Framework" is too generic. |
 | `meta-compound` | `meta-document` | Matches the renamed command. |
-| `ux-bias-framework` | `ux-bias-audit` | More action-oriented. The B.I.A.S. framework is the methodology, but the skill performs an audit. |
+| `ux-bias-framework` | `ux-bias-audit` | More action-oriented. The bias audit process is the methodology, and the skill performs an audit. |
 
 **Cost:** Cross-references in other skills/commands need updating. One-time migration.
 
@@ -610,7 +610,7 @@ Quick fixes (can all be done in one commit):
 
 **Phase ordering note:** Article presents IA (Phase 4) before MVP (Phase 5). Plugin reverses this: MVP before IA in Phase 3. This is a deliberate reorganization — defining scope (MVP) before structure (IA) makes sense. Not a misalignment.
 
-**Missing from article, added in plugin:** ux-6p-stories, ux-behavior-mapping, ux-psych-framework, ux-bias-framework, ux-journey-mapping, ux-ethics-review, ux-product-assessment. All come from the Growth Design course, not the articles. This is correct — the plugin integrates both sources.
+**Missing from article, added in plugin:** ux-story-panels, ux-behavior-mapping, ux-motivation-levels, ux-bias-audit, ux-journey-mapping, ux-ethics-review, ux-product-assessment. These come from UX strategy methodology, not the articles. This is correct — the plugin integrates both sources.
 
 ### 5.2 Article 2 (Dev Workflow) → Plugin Phase 5
 
@@ -629,14 +629,14 @@ Quick fixes (can all be done in one commit):
 
 **Added beyond articles:** test-writer agent, TDD enforcement hook, /simplify integration, requirement fidelity hooks, prompt injection defense, session resume state. All documented as post-v1.0.0 adjustments.
 
-### 5.3 Growth Design Course → UX Skills
+### 5.3 UX Strategy Methodology → UX Skills
 
-| Course Module | Plugin Skill | Alignment |
-|--------------|-------------|-----------|
-| BMap Framework | ux-behavior-mapping | ✅ Aligned — critical sequence enforced |
-| B.I.A.S. Framework | ux-bias-framework | ✅ Aligned |
-| 6P Stories | ux-6p-stories | ✅ Aligned — critical sequence enforced |
-| Psych Framework (NPV, Psych Levels) | ux-psych-framework | ✅ Aligned — critical sequence enforced |
+| Methodology Module | Plugin Skill | Alignment |
+|-------------------|-------------|-----------|
+| Behavior Map Framework | ux-behavior-mapping | ✅ Aligned — critical sequence enforced |
+| Bias Audit | ux-bias-audit | ✅ Aligned |
+| Story Panels | ux-story-panels | ✅ Aligned — critical sequence enforced |
+| Motivation Framework (Experience Value, Motivation Levels) | ux-motivation-levels | ✅ Aligned — critical sequence enforced |
 | Journey Mapping | ux-journey-mapping | ✅ Aligned |
 | Ethics (Regret/Black Mirror tests) | ux-ethics-review | ✅ Aligned |
 | Product Assessment | ux-product-assessment | ✅ Aligned |

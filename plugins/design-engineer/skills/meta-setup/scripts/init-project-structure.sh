@@ -31,7 +31,7 @@ echo "[CREATED] research/ -- research findings and analysis"
 
 # design/ -- Design-specific deliverables
 # Contains: MVP Requirements, Information Architecture, design references,
-#           Figma workflow notes, journey maps, B.I.A.S. audits
+#           Figma workflow notes, journey maps, bias audits
 mkdir -p "$DELIVERABLES_PATH/design"
 touch "$DELIVERABLES_PATH/design/.gitkeep"
 echo "[CREATED] design/ -- design deliverables (IA, flows, references)"

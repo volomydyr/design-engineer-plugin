@@ -1,12 +1,12 @@
 # Journey Elements: 5 Types of Customer Journey Elements
 
-A good customer journey map contains 5 types of elements that represent the emotional highs, lows, and transitions of the user's experience. The vertical axis represents the Psych Level (the user's emotional and motivational state) at each moment.
+A good customer journey map contains 5 types of elements that represent the emotional highs, lows, and transitions of the user's experience. The vertical axis represents the Motivation Level (the user's emotional and motivational state) at each moment.
 
 ---
 
 ## Element 1: Peak
 
-**Definition**: The highest absolute psych level in your experience.
+**Definition**: The highest absolute motivation level in your experience.
 
 The Peak is the moment where the user feels the most positive, motivated, or delighted. It is the high point of the entire journey – the moment of greatest satisfaction, surprise, or reward.
 
@@ -23,7 +23,7 @@ The Peak is the moment where the user feels the most positive, motivated, or del
 
 ## Element 2: Pit
 
-**Definition**: The lowest absolute psych level in your experience.
+**Definition**: The lowest absolute motivation level in your experience.
 
 The Pit is the moment where the user feels the most frustrated, confused, or demotivated. It is the low point of the entire journey – where the experience fails the user the most.
 
@@ -34,15 +34,15 @@ The Pit is the moment where the user feels the most frustrated, confused, or dem
 - Where does the user almost give up or abandon the experience?
 - Where is the biggest gap between what the user expects and what they get?
 
-**Example (Brave Browser onboarding)**: Being prompted to change the default browser before even trying Brave, combined with the fear of having to manually import hundreds of bookmarks. The user's psych drops sharply because the commitment feels too high before any value has been delivered.
+**Example (Brave Browser onboarding)**: Being prompted to change the default browser before even trying Brave, combined with the fear of having to manually import hundreds of bookmarks. The user's motivation drops sharply because the commitment feels too high before any value has been delivered.
 
 ---
 
 ## Element 3: Jump (Rise)
 
-**Definition**: A psych increase in your experience.
+**Definition**: A motivation increase in your experience.
 
-A Jump is a moment where the user's psych level rises – they feel better than they did a moment ago. It represents a positive shift: new motivation, reduced friction, a pleasant surprise, or a reward.
+A Jump is a moment where the user's motivation level rises – they feel better than they did a moment ago. It represents a positive shift: new motivation, reduced friction, a pleasant surprise, or a reward.
 
 **How to identify**:
 - Where does the user's feeling shift from negative (or neutral) to positive?
@@ -55,16 +55,16 @@ A Jump is a moment where the user's psych level rises – they feel better than 
 
 ## Element 4: Drop
 
-**Definition**: A psych decrease in your experience.
+**Definition**: A motivation decrease in your experience.
 
-A Drop is a moment where the user's psych level falls – they feel worse than they did a moment ago. It represents friction, confusion, disappointment, or increased effort.
+A Drop is a moment where the user's motivation level falls – they feel worse than they did a moment ago. It represents friction, confusion, disappointment, or increased effort.
 
 **How to identify**:
 - Where does the user's feeling shift from positive (or neutral) to negative?
 - Where does unexpected friction appear?
 - Where does the user feel uncertain, confused, or disappointed?
 
-**What to look for**: Pay attention not only to what is happening at the specific step where the Drop occurs, but slightly before it. The cause of a Drop often starts one or two steps earlier. Revisit Motivation, Ability, and Prompts and the B.I.A.S. Framework when analyzing Drops.
+**What to look for**: Pay attention not only to what is happening at the specific step where the Drop occurs, but slightly before it. The cause of a Drop often starts one or two steps earlier. Revisit Motivation, Ability, and Prompts and the bias audit process when analyzing Drops.
 
 ---
 

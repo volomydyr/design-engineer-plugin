@@ -1,6 +1,6 @@
-# 6P Stories – Examples and Patterns
+# Story Panels – Examples and Patterns
 
-This reference contains examples of good and bad 6P Stories, adapted from real product case studies. Use these patterns to evaluate and improve 6P Stories.
+This reference contains examples of good and bad Story Panels, adapted from real product case studies. Use these patterns to evaluate and improve Story Panels.
 
 ---
 
@@ -95,7 +95,7 @@ Trying to cover the entire customer lifecycle in 6 panels, resulting in enormous
 
 **How to fix:** Narrow the scope. Pick ONE specific experience (first booking, first delivery, first negative review) and tell that story in depth.
 
-### Indicators of a Strong 6P Story
+### Indicators of a Strong Story Panel
 
 1. **You feel something** when you read it – empathy, concern, frustration, relief
 2. **The struggle is specific** – not "user has trouble" but "user stands at door in the rain, can't find the lockbox"

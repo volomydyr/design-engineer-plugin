@@ -1,5 +1,5 @@
 # Design + Development Documentation Schema
-# Adapted from CORA's compound-engineering schema for design and development workflows.
+# Documentation schema for design and development workflows.
 # This schema MUST be validated before writing any documentation file.
 
 required_fields:
@@ -22,9 +22,9 @@ required_fields:
     type: enum
     values:
       - phase_1_discovery       # Big Idea, Problem Statement, Target Audience, Assumptions, Competitor Analysis, User Interviews
-      - phase_2_strategy        # StoryBrand, Business Plan, 6P Stories, Behavior Mapping, Psych Framework
+      - phase_2_strategy        # StoryBrand, Business Plan, Story Panels, Behavior Mapping, Motivation Framework
       - phase_3_definition      # MVP Requirements, Information Architecture
-      - phase_4_evaluation      # B.I.A.S. Audit, Journey Mapping, Communicating Decisions, Ethics Review, Product Assessment
+      - phase_4_evaluation      # Bias Audit, Journey Mapping, Communicating Decisions, Ethics Review, Product Assessment
       - phase_5_dev_prep        # Prototyping, Design System, Development Planning
       - phase_6_development     # Frontend Implementation, Backend Implementation, Integration
       - phase_7_review          # Visual Review, Accessibility Audit, Psychology Audit, Status Tracking
@@ -46,9 +46,9 @@ required_fields:
       # Strategy deliverables
       - storybrand_canvas       # StoryBrand messaging framework
       - business_plan           # Revenue model, market size, GTM
-      - story_6p                # 6P comic-style product story
-      - behavior_map            # BMap behavior analysis
-      - psych_variation         # Psych Framework evaluation
+      - story_panels            # Comic-style product story panels
+      - behavior_map            # Behavior Map analysis
+      - psych_variation         # Motivation Framework evaluation
 
       # Design deliverables
       - mvp_requirements        # Feature prioritization and acceptance criteria
@@ -65,7 +65,7 @@ required_fields:
       - deployment_config       # CI/CD, environment configuration
 
       # Evaluation deliverables
-      - bias_audit              # B.I.A.S. Framework evaluation
+      - bias_audit              # Bias audit evaluation
       - journey_map             # Customer journey with improvements
       - accessibility_audit     # WCAG compliance review
       - ethics_review           # Ethical design assessment
@@ -97,8 +97,8 @@ required_fields:
 
       # Psychology components
       - psych_cognitive         # Cognitive biases application
-      - psych_behavioral        # Behavior design (BMap, Psych Framework)
-      - psych_persuasion        # Persuasion principles (B.I.A.S.)
+      - psych_behavioral        # Behavior design (Behavior Map, Motivation Framework)
+      - psych_persuasion        # Persuasion principles (bias audit)
       - psych_ethics            # Ethical design review
 
       # Development components

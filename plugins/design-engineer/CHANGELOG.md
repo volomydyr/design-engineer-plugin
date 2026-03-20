@@ -4,6 +4,30 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.14.0] – 2026-03-20
+
+### Changed
+
+- **Source fingerprint removal**: Renamed all Growth Design course-specific terminology to generic equivalents for public release
+- `ux-6p-stories` → `ux-story-panels` — skill directory, reference files, and all cross-references
+- `ux-psych-levels` → `ux-motivation-levels` — skill directory, reference files, and all cross-references
+- B.I.A.S. Framework (Block, Interpret, Act, Store) → bias audit process (Identify, Analyze, Design, Document) — reference files renamed, all cross-references
+- "BMap" abbreviation → "Behavior Map" (spelled out) — reference file renamed, all cross-references
+- "GEQ" / "General Empathy Questions" → "empathy questions" — all cross-references
+- "Net Perceived Value (NPV)" → "Experience Value" — all cross-references
+- "Psych Framework/Level/Variation" → "Motivation Framework/Level/Variation" — all cross-references
+- Removed ~50 "From 106 Cognitive Biases" section headers across 11 psych reference files — content merged into main law sections
+- Removed 4 direct course references ("Growth Design", "Module X of the course")
+- Removed compound-engineering/CORA attributions from meta-document skill
+
+### Not Changed
+
+- Personal names (Kahneman, Tversky, Nir Eyal, Jeff Gothelf, Ash Maurya, BJ Fogg) — standard public references
+- Named laws (Hick's, Fitts's, Miller's, etc.) — standard UX vocabulary
+- Framework names (StoryBrand, Lean Canvas, Hook Model, Fogg Behavior Model) — widely used public terminology
+- lasso-security MIT attribution — license requirement
+- Eval workspace transcripts — frozen historical artifacts
+
 ## [1.13.1] – 2026-03-19
 
 ### Added
@@ -21,14 +45,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- 6P Stories image-generation workflow: Claude crafts story + generates image prompts, user generates in external tool, shares back for review, iterates
-- 5 Meddy 6P Story example images as reference files (health checkup, test results, doctor appointment, prescription, skin mole)
+- Story Panels image-generation workflow: Claude crafts story + generates image prompts, user generates in external tool, shares back for review, iterates
+- 5 Meddy Story Panel example images as reference files (health checkup, test results, doctor appointment, prescription, skin mole)
 - Statusline `--watch` mode: user runs in separate terminal for usage limit tracking, Claude never accesses credentials
 - Usage monitor instructions in /de:start setup flow
 
 ### Removed
 
-- `mental-model-guide.md` — 95% invented content, sourced concepts already in bmap-framework.md
+- `mental-model-guide.md` — 95% invented content, sourced concepts already in behavior-map-framework.md
 - `figma-mcp-guide.md` — redundant with meta-setup environment detection
 - `mcp-catalog.md` — redundant with meta-setup environment detection
 
@@ -37,16 +61,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - **Source fidelity audit**: 12 UX reference files rewritten to match original article/course sources, removing invented templates, scaffolding, and methodologies the sources deliberately left lightweight
 - `analysis-methodology.md` — rewritten from 167→63 lines (was almost entirely invented; now matches Article 1 + Article 2 dual-analysis approach)
 - `problem-statement-template.md` — 135→59 lines (removed invented Target User Snapshot, Success Criteria, Evolution Log)
-- `persona-framework.md` — 155→67 lines (BMap questions separated from persona structure, removed invented sub-decompositions)
+- `persona-framework.md` — 155→67 lines (Behavior Map questions separated from persona structure, removed invented sub-decompositions)
 - `competitor-analysis-framework.md` — 173→67 lines (kept AI prompt template, removed redundant documentation templates)
-- `interview-script-template.md` — 169→77 lines (removed 15 invented GEQ questions, kept sourced BMap questions)
+- `interview-script-template.md` — 169→77 lines (removed 15 invented empathy questions, kept sourced Behavior Map questions)
 - `storybrand-canvas-template.md` — 212→91 lines (added article's 4-step workflow, removed One-Liner/Application Guide/Messaging Test)
 - `business-plan-template.md` — 178→75 lines (removed invented Financial Projections section, kept article's "simple spreadsheet + Claude" approach)
 - `reference-gathering-guide.md` — 138→47 lines (restored The Component Gallery, removed Dribbble/Behance, invented checklists)
 - `assumptions-template.md` — removed invented Technical Assumptions category, Validation Methods table, Evolution Log
-- `bmap-framework.md` — removed invented cross-referencing section
-- `6p-stories-framework.md` — condensed panel guidance, removed invented "Existing Products" and "Research Integration" sections
-- `6p-stories-examples.md` — removed invented Bad Example #2, review scaffold, product type adaptations
+- `behavior-map-framework.md` — removed invented cross-referencing section
+- `story-panels-framework.md` — condensed panel guidance, removed invented "Existing Products" and "Research Integration" sections
+- `story-panels-examples.md` — removed invented Bad Example #2, review scaffold, product type adaptations
 - `accessibility-checklist.md` — corrected 56pt tap target (Meddy-specific) to 44pt (WCAG 2.2 standard)
 - `de-statusline.js` — removed credential access from Claude-triggered mode; usage fetching now only happens in user-initiated `--watch` mode
 
@@ -92,15 +116,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 - `ui-design-critique` → `ui-craft-review` (distinguishes from implementation review)
 - `ui-visual-review` → `ui-implementation-review` (clarifies focus on implementation fidelity)
-- `ux-psych-framework` → `ux-psych-levels` (matches the specific technique: Psych Levels + NPV)
+- `ux-psych-framework` → `ux-motivation-levels` (matches the specific technique: Motivation Levels + Experience Value)
 - `meta-compound` → `meta-document` (self-explanatory name)
-- `ux-bias-framework` → `ux-bias-audit` (action-oriented: performs an audit using the B.I.A.S. framework)
+- `ux-bias-framework` → `ux-bias-audit` (action-oriented: performs a bias audit)
 
 ### Changed
 
 - Pipeline Phase 1: removed `ux-big-idea` (was a misinterpretation of the article's concept), pipeline now starts with `ux-problem-statement`
-- Pipeline Phase 2: reordered to `ux-behavior-mapping` → `ux-storybrand` → `ux-6p-stories` → `ux-business-plan` (behavior mapping is foundational, informs everything after)
-- Pipeline Phase 4: moved `ux-psych-framework` here from Phase 2 (needs actual designs to analyze Psych Levels)
+- Pipeline Phase 2: reordered to `ux-behavior-mapping` → `ux-storybrand` → `ux-story-panels` → `ux-business-plan` (behavior mapping is foundational, informs everything after)
+- Pipeline Phase 4: moved `ux-psych-framework` here from Phase 2 (needs actual designs to analyze Motivation Levels)
 - All UX skills: replaced rigid "4-angle perspectives" and predefined question lists with context-based approach — AI shares brief thoughts based on project knowledge, then asks 7-10 context-adapted questions with source-specific concept guidance
 - `/de:setup` description updated to reflect smart entry point behavior
 - `/de:design` prerequisite check now uses `.design-engineer.yaml` (was `design-engineer.local.md`)
@@ -377,7 +401,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - 48 hidden skills across 6 categories:
   - 3 meta skills (setup, orchestrator, compound)
   - 10 UX research skills (big-idea through information-architecture)
-  - 8 UX design skills (6p-stories, behavior-mapping, bias-framework, journey-mapping, ethics-review, product-assessment, and more)
+  - 8 UX design skills (story-panels, behavior-mapping, bias-audit, journey-mapping, ethics-review, product-assessment, and more)
   - 14 psychology skills covering 100 UX laws across 10 sections (cognitive basics, visual perception, decision-making, engagement, emotional design, efficiency, behavioral economics, social influence, cognitive biases, time and behavior)
   - 5 UI design skills (design-references, figma-workflow, design-system, visual-review, accessibility)
   - 8 development skills (claude-projects, claude-md, kickstart-prompts, agent-pipeline, context-management, mcp-setup, github-workflow, prototyping)

@@ -77,7 +77,7 @@ Present the draft and ask for feedback. Pay special attention to:
 
 - Whether the persona is specific enough (not "all professionals" or "anyone who wants to learn")
 - Whether behaviors are described concretely (not "they use social media" but "they save learning links in Telegram chats they never revisit")
-- Whether the BMap questions revealed genuine emotional insights
+- Whether the Behavior Map questions revealed genuine emotional insights
 
 ---
 
@@ -123,4 +123,4 @@ After the persona is finalized, suggest:
 
 ## Resource Files
 
-- [persona-framework.md](./references/persona-framework.md) – Complete persona structure integrating BMap questions with practical product context
+- [persona-framework.md](./references/persona-framework.md) – Complete persona structure integrating Behavior Map questions with practical product context

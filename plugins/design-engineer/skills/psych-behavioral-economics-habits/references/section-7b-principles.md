@@ -20,13 +20,11 @@ A language learning app starts by asking users to set a daily goal of just 5 min
 
 A productivity app immediately asks new users to commit to a complex weekly planning ritual, link their calendar, invite their entire team, and set quarterly goals. The initial commitment is too large – users feel overwhelmed and abandon the process before any consistency can form.
 
-### From 106 Cognitive Biases: Commitment and Consistency
-
 We tend to be consistent with what we have previously done or said, especially if it was public or effortful.
 
 **Key insight**: Small initial commitments lead to larger ones. This is the "foot-in-the-door" technique applied to product design.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Progressive onboarding**: Start with the smallest possible ask. "What's your name?" is easier than "Create your complete profile." Each answered question is a micro-commitment that makes the next one easier.
 - **Public commitments are stickier**: Social sharing of goals ("I just started my 30-day challenge!") creates social accountability that reinforces consistency.
@@ -57,13 +55,11 @@ A financial planning tool offers a free, comprehensive budget analysis report wi
 
 A website forces users to enter their email to download a "free guide" that turns out to be a thinly veiled sales pitch. The "gift" has no real value, so reciprocity backfires – users feel tricked rather than grateful, and the unsubscribe rate skyrockets.
 
-### From 106 Cognitive Biases: Reciprocity
-
 We feel obliged to give when we receive. This creates a social debt that people feel compelled to repay.
 
 **Key insight**: The reciprocity principle works best when the gift is unexpected, personalized, and genuinely useful. Transactional reciprocity ("give me your email for this PDF") is far weaker than genuine reciprocity ("here's something useful, no strings attached").
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Free value first**: Offer genuine utility before asking for anything. Free tools, calculators, content, or trial periods create reciprocity debt.
 - **Surprise generosity**: Unexpected upgrades, bonus features, or extended trials create stronger reciprocity than advertised freebies.

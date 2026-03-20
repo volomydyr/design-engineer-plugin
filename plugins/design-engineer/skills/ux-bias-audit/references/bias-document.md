@@ -1,25 +1,25 @@
-# B.I.A.S. Store: How to Make Every Interaction Count
+# Document: How to Make Every Interaction Count
 
-People keep an imaginary tab of every interaction they have with your business. You want it to be a good one, because that stored information drives the way they Block, Interpret, and Act in all subsequent interactions.
+People keep an imaginary tab of every interaction they have with your business. You want it to be a good one, because that stored information drives the way they Identify, Analyze, and Design in all subsequent interactions.
 
-If a user just stored negative psych after a less-than-average experience, they are more likely to block more information next time, lowering their chance to move forward successfully. Conversely, positive stored experiences make future interactions easier and more trusting.
+If a user just stored negative motivation after a less-than-average experience, they are more likely to filter more information next time, lowering their chance to move forward successfully. Conversely, positive stored experiences make future interactions easier and more trusting.
 
 ---
 
-## Why Storing Matters
+## Why Documenting Matters
 
-### Storing Leads to Habits
+### Documenting Leads to Habits
 
-The more loops a user goes through (Block -> Interpret -> Act -> Store), the more their brain registers patterns. If the pattern is recognizable and enjoyable, it becomes a habit. What started as slow, deliberate decisions (System 2) becomes a fast, automatic process (System 1).
+The more loops a user goes through (Identify -> Analyze -> Design -> Document), the more their brain registers patterns. If the pattern is recognizable and enjoyable, it becomes a habit. What started as slow, deliberate decisions (System 2) becomes a fast, automatic process (System 1).
 
 This is the ultimate goal: turn positive interactions into habits that bring users back automatically, without requiring conscious deliberation each time.
 
-### The B.I.A.S. Loop
+### The Bias Audit Loop
 
-Store is not just the end of one interaction – it is the beginning of the next. Every stored experience shapes how the user will:
-- **Block**: Positive storage means less defensive filtering next time. Negative storage means more blocking.
-- **Interpret**: Positive storage creates favorable interpretation frames. Negative storage creates skepticism.
-- **Act**: Positive storage reduces hesitation. Negative storage increases friction and resistance.
+Document is not just the end of one interaction – it is the beginning of the next. Every stored experience shapes how the user will:
+- **Identify**: Positive storage means less defensive filtering next time. Negative storage means more filtering.
+- **Analyze**: Positive storage creates favorable interpretation frames. Negative storage creates skepticism.
+- **Design**: Positive storage reduces hesitation. Negative storage increases friction and resistance.
 
 ---
 
@@ -31,7 +31,7 @@ In order of impact (from foundational to exceptional):
 
 Each interaction should clearly show what just happened. Users should never be left wondering "Did that work?" or "What happens now?"
 
-**Why it works**: Ambiguity creates anxiety. When users are unsure if their action was successful, they store negative psych regardless of whether the action actually worked. Clear feedback closes the loop and provides certainty.
+**Why it works**: Ambiguity creates anxiety. When users are unsure if their action was successful, they store negative motivation regardless of whether the action actually worked. Clear feedback closes the loop and provides certainty.
 
 **How to apply:**
 - Show immediate confirmation after every meaningful action
@@ -51,7 +51,7 @@ Each interaction should clearly show what just happened. Users should never be l
 
 Confirm they are doing the right thing. You want users to feel "in good hands" throughout every interaction.
 
-**Why it works**: Decision-making creates anxiety, especially for important or irreversible actions. Reassurance reduces post-decision doubt (buyer's remorse) and stores positive psych by validating the user's choice.
+**Why it works**: Decision-making creates anxiety, especially for important or irreversible actions. Reassurance reduces post-decision doubt (buyer's remorse) and stores positive motivation by validating the user's choice.
 
 **How to apply:**
 - Confirm the value of their decision immediately after they make it
@@ -69,7 +69,7 @@ Confirm they are doing the right thing. You want users to feel "in good hands" t
 
 ### 3. Feeling of Caring
 
-Showing you have people's best interests at heart. When users feel that a product genuinely cares about them (not just about extracting value), they store deeply positive psych.
+Showing you have people's best interests at heart. When users feel that a product genuinely cares about them (not just about extracting value), they store deeply positive motivation.
 
 **Why it works**: Humans are wired to reciprocate caring. When a product demonstrates genuine concern for the user's wellbeing, users develop loyalty and trust that goes beyond functional satisfaction. This is the foundation of long-term relationships.
 
@@ -118,9 +118,9 @@ In the broader context of user experience (covered more deeply in Journey Mappin
 1. **The peak** – the most intense moment (positive or negative)
 2. **The end** – the final moments of the interaction
 
-Ending any interaction on a strong positive note can help reduce the negative effects of any friction or frustration encountered during the experience. This makes the Store step especially critical – it is literally the last thing users remember.
+Ending any interaction on a strong positive note can help reduce the negative effects of any friction or frustration encountered during the experience. This makes the Document step especially critical – it is literally the last thing users remember.
 
-**Implications for Store:**
+**Implications for Document:**
 - The confirmation screen, success state, or follow-up message IS the ending
 - Invest extra effort in the last screen of any flow
 - Turn completion moments into small celebrations
@@ -130,16 +130,16 @@ Ending any interaction on a strong positive note can help reduce the negative ef
 
 ## Incorporating Human Empathy
 
-In general, incorporating human empathy into your products will always be a positive long-term investment. The Store step is where this matters most because:
+In general, incorporating human empathy into your products will always be a positive long-term investment. The Document step is where this matters most because:
 
 - It is the last impression before the user leaves
 - It shapes expectations for the next visit
-- It determines whether the B.I.A.S. loop becomes more positive or negative over time
+- It determines whether the bias audit loop becomes more positive or negative over time
 - It is the difference between a user who comes back and one who does not
 
 ---
 
-## Store Audit Checklist
+## Document Audit Checklist
 
 Use these questions to evaluate any screen or flow:
 
@@ -148,5 +148,5 @@ Use these questions to evaluate any screen or flow:
 - [ ] **Caring**: Does the product demonstrate genuine concern for the user's wellbeing?
 - [ ] **Delighters**: Is there at least one moment that exceeds expectations?
 - [ ] **Peak-End Rule**: Does the interaction end on a strong positive note?
-- [ ] **Habit Loop**: Does this stored experience make the next B.I.A.S. cycle easier and more positive?
+- [ ] **Habit Loop**: Does this stored experience make the next audit cycle easier and more positive?
 - [ ] **Human Empathy**: Would the user describe this experience as "human" or "robotic"?

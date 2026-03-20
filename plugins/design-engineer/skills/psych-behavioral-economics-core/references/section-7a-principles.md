@@ -44,13 +44,11 @@ A design tool offers a 14-day free trial during which users create projects, upl
 
 A subscription service makes cancellation deliberately difficult – hiding the cancel button, requiring a phone call, or showing guilt-inducing messages like "You'll lose 347 days of progress!" This weaponizes sunk cost into a dark pattern that erodes trust and generates negative reviews.
 
-### From 106 Cognitive Biases: Sunk Cost Effect
-
 The sunk cost effect (also called sunk cost fallacy) describes our tendency to follow through on something if we have already invested time, effort, or money into it, whether or not the current costs outweigh the benefits.
 
 **Key insight**: The more users invest in your product (data, customizations, social connections, content), the harder it becomes to switch – not because of lock-in, but because of perceived loss of investment.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Trial periods as investment creators**: Free trials work not because of the free access, but because users invest effort in setup and learning. That investment creates sunk cost attachment.
 - **Progress visualization**: Showing users how much they have accomplished ("You've completed 47 lessons!") reinforces the sunk cost and motivates continued engagement.

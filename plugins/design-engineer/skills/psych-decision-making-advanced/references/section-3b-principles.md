@@ -18,13 +18,11 @@ A hotel booking platform shows "Only 2 rooms left at this price" with a real-tim
 
 An e-commerce site permanently displays "Only 3 left!" on every product regardless of actual stock. Users who notice the pattern lose trust in all urgency signals across the site.
 
-### From 106 Cognitive Biases: Scarcity
-
 People place higher value on things that are scarce and lower value on things that are abundant. When something is rare or dwindling in availability, we perceive it as more valuable.
 
 **Key research**: In a classic cookie jar experiment, participants rated cookies as more desirable when there were only two left in the jar versus ten – even though the cookies were identical.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Limited-time offers**: Booking.com shows "Only 2 rooms left!" alongside real booking activity data. This combines scarcity with social proof for maximum effect.
 - **Exclusive access**: Products that limit who can join (invite-only, waitlists) leverage scarcity to increase perceived value. Early Gmail used invitation-only access to create massive demand.
@@ -54,13 +52,11 @@ A SaaS product shows "12,847 teams use this tool" with logos of recognizable com
 
 A landing page shows "Millions of satisfied customers!" with no specific numbers, stock photos instead of real users, and 5-star reviews that all sound identical and generic.
 
-### From 106 Cognitive Biases: Social Proof
-
 We tend to look to the actions and choices of others to determine our own – especially in situations of uncertainty. When we are unsure what to do, we assume the people around us have more knowledge of the situation.
 
 **Key research**: Hotel towel reuse experiment – signs saying "75% of guests who stayed in this room reused their towels" increased compliance by 33% compared to generic environmental messages.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **User counts and activity**: "1,000+ people are viewing this right now" (Booking.com). Effective when the numbers are real and verifiable.
 - **Testimonials and reviews**: Most effective when they include the reviewer's name, photo, role, and specific details. Generic praise ("Great product!") has minimal impact.
@@ -91,11 +87,9 @@ A health app features advice reviewed by board-certified physicians, displaying 
 
 A supplement website shows a person in a white coat with "Dr. Recommended" but no actual name, credentials, or institutional backing. The authority signal is fabricated and legally questionable.
 
-### From 106 Cognitive Biases: Authority Bias
-
 We have a strong tendency to comply with those in authority. Stanley Milgram's obedience experiments demonstrated that people would administer what they believed were dangerous electric shocks simply because an authority figure instructed them to.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Expert endorsements**: Featuring recognized industry experts builds trust. The endorsement must be genuine and the expert must be relevant to the domain.
 - **Certification badges**: Trust seals (SSL, industry certifications, awards) leverage authority of recognized institutions.
@@ -126,13 +120,11 @@ A subscription page frames pricing as "Less than a cup of coffee per day" instea
 
 A cancellation flow frames the choice as "Keep my premium benefits" vs. "Lose all my data and progress" – making the cancel option sound catastrophic when the user's data is actually preserved. This is manipulative framing that damages trust.
 
-### From 106 Cognitive Biases: Framing
-
 We draw different conclusions from the same information depending on how it is presented. The way options are framed can significantly influence our decisions, even when the underlying facts are identical.
 
 **Key research**: Tversky and Kahneman's disease problem – when a treatment was framed as "saves 200 out of 600 people," 72% chose it. When the same treatment was framed as "400 people will die," only 22% chose it.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Positive framing for features**: "Free shipping on orders over $50" (positive) vs. "$7.99 shipping fee on orders under $50" (negative). Same policy, different perception.
 - **Loss vs. gain framing**: "Save $120/year with annual billing" (gain) vs. "You're losing $120/year on monthly billing" (loss). Loss framing is stronger but riskier – it can feel manipulative.
@@ -163,13 +155,11 @@ A file management app uses a folder-and-document metaphor with drag-and-drop int
 
 A project management tool invents completely new icons and terminology ("pods," "streams," "crystals") for concepts that map directly to familiar ones (folders, timelines, milestones). Users must learn an entirely new vocabulary instead of leveraging existing mental models.
 
-### From 106 Cognitive Biases: Availability Heuristic
-
 We favor recent and available information over past information. The availability heuristic is a mental shortcut that relies on immediate examples that come to mind when evaluating something.
 
 **Key research**: After seeing news coverage of airplane crashes, people overestimate the probability of dying in a plane crash, even though statistically it is far safer than driving.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Recent activity displays**: Showing recent purchases, recent searches, or recent views keeps those options cognitively available and increases repeat behavior.
 - **Familiar patterns**: Using well-known UI patterns (hamburger menu, pull-to-refresh, swipe-to-delete) leverages what users already have available in memory.

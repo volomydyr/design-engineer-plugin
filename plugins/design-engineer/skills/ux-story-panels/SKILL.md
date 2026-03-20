@@ -1,45 +1,45 @@
 ---
-name: ux-6p-stories
-description: "Guides creation of 6P Stories – comic-style visual product stories with 6 panels that build customer empathy. Produces image generation prompts for each panel, reviews generated images, and iterates until the story is right. Use when starting a new product or documenting an existing product's user experience."
+name: ux-story-panels
+description: "Guides creation of Story Panels – comic-style visual product stories with 6 panels that build customer empathy. Produces image generation prompts for each panel, reviews generated images, and iterates until the story is right. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
 model: opus
 ---
 
-# ux-6p-stories Skill
+# ux-story-panels Skill
 
-**Purpose:** Guide the user through creating a 6P Story – a one-pager comic with six panels depicting what a customer goes through for a given experience. The final output is a set of **generated images**, not text descriptions.
+**Purpose:** Guide the user through creating a Story Panel – a one-pager comic with six panels depicting what a customer goes through for a given experience. The final output is a set of **generated images**, not text descriptions.
 
 **Why stories, not screens?** Screens merely tell you what happens. Only journeys can tell you *why* and *how*. Screens make you focus on your product, not the problem. It is dangerously easy to become attached to existing solutions you have put a lot of effort into (Sunk Cost Fallacy). Stories focus on the customer first.
 
-**Important: 6P Stories are visual.** Claude cannot generate images. The workflow is: Claude helps craft the story and writes image generation prompts → the user generates images in an external tool (ChatGPT/DALL-E, Midjourney, etc.) → the user shares generated images back for review → iterate until the panels are right → store final images in the project.
+**Important: Story Panels are visual.** Claude cannot generate images. The workflow is: Claude helps craft the story and writes image generation prompts → the user generates images in an external tool (ChatGPT/DALL-E, Midjourney, etc.) → the user shares generated images back for review → iterate until the panels are right → store final images in the project.
 
 **When to use:** Both for new products (creating empathy stories from scratch) and for existing products (documenting current user stories to identify gaps).
 
 **Reference files:**
 
-- [6p-stories-framework.md](./references/6p-stories-framework.md) – Complete 6P framework with psychology, panel structure, and best practices
-- [6p-stories-examples.md](./references/6p-stories-examples.md) – Good/bad patterns with Airbnb case study
-- [example-meddy-health-checkup.jpg](./references/example-meddy-health-checkup.jpg) – Meddy 6P: birthday health motivation → too many tests → app recommends right ones
-- [example-meddy-test-results.jpg](./references/example-meddy-test-results.jpg) – Meddy 6P: test results arrive → can't understand → anxiety → app explains clearly
-- [example-meddy-doctor-appointment.jpg](./references/example-meddy-doctor-appointment.jpg) – Meddy 6P: need doctor → no info online → friends disagree → app matches perfect doctor
-- [example-meddy-prescription.jpg](./references/example-meddy-prescription.jpg) – Meddy 6P: need medicine → can't read writing → office closed → app reads prescription
-- [example-meddy-skin-mole.jpg](./references/example-meddy-skin-mole.jpg) – Meddy 6P: strange mole → 6-month wait → too expensive → app flags urgency → early catch
+- [story-panels-framework.md](./references/story-panels-framework.md) – Complete Story Panels framework with psychology, panel structure, and best practices
+- [story-panels-examples.md](./references/story-panels-examples.md) – Good/bad patterns with Airbnb case study
+- [example-meddy-health-checkup.jpg](./references/example-meddy-health-checkup.jpg) – Meddy Story Panel: birthday health motivation → too many tests → app recommends right ones
+- [example-meddy-test-results.jpg](./references/example-meddy-test-results.jpg) – Meddy Story Panel: test results arrive → can't understand → anxiety → app explains clearly
+- [example-meddy-doctor-appointment.jpg](./references/example-meddy-doctor-appointment.jpg) – Meddy Story Panel: need doctor → no info online → friends disagree → app matches perfect doctor
+- [example-meddy-prescription.jpg](./references/example-meddy-prescription.jpg) – Meddy Story Panel: need medicine → can't read writing → office closed → app reads prescription
+- [example-meddy-skin-mole.jpg](./references/example-meddy-skin-mole.jpg) – Meddy Story Panel: strange mole → 6-month wait → too expensive → app flags urgency → early catch
 
 ---
 
-<critical_sequence name="6p-story-creation" enforce_order="strict">
+<critical_sequence name="story-panel-creation" enforce_order="strict">
 
 ## Workflow
 
 <step number="1" required="true">
 ### Step 1: Understand the Context
 
-Before creating a 6P Story, determine the user's situation.
+Before creating a Story Panel, determine the user's situation.
 
 **Use AskUserQuestion** (with numbered-list fallback):
 
 ```
-To create a meaningful 6P Story, I need to understand your context:
+To create a meaningful Story Panel, I need to understand your context:
 
 1. Are you creating a story for a NEW product idea, or documenting an EXISTING product's user experience?
 2. What is the product or feature you are working on?
@@ -50,19 +50,19 @@ To create a meaningful 6P Story, I need to understand your context:
 
 **BLOCKING REQUIREMENT:** Wait for user answers before proceeding. Do not assume or invent customer context.
 
-**After receiving answers**, read [6p-stories-framework.md](./references/6p-stories-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good 6P Story looks like — read the relevant example image files from references/.
+**After receiving answers**, read [story-panels-framework.md](./references/story-panels-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good Story Panel looks like — read the relevant example image files from references/.
 </step>
 
 <step number="2" required="true" depends_on="1">
 ### Step 2: Teach the Psychology of Storytelling
 
-Briefly explain WHY 6P Stories work, weaving the education into the conversation naturally:
+Briefly explain WHY Story Panels work, weaving the education into the conversation naturally:
 
 **Three psychological principles behind storytelling:**
 
 1. **Narrative Bias** – Humans are wired to make sense of the world through stories. When information is presented as a narrative, the brain processes and retains it more effectively than raw data or screen descriptions.
 
-2. **Singularity Effect** – People empathize more with a single individual than with a large group. A 6P Story starring one specific customer creates stronger emotional engagement than aggregate user data.
+2. **Singularity Effect** – People empathize more with a single individual than with a large group. A Story Panel starring one specific customer creates stronger emotional engagement than aggregate user data.
 
 3. **Character Identification Effect** – Stories make your brain feel like YOU are experiencing the journey. This develops genuine empathy for the hero and their struggles.
 
@@ -108,7 +108,7 @@ For each panel, define:
 - A speech bubble with the character's thought/words
 - The scene description (what's happening visually)
 
-**Critical pattern from the Meddy examples:** The product only appears in Panel 5. Panels 1-4 show the customer's real-life struggle WITHOUT the product. This is what makes 6P Stories about empathy, not marketing.
+**Critical pattern from the Meddy examples:** The product only appears in Panel 5. Panels 1-4 show the customer's real-life struggle WITHOUT the product. This is what makes Story Panels about empathy, not marketing.
 </step>
 
 <step number="4" required="true" depends_on="3">
@@ -174,13 +174,13 @@ Ask the user to share the generated image back.
 
 Once the final image is approved:
 
-1. **Store the image** in the project's deliverables folder (e.g., `docs/design/foundation/6p-story-[name].jpg`)
+1. **Store the image** in the project's deliverables folder (e.g., `docs/design/foundation/story-panel-[name].jpg`)
 2. **Update project-map.md** in auto-memory with the new file
 
 Then guide the user to extract actionable insights:
 
 ```
-Now look at your completed 6P Story and consider:
+Now look at your completed Story Panel and consider:
 
 1. What could go wrong between any two panels? Where are the gaps?
 2. Which panel shows the biggest emotional drop for the customer?
@@ -188,9 +188,9 @@ Now look at your completed 6P Story and consider:
 4. Are there moments where the customer might abandon the journey entirely?
 ```
 
-**Document the improvement opportunities** as a numbered list. These feed into the next activities (Behavior Mapping, Psych Framework analysis) if the user continues with the design pipeline.
+**Document the improvement opportunities** as a numbered list. These feed into the next activities (Behavior Mapping, Motivation Framework analysis) if the user continues with the design pipeline.
 
-**Multiple stories:** Each product typically needs 3-5 different 6P Stories covering different user scenarios. Ask the user if they want to create another story for a different slice of the experience.
+**Multiple stories:** Each product typically needs 3-5 different Story Panels covering different user scenarios. Ask the user if they want to create another story for a different slice of the experience.
 </step>
 
 </critical_sequence>
@@ -199,10 +199,10 @@ Now look at your completed 6P Story and consider:
 
 ## Decision Hierarchy
 
-When creating 6P Stories, always follow this priority:
+When creating Story Panels, always follow this priority:
 
 1. **User's context and research** – Real customer insights always win
-2. **Framework guidelines** – The 6P structure and best practices from reference files
+2. **Framework guidelines** – The 6-panel structure and best practices from reference files
 3. **AI suggestions** – Only when user has no data and needs a starting point to iterate on
 
-Never invent customer research. If the user has no customer data, the 6P Story becomes a hypothesis to validate, and this must be stated explicitly.
+Never invent customer research. If the user has no customer data, the Story Panel becomes a hypothesis to validate, and this must be stated explicitly.

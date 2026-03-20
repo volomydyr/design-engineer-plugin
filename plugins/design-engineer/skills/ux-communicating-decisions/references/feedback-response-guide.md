@@ -39,7 +39,7 @@ The key is to transform "likes" into "works." It is much easier to know why some
 
 **How to respond:**
 
-User research (GEQs and SEQs) and data are essential to make informed product decisions. If the qualitative and quantitative data shows a gap, you have the justification.
+User research (empathy questions and specific empathy questions) and data are essential to make informed product decisions. If the qualitative and quantitative data shows a gap, you have the justification.
 
 **Your response**: "The data shows [specific finding]. X% of users drop off at this point, and in interviews they told us [specific quote]. That's why we believe this change addresses a real problem."
 

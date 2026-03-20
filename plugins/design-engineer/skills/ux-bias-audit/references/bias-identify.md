@@ -1,10 +1,10 @@
-# B.I.A.S. Block: 6 Ways to Help People See What Is Important
+# Identify: 6 Ways to Help People See What Is Important
 
-Our brain continuously filters information to save us from the enormous amount of stimuli we encounter. Understanding what gets blocked and what captures attention is the first step in designing effective experiences.
+Our brain continuously filters information to save us from the enormous amount of stimuli we encounter. Understanding what gets filtered and what captures attention is the first step in designing effective experiences.
 
 ---
 
-## What the Brain Blocks
+## What the Brain Filters Out
 
 The brain automatically filters out anything that falls into these three categories. If your interface triggers any of them, users will never even process your message.
 
@@ -113,7 +113,7 @@ When something is new, funny, or customized to our likings, we pay attention. Th
 
 ---
 
-## Block Audit Checklist
+## Identify Audit Checklist
 
 Use these questions to evaluate any screen or flow:
 
@@ -129,4 +129,4 @@ Use these questions to evaluate any screen or flow:
 
 ## Key Principle
 
-The goal of the Block step is not to add more attention-grabbing elements. It is to **remove what gets blocked** first, then **strategically guide attention** to what matters. Less noise means the important elements naturally stand out.
+The goal of the Identify step is not to add more attention-grabbing elements. It is to **remove what gets filtered out** first, then **strategically guide attention** to what matters. Less noise means the important elements naturally stand out.

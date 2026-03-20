@@ -1,4 +1,4 @@
-# BMap Framework – Complete Reference
+# Behavior Map Framework – Complete Reference
 
 ## The Core Formula
 
@@ -18,7 +18,7 @@ The multiplication sign is deliberate: if ANY of the three factors is zero, the 
 
 The Activation Threshold is a conceptual line on the Behavior Map. It represents the minimum combined Motivation and Ability needed for a behavior to occur when prompted.
 
-**Visualizing the BMap:**
+**Visualizing the Behavior Map:**
 
 ```
 HIGH
@@ -109,7 +109,7 @@ The user is cued to take action through an association stored in memory. The pro
 
 ---
 
-## General Empathy Questions (GEQs)
+## Empathy Questions
 
 These questions are used in surveys and user interviews to identify customers' Jobs-To-Be-Done, better understand their context, and find their Behavior Impact Levers.
 
@@ -137,7 +137,7 @@ Purpose: Elicits a concrete STORY of the user's experience, revealing specific a
 
 ## The "Replacing X" Technique
 
-The GEQs use X and Y as placeholders. Here is how to replace them:
+The empathy questions use X and Y as placeholders. Here is how to replace them:
 
 ### Replacing X
 
@@ -148,7 +148,7 @@ Replace X with the **benefit/action of the industry you are in**. Examples:
 | organize team projects and docs | Notion |
 | brainstorm remotely | Miro |
 | convert visitors into subscribers | ConvertKit |
-| apply psychology to your product | (used in Growth Design course surveys) |
+| apply psychology to your product | (a common survey framing) |
 | find and book unique accommodations | Airbnb |
 | get food delivered to your door | Uber Eats |
 
@@ -160,7 +160,7 @@ Y is often a **Hope (Motivation)** related to the core context X. Ideally, you s
 
 ### Full Example from a Real Interview
 
-**Context:** Researching hopes, pains, and barriers of potential students for a product psychology course.
+**Context:** Researching hopes, pains, and barriers of potential students for an online learning product.
 
 **Interviewer:** "Tell me about the last time you tried to apply psychology to the development of a product feature, how did that go?"
 
@@ -187,17 +187,17 @@ These types of questions give essential insights into the Motivation and Ability
 3. Only then make it as easy as possible to take action (Ability)
 4. Provide a clear and timely cue (Prompt)
 
-Behavior levers should be used to help people, not manipulate them. The BMap is a tool for understanding, not for coercion.
+Behavior levers should be used to help people, not manipulate them. The Behavior Map is a tool for understanding, not for coercion.
 
 ---
 
 ## Real-World Application Example
 
-A senior UX/UI designer named Marcos shared this experience after learning the BMap:
+A senior UX/UI designer named Marcos shared this experience after learning the Behavior Map:
 
 "Just this week, I was reviewing a project a fellow designer was working on. I used the Behavior MAP with him to chart the prompt, the user motivations, and ability factors. And just by mapping it visually, we both agreed that the user would likely fall under the activation threshold. This approach switched his perspective completely, and he decided to search for a different approach with the rest of the team. I know that if it weren't for that, my feedback would've fallen flat, and the team would've continued on the wrong path."
 
-This illustrates the BMap's primary value: it is a **communication and alignment tool**. By making motivation, ability, and prompt explicit and visual, it helps teams agree on the current state and the most efficient path forward.
+This illustrates the Behavior Map's primary value: it is a **communication and alignment tool**. By making motivation, ability, and prompt explicit and visual, it helps teams agree on the current state and the most efficient path forward.
 
 ---
 
@@ -210,7 +210,7 @@ This illustrates the BMap's primary value: it is a **communication and alignment
 - **Ability:** High – you have plenty of money (millionaire), and you are one tap away from opening the app
 - **Motivation:** Very Low – fear of allergic reaction (negative Anticipation), no hunger (no Sensation motivation)
 
-**BMap Position:** Zone C (High Ability, Low Motivation) – well below the Activation Threshold
+**Behavior Map Position:** Zone C (High Ability, Low Motivation) – well below the Activation Threshold
 
 **Key insight:** This is why Uber Eats sends notifications around lunch and dinner time. Hunger increases motivation, moving users above the Activation Threshold. The prompt itself does not change – only its timing relative to the user's motivation state.
 

@@ -133,7 +133,7 @@ deliverables:
     skill: ux-business-plan
     last_updated: null
 
-  six-p-stories:
+  story-panels:
     status: not_started
     depends_on:
       - target-audience
@@ -144,7 +144,7 @@ deliverables:
       - mvp-requirements
     folder: design
     phase: 2
-    skill: ux-6p-stories
+    skill: ux-story-panels
     last_updated: null
 
   behavior-map:
@@ -165,14 +165,14 @@ deliverables:
     status: not_started
     depends_on:
       - target-audience
-      - six-p-stories
+      - story-panels
       - behavior-map
     informs:
       - journey-map
       - bias-audit
     folder: design
     phase: 2
-    skill: ux-psych-levels
+    skill: ux-motivation-levels
     last_updated: null
 
   # ═══════════════════════════════════════════
@@ -188,7 +188,7 @@ deliverables:
       - competitor-analysis
       - storybrand
       - business-plan
-      - six-p-stories
+      - story-panels
       - behavior-map
     informs:
       - information-architecture
@@ -224,7 +224,7 @@ deliverables:
     status: not_started
     depends_on:
       - target-audience
-      - six-p-stories
+      - story-panels
       - behavior-map
       - psych-variation
       - information-architecture
@@ -241,7 +241,7 @@ deliverables:
     status: not_started
     depends_on:
       - target-audience
-      - six-p-stories
+      - story-panels
       - information-architecture
       - bias-audit
     informs:

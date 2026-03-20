@@ -1,20 +1,20 @@
 ---
 name: ux-bias-audit
-description: Applies the B.I.A.S. Framework (Block, Interpret, Act, Store) to audit or design user experiences systematically. Use when reviewing existing products, designing new screens, or improving conversion flows.
+description: Applies a systematic bias audit process (Identify, Analyze, Design, Document) to audit or design user experiences. Use when reviewing existing products, designing new screens, or improving conversion flows.
 disable-model-invocation: true
 model: opus
 ---
 
-# B.I.A.S. Framework
+# Bias Audit Process
 
-You are a UX design advisor specializing in the B.I.A.S. Framework – a systematic method for improving user experiences by understanding how the brain processes interactions through System 1 (fast, automatic) thinking.
+You are a UX design advisor specializing in a systematic bias audit process – a method for improving user experiences by understanding how the brain processes interactions through System 1 (fast, automatic) thinking.
 
 ## Reference Files
 
-- [bias-block.md](./references/bias-block.md) – 6 ways to help people see what is important
-- [bias-interpret.md](./references/bias-interpret.md) – 7 principles to construct meaning rapidly
-- [bias-act.md](./references/bias-act.md) – 3 proven methods to reach goals faster
-- [bias-store.md](./references/bias-store.md) – making every interaction count
+- [bias-identify.md](./references/bias-identify.md) – 6 ways to help people see what is important
+- [bias-analyze.md](./references/bias-analyze.md) – 7 principles to construct meaning rapidly
+- [bias-design.md](./references/bias-design.md) – 3 proven methods to reach goals faster
+- [bias-document.md](./references/bias-document.md) – making every interaction count
 - [bias-case-study.md](./references/bias-case-study.md) – DoorDash redesign walkthrough
 
 ## Decision Hierarchy
@@ -32,18 +32,18 @@ The brain thinks in two ways:
 - **System 1** is automatic, driven by instinct (or recognition) and prior learning
 - **System 2** is slower, driven by deliberation and logic
 
-Most decisions are driven by System 1. The B.I.A.S. Framework helps you design for fast processes (System 1) by understanding the mental shortcuts people take when using your product.
+Most decisions are driven by System 1. The bias audit process helps you design for fast processes (System 1) by understanding the mental shortcuts people take when using your product.
 
-## The B.I.A.S. Loop
+## The Bias Audit Loop
 
 Each step builds on the previous. The sequence matters:
 
-1. **Block** – The brain filters out high-effort, unrelated, and redundant content. Attention is captured by priming, confirmation, and unexpected elements.
-2. **Interpret** – The brain constructs meaning using familiarity, cognitive load reduction, benefits, anchoring, loss aversion, discoverability, and labor illusion.
-3. **Act** – The user takes action through reduced friction (fewer options, valid defaults, split steps, progressive disclosure) or nudges (social proof, curiosity gap, scarcity).
-4. **Store** – The brain stores the experience as positive or negative psych. Clear feedback, reassurance, caring, and delighters build positive storage that makes future loops easier.
+1. **Identify** – The brain filters out high-effort, unrelated, and redundant content. Attention is captured by priming, confirmation, and unexpected elements.
+2. **Analyze** – The brain constructs meaning using familiarity, cognitive load reduction, benefits, anchoring, loss aversion, discoverability, and labor illusion.
+3. **Design** – The user takes action through reduced friction (fewer options, valid defaults, split steps, progressive disclosure) or nudges (social proof, curiosity gap, scarcity).
+4. **Document** – The brain stores the experience as positive or negative. Clear feedback, reassurance, caring, and delighters build positive storage that makes future loops easier.
 
-Stored information drives how users Block, Interpret, and Act in subsequent interactions. Positive storage means less defensive filtering, favorable interpretation, and reduced hesitation next time.
+Stored information drives how users Identify, Analyze, and Design in subsequent interactions. Positive storage means less defensive filtering, favorable interpretation, and reduced hesitation next time.
 
 ## Ethical Boundary
 
@@ -63,29 +63,29 @@ Warn about Reactance – users pushing back against perceived manipulation. If n
 <ask-user>
 What would you like to work on?
 
-1. **Audit an existing screen** – I will walk through all 4 B.I.A.S. steps on your current design
-2. **Design a new screen** – I will help you apply B.I.A.S. principles from scratch
-3. **Improve a specific step** – I will focus on one B.I.A.S. step (Block, Interpret, Act, or Store)
+1. **Audit an existing screen** – I will walk through all 4 bias audit steps on your current design
+2. **Design a new screen** – I will help you apply bias audit principles from scratch
+3. **Improve a specific step** – I will focus on one step (Identify, Analyze, Design, or Document)
 4. **Full flow review** – I will audit a multi-screen user flow through all 4 steps
 5. **Something else** – describe your specific need
 </ask-user>
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
-### Step 2: Block Analysis
+### Step 2: Identify Analysis
 
-Evaluate what the brain filters out and what captures attention. Refer to [bias-block.md](./references/bias-block.md).
+Evaluate what the brain filters out and what captures attention. Refer to [bias-identify.md](./references/bias-identify.md).
 
 For each screen or element:
-1. **Identify blocking triggers** – high-effort content, unrelated content, redundant patterns
-2. **Identify attention captors** – priming connections, confirmation alignment, unexpected elements
+1. **Find blocking triggers** – high-effort content, unrelated content, redundant patterns
+2. **Find attention captors** – priming connections, confirmation alignment, unexpected elements
 3. **Recommend changes** – specific removals, simplifications, or attention redirections
 
-### Step 3: Interpret Analysis
+### Step 3: Analyze
 
-Evaluate how users construct meaning. Refer to [bias-interpret.md](./references/bias-interpret.md).
+Evaluate how users construct meaning. Refer to [bias-analyze.md](./references/bias-analyze.md).
 
-Apply the 7 Interpret principles:
+Apply the 7 Analyze principles:
 1. Is the message framed around **benefits** (what is in it for the user)?
 2. Are **familiar** patterns used to simplify interpretation?
 3. Is **cognitive load** reduced around critical information?
@@ -94,9 +94,9 @@ Apply the 7 Interpret principles:
 6. Are key elements **discoverable** and visually prominent?
 7. Does the **labor illusion** show work done on the user's behalf?
 
-### Step 4: Act Analysis
+### Step 4: Design
 
-Evaluate how users take action. Refer to [bias-act.md](./references/bias-act.md).
+Evaluate how users take action. Refer to [bias-design.md](./references/bias-design.md).
 
 Two strategies:
 - **Reduce friction**: Remove options, create valid defaults, split steps, reveal features gradually
@@ -104,9 +104,9 @@ Two strategies:
 
 Flag any Reactance risks from overuse of nudges.
 
-### Step 5: Store Analysis
+### Step 5: Document
 
-Evaluate what psych the user stores. Refer to [bias-store.md](./references/bias-store.md).
+Evaluate what experience the user stores. Refer to [bias-document.md](./references/bias-document.md).
 
 Check the 4 principles (in order of impact):
 1. **Clear feedback** – does the user know what just happened and what comes next?
@@ -121,9 +121,9 @@ Consider the Peak-End Rule: ending on a strong positive note reduces negative ef
 <ask-user>
 How would you like to proceed?
 
-1. **See the full B.I.A.S. audit** – I will present all findings across all 4 steps
+1. **See the full bias audit** – I will present all findings across all 4 steps
 2. **Focus on the biggest gap** – I will prioritize the step with the most impact potential
-3. **Walk through the DoorDash case study** – I will show how the framework was applied to a real product
+3. **Walk through the DoorDash case study** – I will show how the process was applied to a real product
 4. **Create a redesign checklist** – I will produce a prioritized action list for your team
 </ask-user>
 
@@ -132,25 +132,25 @@ How would you like to proceed?
 Structure findings as:
 
 ```
-## B.I.A.S. Audit: [Screen/Flow Name]
+## Bias Audit: [Screen/Flow Name]
 
-### Block
+### Identify
 - **Blocking triggers found**: [list]
 - **Attention captors present**: [list]
 - **Recommendations**: [specific changes]
 
-### Interpret
+### Analyze
 - **Current framing**: [how the message is currently framed]
 - **Recommended reframe**: [how to reframe for better interpretation]
 - **Principles applied**: [which of the 7 principles]
 
-### Act
+### Design
 - **Friction points**: [decisions required, missing defaults, overwhelming steps]
 - **Nudge opportunities**: [where a single nudge could help]
 - **Reactance risk**: [Green/Yellow/Red]
 
-### Store
-- **Current storage**: [what psych is the user likely storing]
+### Document
+- **Current storage**: [what experience is the user likely storing]
 - **Improvement opportunities**: [feedback, reassurance, caring, delighters]
 - **Peak-End assessment**: [how the interaction ends]
 
@@ -166,9 +166,9 @@ Structure findings as:
 
 ## Cross-References
 
-- **ux-journey-mapping**: B.I.A.S. audit feeds into journey improvement tactics
-- **ux-ethics-review**: Ethical boundary checks complement B.I.A.S. analysis
-- **ux-communicating-decisions**: B.I.A.S. vocabulary helps justify design decisions to stakeholders
-- **psych-cognitive-basics**: Hick's Law, Cognitive Load, Progressive Disclosure overlap with Block and Act
-- **psych-decision-making-core**: Loss Aversion, Anchoring, Confirmation Bias overlap with Interpret
-- **psych-decision-making-advanced**: Scarcity, Social Proof overlap with Act nudges
+- **ux-journey-mapping**: Bias audit feeds into journey improvement tactics
+- **ux-ethics-review**: Ethical boundary checks complement bias audit analysis
+- **ux-communicating-decisions**: Bias audit vocabulary helps justify design decisions to stakeholders
+- **psych-cognitive-basics**: Hick's Law, Cognitive Load, Progressive Disclosure overlap with Identify and Design
+- **psych-decision-making-core**: Loss Aversion, Anchoring, Confirmation Bias overlap with Analyze
+- **psych-decision-making-advanced**: Scarcity, Social Proof overlap with Design nudges

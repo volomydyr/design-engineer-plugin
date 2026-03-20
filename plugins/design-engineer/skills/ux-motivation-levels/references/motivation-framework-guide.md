@@ -1,20 +1,20 @@
-# Psych Framework – Complete Reference
+# Motivation Framework – Complete Reference
 
-## Core Concept: Psych as a Cognitive Resource
+## Core Concept: Motivation as a Cognitive Resource
 
-Psych is the merging of the Motivation and Ability axes of the Behavior Map into a single, trackable dimension. Instead of thinking about motivation and ability as separate axes on a chart, Psych combines them into a resource that increases and decreases as the user moves through an experience.
+Motivation is the merging of the Motivation and Ability axes of the Behavior Map into a single, trackable dimension. Instead of thinking about motivation and ability as separate axes on a chart, Motivation combines them into a resource that increases and decreases as the user moves through an experience.
 
 **The fundamental equation:**
 
-**Psych = Motivation x Ability**
+**Motivation = Motivation x Ability**
 
-Every user interaction will either add or subtract Psych. This is the Net Perceived Value:
+Every user interaction will either add or subtract Motivation. This is the Experience Value:
 
-**NPV = Expected Utility - Expected Interaction Cost**
+**Experience Value = Expected Utility - Expected Interaction Cost**
 
 Or more simply:
 
-**NPV = Motivation - Friction**
+**Experience Value = Motivation - Friction**
 
 According to behavioral economics, the human brain constantly (and sometimes subconsciously) perceives an action's "net value" using this calculation. Every button, every word of copy, every loading screen, every form field, every image, and every micro-interaction contributes to either the Motivation side or the Friction side.
 
@@ -22,17 +22,17 @@ According to behavioral economics, the human brain constantly (and sometimes sub
 
 ## The Video Game Analogy
 
-Think of your customer as the **hero of a video game**, and their Psych Level as their **health bar**.
+Think of your customer as the **hero of a video game**, and their Motivation Level as their **health bar**.
 
 **Core principles:**
 
 1. **Your job is to help them achieve THEIR quest** – not just your business goals. If your business goal is "increase sign-ups" but the user's quest is "find a solution to their problem," your design should focus on helping them find the solution. Sign-ups happen as a byproduct of serving the quest.
 
-2. **To keep their Psych up, you need to both motivate them AND minimize friction.** These are two separate actions, and both are equally important. A common mistake is focusing only on removing friction (making things easier) while neglecting motivation (making things feel worthwhile).
+2. **To keep their Motivation up, you need to both motivate them AND minimize friction.** These are two separate actions, and both are equally important. A common mistake is focusing only on removing friction (making things easier) while neglecting motivation (making things feel worthwhile).
 
-3. **If their Psych Level drops too much, it is game over** – for them AND for you. "Game over" means the user abandons the experience: they close the tab, delete the app, switch to a competitor, or simply give up. There is no "respawn" in most product experiences.
+3. **If their Motivation Level drops too much, it is game over** – for them AND for you. "Game over" means the user abandons the experience: they close the tab, delete the app, switch to a competitor, or simply give up. There is no "respawn" in most product experiences.
 
-4. **Different heroes have different starting health.** A user who arrives from an enthusiastic word-of-mouth recommendation starts with higher Psych than a user who clicks a random ad. The same screen can have very different Psych impacts depending on who is viewing it.
+4. **Different heroes have different starting health.** A user who arrives from an enthusiastic word-of-mouth recommendation starts with higher Motivation than a user who clicks a random ad. The same screen can have very different Motivation impacts depending on who is viewing it.
 
 5. **The quest matters more than any individual battle.** Users will tolerate friction (battles) if they believe the quest (their goal) is worth it. But every battle drains health, so unnecessary battles are dangerous.
 
@@ -40,11 +40,11 @@ Think of your customer as the **hero of a video game**, and their Psych Level as
 
 ## Friction: Not Always Bad
 
-**Friction = less ability.** This means that customers have to use MORE Psych to take action. But this is a nuanced point:
+**Friction = less ability.** This means that customers have to use MORE Motivation to take action. But this is a nuanced point:
 
 **Friction is harmful when:**
 - It does not serve the user's goal (unnecessary complexity, confusing navigation, irrelevant questions)
-- It appears at a moment when Psych is already low (asking for credit card details during a frustrating error recovery)
+- It appears at a moment when Motivation is already low (asking for credit card details during a frustrating error recovery)
 - It creates doubt about the product's competence or trustworthiness
 
 **Friction is valuable ("good friction") when:**
@@ -57,14 +57,14 @@ Think of your customer as the **hero of a video game**, and their Psych Level as
 
 ---
 
-## Psych Numerical Precision
+## Motivation Numerical Precision
 
 **Focus on the insights. Not the numbers.**
 
-The goal of the Psych Framework is to put yourself in your customer's mind. Psych variations depend a lot on the Motivation and Ability of each individual user, so trying to calculate exact numbers is a fool's errand.
+The goal of the Motivation Framework is to put yourself in your customer's mind. Motivation variations depend a lot on the Motivation and Ability of each individual user, so trying to calculate exact numbers is a fool's errand.
 
 **What to focus on:**
-- **Direction:** Is this element adding or subtracting Psych? (Most important)
+- **Direction:** Is this element adding or subtracting Motivation? (Most important)
 - **Relative magnitude:** Is this a small bump/dip or a major spike/crater? (Important)
 - **Sequence:** Does this friction come after a motivation boost or after another friction? (Important for running total)
 - **Exact number:** Is this a -2 or a -3? (Least important – do not agonize over this)
@@ -73,9 +73,9 @@ The goal of the Psych Framework is to put yourself in your customer's mind. Psyc
 
 ---
 
-## Psych Variation Benchmarks
+## Motivation Variation Benchmarks
 
-### Negative Variations (Subtracting Psych)
+### Negative Variations (Subtracting Motivation)
 
 | Variation | Meaning | Typical Examples |
 |-----------|---------|-----------------|
@@ -85,7 +85,7 @@ The goal of the Psych Framework is to put yourself in your customer's mind. Psyc
 | -4 | Major friction | Error without clear recovery path, mandatory account creation for low-value action, misleading information |
 | -5 | Severe friction | Data loss, trust violation, major broken feature, feels like a dead end |
 
-### Positive Variations (Adding Psych)
+### Positive Variations (Adding Motivation)
 
 | Variation | Meaning | Typical Examples |
 |-----------|---------|-----------------|
@@ -97,11 +97,11 @@ The goal of the Psych Framework is to put yourself in your customer's mind. Psyc
 
 ---
 
-## Applying the Psych Framework: Step-by-Step
+## Applying the Motivation Framework: Step-by-Step
 
 ### 1. Choose a Screen or Flow to Analyze
 
-Pick one screen or a short flow (3-5 screens maximum). The analysis works best when focused. If you have completed a BMap and/or 6P Story, pick the screen that corresponds to the key moment you identified.
+Pick one screen or a short flow (3-5 screens maximum). The analysis works best when focused. If you have completed a Behavior Map and/or Story Panel, pick the screen that corresponds to the key moment you identified.
 
 Ideally, choose the screen you analyzed in the Behavior Map so that you have a deeper understanding of the events and context before and after that moment.
 
@@ -113,7 +113,7 @@ Before analyzing the screen itself, assess what state the customer is in when th
 - **What do they already know?** (First-time visitor vs. returning user)
 - **What are they expecting?** (Based on what sent them here)
 - **What is their emotional state?** (Excited, neutral, frustrated, confused)
-- **What is their starting Psych Level?** (This becomes the baseline)
+- **What is their starting Motivation Level?** (This becomes the baseline)
 
 ### 3. Mark Key Reaction Points
 
@@ -122,31 +122,31 @@ Scan the screen as the customer would, following natural reading/scanning patter
 For each element that triggers a psychological reaction, note:
 - What the element is (headline, image, button, form field, error message)
 - What the customer is likely thinking ("their inner monologue")
-- Whether it adds or subtracts Psych
+- Whether it adds or subtracts Motivation
 
-### 4. Assign Psych Variations
+### 4. Assign Motivation Variations
 
 Using the benchmarks above as a reference, assign a number to each reaction point. Remember: direction and relative magnitude matter more than the exact number.
 
-### 5. Calculate the Running Psych Level
+### 5. Calculate the Running Motivation Level
 
 Track the cumulative total:
 
 ```
-Arrival Psych: [baseline]
+Arrival Motivation: [baseline]
 After Step 1: [baseline + variation 1]
 After Step 2: [baseline + variation 1 + variation 2]
 ...
-Final Psych: [sum of all]
+Final Motivation: [sum of all]
 ```
 
 ### 6. Identify the Critical Moments
 
 From the running total, identify:
 
-- **The Peak:** The highest Psych point. This is where the experience is strongest.
-- **The Pit:** The lowest Psych point. This is where users are most at risk of abandoning.
-- **The End:** The final Psych level. Combined with the peak, this determines how users remember the experience (Peak-End Rule).
+- **The Peak:** The highest Motivation point. This is where the experience is strongest.
+- **The Pit:** The lowest Motivation point. This is where users are most at risk of abandoning.
+- **The End:** The final Motivation level. Combined with the peak, this determines how users remember the experience (Peak-End Rule).
 - **Danger Zones:** Any point where the running total approaches zero or goes negative.
 
 ### 7. Generate Improvement Ideas
@@ -154,7 +154,7 @@ From the running total, identify:
 For each friction point (especially the biggest pit):
 - Can the element be removed entirely?
 - Can it be simplified?
-- Can a motivating element be placed BEFORE it to build up Psych reserves?
+- Can a motivating element be placed BEFORE it to build up Motivation reserves?
 - Can the information be delivered differently (progressive disclosure, defaults, visual hierarchy)?
 
 For each motivation point (especially the peak):
@@ -179,10 +179,10 @@ Swimply is a tech startup – an "Airbnb for private pools." The team is working
 ### Analysis Walkthrough
 
 **Step 1: Arrival State**
-The customer arrives from a Google search on a hot day. They are motivated (hot, want a pool) but skeptical (never heard of Swimply, expecting high prices). Starting Psych: moderate positive (motivated by heat, dragged down by unfamiliarity).
+The customer arrives from a Google search on a hot day. They are motivated (hot, want a pool) but skeptical (never heard of Swimply, expecting high prices). Starting Motivation: moderate positive (motivated by heat, dragged down by unfamiliarity).
 
 **Step 2: Scanning the page**
-As the customer scans the homepage, each element they encounter either adds or subtracts Psych:
+As the customer scans the homepage, each element they encounter either adds or subtracts Motivation:
 
 - **Hero image of a pool:** +2 (matches what they are looking for, creates desire)
 - **Brand name "Swimply":** -1 (unfamiliar brand, slight trust concern)
@@ -193,7 +193,7 @@ As the customer scans the homepage, each element they encounter either adds or s
 
 ### Key Findings from this Example
 
-1. **The price misconception is the biggest opportunity.** Showing "$30/hour" early dramatically increases Psych because it shatters the expected $300/day mental model.
+1. **The price misconception is the biggest opportunity.** Showing "$30/hour" early dramatically increases Motivation because it shatters the expected $300/day mental model.
 2. **Trust is the biggest risk.** Users have an Airbnb mental model but mistrust new brands. Social proof, reviews, and familiar design patterns are critical.
 3. **Timing matters.** These are same-day, heat-motivated users. Every second of friction reduces the likelihood of booking because the motivation is urgent and time-sensitive.
 
@@ -201,9 +201,9 @@ As the customer scans the homepage, each element they encounter either adds or s
 
 ## Using Specific Empathy Questions (SEQs)
 
-When the Psych Framework prompts the question "How do you really know what goes on in your customer's mind?", the answer is **Specific Empathy Questions (SEQs)**.
+When the Motivation Framework prompts the question "How do you really know what goes on in your customer's mind?", the answer is **Specific Empathy Questions (SEQs)**.
 
-Unlike the General Empathy Questions (GEQs) used in Behavior Mapping, SEQs target specific screens or interactions:
+Unlike the general empathy questions used in Behavior Mapping, SEQs target specific screens or interactions:
 
 - "What did you think when you first saw this screen?"
 - "What were you looking for when you landed here?"
@@ -212,30 +212,30 @@ Unlike the General Empathy Questions (GEQs) used in Behavior Mapping, SEQs targe
 - "What would make you trust this page more?"
 - "Was there a moment where you considered leaving? What triggered that?"
 
-If SEQ data is available, use customers' actual reactions as the basis for Psych variation assignments rather than estimating.
+If SEQ data is available, use customers' actual reactions as the basis for Motivation variation assignments rather than estimating.
 
 ---
 
-## Connecting Psych to the Bigger Picture
+## Connecting Motivation to the Bigger Picture
 
-### From BMap to Psych
+### From Behavior Map to Motivation
 
-The Behavior Map analyzes Motivation and Ability as separate axes. The Psych Framework collapses them into a single trackable resource. The BMap tells you WHERE the user stands (which zone, how far from the threshold). The Psych Framework tells you HOW the experience moves them moment by moment.
+The Behavior Map analyzes Motivation and Ability as separate axes. The Motivation Framework collapses them into a single trackable resource. The Behavior Map tells you WHERE the user stands (which zone, how far from the threshold). The Motivation Framework tells you HOW the experience moves them moment by moment.
 
-### From Psych to Journey Mapping
+### From Motivation to Journey Mapping
 
-Psych variations at the screen level roll up into journey-level patterns. A sequence of screens each with net-positive Psych creates a rising journey. A sequence with deep Psych pits creates drop-off risk. The journey-level view (covered in Module 3 of the course) identifies the 5-6 moments that define the overall experience.
+Motivation variations at the screen level roll up into journey-level patterns. A sequence of screens each with net-positive Motivation creates a rising journey. A sequence with deep Motivation pits creates drop-off risk. The journey-level view identifies the 5-6 moments that define the overall experience.
 
-### From Psych to B.I.A.S.
+### From Motivation to Bias Audit
 
-Friction points identified through Psych analysis become candidates for the B.I.A.S. framework (Block, Interpret, Act, Store). The B.I.A.S. framework provides specific psychological principles for addressing each type of friction.
+Friction points identified through Motivation analysis become candidates for the bias audit process (Identify, Analyze, Design, Document). The bias audit process provides specific psychological principles for addressing each type of friction.
 
 ---
 
 ## Ethical Note
 
-The Psych Framework should be used to help customers achieve their goals, not to manipulate them into behaviors that serve only the business. A high Psych Level should reflect genuine value delivery, not psychological tricks that mask a poor product.
+The Motivation Framework should be used to help customers achieve their goals, not to manipulate them into behaviors that serve only the business. A high Motivation Level should reflect genuine value delivery, not psychological tricks that mask a poor product.
 
-If your Psych analysis shows high motivation from deceptive patterns (fake scarcity, hidden fees revealed late, dark patterns), the Psych Level is artificially inflated and will collapse when users discover the deception – leading to negative reviews, refund requests, and destroyed trust.
+If your Motivation analysis shows high motivation from deceptive patterns (fake scarcity, hidden fees revealed late, dark patterns), the Motivation Level is artificially inflated and will collapse when users discover the deception – leading to negative reviews, refund requests, and destroyed trust.
 
-Sustainable Psych comes from genuine value alignment: the user's quest and your product's capabilities honestly match.
+Sustainable Motivation comes from genuine value alignment: the user's quest and your product's capabilities honestly match.

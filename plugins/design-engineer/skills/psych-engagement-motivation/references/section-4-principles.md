@@ -40,8 +40,6 @@ A language learning app occasionally rewards completed lessons with bonus conten
 
 A shopping app sends constant "Surprise! 5% off!" notifications for items the user has never shown interest in. The rewards are neither variable (always 5%) nor relevant, creating notification fatigue.
 
-### From 106 Cognitive Biases: Variable Reward
-
 Variable rewards are one of the most powerful tools in product design. Nir Eyal's Hook Model identifies three types:
 
 - **Rewards of the Tribe** (social): Likes, comments, followers – social validation that varies in quantity and quality
@@ -74,11 +72,9 @@ A profile completion widget shows "Your profile is 70% complete" with a visual p
 
 A 15-step registration form shows only "Step 4 of 15" with no indication of how long each step takes or what the user has already accomplished. The distant goal (step 15) feels unreachable.
 
-### From 106 Cognitive Biases: Goal Gradient Effect
-
 Research with coffee shop loyalty cards revealed a powerful insight: customers given a 12-stamp card with 2 stamps pre-filled completed the card faster than customers given a 10-stamp card with no pre-fills – even though both required 10 purchases. The artificial head start created momentum.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Pre-filled progress**: Start progress bars at 10-20% rather than 0% to trigger the gradient
 - **Milestone markers**: Break long journeys into visible milestones so users always have a "nearby" goal
@@ -104,11 +100,9 @@ A fintech app onboarding shows "Your spending has a hidden pattern – complete 
 
 A news app uses headlines like "You Won't Believe What Happened Next!" that lead to mundane content. The curiosity gap is created but the payoff is absent, eroding trust with every click.
 
-### From 106 Cognitive Biases: Curiosity Gap
-
 George Loewenstein's information gap theory explains that curiosity arises when we perceive a gap between what we know and what we want to know. This gap creates a feeling similar to an itch – it demands to be scratched.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Teaser content**: Showing partial information to encourage sign-up or deeper exploration
 - **Progressive reveal**: Revealing features gradually so users always have something new to discover
@@ -157,8 +151,6 @@ A music streaming service learns from every song liked, skip, and playlist creat
 ### Bad Example
 
 A to-do app requires users to fill out detailed metadata for every task (priority, category, tags, estimated time, energy level) before they can add it. The investment is front-loaded and feels like work, not value creation.
-
-### From 106 Cognitive Biases: Investment Loops
 
 From Nir Eyal's Hook Model, the Investment phase is where users put something into the product that improves it for next time. Types of investment:
 
@@ -232,11 +224,9 @@ LinkedIn shows "Your profile is at Intermediate level" with a clear list of what
 
 A project app shows 47 overdue tasks with red warning indicators, each creating Zeigarnik tension. Instead of motivating completion, the overwhelming number of open loops creates anxiety and avoidance.
 
-### From 106 Cognitive Biases: Zeigarnik Effect
-
 Named after psychologist Bluma Zeigarnik, who noticed that waiters remembered uncompleted orders better than completed ones. Once the bill was paid, the order vanished from memory.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Progress bars**: Showing incomplete progress (e.g., "Profile 60% complete") creates a mental open loop
 - **Saved drafts**: Email clients showing "1 draft" create Zeigarnik tension to either complete or delete
@@ -267,8 +257,6 @@ A payment form validates each field in real-time: the card number formats automa
 
 A registration form accepts all input silently, then after clicking "Submit," shows a page of errors with field names that do not match the labels on the form. The user must scroll back and forth to find and fix each error.
 
-### From 106 Cognitive Biases: Feedback Loop
-
 Effective feedback loops have four components:
 
 1. **Evidence** – the data showing what happened
@@ -276,7 +264,7 @@ Effective feedback loops have four components:
 3. **Consequence** – what effect the action had
 4. **Action** – what to do next
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Micro-interactions**: Button press animations, toggle switches, pull-to-refresh – small confirmations that the system received input
 - **Progress indicators**: Upload progress, loading skeletons, step counters

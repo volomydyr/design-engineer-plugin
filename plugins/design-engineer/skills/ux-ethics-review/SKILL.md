@@ -127,7 +127,7 @@ How would you like the results?
 
 ## Cross-References
 
-- **ux-bias-audit**: B.I.A.S. Act nudges need ethical review
+- **ux-bias-audit**: Design step nudges need ethical review
 - **ux-communicating-decisions**: Ethics arguments help justify decisions
 - **ux-journey-mapping**: Journey improvements should pass ethical tests
 - **psych-decision-making-advanced**: Scarcity, Social Proof, and Framing carry ethical risk

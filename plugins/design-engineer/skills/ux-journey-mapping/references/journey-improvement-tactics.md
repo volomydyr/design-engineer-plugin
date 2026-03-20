@@ -16,7 +16,7 @@ Unfortunately, many companies try to fill ALL the small pits (let us call them "
 
 People prefer smaller, immediate rewards rather than larger, future ones. That is why it is often best for your product to deliver a smaller reward now (e.g., a preview of something important) instead of having your customers wait.
 
-This principle is key to Tactic 4 (Reorder Important Steps): by moving a reward earlier in the journey, you can dramatically improve the user's psych at a critical moment.
+This principle is key to Tactic 4 (Reorder Important Steps): by moving a reward earlier in the journey, you can dramatically improve the user's motivation at a critical moment.
 
 ### The ROI of Delight
 
@@ -81,7 +81,7 @@ Delight is not decoration – it has a significant return on investment. Focus i
 
 **How to apply**:
 
-1. Identify the Pit – the moment of lowest psych in the journey
+1. Identify the Pit – the moment of lowest motivation in the journey
 2. Understand the root cause:
    - Is it a slow downward slope or a sharp Drop?
    - Is the friction necessary or avoidable?
@@ -94,8 +94,8 @@ Delight is not decoration – it has a significant return on investment. Focus i
 
 **Questions to ask**:
 - Is the Pit the result of a slow downward slope or a sharp Drop? How could this be avoided?
-- What is the user's psych level right before they enter the Pit?
-- Is the user being asked to do something hard at a moment when their psych is already low?
+- What is the user's motivation level right before they enter the Pit?
+- Is the user being asked to do something hard at a moment when their motivation is already low?
 
 **Example (Brave Browser)**: The prompt to change the default browser appeared before the user could even try Brave, combined with fear of manually importing bookmarks. The redesign addressed this by making the import process visible and fast, and by reassuring the user about what was happening.
 
@@ -103,24 +103,24 @@ Delight is not decoration – it has a significant return on investment. Focus i
 
 ## Tactic 4: Reorder Important Steps
 
-**What it means**: Rearrange steps strategically so the user encounters rewards earlier and friction later (when they have more psych to handle it).
+**What it means**: Rearrange steps strategically so the user encounters rewards earlier and friction later (when they have more motivation to handle it).
 
-**Why it works**: Because of Hyperbolic Discounting, delivering a smaller reward now is often better than promising a larger one later. By shuffling key moments around, you can eliminate your biggest pit or make it more tolerable by ensuring the user has enough accumulated psych.
+**Why it works**: Because of Hyperbolic Discounting, delivering a smaller reward now is often better than promising a larger one later. By shuffling key moments around, you can eliminate your biggest pit or make it more tolerable by ensuring the user has enough accumulated motivation.
 
 **How to apply**:
 
 1. Look at the sequence of moments in your journey
 2. Ask: Could the experience be simpler and more memorable by shifting things around?
 3. Consider:
-   - Can a reward moment be moved earlier to build psych before a difficult step?
+   - Can a reward moment be moved earlier to build motivation before a difficult step?
    - Can a difficult step be moved later, after the user has experienced value?
    - Can you give the user a preview of the final result before asking for effort?
-4. The goal is to make sure users have enough psych to go through all the journey steps and still finish on a high note (Peak-End Rule)
+4. The goal is to make sure users have enough motivation to go through all the journey steps and still finish on a high note (Peak-End Rule)
 
 **Questions to ask**:
 - Pay even more attention to what is happening around your Peaks, Pits, and Transitions
 - Could the experience be simpler and more memorable by shifting things around?
-- Can you move the Peak closer to the beginning so users start with high psych?
+- Can you move the Peak closer to the beginning so users start with high motivation?
 
 **Example (Brave Browser)**: One way to reorder steps to elevate the Peak would have been to bring the powerful homepage (with ad blocking and performance stats) as the very first step in the onboarding. That would have allowed the user to see key benefits right from the start, get a preview of what those stats look like after some time (more impressive numbers), and be primed for their next steps (importing bookmarks, settings, etc.).
 
@@ -131,11 +131,11 @@ Delight is not decoration – it has a significant return on investment. Focus i
 Use these questions to spark ideas for improving a particular part of a customer's journey:
 
 - [ ] **What is the root cause of your biggest Jump?** – Look for how that Jump relates to the context, the user motivations, etc.
-- [ ] **What is the root cause of your biggest Drop?** – Pay attention not only to what is happening at that specific step, but slightly before it. Do not hesitate to revisit the Motivation, Ability, and Prompts and the B.I.A.S. Framework.
+- [ ] **What is the root cause of your biggest Drop?** – Pay attention not only to what is happening at that specific step, but slightly before it. Do not hesitate to revisit the Motivation, Ability, and Prompts and the bias audit process.
 - [ ] **How could you fill your Pit?** – Is it the result of a slow downward slope or a sharp Drop? How could this be avoided?
 - [ ] **How could you elevate your Peak?** – Think carefully about the customer's Motivations (Hopes, Fears, etc).
 - [ ] **How well did you mark the Transitions?** – Is the clarity of the transition proportional to the importance of the milestone?
-- [ ] **How might you reorder some steps?** – Pay even more attention to what is happening around your Peaks, Pits, and Transitions. Could the experience be simpler and more memorable by shifting things around? The goal is to make sure users have enough psych to go through all the journey steps and still finish on a high note (Peak-End Rule).
+- [ ] **How might you reorder some steps?** – Pay even more attention to what is happening around your Peaks, Pits, and Transitions. Could the experience be simpler and more memorable by shifting things around? The goal is to make sure users have enough motivation to go through all the journey steps and still finish on a high note (Peak-End Rule).
 - [ ] **How might you leverage the customer's waiting periods?** – How might those waiting periods be shortened or used as an opportunity to educate, reassure, or delight? (think: Labor Illusion Effect).
 - [ ] **The "In Real Life" test** – If your experience is mainly digital, which part would feel the most awkward in its "real-life" equivalent?
 
@@ -146,5 +146,5 @@ Use these questions to spark ideas for improving a particular part of a customer
 From the brainstorm above:
 
 1. Write down your top 3 ideas. Focus on the biggest impact for the lowest effort, and focus on the key moments (Peak, Pit, Transition).
-2. Narrow your top 3 to just 1 idea. Explore this idea – it can take the form of a revamped 6P Story, wireframes, mockups, etc. Choose the degree of fidelity appropriate for your needs.
+2. Narrow your top 3 to just 1 idea. Explore this idea – it can take the form of a revamped Story Panel, wireframes, mockups, etc. Choose the degree of fidelity appropriate for your needs.
 3. Pick the one that will feel the most natural to test (by doing wireframes, mockups, etc.).

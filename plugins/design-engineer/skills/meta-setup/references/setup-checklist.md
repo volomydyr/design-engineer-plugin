@@ -13,7 +13,7 @@ Determines where the user is in the product-building journey and controls skip l
 | **Starting from scratch** | New idea with no prior work | Full pipeline from Phase 1. All skills are suggested sequentially. |
 | **Partially done (pre-development)** | Some design deliverables exist | Orchestrator scans for existing deliverables in the deliverables folder and asks which to skip. Skills for completed deliverables are offered as optional updates rather than mandatory steps. |
 | **Partially done (in development)** | Development has already started | Skips to Phase 5 skills by default. Offers to backfill missing design deliverables. Prioritizes context management and compound documentation. |
-| **Existing product** | Live or near-complete product | Focuses on `/review` and `/psych` workflows. Offers audit-mode skills (B.I.A.S., journey mapping, accessibility, ethics review). |
+| **Existing product** | Live or near-complete product | Focuses on `/review` and `/psych` workflows. Offers audit-mode skills (bias audit, journey mapping, accessibility, ethics review). |
 
 **Detection behavior**: When the user selects any state other than "Starting from scratch," the orchestrator proactively checks the deliverables folder for existing files and presents what it found. The user confirms which deliverables are complete, which need updating, and which should be created from scratch.
 

@@ -118,7 +118,7 @@ Which social influence improvements would you like to:
 
 ## Cross-References
 
-- **Bandwagon Effect + Social Proof** (106 Biases): Social proof is one of the three primary nudge mechanisms in the B.I.A.S. Act framework, alongside Curiosity Gap and Scarcity.
+- **Bandwagon Effect + Social Proof** (106 Biases): Social proof is one of the three primary nudge mechanisms in the Design step, alongside Curiosity Gap and Scarcity.
 - **Reactance + Commitment and Consistency** (Law 66): Forced commitments trigger reactance; voluntary ones build consistency. The difference is user agency.
 - **Self-Serving Bias + Peak-End Rule** (Law 41): Credit users at peak moments and endings. "You completed this in record time!" at the peak reinforces self-serving attribution positively.
 - **Spotlight Effect + Delighters** (Law 42): Private delighters (personal achievements, quiet celebrations) work better than public ones for spotlight-sensitive users.

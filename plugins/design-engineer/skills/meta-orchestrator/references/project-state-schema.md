@@ -47,7 +47,7 @@ The project state file uses the following markdown structure. Every section is r
 - **Project Name**: The name the user gave the project during startup
 - **Last updated**: Timestamp of the most recent update, in ISO 8601 format (e.g., 2026-03-09T14:30:00Z)
 - **Current phase**: Which phase the pipeline is currently in (e.g., "Phase 2: Strategy and Positioning")
-- **Current skill**: Which skill is currently executing or which skill is next (e.g., "ux-business-plan" or "Between skills – next is ux-6p-stories")
+- **Current skill**: Which skill is currently executing or which skill is next (e.g., "ux-business-plan" or "Between skills – next is ux-story-panels")
 - **Mode**: Which access mode the user selected (God, Guided, or Direct)
 - **Pipeline status**: Overall status of the pipeline run
 
@@ -242,7 +242,7 @@ Below is an example of what the project state file looks like after Phase 1 is c
 
 **Last updated**: 2026-03-09T16:45:00Z
 **Current phase**: Phase 2: Strategy and Positioning
-**Current skill**: Between skills – next is ux-6p-stories
+**Current skill**: Between skills – next is ux-story-panels
 **Mode**: Guided
 **Pipeline status**: In progress
 
@@ -336,8 +336,8 @@ Below is an example of what the project state file looks like after Phase 1 is c
 
 ## Context for Next Session
 
-**Where we left off**: Completed ux-business-plan, about to start ux-6p-stories
-**What to do next**: Run ux-6p-stories to create narrative scenarios for the product
+**Where we left off**: Completed ux-business-plan, about to start ux-story-panels
+**What to do next**: Run ux-story-panels to create narrative scenarios for the product
 **Critical context**: The product is positioned as a "medical translator" (see StoryBrand). Freemium model. Target audience is 35-55 adults with chronic conditions or regular medical visits.
-**Open questions**: User mentioned wanting to explore behavior mapping – ask whether to include the optional ux-behavior-mapping skill after 6P stories
+**Open questions**: User mentioned wanting to explore behavior mapping – ask whether to include the optional ux-behavior-mapping skill after Story Panels
 ```

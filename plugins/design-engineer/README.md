@@ -72,10 +72,10 @@ All skills are hidden from auto-discovery (`disable-model-invocation: true`). Po
 
 | Skill | What It Does |
 |-------|-------------|
-| `ux-6p-stories` | 6P Stories framework for product narratives |
+| `ux-story-panels` | Story Panels framework for product narratives |
 | `ux-behavior-mapping` | Behavior mapping and mental model analysis |
-| `ux-psych-levels` | Screen-level Psych Levels and NPV analysis |
-| `ux-bias-audit` | B.I.A.S. framework (Block, Interpret, Act, Store) |
+| `ux-motivation-levels` | Screen-level Motivation Levels and Experience Value analysis |
+| `ux-bias-audit` | Bias audit process (Identify, Analyze, Design, Document) |
 | `ux-journey-mapping` | Journey mapping and improvement tactics |
 | `ux-communicating-decisions` | Communicating design decisions to stakeholders |
 | `ux-ethics-review` | Ethical design review |

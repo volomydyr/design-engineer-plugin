@@ -12,7 +12,7 @@ Claude has a "compact chat" feature – when you hit 200k tokens, AI automatical
 
 **The rule: one activity should equal one chat.**
 
-When you finish an activity (e.g., defining a problem statement, completing a B.I.A.S. audit, implementing a frontend component), save the deliverable and start a fresh chat for the next activity. AI will access all your previous documents through its knowledge or project files, while having a clean context window.
+When you finish an activity (e.g., defining a problem statement, completing a bias audit, implementing a frontend component), save the deliverable and start a fresh chat for the next activity. AI will access all your previous documents through its knowledge or project files, while having a clean context window.
 
 ### How to apply this in Claude.ai (browser)
 
@@ -181,7 +181,7 @@ Phase 2 Strategy - Step 1: StoryBrand Canvas
 ## Next Steps
 1. Create StoryBrand canvas
 2. Draft business plan
-3. Begin 6P Stories
+3. Begin Story Panels
 
 ## Warnings
 - Assumptions doc needs re-review after user interviews

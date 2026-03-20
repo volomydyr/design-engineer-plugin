@@ -219,11 +219,9 @@ A new email client positions the compose button as a floating action button in t
 
 A task management app places the "Create New Task" button in the bottom-left corner of the desktop interface, hides the search function inside a hamburger menu, and uses a custom icon for settings that does not resemble a gear. Users from competing tools spend their first sessions hunting for basic functions, and support receives constant "How do I...?" questions about features that are present but not discoverable through expected patterns.
 
-### From 106 Cognitive Biases: Availability Heuristic (merged)
-
 Users favor recent and available information over past information. When making decisions in an interface, people rely heavily on what comes to mind most easily – typically their most recent or most vivid experience with similar products.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Recent experience dominance**: If a user's most recent app used swipe navigation, they will attempt swiping in your app. Design for the most common recent experiences of your target audience.
 - **Vivid memory effects**: Negative experiences are both more vivid and more available. A single crash is more "available" in memory than dozens of smooth sessions.
@@ -257,11 +255,9 @@ A document editing application auto-saves every 30 seconds and keeps a version h
 
 A web-based form for applying to a university has no auto-save. A user spends 45 minutes filling out detailed information, uploads a 10MB transcript, and clicks "Submit." The session has timed out. All data is lost. The user must start over. This single negative experience – despite a potentially excellent university – becomes the defining memory and the story the user tells others.
 
-### From 106 Cognitive Biases: Negativity Bias (merged)
-
 Users recall negative events more than positive ones. Research shows that negative experiences are approximately 2-3 times more impactful than equivalent positive experiences.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Error recovery priority**: Invest disproportionately in error states, edge cases, and failure recovery. These moments define user perception more than smooth happy paths.
 - **Negative review amplification**: One 1-star review carries the weight of multiple 5-star reviews. Address negative feedback visibly and promptly.

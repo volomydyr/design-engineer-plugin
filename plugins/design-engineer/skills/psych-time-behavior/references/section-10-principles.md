@@ -134,13 +134,11 @@ A language learning app plays a short celebratory animation and a distinctive "d
 
 An accounting software plays confetti animations and celebration sounds for every single action: saving an invoice, adding a line item, updating a contact. The "sparks" are so frequent that they become annoying rather than delightful. Worse, celebrating mundane actions in a professional tool undermines the product's credibility. Users disable animations entirely, losing the genuine moments that could have mattered.
 
-### From 106 Cognitive Biases: Aha! Moment (merged)
-
 The Aha! Moment is the point where a user first realizes the value of a product. It is the spark that transforms a casual visitor into an engaged user.
 
 **Key concept**: Every product has a core "Aha! Moment" – the first time the user experiences the product's primary value. For a messaging app, it is sending the first message and getting a reply. For a data tool, it is generating the first insight. The faster users reach this moment, the higher retention rates become.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Accelerate time-to-value**: Remove every barrier between signup and the Aha! Moment. If your product's value is collaboration, get the user into a shared workspace within minutes, not days.
 - **Guide, do not gate**: Use progressive onboarding to lead users toward the Aha! Moment rather than gating features behind lengthy setup.
@@ -175,11 +173,9 @@ A banking app releases a major redesign. Instead of launching the new interface 
 
 A popular note-taking app replaces its entire interface overnight. The sidebar moves from left to right. Tags are replaced by "contexts." The familiar "+" button for new notes becomes a long-press gesture on the screen. Users who have built years of muscle memory are suddenly lost. App store ratings drop from 4.7 to 3.2 in one week. Most complaints are not about the new design being worse – it is about the new design being unfamiliar.
 
-### From 106 Cognitive Biases: Familiarity Bias (merged)
-
 People prefer what they already know. In product design, this means users gravitate toward interfaces that feel familiar, even when a novel approach might be objectively superior.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Leverage existing mental models**: Build on what users already know from competing products. If every email client uses a compose button in a certain position, yours should too – unless you have an extremely compelling reason.
 - **Gradual innovation**: Introduce one novel element at a time, surrounded by familiar patterns. Users can absorb one new thing per session, not five.
@@ -302,11 +298,9 @@ A professional development platform shapes learning habits through a 4-week prog
 
 A complex analytics tool dumps users into the full interface on day one and asks them to "Create your first custom dashboard with 6 widgets, 3 data sources, and 2 scheduled reports." The jump from zero to expert-level behavior has no intermediate steps, no positive reinforcement for partial progress, and no recognition of incremental learning. Most users create one default dashboard and never return to customization.
 
-### From 106 Cognitive Biases: Shaping (merged)
-
 Incrementally reinforcing actions to get closer to a target behavior. In behavioral psychology, shaping means rewarding successive approximations of the desired behavior rather than waiting for the complete behavior to appear.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Onboarding as shaping**: Each onboarding step should feel like a small win, not a requirement. "Great, you set your name!" then "You added a photo – your profile is now 3x more likely to get responses" builds momentum.
 - **Progressive feature adoption**: Do not show all features at once. Introduce one new capability when the user has demonstrated readiness for it through their behavior.

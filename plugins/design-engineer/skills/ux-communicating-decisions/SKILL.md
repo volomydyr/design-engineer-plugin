@@ -1,6 +1,6 @@
 ---
 name: ux-communicating-decisions
-description: Helps communicate and justify product decisions to stakeholders using B.I.A.S. principles. Use when preparing for design reviews, presenting findings, or responding to stakeholder feedback.
+description: Helps communicate and justify product decisions to stakeholders using bias audit principles. Use when preparing for design reviews, presenting findings, or responding to stakeholder feedback.
 disable-model-invocation: true
 model: sonnet
 ---
@@ -31,16 +31,16 @@ To succeed in presenting new ideas, you first need to understand business goals.
 - What is the biggest challenge they face right now?
 - What is currently stopping them from reaching that vision?
 
-This does not have to be a formal interview – a casual coffee conversation works. If you notice a gap between what you say and what they interpret, apply the B.I.A.S. framework to reverse-engineer your communications.
+This does not have to be a formal interview – a casual coffee conversation works. If you notice a gap between what you say and what they interpret, apply the bias audit process to reverse-engineer your communications.
 
-## Applying B.I.A.S. to Stakeholder Communication
+## Applying Bias Audit Principles to Stakeholder Communication
 
 The same framework that improves user experiences also improves communication with stakeholders:
 
-- **Block**: If your message seems redundant, high-effort, or unrelated to your audience's vision, they will filter it out
-- **Interpret**: Use the 7 psychology principles to craft your message – what is familiar to them? What do they benefit from? What do they fear losing?
-- **Act**: Reduce options in your message (minimize choices, give small chunks of info) and nudge effectively (show industry examples, create curiosity)
-- **Store**: Better communication stores positive memories, making future conversations easier
+- **Identify**: If your message seems redundant, high-effort, or unrelated to your audience's vision, they will filter it out
+- **Analyze**: Use the 7 psychology principles to craft your message – what is familiar to them? What do they benefit from? What do they fear losing?
+- **Design**: Reduce options in your message (minimize choices, give small chunks of info) and nudge effectively (show industry examples, create curiosity)
+- **Document**: Better communication stores positive memories, making future conversations easier
 
 ## Workflow
 
@@ -125,6 +125,6 @@ Would you like to:
 
 ## Cross-References
 
-- **ux-bias-audit**: B.I.A.S. vocabulary and principles used in communication
+- **ux-bias-audit**: Bias audit vocabulary and principles used in communication
 - **ux-ethics-review**: Ethics arguments strengthen decision justification
 - **ux-product-assessment**: Assessment findings provide evidence for decisions

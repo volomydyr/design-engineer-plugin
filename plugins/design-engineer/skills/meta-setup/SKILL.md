@@ -327,9 +327,9 @@ RESEARCH & DISCOVERY
 • Prepare and analyze user interviews
 
 STRATEGY & POSITIONING
-• Map what drives user behavior (BMap framework)
+• Map what drives user behavior (Behavior Map framework)
 • Build your product narrative (StoryBrand)
-• Create user empathy stories (6P Comics)
+• Create user empathy stories (Story Panels)
 • Plan your business model and revenue
 
 PLANNING
@@ -337,13 +337,13 @@ PLANNING
 • Design information architecture and user flows
 
 DESIGN & VALIDATION
-• Audit designs for cognitive biases (B.I.A.S. framework)
+• Audit designs for cognitive biases (bias audit)
 • Map customer journey highs and lows
 • Review ethics and dark patterns
 • Collect and organize design references
 • Generate clickable HTML prototypes
 • Design key screens with Figma workflow
-• Analyze UX psychology per screen (Psych Levels)
+• Analyze UX psychology per screen (Motivation Levels)
 • Run a full product assessment
 
 DEVELOPMENT

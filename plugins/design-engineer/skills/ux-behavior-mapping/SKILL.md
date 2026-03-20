@@ -1,21 +1,21 @@
 ---
 name: ux-behavior-mapping
-description: "Maps user behavior using the BMap framework (Behavior = Motivation x Ability x Prompt). Analyzes activation thresholds, mental models, and prompt validation. Use when user motivation is unclear or for complex products needing behavioral analysis."
+description: "Maps user behavior using the Behavior Map framework (Behavior = Motivation x Ability x Prompt). Analyzes activation thresholds, mental models, and prompt validation. Use when user motivation is unclear or for complex products needing behavioral analysis."
 disable-model-invocation: true
 model: opus
 ---
 
 # ux-behavior-mapping Skill
 
-**Purpose:** Guide the user through creating a Behavior Map (BMap) that visualizes the forces influencing user behavior for a specific product experience. The BMap helps articulate WHY users do or do not take a desired action, and identifies the most efficient levers to change that behavior.
+**Purpose:** Guide the user through creating a Behavior Map that visualizes the forces influencing user behavior for a specific product experience. The Behavior Map helps articulate WHY users do or do not take a desired action, and identifies the most efficient levers to change that behavior.
 
-**Classification:** Optional / Advanced. Most useful for complex products where user motivation is unclear, when a desired behavior is not happening, or when a team cannot agree on why users are not converting. Core proven activities are 6P Stories and B.I.A.S., but Behavior Mapping adds significant depth when applied.
+**Classification:** Optional / Advanced. Most useful for complex products where user motivation is unclear, when a desired behavior is not happening, or when a team cannot agree on why users are not converting. Core proven activities are Story Panels and bias audit, but Behavior Mapping adds significant depth when applied.
 
 **When to use:** Both for new products (mapping expected user behaviors to validate assumptions) and existing products (diagnosing why a desired behavior is not happening and finding the most efficient levers to change it).
 
 **Reference files:**
 
-- [bmap-framework.md](./references/bmap-framework.md) – Complete BMap formula, Activation Threshold, 10 behavior levers, 3 key questions, GEQs, and the "Replacing X" technique
+- [behavior-map-framework.md](./references/behavior-map-framework.md) – Complete Behavior Map formula, Activation Threshold, 10 behavior levers, 3 key questions, empathy questions, and the "Replacing X" technique
 
 ---
 
@@ -35,22 +35,22 @@ To create a meaningful Behavior Map, I need to understand your context:
 
 1. What product or feature are you mapping behavior for?
 2. What is the DESIRED user behavior you want to understand or improve? (e.g., "complete onboarding", "upgrade to paid plan", "invite teammates")
-3. Have you already created a 6P Story for this experience? If yes, what was the key moment / biggest gap you identified?
+3. Have you already created a Story Panel for this experience? If yes, what was the key moment / biggest gap you identified?
 4. Do you have any customer research data (survey responses, interview notes, analytics)? If yes, share the key insights.
 5. Is this a NEW product (you are predicting behavior) or an EXISTING product (the desired behavior is not happening enough)?
 ```
 
 **BLOCKING REQUIREMENT:** Wait for user answers before proceeding. Do not assume customer motivations or abilities.
 
-**After receiving answers**, read [bmap-framework.md](./references/bmap-framework.md) to internalize the full framework.
+**After receiving answers**, read [behavior-map-framework.md](./references/behavior-map-framework.md) to internalize the full framework.
 </step>
 
 <step number="2" required="true" depends_on="1">
-### Step 2: Teach the BMap Formula
+### Step 2: Teach the Behavior Map Formula
 
 Explain the core concept naturally as part of the conversation:
 
-**The BMap Formula: Behavior = Motivation x Ability x Prompt**
+**The Behavior Map Formula: Behavior = Motivation x Ability x Prompt**
 
 A user behavior happens only when three elements converge at the same moment:
 
@@ -58,19 +58,19 @@ A user behavior happens only when three elements converge at the same moment:
 2. **Ability** – The capacity to act. The user must have the time, money, physical capacity, mental capacity, and familiarity needed to perform the behavior.
 3. **Prompt** – The timely cue to act. Without a prompt, there is no action – even when motivation and ability are both high. The prompt must arrive at the right moment.
 
-**The Activation Threshold:** On the BMap, there is a dashed line representing the minimum combined Motivation and Ability needed for a behavior to occur. If the user falls BELOW this threshold, the behavior does not happen regardless of the prompt.
+**The Activation Threshold:** On the Behavior Map, there is a dashed line representing the minimum combined Motivation and Ability needed for a behavior to occur. If the user falls BELOW this threshold, the behavior does not happen regardless of the prompt.
 
 **Critical ethical insight:** Never try to impose a behavior on a user. Instead: (1) align your product with what users already want to accomplish, (2) highlight how it will help them achieve their goal (Motivation), and only then (3) make it as easy as possible to take action (Ability) with a clear and timely cue (Prompt).
 
-The BMap is a mental model – a simplified representation to help you understand opposing forces influencing user behavior. It is not about placing a prompt as precisely as possible on a chart.
+The Behavior Map is a mental model – a simplified representation to help you understand opposing forces influencing user behavior. It is not about placing a prompt as precisely as possible on a chart.
 </step>
 
 <step number="3" required="true" depends_on="2">
-### Step 3: Customer Research with General Empathy Questions (GEQs)
+### Step 3: Customer Research with Empathy Questions
 
-Before mapping behavior, ensure the user has customer insights. Guide them through the General Empathy Questions if they do not have data.
+Before mapping behavior, ensure the user has customer insights. Guide them through the empathy questions if they do not have data.
 
-**The 3 General Empathy Questions:**
+**The 3 Empathy Questions:**
 
 **Q1. Hope:**
 "If you had a magic wand and could instantly X, how would that change your life?"
@@ -81,7 +81,7 @@ Before mapping behavior, ensure the user has customer insights. Guide them throu
 **Q3. Barrier:**
 "Tell me about the last time you did X, how did that go? What was preventing you from Y?"
 
-Teach the **"Replacing X" technique** (see [bmap-framework.md](./references/bmap-framework.md) for full details):
+Teach the **"Replacing X" technique** (see [behavior-map-framework.md](./references/behavior-map-framework.md) for full details):
 - Replace X with the benefit/action of the industry you are in
 - Replace Y with a Hope (Motivation) related to the core context X, ideally using the customer's own words from Q1
 
@@ -97,13 +97,13 @@ Do you have answers to these 3 empathy questions from real customers?
 3. No, and I cannot access customers – let's work with assumptions (will be clearly marked as hypotheses)
 ```
 
-**BLOCKING REQUIREMENT:** Wait for user response. If they choose option 2, format the GEQs with their specific product context (replacing X and Y). If they choose option 3, proceed but label all motivation/ability assessments as hypotheses.
+**BLOCKING REQUIREMENT:** Wait for user response. If they choose option 2, format the empathy questions with their specific product context (replacing X and Y). If they choose option 3, proceed but label all motivation/ability assessments as hypotheses.
 </step>
 
 <step number="4" required="true" depends_on="3">
 ### Step 4: Analyze the 10 Behavior Levers
 
-Walk the user through assessing each of the 10 behavior levers for their specific situation. Read [bmap-framework.md](./references/bmap-framework.md) for full descriptions of each lever.
+Walk the user through assessing each of the 10 behavior levers for their specific situation. Read [behavior-map-framework.md](./references/behavior-map-framework.md) for full descriptions of each lever.
 
 **Motivation Levers (3):**
 
@@ -158,9 +158,9 @@ PROMPT:
 <step number="5" required="true" depends_on="4">
 ### Step 5: Map the Behavior and Determine Threshold Position
 
-Based on the lever analysis, help the user determine where their desired behavior lands on the BMap.
+Based on the lever analysis, help the user determine where their desired behavior lands on the Behavior Map.
 
-**The BMap has four zones:**
+**The Behavior Map has four zones:**
 
 - **Zone A (High Motivation, High Ability):** Above the Activation Threshold. The behavior is likely to happen with a proper prompt.
 - **Zone B (High Motivation, Low Ability):** Below the threshold. The user WANTS to do it but CANNOT. Focus on improving ability levers.
@@ -210,7 +210,7 @@ Compile the analysis into a structured Behavior Map document:
 [What you want users to do]
 
 ## Customer Context
-[Key insights from GEQs or research]
+[Key insights from empathy questions or research]
 
 ## Behavior Lever Analysis
 
@@ -230,7 +230,7 @@ Compile the analysis into a structured Behavior Map document:
 - Explicit: [Description + timing assessment]
 - Implicit: [Description + association assessment]
 
-## BMap Position
+## Behavior Map Position
 - Current zone: [A/B/C/D]
 - Weakest lever: [Identified lever]
 - Activation Threshold status: [Above/Below]
@@ -253,8 +253,8 @@ Compile the analysis into a structured Behavior Map document:
 
 ## Decision Hierarchy
 
-1. **User's customer research** – Real data from GEQs, interviews, and analytics always wins
-2. **Framework guidelines** – The BMap structure and lever definitions from reference files
+1. **User's customer research** – Real data from empathy questions, interviews, and analytics always wins
+2. **Framework guidelines** – The Behavior Map structure and lever definitions from reference files
 3. **AI suggestions** – Only when user has no data; clearly labeled as hypotheses
 
 Never invent customer motivations. If the user has no customer data, every motivation and ability assessment must be labeled as a hypothesis to validate.
@@ -263,6 +263,6 @@ Never invent customer motivations. If the user has no customer data, every motiv
 
 ## Integration Notes
 
-- **Receives from:** ux-6p-stories (the key moment from the 6P Story becomes the behavior to map)
-- **Feeds into:** ux-psych-levels (Motivation and Ability from the BMap become the foundation for Psych analysis)
+- **Receives from:** ux-story-panels (the key moment from the Story Panel becomes the behavior to map)
+- **Feeds into:** ux-motivation-levels (Motivation and Ability from the Behavior Map become the foundation for Motivation analysis)
 - **Standalone use:** Fully usable independently whenever a team needs to understand why a desired behavior is or is not happening

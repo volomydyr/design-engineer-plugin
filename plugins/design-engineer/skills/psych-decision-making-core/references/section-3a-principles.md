@@ -20,13 +20,11 @@ A subscription service shows a banner during cancellation: "If you cancel now, y
 
 An e-commerce site shows a countdown timer on every product page claiming "Sale ends in 00:14:32" – but the timer resets on page refresh. The artificial urgency exploits loss aversion with fabricated scarcity, damaging long-term trust once users notice the deception.
 
-### From 106 Cognitive Biases
-
 Loss Aversion describes our tendency to prefer avoiding losses over acquiring equivalent gains. The pain of losing is psychologically about twice as powerful as the pleasure of gaining.
 
 **Key research**: Kahneman and Tversky's Prospect Theory demonstrated that a $100 loss feels roughly twice as bad as a $100 gain feels good. This asymmetry drives much of human decision-making.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Free trial endings**: "Your premium features expire in 3 days" is more motivating than "Upgrade to get premium features" – because losing something you already use triggers loss aversion
 - **Progress preservation**: Showing users what they have already accomplished ("You've completed 7 of 10 steps") before asking them to commit prevents them from feeling they would lose their progress
@@ -84,13 +82,11 @@ A SaaS pricing page displays three plans: Enterprise ($299/mo), Professional ($9
 
 A furniture store lists a "reference price" of $2,000 on a sofa that was never actually sold at that price, then shows the "sale price" of $800. The anchor is fabricated – the sofa was always intended to sell at $800. When customers discover the deception (through price tracking tools or competitor comparison), trust is permanently damaged.
 
-### From 106 Cognitive Biases
-
 Anchoring Bias is our tendency to rely too heavily on the first piece of information we encounter. Once an anchor is set, subsequent judgments are made by adjusting away from that anchor – but the adjustment is typically insufficient.
 
 **Key research**: In a classic study, participants who were asked "Is the height of the tallest redwood more or less than 1,200 feet?" guessed an average of 844 feet. Participants asked "more or less than 180 feet?" guessed an average of 282 feet. The initial number – even when obviously extreme – anchored their estimates.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Price anchoring**: Show the most expensive option first to make mid-tier options feel like better value. Comparisons set the right frame of reference for the user.
 - **Feature anchoring**: Listing the most impressive metric first ("Used by 10 million people") anchors the user's perception of the product's quality before they read details.
@@ -118,13 +114,11 @@ A product comparison site shows a balanced review summary: "87% of users rate ba
 
 A recommendation engine only shows products similar to what the user has already viewed, creating an echo chamber. A user researching laptops who clicks on one gaming laptop now sees only gaming laptops, missing productivity laptops that might actually better serve their stated need of "work from home."
 
-### From 106 Cognitive Biases
-
 Confirmation Bias is our tendency to search for, interpret, and recall information in a way that confirms our pre-existing beliefs. We give more weight to evidence that supports what we already think and dismiss evidence that contradicts it.
 
 **Key research**: In studies, people given the same ambiguous evidence about a controversial topic interpreted it as supporting their existing position – regardless of which side they were on.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Search result design**: Users tend to click results that confirm what they already believe. Ethical search design surfaces diverse, relevant results rather than only echo-chamber content.
 - **Review systems**: Present both positive and negative reviews prominently. Users who only see confirming reviews may purchase products that do not actually meet their needs.
@@ -153,13 +147,11 @@ A privacy-focused messaging app sets all privacy options to the most protective 
 
 A mobile carrier pre-selects the most expensive data plan, insurance add-on, and international calling package during checkout. The "defaults" are designed to maximize revenue, not to serve the user's stated need. Users who do not carefully review each option end up overpaying.
 
-### From 106 Cognitive Biases: Default Bias
-
 Default Bias describes our tendency to go with the pre-selected option, especially when the decision feels complex or the stakes seem low.
 
 **Key research**: Organ donation rates vary dramatically between countries – not because of cultural differences, but because of the default on the driver's license form. Countries with opt-out defaults (you are a donor unless you uncheck) have donation rates above 90%. Countries with opt-in defaults (you must check a box to donate) hover around 15%.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Ethical defaults**: The most powerful use of defaults is choosing options that genuinely serve the user. Privacy-protective defaults, energy-saving defaults, and accessibility-friendly defaults all leverage this bias for good.
 - **Subscription defaults**: Pre-selecting annual billing (if it saves the user money) is ethical. Pre-selecting auto-renewal with no reminder is a dark pattern.

@@ -1,6 +1,6 @@
 ---
 name: ux-user-interviews
-description: "Designs, prepares, and analyzes user interviews and surveys using GEQ and Replacing X techniques. Guides dual-analysis methodology combining human and AI insights. Use when validating assumptions, understanding user behavior, or gathering qualitative data."
+description: "Designs, prepares, and analyzes user interviews and surveys using empathy questions and Replacing X techniques. Guides dual-analysis methodology combining human and AI insights. Use when validating assumptions, understanding user behavior, or gathering qualitative data."
 disable-model-invocation: true
 model: opus
 ---
@@ -21,7 +21,7 @@ You do not always need full interviews to start. A well-crafted survey can alrea
 
 - Ask about past behavior, never about hypothetical futures
 - Always analyze results yourself before involving AI
-- Use General Empathy Questions (GEQs) to understand customers in their real context
+- Use empathy questions to understand customers in their real context
 - Apply the "Replacing X" technique to understand what users did before your product
 - Combine your analysis with AI analysis for the strongest outcome
 
@@ -29,7 +29,7 @@ You do not always need full interviews to start. A well-crafted survey can alrea
 
 **Reference files:**
 
-- [interview-script-template.md](./references/interview-script-template.md) – question framework based on GEQs, three empathy questions, and the Replacing X technique
+- [interview-script-template.md](./references/interview-script-template.md) – question framework based on three empathy questions and the Replacing X technique
 - [analysis-methodology.md](./references/analysis-methodology.md) – dual-analysis approach with step-by-step instructions
 
 ---
@@ -52,7 +52,7 @@ Before writing any questions, understand what the user needs to learn.
 
 - Surveys: use closed questions, Google Forms, ~100 respondents, improve each round
 - Past-not-future rule: do not ask about the future, ask about the past
-- GEQ: 3 empathy questions (Hope, Pain, Barrier)
+- 3 empathy questions (Hope, Pain, Barrier)
 - "Replacing X" technique: what were users doing before your product?
 - Dual-analysis: analyze yourself first, then AI independently, then combine
 - Contact collection at end of survey
@@ -75,9 +75,9 @@ Based on the chosen method and user answers, generate the research instrument.
 - End with a contact-collection question for follow-up testing ("Would you be willing to participate in a short usability test? Leave your email if yes")
 - Recommend Google Forms (free, exports to CSV for AI analysis)
 
-**For interviews, use the GEQ framework from** [interview-script-template.md](./references/interview-script-template.md):
+**For interviews, use the empathy questions from** [interview-script-template.md](./references/interview-script-template.md):
 
-- Build the script around General Empathy Questions (GEQs) to understand customers in their real context
+- Build the script around empathy questions to understand customers in their real context
 - Include the three core empathy questions:
   - **Hope:** "If you had a magic wand and could instantly [get the value], how would that change your life?"
   - **Pain:** "What is your biggest challenge when it comes to [the problem]? And why is it so challenging?"

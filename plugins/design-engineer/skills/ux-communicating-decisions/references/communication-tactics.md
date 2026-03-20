@@ -4,7 +4,7 @@
 
 Stories rally people around the user, not individual opinions. Instead of starting with "I think we should change X," start with "Our user Sarah opens the app, expects to find X, but instead encounters Y."
 
-**Why it works**: Stories bypass the brain's critical filters. When you present data, people analyze it. When you tell a story, people feel it. Module 1 of the course teaches 6P Stories for exactly this reason – they build customer empathy.
+**Why it works**: Stories bypass the brain's critical filters. When you present data, people analyze it. When you tell a story, people feel it. Story Panels exist for exactly this reason – they build customer empathy.
 
 **How to apply:**
 - Open every presentation with a user story, not a feature list
@@ -29,11 +29,11 @@ Having the right words to describe your thoughts is a major asset. It is hard to
 1. "How can we align the copy with the benefits..."
 2. "It facilitates the users' goal..."
 3. "How can we overcome this user's barrier..."
-4. "Users will block this because..." (reference B.I.A.S. Block)
+4. "Users will block this because..." (reference Identify step)
 5. "It draws the user's attention..." (reference Visual Hierarchy)
 6. "The framing is not exactly aligned with..." (reference Framing Effect)
 7. "It emphasizes users' benefits..." (reference Interpret Benefits)
-8. "How can we reduce friction even more..." (reference B.I.A.S. Act)
+8. "How can we reduce friction even more..." (reference Design step)
 9. "Could we nudge people to..." (reference Act nudges)
 
 **How to apply:**
@@ -64,7 +64,7 @@ Do not show designs without specifically asking what you want feedback on. This 
 
 Avoid reacting negatively to criticism. It simply looks bad and shuts down productive conversation.
 
-**Why it works**: How you respond to feedback determines whether the relationship stores positive or negative psych (B.I.A.S. Store). Defensive responses create adversarial dynamics. Graceful responses build trust and make future conversations easier.
+**Why it works**: How you respond to feedback determines whether the relationship stores a positive or negative experience (Document step). Defensive responses create adversarial dynamics. Graceful responses build trust and make future conversations easier.
 
 **The 3-step feedback response process:**
 

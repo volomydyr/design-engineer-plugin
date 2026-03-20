@@ -20,13 +20,11 @@ A food delivery app confirms the order with a playful animation of a chef prepar
 
 A checkout flow processes the payment successfully but shows only "Order #38291 confirmed" in plain text, then redirects to the homepage. No celebration at the peak, no satisfying ending. The user is left wondering "Did everything actually go through?"
 
-### From 106 Cognitive Biases: Peak-End Rule
-
 We judge an experience largely based on how we felt at its peak and at its end, rather than the sum or average of every moment.
 
 **Key research**: Daniel Kahneman's cold water experiment – participants preferred a trial of 60 seconds in painfully cold water followed by 30 seconds of slightly warmer water over just 60 seconds of cold water. The improved ending made the longer, objectively worse experience seem better.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Provide Exit Points**: Well-designed exit moments (save confirmations, summary screens, "come back soon" messages) dramatically improve how the experience is remembered
 - **Peak-End Rule in onboarding**: A confusing 10-step onboarding that ends with a satisfying Aha! Moment will be remembered more positively than a smooth 5-step onboarding with a flat ending
@@ -55,8 +53,6 @@ A task management app plays a subtle confetti animation when all tasks for the d
 ### Bad Example
 
 A banking app adds cartoon animations to every transaction confirmation. While the intent is delight, adding playful animations to serious financial operations undermines the app's credibility and annoys users making multiple transfers.
-
-### From 106 Cognitive Biases: Delighters
 
 Delighters create disproportionate emotional impact because they exceed expectations. The Kano Model classifies features into:
 
@@ -110,11 +106,9 @@ A travel booking site searching for flights shows: "Searching 500+ airlines... C
 
 An instant search returns results in 0.1 seconds. Users distrust the completeness of results because the search "couldn't have checked everything that fast." Paradoxically, the faster technology makes users less confident.
 
-### From 106 Cognitive Biases: Labor Illusion
-
 Research by Ryan Buell at Harvard Business School found that people valued a travel site's results more when they could see the site "working" – even when the results were identical to an instant version.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Show the work**: When your system does complex processing, make it visible. AI tools that show "Analyzing your data... Comparing patterns... Generating insights..." feel more thorough than instant results.
 - **Transparency theater**: The key is showing genuine steps the system actually performs, not fabricating fake ones. Users appreciate seeing what happens behind the scenes.

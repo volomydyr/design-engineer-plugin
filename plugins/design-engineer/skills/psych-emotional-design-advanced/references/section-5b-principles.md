@@ -18,13 +18,11 @@ A design tool offers a 14-day free trial with full features. By day 10, the user
 
 A free trial ends with "Your trial has expired. Subscribe for $29.99/month." No mention of what the user created, no visibility into what they would lose, no emotional connection to their investment. The user feels no ownership, just a paywall.
 
-### From 106 Cognitive Biases: Endowment Effect
-
 We value things more when we feel ownership over them. In a classic mug experiment, people given a mug demanded roughly twice as much to sell it as others were willing to pay to buy the same mug.
 
 **Key research**: Duke University basketball ticket experiment – students who won lottery tickets to games valued them at $2,400 on average, while students who did not win were willing to pay only $170. Ownership multiplied perceived value by 14x.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Free trials with full access**: Let users create, customize, and invest during the trial. The more they build, the stronger the endowment.
 - **"Your" language**: "Your dashboard," "Your recommendations," "Your collection" – possessive language reinforces ownership.
@@ -81,11 +79,9 @@ A budgeting app onboarding follows "Meet Alex" – a character in a similar fina
 
 A project management tool onboarding uses a fantasy narrative: "You are the commander of Productivity Castle, and your quests await!" The story has no connection to the user's actual work context and makes a professional tool feel unserious.
 
-### From 106 Cognitive Biases: Storytelling Effect
-
 People remember stories better than facts alone. Neurological research shows that stories activate more regions of the brain – not just language processing areas, but also areas responsible for experiencing the events described.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Customer stories over feature lists**: "Sarah reduced her team's meeting time by 60%" is more memorable than "Includes meeting scheduling optimization."
 - **Narrative onboarding**: Guide users through a story-like first experience rather than a feature tour.
@@ -114,11 +110,9 @@ A complex analytics platform unlocks features in three waves: Week 1 focuses on 
 
 The same analytics platform dumps all 200+ features on the user at once, with a 45-minute video tutorial and 30-page documentation link. Users are overwhelmed, learn nothing, and use only the 3 features they can figure out independently.
 
-### From 106 Cognitive Biases: Spacing Effect
-
 People learn more effectively when study sessions are spaced out. This is why cramming for exams is less effective than distributed practice over weeks.
 
-**UX applications from 106 Biases**:
+**UX applications**:
 
 - **Drip onboarding**: Send onboarding emails over 7-14 days instead of showing everything on day one
 - **Progressive feature disclosure**: Unlock features as users demonstrate readiness

@@ -62,7 +62,7 @@ Skills executed in sequence:
 
 1. Load `ux-behavior-mapping` – behavior analysis (Motivation × Ability × Prompt)
 2. Load `ux-storybrand` – messaging framework
-3. Load `ux-6p-stories` – product narrative stories
+3. Load `ux-story-panels` – product narrative stories
 4. Load `ux-business-plan` – revenue model and market sizing
 
 After Phase 2, run `meta-document` to document progress.
@@ -80,13 +80,13 @@ After Phase 3, run `meta-document` to document progress.
 
 Skills executed in sequence:
 
-1. Load `ux-bias-audit` – B.I.A.S. audit
+1. Load `ux-bias-audit` – bias audit
 2. Load `ux-journey-mapping` – journey mapping
 3. Load `ux-ethics-review` – ethical review *(optional)*
 4. Load `ui-design-references` – reference gathering
 5. Load `dev-prototyping` – prototyping and testing
 6. Load `ui-figma-workflow` – Figma workflow
-7. Load `ux-psych-levels` – screen-level psychology analysis (Psych Levels)
+7. Load `ux-motivation-levels` – screen-level psychology analysis (Motivation Levels)
 8. Load `ux-product-assessment` – product assessment *(optional)*
 
 After Phase 4, run `meta-document` to document progress.

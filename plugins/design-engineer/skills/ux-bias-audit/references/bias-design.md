@@ -1,6 +1,6 @@
-# B.I.A.S. Act: 3 Proven Methods to Help People Achieve Their Goal Faster
+# Design: 3 Proven Methods to Help People Achieve Their Goal Faster
 
-Once users have seen the content (Block) and understood it (Interpret), the final interaction step is getting them to take action. You can facilitate action by either reducing friction or using nudges.
+Once users have seen the content (Identify) and understood it (Analyze), the final interaction step is getting them to take action. You can facilitate action by either reducing friction or using nudges.
 
 ---
 
@@ -157,7 +157,7 @@ When things are limited, people tend to want more of them. Scarcity increases pe
 
 ## Warning: The Risk of Reactance
 
-People can quickly recognize patterns and **start blocking your nudges if they are seen too often**. Also, if they are too pushy, it can create **Reactance**.
+People can quickly recognize patterns and **start filtering your nudges if they are seen too often**. Also, if they are too pushy, it can create **Reactance**.
 
 **Reactance** is the psychological phenomenon where people do the opposite of what they are being pushed to do. When users feel their freedom of choice is being threatened, they rebel against the influence attempt.
 
@@ -177,7 +177,7 @@ People can quickly recognize patterns and **start blocking your nudges if they a
 
 ---
 
-## Act Audit Checklist
+## Design Audit Checklist
 
 Use these questions to evaluate any screen or flow:
 

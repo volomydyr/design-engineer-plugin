@@ -45,9 +45,9 @@ What "better" looks like for them. List 3-5 goals the user wants to achieve — 
 
 ---
 
-## Understanding Motivation with BMap Questions
+## Understanding Motivation with Behavior Map Questions
 
-Use these three questions from the BMap framework during user research to understand what drives and blocks the persona's behavior. Adapt the bracketed parts to your specific product and problem.
+Use these three questions from the Behavior Map framework during user research to understand what drives and blocks the persona's behavior. Adapt the bracketed parts to your specific product and problem.
 
 **Q1 — Hope (The Magic Wand Question):**
 > "If you had a magic wand and could instantly [achieve the value your product promises], how would that change your life?"

@@ -170,7 +170,7 @@ For each critical or warning finding, find the most relevant case study and expl
 
 ## Key Relationships to Other Principles
 
-Several principles in this section overlap with content from the 106 Cognitive Biases framework. The reference file merges these sources for a unified perspective:
+Several principles in this section have been enriched with additional research and practical applications. The reference file merges these sources for a unified perspective:
 
 - **Banner Blindness** – expanded with research on how users develop selective filtering for ad-like patterns and how this affects notification design
 - **Von Restorff Effect** – enriched with the isolation effect research and practical limits on how many elements can be simultaneously "special"
