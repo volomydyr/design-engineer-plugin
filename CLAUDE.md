@@ -256,6 +256,24 @@ Two PostToolUse hooks enforce that plans and implementation match user requireme
 
 If a feature, behavior, or piece of copy was not explicitly requested by the user, it must not appear in plans or implementation. The ONLY way to introduce something new is to ask the user first using AskUserQuestion.
 
+## Output formatting
+
+Two rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
+
+1. **En dashes only** – use `–` (en dash). Never `—` (em dash) or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
+2. **Sentence case only** – capitalize the first word and proper nouns. Never Title Case. This applies to headings, button labels, tab names, navigation items, placeholder text, menu items, toast messages, and any other text Claude generates.
+
+Wrong: "User Settings — Account Details"
+Right: "User settings – account details"
+
+Wrong: "Save Changes", "View All Projects", "Get Started Now"
+Right: "Save changes", "View all projects", "Get started now"
+
+Wrong: "Loading — Please Wait"
+Right: "Loading – please wait"
+
+This is especially important in UI copy – prototypes, components, and any generated product interface must follow both rules.
+
 ## Context Monitoring
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):

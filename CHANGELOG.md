@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.17.3] – 2026-03-21
+
+### Added
+
+- **Output formatting rules**: CLAUDE.md now enforces en dashes (–) and sentence case in all Claude output – chat, deliverables, UI copy, code comments. Three agents (deliverable-writer, compound-documenter, frontend-implementer) have formatting reminders.
+
 ## [1.17.2] – 2026-03-20
 
 ### Changed
