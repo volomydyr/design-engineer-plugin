@@ -3,6 +3,7 @@ name: ux-business-plan
 description: Develops a business plan covering revenue model, market size, go-to-market strategy, and financial projections. Use when defining how a product will make money, estimating market potential, or planning finances before building.
 disable-model-invocation: true
 model: opus
+effort: high
 license: MIT
 ---
 

@@ -3,6 +3,7 @@ name: dev-mcp-setup
 description: Guides setup of essential MCP integrations for AI-assisted development. Use when configuring a new development environment or choosing which MCP servers to install.
 disable-model-invocation: true
 model: sonnet
+effort: medium
 license: MIT
 compatibility: "Requires Node.js v18+ for MCP server installation"
 ---

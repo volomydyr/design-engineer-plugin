@@ -3,6 +3,7 @@ name: psych-emotional-retention
 description: "Explores advanced emotional design psychology principles (Laws 46-50) for UX design. Covers responsible emotional triggers for retention, re-engagement, and comprehension. Use when auditing trial-to-paid conversion, re-engagement campaigns, or narrative onboarding flows. Do NOT use for in-moment delight, loading states, or celebrations; see psych-delight-design instead."
 disable-model-invocation: true
 model: opus
+effort: high
 license: MIT
 ---
 

@@ -3,6 +3,7 @@ name: psych-pricing-psychology
 description: "Explores behavioral economics psychology principles (Laws 61-65) for UX design. Covers how economic biases affect user decisions about value, investment, and spending. Use when auditing pricing, upgrade flows, or any interface involving monetary decisions. Do NOT use for habit loops, commitment, or loyalty mechanics; see psych-habit-formation instead."
 disable-model-invocation: true
 model: opus
+effort: high
 license: MIT
 ---
 

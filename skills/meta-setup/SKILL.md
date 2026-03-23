@@ -3,6 +3,7 @@ name: meta-setup
 description: "Smart entry point for the design-engineer plugin. Detects project state and routes to the right flow: new projects get full setup, returning projects resume where they left off, existing projects get a capability guide. Use as the first command for any project."
 disable-model-invocation: true
 model: sonnet
+effort: medium
 license: MIT
 compatibility: "Requires Node.js v18+, Python 3, and Bash"
 ---

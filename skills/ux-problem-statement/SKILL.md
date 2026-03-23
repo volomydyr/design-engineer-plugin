@@ -3,6 +3,7 @@ name: ux-problem-statement
 description: Creates a problem statement defining what problem exists, who feels it most, and how the product will help. Use when starting a new product, pivoting direction, or when the team lacks clarity on what they are solving.
 disable-model-invocation: true
 model: opus
+effort: high
 license: MIT
 ---
 

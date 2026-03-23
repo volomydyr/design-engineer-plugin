@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.18.0] – 2026-03-23
+
+### Added
+
+- **Effort configuration**: Every skill and agent now has an explicit `effort:` frontmatter field. 5 max (broadest scans and reviews), 30 high (default for most skills), 14 medium (structured/mechanical tasks). No low effort used. CLAUDE.md updated with effort assignment principles.
+
 ## [1.17.3] – 2026-03-21
 
 ### Added

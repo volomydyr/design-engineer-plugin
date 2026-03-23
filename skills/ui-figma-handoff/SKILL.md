@@ -3,6 +3,7 @@ name: ui-figma-handoff
 description: "Automates Figma design structuring and development handoff preparation using Figma Console MCP. Use when preparing raw designs for development – converts flat frames into components with tokens, then adds annotations, sections, and dev status badges. Do NOT use for learning Figma workflow basics; see ui-figma-guide instead."
 disable-model-invocation: true
 model: sonnet
+effort: medium
 license: MIT
 compatibility: "Requires Figma Console MCP (figma-console-mcp)"
 ---

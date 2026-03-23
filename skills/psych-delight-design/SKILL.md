@@ -3,6 +3,7 @@ name: psych-delight-design
 description: "Explores foundational emotional design psychology principles (Laws 41-45) for UX design. Covers how peak moments, micro-delighters, and perceived effort shape user memory and value. Use when auditing emotional touchpoints, celebration moments, loading states, or personalization flows. Do NOT use for retention, re-engagement, or trial conversion; see psych-emotional-retention instead."
 disable-model-invocation: true
 model: opus
+effort: high
 license: MIT
 ---
 

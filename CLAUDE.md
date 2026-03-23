@@ -76,6 +76,7 @@ When adding or modifying skills:
 - [ ] CHANGELOG.md updated
 - [ ] README.md component counts verified
 - [ ] All JSON files valid (`python3 -m json.tool`)
+- [ ] `effort:` present on all skills and agents
 
 ## Model Configuration
 
@@ -88,9 +89,9 @@ Every agent and skill MUST have an explicit `model:` field in its frontmatter.
 - **No `model: inherit`** – plugin should be explicit about quality expectations
 - **No `model: haiku`** – not used in this plugin
 
-### Skill Frontmatter
+### Skill frontmatter
 
-Skills include `model:` after `disable-model-invocation`:
+Skills include `model:` and `effort:` after `disable-model-invocation`:
 
 ```yaml
 ---
@@ -98,13 +99,32 @@ name: skill-name
 description: "..."
 disable-model-invocation: true
 model: opus
+effort: high
 ---
 ```
 
-### When Adding New Agents/Skills
+### Effort configuration
+
+Every agent and skill MUST have an explicit `effort:` field in its frontmatter, placed after `model:`.
+
+#### Assignment principles
+
+- **`effort: max`** – the most complex tasks: broad multi-principle scans, comprehensive reviews, ethical reasoning, pipeline orchestration. Opus 4.6 only.
+- **`effort: high`** – default for most skills. Tasks requiring synthesis, nuanced judgment, multi-perspective analysis, or creative output.
+- **`effort: medium`** – structured workflows where the model follows established steps: setup wizards, template generation, documentation formatting.
+- **`effort: low`** – not used in this plugin.
+
+Effort and model are independent axes:
+- `model: opus` + `effort: max` – broadest scans and reviews (psych-full-scan, ux-full-review, ux-bias-audit, ux-ethics-review, meta-orchestrator)
+- `model: opus` + `effort: high` – deep analysis, creative output, complex implementation
+- `model: sonnet` + `effort: high` – sonnet tasks needing thorough reasoning (documentation, testing)
+- `model: sonnet` + `effort: medium` – structured sonnet tasks (setup, templates, status tracking)
+
+### When adding new agents/skills
 
 - Default to `model: opus` unless the task is clearly mechanical
-- Document the rationale if choosing `sonnet` for a new component
+- Default to `effort: high` – downgrade to `medium` only for clearly mechanical tasks, upgrade to `max` for broad multi-principle scans
+- Document the rationale if choosing `sonnet` or `medium` for a new component
 
 ## Command Naming Convention
 

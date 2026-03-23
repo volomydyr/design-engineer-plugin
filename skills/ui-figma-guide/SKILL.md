@@ -3,6 +3,7 @@ name: ui-figma-guide
 description: "Defines a minimal Figma workflow for AI-assisted development. Use when starting high-fidelity design work or preparing Figma frames for handoff to AI coding tools. Do NOT use for automated design structuring or dev handoff; see ui-figma-handoff instead."
 disable-model-invocation: true
 model: sonnet
+effort: medium
 license: MIT
 compatibility: "Requires Figma MCP (plugin:figma:figma)"
 ---

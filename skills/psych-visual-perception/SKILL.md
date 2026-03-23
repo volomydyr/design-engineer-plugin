@@ -3,6 +3,7 @@ name: psych-visual-perception
 description: "Explores visual perception and attention focus psychology principles (Laws 11-20) for UX design. Covers contrast, Gestalt grouping, and visual hierarchy. Use when analyzing how a design directs attention and manages visual focus. Do NOT use for information overload or choice paralysis; see psych-cognitive-load instead."
 disable-model-invocation: true
 model: opus
+effort: high
 license: MIT
 ---
 
