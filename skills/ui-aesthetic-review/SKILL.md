@@ -219,6 +219,10 @@ After critique and rebuild, suggest running `ui-design-to-code-qa` to catch any 
 - [spatial-design.md](./references/spatial-design.md) – Spacing systems, grids, visual hierarchy, container queries
 - [motion-design.md](./references/motion-design.md) – Animation decision framework, easing curves, duration rules, springs, stagger
 - [advanced-animations.md](./references/advanced-animations.md) – clip-path patterns, gesture/drag, WAAPI, debugging
+- [animation-by-emotion.md](./references/animation-by-emotion.md) – Emotion-to-animation mapping: timing, easing, and scale per emotional target
+- [animation-by-component.md](./references/animation-by-component.md) – Per-component timing specifications for 10 UI element types
+- [animation-by-context.md](./references/animation-by-context.md) – Industry-specific animation considerations (e-commerce, fintech, healthcare, etc.)
+- [animation-troubleshooting.md](./references/animation-troubleshooting.md) – Problem diagnosis: "feels robotic," "causes sickness," "emotionally wrong," etc.
 - [interaction-design.md](./references/interaction-design.md) – Interactive states, focus rings, forms, keyboard navigation
 - [responsive-design.md](./references/responsive-design.md) – Mobile-first, fluid design, input detection, safe areas
 - [ux-writing.md](./references/ux-writing.md) – Button labels, error messages, empty states, voice and tone

@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.18.1] – 2026-03-24
+
+### Added
+
+- **Animation reference enrichment**: 4 new reference files in ui-aesthetic-review – animation-by-emotion (7 emotions mapped to timing/easing/scale), animation-by-component (10 UI element timing specs), animation-by-context (6 industry-specific animation philosophies), animation-troubleshooting (9 problem-diagnosis patterns with fixes).
+
 ## [1.18.0] – 2026-03-23
 
 ### Added
