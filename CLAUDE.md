@@ -294,6 +294,10 @@ Right: "Loading – please wait"
 
 This is especially important in UI copy – prototypes, components, and any generated product interface must follow both rules.
 
+## Prompt improvement
+
+A `UserPromptSubmit` hook runs every message through Haiku for light cleanup before Claude processes it. The hook fixes grammar, removes filler words, numbers multiple requests, and slightly tightens conversational tone – without changing meaning, removing context, or adding anything new. Short confirmations and already-clean messages are skipped. The cleaned version arrives as additional context alongside the original message.
+
 ## Context Monitoring
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):

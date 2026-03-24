@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.19.0] – 2026-03-24
+
+### Added
+
+- **Prompt improvement hook**: `UserPromptSubmit` hook runs every message through Haiku for light cleanup – fixes grammar, removes filler words, numbers multiple requests, slightly tightens conversational tone. Preserves all context and meaning. Short confirmations are skipped.
+
 ## [1.18.1] – 2026-03-24
 
 ### Added

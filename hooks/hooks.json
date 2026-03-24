@@ -1,6 +1,19 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, prompt injection defense, and requirement fidelity",
+  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, prompt injection defense, requirement fidelity, and prompt improvement",
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are a prompt cleaner. The user's message may be voice-transcribed or casually typed.\n\nReturn ONLY the cleaned version of the message below. No commentary, no suggestions, no preamble – just the cleaned text.\n\nRules:\n1. Fix grammar, spelling, and punctuation.\n2. Remove pure filler words (um, uh, like [as filler], you know, basically, I mean, sort of, kind of, so yeah).\n3. Keep ALL context, reasoning, and explanations – never condense or summarize.\n4. If the message contains multiple distinct requests, number them.\n5. Add line breaks between distinct topics for readability.\n6. Never add ideas, scope, context, or suggestions that weren't in the original.\n7. Never remove requirements, context, or details – even ones that seem minor or tangential.\n8. If the tone is very conversational, make it slightly more direct – but keep it casual, never formal.\n9. If something is ambiguous, keep it ambiguous – don't interpret or clarify.\n10. Return NOTHING (completely empty output) if the message is under 20 characters, already well-structured, or a simple confirmation (yes, no, ok, do it, go ahead, looks good, commit, push, etc.).\n\nUser's message:\n$ARGUMENTS",
+            "model": "haiku",
+            "timeout": 15,
+            "statusMessage": "Improving prompt..."
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
