@@ -83,7 +83,7 @@ This prevents blank-canvas paralysis and ensures your designs follow established
 
 This enables a full round-trip workflow: generate prototype → capture into Figma → refine design → export back to code → iterate.
 
-The official MCP can also generate design system rules from your existing codebase (`create_design_system_rules`). This analyzes your components and tokens and creates a rules prompt that keeps Figma-to-code output consistent – useful when the code has evolved ahead of the Figma file.
+"Figma Plugin" can also generate design system rules from your existing codebase (`create_design_system_rules`). This analyzes your components and tokens and creates a rules prompt that keeps Figma-to-code output consistent – useful when the code has evolved ahead of the Figma file.
 
 ---
 
