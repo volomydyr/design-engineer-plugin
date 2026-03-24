@@ -2,7 +2,7 @@
 
 Transform raw Figma design files (flat frames, no components/styles/tokens) into fully structured design files with design systems, tokens, variables, styles, components, and pixel-identical rebuilt screens.
 
-This guide requires the **Figma Console MCP** for all operations.
+This guide uses both **"Figma Plugin"** and **"Figma Console MCP"** where available.
 
 ---
 
@@ -22,12 +22,22 @@ Phase 7: QUALITY PASS  → Screen-by-screen deep comparison, fix every differenc
 
 ### Tool Strategy
 
-| Tool | Use For | Notes |
-|---|---|---|
-| `figma_execute` | ALL creation, modification, and property reading | Primary tool. Uses CDP (no API quota). Always reliable. |
-| `figma_batch_create_variables` | Bulk variable creation (solid hex colors + floats) | 10-50x faster than individual calls. Cannot handle RGBA. |
-| `figma_batch_update_variables` | Bulk variable value updates | Same performance advantage as batch create. |
-| `figma_capture_screenshot` | Visual spot-checks only | NOT for verification – use `figma_execute` to read properties. |
+Both Figma MCPs can be used. "Figma Console MCP" is preferred for variables, linting, and batch operations. "Figma Plugin"'s `use_figma` works as a fallback for any write operation.
+
+| Tool | MCP | Use for | Notes |
+|---|---|---|---|
+| `get_design_context` | Official | Reading designs for code generation | Primary design-to-code tool |
+| `get_screenshot` | Official | Screenshots of cloud state | Good for documentation |
+| `use_figma` | Official | JS execution (fallback for write ops) | 50K char limit, works on closed files |
+| `figma_execute` | Console | JS execution (primary for write ops) | 30s timeout, requires file open |
+| `figma_batch_create_variables` | Console | Bulk variable creation (hex colors + floats) | 10-50x faster than individual calls. Cannot handle RGBA. |
+| `figma_batch_update_variables` | Console | Bulk variable value updates | Same performance advantage as batch create. |
+| `figma_setup_design_tokens` | Console | Atomic token system creation | Collection + modes + variables in one call |
+| `figma_lint_design` | Console | Design quality and accessibility audit | WCAG, contrast, touch targets |
+| `figma_check_design_parity` | Console | Compare Figma vs code implementation | Returns parity score + actionable fixes |
+| `figma_capture_screenshot` | Console | Screenshots of local state | Current edits, not cloud-synced state |
+
+If "Figma Console MCP" is not available, use "Figma Plugin"'s `use_figma` for operations that don't have dedicated tools. Variables must be created via Plugin API JS – slower but functional.
 
 ### Key Decisions (Ask User Before Starting)
 

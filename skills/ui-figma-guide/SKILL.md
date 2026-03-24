@@ -30,21 +30,19 @@ Before starting any design work, establish how designs will be shared with AI to
 
 ```
 question: "How do you want to share Figma designs with your AI coding tool?"
-header: "Figma Integration Method"
+header: "Figma integration"
 options:
-  - label: "Figma plugin (official)"
-    description: "Gives AI access to Dev Mode data – code, not screenshots. Supports code→Figma import. Best for pixel-perfect results."
-  - label: "Figma Console MCP"
-    description: "Can perform actions in Figma for you (create components, apply tokens, structure files). More powerful but trickier to set up."
+  - label: ""Figma Plugin" (recommended)"
+    description: "Reads designs, captures web pages into Figma, generates design system rules. Covers most workflows."
+  - label: "Both "Figma Plugin" + "Figma Console MCP""
+    description: ""Figma Plugin" for reading/capturing, "Figma Console MCP" for variables, linting, batch operations, slides, FigJam. Best for design system automation."
   - label: "Manual screenshots"
     description: "Take screenshots of frames and share with AI. Simple but less accurate."
-  - label: "Playwright plugin or browser extension"
+  - label: "Playwright or browser extension"
     description: "Use browser automation to capture live designs."
-  - label: "Not sure yet"
-    description: "Help me decide based on my setup."
 ```
 
-If the user selects "Not sure yet," recommend the Figma plugin as the default starting point for most workflows.
+For detailed guidance on which MCP to use for what, see [figma-mcp-routing.md](./references/figma-mcp-routing.md).
 
 ---
 
@@ -73,13 +71,23 @@ Auto-layouts are essential. AI needs them to understand how to make code respons
 
 ### Components and Tokens
 
-**With Figma Console MCP**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
+**With "Figma Console MCP"**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
 
-**Without Figma Console MCP**: There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
+**Without "Figma Console MCP"**: There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
 
-### Code-to-Figma Import
+### Web capture and code-to-Figma import
 
-If the user has an HTML prototype from `dev-prototyping`, the Figma plugin can import it into Figma as a starting point for high-fidelity design work. This creates Figma frames from the prototype that can then be refined manually – useful for going from code back to design.
+"Figma Plugin" can capture any web page or localhost URL into Figma as editable design frames (`generate_figma_design`). This works for:
+
+- HTML prototypes from `dev-prototyping` – import them into Figma for high-fidelity refinement
+- Running web apps on localhost – capture the current state into Figma for design iteration
+- External URLs – capture competitor or reference pages
+
+This enables a round-trip workflow: generate prototype → capture into Figma → refine design → export back to code.
+
+### Design system rules from code
+
+"Figma Plugin" can also generate design system rules directly from your codebase (`create_design_system_rules`). This analyzes your existing components and tokens and creates a rules prompt that ensures Figma-to-code consistency. Useful when the code is ahead of Figma.
 
 ### Design Corrections, Not Full Coverage
 After AI implements the first iteration, some screens will look good and others will have issues. Design corrections only for the frames where AI made mistakes, share them via the chosen integration method, and let AI adjust the code based on the new references.
@@ -88,7 +96,7 @@ After AI implements the first iteration, some screens will look good and others 
 
 ## Step 4: Using the Figma Plugin Effectively
 
-Share guidance on getting the best results with the Figma plugin:
+Share guidance on getting the best results with "Figma Plugin":
 
 1. Share designs gradually – smaller elements at a time produce better results than complex full pages
 2. Start with functional code first (works well, looks basic), then apply design styles from Figma
@@ -121,7 +129,7 @@ Help the user create a Figma strategy document saved to `{deliverables_path}/des
 
 After Figma designs are created, suggest the logical next step:
 
-- **If Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
+- **If "Figma Console MCP" is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
 - **For development**: suggest `dev-agent-setup` to implement designs using the agent pipeline
 - **For review**: suggest `ui-design-to-code-qa` to review implemented results against the designs
 
@@ -130,6 +138,7 @@ After Figma designs are created, suggest the logical next step:
 ## Resource Files
 
 - [figma-for-ai-dev.md](./references/figma-for-ai-dev.md) – Principles for Figma workflow in AI-assisted development
+- [figma-mcp-routing.md](./references/figma-mcp-routing.md) – Which Figma MCP to use for what (decision guide + capability matrix)
 
 ## Common Issues
 
@@ -145,3 +154,10 @@ If `get_screenshot` returns errors:
 1. Confirm the Figma file is open and the target frame exists
 2. Check that the node-id points to a visible frame (not a hidden or deleted layer)
 3. Try capturing a parent frame if the specific node fails
+
+### Web capture fails or stalls
+If `generate_figma_design` returns errors or the capture never completes:
+1. Verify the URL is accessible (localhost must be running, external URLs must be public)
+2. Check that the page has fully loaded before initiating capture
+3. For localhost, ensure the dev server is running and the port is correct
+4. Poll with the captureId – captures can take 10-30 seconds for complex pages

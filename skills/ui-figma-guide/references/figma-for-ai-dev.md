@@ -43,9 +43,9 @@ Without auto-layouts, AI will generate static, non-responsive implementations th
 
 There are two approaches depending on your tools:
 
-### With Figma Console MCP (Recommended)
+### With "Figma Console MCP" (recommended)
 
-If you have the Figma Console MCP installed, you can automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes instead of days and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
+If you have "Figma Console MCP" installed, you can automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes instead of days and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
 
 After designing your key screens, run the `ui-figma-handoff` skill to:
 1. Extract all unique tokens from your raw designs (colors, typography, spacing, radius, effects)
@@ -56,9 +56,9 @@ After designing your key screens, run the `ui-figma-handoff` skill to:
 
 This approach gives developers a properly structured Figma file while keeping the design system in sync between Figma and code.
 
-### Without Figma Console MCP (Minimal Approach)
+### Without "Figma Console MCP" (minimal approach)
 
-If you do not have the Figma Console MCP, the minimal approach still works well:
+If you do not have "Figma Console MCP", the minimal approach still works well:
 
 - There is no need to name layers properly – Figma has an AI feature that does this automatically.
 - Do not manually create components, color tokens, or a separate design system in Figma. That manual work takes hours and provides diminishing returns in an AI-assisted workflow.
@@ -77,11 +77,13 @@ This prevents blank-canvas paralysis and ensures your designs follow established
 
 ---
 
-## Code-to-Figma Import
+## Web Capture and Code-to-Figma Import
 
-If you have already generated an HTML prototype (via `dev-prototyping` or otherwise), the Figma plugin supports importing code into Figma. This creates Figma frames from your prototype that you can then refine manually – a useful starting point when you want to go from code back to design.
+"Figma Plugin" can capture any web page or localhost URL into editable Figma frames (`generate_figma_design`). This works for HTML prototypes from `dev-prototyping`, running web apps on localhost, or external reference pages.
 
-This enables a round-trip workflow: generate prototype → import into Figma → refine design → export back to code.
+This enables a full round-trip workflow: generate prototype → capture into Figma → refine design → export back to code → iterate.
+
+The official MCP can also generate design system rules from your existing codebase (`create_design_system_rules`). This analyzes your components and tokens and creates a rules prompt that keeps Figma-to-code output consistent – useful when the code has evolved ahead of the Figma file.
 
 ---
 
@@ -90,7 +92,7 @@ This enables a round-trip workflow: generate prototype → import into Figma →
 The iterative correction workflow follows this cycle:
 
 1. **Design key screens** – create the initial 5-8 frames in Figma with auto-layouts
-2. **Share with AI** – use your chosen integration method (Figma plugin, screenshots, etc.)
+2. **Share with AI** – use your chosen integration method ("Figma Plugin", screenshots, etc.)
 3. **AI implements** – generates code matching your visual direction
 4. **Review results** – identify screens that need visual corrections
 5. **Design corrections** – create new Figma frames only for screens with issues
@@ -105,7 +107,7 @@ This cycle means you design incrementally, driven by actual implementation needs
 
 Keep Figma organization minimal:
 
-- **Single-page file** – all screens on one page, no complex page structure (unless structuring with Figma Console MCP, which creates organized pages automatically)
+- **Single-page file** – all screens on one page, no complex page structure (unless structuring with "Figma Console MCP", which creates organized pages automatically)
 - **Logical frame ordering** – arrange frames in a way that reflects user flow
 - **Consistent frame sizing** – use the same device frame dimensions across all screens
 - **Clear screen labels** – name frames descriptively so AI can reference them (e.g., "Home - Dashboard", "Onboarding - Step 1")

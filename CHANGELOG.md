@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.19.1] – 2026-03-24
+
+### Changed
+
+- **Figma MCP routing**: New `figma-mcp-routing.md` reference with decision guide, capability matrix, and workflow recipes for choosing between "Figma Plugin" and "Figma Console MCP".
+- **Dual-MCP support**: `ui-figma-handoff` no longer requires "Figma Console MCP" exclusively – works with "Figma Plugin"'s `use_figma` as fallback. "Figma Console MCP" recommended for variables, linting, and batch operations.
+- **New capabilities**: `ui-figma-guide` updated with web capture (`generate_figma_design`) and design system rules generation (`create_design_system_rules`) from the "Figma Plugin" update.
+
 ## [1.19.0] – 2026-03-24
 
 ### Added
