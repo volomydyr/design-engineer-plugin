@@ -2,6 +2,8 @@
 // Design-Engineer Requirement Fidelity Hook (PostToolUse)
 // Injects a fidelity reminder into Claude's context after source code writes
 // during active implementation (when a plan exists in plans/).
+// Also checks phase ordering – warns if writing files from a later phase
+// before earlier phases are complete.
 // Skips: plan files (prompt hook handles), tests, config, docs, plugin files.
 // Fail-open: any error results in allowing the output.
 
@@ -39,15 +41,106 @@ function appendLog(level, message) {
   } catch (_) {}
 }
 
-function hasActivePlan() {
+function getActivePlanPath() {
   try {
     const plansDir = path.join(process.cwd(), 'plans');
-    if (!fs.existsSync(plansDir)) return false;
-    const files = fs.readdirSync(plansDir);
-    return files.some(f => f.endsWith('.md') && !f.startsWith('.'));
+    if (!fs.existsSync(plansDir)) return null;
+    const files = fs.readdirSync(plansDir)
+      .filter(f => f.endsWith('.md') && !f.startsWith('.'))
+      .sort()
+      .reverse(); // most recent first
+    return files.length > 0 ? path.join(plansDir, files[0]) : null;
   } catch (_) {
-    return false;
+    return null;
   }
+}
+
+function parsePlanPhases(planPath) {
+  // Parse ## Phase N: headers and extract file paths from Create:/Modify: lines
+  // Returns: { phaseNumber: [filePaths] }
+  try {
+    const content = fs.readFileSync(planPath, 'utf8');
+    const phases = {};
+    let currentPhase = null;
+
+    for (const line of content.split('\n')) {
+      // Match ## Phase N: or ## Phase N –
+      const phaseMatch = line.match(/^##\s+Phase\s+(\d+)/i);
+      if (phaseMatch) {
+        currentPhase = parseInt(phaseMatch[1], 10);
+        phases[currentPhase] = [];
+        continue;
+      }
+
+      // Extract file paths from Create/Modify lines within a phase
+      if (currentPhase !== null) {
+        // Stop collecting files when we hit a new ## section that isn't a phase
+        if (/^##\s+/.test(line) && !line.match(/^##\s+Phase/i)) {
+          currentPhase = null;
+          continue;
+        }
+
+        const fileMatch = line.match(/^-\s+(?:Create|Modify):\s*(.+)/i);
+        if (fileMatch) {
+          // Handle comma-separated or single file paths
+          const paths = fileMatch[1].split(',').map(p => p.trim().replace(/`/g, ''));
+          for (const p of paths) {
+            if (p && p !== '[file paths]') {
+              phases[currentPhase].push(p);
+            }
+          }
+        }
+      }
+    }
+
+    return phases;
+  } catch (_) {
+    return null;
+  }
+}
+
+function checkPhaseOrder(filePath, phases) {
+  // Find which phase this file belongs to
+  const normalized = filePath.replace(/\\/g, '/');
+  let filePhase = null;
+
+  for (const [phase, files] of Object.entries(phases)) {
+    for (const planFile of files) {
+      // Match by filename or path suffix
+      if (normalized.endsWith(planFile) || normalized.includes(planFile)) {
+        filePhase = parseInt(phase, 10);
+        break;
+      }
+    }
+    if (filePhase !== null) break;
+  }
+
+  if (filePhase === null) return null; // file not in any phase – no warning
+
+  // Check if earlier phases have files that haven't been touched
+  const phaseNumbers = Object.keys(phases).map(Number).sort((a, b) => a - b);
+
+  for (const earlier of phaseNumbers) {
+    if (earlier >= filePhase) break;
+    if (phases[earlier].length === 0) continue;
+
+    // Check if any file from the earlier phase exists (was already created/modified)
+    const earlierFilesExist = phases[earlier].some(f => {
+      try {
+        const fullPath = path.join(process.cwd(), f);
+        return fs.existsSync(fullPath);
+      } catch (_) {
+        return false;
+      }
+    });
+
+    // If none of the earlier phase's files exist yet, this might be out of order
+    if (!earlierFilesExist) {
+      return { currentPhase: filePhase, missingPhase: earlier };
+    }
+  }
+
+  return null;
 }
 
 function isSourceCode(filePath) {
@@ -81,19 +174,35 @@ function main() {
       if (!isSourceCode(filePath)) return process.exit(0);
 
       // Only enforce during active implementation
-      if (!hasActivePlan()) {
-        appendLog('SKIP', 'No active plan — skipping: ' + filePath);
+      const planPath = getActivePlanPath();
+      if (!planPath) {
+        appendLog('SKIP', 'No active plan – skipping: ' + filePath);
         return process.exit(0);
       }
 
-      // Inject fidelity reminder
       const fileName = path.basename(filePath);
-      const reminder =
+      let reminder =
         'REQUIREMENT FIDELITY: Review what you just wrote to ' + fileName + '. ' +
         'Verify: (1) Every feature matches the approved plan exactly. ' +
         '(2) No creative additions or "improvements" beyond what the plan specifies. ' +
         '(3) No user-facing copy was modified from what was specified. ' +
         'If you added anything not in the approved plan, revert it now or ask the user first using AskUserQuestion.';
+
+      // Phase ordering check (fail-open – parsing errors just skip this check)
+      const phases = parsePlanPhases(planPath);
+      if (phases) {
+        const orderIssue = checkPhaseOrder(filePath, phases);
+        if (orderIssue) {
+          reminder =
+            'PHASE ORDER WARNING: You are writing to ' + fileName +
+            ' (Phase ' + orderIssue.currentPhase + '), but Phase ' +
+            orderIssue.missingPhase + ' does not appear to be complete yet. ' +
+            'Implement phases in order – complete Phase ' + orderIssue.missingPhase +
+            ' first, present QA instructions, wait for user feedback, then proceed. ' +
+            reminder;
+          appendLog('PHASE_ORDER', 'Phase ' + orderIssue.currentPhase + ' file written before Phase ' + orderIssue.missingPhase + ': ' + filePath);
+        }
+      }
 
       appendLog('REMIND', filePath);
 

@@ -149,7 +149,7 @@ Always use `EnterPlanMode` for any non-trivial implementation planning – never
 
 Use Plan Mode for any task that involves multiple files, phased implementation, architectural decisions, or more than a single-line fix. Do NOT use Plan Mode for: single-line fixes, typo corrections, or pure research tasks.
 
-### Structured Plan Format
+### Structured plan format
 
 When in Plan Mode, write plans using this structure:
 
@@ -165,14 +165,21 @@ When in Plan Mode, write plans using this structure:
 
 ## Phase 1: [Phase Name]
 **Objective**: [What this accomplishes]
+**Depends on**: none
 **Files**:
 - Create: [file paths]
 - Modify: [file paths]
 **Reuse**: [Existing components/patterns to leverage]
-**Success criteria**: [Verification steps]
+**QA**: [What the user should check and how to verify – be specific]
 
 ## Phase 2: [Phase Name]
-...
+**Objective**: [What this accomplishes]
+**Depends on**: Phase 1
+**Files**:
+- Create: [file paths]
+- Modify: [file paths]
+**Reuse**: [Existing components/patterns to leverage]
+**QA**: [What the user should check and how to verify – be specific]
 
 ## Risk Assessment
 - [Risk 1]: [Mitigation]
@@ -182,7 +189,9 @@ When in Plan Mode, write plans using this structure:
 - [Any decisions that need user input before proceeding]
 ```
 
-### Project-Local Storage
+Every phase MUST have `**Depends on**` and `**QA**` fields. Dependencies determine implementation order. QA instructions tell the user exactly what to review – not generic "check it works" but specific things to look at (files changed, behavior to test, edge cases to verify).
+
+### Project-local storage
 
 After plan approval, copy the approved plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it does not exist.
 
@@ -195,8 +204,24 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 1. `EnterPlanMode` – write a structured plan to the plan file
 2. `ExitPlanMode` – present the plan for user approval
 3. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
-4. Implement the plan
-5. After completion, move the plan to `plans/archive/`
+4. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
+5. **For each phase in dependency order:**
+   a. Mark the phase task `in_progress` (`TaskUpdate`)
+   b. Implement only this phase's changes – never touch files from later phases
+   c. Run `/simplify` on changed code
+   d. Mark the phase task `complete` (`TaskUpdate`)
+   e. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
+   f. **WAIT** – do not proceed until the user responds
+   g. If the user has feedback, address it (may take multiple rounds of feedback)
+   h. Only proceed to the next phase after explicit user approval
+6. After all phases complete, move the plan to `plans/archive/`
+
+### Implementation rules
+
+- **Never implement multiple phases in a single turn.** One phase, one review, one approval.
+- **Every phase must have QA instructions.** If the phase is simple, the QA can be brief ("check the button color changed"). If complex, be specific ("open the settings page, verify the new panel appears, try toggling it on/off, check that the state persists on page reload").
+- **Dependencies determine order.** Always implement sequentially for user review, even if phases are independent.
+- **Feedback is iterative.** The user may have multiple rounds of feedback on a single phase. Address all feedback before moving on.
 
 ## Code Quality: /simplify
 

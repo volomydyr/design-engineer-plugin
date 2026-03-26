@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.20.0] – 2026-03-26
+
+### Changed
+
+- **Incremental plan implementation**: Plan mode now requires phased execution with user review between each phase. Every phase must have `Depends on` (dependencies) and `QA` (review instructions) fields. Claude creates tasks for each phase, implements one at a time, presents QA instructions, and waits for feedback before proceeding.
+- **Phase ordering enforcement**: `de-fidelity-hook.js` extended to parse plan phases and warn when Claude writes files from a later phase before completing earlier ones.
+
 ## [1.19.1] – 2026-03-24
 
 ### Changed
