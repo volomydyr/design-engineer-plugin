@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.20.1] – 2026-03-26
+
+### Added
+
+- **Figma design intake hooks**: PreToolUse hook on screenshot tools blocks screenshot-only implementation/review – requires `get_design_context` first. PostToolUse hook on `get_design_context` prompts AI to ask clarifying questions about interactions, animations, state changes, and anything not visible in static designs.
+- **Frontend implementer update**: Agent now requires `get_design_context` (never screenshots alone) and must ask clarifying questions before implementing designs.
+
 ## [1.20.0] – 2026-03-26
 
 ### Changed

@@ -24,7 +24,8 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 3. Audit existing components directory to catalog all reusable UI elements
 4. Audit existing views/screens to understand established patterns
 5. Review the approved implementation plan from `plans/`
-6. Analyze Figma designs via MCP tools to understand the target implementation
+6. **Get design data via `get_design_context`** – never use screenshots alone. This returns structured code, metadata, and a screenshot together
+7. **Ask clarifying questions** via AskUserQuestion about anything the static designs don't show – interactions, animations, state changes, component reuse, responsive behavior, edge cases. Static mockups are always ambiguous about these things; do not guess
 
 ## Implementation Process
 
@@ -83,10 +84,12 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 
 Use the **AskUserQuestion tool** when:
 
-- Figma design specifications are ambiguous or missing
+- **Always after receiving Figma designs** – static mockups cannot show interactions, animations, state changes, or component reuse intent. Ask about what's ambiguous before implementing, not after.
 - Multiple valid UI approaches exist and user preference is needed
 - Design patterns conflict with existing implementations
-- Component reuse decisions require user input
-- New design elements need naming that should follow user preferences
+- Component reuse decisions require user input – should you reuse an existing component or create a new one?
+- Interactions and transitions are not specified – what happens on click, swipe, hover?
+- State changes are unclear – loading, error, empty, success states
+- Responsive behavior is not obvious from the design
 
 Document all design system extensions and implementation decisions for future reference and consistency.

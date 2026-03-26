@@ -1,5 +1,5 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, prompt injection defense, requirement fidelity, and prompt improvement",
+  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, prompt injection defense, requirement fidelity, prompt improvement, and Figma design intake",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -34,9 +34,33 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "get_screenshot|figma_capture_screenshot|figma_take_screenshot",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A Figma screenshot tool is about to be called. Screenshots are supplementary – they must never be the primary source for implementation or design review.\n\nFor implementation: always use get_design_context first to get structured design data (code + metadata + screenshot together). Then ask clarifying questions about anything not visible in static designs before writing code.\n\nFor design review: always use get_design_context to compare structured design data against the code. LLMs interpret screenshots less accurately than structured data – never rely on screenshot-only comparison for design-to-code QA.\n\nIf you have not called get_design_context for this design yet, do that first. If you already have the design data, this screenshot call is fine as a supplement.\n\nRespond with nothing if get_design_context was already used. Otherwise respond with:\n{\"decision\": \"block\", \"reason\": \"Call get_design_context first to get structured design data. Screenshots alone produce unreliable results for both implementation and review.\"}",
+            "model": "haiku",
+            "timeout": 15,
+            "statusMessage": "Checking design data..."
+          }
+        ]
       }
     ],
     "PostToolUse": [
+      {
+        "matcher": "get_design_context",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Figma design data was just received. Before implementing or reviewing, the AI must ask the user clarifying questions about anything not visible in static designs.\n\nUse AskUserQuestion to ask about what the static mockups cannot show – interactions, click/tap behavior, animations, transitions, state changes, component reuse decisions, responsive behavior, navigation flows, edge cases, error states, loading states, or anything else that requires the user's intent rather than visual interpretation.\n\nAsk context-based questions, not a fixed checklist. Look at the specific design that was received and identify what is ambiguous or underspecified. If the design is a simple color change or minor tweak, questions may not be needed – use judgment.\n\nRespond with nothing.",
+            "model": "haiku",
+            "timeout": 10,
+            "statusMessage": "Preparing design intake..."
+          }
+        ]
+      },
       {
         "hooks": [
           {
