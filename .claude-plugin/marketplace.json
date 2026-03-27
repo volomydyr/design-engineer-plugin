@@ -7,7 +7,7 @@
     {
       "name": "design-engineer",
       "source": "./",
-      "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 6 commands, and 49 skills.",
+      "description": "A plugin that walks you through building a product, start to finish. Think of it as a swiss knife for product design.",
       "version": "1.21.1"
     }
   ]
