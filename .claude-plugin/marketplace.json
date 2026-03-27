@@ -1,0 +1,14 @@
+{
+  "name": "design-engineer-plugin",
+  "owner": {
+    "name": "Volodymyr Merlenko"
+  },
+  "plugins": [
+    {
+      "name": "design-engineer",
+      "source": "./",
+      "description": "Full-stack product design and AI-assisted development plugin. Opinionated workflow from research through psychology-informed UX to production code. Includes 9 agents, 6 commands, and 49 skills.",
+      "version": "1.21.1"
+    }
+  ]
+}

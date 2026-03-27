@@ -14,10 +14,14 @@
 
 A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that walks you through building a product, start to finish. Think of it as a swiss knife for product design. It packs a full methodology into one tool – research, psychology, prototyping, development – but stays easy to pick up. You run one command, it figures out where you are, and opens the right instrument.
 
-**Open Claude Code in your terminal and run:**
+**Open Claude Code in your terminal and run these two commands, one at a time:**
 
 ```
-/install-plugin https://github.com/volomydyr/design-engineer-plugin
+/plugin marketplace add volomydyr/design-engineer-plugin
+```
+
+```
+/plugin install design-engineer@design-engineer-plugin
 ```
 
 That's it. The plugin is available in every Claude Code session from now on. **Start a new session in your project directory and type:**
