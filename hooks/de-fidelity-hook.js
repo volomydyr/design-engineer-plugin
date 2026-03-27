@@ -143,6 +143,27 @@ function checkPhaseOrder(filePath, phases) {
   return null;
 }
 
+function checkScopeDrift(filePath, phases) {
+  // Flatten all phases' file lists and check if this file is in any of them
+  const allPlanFiles = [];
+  for (const files of Object.values(phases)) {
+    allPlanFiles.push(...files);
+  }
+
+  // If no files listed in any phase, skip the check (plan may not list specific files)
+  if (allPlanFiles.length === 0) return null;
+
+  const normalized = filePath.replace(/\\/g, '/');
+
+  for (const planFile of allPlanFiles) {
+    if (normalized.endsWith(planFile) || normalized.includes(planFile)) {
+      return null; // file is in scope
+    }
+  }
+
+  return { file: filePath }; // drift detected – file not in any phase
+}
+
 function isSourceCode(filePath) {
   return SOURCE_EXTENSIONS.has(path.extname(filePath).toLowerCase());
 }
@@ -220,9 +241,22 @@ function main() {
         appendLog('NEW_COMPONENT', filePath);
       }
 
-      // Phase ordering check (fail-open – parsing errors just skip this check)
+      // Phase ordering + scope drift checks (fail-open – parsing errors just skip)
       const phases = parsePlanPhases(planPath);
       if (phases) {
+        // Check scope drift – is this file listed in any phase?
+        const drift = checkScopeDrift(filePath, phases);
+        if (drift) {
+          reminder =
+            'SCOPE DRIFT: You are writing to ' + fileName +
+            ' which is not listed in any phase of the approved plan. ' +
+            'If this file is needed, update the plan first or ask the user. ' +
+            'Do not add unplanned files. ' +
+            reminder;
+          appendLog('SCOPE_DRIFT', filePath);
+        }
+
+        // Check phase ordering – is this file from a later phase?
         const orderIssue = checkPhaseOrder(filePath, phases);
         if (orderIssue) {
           reminder =

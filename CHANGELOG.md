@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.21.1] – 2026-03-27
+
+### Changed
+
+- **Scope drift detection**: Fidelity hook now warns when Claude writes files not listed in any phase of the approved plan. Catches unplanned file creation during implementation.
+- **Forcing questions**: `ux-problem-statement` Step 3 enriched with 6 pointed questions (demand reality, status quo, narrowest wedge, surprising observations, failure mode, existing alternatives) for cutting through vague product thinking.
+
 ## [1.21.0] – 2026-03-27
 
 ### Changed

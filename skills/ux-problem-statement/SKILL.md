@@ -70,6 +70,19 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 - How will your product make their life better?
 - Warning: avoid "solution mode" – focus on the problem, not features
 
+### Forcing questions
+
+These cut through vague thinking. Adapt them to the user's context – don't ask all of them mechanically, but make sure the hard ones get asked:
+
+- **Demand reality**: Who specifically needs this? Can you name 3 real people (or types of people) who would pay for it or change their behavior because of it?
+- **Status quo**: What do people do today without your product? Why is that not good enough? Be specific – "they use spreadsheets" or "they ask a colleague" is better than "there's no good solution."
+- **Narrowest wedge**: What is the smallest, most focused version of this product that would still change someone's behavior? Not an MVP feature list – the single thing that makes someone switch.
+- **Surprising observations**: What have you seen or experienced that most people building in this space have not? What do you know that others don't?
+- **Failure mode**: If this product fails, what's the most likely reason? What assumption, if wrong, kills the whole thing?
+- **Existing alternatives**: Who are the closest competitors, and why haven't they solved this? Is the gap in their product, their market, their awareness, or something else?
+
+When the user already has a clear problem statement draft, skip the forcing questions and go straight to refinement. Use them when the user's context is thin or their thinking is vague.
+
 Ask questions one at a time or in small batches (2-3). Wait for answers before continuing.
 
 ---
