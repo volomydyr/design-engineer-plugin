@@ -29,10 +29,19 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 
 ## Implementation Process
 
-1. **Audit existing components first**: Check all component directories for reusable patterns before creating anything new
+1. **Component audit** (mandatory before any code): Scan all component directories and produce a table:
+
+   | Existing component | Action | Rationale |
+   |---|---|---|
+   | Button | Extend – add secondary variant | Plan needs secondary button, primary already exists |
+   | Card | Use as-is | Matches design exactly |
+   | (new) UserAvatar | Create new | Nothing similar exists |
+
+   Present this table to the user via AskUserQuestion and wait for confirmation before writing code. If a similar component exists that can be extended with variants or props, extend it – never create a duplicate.
+
 2. **Read the development plan** and analyze Figma designs imported via MCP tools
 3. **Reuse existing design system**: Extend the established semantic pattern for new features rather than creating parallel systems
-4. **Create reusable components** for new UI patterns, following established naming conventions
+4. **Create reusable components** only for genuinely new UI patterns – if the plan says "create" but an existing component could be extended, flag this to the user
 5. **Implement pixel-perfect screens** using existing and extended design system elements
 6. **Set up proper navigation** and integration points using the framework's state management patterns
 

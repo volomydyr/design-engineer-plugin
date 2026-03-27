@@ -169,7 +169,7 @@ When in Plan Mode, write plans using this structure:
 **Files**:
 - Create: [file paths]
 - Modify: [file paths]
-**Reuse**: [Existing components/patterns to leverage]
+**Reuse**: [List every existing component you will reuse. For each, state: use as-is, extend with new variants/props, or explain why a new component is needed. Never write "leverage existing components" – be specific.]
 **QA**: [What the user should check and how to verify – be specific]
 
 ## Phase 2: [Phase Name]
@@ -178,7 +178,7 @@ When in Plan Mode, write plans using this structure:
 **Files**:
 - Create: [file paths]
 - Modify: [file paths]
-**Reuse**: [Existing components/patterns to leverage]
+**Reuse**: [List every existing component you will reuse. For each, state: use as-is, extend with new variants/props, or explain why a new component is needed. Never write "leverage existing components" – be specific.]
 **QA**: [What the user should check and how to verify – be specific]
 
 ## Risk Assessment

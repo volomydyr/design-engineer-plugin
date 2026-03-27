@@ -152,6 +152,26 @@ function isExemptPath(filePath) {
   return EXEMPT_PATHS.some(dir => normalized.includes(dir));
 }
 
+// Component directory patterns – paths that typically contain UI components
+const COMPONENT_DIRS = [
+  '/components/', '/views/', '/screens/', '/widgets/',
+  '/ui/', '/pages/', '/layouts/', '/features/'
+];
+
+// Frontend extensions that are likely component files
+const FRONTEND_EXTENSIONS = new Set([
+  '.tsx', '.jsx', '.vue', '.svelte'
+]);
+
+function isNewComponentFile(toolName, filePath) {
+  // Only trigger on Write (new file creation), not Edit (modifying existing)
+  if (toolName !== 'Write') return false;
+  const ext = path.extname(filePath).toLowerCase();
+  if (!FRONTEND_EXTENSIONS.has(ext)) return false;
+  const normalized = filePath.replace(/\\/g, '/');
+  return COMPONENT_DIRS.some(dir => normalized.includes(dir));
+}
+
 function main() {
   let input = '';
   const timeout = setTimeout(() => process.exit(0), 3000);
@@ -180,6 +200,7 @@ function main() {
         return process.exit(0);
       }
 
+      const toolName = data.tool_name || '';
       const fileName = path.basename(filePath);
       let reminder =
         'REQUIREMENT FIDELITY: Review what you just wrote to ' + fileName + '. ' +
@@ -187,6 +208,17 @@ function main() {
         '(2) No creative additions or "improvements" beyond what the plan specifies. ' +
         '(3) No user-facing copy was modified from what was specified. ' +
         'If you added anything not in the approved plan, revert it now or ask the user first using AskUserQuestion.';
+
+      // Component reuse check – warn when creating new component files
+      if (isNewComponentFile(toolName, filePath)) {
+        reminder =
+          'COMPONENT REUSE: You are creating a new component file (' + fileName + '). ' +
+          'Confirm: (1) No similar component exists in the project that could be extended with new variants or props. ' +
+          '(2) The approved plan explicitly lists this as a new component, not an extension of an existing one. ' +
+          'If a similar component exists, extend it instead of creating a duplicate. ' +
+          reminder;
+        appendLog('NEW_COMPONENT', filePath);
+      }
 
       // Phase ordering check (fail-open – parsing errors just skip this check)
       const phases = parsePlanPhases(planPath);

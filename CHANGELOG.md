@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.20.2] – 2026-03-27
+
+### Changed
+
+- **Component reuse enforcement**: Plan template `Reuse` field now requires specific component-level decisions (use as-is / extend with variants / create new). Frontend implementer has a mandatory component audit step before writing code. Fidelity hook warns when creating new component files in component directories.
+
 ## [1.20.1] – 2026-03-26
 
 ### Added
