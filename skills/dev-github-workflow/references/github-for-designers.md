@@ -1,5 +1,18 @@
 # GitHub for Designers
 
+## Automated Workflow
+
+When using the design-engineer plugin, Git operations are handled automatically:
+
+- **During plan execution**: After each plan phase is approved, the plugin commits the phase's changes to a feature branch and pushes. Commit messages follow Conventional Commits format with phase context.
+- **Branch strategy**: Each plan gets its own feature branch (e.g., `feat/dark-mode-settings`). Main branch stays clean.
+- **PR creation**: When a plan completes, a pull request is created automatically. You choose how to merge (squash recommended for clean history).
+- **Manual commits**: Anytime you say "commit" or "push to github," the plugin stages changes, drafts a commit message for your approval, and pushes.
+
+You don't need to memorize Git commands – the plugin handles them. The sections below explain the concepts so you understand what's happening behind the scenes.
+
+---
+
 ## What GitHub Actually Is
 
 GitHub is a place where you store your project's code online. Since any codebase is literally just a folder with files and other folders inside, it works like Google Drive in that sense. But it also tracks every change, lets you revert to any previous version, and enables collaboration when needed.

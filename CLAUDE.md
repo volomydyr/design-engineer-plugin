@@ -204,8 +204,9 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 1. `EnterPlanMode` – write a structured plan to the plan file
 2. `ExitPlanMode` – present the plan for user approval
 3. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
-4. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
-5. **For each phase in dependency order:**
+4. If a git repo exists and the current branch is `main` or `master`, create a feature branch: `git checkout -b feat/[plan-name-slug]`
+5. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
+6. **For each phase in dependency order:**
    a. Mark the phase task `in_progress` (`TaskUpdate`)
    b. Implement only this phase's changes – never touch files from later phases
    c. Run `/simplify` on changed code
@@ -214,7 +215,9 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
    f. **WAIT** – do not proceed until the user responds
    g. If the user has feedback, address it (may take multiple rounds of feedback)
    h. Only proceed to the next phase after explicit user approval
-6. After all phases complete, move the plan to `plans/archive/`
+   i. After user approves, commit this phase's changes and push using `dev-github-workflow` (Conventional Commits format with phase context and plugin attribution)
+7. After all phases complete, move the plan to `plans/archive/`
+8. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 
 ### Implementation rules
 

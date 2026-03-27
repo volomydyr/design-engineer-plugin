@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.21.0] – 2026-03-27
+
+### Changed
+
+- **Git workflow automation**: `dev-github-workflow` transformed from a teaching skill into a working automation tool. Handles commits, branches, PRs, and merges in two modes – automatic (during plan execution) and manual (user invokes directly). Conventional Commits format with plugin attribution footer.
+- **Plan workflow git integration**: CLAUDE.md plan execution now creates a feature branch at plan start, commits after each approved phase, and creates a PR when the plan completes.
+- **Dev pipeline git step**: `/de:dev` feature cycle now includes a commit step after each feature is built and audited.
+
 ## [1.20.2] – 2026-03-27
 
 ### Changed

@@ -65,7 +65,8 @@ Load the corresponding skill:
 10. Run `/simplify` – final pass on all code changes
 11. Task `design-system-auditor`(implementation) – audits against design system
 12. Archive test scripts from `tests/` to `tests/archive/`
-13. Run `meta-document` to document what was built, update project status, record what's next
+13. Run `dev-github-workflow` – commit this feature's changes with conventional message, push to feature branch
+14. Run `meta-document` to document what was built, update project status, record what's next
 
 After each cycle, show progress and ask: "Feature complete. What would you like to build next?"
 

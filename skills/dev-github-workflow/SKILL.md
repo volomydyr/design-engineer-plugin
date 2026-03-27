@@ -1,19 +1,17 @@
 ---
 name: dev-github-workflow
-description: Establishes a GitHub workflow for designers entering development. Covers commits, branches, and recovery strategies. Use when setting up version control for a new project.
+description: "Automates Git workflow – commits, branches, PRs, and merges. Use when committing changes, or invoked automatically during plan execution after each approved phase. Do NOT use for Git concept education; see the github-for-designers.md reference instead."
 disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT
 ---
 
-# GitHub Workflow for Designers
+# Git Workflow Automation
 
-## Why This Matters
+Handles commits, branches, pull requests, and merges. Works in two modes: automatic (called during plan execution after each approved phase) and manual (user invokes directly to commit changes).
 
-GitHub is essential even if you work alone. It provides version control – the ability to go back in history when something breaks. Without it, you risk losing work that cannot be recovered.
-
-GitHub is similar to Google Drive: it stores your project's code online. But it also tracks every change, lets you revert to any previous version, and enables collaboration when needed.
+For Git concepts and educational content, see [github-for-designers.md](./references/github-for-designers.md).
 
 ## Interaction Method
 
@@ -23,89 +21,160 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 1: Assess Current Setup
+## Commit Message Format
+
+All commits follow Conventional Commits with plugin attribution:
 
 ```
-question: "What is your current GitHub situation?"
-header: "GitHub Status"
+type(scope): brief description
+
+Phase N – what was accomplished
+
+Built with design-engineer – https://github.com/volomydyr/design-engineer-plugin
+```
+
+### Types
+
+| Type | When to use |
+|------|------------|
+| `feat` | New feature or capability |
+| `fix` | Bug fix |
+| `refactor` | Code restructuring without behavior change |
+| `docs` | Documentation only |
+| `style` | Formatting, whitespace, design tokens |
+| `test` | Adding or updating tests |
+| `chore` | Build, config, tooling changes |
+
+### Rules
+
+- **Description**: imperative mood, one line, no period ("add dark mode toggle" not "added dark mode toggle.")
+- **Scope**: area of the codebase – component name, page name, or feature area (e.g., `settings`, `auth`, `dashboard`)
+- **Body**: optional – include phase context during plan execution, skip for standalone commits if the description is sufficient
+- **Footer**: always present – plugin attribution on the last line
+
+---
+
+## Mode 1: Automatic (during plan execution)
+
+Called after the user approves a plan phase. Receives context from the plan workflow.
+
+### Steps
+
+1. **Check branch state**: If on `main` or `master`, this should not happen – the plan workflow creates a feature branch at the start. If somehow on main, warn and ask the user before proceeding.
+
+2. **Stage phase files**: Stage only files changed in this phase. Use `git diff --name-only` to identify changed files, then `git add` each one specifically. Never use `git add .` or `git add -A`.
+
+3. **Generate commit message**: Build from phase context:
+   - Type: infer from what was done (new files → `feat`, bug fixes → `fix`, restructuring → `refactor`)
+   - Scope: infer from file paths (shared directory name or feature area)
+   - Description: one-line summary of what the phase accomplished
+   - Body: "Phase N – [objective from the plan]"
+   - Footer: attribution line
+
+4. **Commit and push**: `git commit` with the message, then `git push` to the remote.
+
+5. **Report**: Brief confirmation – "Committed phase N: [description]. Pushed to [branch-name]."
+
+---
+
+## Mode 2: Manual (user invokes directly)
+
+User says "commit", "push to github", "send to github", or similar.
+
+### Steps
+
+1. **Check git state**: Run `git status` to see what's changed. If nothing to commit, say so and stop.
+
+2. **Ask what to include**:
+
+```
+question: "What would you like to commit?"
+header: "Commit scope"
 options:
-  - label: "Never used GitHub"
-    description: "Need full setup guidance from scratch"
-  - label: "Have an account but no repository"
-    description: "Need help creating and connecting a repo"
-  - label: "Repository exists but I do not use it consistently"
-    description: "Need workflow guidance and commit discipline"
-  - label: "Active repository – want to improve workflow"
-    description: "Looking for best practices and automation"
+  - label: "All current changes"
+    description: "Stage and commit everything that's been modified or added"
+  - label: "Specific files"
+    description: "I will tell you which files to include"
+  - label: "Review changes first"
+    description: "Show me what changed, then I will decide"
 ```
 
----
+3. **Check branch state**: If on `main` or `master`, ask:
 
-## Step 2: Teach Core Concepts
+```
+question: "You're on the main branch. How should we handle this?"
+header: "Branch"
+options:
+  - label: "Commit to main"
+    description: "Commit directly to main (fine for small changes)"
+  - label: "Create a feature branch first"
+    description: "Create a branch, commit there, then you can PR later"
+```
 
-Using [github-for-designers.md](./references/github-for-designers.md), explain:
+4. **Generate commit message**: Analyze the changes and draft a message following the format. Present it to the user for approval before committing:
 
-### Commits
-Save a copy of your work with a small comment about what changed since the last update. Think of it as creating a restore point.
+   > **Proposed commit:**
+   > ```
+   > feat(dashboard): add usage chart with weekly breakdown
+   >
+   > Built with design-engineer – https://github.com/volomydyr/design-engineer-plugin
+   > ```
+   > Approve or edit?
 
-### Branches
-Different versions of the same codebase. The main branch holds approved code. Feature branches hold work in progress.
+5. **Commit and push**: After approval, commit and push.
 
-### Pull Requests
-A request for someone to review your code before it merges into the main branch. Useful even for solo developers as a self-review checkpoint.
-
----
-
-## Step 3: Establish Commit Discipline
-
-The most important rule: commit frequently. Specifically:
-- After every feature AI implements
-- After any critical bug fix
-- Before working on anything unfamiliar
-- Before any risky operation
-
----
-
-## Step 4: Teach Safety Practices
-
-### Staging vs. Discarding
-When you update code, changes exist only on your computer. Before committing, you stage files – choosing which changes to include. The staging and discard actions in IDEs are often placed close together. One misclick can erase hours of work.
-
-### Terminal Command Verification
-When AI suggests terminal commands, verify they are safe before running them. Ask AI to explain any command you do not understand. Do not accept all commands right away, especially when learning.
-
-### Recovery Options
-- **GitHub revert**: one command restores the entire project to a previous commit
-- **IDE Timeline**: local history of file changes, recoverable one file at a time (less convenient but works as backup)
-- **Branch checkout**: switch to a known-good branch if the current one is broken
+6. **Report**: Brief confirmation with branch name and commit hash.
 
 ---
 
-## Step 5: Set Up the Workflow
+## Branch Management
 
-Help the user:
-1. Create a GitHub repository (or connect to an existing one)
-2. Make their first commit with the current project state
-3. Set up a branching strategy (main + feature branches for significant work)
-4. Configure their IDE's Git integration
-5. Practice the commit-push cycle
+### Creating feature branches
+
+When a plan is approved and implementation begins:
+- Branch name: `feat/[plan-name-slug]` (e.g., `feat/dark-mode-settings`)
+- Create from current main: `git checkout -b feat/plan-name`
+- Push with tracking: `git push -u origin feat/plan-name`
+
+### PR creation (when plan completes)
+
+After all plan phases are committed:
+1. Create PR: `gh pr create --title "type(scope): plan description" --body "## Summary\n[plan summary]\n\nBuilt with design-engineer – https://github.com/volomydyr/design-engineer-plugin"`
+2. Ask the user:
+
+```
+question: "The PR is ready. How would you like to merge?"
+header: "Merge"
+options:
+  - label: "Squash and merge"
+    description: "Combines all phase commits into one clean commit on main (recommended)"
+  - label: "Merge commit"
+    description: "Preserves all phase commits in main's history"
+  - label: "Don't merge yet"
+    description: "Leave the PR open for review"
+```
+
+3. If merge requested: `gh pr merge --squash` or `gh pr merge --merge`
 
 ---
 
 ## Decision Hierarchy
 
-1. **User's direct input** – their preferred workflow, their comfort level
-2. **Git best practices** – commit discipline and safety habits
-3. **AI suggestions** – propose workflow but respect the user's pace
+1. **User's direct input** – their preferred branch strategy, commit scope, merge approach
+2. **Conventional Commits standard** – message format
+3. **AI suggestions** – commit type inference, scope detection, message drafting
 
 ---
 
 ## What Comes Next
 
-After GitHub is set up, suggest `dev-status-tracking` to add status tracking (which GitHub commits complement), or `dev-agent-setup` to set up development agents.
+After committing, suggest the next logical step based on context:
+- During plan execution: proceed to the next phase
+- After feature completion: create a PR or suggest the next feature
+- Standalone: return to whatever the user was doing
 
 ---
 
 ## Resource Files
 
-- [github-for-designers.md](./references/github-for-designers.md) – Simplified GitHub workflow with commit rules and safety practices
+- [github-for-designers.md](./references/github-for-designers.md) – Git concepts, commit discipline, safety practices, and recovery options
