@@ -170,6 +170,10 @@ When in Plan Mode, write plans using this structure:
 - Create: [file paths]
 - Modify: [file paths]
 **Reuse**: [List every existing component you will reuse. For each, state: use as-is, extend with new variants/props, or explain why a new component is needed. Never write "leverage existing components" – be specific.]
+**Checklist:**
+- [ ] [Specific deliverable 1]
+- [ ] [Specific deliverable 2]
+- [ ] [Specific deliverable 3]
 **QA**: [What the user should check and how to verify – be specific]
 
 ## Phase 2: [Phase Name]
@@ -179,6 +183,10 @@ When in Plan Mode, write plans using this structure:
 - Create: [file paths]
 - Modify: [file paths]
 **Reuse**: [List every existing component you will reuse. For each, state: use as-is, extend with new variants/props, or explain why a new component is needed. Never write "leverage existing components" – be specific.]
+**Checklist:**
+- [ ] [Specific deliverable 1]
+- [ ] [Specific deliverable 2]
+- [ ] [Specific deliverable 3]
 **QA**: [What the user should check and how to verify – be specific]
 
 ## Risk Assessment
@@ -189,7 +197,7 @@ When in Plan Mode, write plans using this structure:
 - [Any decisions that need user input before proceeding]
 ```
 
-Every phase MUST have `**Depends on**` and `**QA**` fields. Dependencies determine implementation order. QA instructions tell the user exactly what to review – not generic "check it works" but specific things to look at (files changed, behavior to test, edge cases to verify).
+Every phase MUST have `**Depends on**`, `**Checklist**`, and `**QA**` fields. Dependencies determine implementation order. The checklist breaks the phase into discrete deliverables that can be checked off during implementation. QA instructions tell the user exactly what to review – not generic "check it works" but specific things to look at (files changed, behavior to test, edge cases to verify).
 
 ### Project-local storage
 
@@ -210,12 +218,19 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
    a. Mark the phase task `in_progress` (`TaskUpdate`)
    b. Implement only this phase's changes – never touch files from later phases
    c. Run `/simplify` on changed code
-   d. Mark the phase task `complete` (`TaskUpdate`)
-   e. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
-   f. **WAIT** – do not proceed until the user responds
-   g. If the user has feedback, address it (may take multiple rounds of feedback)
-   h. Only proceed to the next phase after explicit user approval
-   i. After user approves, commit this phase's changes and push using `dev-github-workflow` (Conventional Commits format with phase context and plugin attribution)
+   d. **Completeness review** – before presenting to the user:
+      - Read the plan's checklist for this phase
+      - For each item, verify it was implemented as specified – not differently, not partially
+      - Check that no creative additions were made beyond the checklist items
+      - For each file edited, verify no important content was removed that wasn't part of the planned change
+      - If anything was missed, done differently, or accidentally removed – fix it now
+      - Check off each completed item in the plan file
+   e. Mark the phase task `complete` (`TaskUpdate`)
+   f. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
+   g. **WAIT** – do not proceed until the user responds
+   h. If the user has feedback, address it (may take multiple rounds of feedback)
+   i. Only proceed to the next phase after explicit user approval
+   j. After user approves, commit this phase's changes and push using `dev-github-workflow` (Conventional Commits format with phase context and plugin attribution)
 7. After all phases complete, move the plan to `plans/archive/`
 8. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 

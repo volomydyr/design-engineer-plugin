@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.22.0] – 2026-03-29
+
+### Added
+
+- **Content preservation hook**: New Sonnet PostToolUse prompt hook reviews substantial edits for unintended content loss. Fires on `Edit|MultiEdit`, bails out on small/trivial changes, blocks when important content appears to have been removed.
+- **Plan completeness checklist**: Plan format now requires a `**Checklist:**` field per phase with discrete deliverable items. Post-phase workflow includes a mandatory completeness review step before presenting to the user.
+- **Content-loss detection in fidelity hook**: Existing `de-fidelity-hook.js` now warns when an edit removes more than 30% of the replaced content during plan execution.
+
 ## [1.21.3] – 2026-03-29
 
 ### Fixed

@@ -270,6 +270,21 @@ function main() {
         }
       }
 
+      // Content preservation check – warn on substantial content removal
+      if (toolName === 'Edit' || toolName === 'MultiEdit') {
+        const oldStr = toolInput.old_string || '';
+        const newStr = toolInput.new_string || '';
+        if (oldStr.length > 200 && newStr.length < oldStr.length * 0.7) {
+          reminder =
+            'CONTENT PRESERVATION: You replaced ' + oldStr.length +
+            ' characters with ' + newStr.length + ' characters in ' + fileName +
+            '. Verify that no important content was lost – check for removed ' +
+            'explanations, configuration, reference material, or context that ' +
+            'was there for a reason. ' + reminder;
+          appendLog('CONTENT_LOSS', 'Substantial removal in ' + filePath + ': ' + oldStr.length + ' -> ' + newStr.length);
+        }
+      }
+
       appendLog('REMIND', filePath);
 
       process.stdout.write(JSON.stringify({

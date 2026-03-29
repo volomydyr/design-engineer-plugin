@@ -89,6 +89,18 @@
         ]
       },
       {
+        "matcher": "Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are a content preservation reviewer. You receive data about a file edit.\n\n$ARGUMENTS\n\nQuick checks – return NOTHING immediately if ANY of these are true:\n1. old_string is under 200 characters\n2. new_string is longer than or similar length to old_string (within 20%)\n3. The file path contains /tests/, /test/, /plans/, or /node_modules/\n4. The change is clearly a small targeted fix (typo, formatting, single value change)\n\nFor substantial edits where content was removed:\nCompare old_string and new_string. Check if any of the following was removed without adequate replacement:\n- Explanatory content or documentation that provided important context\n- Configuration details, settings, or reference material\n- Examples, templates, or instructional content\n- Features, logic, or knowledge that wasn't related to the intended change\n\nIf you find removed content that appears important, respond with:\n{\"decision\": \"block\", \"reason\": \"CONTENT PRESERVATION: [specific description of what was removed and why it seems important]. Review whether this removal was intentional. If not, restore it.\"}\n\nIf the edit looks clean – removed content was genuinely replaced or redundant – return NOTHING.\n\nBe conservative. Only flag clear cases of important content loss.",
+            "model": "sonnet",
+            "timeout": 30,
+            "statusMessage": "Checking content preservation..."
+          }
+        ]
+      },
+      {
         "matcher": "Read|WebFetch|Bash|Grep|Task",
         "hooks": [
           {
