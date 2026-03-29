@@ -20,26 +20,25 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Detect Project State
 
-**Hard rule**: The ONLY signal that determines whether this project has used the plugin before is whether `.design-engineer.yaml` exists in the project root. Nothing else matters for this check – not auto-memory, not project history, not git log, not existing code or documentation, not conversation context. A project with years of history and rich auto-memory but no `.design-engineer.yaml` is a new-to-plugin project.
+Run `bash ${SKILL_DIR}/scripts/detect-state.sh` from the project root. The script outputs exactly one line:
 
-Run `ls .design-engineer.yaml` in the project root to check.
+- `STATE=returning_with_resume` → Path A, show resume state
+- `STATE=returning_no_resume` → Path A, show config summary
+- `STATE=new_to_plugin` → Path B
 
-- File EXISTS → Path A (Returning project)
-- File DOES NOT EXIST → Path B (New to plugin) – even if you see project memory, deliverables, or familiar context
+Follow the script output. Do not override it based on auto-memory, project context, or any other signal.
 
-### Path A: Returning Project (config file exists)
+### Path A: Returning Project
 
-Read `.design-engineer.yaml`. Check if it contains a `resume:` section (written by the session hook when a previous session ended with work in progress).
-
-**If resume state exists**, show the current state:
+**If `STATE=returning_with_resume`**, read the config file and show the current state in plain language:
 
 ```
 Welcome back. Here's where you are:
 
-Phase:           {phase_name}
-Last completed:  {last_completed_skill}
-Next:            {next_skill}
-Deliverables:    {count} created, {stale_count} may need review
+You're in the {phase_name} phase.
+Last thing completed: {human-readable deliverable name, not the internal skill ID}
+Up next: {human-readable name}
+{count} deliverables created, {stale_count} may need a look.
 ```
 
 Then ask:
@@ -49,20 +48,20 @@ question: "How would you like to proceed?"
 header: "Resume"
 options:
   - label: "Continue where I left off"
-    description: "Resume with {next_skill} in the same mode"
+    description: "Pick up from {human-readable next step name}"
   - label: "Jump to a different phase"
-    description: "Choose which phase or skill to work on"
+    description: "Choose which phase to work on"
   - label: "Browse all capabilities"
     description: "See everything this plugin can do"
   - label: "Reconfigure"
-    description: "Re-run the setup from scratch"
+    description: "Start the setup over"
 ```
 
 If "Continue" or "Jump": hand off to `meta-orchestrator` with the appropriate context.
 If "Browse": proceed to **Step 6: Capability Guide** below.
 If "Reconfigure": proceed to Step 2.
 
-**If no resume state** (config exists but no active pipeline), show the saved config summary and ask:
+**If `STATE=returning_no_resume`** (config exists but no active pipeline), show a brief summary and ask:
 
 ```
 question: "What would you like to do?"
@@ -82,7 +81,7 @@ If "Reconfigure": proceed to Step 2.
 
 ### Path B: New to Plugin (no config file)
 
-You may have auto-memory or project context loaded from previous Claude Code sessions. Ignore it for routing purposes – this project has not used the plugin before. Present the welcome prompt as written.
+You may have auto-memory or project context loaded from previous Claude Code sessions. Do NOT use it anywhere in this flow – not for routing, not for the greeting, not for showing project status, not for skipping or customizing questions. This project has never used the plugin. Present every prompt exactly as written below – no personalization, no project summary, no "welcome back."
 
 Ask:
 
@@ -103,37 +102,30 @@ If "Existing project": proceed to **Step 6: Capability Guide** first, then minim
 
 ## Step 2: Detect Environment
 
-Run `scripts/detect-environment.sh` from this skill's directory. This script checks for:
+Run `scripts/detect-environment.sh` from this skill's directory. It checks for design tools, documentation access, testing setup, and project state.
 
-- **Installed plugins**: Context7, Figma, Playwright. **Installed MCPs**: Figma Console
-- **Available tools**: AskUserQuestion, WebSearch, WebFetch, Agent tool
-- **Project state**: existing code, existing docs/design/ folder, existing CLAUDE.md, git initialization
-
-Display the detection results to the user in a clear summary:
+Present the results in plain language – no plugin names, no technical identifiers. Describe what each tool enables:
 
 ```
-Environment Detection Results
-─────────────────────────────
-Plugins found:  Context7, Figma
-Plugins missing: Playwright
-MCPs found:     Figma Console
-MCPs missing:   (none)
-Tools:          AskUserQuestion, WebSearch, Agent
-Project:        Git initialized, no existing deliverables
+Here's what I found in your setup:
+
+✓ Figma connected – I can read your designs and work with them directly
+✓ Documentation tools ready – I have access to up-to-date technical docs
+✗ Browser testing not set up yet – needed later for testing, can add anytime
 ```
 
-Explain briefly what each detected (or missing) MCP does:
+Only list what's relevant. Adapt the wording to what was actually detected. Use ✓ for available tools and ✗ for missing ones.
 
-- **Context7 plugin**: Gives AI access to up-to-date technical documentation so it does not rely on outdated training data.
-- **Figma plugin**: Provides design data from Figma Dev Mode – not screenshots, but structured design information adapted to the project's tech stack. Supports bidirectional workflows (design→code and code→design import).
-- **Figma Console MCP**: Can perform actions in Figma directly (create components, apply tokens, and styles from prompts). More powerful than the official plugin but trickier to set up.
-- **Playwright plugin**: Enables browser-based testing and a TDD approach. Also allows AI to browse live URLs for visual review.
+**Internal knowledge for explaining tools to users** (use when offering help with missing tools – never show these labels or technical names directly):
 
-**Proactive help with missing tools:**
+- **Documentation access** (Context7 plugin internally): Gives AI access to up-to-date technical documentation so it does not rely on outdated training data. Essential – without it, AI may suggest outdated APIs or deprecated patterns.
+- **Design tool connection** (Figma plugin internally): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Essential for design-driven projects.
+- **Figma actions** (Figma Console MCP internally): Can perform actions in Figma directly – create components, apply tokens and styles from prompts. More powerful than the read-only connection but trickier to set up. Optional.
+- **Browser testing** (Playwright plugin internally): Enables browser-based testing and lets AI browse live URLs for visual review. Needed for test-driven development. Optional – can be added later.
 
-Context7 and the Figma plugin are the essential prerequisites. If either is missing, proactively offer to help install them – explain what they do and guide the user through setup. If Playwright is missing, mention it's needed for testing but can be added later.
+**If essential tools are missing** (design tool connection or documentation access), proactively offer to help install them – explain what they enable in plain language and guide the user through setup. Browser testing is optional and can be added later.
 
-If any existing configuration conflicts are detected (e.g., an existing status line, conflicting MCP settings), explain the conflict and ask the user whether to keep their current setup or use the recommended one. Never overwrite existing configuration without asking – explain what will change and why the recommended option is better.
+If any existing configuration conflicts are detected, explain the conflict in plain terms and ask whether to keep the current setup or use the recommended one. Never overwrite existing configuration without asking.
 
 ---
 
@@ -298,20 +290,18 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
 
-Display a summary of everything configured:
+Display a summary in plain language – no file names or config paths:
 
 ```
-Ready to go
-───────────
-Mode:             {mode}
-Deliverables:     docs/design/
-Plugins:          {detected list}
-Config saved:     .design-engineer.yaml
-Status line:      {installed | skipped}
+You're all set.
 
-Next step: Run /de:design to start the full product design pipeline.
+Mode: {Guided / God mode}
+Your design docs will live in docs/design/
+{Figma connected / Figma not connected – offer help}
+Status line: {installed / skipped}
 
-Tip: Run /de:start anytime to check progress or browse capabilities.
+Next step: Run /de:design to start designing your product.
+Tip: Run /de:start anytime to check progress or see what's available.
 ```
 
 ---
@@ -370,7 +360,9 @@ REVIEW & AUDIT
 
 ### 6b: Diagnostic Questions (existing projects only)
 
-For existing projects (not returning users who just want to browse), ask diagnostic questions to help filter relevant capabilities:
+For existing projects (not returning users who just want to browse), ask diagnostic questions to help filter relevant capabilities.
+
+**Do not skip these questions.** Even if auto-memory tells you the project type, current state, or goal – ask anyway. The user may want to do something different than what memory suggests. Ask all three questions in order:
 
 ```
 question: "What kind of project is this?"
@@ -458,6 +450,7 @@ This skill enforces User > Docs > AI at every step:
 
 - [setup-checklist.md](./references/setup-checklist.md) – Full reference of all configuration options and their effects
 - [dependencies-default.yaml](./assets/dependencies-default.yaml) – Default dependency graph for all plugin deliverables
+- [detect-state.sh](./scripts/detect-state.sh) – Project state detection (new/returning/resume)
 - [detect-environment.sh](./scripts/detect-environment.sh) – Environment detection script
 - [init-project-structure.sh](./scripts/init-project-structure.sh) – Project structure scaffolding script
 

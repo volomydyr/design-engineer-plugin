@@ -306,10 +306,11 @@ If a feature, behavior, or piece of copy was not explicitly requested by the use
 
 ## Output formatting
 
-Two rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
+Three rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
 
 1. **En dashes only** – use `–` (en dash). Never `—` (em dash) or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
 2. **Sentence case only** – capitalize the first word and proper nouns. Never Title Case. This applies to headings, button labels, tab names, navigation items, placeholder text, menu items, toast messages, and any other text Claude generates.
+3. **No internal jargon in user-facing output** – never mention config file names (`.design-engineer.yaml`, `.dependencies.yaml`), internal skill names (`ux-problem-statement`, `meta-orchestrator`), hook names, script names, or detection logic in messages shown to the user. Describe what things DO, not what they're called internally. "Your progress was saved" not "Resume state written to `.design-engineer.yaml`". "You have Figma connected" not "Figma plugin: [FOUND]". This rule applies to all commands, skills, and agents.
 
 Wrong: "User Settings — Account Details"
 Right: "User settings – account details"
@@ -320,7 +321,7 @@ Right: "Save changes", "View all projects", "Get started now"
 Wrong: "Loading — Please Wait"
 Right: "Loading – please wait"
 
-This is especially important in UI copy – prototypes, components, and any generated product interface must follow both rules.
+This is especially important in UI copy – prototypes, components, and any generated product interface must follow all three rules.
 
 ## Prompt improvement
 

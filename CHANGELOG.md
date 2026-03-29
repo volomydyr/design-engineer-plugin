@@ -4,6 +4,16 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.21.3] – 2026-03-29
+
+### Fixed
+
+- **Architectural state detection**: Moved project state check from LLM judgment to a shell script (`detect-state.sh`). The model now follows the script output instead of deciding on its own whether a project is new or returning.
+- **No-jargon output rule**: Added output formatting rule 3 to CLAUDE.md – no config file names, internal skill IDs, hook names, or detection logic in user-facing messages. Rewrote meta-setup templates (resume state, environment detection, setup summary) to use plain language.
+- **Path B memory leak**: Strengthened guards to block auto-memory from influencing any part of the new-to-plugin flow – routing, greeting, status, and question selection.
+- **Diagnostic questions skipped**: Added explicit "do not skip" instruction to prevent the model from inventing custom options based on memory.
+- **Hook error on slash commands**: `UserPromptSubmit` prompt cleaner errored on empty slash command input. Added early bail-out for empty and `/`-prefixed inputs.
+
 ## [1.21.2] – 2026-03-29
 
 ### Fixed
