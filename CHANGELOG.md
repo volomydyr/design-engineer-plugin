@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.21.2] – 2026-03-29
+
+### Fixed
+
+- **Project state detection**: `/de:start` could misidentify an existing project (never used with the plugin) as a "returning project" when Claude's auto-memory contained rich context from previous sessions. Added hard gate in `meta-setup` – only `.design-engineer.yaml` determines plugin usage, not memory or project history.
+
 ## [1.21.1] – 2026-03-27
 
 ### Changed

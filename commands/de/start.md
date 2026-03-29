@@ -25,6 +25,7 @@ The first command you run. Handles three situations:
 Load the `meta-setup` skill. It handles project detection and routing automatically:
 
 - Checks for `.design-engineer.yaml` to detect returning projects
+- **Important**: auto-memory from previous Claude Code sessions does NOT indicate plugin usage. Only `.design-engineer.yaml` does.
 - If returning: shows resume state, offers continue/jump/browse
 - If new: asks whether this is a new product or existing project
   - New product → mode selection, environment detection with proactive help, auto-scaffolding

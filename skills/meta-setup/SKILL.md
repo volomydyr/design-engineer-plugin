@@ -20,7 +20,12 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Detect Project State
 
-Check for `.design-engineer.yaml` in the project root.
+**Hard rule**: The ONLY signal that determines whether this project has used the plugin before is whether `.design-engineer.yaml` exists in the project root. Nothing else matters for this check – not auto-memory, not project history, not git log, not existing code or documentation, not conversation context. A project with years of history and rich auto-memory but no `.design-engineer.yaml` is a new-to-plugin project.
+
+Run `ls .design-engineer.yaml` in the project root to check.
+
+- File EXISTS → Path A (Returning project)
+- File DOES NOT EXIST → Path B (New to plugin) – even if you see project memory, deliverables, or familiar context
 
 ### Path A: Returning Project (config file exists)
 
@@ -76,6 +81,8 @@ If "Browse": proceed to **Step 6: Capability Guide**.
 If "Reconfigure": proceed to Step 2.
 
 ### Path B: New to Plugin (no config file)
+
+You may have auto-memory or project context loaded from previous Claude Code sessions. Ignore it for routing purposes – this project has not used the plugin before. Present the welcome prompt as written.
 
 Ask:
 
