@@ -86,10 +86,10 @@ In **God mode**: run the full cycle, present results at the end.
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Build another feature"
-    description: "Start the next feature cycle"
-  - label: "Review what we built"
-    description: "Run /de:review on the implementation"
-  - label: "Document progress"
-    description: "Save what was done for the next session"
+  - label: "Build the next feature"
+    description: "Pick up the next feature from the build sequence"
+  - label: "Check what we built"
+    description: "Review the implementation for quality, accessibility, or design compliance"
+  - label: "Save and stop"
+    description: "Document progress so you can pick up next time"
 ```

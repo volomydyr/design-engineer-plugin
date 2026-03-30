@@ -43,35 +43,35 @@ Up next: {human-readable name}
 Then ask:
 
 ```
-question: "How would you like to proceed?"
+question: "What would you like to do?"
 header: "Resume"
 options:
-  - label: "Continue where I left off"
-    description: "Pick up from {human-readable next step name}"
-  - label: "Jump to a different phase"
-    description: "Choose which phase to work on"
-  - label: "Browse all capabilities"
-    description: "See everything this plugin can do"
-  - label: "Reconfigure"
-    description: "Start the setup over"
+  - label: "Pick up where I stopped"
+    description: "Continue with {human-readable next step name}"
+  - label: "Work on a different phase"
+    description: "Jump to discovery, strategy, planning, or design"
+  - label: "See what else I can do"
+    description: "Browse all available commands and capabilities"
+  - label: "Start over"
+    description: "Reset the plugin setup for this project"
 ```
 
 If "Continue" or "Jump": suggest running `/de:design` to resume the pipeline.
 If "Browse": show the full capability list inline (see below), then suggest relevant `/de:` commands.
 If "Reconfigure": proceed to Step 2.
 
-**If the state is `returning_no_resume`** (config exists but no active pipeline), show a brief summary and ask:
+**If the config has `project_type: new` but no resume state** (set up but no active pipeline), ask:
 
 ```
 question: "What would you like to do?"
-header: "Existing Config"
+header: "Next step"
 options:
-  - label: "Start the design pipeline"
-    description: "Run /de:design to begin or continue the full workflow"
-  - label: "Browse all capabilities"
-    description: "See everything this plugin can do"
-  - label: "Reconfigure"
-    description: "Re-run the setup from scratch"
+  - label: "Start designing"
+    description: "Begin the full design workflow – research, strategy, planning, validation"
+  - label: "See what I can do"
+    description: "Browse all available commands and capabilities"
+  - label: "Start over"
+    description: "Reset the plugin setup for this project"
 ```
 
 If "Start": suggest running `/de:design`.

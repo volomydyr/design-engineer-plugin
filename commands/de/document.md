@@ -30,13 +30,13 @@ Otherwise, present what makes sense based on context:
 question: "What would you like to document?"
 header: "Document"
 options:
-  - label: "Current progress"
-    description: "Save what has been done in this session"
-  - label: "A decision"
-    description: "Record an important decision and its rationale"
-  - label: "Project status"
-    description: "View and update overall project state"
-  - label: "Stakeholder communication"
+  - label: "What I did today"
+    description: "Save this session's work – what changed, what was created, what's next"
+  - label: "A decision I made"
+    description: "Record a decision and why – so future you (or your team) understands the reasoning"
+  - label: "Where things stand"
+    description: "See the full project status – what's done, what's in progress, what's next"
+  - label: "Explain to my team"
     description: "Frame decisions and trade-offs for non-design audiences"
 ```
 

@@ -59,10 +59,10 @@ Use the `test-writer` agent to create test scripts that verify prototype behavio
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Iterate on the prototype"
-    description: "Adjust based on feedback"
-  - label: "Review the prototype"
-    description: "Run /de:review for a design quality check"
-  - label: "Move to development"
-    description: "Use this prototype as a reference for implementation"
+  - label: "Tweak it"
+    description: "Make changes based on what you see – tell me what to adjust"
+  - label: "Check the quality"
+    description: "Run a design review on the prototype (UX, accessibility, psychology)"
+  - label: "Start building for real"
+    description: "Use this prototype as the reference and implement in production code"
 ```

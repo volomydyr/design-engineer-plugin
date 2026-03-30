@@ -59,7 +59,7 @@ Instead, do the review yourself step by step:
    b. Read the relevant code yourself (use Read, Grep, Glob tools)
    c. Analyze against the area's principles
    d. Present Finding 1: principle name, file:line, what's wrong, severity, specific recommendation
-   e. Ask via AskUserQuestion: "What would you like to do with this finding?" — options: Fix now / Note and continue / Skip / Tell me more about this principle
+   e. Ask via AskUserQuestion: "What would you like to do with this finding?" — options: "Fix it now" (implement the fix before moving on) / "Note it, move on" (save for later, show next finding) / "Skip" (not relevant, show next) / "Explain the principle" (teach me why this matters)
    f. Wait for response. If "Fix now", implement the fix before continuing.
    g. Present Finding 2, repeat
    h. After all findings in this area: brief area summary
@@ -94,10 +94,10 @@ After the review is complete, ask:
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Fix the issues"
-    description: "Work through the findings and implement fixes"
-  - label: "Document findings"
-    description: "Save the review results for reference"
-  - label: "Review another area"
-    description: "Run a different type of review"
+  - label: "Start fixing"
+    description: "Work through the findings and implement code changes"
+  - label: "Save the report"
+    description: "Write the review results to a file for reference"
+  - label: "Review something else"
+    description: "Pick a different review area (accessibility, psychology, etc.)"
 ```
