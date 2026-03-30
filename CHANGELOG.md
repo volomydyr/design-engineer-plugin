@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.22.1] – 2026-03-30
+
+### Fixed
+
+- **Architectural state injection**: Replaced prompt-based state detection (failed 3 times) with a UserPromptSubmit command hook that injects project state as immutable context before the model processes `/de:start`. The model now reads pre-computed state instead of making its own judgment call.
+- **Existing project setup flow**: Added mandatory transition guards between Step 6 sub-steps (6a→6b→6c→6d) so the model can't skip diagnostic questions or setup. Added status line question to Step 6d for existing projects.
+- **Model upgrade**: `meta-setup` upgraded from `sonnet/medium` to `opus/high` for more reliable instruction following alongside the architectural fix.
+
 ## [1.22.0] – 2026-03-29
 
 ### Added

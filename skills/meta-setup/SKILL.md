@@ -2,8 +2,8 @@
 name: meta-setup
 description: "Smart entry point for the design-engineer plugin. Detects project state and routes to the right flow: new projects get full setup, returning projects resume where they left off, existing projects get a capability guide. Use as the first command for any project."
 disable-model-invocation: true
-model: sonnet
-effort: medium
+model: opus
+effort: high
 license: MIT
 compatibility: "Requires Node.js v18+, Python 3, and Bash"
 ---
@@ -18,19 +18,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 1: Detect Project State
+## Step 1: Read Project State
 
-Run `bash ${SKILL_DIR}/scripts/detect-state.sh` from the project root. The script outputs exactly one line:
+Look for the line `DESIGN_ENGINEER_PROJECT_STATE:` in your context. A hook injected this before you started processing.
 
-- `STATE=returning_with_resume` → Path A, show resume state
-- `STATE=returning_no_resume` → Path A, show config summary
-- `STATE=new_to_plugin` → Path B
+- If the line says `new_to_plugin` → Path B (new to plugin)
+- If the line says `returning_with_resume` → Path A (resume state)
+- If the line says `returning_no_resume` → Path A (config summary)
+- If the line is not present → run `bash ${SKILL_DIR}/scripts/detect-state.sh` as fallback, then follow its output
 
-Follow the script output. Do not override it based on auto-memory, project context, or any other signal.
+This state is authoritative. Do not override it with auto-memory, project history, or any other signal. A project with years of history but `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` in your context is a new-to-plugin project – period.
 
 ### Path A: Returning Project
 
-**If `STATE=returning_with_resume`**, read the config file and show the current state in plain language:
+**If the state is `returning_with_resume`**, read the config file and show the current state in plain language:
 
 ```
 Welcome back. Here's where you are:
@@ -61,7 +62,7 @@ If "Continue" or "Jump": hand off to `meta-orchestrator` with the appropriate co
 If "Browse": proceed to **Step 6: Capability Guide** below.
 If "Reconfigure": proceed to Step 2.
 
-**If `STATE=returning_no_resume`** (config exists but no active pipeline), show a brief summary and ask:
+**If the state is `returning_no_resume`** (config exists but no active pipeline), show a brief summary and ask:
 
 ```
 question: "What would you like to do?"
@@ -96,7 +97,7 @@ options:
 ```
 
 If "New product idea": proceed to **Step 2: Environment Detection** (full setup flow).
-If "Existing project": proceed to **Step 6: Capability Guide** first, then minimal setup.
+If "Existing project": proceed to Step 6. You MUST complete ALL sub-steps in order: 6a (capabilities), 6b (three diagnostic questions), 6c (recommendations), 6d (minimal setup). Do not skip any step or stop early.
 
 ---
 
@@ -358,6 +359,8 @@ REVIEW & AUDIT
 • Design system compliance
 ```
 
+After showing capabilities, proceed to 6b. Do not ask the user what they want to do yet – the diagnostic questions come first.
+
 ### 6b: Diagnostic Questions (existing projects only)
 
 For existing projects (not returning users who just want to browse), ask diagnostic questions to help filter relevant capabilities.
@@ -425,7 +428,11 @@ These are recommendations – you can use any capability at any time.
 Come back to /de:start anytime to see this list again.
 ```
 
+After showing recommendations, proceed to 6d (minimal setup). Do not end here.
+
 ### 6d: Minimal Config for Existing Projects
+
+**This step is mandatory.** After showing recommendations (6c), always proceed here. Do not end the flow at recommendations – the user needs environment detection, config file creation, folder scaffolding, and status line setup before they can effectively use the plugin.
 
 If the user arrived via Path B (existing project, first time with plugin):
 
@@ -433,7 +440,8 @@ If the user arrived via Path B (existing project, first time with plugin):
 2. Ask only essential config: deliverables path and design tool integration
 3. Write `.design-engineer.yaml` with `project.type: "existing"`
 4. Scaffold folders (Step 4)
-5. Do NOT ask about mode preference, team size, or dev environment – these are relevant for the full pipeline, not ad-hoc usage
+5. Ask about the status line (same question and installation flow as Step 5's status line section)
+6. Do NOT ask about mode preference, team size, or dev environment – these are relevant for the full pipeline, not ad-hoc usage
 
 ---
 

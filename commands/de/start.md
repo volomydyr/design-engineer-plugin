@@ -20,20 +20,21 @@ The first command you run. Handles three situations:
 
 ## Workflow
 
-### Step 1: Load Setup Skill
+### Step 1: Read Injected State
 
-Load the `meta-setup` skill. It handles project detection and routing automatically:
+A hook has already detected the project state and injected it into your context. Look for the line starting with `DESIGN_ENGINEER_PROJECT_STATE:` – this is the definitive routing signal.
 
-- Checks for `.design-engineer.yaml` to detect returning projects
-- **Important**: auto-memory from previous Claude Code sessions does NOT indicate plugin usage. Only `.design-engineer.yaml` does.
-- If returning: shows resume state, offers continue/jump/browse
-- If new: asks whether this is a new product or existing project
-  - New product → mode selection, environment detection with proactive help, auto-scaffolding
-  - Existing project → capability guide first, then minimal config
+Load the `meta-setup` skill. It reads this state and routes automatically:
+
+- `new_to_plugin`: asks whether this is a new product or existing project, then guides setup
+- `returning_with_resume`: shows resume state, offers continue/jump/browse
+- `returning_no_resume`: shows config summary, offers start/browse/reconfigure
+
+Do not override the injected state with auto-memory or project context.
 
 ### Step 2: Follow the Routed Path
 
-The `meta-setup` skill handles all routing. Do not override its detection logic.
+The `meta-setup` skill handles all routing based on the injected state.
 
 For **new products**: mode preference → environment detection (proactively help install missing tools) → auto-scaffold with default path → suggest `/de:design`.
 
