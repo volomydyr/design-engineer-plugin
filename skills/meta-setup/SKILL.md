@@ -18,16 +18,11 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 1: Read Project State
+## Step 1: Returning Project State
 
-Look for the line `DESIGN_ENGINEER_PROJECT_STATE:` in your context. A hook injected this before you started processing.
+This skill handles returning projects (those with `.design-engineer.yaml`). New-to-plugin projects are handled by the `meta-setup-welcome` skill instead.
 
-- If the line says `new_to_plugin` → Path B (new to plugin)
-- If the line says `returning_with_resume` → Path A (resume state)
-- If the line says `returning_no_resume` → Path A (config summary)
-- If the line is not present → run `bash ${SKILL_DIR}/scripts/detect-state.sh` as fallback, then follow its output
-
-This state is authoritative. Do not override it with auto-memory, project history, or any other signal. A project with years of history but `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` in your context is a new-to-plugin project – period.
+Read `.design-engineer.yaml` to determine the resume state.
 
 ### Path A: Returning Project
 
@@ -79,25 +74,6 @@ options:
 If "Start": suggest running `/de:design`.
 If "Browse": proceed to **Step 6: Capability Guide**.
 If "Reconfigure": proceed to Step 2.
-
-### Path B: New to Plugin (no config file)
-
-You may have auto-memory or project context loaded from previous Claude Code sessions. Do NOT use it anywhere in this flow – not for routing, not for the greeting, not for showing project status, not for skipping or customizing questions. This project has never used the plugin. Present every prompt exactly as written below – no personalization, no project summary, no "welcome back."
-
-Ask:
-
-```
-question: "Welcome to Design Engineer. What brings you here?"
-header: "Project Type"
-options:
-  - label: "New product idea"
-    description: "Starting from scratch – I have an idea or a problem I want to solve"
-  - label: "Existing project"
-    description: "I already have a product, codebase, or designs – I want to improve, review, or add features"
-```
-
-If "New product idea": proceed to **Step 2: Environment Detection** (full setup flow).
-If "Existing project": proceed to Step 6. You MUST complete ALL sub-steps in order: 6a (capabilities), 6b (three diagnostic questions), 6c (recommendations), 6d (minimal setup). Do not skip any step or stop early.
 
 ---
 

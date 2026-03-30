@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.23.1] – 2026-03-30
+
+### Changed
+
+- **Skill split**: New-to-plugin welcome prompt moved to separate `meta-setup-welcome` skill (~30 lines). The model for new projects gets a tiny, focused file with one job instead of a 470-line multi-path skill.
+- **Hook directive**: State injection hook now includes the exact AskUserQuestion spec as a first-action directive — the earliest context the model sees.
+- **Command simplification**: `/de:start` command reduced to pure routing (load welcome skill or meta-setup based on state).
+
 ## [1.23.0] – 2026-03-30
 
 ### Changed
