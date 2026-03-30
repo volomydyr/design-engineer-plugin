@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.24.1] – 2026-03-30
+
+### Fixed
+
+- **Chained single-task skills**: Split existing-project onboarding into `meta-setup-existing` (goal only, ~30 lines) → `meta-setup-configure` (mode + setup + status line, ~60 lines). Each skill has one main question. Setup is sandwiched between mode and status line questions so it can't be skipped.
+
 ## [1.24.0] – 2026-03-30
 
 ### Changed

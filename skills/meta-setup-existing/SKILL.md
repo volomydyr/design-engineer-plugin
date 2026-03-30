@@ -1,107 +1,35 @@
 ---
 name: meta-setup-existing
-description: "Onboarding for existing projects using the Design Engineer Plugin for the first time. Goal + mode → auto-setup → status line → auto-run."
+description: "Goal selection for existing projects using the Design Engineer Plugin for the first time. Routes to configuration."
 disable-model-invocation: true
 model: opus
 effort: high
 license: MIT
 ---
 
-# Existing Project Onboarding
+# What would you like to do?
 
-You have exactly 3 actions to perform, in this order. Do not skip any. Do not start working on the user's goal until all 3 are done.
+Your ONLY task is to present the question below, then route based on the answer.
 
-## Action 1: Ask goal and mode together
-
-Make ONE AskUserQuestion call with BOTH questions below. No text before it.
+Do not output any text before the question. No greeting, no project summary, no memory context. Just the question.
 
 ```
-questions:
-  - question: "What would you like to do with your existing project?"
-    header: "Goal"
-    options:
-      - label: "Review what I have"
-        description: "Audit quality, find UX issues, check accessibility"
-      - label: "Implement from Figma"
-        description: "I have designs ready to turn into code"
-      - label: "Design a new feature"
-        description: "Start the design thinking process for something new"
-      - label: "Set up the dev workflow"
-        description: "Configure AI-assisted development for this project"
-    multiSelect: false
-  - question: "How do you want to work?"
-    header: "Mode"
-    options:
-      - label: "Guided mode (Recommended)"
-        description: "Step by step – I share my thinking, ask questions, and you review each step"
-      - label: "God mode"
-        description: "Mostly automated – I plan and execute with minimal interruption. Faster but less control."
-    multiSelect: false
+question: "What would you like to do with your existing project?"
+header: "Goal"
+options:
+  - label: "Review what I have"
+    description: "Audit quality, find UX issues, check accessibility"
+  - label: "Implement from Figma"
+    description: "I have designs ready to turn into code"
+  - label: "Design a new feature"
+    description: "Start the design thinking process for something new"
+  - label: "Set up the dev workflow"
+    description: "Configure AI-assisted development for this project"
 ```
 
-Wait for both answers before proceeding.
+After the user answers, load the `meta-setup-configure` skill. It handles mode selection, project setup, and launching the right command.
 
-## Action 2: Run setup, then ask about status line
-
-After receiving both answers from Action 1:
-
-**First**, run setup silently (no questions):
-1. Run `detect-environment.sh` from the `meta-setup` skill's scripts directory
-2. Create `.design-engineer.yaml` in the project root:
-   ```yaml
-   project:
-     type: "existing"
-     mode: "{selected_mode}"
-     deliverables_path: "docs/design/"
-   environment:
-     plugins:
-       context7: {detected}
-       figma: {detected}
-       playwright: {detected}
-     mcps:
-       figma_console: {detected}
-   dependencies:
-     tracking_file: "docs/design/.dependencies.yaml"
-     auto_suggest: true
-   ```
-3. Scaffold `docs/design/` via `init-project-structure.sh` from the `meta-setup` skill's scripts directory
-4. Show brief environment results in plain language (✓/✗, no technical names)
-5. If essential tools missing (Figma or documentation access), offer to help install
-
-**Then** ask about the status line:
-
-```
-questions:
-  - question: "Would you like to install the design-engineer status line?"
-    header: "Status line"
-    options:
-      - label: "Yes (Recommended)"
-        description: "Shows model, usage limits, context bar, and pipeline progress below every prompt"
-      - label: "No"
-        description: "Skip – re-run /de:start later to install"
-    multiSelect: false
-```
-
-If "Yes": install using the status line steps from `meta-setup` Step 5 (check existing config, create dirs, copy script, update settings.json, explain watch mode).
-
-## Action 3: Auto-run the chosen command
-
-Say "You're all set. Let's get started." then immediately load the command matching the goal:
-
-| Goal | Command |
-|------|---------|
-| Review what I have | `/de:review` |
-| Implement from Figma | `/de:dev` |
-| Design a new feature | `/de:design` |
-| Set up the dev workflow | `/de:dev` |
-
-The command reads mode from `.design-engineer.yaml` and follows PLAN → EXECUTE → PRESENT → FEEDBACK.
-
----
-
-## Fallback: Custom goal
-
-If the user typed something custom instead of selecting an option in Action 1, show this capability list and let them pick:
+If the user typed something custom instead of selecting an option, show this capability list, let them pick, then load `meta-setup-configure`:
 
 ```
 Here's everything this plugin can help you with:
@@ -144,5 +72,3 @@ REVIEW & AUDIT
 • Psychology scan (100 laws)
 • Design system compliance
 ```
-
-After they pick, continue with Action 2 and Action 3 as normal.
