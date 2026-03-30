@@ -338,9 +338,9 @@ Right: "Loading – please wait"
 
 This is especially important in UI copy – prototypes, components, and any generated product interface must follow all three rules.
 
-## Prompt improvement
+## Project state injection
 
-A `UserPromptSubmit` hook runs every message through Haiku for light cleanup before Claude processes it. The hook fixes grammar, removes filler words, numbers multiple requests, and slightly tightens conversational tone – without changing meaning, removing context, or adding anything new. Short confirmations and already-clean messages are skipped. The cleaned version arrives as additional context alongside the original message.
+A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.
 
 ## Context Monitoring
 

@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.22.2] – 2026-03-30
+
+### Fixed
+
+- **UserPromptSubmit hook error**: Removed invalid Haiku prompt cleaner from UserPromptSubmit – it errored on slash commands with empty input and likely blocked the state injection hook from running. Only the command-based state injection hook remains.
+- **Hook audit**: Verified all PreToolUse, PostToolUse, and Stop hooks are correctly configured.
+
+### Removed
+
+- **Prompt cleaner hook**: The Haiku-based prompt improvement hook was removed from UserPromptSubmit. It was causing errors on every slash command invocation. Will be reimplemented as a command-based solution later.
+
 ## [1.22.1] – 2026-03-30
 
 ### Fixed
