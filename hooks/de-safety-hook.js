@@ -14,6 +14,11 @@ const os = require('os');
 const homeDir = os.homedir();
 const LOG_PATH = path.join(homeDir, '.claude', 'cache', 'de-safety.log');
 
+// Only active in projects that have run /de:start
+if (!fs.existsSync(path.join(process.cwd(), '.design-engineer.yaml'))) {
+  process.exit(0);
+}
+
 // ─── Destructive patterns ────────────────────────────────────────────────────
 
 const PATTERNS = [

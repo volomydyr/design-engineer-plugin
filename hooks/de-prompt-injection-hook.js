@@ -16,6 +16,11 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-prompt-injection.log');
 
+// Only active in projects that have run /de:start
+if (!fs.existsSync(path.join(process.cwd(), '.design-engineer.yaml'))) {
+  process.exit(0);
+}
+
 // ─── Detection patterns ─────────────────────────────────────────────────────
 // Each pattern: { re: RegExp, reason: string, severity: 'high'|'medium', category: string }
 

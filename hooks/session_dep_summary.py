@@ -6,6 +6,10 @@ import re
 import sys
 from datetime import datetime, timedelta, timezone
 
+# Only active in projects that have run /de:start
+if not os.path.isfile('.design-engineer.yaml'):
+    sys.exit(0)
+
 
 def parse_dependencies_yaml(text):
     """Minimal YAML parser for the dependencies file structure."""

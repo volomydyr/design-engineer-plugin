@@ -15,6 +15,11 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-fidelity.log');
 
+// Only active in projects that have run /de:start
+if (!fs.existsSync(path.join(process.cwd(), '.design-engineer.yaml'))) {
+  process.exit(0);
+}
+
 // Source code extensions that warrant a fidelity check
 const SOURCE_EXTENSIONS = new Set([
   '.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs',
@@ -208,6 +213,45 @@ function main() {
 
       if (!filePath) return process.exit(0);
 
+      // Plan file drift review — trigger background agent for independent review
+      const fileName = path.basename(filePath);
+      if (filePath.includes('/plans/') && filePath.endsWith('.md')) {
+        try {
+          const content = fs.readFileSync(filePath, 'utf8');
+          const driftPatterns = [
+            /I['\u2019]ve also added/i,
+            /Additionally,?\s/i,
+            /As a bonus/i,
+            /I took the liberty/i,
+            /I also included/i,
+            /While I was at it/i,
+            /I went ahead and/i
+          ];
+          const found = driftPatterns.filter(p => p.test(content));
+          const keywordWarning = found.length > 0
+            ? 'WARNING: Obvious drift language detected (' + found.length + ' patterns). '
+            : '';
+
+          const instruction = keywordWarning +
+            'PLAN DRIFT REVIEW: A plan file was just written to ' + fileName + '. ' +
+            'Spawn a background Agent to independently review this plan for requirement drift. ' +
+            'The agent should read ' + filePath + ' and check: ' +
+            '(1) Does it add features not explicitly requested? ' +
+            '(2) Does it modify user-specified copy or naming? ' +
+            '(3) Are there creative additions or unsolicited improvements? ' +
+            'If drift is found, the agent should report what to remove.';
+
+          process.stdout.write(JSON.stringify({
+            hookSpecificOutput: {
+              hookEventName: 'PostToolUse',
+              additionalContext: instruction
+            }
+          }));
+          appendLog('PLAN_REVIEW', filePath);
+        } catch (_) {}
+        return process.exit(0);
+      }
+
       // Skip exempt paths (tests, plans, plugin files, etc.)
       if (isExemptPath(filePath)) return process.exit(0);
 
@@ -222,7 +266,6 @@ function main() {
       }
 
       const toolName = data.tool_name || '';
-      const fileName = path.basename(filePath);
       let reminder =
         'REQUIREMENT FIDELITY: Review what you just wrote to ' + fileName + '. ' +
         'Verify: (1) Every feature matches the approved plan exactly. ' +

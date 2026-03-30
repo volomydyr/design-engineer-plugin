@@ -12,6 +12,11 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-tdd.log');
 
+// Only active in projects that have run /de:start
+if (!fs.existsSync(path.join(process.cwd(), '.design-engineer.yaml'))) {
+  process.exit(0);
+}
+
 // Extensions that count as source code (require tests before writing)
 const SOURCE_EXTENSIONS = new Set([
   '.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs',

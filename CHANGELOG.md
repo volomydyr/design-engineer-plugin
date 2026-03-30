@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.23.0] – 2026-03-30
+
+### Changed
+
+- **Hook scoping**: All command hooks now gate on `.design-engineer.yaml` — silent in projects that haven't run `/de:start`. The state injection hook uses inverse logic (only fires when config is absent). Plugin installed globally but hooks only activate per-project after setup.
+- **Plan drift review**: Replaced Haiku prompt hook (fired on every Write/Edit globally) with deterministic keyword scan + background Agent review trigger in the fidelity command hook. Zero LLM overhead, only fires on plan file writes in configured projects.
+
 ## [1.22.3] – 2026-03-30
 
 ### Fixed
