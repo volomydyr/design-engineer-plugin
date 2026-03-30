@@ -1,7 +1,7 @@
 ---
 name: de:design
-description: Full design workflow orchestrator. God mode (autonomous) or Guided mode (step-by-step). Sequences through discovery, strategy, planning, and validation.
-argument-hint: "[god-mode | guided | phase N | skill-name]"
+description: Full design workflow. Sequences through discovery, strategy, planning, and validation phases. Mode and pace determined by your config.
+argument-hint: "[phase N | skill-name]"
 ---
 
 # Design Workflow
@@ -12,98 +12,98 @@ argument-hint: "[god-mode | guided | phase N | skill-name]"
 
 The primary command for product creation. Handles the entire design pipeline from brainstorm to final design.
 
-## Prerequisites
+## Step 1: Read project context
 
-Verify that `/de:start` has been run by checking for `.design-engineer.yaml` in the project root. If not found, instruct the user to run `/de:start` first.
+1. Read `.design-engineer.yaml` for mode (guided/god) and project type
+2. Check for existing deliverables in `docs/design/`
+3. If `.design-engineer.yaml` not found, tell the user to run `/de:start` first
 
-## Mode Selection
+## Step 2: Plan
 
-If no mode was specified in arguments, use AskUserQuestion to ask:
+If existing deliverables are found, present current state:
 
-**Question:** "How would you like to work?"
+```
+Here's where your project stands:
 
-1. **God mode** – I run the full pipeline autonomously with minimal input from you
-2. **Guided mode** – Step-by-step, I ask questions at every stage and pause for your approval
-3. **Direct access** – Jump to a specific skill or phase
+Phase 1 (Discovery): {complete/in progress/not started}
+Phase 2 (Strategy): {status}
+Phase 3 (Planning): {status}
+Phase 4 (Design & Validation): {status}
 
-If AskUserQuestion is not available, present the options as a numbered list.
+I recommend picking up at {next logical step}.
+```
 
-## Project Status Check
+In **Guided mode**: ask the user to confirm or adjust before proceeding.
+In **God mode**: show the plan briefly, then start.
 
-Check for existing deliverables in the configured deliverables path. If prior work exists, ask:
+If a specific phase or skill was passed as argument, jump to that directly.
 
-**Question:** "I found existing deliverables. What would you like to do?"
+## Step 3: Execute based on mode
 
-1. **Continue** – Resume from where you left off
-2. **Start fresh** – Begin the pipeline from Phase 1
-3. **Jump to phase** – Start from a specific phase
+The pipeline has 4 phases. Each phase runs skills in sequence.
 
-## Workflow
+### Guided mode
 
-Load the `meta-orchestrator` skill. It manages the pipeline sequence, phase transitions, and context handoffs.
+For each skill in the current phase:
+1. Announce what's next and why it matters
+2. Ask if the user wants to proceed, skip, or adjust
+3. Run the skill
+4. Present the deliverable for review
+5. Wait for feedback before moving to the next skill
+6. After each phase: summarize what was created, ask to continue to next phase
+
+### God mode
+
+1. Run all skills in the current phase autonomously
+2. Present a summary of deliverables created
+3. Ask whether to continue to the next phase or review anything
 
 ### Phase 1: Discovery
 
-Skills executed in sequence:
-
-1. Load `ux-problem-statement` – structured problem definition
-2. Load `ux-target-audience` – persona development
-3. Load `ux-assumptions` – assumption tracking
-4. Load `ux-competitor-analysis` – competitive landscape analysis
-5. Load `ux-user-interviews` – interview design and analysis *(optional – ask user)*
-
-After Phase 1, run `meta-document` to document progress.
-
-In Guided mode, pause and ask: "Phase 1 (Discovery) complete. Ready to proceed to Phase 2 (Strategy)?"
+Skills in sequence:
+1. `ux-problem-statement` – structured problem definition
+2. `ux-target-audience` – persona development
+3. `ux-assumptions` – assumption tracking
+4. `ux-competitor-analysis` – competitive landscape analysis
+5. `ux-user-interviews` – interview design and analysis *(optional – ask user)*
 
 ### Phase 2: Strategy
 
-Skills executed in sequence:
-
-1. Load `ux-behavior-mapping` – behavior analysis (Motivation × Ability × Prompt)
-2. Load `ux-storybrand` – messaging framework
-3. Load `ux-story-panels` – product narrative stories
-4. Load `ux-business-plan` – revenue model and market sizing
-
-After Phase 2, run `meta-document` to document progress.
+1. `ux-behavior-mapping` – behavior analysis
+2. `ux-storybrand` – messaging framework
+3. `ux-story-panels` – product narrative stories
+4. `ux-business-plan` – revenue model and market sizing
 
 ### Phase 3: Planning
 
-Skills executed in sequence:
-
-1. Load `ux-mvp-requirements` – MVP prioritization
-2. Load `ux-information-architecture` – IA design
-
-After Phase 3, run `meta-document` to document progress.
+1. `ux-mvp-requirements` – MVP prioritization
+2. `ux-information-architecture` – IA design
 
 ### Phase 4: Design & Validation
 
-Skills executed in sequence:
+1. `ux-bias-audit` – bias audit
+2. `ux-journey-mapping` – journey mapping
+3. `ux-ethics-review` – ethical review *(optional)*
+4. `ui-references-moodboard` – reference gathering
+5. `dev-prototyping` – prototyping and testing
+6. `ui-figma-guide` – Figma workflow
+7. `ux-motivation-audit` – screen-level psychology analysis
+8. `ux-full-review` – product assessment *(optional)*
 
-1. Load `ux-bias-audit` – bias audit
-2. Load `ux-journey-mapping` – journey mapping
-3. Load `ux-ethics-review` – ethical review *(optional)*
-4. Load `ui-references-moodboard` – reference gathering
-5. Load `dev-prototyping` – prototyping and testing
-6. Load `ui-figma-guide` – Figma workflow
-7. Load `ux-motivation-audit` – screen-level psychology analysis (Motivation Levels)
-8. Load `ux-full-review` – product assessment *(optional)*
+## Post-pipeline
 
-After Phase 4, run `meta-document` to document progress.
+After completing the current work:
 
-### Transition Checkpoint
-
-Before proceeding to development:
-
-**Question:** "All pre-development phases are complete. What would you like to do?"
-
-1. **Proceed to development** – Run `/de:dev` to set up the development pipeline
-2. **Review deliverables** – Run `/de:review` to audit everything created
-3. **Run psychology audit** – Run `/de:review psych` for a deep psychology review
-4. **Document and stop** – Save progress and end the session
-
-## Agents Used
-
-- `ux-researcher` – parallel research tasks
-- `deliverable-writer` – document production
-- `compound-documenter` – progress documentation
+```
+question: "What would you like to do next?"
+header: "Next step"
+options:
+  - label: "Continue to next phase"
+    description: "Proceed with the design pipeline"
+  - label: "Review what we created"
+    description: "Run /de:review on the deliverables"
+  - label: "Move to development"
+    description: "Run /de:dev to set up the dev pipeline"
+  - label: "Document and stop"
+    description: "Save progress for the next session"
+```

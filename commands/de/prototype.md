@@ -12,24 +12,57 @@ argument-hint: "[new | feature | redesign]"
 
 Generate a single-file HTML prototype using the `dev-prototyping` skill.
 
-## Behavior
+## Step 1: Read project context
+
+1. Read `.design-engineer.yaml` for mode (guided/god)
+2. Check what design deliverables exist (docs/design/ — problem statement, IA, user flows, etc.)
+3. Check if Figma is connected
+
+## Step 2: Plan
+
+Present what the prototype will be based on:
+
+```
+Here's what I have to work with:
+
+{List available context: design docs, Figma designs, user description, etc.}
+
+I'll build a clickable HTML prototype that covers {scope}. Want to adjust?
+```
+
+If an argument was provided:
+- `new` → prototype for a new product from scratch
+- `feature` → prototype for a new feature in the existing product
+- `redesign` → prototype to replace an existing feature
+
+Confirm the selection: "Starting a prototype for {type} – correct?"
+
+In **Guided mode**: discuss scope and approach before building.
+In **God mode**: show plan briefly, then build.
+
+## Step 3: Execute
 
 Load the `dev-prototyping` skill and follow its full 7-step flow.
 
-After the prototype is generated (Step 4), run `/simplify` to review the prototype code for quality and efficiency. If further iterations happen in Step 5, run `/simplify` again after the final iteration round.
+In **Guided mode**: pause after the initial prototype for review, iterate based on feedback.
+In **God mode**: build the prototype, present it, ask for feedback.
 
-Before generating the prototype (Step 4), use the `test-writer` agent to create test scripts that verify the expected prototype behavior. Run the tests to confirm Red phase (failure). After the prototype is generated and `/simplify` has run, run the tests again to verify Green phase (pass).
+After the prototype is generated, run `/simplify` to review code quality.
 
-### Argument Handling
+## Step 4: Test
 
-If an argument was provided, use it to pre-select the answer in Step 1 (Understand Context):
+Use the `test-writer` agent to create test scripts that verify prototype behavior. Run tests to confirm they pass.
 
-| Argument | Pre-selected Option |
-|----------|-------------------|
-| `new` | "New product from scratch" |
-| `feature` | "New feature for existing product" |
-| `redesign` | "Redesign of existing feature" |
+## Post-prototype
 
-When pre-selecting, confirm the selection with the user ("Starting a prototype for a new product from scratch – correct?") and proceed directly to Step 2.
-
-If no argument was provided, or the argument does not match any of the above, proceed normally with the Step 1 question.
+```
+question: "What would you like to do next?"
+header: "Next step"
+options:
+  - label: "Iterate on the prototype"
+    description: "Adjust based on feedback"
+  - label: "Review the prototype"
+    description: "Run /de:review for a design quality check"
+  - label: "Move to development"
+    description: "Use this prototype as a reference for implementation"
+```

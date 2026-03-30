@@ -1,6 +1,6 @@
 ---
 name: de:dev
-description: Development pipeline. Setup, CLAUDE.md generation, agent pipeline, context management, and more.
+description: Development pipeline. Setup, implementation, and AI-assisted building. Mode determined by your config.
 argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]"
 ---
 
@@ -10,88 +10,86 @@ argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]
 
 <context> #$ARGUMENTS </context>
 
-Sets up and runs the development workflow. Covers CLAUDE.md generation, AI agent pipeline setup, context management, kick-start prompts, GitHub workflow, and MCP configuration. Use after the design pipeline or standalone.
+Sets up and runs the development workflow. Use after the design pipeline or standalone.
 
-## Activity Selection
+## Step 1: Read project context
 
-If no activity was specified in arguments, use AskUserQuestion to ask:
+1. Read `.design-engineer.yaml` for mode (guided/god), project type, and environment
+2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
+3. If `.design-engineer.yaml` not found, tell the user to run `/de:start` first
 
-**Question:** "What do you need?"
+## Step 2: Plan
 
-1. **Full development setup** – CLAUDE.md + agents + MCPs + kick-start prompts
-2. **CLAUDE.md setup** – Generate or update your CLAUDE.md
-3. **Agent pipeline setup** – Configure the 4-agent development pipeline
-4. **Context management** – Set up long-running project context tracking
-5. **GitHub workflow** – Git workflow setup for designers
-6. **MCP configuration** – Configure recommended MCP servers
-7. **Kick-start prompts** – Generate IDE kick-start prompts
-8. **Run development pipeline** – Execute context-analyzer > plan > backend > frontend > auditor for a feature
+Based on what you found, present a plan. Only suggest what's relevant:
 
-If AskUserQuestion is not available, present options as a numbered list.
+```
+Based on your project ({tech stack}), here's what I recommend:
 
-## Workflow
+1. {Activity 1} – {why it's needed}
+2. {Activity 2} – {why}
 
-### Single Activity
+Want to adjust the plan?
+```
 
-Load the corresponding skill:
+Guidelines for building the plan:
+- **CLAUDE.md setup** – needed if no CLAUDE.md exists or it's outdated
+- **Agent pipeline** – needed if no agents are configured
+- **MCP configuration** – only if MCPs are missing or misconfigured
+- **GitHub workflow** – only if git is initialized and no workflow is set up
+- **Context management** – needed for long-running projects
+- **Kick-start prompts** – helpful for teams, optional for solo
+- **Feature implementation** – if the user's goal was "Implement from Figma" or they have a specific feature to build
 
-| Selection | Skill to Load |
-|-----------|---------------|
-| 1 | Run skills 2-7 in sequence |
-| 2 | `dev-claude-md` |
-| 3 | `dev-agent-setup` |
-| 4 | `dev-status-tracking` |
-| 5 | `dev-github-workflow` |
-| 6 | `dev-mcp-setup` |
-| 7 | `dev-starter-prompts` |
+If an argument was provided (`/de:dev setup`, `/de:dev pipeline`), skip planning and go directly to that activity.
 
-### Development Pipeline Execution (Option 8)
+In **Guided mode**: ask the user to confirm or adjust the plan.
+In **God mode**: show the plan briefly, then execute.
 
-**Critical: build one feature at a time.** Do not attempt to build the entire MVP in a single cycle. The context-analyzer reads all deliverables (MVP requirements, IA, designs) and produces a feature-by-feature build sequence. Each feature goes through the full pipeline cycle below. After each cycle, `compound-documenter` saves progress so the next session can pick up where you left off.
+## Step 3: Execute based on mode
 
-**First run only:** Load `dev-claude-md` to verify CLAUDE.md is current.
+### Setup activities
 
-**Each feature cycle:**
+| Activity | Skill |
+|----------|-------|
+| CLAUDE.md setup | `dev-claude-md` |
+| Agent pipeline | `dev-agent-setup` |
+| MCP configuration | `dev-mcp-setup` |
+| GitHub workflow | `dev-github-workflow` |
+| Context management | `dev-status-tracking` |
+| Kick-start prompts | `dev-starter-prompts` |
 
-1. Task `context-analyzer`(feature description) – reads current project state, identifies what to build next
-2. Enter Plan Mode → write structured plan for THIS feature only → `ExitPlanMode` → copy to `plans/`
-3. Task `test-writer`(plan) – writes failing test scripts to `tests/`
-4. Run test scripts – verify Red (all tests fail)
-5. Task `backend-implementer`(plan) – implements backend
-6. Run `/simplify` – review backend changes
-7. Task `frontend-implementer`(plan) – implements frontend
-8. Run `/simplify` – review frontend changes
-9. Run test scripts – verify Green (all tests pass)
-10. Run `/simplify` – final pass on all code changes
-11. Task `design-system-auditor`(implementation) – audits against design system
-12. Archive test scripts from `tests/` to `tests/archive/`
-13. Run `dev-github-workflow` – commit this feature's changes with conventional message, push to feature branch
-14. Run `meta-document` to document what was built, update project status, record what's next
+In **Guided mode**: run one at a time, present results, ask for feedback.
+In **God mode**: run all planned activities, present summary.
 
-After each cycle, show progress and ask: "Feature complete. What would you like to build next?"
+### Feature implementation (pipeline)
 
-### Full Setup (Option 1)
+Build one feature at a time. Each feature goes through:
 
-Run in sequence:
+1. `context-analyzer` agent – reads project state, identifies what to build
+2. Plan Mode – write structured plan for this feature
+3. `test-writer` agent – create failing tests (Red phase)
+4. `backend-implementer` agent – implement backend
+5. Run `/simplify` – review code
+6. `frontend-implementer` agent – implement frontend
+7. Run `/simplify` – review code
+8. Run tests – verify Green phase
+9. `design-system-auditor` agent – audit compliance
+10. `dev-github-workflow` – commit and push
+11. `meta-document` – document progress
 
-1. Load `dev-claude-md` – CLAUDE.md generation
-2. Load `dev-starter-prompts` – kick-start prompt generation
-3. Load `dev-agent-setup` – agent pipeline configuration
-4. Load `dev-mcp-setup` – MCP server configuration
-5. Load `dev-github-workflow` – GitHub workflow setup
-6. Load `dev-status-tracking` – context tracking setup
+In **Guided mode**: pause after each step for review.
+In **God mode**: run the full cycle, present results at the end.
 
-## Mode
+## Post-execution
 
-- **Guided mode** for setup activities (requires user input for stack configuration)
-- **Both modes** for pipeline execution
-
-## Agents Used
-
-- `context-analyzer` – project context analysis
-- Plan Mode (`EnterPlanMode` / `ExitPlanMode`) – implementation planning
-- `test-writer` – TDD test script creation
-- `backend-implementer` – backend development
-- `frontend-implementer` – frontend development
-- `design-system-auditor` – design system compliance
-- `compound-documenter` – session documentation
+```
+question: "What would you like to do next?"
+header: "Next step"
+options:
+  - label: "Build another feature"
+    description: "Start the next feature cycle"
+  - label: "Review what we built"
+    description: "Run /de:review on the implementation"
+  - label: "Document progress"
+    description: "Save what was done for the next session"
+```

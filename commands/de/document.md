@@ -10,48 +10,43 @@ argument-hint: "[status | stakeholder]"
 
 <context> #$ARGUMENTS </context>
 
-Documents decisions, learnings, and project state. Ensures context survives across sessions, chat compaction, and team handoffs. Can be invoked manually at any time – also auto-triggered by orchestrators after major phases.
+Documents decisions, learnings, and project state. Ensures context survives across sessions and team handoffs.
 
-## Workflow
+## Step 1: Read project context
 
-### Step 1: Load Compound Skill
+1. Read `.design-engineer.yaml` for mode and project state
+2. Scan existing deliverables in `docs/design/`
+3. Check what has changed recently (git status if available)
 
-Load the `meta-document` skill. It handles the documentation process.
+## Step 2: Determine what to document
 
-### Step 2: Determine Action
+If arguments contain "status", show current project status and recent changes directly.
 
-If arguments contain "status", show current project status and recent changes.
+If arguments contain "stakeholder", jump to stakeholder communication directly.
 
-If arguments contain "stakeholder", jump directly to option 6 below.
+Otherwise, present what makes sense based on context:
 
-Otherwise, use AskUserQuestion to ask:
+```
+question: "What would you like to document?"
+header: "Document"
+options:
+  - label: "Current progress"
+    description: "Save what has been done in this session"
+  - label: "A decision"
+    description: "Record an important decision and its rationale"
+  - label: "Project status"
+    description: "View and update overall project state"
+  - label: "Stakeholder communication"
+    description: "Frame decisions and trade-offs for non-design audiences"
+```
 
-**Question:** "What would you like to document?"
+## Step 3: Execute
 
-1. **Current progress** – Save what has been done in this session
-2. **Decision** – Record an important decision and its rationale
-3. **Learning** – Document something that worked well or poorly
-4. **Project status** – View and update overall project state
-5. **Context refresh** – Regenerate the living context file from all deliverables
-6. **Prepare stakeholder communication** – Frame decisions, trade-offs, and rationale for non-design audiences
+Load the `meta-document` skill and follow the selected path.
 
-If AskUserQuestion is not available, present options as a numbered list.
+In **Guided mode**: present a draft, ask for review, then save.
+In **God mode**: execute and save, show summary.
 
-### Step 3: Execute
-
-Based on selection:
-
-1. **Current progress** – Scan deliverables modified in the current session, summarize changes, update the project status file and living context
-2. **Decision** – Ask what was decided and why, record in a structured format within the project's solutions directory
-3. **Learning** – Ask what was learned, categorize (design, development, process), store for future reference
-4. **Project status** – Read the current status file, display progress across all phases, highlight what is next
-5. **Context refresh** – Read all existing deliverables, regenerate the living context file, verify dependency graph is current
-6. **Stakeholder communication** – Load `ux-communicating-decisions` to help frame design decisions, trade-offs, and recommendations for stakeholders (PMs, engineers, executives)
-
-### Step 4: Verify
+## Step 4: Confirm
 
 After documenting, confirm what was saved and where. Show a brief summary of the project's current state.
-
-## Agents Used
-
-- `compound-documenter` – handles structured documentation

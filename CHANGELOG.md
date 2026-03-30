@@ -4,6 +4,15 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.26.0] – 2026-03-30
+
+### Changed
+
+- **All commands follow PLAN → EXECUTE → PRESENT → FEEDBACK**: `/de:design`, `/de:dev`, `/de:prototype`, `/de:document` all rewritten to read mode from config, plan before executing, and present results step by step in Guided mode or as structured summaries in God mode.
+- **Context-aware planning**: Commands scan the project before presenting options — only suggest what's relevant for the current tech stack and project state.
+- **Mode from config**: All commands read mode from `.design-engineer.yaml` instead of asking. No more redundant mode questions.
+- **Removed redundant mode selection**: `/de:design` no longer asks mode (already set during onboarding). Uses config value.
+
 ## [1.25.1] – 2026-03-30
 
 ### Changed
