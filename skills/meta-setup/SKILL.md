@@ -53,8 +53,8 @@ options:
     description: "Start the setup over"
 ```
 
-If "Continue" or "Jump": hand off to `meta-orchestrator` with the appropriate context.
-If "Browse": load the `meta-setup-existing` skill to show all capabilities.
+If "Continue" or "Jump": suggest running `/de:design` to resume the pipeline.
+If "Browse": show the full capability list inline (see below), then suggest relevant `/de:` commands.
 If "Reconfigure": proceed to Step 2.
 
 **If the state is `returning_no_resume`** (config exists but no active pipeline), show a brief summary and ask:
@@ -72,7 +72,7 @@ options:
 ```
 
 If "Start": suggest running `/de:design`.
-If "Browse": load the `meta-setup-existing` skill to show all capabilities.
+If "Browse": show the full capability list inline (see below), then suggest relevant `/de:` commands.
 If "Reconfigure": proceed to Step 2.
 
 ---

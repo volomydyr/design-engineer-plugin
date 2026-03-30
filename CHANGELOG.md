@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.25.0] – 2026-03-30
+
+### Changed
+
+- **Hook-driven onboarding**: Moved entire onboarding flow into the UserPromptSubmit hook injection. The hook injects the complete 4-step sequence (welcome+goal → mode → setup+status line → auto-run) as context before the model processes anything. Skills no longer attempt to chain to each other — a pattern that was never supported.
+- **Removed broken skill chains**: Cleaned up 5 instances of skills trying to load other skills (meta-setup-welcome → meta-setup, meta-setup → meta-setup-existing, meta-setup-existing → meta-setup-configure). Commands can load skills (works), but skills cannot load skills (never worked).
+
+### Known issues
+
+- `meta-orchestrator` uses "invoke the skill" / "proceed to the next skill" pattern which is also broken. Affects `/de:design` pipeline. Fix requires the same hook-driven approach — tracked for a future session.
+
 ## [1.24.2] – 2026-03-30
 
 ### Fixed
