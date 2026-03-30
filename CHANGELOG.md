@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.22.3] – 2026-03-30
+
+### Fixed
+
+- **Hook output format**: State injection hook now outputs JSON with `hookSpecificOutput` (matching other command hooks) instead of plain text. Plain text caused "UserPromptSubmit hook error" in all projects.
+- **Global PostToolUse:Edit error**: Removed Sonnet content preservation hook that fired on every Edit across all projects, causing errors globally. Will be reimplemented with proper gating later.
+
 ## [1.22.2] – 2026-03-30
 
 ### Fixed
