@@ -50,20 +50,28 @@ If the user specified an argument (e.g. `/de:review psych`), skip planning and g
 
 ### Guided mode
 
-1. Work through the plan one area at a time
-2. For each area:
-   a. Announce what you're reviewing: "Checking {area}..."
-   b. Do the work (load the appropriate skill or agent)
-   c. Present findings individually with severity level and recommendation
-   d. Ask: "Fix this? Skip? Dive deeper?" — wait for response before continuing
-3. After all areas: show a summary table grouped by severity
-4. Ask what to do next (see post-review below)
+Do NOT delegate to autonomous agents (psych-scanner, design-system-auditor, etc.). Agents run autonomously and can't pause for user input — they defeat the purpose of Guided mode.
+
+Instead, do the review yourself step by step:
+
+1. For each review area in the plan:
+   a. Announce: "Checking {area}..."
+   b. Read the relevant code yourself (use Read, Grep, Glob tools)
+   c. Analyze against the area's principles
+   d. Present Finding 1: principle name, file:line, what's wrong, severity, specific recommendation
+   e. Ask via AskUserQuestion: "What would you like to do with this finding?" — options: Fix now / Note and continue / Skip / Tell me more about this principle
+   f. Wait for response. If "Fix now", implement the fix before continuing.
+   g. Present Finding 2, repeat
+   h. After all findings in this area: brief area summary
+2. After all areas: show summary table grouped by severity
+3. Ask what to do next (see post-review below)
 
 ### God mode
 
-1. Execute all planned review areas (use parallel agents where possible)
-2. Present complete results as a structured summary grouped by severity
-3. Ask what to fix or explore further
+1. Delegate to agents for speed (psych-scanner, design-system-auditor, etc.)
+2. Run all planned review areas in parallel where possible
+3. Present complete results as a structured summary grouped by severity
+4. Ask what to fix or explore further
 
 ## Skills and agents to use per review area
 

@@ -18,13 +18,16 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 1: Returning Project State
+## Step 1: Read Config
 
-This skill handles returning projects (those with `.design-engineer.yaml`). New-to-plugin projects are handled by the `meta-setup-welcome` skill instead.
+Read `.design-engineer.yaml`. Check the `project_type` field:
 
-Read `.design-engineer.yaml` to determine the resume state.
+- If `project_type: existing` → this is an existing project, NOT a returning pipeline project. The hook injects context for this case. Follow the hook's instructions (show capabilities via AskUserQuestion). Do NOT show pipeline state or resume information.
+- If `project_type: new` → this is a returning pipeline project. Continue with Path A below.
 
-### Path A: Returning Project
+Do not mention config files, detection state, or project types to the user. No jargon.
+
+### Path A: Returning Pipeline Project (project_type: new only)
 
 **If the state is `returning_with_resume`**, read the config file and show the current state in plain language:
 

@@ -371,6 +371,10 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 
 Read the mode from `.design-engineer.yaml` at the start of every command. If no config file exists, default to guided mode.
 
+**Agent delegation rule:**
+- In Guided mode: the main model does all user-facing work. Never delegate to autonomous agents (psych-scanner, design-system-auditor, context-analyzer, etc.) for tasks that produce findings, recommendations, or deliverables. Agents cannot pause for user input – they defeat the purpose of Guided mode. The main model reads code, analyzes, and presents findings one at a time.
+- In God mode: delegate freely to agents for speed. Present results when agents complete.
+
 ## Context Monitoring
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):

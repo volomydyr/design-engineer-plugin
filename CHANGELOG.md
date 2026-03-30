@@ -4,6 +4,15 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.27.0] – 2026-03-30
+
+### Changed
+
+- **Guided mode: no autonomous agents**: Added agent delegation rule — in Guided mode, the main model does all work step by step. Agents are for God mode only. Review command updated with explicit per-finding interaction flow.
+- **Setup: no bloat**: Hook now explicitly forbids Explore agents during setup. Only detect-environment.sh runs. Results show only goal-relevant info, no Git/CLAUDE.md jargon.
+- **Status line: use our script, not built-in**: Hook explicitly tells model to copy our de-statusline.js instead of using the built-in statusline-setup agent.
+- **Returning flow: check project_type**: Hook now injects context for existing projects (project_type: existing) telling the model to show capabilities via AskUserQuestion. meta-setup checks project_type before showing pipeline state.
+
 ## [1.26.0] – 2026-03-30
 
 ### Changed
