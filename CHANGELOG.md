@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.24.2] – 2026-03-30
+
+### Fixed
+
+- **Batch welcome + goal into single AskUserQuestion**: The model ignored skill-to-skill routing from existing → configure because it had enough context (goal) to act directly. By batching welcome and goal into one call, the model gets both answers at once and MUST load configure for mode selection — it has no alternative.
+
 ## [1.24.1] – 2026-03-30
 
 ### Fixed
