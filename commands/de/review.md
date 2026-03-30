@@ -1,7 +1,7 @@
 ---
 name: de:review
-description: Multi-layer design review. Visual review, accessibility, psychology, product assessment, design system compliance, ethics.
-argument-hint: "[figma | live | codebase | accessibility | psych | ethics | full]"
+description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or all at once in God mode.
+argument-hint: "[specific area to review]"
 ---
 
 # Design Review
@@ -10,111 +10,86 @@ argument-hint: "[figma | live | codebase | accessibility | psych | ethics | full
 
 <context> #$ARGUMENTS </context>
 
-Reviews existing designs or implemented code against best practices, psychology principles, accessibility standards, and design system consistency.
+## Step 1: Read project context
 
-## Review Type Selection
+Before asking anything or starting work:
 
-If no review type was specified in arguments, use AskUserQuestion to ask:
+1. Read `.design-engineer.yaml` for mode (guided/god) and goal
+2. Check what tools are available (is Figma connected? is Playwright available?)
+3. Scan the project briefly: what tech stack, what files exist, are there components, is there a design system?
 
-**Question:** "What are you reviewing?"
+## Step 2: Plan the review
 
-1. **Figma designs** – I will share frames or a Figma link
-2. **Live implementation** – Review a URL or screenshots against design intent
-3. **Codebase** – Design system compliance check on code
-4. **Accessibility audit** – WCAG compliance and usability review
-5. **Psychology scan** – Psychology principles applied to current design
-6. **Ethics review** – Ethical design practices audit
-7. **Full product assessment** – Comprehensive review across all dimensions
+Based on what you found, present a review plan. Only include areas that make sense for THIS project:
 
-If AskUserQuestion is not available, present options as a numbered list.
+```
+Based on your project ({tech stack summary}), here's what I recommend reviewing:
 
-## Workflow
+1. {Area 1} – {brief description of what I'll check}
+2. {Area 2} – {brief description}
+3. {Area 3} – {brief description}
 
-### Figma Designs (Option 1)
+I'll review these {one at a time / all at once} and show you findings as I go.
+```
 
-Ask for a Figma frame link or ask the user to share screenshots.
+Guidelines for building the plan:
+- **UX and usability** – always relevant if the project has UI
+- **Visual quality** – always relevant if the project has UI (spacing, typography, color, polish)
+- **Accessibility** – always relevant (WCAG compliance, keyboard navigation, screen readers)
+- **Design system compliance** – only if the project has a design system or component library
+- **Figma comparison** – only if Figma is connected and the user has designs to compare against
+- **Psychology scan** – include as an option if the project has user-facing UI, but not as a default
+- **Ethics review** – include as an option, not as a default
 
-If Figma plugin is available, use it to analyze the design directly.
+In **Guided mode**: ask the user to approve or adjust the plan before executing.
+In **God mode**: show the plan briefly, then execute without waiting for approval.
 
-1. Load `ui-design-to-code-qa` – check visual design quality
-2. Load `ui-accessibility` – accessibility compliance
-3. Load `psych-full-scan` – psychology principles scan
-4. Compile findings into a structured review report
+If the user specified an argument (e.g. `/de:review psych`), skip planning and go directly to that specific review area.
 
-### Live Implementation (Option 2)
+## Step 3: Execute the review
 
-Ask for a URL or screenshots.
+### Guided mode
 
-If Playwright plugin is available, use it to capture and analyze the live site.
+1. Work through the plan one area at a time
+2. For each area:
+   a. Announce what you're reviewing: "Checking {area}..."
+   b. Do the work (load the appropriate skill or agent)
+   c. Present findings individually with severity level and recommendation
+   d. Ask: "Fix this? Skip? Dive deeper?" — wait for response before continuing
+3. After all areas: show a summary table grouped by severity
+4. Ask what to do next (see post-review below)
 
-1. Load `ui-design-to-code-qa` – compare implementation against design intent
-2. Load `ui-accessibility` – accessibility audit
-3. Load `psych-full-scan` – psychology scan
-4. Compile findings into a review report
+### God mode
 
-### Codebase (Option 3)
+1. Execute all planned review areas (use parallel agents where possible)
+2. Present complete results as a structured summary grouped by severity
+3. Ask what to fix or explore further
 
-1. Load `ui-design-system` in audit mode – check code against design system rules
-2. Task `design-system-auditor`(codebase) – automated compliance check
-3. Report violations and recommendations
+## Skills and agents to use per review area
 
-### Accessibility Audit (Option 4)
+| Review area | Skill/agent | When to use |
+|-------------|------------|-------------|
+| UX and usability | `ui-design-to-code-qa` | UI projects |
+| Visual quality | `ui-design-to-code-qa` | UI projects |
+| Accessibility | `ui-accessibility` | Always |
+| Design system compliance | `design-system-auditor` agent | Projects with design system |
+| Figma comparison | `ui-design-to-code-qa` with Figma plugin | Figma connected |
+| Psychology scan | `psych-full-scan` | User-facing UI |
+| Ethics review | `ux-ethics-review` | On request |
+| Full product assessment | `ux-full-review` | On request |
 
-1. Load `ui-accessibility` – comprehensive accessibility review
-2. Check against WCAG guidelines, tap targets, color contrast, screen reader support
-3. Produce an accessibility audit report
+## Post-review
 
-### Psychology Scan (Option 5)
+After the review is complete, ask:
 
-Use AskUserQuestion to ask:
-
-**Question:** "How would you like to run the psychology audit?"
-
-1. **Master audit** – Broad scan across all 100+ principles, then targeted deep-dives into problem areas
-2. **Section deep-dive** – Pick 1 of 13 sections to analyze in detail
-3. **God mode** – Full autonomous audit across all 100+ principles
-
-If AskUserQuestion is not available, present options as a numbered list.
-
-Load `psych-full-scan` for all three approaches. The psych-full-scan skill handles routing to the appropriate section skills, deep-dive selection, and god mode sequencing.
-
-### Ethics Review (Option 6)
-
-1. Load `ux-ethics-review` – ethical design audit
-2. Apply ethics tests and humane design principles
-3. Produce an ethics review report
-
-### Full Product Assessment (Option 7)
-
-Run all review dimensions in parallel where possible:
-
-- Task `design-system-auditor`(product)
-- Task `psych-scanner`(product)
-
-Then sequentially:
-
-1. Load `ui-design-to-code-qa`
-2. Load `ui-accessibility`
-3. Load `psych-full-scan`
-4. Load `ux-full-review` – comprehensive product checklist
-5. Load `ux-ethics-review`
-6. Load `ux-communicating-decisions` – prepare findings for stakeholders
-
-Compile all findings into a comprehensive review report.
-
-## Post-Review
-
-After any review, ask:
-
-"Review complete. What would you like to do?"
-
-1. **Address findings** – Work through the issues identified
-2. **Share with stakeholders** – Use communicating-decisions skill to prepare a presentation
-3. **Document** – Run `/de:document` to save findings
-4. **Run another review type** – Choose a different review dimension
-
-## Agents Used
-
-- `design-system-auditor` – automated design system compliance
-- `psych-scanner` – broad psychology principles scan
-- `deliverable-writer` – review report production
+```
+question: "What would you like to do next?"
+header: "Next step"
+options:
+  - label: "Fix the issues"
+    description: "Work through the findings and implement fixes"
+  - label: "Document findings"
+    description: "Save the review results for reference"
+  - label: "Review another area"
+    description: "Run a different type of review"
+```

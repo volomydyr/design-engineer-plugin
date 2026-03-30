@@ -137,8 +137,8 @@ function runStatusLine() {
 function shortenModel(displayName) {
   if (!displayName) return 'Claude';
 
-  // Strip "Claude " prefix
-  let name = displayName.replace(/^Claude\s+/i, '');
+  // Strip "Claude " prefix and context window info like "(1M context)"
+  let name = displayName.replace(/^Claude\s+/i, '').replace(/\s*\(\d+[KMB]?\s*(?:context)?\)\s*/gi, '');
 
   // Pattern 1: version-first like "3.5 Sonnet"
   const versionFirst = name.match(/^(\d+\.?\d*)\s+(Opus|Sonnet|Haiku)/i);
@@ -235,16 +235,17 @@ function buildContextSegment(remaining, session) {
     }
   }
 
-  // Build progress bar (10 segments)
-  const filled = Math.floor(used / 10);
-  const bar = '\u2588'.repeat(filled) + '\u2591'.repeat(10 - filled);
+  // Build progress bar (5 segments — compact)
+  const filled = Math.round(used / 20);
+  const bar = '\u2588'.repeat(filled) + '\u2591'.repeat(5 - filled);
 
-  // Color based on thresholds
-  if (used < 50) return `\x1b[32m${bar} ${used}%\x1b[0m`;
-  if (used < 65) return `\x1b[33m${bar} ${used}%\x1b[0m`;
-  if (used < 80) return `\x1b[38;5;208m${bar} ${used}%\x1b[0m`;
-  if (used < 95) return `\x1b[31m[!] ${bar} ${used}%\x1b[0m`;
-  return `\x1b[31m[!!] ${bar} ${used}%\x1b[0m`;
+  // Color based on thresholds — label "context", just bar + percentage
+  const label = 'context';
+  if (used < 50) return `\x1b[32m${label} ${bar} ${used}%\x1b[0m`;
+  if (used < 65) return `\x1b[33m${label} ${bar} ${used}%\x1b[0m`;
+  if (used < 80) return `\x1b[38;5;208m${label} ${bar} ${used}%\x1b[0m`;
+  if (used < 95) return `\x1b[31m${label} ${bar} ${used}% [!]\x1b[0m`;
+  return `\x1b[31m${label} ${bar} ${used}% [!!]\x1b[0m`;
 }
 
 // ─── Pipeline state segment ─────────────────────────────────────────────────

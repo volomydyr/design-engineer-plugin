@@ -4,6 +4,13 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.25.1] – 2026-03-30
+
+### Changed
+
+- **Review command rewrite**: Replaced 7 fixed review options with context-aware planning. The command reads project context, builds a review plan based on what's relevant, and follows PLAN → EXECUTE → PRESENT → FEEDBACK. Guided mode reviews step by step with feedback per finding. God mode executes all and shows structured summary.
+- **Status line compact**: Halved progress bar width (5 segments), "context" not "ctx", removed "used"/"left" text, stripped "(1M context)" from model name.
+
 ## [1.25.0] – 2026-03-30
 
 ### Changed
