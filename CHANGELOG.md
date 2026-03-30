@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.23.2] – 2026-03-30
+
+### Changed
+
+- **Existing-project flow split**: Extracted into `meta-setup-existing` skill (~130 lines). Model gets a focused file with one flow instead of a 400+ line multi-path skill. Follows the same approach that fixed the welcome prompt.
+- **Goal options**: Replaced generic options with 4 specific goals: review what I have, implement from Figma, design a new feature, set up the dev workflow.
+- **Removed Step 6 from meta-setup**: Capability guide and existing-project setup now live in `meta-setup-existing`. Returning users who choose "Browse" are routed there.
+
 ## [1.23.1] – 2026-03-30
 
 ### Changed

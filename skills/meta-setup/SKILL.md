@@ -54,7 +54,7 @@ options:
 ```
 
 If "Continue" or "Jump": hand off to `meta-orchestrator` with the appropriate context.
-If "Browse": proceed to **Step 6: Capability Guide** below.
+If "Browse": load the `meta-setup-existing` skill to show all capabilities.
 If "Reconfigure": proceed to Step 2.
 
 **If the state is `returning_no_resume`** (config exists but no active pipeline), show a brief summary and ask:
@@ -72,7 +72,7 @@ options:
 ```
 
 If "Start": suggest running `/de:design`.
-If "Browse": proceed to **Step 6: Capability Guide**.
+If "Browse": load the `meta-setup-existing` skill to show all capabilities.
 If "Reconfigure": proceed to Step 2.
 
 ---
@@ -282,142 +282,6 @@ Tip: Run /de:start anytime to check progress or see what's available.
 ```
 
 ---
-
-## Step 6: Capability Guide
-
-This step is reached when:
-- A returning user chooses "Browse all capabilities" (Path A)
-- An existing project user arrives (Path B, existing)
-
-### 6a: Show All Capabilities
-
-Present everything the plugin can do in plain language:
-
-```
-Here's everything this plugin can help you with:
-
-RESEARCH & DISCOVERY
-• Define and analyze your core problem
-• Build behavioral user personas
-• Map and test your assumptions
-• Research your competition
-• Prepare and analyze user interviews
-
-STRATEGY & POSITIONING
-• Map what drives user behavior (Behavior Map framework)
-• Build your product narrative (StoryBrand)
-• Create user empathy stories (Story Panels)
-• Plan your business model and revenue
-
-PLANNING
-• Define MVP scope and feature priorities
-• Design information architecture and user flows
-
-DESIGN & VALIDATION
-• Audit designs for cognitive biases (bias audit)
-• Map customer journey highs and lows
-• Review ethics and dark patterns
-• Collect and organize design references
-• Generate clickable HTML prototypes
-• Design key screens with Figma workflow
-• Analyze UX psychology per screen (Motivation Levels)
-• Run a full product assessment
-
-DEVELOPMENT
-• Set up development environment (CLAUDE.md + agents + GitHub + tools)
-• Build features iteratively (test-first + AI agents)
-
-REVIEW & AUDIT
-• Design craft quality review
-• Implementation fidelity check
-• Accessibility audit (WCAG)
-• Psychology scan (100 laws)
-• Design system compliance
-```
-
-After showing capabilities, proceed to 6b. Do not ask the user what they want to do yet – the diagnostic questions come first.
-
-### 6b: Diagnostic Questions (existing projects only)
-
-For existing projects (not returning users who just want to browse), ask diagnostic questions to help filter relevant capabilities.
-
-**Do not skip these questions.** Even if auto-memory tells you the project type, current state, or goal – ask anyway. The user may want to do something different than what memory suggests. Ask all three questions in order:
-
-```
-question: "What kind of project is this?"
-header: "Project Type"
-options:
-  - label: "App (mobile or web)"
-    description: "A software application with UI"
-  - label: "Website"
-    description: "A website or landing page"
-  - label: "Design system"
-    description: "A component library or design system"
-  - label: "Something else"
-    description: "Tell me more about your project"
-```
-
-```
-question: "What do you currently have?"
-header: "Current State"
-options:
-  - label: "Code + designs"
-    description: "Both a codebase and Figma/design files exist"
-  - label: "Code only"
-    description: "A working codebase but no formal designs"
-  - label: "Designs only"
-    description: "Figma files or design specs but no code"
-  - label: "Documentation only"
-    description: "Research, specs, or planning docs but no code or designs"
-```
-
-```
-question: "What do you want to do right now?"
-header: "Goal"
-options:
-  - label: "Improve UX / redesign"
-    description: "Make the existing experience better"
-  - label: "Add new features"
-    description: "Build something new into the existing product"
-  - label: "Audit / review"
-    description: "Check quality, accessibility, psychology, or design system compliance"
-  - label: "Set up dev workflow"
-    description: "Configure AI-assisted development for this project"
-```
-
-### 6c: Filtered Recommendations
-
-Based on the diagnostic answers, present a filtered list of the most relevant capabilities with the commands to invoke them:
-
-```
-Based on your answers, the most relevant capabilities for you right now are:
-
-[Filtered list with brief explanations and commands]
-
-For example:
-• Psychology audit of your existing screens → /de:review psych
-• Design craft review → /de:review figma
-• Prototype a new feature → /de:prototype feature
-• Full development pipeline for a feature → /de:dev pipeline
-
-These are recommendations – you can use any capability at any time.
-Come back to /de:start anytime to see this list again.
-```
-
-After showing recommendations, proceed to 6d (minimal setup). Do not end here.
-
-### 6d: Minimal Config for Existing Projects
-
-**This step is mandatory.** After showing recommendations (6c), always proceed here. Do not end the flow at recommendations – the user needs environment detection, config file creation, folder scaffolding, and status line setup before they can effectively use the plugin.
-
-If the user arrived via Path B (existing project, first time with plugin):
-
-1. Run environment detection (Step 2)
-2. Ask only essential config: deliverables path and design tool integration
-3. Write `.design-engineer.yaml` with `project.type: "existing"`
-4. Scaffold folders (Step 4)
-5. Ask about the status line (same question and installation flow as Step 5's status line section)
-6. Do NOT ask about mode preference, team size, or dev environment – these are relevant for the full pipeline, not ad-hoc usage
 
 ---
 

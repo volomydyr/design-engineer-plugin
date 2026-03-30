@@ -26,4 +26,4 @@ options:
 After the user answers:
 
 - If "New product idea": load the `meta-setup` skill and proceed to **Step 2: Detect Environment**.
-- If "Existing project": load the `meta-setup` skill and proceed to **Step 6: Capability Guide**. Complete ALL sub-steps in order: 6a (capabilities), 6b (three diagnostic questions), 6c (recommendations), 6d (minimal setup with status line). Do not skip any.
+- If "Existing project": load the `meta-setup-existing` skill. It handles the full onboarding flow for existing projects.
