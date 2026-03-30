@@ -14,7 +14,7 @@ Your ONLY task is to present the question below, then route based on the answer.
 Do not output any text before the question. No greeting, no project summary, no memory context, no "welcome back." Just the question.
 
 ```
-question: "Welcome to Design Engineer. What brings you here?"
+question: "Welcome to Design Engineer Plugin. What brings you here?"
 header: "Project Type"
 options:
   - label: "New product idea"
