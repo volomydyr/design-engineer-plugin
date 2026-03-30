@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.24.0] – 2026-03-30
+
+### Changed
+
+- **Existing-project flow streamlined**: Replaced 3 diagnostic questions (project type, current state, goal) with single goal question + mode selection. Auto-setup runs silently (env detection, config, scaffold). Status line question. Then auto-runs the chosen command.
+- **Mode selection for existing projects**: Guided vs God mode now asked during existing-project onboarding, saved to config, affects all subsequent commands.
+- **Command execution philosophy**: Added CLAUDE.md rule requiring all commands to follow PLAN → EXECUTE → PRESENT → FEEDBACK pattern in both Guided and God modes. Neither mode should skip planning or dump raw output.
+
 ## [1.23.2] – 2026-03-30
 
 ### Changed

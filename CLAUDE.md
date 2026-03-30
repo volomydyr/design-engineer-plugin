@@ -342,6 +342,35 @@ This is especially important in UI copy – prototypes, components, and any gene
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.
 
+## Command execution philosophy
+
+All commands – design, review, dev, prototype, document – must follow the same execution pattern. The mode (from `.design-engineer.yaml`) determines the level of user involvement, but both modes follow the same structure:
+
+```
+PLAN → EXECUTE → PRESENT → FEEDBACK
+```
+
+**Guided mode:**
+1. **Plan**: Present what you're about to do (scope, areas to check, approach). Ask for approval or adjustments.
+2. **Execute**: Work through the plan one step at a time. After each step, present the finding or result.
+3. **Present**: Show each finding individually with context and recommendation.
+4. **Feedback**: Ask the user what to do (fix it, skip, dive deeper). Wait for response before proceeding.
+5. **Summary**: After all steps, show a summary table.
+
+**God mode:**
+1. **Plan**: Briefly show the plan (no approval needed, just transparency).
+2. **Execute**: Run all steps autonomously.
+3. **Present**: Show complete results as a structured summary.
+4. **Feedback**: Ask what to fix or explore further.
+
+**Neither mode should ever:**
+- Skip the planning phase
+- Dump raw output without structure
+- Proceed without explaining what's happening
+- Leave the user wondering "what just happened?"
+
+Read the mode from `.design-engineer.yaml` at the start of every command. If no config file exists, default to guided mode.
+
 ## Context Monitoring
 
 When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):

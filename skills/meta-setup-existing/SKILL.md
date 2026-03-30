@@ -1,19 +1,39 @@
 ---
 name: meta-setup-existing
-description: "Onboarding flow for existing projects using the Design Engineer Plugin for the first time. Shows capabilities, asks diagnostic questions, recommends next steps, runs minimal setup."
+description: "Onboarding for existing projects using the Design Engineer Plugin for the first time. Goal → mode → auto-setup → status line → auto-run."
 disable-model-invocation: true
 model: opus
 effort: high
 license: MIT
 ---
 
-# Existing Project Setup
+# Existing Project Onboarding
 
-This project already exists but is using the Design Engineer Plugin for the first time. Follow every step in order. Do not use auto-memory for personalization, project summaries, or skipping questions.
+This project already exists but is using the Design Engineer Plugin for the first time.
 
-## Step 1: Show Capabilities
+Follow every step in order. Do not skip steps, combine steps, or use auto-memory to personalize any output.
 
-Present this list, then proceed to Step 2. Do not ask what the user wants yet.
+---
+
+## Step 1: Goal
+
+Present this question. No text before it.
+
+```
+question: "What would you like to do with your existing project?"
+header: "Goal"
+options:
+  - label: "Review what I have"
+    description: "Audit quality, find UX issues, check accessibility"
+  - label: "Implement from Figma"
+    description: "I have designs ready to turn into code"
+  - label: "Design a new feature"
+    description: "Start the design thinking process for something new"
+  - label: "Set up the dev workflow"
+    description: "Configure AI-assisted development for this project"
+```
+
+If the user types something custom instead of selecting an option, show the full capability list below, then let them pick what interests them:
 
 ```
 Here's everything this plugin can help you with:
@@ -36,13 +56,13 @@ PLANNING
 • Design information architecture and user flows
 
 DESIGN & VALIDATION
-• Audit designs for cognitive biases (bias audit)
+• Audit designs for cognitive biases
 • Map customer journey highs and lows
 • Review ethics and dark patterns
 • Collect and organize design references
 • Generate clickable HTML prototypes
 • Design key screens with Figma workflow
-• Analyze UX psychology per screen (Motivation Levels)
+• Analyze UX psychology per screen
 • Run a full product assessment
 
 DEVELOPMENT
@@ -57,87 +77,68 @@ REVIEW & AUDIT
 • Design system compliance
 ```
 
-## Step 2: Diagnostic Questions
+---
 
-Ask all three questions in order using AskUserQuestion. Do not skip any, even if you know the answers from memory.
-
-**Question 1:**
+## Step 2: Mode
 
 ```
-question: "What kind of project is this?"
-header: "Project type"
+question: "How do you want to work?"
+header: "Mode"
 options:
-  - label: "App (mobile or web)"
-    description: "A software application with UI"
-  - label: "Website"
-    description: "A website or landing page"
-  - label: "Design system"
-    description: "A component library or design system"
-  - label: "Something else"
-    description: "Tell me more about your project"
+  - label: "Guided mode (Recommended)"
+    description: "Step by step – I share my thinking, ask questions, and you review each step. Thorough process for quality work."
+  - label: "God mode"
+    description: "Mostly automated – I plan and execute with minimal interruption. Faster but less control. Best for quick exploration."
 ```
 
-**Question 2:**
+---
 
-```
-question: "What do you currently have?"
-header: "Current state"
-options:
-  - label: "Code + designs"
-    description: "Both a codebase and Figma/design files exist"
-  - label: "Code only"
-    description: "A working codebase but no formal designs"
-  - label: "Designs only"
-    description: "Figma files or design specs but no code"
-  - label: "Documentation only"
-    description: "Research, specs, or planning docs but no code or designs"
-```
+## Step 3: Auto-setup
 
-**Question 3:**
+No questions. Run automatically and show brief results.
 
-```
-question: "What would you like to do?"
-header: "Goal"
-options:
-  - label: "Review what I have"
-    description: "Audit quality, find UX issues, check accessibility"
-  - label: "Implement from Figma"
-    description: "I have designs ready to turn into code"
-  - label: "Design a new feature"
-    description: "Start the design thinking process for something new"
-  - label: "Set up the dev workflow"
-    description: "Configure AI-assisted development for this project"
-```
-
-## Step 3: Recommendations
-
-Based on the goal the user selected, recommend the most relevant command:
-
-| Goal | Recommendation |
-|------|---------------|
-| Review what I have | `/de:review` – run a multi-layer design review (visual, accessibility, psychology, design system) |
-| Implement from Figma | `/de:dev` – set up the development pipeline and implement from Figma designs |
-| Design a new feature | `/de:design` – start the full design workflow (discovery → strategy → planning → validation) |
-| Set up the dev workflow | `/de:dev` – configure CLAUDE.md, agent pipeline, testing, and context management |
-
-Present the recommendation with a brief explanation of what it does and how to run it. Mention that all commands are available anytime – this is just a suggested starting point.
-
-## Step 4: Minimal Setup
-
-This step is mandatory. Do not skip it.
-
-1. Run environment detection. Present results in plain language:
+1. Run `detect-environment.sh` from the `meta-setup` skill's scripts directory. Present results in plain language:
    - ✓ for available tools (describe what they enable, not their technical names)
-   - ✗ for missing tools (offer to help install essential ones)
-   - If essential tools are missing (Figma connection or documentation access), proactively offer to help install them.
+   - ✗ for missing tools
+   - If essential tools are missing (Figma connection or documentation access), offer to help install them before proceeding.
 
-2. Ask only essential config: deliverables path (default: `docs/design/`) and design tool integration.
+2. Create `.design-engineer.yaml` in the project root:
+   ```yaml
+   # Design-Engineer Plugin Configuration
+   # Generated by /de:start on {current_date}
 
-3. Write `.design-engineer.yaml` with `project.type: "existing"`.
+   project:
+     type: "existing"
+     mode: "{selected_mode}"
+     deliverables_path: "docs/design/"
 
-4. Scaffold folders using the `meta-setup` skill's `scripts/init-project-structure.sh`.
+   environment:
+     plugins:
+       context7: {true/false}
+       figma: {true/false}
+       playwright: {true/false}
+     mcps:
+       figma_console: {true/false}
 
-5. Ask about the status line:
+   dependencies:
+     tracking_file: "docs/design/.dependencies.yaml"
+     auto_suggest: true
+   ```
+
+3. Scaffold `docs/design/` folder structure using `init-project-structure.sh` from the `meta-setup` skill's scripts directory.
+
+4. Show brief summary:
+   ```
+   ✓ Figma connected – I can read your designs directly
+   ✓ Documentation tools ready
+   ✗ Browser testing not set up – can add later
+
+   Created docs/design/ for your deliverables.
+   ```
+
+---
+
+## Step 4: Status line
 
 ```
 question: "Would you like to install the design-engineer status line?"
@@ -149,18 +150,23 @@ options:
     description: "Skip – re-run /de:start later to install"
 ```
 
-If "Yes": follow the status line installation steps from the `meta-setup` skill's Step 5.
+If "Yes": follow the status line installation steps from the `meta-setup` skill's Step 5 (check existing config, create directories, copy script, update settings.json, explain watch mode).
 
-6. Do NOT ask about mode preference, team size, or dev environment.
+---
 
-7. Confirm setup is complete:
+## Step 5: Auto-run
+
+Brief confirmation, then immediately load the appropriate command:
 
 ```
-You're all set.
-
-Your design docs will live in docs/design/
-{Figma connected / not connected}
-Status line: {installed / skipped}
-
-Run the recommended command above to get started, or use /de:start anytime to see what's available.
+You're all set. Let's get started.
 ```
+
+| Goal | Command to load |
+|------|----------------|
+| Review what I have | `/de:review` |
+| Implement from Figma | `/de:dev` |
+| Design a new feature | `/de:design` |
+| Set up the dev workflow | `/de:dev` |
+
+Load the command now. The command reads the mode from `.design-engineer.yaml` and follows the appropriate workflow (guided or god mode).
