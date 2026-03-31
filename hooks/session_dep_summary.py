@@ -82,7 +82,8 @@ def find_deps_path(start_dir):
     candidates = []
     d = start_dir
     for _ in range(4):
-        candidates.append(os.path.join(d, "docs", "design", ".dependencies.yaml"))
+        candidates.append(os.path.join(d, ".design-engineer-plugin", "dependencies.yaml"))
+        candidates.append(os.path.join(d, "documents", "design", ".dependencies.yaml"))
         parent = os.path.dirname(d)
         if parent == d:
             break

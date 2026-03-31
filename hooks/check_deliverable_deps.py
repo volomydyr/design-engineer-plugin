@@ -74,7 +74,9 @@ def main():
     # Find .dependencies.yaml relative to the documents/design/ root
     design_idx = filepath.replace("\\", "/").index("documents/design/")
     project_root = filepath[:design_idx]
-    deps_path = os.path.join(project_root, "docs", "design", ".dependencies.yaml")
+    deps_path = os.path.join(project_root, ".design-engineer-plugin", "dependencies.yaml")
+    if not os.path.isfile(deps_path):
+        deps_path = os.path.join(project_root, "documents", "design", ".dependencies.yaml")
 
     if not os.path.isfile(deps_path):
         return

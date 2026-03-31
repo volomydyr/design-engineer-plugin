@@ -176,7 +176,7 @@ environment:
     figma_console: {true/false}
 
 dependencies:
-  tracking_file: "documents/design/.dependencies.yaml"
+  tracking_file: ".design-engineer-plugin/dependencies.yaml"
   auto_suggest: true
 ```
 

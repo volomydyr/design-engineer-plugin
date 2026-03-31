@@ -62,7 +62,9 @@ echo "[CREATED] solutions/ -- compound documentation and learnings"
 # Initialize dependency tracking
 # ─────────────────────────────────────────────
 
-DEPS_FILE="$DELIVERABLES_PATH/.dependencies.yaml"
+# Dependencies go in .design-engineer-plugin/ (technical, not deliverables)
+mkdir -p ".design-engineer-plugin"
+DEPS_FILE=".design-engineer-plugin/dependencies.yaml"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEFAULT_DEPS="$SCRIPT_DIR/../assets/dependencies-default.yaml"
 
