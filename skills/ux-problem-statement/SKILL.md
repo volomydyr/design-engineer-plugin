@@ -63,7 +63,7 @@ Be honest and direct. If the problem seems narrow or broad, say so. If you see p
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
+**Ask 7–10 strategic questions. Do NOT generate the deliverable after fewer than 7 questions.** The forcing questions below are mandatory when the user's context is thin – do not skip them. Adapt to what you already know from Step 1. Cover these key concepts:
 
 - What problem exists right now that is not being solved well?
 - Who feels this pain the most?

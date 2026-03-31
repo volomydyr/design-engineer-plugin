@@ -63,22 +63,24 @@ In **Autopilot**: run all planned activities, present summary.
 
 ### Feature implementation (pipeline)
 
-Build one feature at a time. Each feature goes through:
+Build one feature at a time. Before writing ANY source code:
 
-1. `context-analyzer` agent – reads project state, identifies what to build
-2. Plan Mode – write structured plan for this feature
-3. `test-writer` agent – create failing tests (Red phase)
-4. `backend-implementer` agent – implement backend
-5. Run `/simplify` – review code
-6. `frontend-implementer` agent – implement frontend
-7. Run `/simplify` – review code
-8. Run tests – verify Green phase
-9. `design-system-auditor` agent – audit compliance
-10. `dev-github-workflow` – commit and push
-11. `meta-document` – document progress
+1. **Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand the design system tokens, naming conventions, and file structure. Load relevant skill reference files for design knowledge.
 
-In **Guided mode**: pause after each step for review.
-In **Autopilot**: run the full cycle, present results at the end.
+2. **Plan via Plan Mode**: You MUST use `EnterPlanMode` to create a structured plan. Do NOT present the plan as chat text or a table. The plan must include all fields from the CLAUDE.md structured plan format: Objective, Depends on, Files (Create/Modify), Reuse (list every existing component – use as-is, extend, or explain why new), Checklist, and QA. After writing the plan, use `ExitPlanMode` for user approval. Copy approved plan to `plans/`.
+
+3. **Follow the project's architecture**: If the project uses atomic design, create separate component files in the appropriate directories. Never create a monolithic file containing multiple components. Match existing naming patterns.
+
+4. **TDD**: Before writing production code, use `test-writer` to create failing tests. Run tests to verify Red (fails because feature is missing). This is not optional – the TDD Iron Law applies.
+
+5. **Implement phase by phase**: Follow the plan's phases in order. Each phase: implement → run `/simplify` → completeness review → present to user with QA → wait for approval. Never implement multiple phases in a single turn.
+
+6. **After all phases**: Run `design-system-auditor` to audit compliance. Run `dev-github-workflow` to commit. Run `meta-document` to record progress.
+
+After EVERY Write or Edit to source code, run `/simplify`. The plugin considers code unfinished until `/simplify` has reviewed it.
+
+In **Guided mode**: the main model implements step by step. Do NOT delegate to backend-implementer or frontend-implementer agents – they can't pause for feedback. Pause after each phase for user review.
+In **Autopilot**: delegate to agents for speed. Run the full cycle, present results at the end.
 
 ## Post-execution
 

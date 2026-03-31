@@ -4,6 +4,18 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.1.0] – 2026-03-31
+
+### Changed
+
+- **Existing project feature flow**: `/de:design` now differentiates between `project_type: new` (full 4-phase pipeline) and `project_type: existing` (abbreviated feature flow: understand → plan → optional depth → implement). Existing projects skip discovery and strategy phases.
+- **Agent delegation reinforced everywhere**: Added explicit "do NOT delegate to agents" in design command Guided mode section, meta-orchestrator Guided mode section, and dev command implementation section. Listed all agent names to prevent ambiguity.
+- **Problem statement minimum 7 questions**: Added bold mandatory note and reinforced that forcing questions are not optional.
+- **Plan Mode mandatory for implementation**: Dev command now explicitly says "You MUST use EnterPlanMode. Do NOT present the plan as chat text." Links to CLAUDE.md structured format.
+- **Component architecture enforcement**: Added CLAUDE.md rule requiring implementation to follow project's existing architecture. Never create monolithic files.
+- **Implementation workflow**: Dev command rewritten with explicit read-patterns → plan → TDD → phase-by-phase → /simplify → audit → git → document sequence. Guided mode: main model implements, no agent delegation.
+- **Output formatting examples**: Added sentence case examples for deliverable names, em dash → en dash examples.
+
 ## [2.0.0] – 2026-03-31
 
 ### Breaking

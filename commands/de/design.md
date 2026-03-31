@@ -1,6 +1,6 @@
 ---
 name: de:design
-description: Full design workflow. Sequences through discovery, strategy, planning, and validation phases. Mode and pace determined by your config.
+description: Design workflow. For new products, runs the full pipeline. For existing projects, runs an abbreviated feature-focused flow.
 argument-hint: "[phase N | skill-name]"
 ---
 
@@ -10,55 +10,62 @@ argument-hint: "[phase N | skill-name]"
 
 <context> #$ARGUMENTS </context>
 
-The primary command for product creation. Handles the entire design pipeline from brainstorm to final design.
-
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/god) and project type
+1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot) and project type
 2. Check for existing deliverables in `documents/design/`
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
+4. Scan the project: what tech stack, what components exist, what design patterns are used
 
-## Step 2: Plan
+## Step 2: Route based on project type
 
-If existing deliverables are found, present current state:
+Check `project_type` in the config:
 
-```
-Here's where your project stands:
+### If `project_type: existing` → Feature flow (abbreviated)
 
-Phase 1 (Discovery): {complete/in progress/not started}
-Phase 2 (Strategy): {status}
-Phase 3 (Planning): {status}
-Phase 4 (Design & Validation): {status}
+This project already exists. Do NOT run the full 4-phase from-scratch pipeline. The product has users, positioning, and an established codebase. Run an abbreviated feature-focused flow:
 
-I recommend picking up at {next logical step}.
-```
+1. **Understand the feature**: Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
 
-In **Guided mode**: ask the user to confirm or adjust before proceeding.
-In **Autopilot**: show the plan briefly, then start.
+2. **Plan the feature**: Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages.
 
-If a specific phase or skill was passed as argument, jump to that directly.
+3. **Optional depth** (ask the user): Offer these as optional add-ons, not defaults:
+   - Brief problem statement (if the feature is complex and needs structured thinking)
+   - Psychology audit on the planned feature
+   - Figma comparison (if designs exist)
+
+4. **Proceed to implementation**: Load `/de:dev` with the feature plan.
+
+In Guided mode: ask the user at each step, iterate. Do NOT delegate to agents – the main model does the work interactively.
+In Autopilot: execute the abbreviated flow, present results.
+
+### If `project_type: new` → Full pipeline
+
+This is a new product from scratch. Run the full 4-phase pipeline.
+
+If existing deliverables are found, present current state and recommend where to pick up. In Guided mode, ask to confirm. In Autopilot, show briefly and start.
 
 ## Step 3: Execute based on mode
 
-The pipeline has 4 phases. Each phase runs skills in sequence.
-
 ### Guided mode
+
+In Guided mode, the main model does ALL user-facing work. Do NOT delegate to autonomous agents (ux-researcher, psych-scanner, etc.). Agents cannot pause for user input – they defeat the purpose of Guided mode.
 
 For each skill in the current phase:
 1. Announce what's next and why it matters
 2. Ask if the user wants to proceed, skip, or adjust
-3. Run the skill
+3. Run the skill YOURSELF – read reference material from the skill, ask the user 7–10 strategic questions, iterate back and forth until satisfied
 4. Present the deliverable for review
 5. Wait for feedback before moving to the next skill
-6. After each phase: summarize what was created, ask to continue to next phase
+6. After each phase: summarize what was created, invoke `meta-document` to save progress, ask to continue
 
 ### Autopilot
 
-1. Run all skills in the current phase autonomously
+1. Run all skills in the current phase (delegate to agents for speed)
 2. Present a summary of deliverables created
-3. Ask whether to continue to the next phase or review anything
+3. After each phase: invoke `meta-document`, ask to continue or review
 
-### Phase 1: Discovery
+### Phase 1: Discovery (new products only)
 
 Skills in sequence:
 1. `ux-problem-statement` – structured problem definition
@@ -67,19 +74,19 @@ Skills in sequence:
 4. `ux-competitor-analysis` – competitive landscape analysis
 5. `ux-user-interviews` – interview design and analysis *(optional – ask user)*
 
-### Phase 2: Strategy
+### Phase 2: Strategy (new products only)
 
 1. `ux-behavior-mapping` – behavior analysis
 2. `ux-storybrand` – messaging framework
 3. `ux-story-panels` – product narrative stories
 4. `ux-business-plan` – revenue model and market sizing
 
-### Phase 3: Planning
+### Phase 3: Planning (both new and existing)
 
 1. `ux-mvp-requirements` – MVP prioritization
 2. `ux-information-architecture` – IA design
 
-### Phase 4: Design & Validation
+### Phase 4: Design & validation (both new and existing, optional for features)
 
 1. `ux-bias-audit` – bias audit
 2. `ux-journey-mapping` – journey mapping

@@ -336,6 +336,12 @@ Right: "Save changes", "View all projects", "Get started now"
 Wrong: "Loading — Please Wait"
 Right: "Loading – please wait"
 
+Wrong: "Problem Statement", "Target Audience", "MVP Requirements"
+Right: "Problem statement", "Target audience", "MVP requirements"
+
+Wrong: "Data density — over marketing", "sovereignty -- wants"
+Right: "Data density – over marketing", "sovereignty – wants"
+
 This is especially important in UI copy – prototypes, components, and any generated product interface must follow all three rules.
 
 ## Project state injection
@@ -372,8 +378,11 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 
 **Agent delegation rule:**
-- In Guided mode: the main model does all user-facing work. Never delegate to autonomous agents (psych-scanner, design-system-auditor, context-analyzer, etc.) for tasks that produce findings, recommendations, or deliverables. Agents cannot pause for user input – they defeat the purpose of Guided mode. The main model reads code, analyzes, and presents findings one at a time.
+- In Guided mode: the main model does all user-facing work. Never delegate to autonomous agents (psych-scanner, design-system-auditor, context-analyzer, ux-researcher, backend-implementer, frontend-implementer, etc.) for tasks that produce findings, recommendations, deliverables, or code. Agents cannot pause for user input – they defeat the purpose of Guided mode. The main model reads code, analyzes, and presents findings one at a time.
 - In Autopilot: delegate freely to agents for speed. Present results when agents complete.
+
+**Implementation architecture rule:**
+- Implementation must follow the project's existing component architecture. If the project uses atomic design, create separate component files in the appropriate directories (atoms/, molecules/, organisms/, pages/). Never create a monolithic file containing multiple components or views. Read existing components before writing new ones to match patterns, naming, and design token usage.
 
 ## Context Monitoring
 

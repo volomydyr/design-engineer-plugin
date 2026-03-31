@@ -50,13 +50,16 @@ After each phase, automatically invoke `meta-document` to save progress, documen
 
 ### 2. Guided Mode (Interactive)
 
-Step-by-step execution with user input at every stage. For each skill in the sequence:
+Step-by-step execution with user input at every stage. **The main model does ALL work – never delegate to autonomous agents (ux-researcher, psych-scanner, etc.).** Agents cannot pause for user input, defeating the purpose of Guided mode.
+
+For each skill in the sequence:
 
 1. Share brief initial thoughts about that step's deliverable based on project knowledge
-2. Ask 7-10 context-based strategic questions using the AskUserQuestion tool
+2. Ask 7–10 context-based strategic questions using the AskUserQuestion tool (batch up to 4 per call)
 3. Iterate back and forth until the user is satisfied with the deliverable
 4. Pause for user review before finalizing
-5. Suggest the next logical skill and ask whether to proceed
+5. Invoke `meta-document` to save progress after each deliverable
+6. Suggest the next logical skill and ask whether to proceed
 
 Nothing is finalized without explicit user approval. Each skill stays focused on its specific scope – never jump ahead to future phases.
 
