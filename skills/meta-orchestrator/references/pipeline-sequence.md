@@ -11,7 +11,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
                         |
         +---------------+---------------+
         |               |               |
-   GOD MODE        GUIDED MODE     DIRECT ACCESS
+   AUTOPILOT        GUIDED MODE     DIRECT ACCESS
    (autonomous)    (interactive)   (specific skill)
         |               |               |
         v               v               v
@@ -322,7 +322,7 @@ After all Phase 4 skills complete, invoke `meta-document` to:
 
 ## User Approval Checkpoint
 
-This is the boundary between pre-development activities (Phases 1-4) and development activities (Phase 5). Even in God mode, the orchestrator must pause here.
+This is the boundary between pre-development activities (Phases 1-4) and development activities (Phase 5). Even in Autopilot, the orchestrator must pause here.
 
 ### What to present:
 1. Summary of all completed phases and their key deliverables
@@ -450,7 +450,7 @@ Skills in the same parallel group have no dependency on each other's output and 
 
 ### How to Execute Parallel Groups
 
-**God mode**: Spawn Agent subprocesses for each skill in the group simultaneously. Wait for all to complete before proceeding to the next skill in the sequence.
+**Autopilot**: Spawn Agent subprocesses for each skill in the group simultaneously. Wait for all to complete before proceeding to the next skill in the sequence.
 
 **Guided mode**: Inform the user: "These [N] skills can run independently. Would you like to run them in parallel (faster) or one at a time (more interactive)?" Respect the user's preference.
 

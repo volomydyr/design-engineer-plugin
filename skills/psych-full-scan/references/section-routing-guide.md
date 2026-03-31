@@ -129,9 +129,9 @@ This ensures the section skill does not repeat the master scan work and can imme
 
 ---
 
-## God Mode Execution Order
+## Autopilot Execution Order
 
-When running all sections autonomously (God mode), execute in this order for optimal flow:
+When running all sections autonomously (Autopilot), execute in this order for optimal flow:
 
 1. `psych-cognitive-load` (Section 1) – foundational layer, findings inform all others
 2. `psych-visual-perception` (Section 2) – visual layer analysis

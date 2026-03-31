@@ -7,7 +7,7 @@ import sys
 import re
 
 # Only active in projects that have run /de:start
-if not os.path.isfile('.design-engineer.yaml'):
+if not os.path.isfile('.design-engineer-plugin/config.yaml'):
     sys.exit(0)
 
 
@@ -67,12 +67,12 @@ def main():
     if not filepath:
         return
 
-    # Only act on files in the docs/design/ directory
-    if "docs/design/" not in filepath.replace("\\", "/"):
+    # Only act on files in the documents/design/ directory
+    if "documents/design/" not in filepath.replace("\\", "/"):
         return
 
-    # Find .dependencies.yaml relative to the docs/design/ root
-    design_idx = filepath.replace("\\", "/").index("docs/design/")
+    # Find .dependencies.yaml relative to the documents/design/ root
+    design_idx = filepath.replace("\\", "/").index("documents/design/")
     project_root = filepath[:design_idx]
     deps_path = os.path.join(project_root, "docs", "design", ".dependencies.yaml")
 

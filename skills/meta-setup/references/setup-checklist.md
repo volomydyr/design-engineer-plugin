@@ -26,7 +26,7 @@ Controls the interaction pattern across all skills in the plugin.
 | Option | Behavior |
 |--------|----------|
 | **Guided mode** | AI shares brief suggestions from multiple perspectives first. Then asks 7-10 questions using AskUserQuestion. Then iterates back-and-forth until the user approves the deliverable. Every skill pauses for user review before finalizing. |
-| **God mode** | AI runs the full pipeline autonomously with minimal user input. Pauses only at major phase checkpoints (end of Phase 1, end of Phase 2, etc.) and the User Approval Checkpoint between Phase 4 and Phase 5. |
+| **Autopilot** | AI runs the full pipeline autonomously with minimal user input. Pauses only at major phase checkpoints (end of Phase 1, end of Phase 2, etc.) and the User Approval Checkpoint between Phase 4 and Phase 5. |
 | **Both / decide later** | The orchestrator asks which mode to use each time a command is invoked. Individual skills can be invoked in either mode. |
 
 **Interaction pattern for Guided mode**: AI shares suggestions from different perspectives (not just one suggestion), asks questions using AskUserQuestion (or numbered-list fallback), waits for answers, iterates, and only finalizes when the user explicitly approves. Nothing is done through one set of questions – iterative refinement until the user is satisfied.
@@ -62,7 +62,7 @@ Determines how design-related skills interact with the user's design workflow.
 
 ## 5. Deliverables Path
 
-Where all skill outputs are saved. Default: `docs/design/` in the project root.
+Where all skill outputs are saved. Default: `documents/design/` in the project root.
 
 ### Folder Structure
 

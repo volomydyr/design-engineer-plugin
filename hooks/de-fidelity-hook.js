@@ -16,7 +16,7 @@ const os = require('os');
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-fidelity.log');
 
 // Only active in projects that have run /de:start
-if (!fs.existsSync(path.join(process.cwd(), '.design-engineer.yaml'))) {
+if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin/config.yaml'))) {
   process.exit(0);
 }
 

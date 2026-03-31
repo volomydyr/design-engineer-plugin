@@ -20,7 +20,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Read Config
 
-Read `.design-engineer.yaml`. Check the `project_type` field:
+Read `.design-engineer-plugin/config.yaml`. Check the `project_type` field:
 
 - If `project_type: existing` → this is an existing project, NOT a returning pipeline project. The hook injects context for this case. Follow the hook's instructions (show capabilities via AskUserQuestion). Do NOT show pipeline state or resume information.
 - If `project_type: new` → this is a returning pipeline project. Continue with Path A below.
@@ -119,7 +119,7 @@ header: "Mode"
 options:
   - label: "Guided mode (Recommended)"
     description: "Step by step – AI shares thoughts, asks questions adapted to your project, you review and approve every deliverable. Thorough process for building a quality product."
-  - label: "God mode"
+  - label: "Autopilot"
     description: "Rapid autonomous exploration – 99% automated, spends more tokens, produces the simplest working MVP as fast as possible. Best for quick validation: testing ideas, seeing if someone would pay. Not for building the final polished product."
 ```
 
@@ -127,7 +127,7 @@ options:
 
 ## Step 4: Scaffold Project Structure
 
-Run `scripts/init-project-structure.sh` with the default deliverables path `docs/design/`.
+Run `scripts/init-project-structure.sh` with the default deliverables path `documents/design/`.
 
 This creates the standardized folder structure. See [setup-checklist.md](./references/setup-checklist.md) for the full configuration reference.
 
@@ -156,7 +156,7 @@ The `.dependencies.yaml` file is initialized from the default template. See [dep
 
 ## Step 5: Write Configuration and Finalize
 
-Generate `.design-engineer.yaml` in the project root:
+Generate `.design-engineer-plugin/config.yaml` in the project root:
 
 ```yaml
 # Design-Engineer Plugin Configuration
@@ -165,7 +165,7 @@ Generate `.design-engineer.yaml` in the project root:
 project:
   type: "new"
   mode: "{answer_mode}"
-  deliverables_path: "docs/design/"
+  deliverables_path: "documents/design/"
 
 environment:
   plugins:
@@ -176,7 +176,7 @@ environment:
     figma_console: {true/false}
 
 dependencies:
-  tracking_file: "docs/design/.dependencies.yaml"
+  tracking_file: "documents/design/.dependencies.yaml"
   auto_suggest: true
 ```
 
@@ -205,7 +205,7 @@ Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [select
 ```markdown
 # Project Map
 
-## docs/design/
+## documents/design/
 ├── foundation/ – core product definition deliverables | read at pipeline start
 ├── research/ – research findings and analysis | read before positioning
 ├── design/ – IA, flows, design references | read before prototyping
@@ -215,7 +215,7 @@ Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [select
 └── .dependencies.yaml – deliverable dependency graph | read by hooks automatically
 
 ## Project Root
-├── .design-engineer.yaml – plugin config and resume state | read by /de:start
+├── .design-engineer-plugin/config.yaml – plugin config and resume state | read by /de:start
 ```
 
 3. Save `debug-solutions.md`:
@@ -231,7 +231,7 @@ Hard-won fixes. Read this before attempting fixes for build, deploy, or environm
 
 Same structure, but:
 - Pipeline State: `Phase: N/A – using individual capabilities | Mode: N/A`
-- project-map.md: start with only the docs/design/ scaffold and .design-engineer.yaml – do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
+- project-map.md: start with only the documents/design/ scaffold and .design-engineer-plugin/config.yaml – do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
 
 **For returning projects (Path A):**
 
@@ -275,8 +275,8 @@ Display a summary in plain language – no file names or config paths:
 ```
 You're all set.
 
-Mode: {Guided / God mode}
-Your design docs will live in docs/design/
+Mode: {Guided / Autopilot}
+Your design docs will live in documents/design/
 {Figma connected / Figma not connected – offer help}
 Status line: {installed / skipped}
 
@@ -315,7 +315,7 @@ If the detection script reports errors or hangs:
 4. Run `/de:start` again – the script is fail-open and will skip unavailable checks
 
 ### Config file not created
-If `.design-engineer.yaml` is not created after setup:
+If `.design-engineer-plugin/config.yaml` is not created after setup:
 1. Check write permissions in the project root directory
-2. Ensure no existing `.design-engineer.yaml` is locked by another process
-3. Delete any corrupted `.design-engineer.yaml` and re-run `/de:start`
+2. Ensure no existing `.design-engineer-plugin/config.yaml` is locked by another process
+3. Delete any corrupted `.design-engineer-plugin/config.yaml` and re-run `/de:start`

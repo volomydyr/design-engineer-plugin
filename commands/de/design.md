@@ -14,9 +14,9 @@ The primary command for product creation. Handles the entire design pipeline fro
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer.yaml` for mode (guided/god) and project type
-2. Check for existing deliverables in `docs/design/`
-3. If `.design-engineer.yaml` not found, tell the user to run `/de:start` first
+1. Read `.design-engineer-plugin/config.yaml` for mode (guided/god) and project type
+2. Check for existing deliverables in `documents/design/`
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
 
 ## Step 2: Plan
 
@@ -34,7 +34,7 @@ I recommend picking up at {next logical step}.
 ```
 
 In **Guided mode**: ask the user to confirm or adjust before proceeding.
-In **God mode**: show the plan briefly, then start.
+In **Autopilot**: show the plan briefly, then start.
 
 If a specific phase or skill was passed as argument, jump to that directly.
 
@@ -52,7 +52,7 @@ For each skill in the current phase:
 5. Wait for feedback before moving to the next skill
 6. After each phase: summarize what was created, ask to continue to next phase
 
-### God mode
+### Autopilot
 
 1. Run all skills in the current phase autonomously
 2. Present a summary of deliverables created
@@ -98,12 +98,12 @@ After completing the current work:
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Keep going"
+  - label: "Continue to next phase"
     description: "Continue to the next phase of the design pipeline"
-  - label: "Check what we made"
+  - label: "Review deliverables"
     description: "Review the deliverables for quality before moving on"
-  - label: "Start building"
+  - label: "Move to development"
     description: "Switch to development – set up code pipeline and implement"
-  - label: "Save and stop"
+  - label: "Save progress and stop"
     description: "Document progress so you can pick up next time"
 ```

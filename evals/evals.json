@@ -29,7 +29,7 @@
       "id": 4,
       "skill_name": "meta-orchestrator",
       "prompt": "I want to build a meal planning app for busy parents. Run the entire design pipeline for me autonomously -- I trust your judgment on the details, just check in with me at major milestones.",
-      "expected_output": "Should activate God mode, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: behavior-mapping, storybrand, story-panels, business-plan), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-audit, journey-mapping, design-references, prototyping, figma-workflow, motivation-levels), running meta-document after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
+      "expected_output": "Should activate Autopilot, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: behavior-mapping, storybrand, story-panels, business-plan), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-audit, journey-mapping, design-references, prototyping, figma-workflow, motivation-levels), running meta-document after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
       "files": [],
       "type": "functional"
     },
@@ -93,7 +93,7 @@
       "id": 12,
       "skill_name": "command:de:design",
       "prompt": "/de:design god-mode",
-      "expected_output": "Should verify /de:start has been run, activate God mode, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
+      "expected_output": "Should verify /de:start has been run, activate Autopilot, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
       "files": [],
       "type": "functional"
     },

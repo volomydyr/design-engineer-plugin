@@ -7,7 +7,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 # Only active in projects that have run /de:start
-if not os.path.isfile('.design-engineer.yaml'):
+if not os.path.isfile('.design-engineer-plugin/config.yaml'):
     sys.exit(0)
 
 
@@ -65,10 +65,10 @@ def is_recent(timestamp_str, hours=12):
 
 
 def find_project_root(start_dir):
-    """Walk up from start_dir looking for .design-engineer.yaml."""
+    """Walk up from start_dir looking for .design-engineer-plugin/config.yaml."""
     d = start_dir
     for _ in range(6):
-        if os.path.isfile(os.path.join(d, ".design-engineer.yaml")):
+        if os.path.isfile(os.path.join(d, ".design-engineer-plugin/config.yaml")):
             return d
         parent = os.path.dirname(d)
         if parent == d:
@@ -144,8 +144,8 @@ def derive_resume_state(deliverables, updated, stale):
 
 
 def write_resume_state(project_root, deliverables, updated, stale):
-    """Write resume section into .design-engineer.yaml."""
-    config_path = os.path.join(project_root, ".design-engineer.yaml")
+    """Write resume section into .design-engineer-plugin/config.yaml."""
+    config_path = os.path.join(project_root, ".design-engineer-plugin/config.yaml")
     if not os.path.isfile(config_path):
         return
 
@@ -246,7 +246,7 @@ def main():
     print("- Update MEMORY.md pipeline position if phase/skill progress was made")
     print("- Save to debug-solutions.md if any hard bugs were solved this session")
 
-    # Write resume state to .design-engineer.yaml (if it exists)
+    # Write resume state to .design-engineer-plugin/config.yaml (if it exists)
     project_root = find_project_root(cwd)
     if project_root:
         write_resume_state(project_root, deliverables, updated, stale)

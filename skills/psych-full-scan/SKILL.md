@@ -51,7 +51,7 @@ Once the input type is established, gather the design context:
 How would you like to run the audit?
 
 1. **Guided mode** – I will run the master scan first, then suggest targeted deep-dives based on findings (recommended for most cases)
-2. **God mode** – I will run all 10 sections fully and autonomously, producing a comprehensive report
+2. **Autopilot** – I will run all 10 sections fully and autonomously, producing a comprehensive report
 3. **Targeted mode** – I will focus on specific sections you choose
 </ask-user>
 
@@ -171,7 +171,7 @@ When routing to a section skill, pass along:
 3. User picks which sections to deep-dive (Step 5)
 4. Invoke specific section skills one at a time
 
-### God Mode
+### Autopilot
 1. Run master scan (Step 3)
 2. Automatically invoke ALL section skills sequentially
 3. Compile a unified comprehensive report from all section outputs
@@ -215,4 +215,4 @@ When routing to a section skill, pass along:
 
 ## Output Format
 
-The primary deliverable is the **Psychology Master Audit Report** (Step 4 format). When running in God mode, the deliverable also includes full section-level reports appended as subsections.
+The primary deliverable is the **Psychology Master Audit Report** (Step 4 format). When running in Autopilot, the deliverable also includes full section-level reports appended as subsections.

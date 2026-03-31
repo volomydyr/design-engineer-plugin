@@ -14,8 +14,8 @@ Documents decisions, learnings, and project state. Ensures context survives acro
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer.yaml` for mode and project state
-2. Scan existing deliverables in `docs/design/`
+1. Read `.design-engineer-plugin/config.yaml` for mode and project state
+2. Scan existing deliverables in `documents/design/`
 3. Check what has changed recently (git status if available)
 
 ## Step 2: Determine what to document
@@ -30,13 +30,13 @@ Otherwise, present what makes sense based on context:
 question: "What would you like to document?"
 header: "Document"
 options:
-  - label: "What I did today"
+  - label: "This session's progress"
     description: "Save this session's work – what changed, what was created, what's next"
-  - label: "A decision I made"
+  - label: "Record a decision"
     description: "Record a decision and why – so future you (or your team) understands the reasoning"
-  - label: "Where things stand"
+  - label: "Project status"
     description: "See the full project status – what's done, what's in progress, what's next"
-  - label: "Explain to my team"
+  - label: "Stakeholder summary"
     description: "Frame decisions and trade-offs for non-design audiences"
 ```
 
@@ -45,7 +45,7 @@ options:
 Load the `meta-document` skill and follow the selected path.
 
 In **Guided mode**: present a draft, ask for review, then save.
-In **God mode**: execute and save, show summary.
+In **Autopilot**: execute and save, show summary.
 
 ## Step 4: Confirm
 

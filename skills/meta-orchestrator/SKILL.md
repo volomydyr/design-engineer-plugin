@@ -37,14 +37,14 @@ These are suggestions only – never block progress based on model choice.
 
 ## Three Access Modes
 
-### 1. God Mode (Autonomous)
+### 1. Autopilot (Autonomous)
 
 Runs the full pipeline end-to-end with minimal user input. Skills execute sequentially through all phases. The pipeline is separated into two major stages:
 
 - **Pre-development activities** (Phases 1-4): Discovery, Strategy, Planning, Design & Validation
 - **Development activities** (Phase 5): Setup, implementation, deployment
 
-A **user approval checkpoint** separates these two stages. Even in God mode, pause at this checkpoint and wait for explicit user approval before proceeding to development.
+A **user approval checkpoint** separates these two stages. Even in Autopilot, pause at this checkpoint and wait for explicit user approval before proceeding to development.
 
 After each phase, automatically invoke `meta-document` to save progress, document learnings, and maintain context continuity.
 
@@ -77,9 +77,9 @@ When invoked, determine the user's situation before running any skills.
 
 ### Step 0: Check Memory and Resume State
 
-**Memory check**: If auto-memory exists (`~/.claude/projects/<project>/memory/MEMORY.md`), it auto-loaded at session start. Read `project-map.md` for project structure – use this instead of exploring the filesystem. Check MEMORY.md for pipeline state and key decisions from previous sessions. This complements `.design-engineer.yaml` – memory has cross-cutting decisions, the YAML has mechanical resume data.
+**Memory check**: If auto-memory exists (`~/.claude/projects/<project>/memory/MEMORY.md`), it auto-loaded at session start. Read `project-map.md` for project structure – use this instead of exploring the filesystem. Check MEMORY.md for pipeline state and key decisions from previous sessions. This complements `.design-engineer-plugin/config.yaml` – memory has cross-cutting decisions, the YAML has mechanical resume data.
 
-Then check if `.design-engineer.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
+Then check if `.design-engineer-plugin/config.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
 
 If a `resume:` section exists:
 
@@ -98,7 +98,7 @@ How would you like to proceed?
 
 3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `design-docs/project-state.md` for full context.
 
-4. After resuming, clear the `resume:` section from `.design-engineer.yaml` to avoid stale resume data in the next session.
+4. After resuming, clear the `resume:` section from `.design-engineer-plugin/config.yaml` to avoid stale resume data in the next session.
 
 If no `resume:` section exists, proceed to Step 1.
 
@@ -109,7 +109,7 @@ If no `resume:` section exists, proceed to Step 1.
 <ask-user>
 How would you like to work?
 
-1. **God mode** – I run the full pipeline autonomously, you review at checkpoints
+1. **Autopilot** – I run the full pipeline autonomously, you review at checkpoints
 2. **Guided mode** – We go step by step, I ask questions and you approve at every stage
 3. **Direct access** – Jump to a specific skill (tell me which one)
 </ask-user>
@@ -120,7 +120,7 @@ If the AskUserQuestion tool is unavailable, present these as a numbered list and
 
 #### Progress Summary
 
-Before asking the project state question, check if `docs/design/.dependencies.yaml` exists. If it does, read it and present a compact progress summary:
+Before asking the project state question, check if `documents/design/.dependencies.yaml` exists. If it does, read it and present a compact progress summary:
 
 ```
 Phase 1 (Discovery): [N]/5 complete → Next: [skill_name]
@@ -192,7 +192,7 @@ Then enter the development loop and run: `meta-document` (final documentation)
 
 When invoking each skill in the sequence:
 
-### In God Mode
+### In Autopilot
 1. Invoke the skill
 2. Let it run to completion with minimal interaction
 3. Validate that the skill produced its expected deliverable
@@ -210,7 +210,7 @@ When invoking each skill in the sequence:
 ### Handling Optional Skills
 For skills marked as optional in the pipeline sequence:
 
-- **God mode**: Skip optional skills by default unless the user explicitly requested them at startup
+- **Autopilot**: Skip optional skills by default unless the user explicitly requested them at startup
 - **Guided mode**: Present the optional skill, explain when it is most useful, and ask whether to include it
 
 ### Handling Parallel Groups
@@ -219,7 +219,7 @@ Some skills within the same phase have no dependency on each other and can run s
 
 When the pipeline reaches a parallel group:
 
-- **God mode**: Launch all skills in the group simultaneously using the Agent tool. Each skill runs in its own fresh context. Wait for all to complete, then validate all deliverables were produced before proceeding to the next skill in the sequence.
+- **Autopilot**: Launch all skills in the group simultaneously using the Agent tool. Each skill runs in its own fresh context. Wait for all to complete, then validate all deliverables were produced before proceeding to the next skill in the sequence.
 - **Guided mode**: Present the parallel group to the user: "The next [N] skills ([skill names]) can run independently. Running them in parallel is faster but less interactive. Running them one at a time lets you review each before moving on." Respect the user's preference.
 - **Direct access**: Not applicable – the user is running a single skill.
 
@@ -257,7 +257,7 @@ If a skill fails or produces an unsatisfactory result:
 
 1. Do not silently proceed – inform the user what went wrong
 2. Offer options: retry the skill, skip it, or adjust the approach
-3. In God mode, pause and switch to interactive mode for the problematic skill
+3. In Autopilot, pause and switch to interactive mode for the problematic skill
 4. Record the issue in the project state file under learnings
 
 ## Scope Discipline

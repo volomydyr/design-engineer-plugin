@@ -176,7 +176,7 @@ Ask the user to share the generated image back.
 
 Once the final image is approved:
 
-1. **Store the image** in the project's deliverables folder (e.g., `docs/design/foundation/story-panel-[name].jpg`)
+1. **Store the image** in the project's deliverables folder (e.g., `documents/design/foundation/story-panel-[name].jpg`)
 2. **Update project-map.md** in auto-memory with the new file
 
 Then guide the user to extract actionable insights:

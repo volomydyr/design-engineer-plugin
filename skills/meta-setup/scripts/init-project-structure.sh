@@ -2,11 +2,11 @@
 # init-project-structure.sh
 # Creates the standardized deliverables folder structure for the design-engineer plugin.
 # Usage: ./init-project-structure.sh [deliverables_path]
-# Default path: docs/design
+# Default path: documents/design
 
 set -euo pipefail
 
-DELIVERABLES_PATH="${1:-docs/design}"
+DELIVERABLES_PATH="${1:-documents/design}"
 
 echo "=== Scaffolding Design-Engineer Deliverables ==="
 echo "Path: $DELIVERABLES_PATH"

@@ -101,20 +101,19 @@ else
 fi
 
 # Check for existing design-engineer config
-if [ -f ".design-engineer.yaml" ]; then
-  echo "[FOUND] .design-engineer.yaml -- plugin already configured"
+if [ -f ".design-engineer-plugin/config.yaml" ]; then
+  echo "[FOUND] Plugin configured"
 else
-  echo "[MISSING] .design-engineer.yaml -- plugin not yet configured"
+  echo "[MISSING] Plugin not yet configured"
 fi
 
 # Check for existing deliverables folder
-if [ -d "docs/design" ]; then
-  echo "[FOUND] docs/design/ folder exists"
-  # Count existing deliverables
-  FILE_COUNT=$(find docs/design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
+if [ -d "documents/design" ]; then
+  echo "[FOUND] documents/design/ folder exists"
+  FILE_COUNT=$(find documents/design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
   echo "        Contains $FILE_COUNT deliverable file(s)"
 else
-  echo "[MISSING] docs/design/ -- no deliverables folder"
+  echo "[MISSING] No deliverables folder"
 fi
 
 # Check for existing source code (indicators of development progress)
@@ -161,8 +160,8 @@ echo "MCPs found:     ${MCPS_FOUND[*]:-none}"
 echo "MCPs missing:   ${MCPS_MISSING[*]:-none}"
 echo "Git:            $([ -d '.git' ] && echo 'yes' || echo 'no')"
 echo "CLAUDE.md:      $([ -f 'CLAUDE.md' ] && echo 'yes' || echo 'no')"
-echo "Config:         $([ -f '.design-engineer.yaml' ] && echo 'yes' || echo 'no')"
-echo "Deliverables:   $([ -d 'docs/design' ] && echo 'yes' || echo 'no')"
+echo "Config:         $([ -f '.design-engineer-plugin/config.yaml' ] && echo 'yes' || echo 'no')"
+echo "Deliverables:   $([ -d 'documents/design' ] && echo 'yes' || echo 'no')"
 echo "Source code:    $HAS_CODE"
 echo ""
 echo "=== Detection Complete ==="

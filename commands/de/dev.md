@@ -14,9 +14,9 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer.yaml` for mode (guided/god), project type, and environment
+1. Read `.design-engineer-plugin/config.yaml` for mode (guided/god), project type, and environment
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
-3. If `.design-engineer.yaml` not found, tell the user to run `/de:start` first
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
 
 ## Step 2: Plan
 
@@ -43,7 +43,7 @@ Guidelines for building the plan:
 If an argument was provided (`/de:dev setup`, `/de:dev pipeline`), skip planning and go directly to that activity.
 
 In **Guided mode**: ask the user to confirm or adjust the plan.
-In **God mode**: show the plan briefly, then execute.
+In **Autopilot**: show the plan briefly, then execute.
 
 ## Step 3: Execute based on mode
 
@@ -59,7 +59,7 @@ In **God mode**: show the plan briefly, then execute.
 | Kick-start prompts | `dev-starter-prompts` |
 
 In **Guided mode**: run one at a time, present results, ask for feedback.
-In **God mode**: run all planned activities, present summary.
+In **Autopilot**: run all planned activities, present summary.
 
 ### Feature implementation (pipeline)
 
@@ -78,7 +78,7 @@ Build one feature at a time. Each feature goes through:
 11. `meta-document` – document progress
 
 In **Guided mode**: pause after each step for review.
-In **God mode**: run the full cycle, present results at the end.
+In **Autopilot**: run the full cycle, present results at the end.
 
 ## Post-execution
 
@@ -86,10 +86,10 @@ In **God mode**: run the full cycle, present results at the end.
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Build the next feature"
+  - label: "Next feature"
     description: "Pick up the next feature from the build sequence"
-  - label: "Check what we built"
+  - label: "Review implementation"
     description: "Review the implementation for quality, accessibility, or design compliance"
-  - label: "Save and stop"
+  - label: "Save progress and stop"
     description: "Document progress so you can pick up next time"
 ```

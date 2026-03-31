@@ -14,8 +14,8 @@ Generate a single-file HTML prototype using the `dev-prototyping` skill.
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer.yaml` for mode (guided/god)
-2. Check what design deliverables exist (docs/design/ — problem statement, IA, user flows, etc.)
+1. Read `.design-engineer-plugin/config.yaml` for mode (guided/god)
+2. Check what design deliverables exist (documents/design/ — problem statement, IA, user flows, etc.)
 3. Check if Figma is connected
 
 ## Step 2: Plan
@@ -38,14 +38,14 @@ If an argument was provided:
 Confirm the selection: "Starting a prototype for {type} – correct?"
 
 In **Guided mode**: discuss scope and approach before building.
-In **God mode**: show plan briefly, then build.
+In **Autopilot**: show plan briefly, then build.
 
 ## Step 3: Execute
 
 Load the `dev-prototyping` skill and follow its full 7-step flow.
 
 In **Guided mode**: pause after the initial prototype for review, iterate based on feedback.
-In **God mode**: build the prototype, present it, ask for feedback.
+In **Autopilot**: build the prototype, present it, ask for feedback.
 
 After the prototype is generated, run `/simplify` to review code quality.
 
@@ -59,10 +59,10 @@ Use the `test-writer` agent to create test scripts that verify prototype behavio
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Tweak it"
+  - label: "Iterate on this"
     description: "Make changes based on what you see – tell me what to adjust"
-  - label: "Check the quality"
+  - label: "Review quality"
     description: "Run a design review on the prototype (UX, accessibility, psychology)"
-  - label: "Start building for real"
+  - label: "Move to development"
     description: "Use this prototype as the reference and implement in production code"
 ```

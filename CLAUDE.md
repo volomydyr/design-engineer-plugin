@@ -323,9 +323,9 @@ If a feature, behavior, or piece of copy was not explicitly requested by the use
 
 Three rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
 
-1. **En dashes only** – use `–` (en dash). Never `—` (em dash) or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
+1. **En dashes only** – use `–` (en dash). Never `—` (em dash), `--` (double hyphen), or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
 2. **Sentence case only** – capitalize the first word and proper nouns. Never Title Case. This applies to headings, button labels, tab names, navigation items, placeholder text, menu items, toast messages, and any other text Claude generates.
-3. **No internal jargon in user-facing output** – never mention config file names (`.design-engineer.yaml`, `.dependencies.yaml`), internal skill names (`ux-problem-statement`, `meta-orchestrator`), hook names, script names, or detection logic in messages shown to the user. Describe what things DO, not what they're called internally. "Your progress was saved" not "Resume state written to `.design-engineer.yaml`". "You have Figma connected" not "Figma plugin: [FOUND]". This rule applies to all commands, skills, and agents.
+3. **No internal jargon in user-facing output** – never mention config file names (`.design-engineer-plugin/config.yaml`, `.dependencies.yaml`), internal skill names (`ux-problem-statement`, `meta-orchestrator`), hook names, script names, or detection logic in messages shown to the user. Describe what things DO, not what they're called internally. "Your progress was saved" not "Resume state written to `.design-engineer-plugin/config.yaml`". "You have Figma connected" not "Figma plugin: [FOUND]". This rule applies to all commands, skills, and agents.
 
 Wrong: "User Settings — Account Details"
 Right: "User settings – account details"
@@ -340,11 +340,11 @@ This is especially important in UI copy – prototypes, components, and any gene
 
 ## Project state injection
 
-A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.
+A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.
 
 ## Command execution philosophy
 
-All commands – design, review, dev, prototype, document – must follow the same execution pattern. The mode (from `.design-engineer.yaml`) determines the level of user involvement, but both modes follow the same structure:
+All commands – design, review, dev, prototype, document – must follow the same execution pattern. The mode (from `.design-engineer-plugin/config.yaml`) determines the level of user involvement, but both modes follow the same structure:
 
 ```
 PLAN → EXECUTE → PRESENT → FEEDBACK
@@ -357,7 +357,7 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 4. **Feedback**: Ask the user what to do (fix it, skip, dive deeper). Wait for response before proceeding.
 5. **Summary**: After all steps, show a summary table.
 
-**God mode:**
+**Autopilot:**
 1. **Plan**: Briefly show the plan (no approval needed, just transparency).
 2. **Execute**: Run all steps autonomously.
 3. **Present**: Show complete results as a structured summary.
@@ -369,11 +369,11 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 - Proceed without explaining what's happening
 - Leave the user wondering "what just happened?"
 
-Read the mode from `.design-engineer.yaml` at the start of every command. If no config file exists, default to guided mode.
+Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 
 **Agent delegation rule:**
 - In Guided mode: the main model does all user-facing work. Never delegate to autonomous agents (psych-scanner, design-system-auditor, context-analyzer, etc.) for tasks that produce findings, recommendations, or deliverables. Agents cannot pause for user input – they defeat the purpose of Guided mode. The main model reads code, analyzes, and presents findings one at a time.
-- In God mode: delegate freely to agents for speed. Present results when agents complete.
+- In Autopilot: delegate freely to agents for speed. Present results when agents complete.
 
 ## Context Monitoring
 
@@ -442,8 +442,8 @@ Keep MEMORY.md under 150 lines. It stores:
 - Mode preference and project type
 
 **What NOT to save anywhere in memory:**
-- Individual deliverable content (already in docs/design/)
-- Resume state details (already in .design-engineer.yaml)
+- Individual deliverable content (already in documents/design/)
+- Resume state details (already in .design-engineer-plugin/config.yaml)
 - Dependency status (already in .dependencies.yaml)
 - Anything already in this CLAUDE.md
 - How the plugin works or what skills exist

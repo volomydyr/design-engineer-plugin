@@ -203,6 +203,6 @@ If you see permission errors during installation:
 
 ### Status line shows stale data
 If the status line displays outdated information:
-1. Check if `--watch` mode is enabled in the status line configuration
-2. The status line reads from `.design-engineer.yaml` – verify this file is current
+1. The status line reads from `.design-engineer-plugin/config.yaml` – verify this file is current
+2. Rate limits come from Claude Code's stdin data – they update after each response
 3. Restart Claude Code to force a fresh read

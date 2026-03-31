@@ -36,7 +36,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-6 commands, 49 skills, and 9 agents. Most commands work in two ways – **guided** (step-by-step with approval at every stage) or **god mode** (autonomous with minimal input).
+6 commands, 49 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|

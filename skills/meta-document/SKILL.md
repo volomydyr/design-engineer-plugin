@@ -287,7 +287,7 @@ What's next?
 
 **Invoked by:**
 - `/de:document` command (manual invocation)
-- `meta-orchestrator` after each major phase completion (auto-triggered in God mode)
+- `meta-orchestrator` after each major phase completion (auto-triggered in Autopilot)
 - Any skill can request compound documentation when significant decisions are made
 
 **Invokes:**

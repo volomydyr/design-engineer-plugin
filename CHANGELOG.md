@@ -4,6 +4,23 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.0.0] – 2026-03-31
+
+### Breaking
+
+- **Folder restructure**: Config moved from `.design-engineer.yaml` (root) to `.design-engineer-plugin/config.yaml`. Deliverables moved from `docs/design/` to `documents/design/`. Dependencies tracking moved to `.design-engineer-plugin/dependencies.yaml`. Technical files separated from user deliverables.
+- **"God mode" renamed to "Autopilot"**: All references updated across skills, commands, README, CLAUDE.md.
+
+### Changed
+
+- **Status line rewrite**: Reads 5h/7d usage from stdin `rate_limits` (automatic, no monitor needed). Removed watch mode and credential access. Shows model with context window "(1M)", keeps directory, compact bars.
+- **Review command**: MultiSelect for review areas, scoping question (whole app / specific page / recent changes), loads actual skills for reference knowledge, shows finding count upfront, structured recommendations with 3–4 options and "(Recommended)" marker, collects all fixes then ONE plan via Plan Mode.
+- **AskUserQuestion labels**: Specific and action-oriented. "New product" / "Existing project", "Review my project" / "Implement from Figma", "Guided mode" / "Autopilot".
+- **Double hyphens forbidden**: `--` added to output formatting rule 1.
+- **CLAUDE_PLUGIN_ROOT resolved**: Hook script resolves its own absolute path instead of using unresolvable variable in additionalContext.
+- **Status line explanation**: Brief description of what it does before asking the user to install.
+- **Returning flow**: Hook checks `project_type` in config. Existing projects get AskUserQuestion with goal options, not pipeline resume state.
+
 ## [1.27.0] – 2026-03-30
 
 ### Changed
