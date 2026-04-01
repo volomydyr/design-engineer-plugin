@@ -14,7 +14,7 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/god), project type, and environment
+1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot), project type, and environment
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
 
@@ -22,16 +22,6 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 Based on what you found, present a plan. Only suggest what's relevant:
 
-```
-Based on your project ({tech stack}), here's what I recommend:
-
-1. {Activity 1} – {why it's needed}
-2. {Activity 2} – {why}
-
-Want to adjust the plan?
-```
-
-Guidelines for building the plan:
 - **CLAUDE.md setup** – needed if no CLAUDE.md exists or it's outdated
 - **Agent pipeline** – needed if no agents are configured
 - **MCP configuration** – only if MCPs are missing or misconfigured
@@ -45,7 +35,7 @@ If an argument was provided (`/de:dev setup`, `/de:dev pipeline`), skip planning
 In **Guided mode**: ask the user to confirm or adjust the plan.
 In **Autopilot**: show the plan briefly, then execute.
 
-## Step 3: Execute based on mode
+## Step 3: Execute
 
 ### Setup activities
 
@@ -61,29 +51,56 @@ In **Autopilot**: show the plan briefly, then execute.
 In **Guided mode**: run one at a time, present results, ask for feedback.
 In **Autopilot**: run all planned activities, present summary.
 
-### Feature implementation (pipeline)
+### Feature implementation
 
-Build one feature at a time. Before writing ANY source code:
+Before writing ANY code, follow these steps in order:
 
-1. **Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand the design system tokens, naming conventions, and file structure. Load relevant skill reference files for design knowledge.
+**1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
-2. **Plan via Plan Mode**: You MUST use `EnterPlanMode` to create a structured plan. Do NOT present the plan as chat text or a table. The plan must include all fields from the CLAUDE.md structured plan format: Objective, Depends on, Files (Create/Modify), Reuse (list every existing component – use as-is, extend, or explain why new), Checklist, and QA. After writing the plan, use `ExitPlanMode` for user approval. Copy approved plan to `plans/`.
+**2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` — this is the exact format your plan must follow.
 
-3. **Follow the project's architecture**: If the project uses atomic design, create separate component files in the appropriate directories. Never create a monolithic file containing multiple components. Match existing naming patterns.
+**3. Enter Plan Mode**: Use `EnterPlanMode` to write the implementation plan. Do NOT present the plan as chat text, a summary table, or TaskCreate items. The plan MUST follow the template format with all required fields: Summary, Phases (each with Objective, Depends on, Files, Reuse, Checklist, QA), Risk assessment, Questions for user.
 
-4. **TDD**: Before writing production code, use `test-writer` to create failing tests. Run tests to verify Red (fails because feature is missing). This is not optional – the TDD Iron Law applies.
+**4. Get approval**: Use `ExitPlanMode` for user approval.
 
-5. **Implement phase by phase**: Follow the plan's phases in order. Each phase: implement → run `/simplify` → completeness review → present to user with QA → wait for approval. Never implement multiple phases in a single turn.
+**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it doesn't exist. **This step is CRITICAL — without it, TDD hooks and fidelity hooks cannot activate. Do not write any code until the plan is in `plans/`.**
 
-6. **After all phases**: Run `design-system-auditor` to audit compliance. Run `dev-github-workflow` to commit. Run `meta-document` to record progress.
+**6. Create feature branch**: If on main/master, run `git checkout -b feat/[plan-slug]`.
 
-After EVERY Write or Edit to source code, run `/simplify`. The plugin considers code unfinished until `/simplify` has reviewed it.
+**7. TDD**: Before writing production code, use `test-writer` to create failing tests. Run tests to verify Red phase (fails because feature is missing). This is not optional.
 
-In **Guided mode**: the main model implements step by step. Do NOT delegate to backend-implementer or frontend-implementer agents – they can't pause for feedback. Pause after each phase for user review.
+**8. Implement phase by phase**: Follow the plan's phases in order. For each phase:
+   a. Implement only this phase's changes
+   b. Run `/simplify` on changed code (mandatory after every Write/Edit)
+   c. Completeness review: check the plan's checklist for this phase
+   d. Present to user with QA instructions from the plan
+   e. Wait for approval before next phase
+   f. After approval, commit using `dev-github-workflow`
+
+**9. After all phases**: Run `design-system-auditor` to audit compliance. Run `meta-document` to record progress.
+
+### Visual verification (UI changes only)
+
+After implementing changes to UI components or pages:
+1. Start the dev server if not running (`npm run dev` or equivalent)
+2. Use Playwright to navigate to the affected page on localhost
+3. Take a screenshot
+4. Analyze: does the result match expectations? Check layout, spacing, color, animation direction, element visibility
+5. If issues found: fix them before presenting to the user
+6. If clean: proceed to present the phase for review
+
+Skip this step for data-only, type-only, or configuration changes.
+
+### Mode differences
+
+In **Guided mode**: the main model implements step by step. Agents can run for analysis but present their output step by step. Pause after each phase for user review.
 In **Autopilot**: delegate to agents for speed. Run the full cycle, present results at the end.
 
 ## Post-execution
 
+ALWAYS use AskUserQuestion with specific options. Never end with a plain text question.
+
+For existing projects:
 ```
 question: "What would you like to do next?"
 header: "Next step"
@@ -92,6 +109,10 @@ options:
     description: "Pick up the next feature from the build sequence"
   - label: "Review implementation"
     description: "Review the implementation for quality, accessibility, or design compliance"
-  - label: "Save progress and stop"
-    description: "Document progress so you can pick up next time"
+  - label: "Document what we changed"
+    description: "Record what was built and why"
+  - label: "Done for now"
+    description: "End the session"
 ```
+
+For new products (project_type: new), auto-invoke meta-document after implementation cycles before presenting options.

@@ -4,6 +4,26 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.2.0] – 2026-04-01
+
+### Added
+
+- **`/de:help` command**: Shows all available commands, current project status, and mode. Works in any project without setup.
+- **Plan template reference file**: `skills/meta-setup/references/plan-template.md` — standalone template for implementation plans. Dev command instructs model to Read it before EnterPlanMode.
+
+### Changed
+
+- **Agent presentation rule**: Reverted agent ban in Guided mode. Agents now run normally in both modes. In Guided mode, the main model parses agent output and presents findings step by step with AskUserQuestion — never dumps raw output.
+- **Fidelity hook – /simplify reminder**: Every source code write during plan execution now includes a reminder to run /simplify.
+- **Fidelity hook – git branch check**: Warns if current branch doesn't match the active plan name. Catches: on main/master, or on a mismatched feature branch.
+- **Plan copy rule (CRITICAL)**: Added prominent call-out in CLAUDE.md — plan MUST be copied to `plans/` before implementation, otherwise TDD/fidelity/git hooks can't activate.
+- **Review command overhaul**: 2 sequential multiSelect questions (7 areas across 2 groups), direct Read paths to skill reference files, minimum 3 structured recommendations per finding (what/why/tradeoff), always AskUserQuestion at transitions.
+- **Dev command overhaul**: Plan Mode mandatory (Read template → EnterPlanMode → ExitPlanMode → copy to plans/), TDD before code, phase-by-phase with /simplify, Playwright visual verification for UI changes.
+- **Feature-scoped deliverables**: Existing projects create feature subfolders (`documents/design/features/[name]/`) to prevent naming collisions.
+- **Orchestrator agent rule**: Agents run in Guided mode but output presented step by step.
+- **No personalization for existing projects**: Hook Case 2 now explicitly prohibits memory-based greetings.
+- **Compound documenter**: Option for existing projects (user decides), auto for new products at phase completions.
+
 ## [2.1.0] – 2026-03-31
 
 ### Changed

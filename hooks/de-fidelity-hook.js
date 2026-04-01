@@ -328,6 +328,31 @@ function main() {
         }
       }
 
+      // /simplify reminder – after every source code write
+      reminder += ' SIMPLIFY: Run /simplify on the code you just wrote before proceeding. Code is not considered complete until /simplify has reviewed it.';
+
+      // Git branch check – warn if on wrong branch for the active plan
+      try {
+        const { execFileSync } = require('child_process');
+        const branch = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
+          encoding: 'utf8', timeout: 2000, cwd: process.cwd()
+        }).trim();
+        const planName = path.basename(planPath, '.md');
+        // Extract slug: remove date prefix (YYYY-MM-DD-) if present
+        const planSlug = planName.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+        if (branch === 'main' || branch === 'master') {
+          reminder = 'GIT: You are on the ' + branch + ' branch but have an active plan. ' +
+            'Create a feature branch: git checkout -b feat/' + planSlug + ' before making changes. ' + reminder;
+          appendLog('GIT_MAIN', 'On ' + branch + ' with active plan: ' + planName);
+        } else if (planSlug && !branch.includes(planSlug)) {
+          reminder = 'GIT: Your branch \'' + branch + '\' does not match the active plan \'' + planName + '\'. ' +
+            'Switch to the correct branch or create a new one: git checkout -b feat/' + planSlug + '. ' + reminder;
+          appendLog('GIT_MISMATCH', 'Branch ' + branch + ' vs plan ' + planName);
+        }
+      } catch (_) {
+        // fail-open: git not available or not a repo
+      }
+
       appendLog('REMIND', filePath);
 
       process.stdout.write(JSON.stringify({

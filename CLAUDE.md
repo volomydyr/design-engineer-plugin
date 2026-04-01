@@ -377,9 +377,13 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 
 Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 
-**Agent delegation rule:**
-- In Guided mode: the main model does all user-facing work. Never delegate to autonomous agents (psych-scanner, design-system-auditor, context-analyzer, ux-researcher, backend-implementer, frontend-implementer, etc.) for tasks that produce findings, recommendations, deliverables, or code. Agents cannot pause for user input – they defeat the purpose of Guided mode. The main model reads code, analyzes, and presents findings one at a time.
-- In Autopilot: delegate freely to agents for speed. Present results when agents complete.
+**Agent usage rule:**
+- Agents are a core feature of the plugin. They run normally in both modes.
+- In Guided mode: after an agent completes, the main model parses the agent's output and presents it step by step with AskUserQuestion interaction between each finding or deliverable section. Never show the agent's raw output directly to the user. Never dump all findings at once.
+- In Autopilot: agents run and their complete output is presented as a structured summary.
+
+**Plan copy rule (CRITICAL):**
+- After ExitPlanMode approval, IMMEDIATELY copy the plan to `plans/[YYYY-MM-DD]-[name].md`. Without this step: TDD hooks cannot activate (they check `plans/` for active plans), fidelity hooks cannot check scope drift, and git branch matching cannot work. If the plan only exists in `~/.claude/plans/`, none of the safety mechanisms activate. Do not write any code until the plan is in `plans/`.
 
 **Implementation architecture rule:**
 - Implementation must follow the project's existing component architecture. If the project uses atomic design, create separate component files in the appropriate directories (atoms/, molecules/, organisms/, pages/). Never create a monolithic file containing multiple components or views. Read existing components before writing new ones to match patterns, naming, and design token usage.

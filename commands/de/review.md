@@ -1,6 +1,6 @@
 ---
 name: de:review
-description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or all at once in Autopilot.
+description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or as a summary in Autopilot.
 argument-hint: "[specific area to review]"
 ---
 
@@ -20,26 +20,55 @@ Before asking anything or starting work:
 
 ## Step 2: Plan the review
 
-Based on what you found, present a review plan. Only include areas that make sense for THIS project:
+Based on what you found, present ALL available review areas as text:
 
 ```
-Based on your project ({tech stack summary}), here's what I can review:
+Here's what I can review for your project:
+
+**Core areas:**
+- UX and usability – interaction flows, navigation, state handling, error states
+- Visual quality – spacing, typography, color, alignment, polish
+- Accessibility – WCAG compliance, keyboard navigation, screen readers
+- Design system compliance – token usage, component reuse, naming patterns
+
+**Additional areas:**
+- Figma comparison – compare implementation against Figma designs side by side
+- Psychology scan – cognitive load, decision fatigue, trust signals, behavioral patterns
+- Ethics review – dark patterns, informed consent, data transparency
 ```
 
-Then present a multiSelect AskUserQuestion listing the available areas. The user checks which ones they want:
+Then ask TWO sequential multiSelect AskUserQuestion calls:
 
+**Question 1:**
 ```
-question: "Which areas would you like me to review?"
-header: "Review areas"
+question: "Which core areas would you like me to review?"
+header: "Core review"
 multiSelect: true
-options: [only include what's relevant]
-  - "UX and usability" – interaction flows, navigation, state handling, error states
-  - "Visual quality" – spacing, typography, color, alignment, polish
-  - "Accessibility" – WCAG compliance, keyboard navigation, screen readers
-  - "Design system compliance" – only if project has a design system
-  - "Figma comparison" – only if Figma is connected
-  - "Psychology scan" – cognitive load, decision fatigue, trust signals
-  - "Ethics review" – dark patterns, informed consent
+options:
+  - label: "UX and usability (Recommended)"
+    description: "Interaction flows, navigation, state handling, error states"
+  - label: "Visual quality (Recommended)"
+    description: "Spacing, typography, color, alignment, polish"
+  - label: "Accessibility (Recommended)"
+    description: "WCAG compliance, keyboard navigation, screen readers"
+  - label: "Design system compliance"
+    description: "Token usage, component reuse, naming patterns"
+```
+
+Mark recommended ones with "(Recommended)" based on project scan.
+
+**Question 2:**
+```
+question: "Would you like any additional review areas?"
+header: "Additional"
+multiSelect: true
+options:
+  - label: "Figma comparison"
+    description: "Compare implementation against your Figma designs"
+  - label: "Psychology scan"
+    description: "Cognitive load, decision fatigue, trust signals"
+  - label: "Ethics review"
+    description: "Dark patterns, informed consent, data transparency"
 ```
 
 After user selects areas, ask a scoping question:
@@ -58,61 +87,80 @@ options:
 
 If "Specific page or flow": ask which one.
 
-## Step 3: Execute the review
+## Step 3: Read reference material
 
-For each selected area, load the relevant skill to use its reference knowledge:
+Before starting the review for each area, Read the relevant reference files from the plugin's knowledge base. This is what makes the plugin's review better than a generic AI review.
 
-| Review area | Skill to load | Purpose |
-|-------------|--------------|---------|
-| UX and usability | `ui-design-to-code-qa` | Reference for UX patterns |
-| Visual quality | `ui-design-to-code-qa` | Reference for visual quality |
-| Accessibility | `ui-accessibility` | WCAG reference material |
-| Design system compliance | `ui-design-system` | Design system rules |
-| Figma comparison | `ui-design-to-code-qa` with Figma | Side-by-side comparison |
-| Psychology scan | `psych-full-scan` | 100+ psychology principles |
-| Ethics review | `ux-ethics-review` | Ethics framework |
+| Review area | Reference files to Read |
+|-------------|----------------------|
+| UX and usability | `skills/ui-design-to-code-qa/references/` – UX patterns checklist |
+| Visual quality | `skills/ui-design-to-code-qa/references/` – visual quality criteria |
+| Accessibility | `skills/ui-accessibility/references/` – WCAG guidelines |
+| Design system compliance | `skills/ui-design-system/references/` – design system rules |
+| Figma comparison | Use Figma plugin `get_design_context` for structured design data |
+| Psychology scan | `skills/psych-full-scan/references/principles-master.md` – 100+ principles |
+| Ethics review | `skills/ux-ethics-review/references/` – ethics framework |
+
+Read the reference files for each selected area BEFORE analyzing code. Use this material to inform your findings.
+
+## Step 4: Execute the review
 
 ### Guided mode
 
-Do NOT delegate to autonomous agents. The main model does the review step by step using the loaded skill's reference material.
+Agents CAN run for analysis. But after an agent completes, parse its output and present findings one at a time with AskUserQuestion interaction. Never show the agent's raw output directly.
 
-1. Read the relevant code yourself (Read, Grep, Glob tools)
-2. Analyze against the loaded skill's principles
-3. Announce: "I found N findings. Here's finding 1 of N..."
-4. For each finding, present:
+1. Read the relevant code yourself or run the appropriate agent
+2. Announce: "I found N findings. Here's finding 1 of N..."
+3. For each finding, present:
    - Principle name and severity
    - File:line reference
    - What's wrong and why it matters
-   - 3–4 specific recommendations, each with a brief explanation and tradeoff. Mark the best one "(Recommended)".
-5. Ask via AskUserQuestion: "What would you like to do with this finding?"
-   - "Fix it now" – implement the fix before moving on
-   - "Note and continue" – save for later, show next finding
-   - "Skip" – not relevant, show next
-   - "Explain this principle" – teach me why this matters
-6. After all findings: summary table grouped by severity
+   - At least 3 recommendations. Each recommendation must include:
+     - **What to do** (1 sentence)
+     - **Why it helps** (1 sentence)
+     - **Tradeoff** (1 sentence)
+   - Mark the best recommendation "(Recommended)"
+4. Ask via AskUserQuestion after each finding:
+   ```
+   question: "What would you like to do with this finding?"
+   header: "Action"
+   options:
+     - label: "Fix it now"
+       description: "Implement the fix before moving on"
+     - label: "Note and continue"
+       description: "Save for later, show next finding"
+     - label: "Skip"
+       description: "Not relevant, show next"
+     - label: "Explain this principle"
+       description: "Teach me why this matters"
+   ```
+5. After all findings: summary table grouped by severity
+6. Ask what to do next (see post-review below)
 
 ### Autopilot
 
-1. Delegate to agents for speed (psych-scanner, design-system-auditor, etc.)
-2. Run all selected review areas in parallel where possible
-3. Present complete results as a structured summary grouped by severity
-4. Ask what to fix or explore further
+1. Run agents for speed (psych-scanner, design-system-auditor, etc.)
+2. Present complete results as a structured summary grouped by severity
+3. Ask what to fix or explore further
 
-## Step 4: Fix execution (after review)
+## Step 5: Fix execution (after review)
 
 Collect everything the user marked "fix" or "note and continue" during the review.
 
 If there are fixes to make:
 1. Present the list of noted fixes
-2. Use `EnterPlanMode` to create ONE structured plan covering all fixes
-3. `ExitPlanMode` for user approval
-4. Execute per the plan workflow (CLAUDE.md): phase by phase, QA per phase
-5. After all fixes: trigger `meta-document` / compound documenter to record what changed and why
+2. Read the plan template at the plugin's `skills/meta-setup/references/plan-template.md`
+3. Use `EnterPlanMode` to create ONE structured plan covering all fixes
+4. `ExitPlanMode` for user approval
+5. IMMEDIATELY copy approved plan to `plans/[YYYY-MM-DD]-[name].md`
+6. Execute per the plan workflow (CLAUDE.md): phase by phase, QA per phase
+7. After all fixes: trigger `meta-document` to record what changed and why
 
 ## Post-review
 
-After the review (or after fixes), ask:
+After the review (or after fixes), ALWAYS use AskUserQuestion with specific options. Never end with a plain text question.
 
+If fixes haven't been done yet:
 ```
 question: "What would you like to do next?"
 header: "Next step"
@@ -120,13 +168,22 @@ options:
   - label: "Fix the noted issues"
     description: "Create a plan and implement the fixes we discussed"
   - label: "Document what we reviewed"
-    description: "Save the review findings and any changes made"
+    description: "Save the review findings for reference"
   - label: "Review another area"
     description: "Pick a different review area or scope"
 ```
 
-If fixes were already implemented, replace "Fix the noted issues" with:
+If fixes were already implemented:
 ```
+question: "What would you like to do next?"
+header: "Next step"
+options:
   - label: "Document what we changed"
     description: "Record the fixes and their rationale"
+  - label: "Review another area"
+    description: "Pick a different review area or scope"
+  - label: "Done for now"
+    description: "End the session"
 ```
+
+IMPORTANT: Every transition point in the review flow MUST use AskUserQuestion. Never end with "Is there anything else?" or any plain text question.

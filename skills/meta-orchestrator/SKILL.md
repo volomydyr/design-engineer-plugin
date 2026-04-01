@@ -50,7 +50,7 @@ After each phase, automatically invoke `meta-document` to save progress, documen
 
 ### 2. Guided Mode (Interactive)
 
-Step-by-step execution with user input at every stage. **The main model does ALL work – never delegate to autonomous agents (ux-researcher, psych-scanner, etc.).** Agents cannot pause for user input, defeating the purpose of Guided mode.
+Step-by-step execution with user input at every stage. Agents CAN and SHOULD run for their specialized tasks (research, scanning, analysis). But after an agent completes, parse the agent's output into individual findings or sections and present them one at a time with AskUserQuestion interaction. Never show the agent's raw output directly. Never dump all findings at once.
 
 For each skill in the sequence:
 

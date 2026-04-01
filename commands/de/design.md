@@ -27,14 +27,16 @@ This project already exists. Do NOT run the full 4-phase from-scratch pipeline. 
 
 1. **Understand the feature**: Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
 
-2. **Plan the feature**: Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages.
+2. **Create feature folder**: Create `documents/design/features/[feature-slug]/` for all deliverables related to this feature. Example: `documents/design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
 
-3. **Optional depth** (ask the user): Offer these as optional add-ons, not defaults:
+3. **Plan the feature**: Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages. Save all deliverables in the feature folder.
+
+4. **Optional depth** (ask the user): Offer these as optional add-ons, not defaults:
    - Brief problem statement (if the feature is complex and needs structured thinking)
    - Psychology audit on the planned feature
    - Figma comparison (if designs exist)
 
-4. **Proceed to implementation**: Load `/de:dev` with the feature plan.
+5. **Proceed to implementation**: Load `/de:dev` with the feature plan.
 
 In Guided mode: ask the user at each step, iterate. Do NOT delegate to agents – the main model does the work interactively.
 In Autopilot: execute the abbreviated flow, present results.
