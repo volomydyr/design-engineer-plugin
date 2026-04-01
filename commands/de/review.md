@@ -37,39 +37,35 @@ Here's what I can review for your project:
 - Ethics review – dark patterns, informed consent, data transparency
 ```
 
-Then ask TWO sequential multiSelect AskUserQuestion calls:
+Then make ONE AskUserQuestion call with BOTH questions in the `questions` array (they appear on the same screen):
 
-**Question 1:**
 ```
-question: "Which core areas would you like me to review?"
-header: "Core review"
-multiSelect: true
-options:
-  - label: "UX and usability (Recommended)"
-    description: "Interaction flows, navigation, state handling, error states"
-  - label: "Visual quality (Recommended)"
-    description: "Spacing, typography, color, alignment, polish"
-  - label: "Accessibility (Recommended)"
-    description: "WCAG compliance, keyboard navigation, screen readers"
-  - label: "Design system compliance"
-    description: "Token usage, component reuse, naming patterns"
+questions:
+  - question: "Which core areas would you like me to review?"
+    header: "Core review"
+    multiSelect: true
+    options:
+      - label: "UX and usability (Recommended)"
+        description: "Interaction flows, navigation, state handling, error states"
+      - label: "Visual quality (Recommended)"
+        description: "Spacing, typography, color, alignment, polish"
+      - label: "Accessibility (Recommended)"
+        description: "WCAG compliance, keyboard navigation, screen readers"
+      - label: "Design system compliance"
+        description: "Token usage, component reuse, naming patterns"
+  - question: "Would you like any additional review areas?"
+    header: "Additional"
+    multiSelect: true
+    options:
+      - label: "Figma comparison"
+        description: "Compare implementation against your Figma designs"
+      - label: "Psychology scan"
+        description: "Cognitive load, decision fatigue, trust signals"
+      - label: "Ethics review"
+        description: "Dark patterns, informed consent, data transparency"
 ```
 
-Mark recommended ones with "(Recommended)" based on project scan.
-
-**Question 2:**
-```
-question: "Would you like any additional review areas?"
-header: "Additional"
-multiSelect: true
-options:
-  - label: "Figma comparison"
-    description: "Compare implementation against your Figma designs"
-  - label: "Psychology scan"
-    description: "Cognitive load, decision fatigue, trust signals"
-  - label: "Ethics review"
-    description: "Dark patterns, informed consent, data transparency"
-```
+Mark recommended ones with "(Recommended)" based on project scan. Both questions MUST be in a SINGLE AskUserQuestion call.
 
 After user selects areas, ask a scoping question:
 
@@ -89,19 +85,21 @@ If "Specific page or flow": ask which one.
 
 ## Step 3: Read reference material
 
-Before starting the review for each area, Read the relevant reference files from the plugin's knowledge base. This is what makes the plugin's review better than a generic AI review.
+Before starting the review, Read the relevant reference files from the plugin's knowledge base. Look for `DESIGN_ENGINEER_PLUGIN_ROOT` in your context — it contains the absolute path to the plugin directory. Use it to resolve file paths.
+
+For each selected area, Read these reference files BEFORE analyzing code:
 
 | Review area | Reference files to Read |
 |-------------|----------------------|
-| UX and usability | `skills/ui-design-to-code-qa/references/` – UX patterns checklist |
-| Visual quality | `skills/ui-design-to-code-qa/references/` – visual quality criteria |
-| Accessibility | `skills/ui-accessibility/references/` – WCAG guidelines |
-| Design system compliance | `skills/ui-design-system/references/` – design system rules |
+| UX and usability | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-to-code-qa/references/` |
+| Visual quality | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-to-code-qa/references/` |
+| Accessibility | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-accessibility/references/` |
+| Design system compliance | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/references/` |
 | Figma comparison | Use Figma plugin `get_design_context` for structured design data |
-| Psychology scan | `skills/psych-full-scan/references/principles-master.md` – 100+ principles |
-| Ethics review | `skills/ux-ethics-review/references/` – ethics framework |
+| Psychology scan | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-full-scan/references/principles-master.md` |
+| Ethics review | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-ethics-review/references/` |
 
-Read the reference files for each selected area BEFORE analyzing code. Use this material to inform your findings.
+This reference material is what makes the plugin's review better than a generic AI review. Do not skip reading it.
 
 ## Step 4: Execute the review
 

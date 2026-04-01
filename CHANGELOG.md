@@ -4,6 +4,19 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.3.0] – 2026-04-01
+
+### Added
+
+- **Plan auto-copy hook**: NEW PostToolUse hook (`de-plan-copy-hook.js`) automatically copies plan files from `~/.claude/plans/` to the project's `plans/` directory. This activates TDD hooks, fidelity checks, /simplify reminders, and git branch matching — all of which gate on `plans/` having active plan files. The model cannot skip this — it's automatic.
+- **Plugin root path injection**: The UserPromptSubmit hook now injects `DESIGN_ENGINEER_PLUGIN_ROOT` in ALL cases (not just onboarding). Every command can resolve skill reference file paths using this absolute path.
+- **Plan template execution rules**: Added "Execution rules" section to `plan-template.md` covering TDD, /simplify, Playwright verification, approval gates, design-system-auditor, meta-document, and git workflow. These rules travel WITH the plan.
+
+### Changed
+
+- **Combined AskUserQuestion calls**: Review command now asks core + additional review areas in ONE AskUserQuestion call (2 questions on same screen, not 2 separate calls). Onboarding batches goal + mode into one call.
+- **Reference file paths use PLUGIN_ROOT**: Review command's reference table uses `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/...` instead of relative paths that resolve in the wrong directory.
+
 ## [2.2.0] – 2026-04-01
 
 ### Added
