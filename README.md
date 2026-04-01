@@ -36,7 +36,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-6 commands, 49 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+7 commands, 49 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|
@@ -46,6 +46,7 @@ This is the only command you need to remember. It figures out your situation –
 | `/de:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
 | `/de:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
 | `/de:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
+| `/de:help` | Shows all available commands, current project status, and mode |
 
 <br>
 
@@ -100,7 +101,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 ### Structure
 
 <details>
-<summary>5. What are the 6 commands and when do I use each one?</summary>
+<summary>5. What are the 7 commands and when do I use each one?</summary>
 <br>
 
 - **`/de:start`** – always start here. It detects your situation and routes you.
@@ -109,6 +110,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 - **`/de:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
 - **`/de:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
 - **`/de:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
+- **`/de:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
 You only need to remember `/de:start`. It guides you to everything else.
 </details>
@@ -117,7 +119,7 @@ You only need to remember `/de:start`. It guides you to everything else.
 <summary>7. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 6 entry points you type (like `/de:design`).
+**Commands** are the 7 entry points you type (like `/de:design`).
 
 **Skills** are the 49 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 

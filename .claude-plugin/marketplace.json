@@ -8,7 +8,7 @@
       "name": "design-engineer",
       "source": "./",
       "description": "A plugin that walks you through building a product, start to finish. Think of it as a swiss knife for product design.",
-      "version": "2.0.0"
+      "version": "2.3.0"
     }
   ]
 }
