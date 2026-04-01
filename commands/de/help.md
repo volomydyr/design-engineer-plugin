@@ -6,42 +6,48 @@ argument-hint: ""
 
 # Design Engineer Plugin – Help
 
-Show the user everything this plugin can do.
+Present this information to the user. Do not modify the text — show it as written.
 
-## Available commands
+---
 
-Present this table:
+A plugin for Claude Code that walks you through building a product, start to finish. Think of it as a swiss knife for product design. It packs a full methodology into one tool – research, psychology, prototyping, development – but stays easy to pick up. You run one command, it figures out where you are, and opens the right instrument.
+
+### Commands
 
 | Command | What it does |
 |---------|-------------|
-| `/de:start` | Set up the plugin for this project – choose your goal and mode |
-| `/de:design` | Design workflow – plan new features or build products from scratch |
-| `/de:review` | Review your project – UX, visual quality, accessibility, psychology, ethics |
-| `/de:dev` | Development pipeline – implementation with TDD, agents, and quality checks |
-| `/de:prototype` | Generate clickable HTML prototypes from ideas or designs |
-| `/de:document` | Document decisions, progress, and project state |
+| `/de:start` | Detects your situation – setup, resume, or capability guide |
+| `/de:design` | Runs the design workflow – discovery, strategy, planning, validation |
+| `/de:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
+| `/de:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
+| `/de:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
+| `/de:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
 | `/de:help` | This help screen |
 
-## Current project status
+You only need to remember `/de:start`. It guides you to everything else.
+
+### Modes
+
+Most commands work in two ways:
+
+- **Guided mode** – step-by-step with approval at every stage. The AI explains its thinking, shows findings one at a time, and waits for your input at each step.
+- **Autopilot** – autonomous with minimal input. The AI plans and executes, then shows you the results. Faster but you review after, not during.
+
+### What makes it different
+
+- **49 skills** that teach how to think about problems, users, and psychology before writing code
+- **9 specialized agents** for research, implementation, testing, and design system compliance
+- **100+ psychology principles** the AI draws from when reviewing your work
+- **Safety hooks** that prevent scope creep, enforce test-first development, and check every code write against your approved plan
+
+### Your project
 
 If `.design-engineer-plugin/config.yaml` exists, read it and show:
 
 ```
-Your project:
-- Type: {existing project / new product}
-- Mode: {Guided mode / Autopilot}
-- Goal: {review / implement / design / dev}
+Project type: {existing project / new product}
+Mode: {Guided mode / Autopilot}
+Goal: {if set}
 ```
 
-If no config exists:
-
-```
-This project hasn't been set up yet. Run /de:start to get started.
-```
-
-## Quick tips
-
-- In **Guided mode**, the AI explains each step and waits for your input
-- In **Autopilot**, the AI plans and executes, then shows you results
-- You can run any command directly without going through `/de:start` first
-- Use `/de:review` anytime to check your work for quality issues
+If no config exists, show: "This project hasn't been set up yet. Run `/de:start` to get started."
