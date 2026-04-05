@@ -21,6 +21,43 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check the current git state and branch, 2) determine what to include in the commit, 3) generate a commit message following Conventional Commits format, 4) commit and push after your approval." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with Git basics – commits, branches, and pull requests. If yes, give a one-sentence refresher on the Conventional Commits format used here. If no, explain it in simple terms: Git tracks every change you make so you can go back if something breaks – commits are save points, branches are parallel versions, and PRs are how you merge work back together. Refer to [github-for-designers.md](./references/github-for-designers.md) for a deeper walkthrough.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding. (In automatic mode during plan execution, skip Step 0 – the plan workflow already established context.)
+
+---
+
+## Repo Visibility
+
+Before creating a GitHub repository, ask:
+
+```
+question: "Would you like this repo to be public or private?"
+header: "Repo visibility"
+options:
+  - label: "Private (recommended)"
+    description: "Only you can see the code – safe for proprietary or in-progress work"
+  - label: "Public"
+    description: "Anyone can see the code – good for open-source projects"
+allowMultiSelect: false
+```
+
+```
+multiSelect: false  # User must choose one option
+```
+
+Default to private. **BLOCKING REQUIREMENT**: Wait for the user's answer before creating the repo.
+
+---
+
 ## Commit Message Format
 
 All commits follow Conventional Commits with plugin attribution:
@@ -99,6 +136,12 @@ options:
     description: "Show me what changed, then I will decide"
 ```
 
+```
+multiSelect: false  # User must choose one commit scope
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
+
 3. **Check branch state**: If on `main` or `master`, ask:
 
 ```
@@ -110,6 +153,12 @@ options:
   - label: "Create a feature branch first"
     description: "Create a branch, commit there, then you can PR later"
 ```
+
+```
+multiSelect: false  # User must choose one branch strategy
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
 4. **Generate commit message**: Analyze the changes and draft a message following the format. Present it to the user for approval before committing:
 
@@ -154,9 +203,24 @@ options:
     description: "Leave the PR open for review"
 ```
 
+```
+multiSelect: false  # User must choose one merge strategy
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
+
 3. If merge requested: `gh pr merge --squash` or `gh pr merge --merge`
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – an unclear commit scope, an ambiguous change – ask via AskUserQuestion. Never fill gaps silently. Never invent commit descriptions, branch names, or change summaries that don't match actual git state. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

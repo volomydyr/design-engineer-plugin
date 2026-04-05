@@ -82,26 +82,40 @@ After approval, the plan is automatically copied to `plans/` by a hook. Verify t
 If on main or master, create a feature branch before writing code: `git checkout -b feat/[plan-slug]`.
 
 ### TDD (mandatory)
-Before writing production code for each phase, create failing tests first using the test-writer agent. You cannot write source code until test scripts exist in `tests/`. A hook enforces this – if you try to write code without tests, it will be blocked.
+Before writing production code for each phase, invoke the **test-writer** agent to create failing tests. Use the Agent tool to spawn it. You cannot write source code until test scripts exist in `tests/`. A hook enforces this – if you try to write code without tests, it will be blocked.
+
+### Cross-agent review (at handoff points)
+
+Before implementation starts:
+- Invoke the **test-writer** agent in review mode: "Review this plan. Flag any requirements that are untestable as written." Address any concerns before proceeding.
+
+After backend implementation and before frontend implementation:
+- Invoke the **frontend-implementer** agent in review mode: "Review the backend API shape. Flag anything that will make the frontend harder than it needs to be." Address any concerns before proceeding.
+
+After both backend and frontend implementation:
+- The **design-system-auditor** agent reviews both – ensure it runs and its findings are addressed before proceeding.
 
 ### One phase at a time
 Implement phases in dependency order. Never implement multiple phases in a single turn.
 
 ### Per-phase checklist
 For each phase, follow this sequence:
-1. Write failing tests for this phase's changes (Red)
-2. Implement the phase's code
-3. Run `/simplify` on all changed code – this is mandatory, code is not complete without it
-4. Run tests to verify they pass (Green)
-5. Completeness review: read the phase's Checklist above, verify every item was implemented as specified – not differently, not partially. Check that no creative additions were made beyond the checklist.
-6. If UI was changed: use Playwright to navigate to the affected page, take a screenshot, and verify visual correctness before presenting to the user
-7. Present to user: what was done (brief), QA instructions from the plan
-8. WAIT for user approval – do not proceed to the next phase until the user explicitly approves
-9. After approval: commit using dev-github-workflow (Conventional Commits format)
+1. Invoke the **test-writer** agent to write failing tests for this phase's changes (Red). Do not write the tests yourself – delegate to the agent.
+2. Run test scripts to verify they fail correctly (fails because feature is missing, not because of typos)
+3. Invoke the **backend-implementer** agent for server-side code (if applicable). Do not write backend code yourself – delegate to the agent.
+4. MANDATORY: Run `/simplify` on backend changes. State what /simplify found and what was fixed. Do not proceed until /simplify has reviewed the code.
+5. Invoke the **frontend-implementer** agent for client-side code (if applicable). Do not write frontend code yourself – delegate to the agent.
+6. MANDATORY: Run `/simplify` on frontend changes. State what /simplify found and what was fixed. Do not proceed until /simplify has reviewed the code.
+7. Run tests to verify they pass (Green)
+8. Completeness review: read the phase's Checklist above, verify every item was implemented as specified – not differently, not partially. Check that no creative additions were made beyond the checklist.
+9. If UI was changed: use Playwright to navigate to the affected page, take a screenshot, and verify visual correctness before presenting to the user
+10. Present to user: what was done (brief), QA instructions from the plan. If the phase has no manual QA possible, state "No manual QA needed for this phase."
+11. **BLOCKING**: WAIT for user approval – do not proceed to the next phase until the user explicitly approves
+12. After approval: commit using dev-github-workflow (Conventional Commits format)
 
 ### After all phases
-1. Run design-system-auditor if any UI was changed
-2. Invoke meta-document to record what was built and why
+1. Invoke the **design-system-auditor** agent if any UI was changed. Do not skip this step.
+2. Invoke the **compound-documenter** agent via meta-document to record what was built and why
 3. Present post-implementation options via AskUserQuestion – never a plain text question
 
 ### Quality checks that happen automatically (hooks)

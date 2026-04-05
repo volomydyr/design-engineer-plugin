@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) set up a development status file for your project, 2) configure automatic update rules in CLAUDE.md, 3) implement the one-activity-per-chat pattern for context preservation, 4) share context survival strategies for long-running projects." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with context management in AI-assisted development – why AI forgets things and how a status file helps. If yes, give a one-sentence refresher. If no, explain it in simple terms: every AI conversation has a memory limit, and when you hit it, earlier context gets compressed or lost – a status file is a persistent document AI reads at the start of every task so it knows what's been built, what's in progress, and what to avoid.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Set Up the Status File
 
 Create a development status file using the template from [status-tracking-template.md](./references/status-tracking-template.md). This file is separate from CLAUDE.md (separation of concerns) and should contain:
@@ -90,6 +104,15 @@ Share the strategies from [context-survival-guide.md](./references/context-survi
 - Regular commits prevent catastrophic context loss
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing project detail, an unclear tracking need – ask via AskUserQuestion. Never fill gaps silently. Never invent project status, feature lists, or architecture decisions. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

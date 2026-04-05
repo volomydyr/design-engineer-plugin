@@ -25,6 +25,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) collect your references early so everything else is grounded in real examples, 3) explore the product domain, 4) understand the product context, 5) identify key screens, 6) run the WHY checkpoint, 7) organize references into a direction document, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) — before domain exploration. References ground all subsequent decisions in real examples.
+
+2. **Conditional teaching**: Ask the user if they are familiar with design intent and why it matters before collecting references. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Where Defaults Hide
 
 Before any design work, internalize this principle. Defaults do not announce themselves – they disguise themselves as infrastructure.
@@ -121,6 +135,12 @@ options:
       minimal elements, breathing room
 ```
 
+```
+multiSelect: false  # User must choose one design feel
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
+
 ---
 
 ## Step 2: Explore the Product Domain
@@ -135,6 +155,8 @@ Spend time in the product's world before any visual thinking. Produce all four o
 Present these to the user and ask: "Does this capture your product's world? What would you add or change?"
 
 **The test:** Remove the product name from your proposal. Could someone identify what this is for? If not, explore deeper.
+
+**BLOCKING REQUIREMENT**: Wait for the user's feedback on the domain exploration before proceeding to Step 3.
 
 ---
 
@@ -155,6 +177,12 @@ options:
   - label: "Cross-platform mobile"
     description: "React Native, Flutter, or similar cross-platform framework"
 ```
+
+```
+multiSelect: false  # User must choose one product type
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 4.
 
 Then ask about the product domain (e.g., healthcare, fintech, e-commerce, productivity, social) to narrow reference searches.
 
@@ -185,18 +213,29 @@ options:
 allowMultiSelect: true
 ```
 
+```
+multiSelect: true  # User can select multiple key screens
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 5.
+
 ---
 
 ## Step 5: Guide Reference Collection
 
+**This step should happen as early as possible** — ideally right after establishing design intent (Step 1). Reference collection grounds all subsequent decisions (domain exploration, color world, signature element) in real examples the user chose, not abstract brainstorming. If the user already has references to share, collect them before proceeding to domain exploration.
+
 Walk the user through collecting references using the approach in [reference-gathering-guide.md](./references/reference-gathering-guide.md).
 
-For each key screen identified in Step 4:
+For each key screen identified in Step 4 (or generally, if screens haven't been identified yet):
 
-1. Suggest specific search terms for Mobbin (e.g., "healthcare onboarding", "medical records detail")
-2. Recommend looking at 3–5 apps in the same domain
-3. Ask the user to note what they like about each reference – specific elements, not just "looks good"
-4. Help categorize references by: layout patterns, color approaches, typography styles, interaction models
+1. Ask the user to share references they already like — screenshots, URLs, app names
+2. For each reference shared, ask: "What specifically do you like about this? The colors? The spacing? The typography? The overall feel?" Extract design principles, not component blueprints.
+3. Suggest specific search terms for Mobbin (e.g., "healthcare onboarding", "medical records detail")
+4. Recommend looking at 3–5 apps in the same domain
+5. Help categorize references by: layout patterns, color approaches, typography styles, interaction models
+
+**Important**: Users may share references from completely different products — a banking app because they love the typography, a game because they love the color palette. Treat all references as aesthetic direction, not component blueprints. The deliverable should capture "from Reference X, take: [specific quality]" — not "replicate Reference X's layout."
 
 ---
 
@@ -232,7 +271,7 @@ Help the user compile their references into a structured document. For each key 
 
 ## Step 8: Produce the Deliverable
 
-Save the references document to `{deliverables_path}/design/references.md`.
+Save the references document to `{deliverables_path}/design/references/references.md`. Save any collected reference images to the same folder: `{deliverables_path}/design/references/`.
 
 The document should include:
 
@@ -246,6 +285,15 @@ The document should include:
 - Notes on what NOT to do (anti-patterns and named defaults to avoid)
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing direction, an unaddressed screen, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

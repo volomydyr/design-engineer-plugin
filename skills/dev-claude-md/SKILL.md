@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) gather your project context – what documents, tech stack, and code you have, 2) define the source hierarchy for AI decision-making, 3) generate a customized CLAUDE.md file, 4) explain how to maintain it over time." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with what CLAUDE.md is and how it shapes AI behavior in their project. If yes, give a one-sentence refresher. If no, explain it in simple terms: it's a markdown file at the root of your project that Claude Code reads automatically – think of it as persistent instructions that shape how AI behaves throughout your entire codebase.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Gather Project Context
 
 ```
@@ -39,6 +53,12 @@ options:
     description: "No documents or code yet – help me plan"
 allowMultiSelect: true
 ```
+
+```
+multiSelect: true  # User can have multiple context sources
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -109,6 +129,15 @@ The CLAUDE.md should be updated:
 Suggest the user ask AI to update the file after completing each significant feature or phase.
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing rule, an unaddressed workflow, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent project rules, tech stack details, or workflow steps. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

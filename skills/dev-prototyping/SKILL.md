@@ -1,16 +1,17 @@
 ---
 name: dev-prototyping
-description: "Generates a single-file HTML prototype directly in Claude Code. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents, existing codebases, or Figma designs."
+description: "Generates a single-file HTML prototype directly in Claude Code. Two-step approach: visual storyboard first, then interactive prototype. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs."
 disable-model-invocation: true
 model: opus
 effort: high
 license: MIT
-compatibility: "Requires Bash for prototype generation scripts"
 ---
 
 # Dev Prototyping
 
-Generate interactive single-file HTML prototypes directly in Claude Code. Works for new products (after planning docs exist), new features for existing products, or redesigns of current features. Pulls design context from planning documents, existing codebases, or Figma designs.
+Generate interactive single-file HTML prototypes directly in Claude Code. Two-step approach: first a visual storyboard for layout/flow review, then a clickable interactive prototype. Works for new products (after planning docs exist), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs.
+
+**Important**: No git, no /simplify, no TDD during prototyping. The prototype exists for visual feedback and as a reference for real implementation. Git init, branches, commits, tests, and code quality checks start at `/de:dev`. Prototype HTML can be messy – nobody cares about code quality in a throwaway artifact.
 
 ## Interaction Method
 
@@ -20,52 +21,54 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 1: Understand Context
+## Step 0: Before starting
 
-```
-question: "What are you prototyping?"
-header: "Prototype Type"
-options:
-  - label: "New product from scratch"
-    description: "Full pipeline – planning docs exist (MVP requirements, IA, references)"
-  - label: "New feature for existing product"
-    description: "Adding to a product that already has designs or code"
-  - label: "Redesign of existing feature"
-    description: "Rethinking something that currently exists"
-allowMultiSelect: false
-```
+1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) gather context from your planning docs, 3) list every screen from your IA document for your approval, 4) create a prototype brief, 5) generate a visual storyboard for review, 6) build the interactive prototype from the approved storyboard, 7) iterate with you, 8) save the deliverable."
 
-Store the selection – it determines which context-gathering paths are relevant in Step 2.
+2. **Conditional teaching**: Ask the user if they are familiar with single-file HTML prototyping. If yes, give a one-sentence refresher. If no, explain: a self-contained HTML file with all CSS and JS inline that lets you click through real screens and interactions – no build tools, no dependencies, just open in a browser.
+
+3. **Output presentation rule**: Present output incrementally – one screen at a time. After each screen, discuss with the user, get their input, then move to the next. Never dump an entire prototype at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
 
 ---
 
-## Step 2: Gather Available Context
+## Step 1: Scope
 
 ```
-question: "What context do you have available?"
-header: "Available Context Sources"
+question: "What would you like to prototype?"
+header: "Prototype scope"
 options:
-  - label: "Planning documents in design-docs/"
-    description: "MVP requirements, IA, design references, journey map"
-  - label: "Existing codebase with design tokens"
-    description: "CSS variables, Tailwind config, design system in code"
-  - label: "Figma designs I can share"
-    description: "Figma Desktop open with file – can share link"
-  - label: "Just an idea"
-    description: "No formal context – will describe what I want"
-allowMultiSelect: true
+  - label: "Product only"
+    description: "Prototype the product – all screens from onboarding to daily use"
+  - label: "Product + landing page"
+    description: "Prototype both the product and a marketing landing page"
+  - label: "Landing page only"
+    description: "Just the landing page – I will handle the product separately"
+allowMultiSelect: false
 ```
 
-For each selected source, follow the corresponding path below. Multiple paths can run together.
+```
+multiSelect: false  # User must choose one scope
+```
 
-### Path A: Planning Documents
+If "Product + landing page" or "Landing page only" is selected, note that the landing page will be handled by the `ui-landing-page` skill after the product prototype is complete (or immediately if landing page only).
 
-Read from `design-docs/` and extract:
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
+
+---
+
+## Step 2: Gather context
+
+Read from the deliverables directory and extract:
 
 - **Design feel, palette, depth, typography, spacing** from `references.md` (if it exists from `ui-references-moodboard`)
 - **Screens, flows, navigation structure** from the Information Architecture document
 - **Feature priorities and acceptance criteria** from MVP Requirements
 - **Psychology insights and bias considerations** from `bias-audit.md` and `journey-map.md` (if they exist)
+- **Bias audit recommendations** from `{deliverables_path}/design/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
 
 Present a summary of what was found:
 
@@ -78,149 +81,161 @@ Present a summary of what was found:
 
 If critical documents are missing (MVP Requirements or IA), warn the user and suggest running those skills first – but do not block progress.
 
-### Path B: Existing Codebase
+If the user selected "Figma designs" as context, explain prerequisites (Figma Desktop open, plugin connected) and ask for a link to specific frames. Fall back to screenshots or manual description if Figma plugin is unavailable.
 
-Ask the user to point to design token files:
-
-```
-question: "Where are your design tokens?"
-header: "Token File Locations"
-options:
-  - label: "CSS custom properties file"
-    description: "A .css file with :root { --color-primary: ... }"
-  - label: "Tailwind config"
-    description: "tailwind.config.js or tailwind.config.ts"
-  - label: "Theme/tokens file"
-    description: "A JS/TS/JSON file exporting design tokens"
-  - label: "Not sure – search for me"
-    description: "I will look for common patterns in the codebase"
-allowMultiSelect: true
-```
-
-For "Not sure – search for me": look for files matching `**/tailwind.config.*`, `**/theme.*`, `**/tokens.*`, `**/variables.css`, `**/_variables.scss`. Read them and extract colors, typography, spacing as the baseline for prototype styling.
-
-Present what was found and confirm with the user before using.
-
-### Path C: Figma Designs
-
-Explain prerequisites:
-
-1. **Figma Desktop app** must be open with the file loaded
-2. **Dev mode access** requires a paid Figma plan
-3. **Figma plugin** must be installed and connected
-
-Ask the user to share a link to specific frames they want to prototype. Use the Figma plugin tools to read design context – layout structure, colors, typography, spacing, component hierarchy.
-
-If the Figma plugin is not available or not working, fall back to asking the user to describe the designs manually or share screenshots.
-
-### Path D: Just an Idea
-
-Ask 5-7 targeted questions:
+If the user has no planning docs ("just an idea"), ask 5–7 targeted questions:
 
 1. What does the product/feature do in one sentence?
 2. Who is the primary user? (role, technical ability, context of use)
 3. How should the product feel? (fast and minimal, warm and friendly, professional and dense, playful, etc.)
-4. What are the 3-5 key screens or states?
+4. What are the 3–5 key screens or states?
 5. What is the navigation model? (tabs, sidebar, single-page scroll, wizard/stepper)
 6. Are there any products you want it to feel similar to?
 7. What is the single most important action a user should take?
 
-### Fallback: No Design System Detected
+### Fallback: No design system detected
 
 If no existing design tokens were found from any source, use [starter-values.md](../ui-design-system/references/starter-values.md) as the CSS token baseline. Inform the user:
 
 > "No existing design system detected. Using starter values as the CSS token baseline. These are sensible defaults that can be adjusted later."
 
+**BLOCKING REQUIREMENT**: Wait for the user's acknowledgment of the context summary before proceeding.
+
 ---
 
-## Step 3: Establish Prototype Brief
+## Step 3: Screen inventory from IA
+
+Read the Information Architecture document (if it exists). List ALL screens the prototype should cover – every screen from download to daily use, not just the core feature.
+
+Present the list to the user:
+
+> **Screens to prototype:**
+> 1. [First launch / onboarding]
+> 2. [Permission setup]
+> 3. [Core feature – screen 1]
+> 4. [Core feature – screen 2]
+> 5. [Success state]
+> 6. [Settings]
+> ...
+
+```
+question: "These are the screens I'll prototype. Approve or adjust?"
+header: "Screen list"
+options:
+  - label: "Looks good"
+    description: "Prototype all listed screens"
+  - label: "Needs adjustments"
+    description: "I want to add, remove, or reorder screens"
+allowMultiSelect: false
+```
+
+```
+multiSelect: false  # User must choose one option
+```
+
+If adjustments are needed, iterate until approved.
+
+**BLOCKING REQUIREMENT**: Wait for the user's approval of the screen list before proceeding.
+
+---
+
+## Step 4: Prototype brief
 
 Synthesize all gathered context into a prototype brief:
 
 - **Design intent**: How the product should look and feel (warm, clinical, playful, dense, etc.)
-- **Key screens**: List every screen the prototype will include
+- **Key screens**: The approved list from Step 3
 - **Priority features**: What interactions must work (vs. what can be placeholder)
 - **Navigation model**: How screens connect to each other
-- **Styling approach**: Token source (planning docs, existing codebase, Figma, or starter values), color palette, typography, spacing scale
+- **Styling approach**: Token source (planning docs, Figma, or starter values), color palette, typography, spacing scale
 
 Present the brief to the user:
 
-> **Prototype Brief**
+> **Prototype brief**
 >
-> **Design Intent:** [summary]
-> **Screens:** [numbered list]
-> **Priority Features:** [list with must-have vs. nice-to-have]
+> **Design intent:** [summary]
+> **Screens:** [numbered list from Step 3]
+> **Priority features:** [list with must-have vs. nice-to-have]
 > **Navigation:** [model]
 > **Styling:** [source and key values]
 
-Ask for explicit approval before generating:
-
 ```
 question: "Does this brief look correct?"
-header: "Brief Review"
+header: "Brief review"
 options:
-  - label: "Looks good – generate the prototype"
+  - label: "Looks good – start the storyboard"
     description: "Proceed with this brief as-is"
   - label: "Needs adjustments"
     description: "I will tell you what to change"
 allowMultiSelect: false
 ```
 
+```
+multiSelect: false  # User must choose one option
+```
+
 If adjustments are needed, iterate on the brief until approved.
 
----
-
-## TDD: Write Tests First
-
-Before generating the prototype file, use the `test-writer` agent to create Playwright CLI test scripts in `tests/` that verify the expected prototype behavior. Run the test scripts to confirm they fail (Red phase – the prototype does not exist yet).
+**BLOCKING REQUIREMENT**: Wait for the user's approval of the brief before proceeding.
 
 ---
 
-## Step 4: Generate the Prototype
+## Step 5: Visual storyboard (Step A)
 
-Write a single HTML file with all CSS in `<style>` and all JS in `<script>`. No external dependencies – everything self-contained.
+Generate static screens showing key states and flows. This is NOT the final prototype – it is a storyboard for reviewing layout, structure, and flow before building the interactive version.
 
-### Generation Guidelines
+**Tell the user explicitly**: "This is a visual storyboard for review – static screens to validate layout and flow. After you approve these, I'll build the interactive prototype."
 
-1. **Apply design intent from context** – not generic Bootstrap-like styling. Use the colors, typography, and spacing extracted in Step 2
-2. **Use CSS custom properties** for all design tokens (colors, spacing, typography, radii, shadows). Define them in `:root {}`
-3. **Cover all key user flows** from the brief – every screen, every navigation path
-4. **Include navigation** – functional links/tabs/sidebar that switch between screens
-5. **Include interactive elements** – buttons that do things, forms that respond, state transitions that are visible
-6. **Functional first** – the prototype should feel like a real product when clicking through, even if it looks basic
-7. **Handle main states** – default, active, hover, selected. Skip loading/error/empty states unless specifically requested
+### How to generate
 
-### File Location
+1. Generate one screen at a time as a self-contained HTML file
+2. Apply design tokens from the context gathered in Step 2 – not generic Bootstrap-like styling
+3. Use CSS custom properties for all design tokens (colors, spacing, typography, radii, shadows) in `:root {}`
+4. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the listed anti-patterns? If yes, fix before presenting.
+5. Present each screen to the user, one at a time
+6. Discuss, get feedback, iterate on that screen before moving to the next
 
-Save to: `design-docs/prototype/prototype.html`
+### Quality standard
+
+"Functional first, beautiful later" means pixel-perfect Figma-level polish comes later – NOT that the prototype gets a pass on looking like AI slop. The prototype should still look good using references, design tokens, and anti-pattern checks.
+
+### File location
+
+Save to: `{deliverables_path}/prototype/storyboard.html`
 
 Create the directory if it does not exist.
 
-### Iteration Methodology
-
-Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for the iteration approach. Key principles:
-
-- Do not build immediately – first share your development plan and get approval
-- Ask clarifying questions about interactions, flows, and edge cases before generating
-- The first generation is a starting point, not a final product
-
-### Code Quality Pass
-
-After generating the prototype file, run `/simplify` to review the generated HTML/CSS/JS for reuse, quality, and efficiency.
-
-### TDD: Verify Green
-
-After generating the prototype and running `/simplify`, run the test scripts from `tests/` to verify they now pass (Green phase).
+**BLOCKING REQUIREMENT**: Wait for the user's approval of all storyboard screens before proceeding to Step 6.
 
 ---
 
-## Step 5: Iterate with User
+## Step 6: Interactive prototype (Step B)
 
-This is the core of the prototyping process. Expect many rounds of refinement – dozens or more. Each round of feedback gets the prototype closer to the idea in the user's head.
+Take the approved storyboard and build the real clickable version. This step is mandatory – do not skip it.
+
+### How to generate
+
+1. Write a single HTML file with all CSS in `<style>` and all JS in `<script>`. No external dependencies.
+2. Use the approved storyboard screens as the visual foundation – layout and flow are already settled.
+3. Add interactivity: functional navigation between screens, buttons that do things, forms that respond, state transitions.
+4. Cover all key user flows from the brief – every screen, every navigation path.
+5. Handle main states: default, active, hover, selected. Skip loading/error/empty states unless specifically requested.
+
+### File location
+
+Save to: `{deliverables_path}/prototype/prototype.html`
+
+**BLOCKING REQUIREMENT**: Wait for the user to review the interactive prototype before proceeding.
+
+---
+
+## Step 7: Iterate with user
+
+This is the core of the prototyping process. Expect many rounds of refinement.
 
 Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for iteration methodology.
 
-### Guide Effective Feedback
+### Guide effective feedback
 
 If the user gives vague feedback ("make it look better", "I do not like it"), help them be specific:
 
@@ -228,7 +243,11 @@ If the user gives vague feedback ("make it look better", "I do not like it"), he
 
 Specific feedback > vague feedback. One concrete change per message is more effective than a laundry list.
 
-### Iteration Protocol
+### Copy rule
+
+After the first rejection of AI-generated copy, immediately ask the user to write it themselves. Do not iterate on generating more options. Never make assumptions about what the user intended. If the user provides text, use it exactly as given. Do not revert or reinterpret user-provided content.
+
+### Iteration protocol
 
 For each round:
 
@@ -237,7 +256,7 @@ For each round:
 3. Describe what changed
 4. Ask if another round is needed
 
-### When to Stop
+### When to stop
 
 Stop iterating when:
 
@@ -246,98 +265,53 @@ Stop iterating when:
 - It is good enough to test with real users
 - Further refinement would be about visual polish rather than functionality
 
-### Final Quality Pass
-
-After the last iteration round, run `/simplify` one final time to ensure the completed prototype is clean and efficient.
-
 ---
 
-## Step 6: Testing (Optional)
-
-```
-question: "Would you like to test this prototype with users?"
-header: "User Testing"
-options:
-  - label: "Yes – help me set up testing"
-    description: "I will host the prototype and run unmoderated user tests"
-  - label: "No – skip to saving deliverables"
-    description: "The prototype is good enough for now"
-allowMultiSelect: false
-```
-
-### If Yes: Set Up Testing
-
-**Hosting the prototype:**
-
-- **Local hosting**: Run `python3 -m http.server` from the `design-docs/prototype/` directory, then open `http://localhost:8000/prototype.html` in a browser
-- **Static hosting**: Deploy to Vercel, Netlify, or GitHub Pages for a shareable URL
-- **Simple share**: For quick sharing, any static file host works – the prototype is a single HTML file with no dependencies
-
-**Setting up tests:**
-
-1. Open the prototype URL in a browser
-2. Paste it into a user testing tool (Useberry, Maze, or similar)
-3. Create a test script with specific tasks for users to complete
-4. If unfamiliar with the testing tool, ask for help navigating the interface (share screenshots when guidance does not match what you see)
-
-**Ask for help writing the test script** if needed – good tasks are specific, realistic, ordered to follow a natural user journey, and written without leading language.
-
-**Wait for the user to return with results.** Do not proceed until test results are available.
-
-### When Results Arrive: Dual-Analysis
-
-Apply the dual-analysis method from [testing-analysis-guide.md](./references/testing-analysis-guide.md):
-
-1. **Ask the user to watch every test recording first** and form their own conclusions
-2. **Do not ask the user to share their conclusions yet** – keep them private
-3. **Analyze the raw results independently** – without knowing the user's interpretation, to avoid bias
-4. **Then ask the user to share their analysis** and identify what might have been missed
-5. **Combine the best from both versions** – user insights plus independent analysis
-
-AI tends to invent findings that are not supported by data. Always verify claims against actual test results.
-
----
-
-## Step 7: Save Deliverable
+## Step 8: Save deliverable
 
 Save two files:
 
-### 1. Final Prototype
+### 1. Final prototype
 
-Ensure `design-docs/prototype/prototype.html` is the latest version with all iterations applied.
+Ensure `{deliverables_path}/prototype/prototype.html` is the latest version with all iterations applied.
 
-### 2. Prototype Notes
+### 2. Prototype notes
 
-Save `design-docs/prototype/prototype-notes.md` with:
+Save `{deliverables_path}/prototype/prototype-notes.md` with:
 
 ```markdown
-# Prototype Notes
+# Prototype notes
 
-## Screens Covered
+## Screens covered
 - [List every screen in the prototype]
 
-## Design Decisions
+## Design decisions
 - [Key decisions made during iteration – why things are the way they are]
 
-## Context Sources
-- [Which sources were used: planning docs, codebase, Figma, idea-only]
+## Context sources
+- [Which sources were used: planning docs, Figma, idea-only]
 - [Specific files read and tokens extracted]
 
-## Test Results (if applicable)
-- [Summary of user testing findings]
-- [Key changes made based on testing]
-
-## Open Questions
+## Open questions
 - [Anything unresolved that should be addressed in the next phase]
 ```
 
 ---
 
+## Content Integrity
+
+1. **No fabrication**: No fabricated statistics or made-up research claims. If you need a statistic for prototype content, use a real one from the user's research or use placeholder text. Never invent user data, conversion rates, or usage numbers for prototype screens. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the prototype (headings, body copy, button labels, placeholder content), read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
+
 ## Decision Hierarchy
 
 1. **User's direct input** – their vision for the product takes priority
 2. **Planning documents** – what has already been decided and documented
-3. **Existing design system** – tokens and patterns from the codebase or Figma
+3. **Existing design system** – tokens and patterns from Figma
 4. **AI suggestions** – lowest weight, must be verified against context
 
 ---
@@ -346,7 +320,8 @@ Save `design-docs/prototype/prototype-notes.md` with:
 
 After prototyping, suggest the logical next step based on what exists:
 
-- **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype. If the Figma plugin is available, the prototype HTML can be imported into Figma as a starting point for high-fidelity design work (code-to-Figma import creates Figma frames from the prototype that can then be refined manually).
+- **If landing page was requested** (Step 1): run the `ui-landing-page` skill now
+- **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype
 - **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
 - **If designs exist but need review**: suggest `ui-aesthetic-review` or `ui-design-to-code-qa` to evaluate the prototype against design intent
 - **If the prototype needs production implementation**: suggest the development pipeline via `/de:dev`
@@ -356,14 +331,6 @@ After prototyping, suggest the logical next step based on what exists:
 ## Resource Files
 
 - [prototyping-workflow.md](./references/prototyping-workflow.md) – Iteration methodology for AI-generated prototypes
-- [testing-analysis-guide.md](./references/testing-analysis-guide.md) – Dual-analysis approach for user testing results
 - [starter-values.md](../ui-design-system/references/starter-values.md) – CSS token baseline when no existing design system is detected
-
-## Common Issues
-
-### Prototype file won't open in browser
-If the generated HTML file does not display correctly:
-1. Verify the file was saved with `.html` extension
-2. Check that Tailwind CDN link is included – if offline, the prototype needs a local CSS fallback
-3. Open the browser developer console to check for JavaScript errors
-4. Try a different browser – some prototypes use modern CSS features not supported in older browsers
+- [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) – Design anti-patterns to check against before presenting screens
+- [anti-slop-writing.md](../shared-references/anti-slop-writing.md) – Writing quality rules for all text output

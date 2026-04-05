@@ -39,6 +39,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) determine the scope and starting point, 2) understand the context of your product and user, 3) identify the 5–8 key moments in the journey, 4) compose the journey map, 5) review improvement tactics, 6) generate improvement ideas, 7) apply the 'In Real Life' test, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with journey mapping and why distilling experiences to 5–8 key moments matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present the journey map step by step – each moment individually, discuss, then next. Do not dump the entire journey map table at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Determine Scope and Starting Point
 
 Ask:
@@ -55,6 +69,12 @@ options:
     description: "Walk me through the full process end to end"
 ```
 
+```
+multiSelect: false  # User must choose one mode
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
+
 If the user selects option 1 or 3, proceed to Step 2.
 If the user selects option 2, skip to Step 5.
 
@@ -70,6 +90,8 @@ Before mapping, gather context about the product and user experience. Ask:
 4. **What is the desired end state?** What does success look like for both the user and the business?
 
 If the user has existing notes, documents, or a Story Panel, ask them to share that content before proceeding.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding to Step 3.
 
 ---
 
@@ -141,6 +163,12 @@ options:
     description: "There are important moments missing"
 ```
 
+```
+multiSelect: false  # User must choose one option
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
+
 Iterate until the user approves the map.
 
 If the user chose "Map a new journey" only (option 1 in Step 1), skip to Step 8.
@@ -193,6 +221,12 @@ options:
     description: "Walk me through each one systematically"
 ```
 
+```
+multiSelect: false  # User must choose one focus area
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
+
 For each selected tactic, use the detailed questions from the reference file. Generate 3-5 concrete, specific ideas per tactic. Present them as actionable suggestions, not abstract concepts.
 
 After generating ideas, ask the user to:
@@ -221,7 +255,7 @@ header: "In Real Life Test"
 
 ## Step 8: Produce the Deliverable
 
-Save the final journey map and improvement plan to `{deliverables_path}/journeys/customer-journey-map.md`.
+Save the final journey map and improvement plan to `{deliverables_path}/design/customer-journey-map.md`.
 
 The document should include:
 
@@ -239,6 +273,15 @@ The document should include:
 The Story Panel you described in `ux-story-panels` was probably an "ideal" scenario. Once done, it is always a good idea to compare with reality. If you have an existing product, map the current journey alongside the ideal one to identify the biggest gaps.
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing moment, an unaddressed transition, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess your current feature planning state, 2) share my initial perspectives on the MVP scope, 3) ask 7–10 strategic questions to sharpen priorities, 4) apply ICE prioritization to every feature, 5) draft the MVP requirements together, 6) iterate until you approve, 7) produce the final deliverable." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with how MVP requirements work and why ruthless prioritization matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Assess Current State
 
 ```
@@ -39,7 +53,13 @@ options:
     description: "I need to figure out what features are needed"
 ```
 
+```
+multiSelect: false  # User must choose one current state
+```
+
 If the user has existing feature lists, information architecture, or user research results, ask them to share before proceeding.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -60,6 +80,8 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
 
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding to Step 4.
+
 ---
 
 ## Step 4: Apply ICE Prioritization
@@ -73,6 +95,8 @@ For every feature identified, apply the ICE model. Score each from 1-10 across t
 Multiply the three scores. Features with the highest ICE score get the highest priority.
 
 Present the scored list and help the user draw the MVP line – everything above the line ships in v1, everything below goes to the parking lot.
+
+**BLOCKING REQUIREMENT**: Wait for the user's feedback on the ICE scores and MVP line before proceeding to Step 5.
 
 ---
 
@@ -104,11 +128,22 @@ Repeat until the user explicitly approves the MVP requirements.
 
 ## Step 7: Produce the Deliverable
 
-Save the final MVP requirements to `{deliverables_path}/foundation/mvp-requirements.md`.
+Save the final MVP requirements to `{deliverables_path}/planning/mvp-requirements.md`.
 
 The document should follow the complete structure from [mvp-prioritization-framework.md](./references/mvp-prioritization-framework.md).
 
+After completing the MVP requirements, check if any new assumptions surfaced. If so, Read `{deliverables_path}/foundation/assumptions.md` and append the new assumptions with a note: 'Added from MVP requirements on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing feature, an unaddressed risk, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read. Only include features that emerged from the user's input across previous activities. If AI has ideas or sees gaps, ask: "I noticed X wasn't covered – do you think this belongs?" Not silently add features and label them lower priority. Suggestions must be explicit questions, not items in the deliverable.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

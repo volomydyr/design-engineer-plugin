@@ -46,6 +46,33 @@ For detailed guidance on which MCP to use for what, see [figma-mcp-routing.md](.
 
 ---
 
+### Step 1.5: Clarify intent
+
+Before proceeding to screen selection, ask what the user wants to do:
+
+```
+question: "What would you like to do with your Figma designs?"
+header: "Figma intent"
+options:
+  - label: "Share my redesigned screens"
+    description: "I've updated my designs in Figma and want the plugin to see them"
+  - label: "Push prototype to Figma"
+    description: "Import the HTML prototype into Figma for refinement"
+  - label: "Extract design tokens"
+    description: "Pull colors, typography, spacing from Figma for development"
+allowMultiSelect: false
+```
+
+```
+multiSelect: false
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
+
+**Important**: After Figma designs exist, prototypes are throwaway artifacts. Do not suggest updating prototypes to match Figma designs – Figma is now the source of truth. The next step is psychology review, not prototype updates.
+
+---
+
 ## Step 2: Identify Key Screens
 
 Based on the user's Information Architecture and MVP Requirements (if available), identify the 5-8 most important screens that will establish the visual direction. These are building blocks – screens that set up the visual style AI can analyze and reuse for other parts of the app.

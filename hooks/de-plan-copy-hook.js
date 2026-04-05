@@ -39,12 +39,33 @@ process.stdin.on('end', () => {
       process.exit(0);
     }
 
-    // Copy to project's plans/ directory
-    const fileName = path.basename(filePath);
+    // Copy to project's plans/ directory with timestamped filename
+    const originalName = path.basename(filePath);
+    const now = new Date();
+    const datestamp = now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
+    const fileName = datestamp + '-' + originalName.replace(/^\d{4}-\d{2}-\d{2}-/, '');
     const projectPlansDir = path.join(process.cwd(), 'plans');
 
     if (!fs.existsSync(projectPlansDir)) {
       fs.mkdirSync(projectPlansDir, { recursive: true });
+    }
+
+    // Archive any existing plan files before copying the new one
+    const existingFiles = fs.readdirSync(projectPlansDir).filter(f => f.endsWith('.md'));
+    if (existingFiles.length > 0) {
+      const archiveDir = path.join(projectPlansDir, 'archive');
+      if (!fs.existsSync(archiveDir)) {
+        fs.mkdirSync(archiveDir, { recursive: true });
+      }
+      for (const existing of existingFiles) {
+        const src = path.join(projectPlansDir, existing);
+        // Only archive files, not directories
+        if (fs.statSync(src).isFile()) {
+          fs.renameSync(src, path.join(archiveDir, existing));
+        }
+      }
     }
 
     fs.copyFileSync(filePath, path.join(projectPlansDir, fileName));

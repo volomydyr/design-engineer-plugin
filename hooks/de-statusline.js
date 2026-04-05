@@ -169,17 +169,36 @@ function buildPipelineSegment(dir) {
       }
     }
 
-    if (!hasInProgress) return null;
-
     const sortedPhases = Object.keys(phases).sort();
+    if (sortedPhases.length === 0) return null;
+
+    // Find current phase: the most advanced phase that has any completed deliverables
+    // but is not fully complete yet. If all phases are complete, show the last one.
     let currentPhase = null;
     for (const p of sortedPhases) {
       if (phases[p].inProgress > 0) {
         currentPhase = p;
         break;
       }
+      if (phases[p].complete > 0 && phases[p].complete < phases[p].total) {
+        currentPhase = p;
+        break;
+      }
     }
-    if (!currentPhase) return null;
+    // If no partially complete phase found, find the first phase with no completions
+    // (the next phase to start) or show the last completed phase
+    if (!currentPhase) {
+      for (const p of sortedPhases) {
+        if (phases[p].complete === 0) {
+          currentPhase = p;
+          break;
+        }
+      }
+    }
+    if (!currentPhase) {
+      // All phases complete — show the last one
+      currentPhase = sortedPhases[sortedPhases.length - 1];
+    }
 
     const phaseName = PHASE_NAMES[currentPhase] || `Phase ${currentPhase}`;
     const completed = phases[currentPhase].complete;

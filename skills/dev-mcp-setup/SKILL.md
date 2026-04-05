@@ -22,6 +22,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check which MCPs you already have installed, 2) recommend MCPs based on your workflow needs, 3) provide setup guidance for each one, 4) configure CLAUDE.md references so AI uses them consistently." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with what MCPs are and how they extend AI capabilities. If yes, give a one-sentence refresher. If no, explain it in simple terms: MCPs are integrations between AI and other applications – they let AI read Figma designs, fetch current documentation, run browser tests, and more, instead of being limited to just generating code.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Assess Current Setup
 
 ```
@@ -42,6 +56,12 @@ options:
     description: "I have other integrations installed"
 allowMultiSelect: true
 ```
+
+```
+multiSelect: true  # User can have multiple MCPs already installed
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -83,6 +103,15 @@ Help the user add MCP usage rules to their CLAUDE.md:
 - When to use Playwright (for testing implemented features)
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – an unclear workflow need, an unknown environment detail – ask via AskUserQuestion. Never fill gaps silently. Never invent installation commands, API endpoints, or configuration details. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

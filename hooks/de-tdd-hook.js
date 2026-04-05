@@ -59,7 +59,7 @@ function hasTestScripts() {
     const testsDir = path.join(process.cwd(), 'tests');
     if (!fs.existsSync(testsDir)) return false;
     const files = fs.readdirSync(testsDir);
-    return files.some(f => f.endsWith('.sh'));
+    return files.some(f => f.endsWith('.sh') || f.endsWith('.spec.js') || f.endsWith('.spec.ts') || f.endsWith('.test.js') || f.endsWith('.test.ts'));
   } catch (_) {
     return false;
   }

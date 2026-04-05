@@ -18,6 +18,36 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
 
+## Step 1.5: Detect build targets
+
+Read the MVP requirements and Information Architecture documents (if they exist). Before suggesting any tech stack, the product type, platform, and technical requirements should be obvious from these documents. Do not suggest technologies that contradict the product design (e.g., do not suggest Electron for a native macOS overlay app).
+
+Identify distinct build targets – for example:
+- macOS app + web landing page = 2 targets
+- Chrome extension + backend API = 2 targets
+- Web app only = 1 target
+
+If multiple build targets exist, ask via AskUserQuestion:
+
+```
+question: "Your product has multiple build targets. Which would you like to build first?"
+header: "Build targets"
+options:
+  - label: "[Target 1]"
+    description: "[Tech stack and scope]"
+  - label: "[Target 2]"
+    description: "[Tech stack and scope]"
+allowMultiSelect: false
+```
+
+```
+multiSelect: false  # User must choose one target to start with
+```
+
+Each build target gets its own development setup: tech stack, repo/folder, CLAUDE.md, design system, development loop. After the first target is complete, ask if the user wants to proceed to the next target.
+
+**BLOCKING REQUIREMENT**: If multiple targets detected, wait for the user's choice before proceeding.
+
 ## Step 2: Plan
 
 Based on what you found, present a plan. Only suggest what's relevant:

@@ -33,7 +33,21 @@ license: MIT
 
 ## Workflow
 
-<step number="1" required="true">
+<step number="0" required="true">
+### Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand your context and the customer experience to focus on, 2) teach the psychology of storytelling and comics, 3) craft the story narrative starting from the ending, 4) generate image prompts for all 6 panels, 5) review generated images and iterate, 6) store the final image and extract actionable insights." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with Story Panels and why visual storytelling matters in product design. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why stories, not screens?" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+</step>
+
+<step number="1" required="true" depends_on="0">
 ### Step 1: Understand the Context
 
 Before creating a Story Panel, determine the user's situation.
@@ -50,9 +64,15 @@ To create a meaningful Story Panel, I need to understand your context:
 5. Do you have any customer research insights (hopes, pains, barriers) already? If yes, share them.
 ```
 
+```
+multiSelect: false  # User must answer all context questions
+```
+
 **BLOCKING REQUIREMENT:** Wait for user answers before proceeding. Do not assume or invent customer context.
 
-**After receiving answers**, read [story-panels-framework.md](./references/story-panels-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good Story Panel looks like – read the relevant example image files from references/.
+**After receiving answers**, read [story-panels-framework.md](./references/story-panels-framework.md) to internalize the full framework. Show the user the Meddy example images as references for what a good Story Panel looks like.
+
+When presenting story panel examples to the user, explain the format in text first (what a 6-panel story looks like, the structure, the tone). Then automatically open the example images using Bash: `open [reference-file-path]` on macOS. This opens them in the default image viewer so the user can actually see the examples. If the `open` command fails, fall back to showing the file path so the user can open it manually. Do NOT just say 'Read 2 files (ctrl+o to expand)' – the user cannot see images in the terminal.
 </step>
 
 <step number="2" required="true" depends_on="1">
@@ -93,6 +113,10 @@ Think about how they FEEL, not what button they clicked. For example:
 - "I saved money and time"
 - "I'm not worried anymore"
 - "Best doctor ever"
+```
+
+```
+multiSelect: false  # User must define the ending
 ```
 
 **BLOCKING REQUIREMENT:** Wait for user input. If the ending focuses on the product rather than the customer, gently redirect.
@@ -176,8 +200,10 @@ Ask the user to share the generated image back.
 
 Once the final image is approved:
 
-1. **Store the image** in the project's deliverables folder (e.g., `documents/design/foundation/story-panel-[name].jpg`)
-2. **Update project-map.md** in auto-memory with the new file
+1. **Store the panel files** in a dedicated subfolder per story panel:
+   - Script: `{deliverables_path}/design/story-panels/[panel-name]/script.md`
+   - Image: `{deliverables_path}/design/story-panels/[panel-name]/panel.png`
+2. **Update project-map.md** in auto-memory with the new files
 
 Then guide the user to extract actionable insights:
 
@@ -198,6 +224,16 @@ Now look at your completed Story Panel and consider:
 </critical_sequence>
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing panel detail, an unaddressed emotional beat, a customer context nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **No invented customer research**: If the user has no customer data, the Story Panel becomes a hypothesis to validate, and this must be stated explicitly. Do not fabricate customer quotes, research findings, or behavioral patterns.
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

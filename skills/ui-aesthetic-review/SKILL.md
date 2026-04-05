@@ -60,10 +60,10 @@ options:
   - label: "Figma comparison"
     description: "Compare implementation against the Figma design for craft gaps"
   - label: "HTML prototype"
-    description: "Read and critique an HTML prototype file from design-docs/prototype/"
+    description: "Read and critique an HTML prototype file from {deliverables_path}/prototype/"
 ```
 
-When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `design-docs/prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
+When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `{deliverables_path}/prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
 
 ---
 

@@ -31,6 +31,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you have so far, 2) share my initial read on the problem, 3) ask 7–10 strategic questions to sharpen the problem, 4) draft the problem statement together, 5) iterate until you approve it." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with what a problem statement is and why it matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Understand Context
 
 Determine what the user already has:
@@ -49,7 +63,13 @@ options:
     description: "My initial problem statement no longer reflects what I have learned"
 ```
 
+```
+multiSelect: false  # User must choose one current state
+```
+
 If the user has existing notes or a draft, ask them to share the content before proceeding.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -84,6 +104,8 @@ These cut through vague thinking. Adapt them to the user's context – don't ask
 When the user already has a clear problem statement draft, skip the forcing questions and go straight to refinement. Use them when the user's context is thin or their thinking is vague.
 
 Ask questions one at a time or in small batches (2-3). Wait for answers before continuing.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
 
 ---
 
@@ -126,6 +148,16 @@ The document should follow the complete structure from [problem-statement-templa
 - Evolution notes (how this statement may change as you learn more)
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing audience segment, an unaddressed risk, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **No solutions in discovery**: During this activity, do not introduce specific product features or solutions. Stay focused on the problem – who has it, how painful it is, what they do today. Solutions belong in later pipeline phases (MVP requirements, product planning).
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

@@ -4,6 +4,57 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.4.0] – 2026-04-04
+
+66 issues identified and fixed from end-to-end main flow testing (new product from scratch). Grouped into 12 root causes, implemented across 6 phases.
+
+### Added
+- **`/de:stop` command** – save and pause mid-activity with automatic progress tracking and compact message suggestion
+- **`ui-landing-page` skill** – single-file HTML landing page with 9-section structure, StoryBrand integration, and copy frameworks (PAS, AIDA, StoryBrand)
+- **Anti-slop writing reference** (`skills/shared-references/anti-slop-writing.md`) – 29+ AI writing pattern categories to avoid, applied across all skills
+- **Compact message template** (`skills/shared-references/compact-template.md`) – fixed format for consistent compaction across sessions
+- **PostCompact hook** – re-injects pipeline state from config.yaml after compaction
+- **Pipeline overview** – presented to the user before Phase 1 with all phases, descriptions, and stop/resume instructions
+- **Two compaction breakpoints** – after Phase 3 (before prototyping) and after Phase 4 (before development)
+- **Figma design checkpoint** – explicit pause after Figma push for user to design before psychology review
+- **Smart psychology skill selection** – all 14 psych skills presented with dynamic recommendations via multiSelect
+- **Pipeline conclusion** – personalized, dynamic ending after development completes
+- **Build target detection** – identifies multiple build targets (e.g., macOS app + landing page) and asks which to build first
+- **Cross-agent review** at three handoff points: test-writer reviews plan, frontend reviews backend API, design-system-auditor reviews both
+- **Progress indication** throughout the pipeline ("Phase N, step X of Y")
+
+### Changed
+- **Step 0 added to all 24 pipeline skills** – execution plan announcement, conditional teaching, incremental output rule, contrarian behavior
+- **Content Integrity rule added to all skills** – no fabrication, no solutions in discovery, read before reference
+- **BLOCKING REQUIREMENT tags** on all interactive steps – model must wait for user input
+- **Prototyping rewritten** – two-step approach (visual storyboard then interactive prototype), no git/simplify/TDD, screen inventory from IA, anti-pattern self-check, copy rule (ask user to write after first rejection)
+- **ux-full-review changed from optional to required** – comprehensive review before development
+- **TDD hook** now recognizes `.spec.js`, `.spec.ts`, `.test.js`, `.test.ts` in addition to `.sh`
+- **/simplify enforcement** strengthened to "MANDATORY NEXT ACTION" with blocking language
+- **Statusline pipeline state** fixed to show progress based on completed deliverables, not just in_progress
+- **Plan template** updated with explicit agent names (test-writer, backend-implementer, frontend-implementer, design-system-auditor) and /simplify as blocking step
+- **Agent invocation instructions** added to 4 skills (competitor-analysis, full-review, meta-document, meta-orchestrator)
+- **Folder structure redesigned** – new `planning/`, `design/references/`, `design/story-panels/`, `research/archive/`, `reviews/` folders; `solutions/` removed
+- **Plan copy hook** now creates timestamped filenames and archives old plans
+- **Staleness detection** for research deliverables older than 90 days
+- **All hardcoded paths fixed** – zero `design-docs/`, `project-docs/`, `journeys/` references remain
+- **Dependency wiring** – bias audit explicitly feeds prototyping, assumptions updated by 4 downstream skills
+- **Repo visibility** question added (default private)
+- **Figma intent** question added before Figma operations
+- **Scope vs execution** fidelity nuance added to CLAUDE.md
+- **Synthesize from previous answers** rule added – no re-asking what the user already said
+- **Behavior mapping** rewritten to walk through concepts one at a time
+- **Story panel examples** auto-open on macOS via `open` command
+- **Reference collection** reordered earlier in moodboard skill; aesthetic direction rule added
+- **multiSelect guidance** added – when to use true vs false
+
+### Removed
+- `/simplify` and TDD references from prototyping skill (prototypes are throwaway visual artifacts)
+- `solutions/` folder (merged into `dev/`)
+- Stale "Prompt cleanup" hook reference from README (hook was removed previously)
+
+---
+
 ## [2.3.0] – 2026-04-01
 
 ### Added

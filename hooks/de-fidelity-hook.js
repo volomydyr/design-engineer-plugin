@@ -329,7 +329,7 @@ function main() {
       }
 
       // /simplify reminder – after every source code write
-      reminder += ' SIMPLIFY: Run /simplify on the code you just wrote before proceeding. Code is not considered complete until /simplify has reviewed it.';
+      reminder += ' MANDATORY NEXT ACTION: Run /simplify on the code you just wrote. Do not proceed to the next step, do not write more code, do not present results to the user until /simplify has reviewed this code. After running /simplify, state what it found and what was fixed.';
 
       // Git branch check – warn if on wrong branch for the active plan
       try {

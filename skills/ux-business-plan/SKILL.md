@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess how far along you are with business planning, 2) share my initial read on the business model, 3) ask 7–10 strategic questions covering revenue model, market size, go-to-market, and financials, 4) draft the business plan together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with business planning for products and why it matters early. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Assess Current State
 
 ```
@@ -39,7 +53,13 @@ options:
     description: "I have a document that needs revision based on new insights"
 ```
 
+```
+multiSelect: false  # User must choose one current state
+```
+
 If the user has existing business documents or competitive analysis, ask them to share before proceeding.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -60,6 +80,8 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 - AI verification discipline: "the main goal of every AI assistant is to answer you even when it doesn't know"
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
 
 ---
 
@@ -101,7 +123,19 @@ Save the final business plan to `{deliverables_path}/foundation/business-plan.md
 
 The document should follow the complete structure from [business-plan-template.md](./references/business-plan-template.md).
 
+After completing the business plan, check if any new assumptions surfaced. If so, Read `{deliverables_path}/foundation/assumptions.md` and append the new assumptions with a note: 'Added from business plan on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing revenue assumption, an unaddressed cost category, a market segment nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **When referencing the assumptions document, you MUST Read the actual file `{deliverables_path}/foundation/assumptions.md` first.** Do not quote assumptions from memory.
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

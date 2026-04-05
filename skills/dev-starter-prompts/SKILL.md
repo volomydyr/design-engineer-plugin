@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check which planning documents you have ready, 2) determine which AI coding tool you'll use, 3) generate 3–5 focused kick-start prompts customized to your project, 4) review and customize them with you." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with kick-start prompts and how they work. If yes, give a one-sentence refresher. If no, explain it in simple terms: these are the first messages you send to your AI coding tool to set up the project – high-level instructions that point to your context documents, not deep technical commands.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Gather Available Context
 
 ```
@@ -46,6 +60,12 @@ options:
 allowMultiSelect: true
 ```
 
+```
+multiSelect: true  # User can have multiple document types ready
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
+
 ---
 
 ## Step 2: Determine the AI Tool
@@ -63,6 +83,12 @@ options:
   - label: "Other IDE"
     description: "Windsurf, Kiro, or another AI-assisted editor"
 ```
+
+```
+multiSelect: false  # User must choose one development tool
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 3.
 
 ---
 
@@ -108,6 +134,15 @@ Present the generated prompts to the user for review. Each prompt should:
 - Focus on outcomes, not implementation methods
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing document, an unaddressed workflow step – ask via AskUserQuestion. Never fill gaps silently. Never invent project details, file paths, or tech stack choices. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

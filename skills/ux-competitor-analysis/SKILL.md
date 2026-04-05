@@ -26,6 +26,24 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you already know about competitors, 2) share my initial read on the competitive landscape, 3) ask 7–10 strategic questions, 4) conduct deep research on each competitor, 5) draft the competitive analysis, 6) iterate until you approve it, 7) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with competitive analysis and why it matters in product development. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Create a research plan before executing any searches.** Define: what to research, what queries to run, what dimensions to compare, what gaps to look for.
+
+4. **Agent delegation**: Delegate the web research to the **ux-researcher** agent. Use the Agent tool to spawn it with a research plan that specifies: what to research, what queries to run, what dimensions to compare, what gaps to look for. Do not do the research yourself in the main conversation – the ux-researcher agent has specialized instructions for structured competitive analysis.
+
+5. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+5. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Identify Current Knowledge
 
 ```
@@ -42,7 +60,13 @@ options:
     description: "I have done competitive analysis before and need to refresh it"
 ```
 
+```
+multiSelect: false  # User must choose one current state
+```
+
 If the user has existing competitor lists or research, ask them to share before proceeding.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -64,6 +88,8 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 - Look at community feedback, paywall strategies, user complaints
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
 
 ---
 
@@ -116,7 +142,19 @@ Save the final competitive analysis to `{deliverables_path}/foundation/competito
 
 The document should follow the complete structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).
 
+After completing the competitor analysis, check if any new assumptions surfaced during the research. If so, Read `{deliverables_path}/foundation/assumptions.md` and append the new assumptions with a note: 'Added from competitor analysis on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing competitor, an unverified claim, a market segment nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **No solutions in discovery**: During this activity, do not introduce specific product features or solutions. Stay focused on understanding the competitive landscape – what exists, what gaps remain, how competitors position themselves. Product decisions belong in later pipeline phases.
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

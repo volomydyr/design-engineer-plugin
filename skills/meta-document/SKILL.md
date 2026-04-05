@@ -17,7 +17,7 @@ After any significant work is completed (a design deliverable, a development pha
 
 This is not for pet projects that you start and abandon. This is for actual complex projects planned to run for years, potentially becoming million-dollar products with multiple teams working on them.
 
-**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `project-docs/solutions/[category]/`. The project status file lives at the project root as `status.md`.
+**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `{deliverables_path}/dev/[category]/`. The project status file lives at the project root as `status.md`.
 
 ---
 
@@ -113,6 +113,8 @@ Please provide corrected values.
 <step number="4" required="true" depends_on="3">
 ### Step 4: Create Documentation Entry
 
+**Agent delegation**: Use the **deliverable-writer** agent to format the final document. Use the Agent tool to spawn it with the content to format. The deliverable-writer has specialized instructions for producing polished, structured deliverable documents.
+
 **Generate filename:** `[activity-name]-[YYYYMMDD].md`
 
 **Sanitization rules:**
@@ -129,9 +131,9 @@ Please provide corrected values.
 ```bash
 CATEGORY="[mapped from deliverable_type]"
 FILENAME="[generated-filename].md"
-DOC_PATH="project-docs/solutions/${CATEGORY}/${FILENAME}"
+DOC_PATH="${deliverables_path}/dev/${CATEGORY}/${FILENAME}"
 
-mkdir -p "project-docs/solutions/${CATEGORY}"
+mkdir -p "${deliverables_path}/dev/${CATEGORY}"
 ```
 
 **File structure:**
@@ -229,7 +231,7 @@ Update the project status file (`status.md`) at the project root.
 **Search existing docs** for related solutions:
 
 ```bash
-grep -r "[activity keywords]" project-docs/solutions/
+grep -r "[activity keywords]" "${deliverables_path}/dev/"
 ```
 
 **If related entry found:**
@@ -258,7 +260,7 @@ After successful documentation, present:
 Documentation complete.
 
 File created:
-- project-docs/solutions/[category]/[filename].md
+- {deliverables_path}/dev/[category]/[filename].md
 - status.md updated
 
 What's next?

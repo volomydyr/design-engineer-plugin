@@ -21,6 +21,20 @@ license: MIT
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand the context of the screen or flow you want to analyze, 2) teach the Motivation Framework concept, 3) identify key reaction points, 4) assign Motivation variations to each point, 5) calculate the running Motivation Level, 6) identify improvement opportunities, 7) produce the Motivation Analysis document." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with the Motivation Framework and Experience Value. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product. Use the "Purpose" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 <critical_sequence name="motivation-framework-analysis" enforce_order="strict">
 
 ## Workflow
@@ -266,6 +280,15 @@ The answer is Specific Empathy Questions (SEQs). Unlike the general empathy ques
 If the user has access to customer research with SEQ-type data, it dramatically improves the accuracy of Motivation variation assignments.
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing reaction point, an unaddressed friction area, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

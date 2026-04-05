@@ -196,7 +196,7 @@ deliverables:
       - prototype
       - kickstart-prompts
       - agent-pipeline
-    folder: design
+    folder: planning
     phase: 3
     skill: ux-mvp-requirements
     last_updated: null
@@ -211,7 +211,7 @@ deliverables:
       - figma-workflow
       - journey-map
       - kickstart-prompts
-    folder: design
+    folder: planning
     phase: 3
     skill: ux-information-architecture
     last_updated: null
@@ -295,6 +295,18 @@ deliverables:
     skill: dev-prototyping
     last_updated: null
 
+  landing-page:
+    status: not_started
+    depends_on:
+      - storybrand
+      - mvp-requirements
+    informs:
+      - figma-workflow
+    folder: prototype
+    phase: 4
+    skill: ui-landing-page
+    last_updated: null
+
   figma-workflow:
     status: not_started
     depends_on:
@@ -333,7 +345,7 @@ deliverables:
     informs:
       - mvp-requirements
       - claude-md-draft
-    folder: design
+    folder: reviews
     phase: 4
     skill: ux-full-review
     last_updated: null
@@ -427,7 +439,7 @@ deliverables:
     status: not_started
     depends_on: []
     informs: []
-    folder: solutions
+    folder: dev
     phase: ongoing
     skill: meta-document
     last_updated: null
@@ -437,7 +449,7 @@ deliverables:
     depends_on: []
     informs:
       - project-status
-    folder: solutions
+    folder: dev
     phase: ongoing
     skill: meta-document
     last_updated: null
@@ -447,7 +459,7 @@ deliverables:
     depends_on: []
     informs:
       - project-status
-    folder: solutions
+    folder: dev
     phase: ongoing
     skill: meta-document
     last_updated: null

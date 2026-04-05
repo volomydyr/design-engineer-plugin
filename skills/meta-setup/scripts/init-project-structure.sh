@@ -17,46 +17,71 @@ echo ""
 # ─────────────────────────────────────────────
 
 # foundation/ -- Core product definition deliverables
-# Contains: Big Idea, Problem Statement, Target Audience, Assumptions,
+# Contains: Problem Statement, Target Audience, Assumptions,
 #           StoryBrand canvas, Business Plan
 mkdir -p "$DELIVERABLES_PATH/foundation"
 touch "$DELIVERABLES_PATH/foundation/.gitkeep"
 echo "[CREATED] foundation/ -- core product definition"
 
 # research/ -- Research findings and competitive analysis
-# Contains: Competitor Analysis, User Interview findings, market research
+# Contains: Competitor Analysis, User Interview findings
 mkdir -p "$DELIVERABLES_PATH/research"
 touch "$DELIVERABLES_PATH/research/.gitkeep"
 echo "[CREATED] research/ -- research findings and analysis"
 
+# research/archive/ -- Timestamped old research
+# When research is re-run, old version moves here with a timestamp
+mkdir -p "$DELIVERABLES_PATH/research/archive"
+touch "$DELIVERABLES_PATH/research/archive/.gitkeep"
+echo "[CREATED] research/archive/ -- archived research versions"
+
+# planning/ -- Product planning deliverables
+# Contains: MVP Requirements, Information Architecture
+mkdir -p "$DELIVERABLES_PATH/planning"
+touch "$DELIVERABLES_PATH/planning/.gitkeep"
+echo "[CREATED] planning/ -- MVP requirements, information architecture"
+
 # design/ -- Design-specific deliverables
-# Contains: MVP Requirements, Information Architecture, design references,
-#           Figma workflow notes, journey maps, bias audits
+# Contains: Bias audit, journey map, ethics review, behavior map,
+#           design references, Figma workflow notes
 mkdir -p "$DELIVERABLES_PATH/design"
 touch "$DELIVERABLES_PATH/design/.gitkeep"
-echo "[CREATED] design/ -- design deliverables (IA, flows, references)"
+echo "[CREATED] design/ -- design deliverables"
+
+# design/references/ -- UI reference images from the user
+mkdir -p "$DELIVERABLES_PATH/design/references"
+touch "$DELIVERABLES_PATH/design/references/.gitkeep"
+echo "[CREATED] design/references/ -- UI reference images"
+
+# design/story-panels/ -- Story panel images and scripts
+# One subfolder per panel: story-panels/[name]/script.md + panel.png
+mkdir -p "$DELIVERABLES_PATH/design/story-panels"
+touch "$DELIVERABLES_PATH/design/story-panels/.gitkeep"
+echo "[CREATED] design/story-panels/ -- story panel images and scripts"
+
+# prototype/ -- HTML prototypes
+# Contains: storyboard.html, prototype.html, landing-page.html, prototype-notes.md
+mkdir -p "$DELIVERABLES_PATH/prototype"
+touch "$DELIVERABLES_PATH/prototype/.gitkeep"
+echo "[CREATED] prototype/ -- HTML prototypes"
 
 # psych/ -- Psychology audit results and principle applications
-# Contains: Master audit results, section-by-section principle applications,
-#           ethics reviews
 mkdir -p "$DELIVERABLES_PATH/psych"
 touch "$DELIVERABLES_PATH/psych/.gitkeep"
 echo "[CREATED] psych/ -- psychology audit results"
 
+# reviews/ -- Design reviews and assessments
+# Contains: Visual review, accessibility review, product assessment
+mkdir -p "$DELIVERABLES_PATH/reviews"
+touch "$DELIVERABLES_PATH/reviews/.gitkeep"
+echo "[CREATED] reviews/ -- design reviews and assessments"
+
 # dev/ -- Development preparation deliverables
 # Contains: CLAUDE.md draft, kickstart prompts, agent configurations,
-#           MCP notes, GitHub workflow documentation
+#           MCP notes, GitHub workflow documentation, status tracking
 mkdir -p "$DELIVERABLES_PATH/dev"
 touch "$DELIVERABLES_PATH/dev/.gitkeep"
 echo "[CREATED] dev/ -- development preparation"
-
-# solutions/ -- Compound documentation
-# Contains: Solved problems, project status, learnings, context files
-# for long-term projects. Critical for context survival across sessions,
-# chat compaction, and team handoffs.
-mkdir -p "$DELIVERABLES_PATH/solutions"
-touch "$DELIVERABLES_PATH/solutions/.gitkeep"
-echo "[CREATED] solutions/ -- compound documentation and learnings"
 
 # ─────────────────────────────────────────────
 # Initialize dependency tracking
@@ -92,15 +117,30 @@ YAML
   fi
 fi
 
+# ─────────────────────────────────────────────
+# Create plans directory
+# ─────────────────────────────────────────────
+mkdir -p "plans/archive"
+echo ""
+echo "[CREATED] plans/ -- implementation plans"
+echo "[CREATED] plans/archive/ -- completed plans"
+
 echo ""
 echo "=== Scaffolding Complete ==="
 echo ""
 echo "Structure created:"
 echo "  $DELIVERABLES_PATH/"
-echo "  ├── foundation/    Core product definition"
-echo "  ├── research/      Research findings and analysis"
-echo "  ├── design/        Design deliverables (IA, flows, references)"
-echo "  ├── psych/         Psychology audit results"
-echo "  ├── dev/           Development preparation"
-echo "  ├── solutions/     Compound documentation and learnings"
-echo "  └── .dependencies.yaml"
+echo "  ├── foundation/          Core product definition"
+echo "  ├── research/            Research findings and analysis"
+echo "  │   └── archive/         Archived research versions"
+echo "  ├── planning/            MVP requirements, information architecture"
+echo "  ├── design/              Design deliverables"
+echo "  │   ├── references/      UI reference images"
+echo "  │   └── story-panels/    Story panel images and scripts"
+echo "  ├── prototype/           HTML prototypes"
+echo "  ├── psych/               Psychology audit results"
+echo "  ├── reviews/             Design reviews and assessments"
+echo "  └── dev/                 Development preparation"
+echo ""
+echo "  plans/                   Implementation plans"
+echo "  plans/archive/           Completed plans"

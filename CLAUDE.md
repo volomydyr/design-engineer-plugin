@@ -34,8 +34,8 @@ design-engineer-plugin/           ← repo root = plugin root
 │   └── de-prompt-injection-hook.js
 ├── agents/                         # 9 specialized agents
 ├── commands/
-│   └── de/                         # 6 commands (de: namespace)
-└── skills/                         # 49 hidden skills
+│   └── de/                         # 8 commands (de: namespace)
+└── skills/                         # 54 hidden skills
 ```
 
 ## Skill Compliance Checklist
@@ -136,6 +136,8 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 - `/de:dev` - Development pipeline
 - `/de:review` - Multi-layer design review (includes psychology audit)
 - `/de:document` - Knowledge documentation and stakeholder communication
+- `/de:stop` - Save progress and pause mid-activity
+- `/de:help` - Shows all available commands, project status, and mode
 
 ## Living Documents
 
@@ -250,7 +252,8 @@ After every code-producing step, run `/simplify` to review changed code for reus
 - After `backend-implementer` returns
 - After `frontend-implementer` returns
 - Final pass after all code changes (before `design-system-auditor`)
-- After prototype generation in `dev-prototyping`
+
+Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual artifacts — code quality doesn't matter. /simplify only applies during `/de:dev` implementation.
 
 ### How
 
@@ -288,8 +291,8 @@ All code-producing steps follow Test-Driven Development using Playwright CLI. A 
 ### When TDD Applies
 
 - After plan approval, before backend-implementer and frontend-implementer
-- After prototype generation in dev-prototyping
 - The hook only activates during implementation (when `plans/` has active plan files)
+- Note: TDD does NOT apply during prototyping. Prototypes are throwaway visual artifacts.
 
 ### Testing Anti-Patterns
 
@@ -319,6 +322,13 @@ Two PostToolUse hooks enforce that plans and implementation match user requireme
 
 If a feature, behavior, or piece of copy was not explicitly requested by the user, it must not appear in plans or implementation. The ONLY way to introduce something new is to ask the user first using AskUserQuestion.
 
+### Scope vs. execution
+
+Requirement fidelity is strict on SCOPE but flexible on EXECUTION:
+- **Strict on scope**: Never add features, screens, or requirements the user didn't ask for. This stays absolute.
+- **Flexible on execution**: Within the approved scope, smart implementation decisions are welcome – better component patterns, cleaner API shapes, optimized interaction flows. Surface these as questions via AskUserQuestion: "I noticed X could work better if we Y – want me to include that?"
+- The model should challenge and suggest, but always through AskUserQuestion – never silently add or silently ignore opportunities.
+
 ## Output formatting
 
 Three rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
@@ -343,6 +353,16 @@ Wrong: "Data density — over marketing", "sovereignty -- wants"
 Right: "Data density – over marketing", "sovereignty – wants"
 
 This is especially important in UI copy – prototypes, components, and any generated product interface must follow all three rules.
+
+4. **No AI writing patterns** – before generating any deliverable, prototype text, or landing page copy, read `skills/shared-references/anti-slop-writing.md` and apply its rules. Key forbidden patterns:
+   - "This is not X – this is Y" / "It's not just about X; it's about Y" / "The pain isn't X – it's Y" contrasting formulas
+   - Inflated significance ("pivotal moment", "testament to", "evolving landscape")
+   - Invented statistics or fabricated research claims
+   - Sycophantic tone ("Great question!", "You're absolutely right!")
+   - Signposting ("Let's dive in", "Let's explore", "Here's what you need to know")
+   - Generic positive conclusions ("The future looks bright", "Exciting times lie ahead")
+   - Filler phrases ("In order to", "Due to the fact that", "It is important to note that")
+5. **AskUserQuestion must always have 2–4 options** – never send an AskUserQuestion with only 1 option. The minimum is 2. Always specify `multiSelect: true` or `multiSelect: false` explicitly. Use `multiSelect: true` when multiple answers are valid (failure modes, risk assessment, feature selection, review areas, psychology skills). Use `multiSelect: false` when the user must choose one direction (mode, approach, framework, scope).
 
 ## Project state injection
 
@@ -374,6 +394,7 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 - Dump raw output without structure
 - Proceed without explaining what's happening
 - Leave the user wondering "what just happened?"
+- Re-ask a question the user already answered earlier in the conversation – synthesize from previous answers instead. Re-asking wastes time and breaks trust, especially in long sessions.
 
 Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 

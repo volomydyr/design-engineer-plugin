@@ -58,6 +58,20 @@ Always ask: "If the user fully understood how and why this was designed this way
 
 Warn about Reactance – users pushing back against perceived manipulation. If nudges are too frequent or too pushy, users start deliberately resisting.
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you want to work on, 2) run the Identify analysis on your screen or flow, 3) run the Analyze step to evaluate how users construct meaning, 4) run the Design step to evaluate how users take action, 5) run the Document step to evaluate what experience users store, 6) present findings and recommendations." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with the bias audit process and System 1/System 2 thinking. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product. Use the "Core Concept" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present each lens (Identify, Analyze, Design, Document) one at a time. After each lens, discuss with the user, get their input, then move to the next. Do not dump the entire bias audit at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Workflow
 
 ### Step 1: Understand the Context
@@ -72,7 +86,13 @@ What would you like to work on?
 5. **Something else** – describe your specific need
 </ask-user>
 
+```
+multiSelect: false  # User must choose one mode
+```
+
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ### Step 2: Identify Analysis
 
@@ -82,6 +102,8 @@ For each screen or element:
 1. **Find blocking triggers** – high-effort content, unrelated content, redundant patterns
 2. **Find attention captors** – priming connections, confirmation alignment, unexpected elements
 3. **Recommend changes** – specific removals, simplifications, or attention redirections
+
+**BLOCKING REQUIREMENT**: Present Identify findings and wait for the user's input before proceeding to Step 3.
 
 ### Step 3: Analyze
 
@@ -96,6 +118,8 @@ Apply the 7 Analyze principles:
 6. Are key elements **discoverable** and visually prominent?
 7. Does the **labor illusion** show work done on the user's behalf?
 
+**BLOCKING REQUIREMENT**: Present Analyze findings and wait for the user's input before proceeding to Step 4.
+
 ### Step 4: Design
 
 Evaluate how users take action. Refer to [bias-design.md](./references/bias-design.md).
@@ -105,6 +129,8 @@ Two strategies:
 - **Nudge carefully**: Social proof, curiosity gap, scarcity – but preserve nudges for key actions only
 
 Flag any Reactance risks from overuse of nudges.
+
+**BLOCKING REQUIREMENT**: Present Design findings and wait for the user's input before proceeding to Step 5.
 
 ### Step 5: Document
 
@@ -118,6 +144,8 @@ Check the 4 principles (in order of impact):
 
 Consider the Peak-End Rule: ending on a strong positive note reduces negative effects of earlier friction.
 
+**BLOCKING REQUIREMENT**: Present Document findings and wait for the user's input before proceeding to Step 6.
+
 ### Step 6: Present Findings
 
 <ask-user>
@@ -128,6 +156,12 @@ How would you like to proceed?
 3. **Walk through the DoorDash case study** – I will show how the process was applied to a real product
 4. **Create a redesign checklist** – I will produce a prioritized action list for your team
 </ask-user>
+
+```
+multiSelect: false  # User must choose one output format
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
 ## Output Format
 
@@ -165,6 +199,15 @@ Structure findings as:
 - All recommendations pass the Regret Test: [Yes/No]
 - Reactance risk level: [Low/Medium/High]
 ```
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing interaction, an unaddressed flow, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Cross-References
 

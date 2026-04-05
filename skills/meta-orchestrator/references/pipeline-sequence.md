@@ -67,7 +67,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    ux-motivation-audit
         |
-   ux-full-review [optional]
+   ux-full-review [required]
         |
    meta-document       <-- save progress
         |
@@ -96,6 +96,24 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
         |
    meta-document       <-- final documentation
 ```
+
+---
+
+## Pipeline Overview (present to user before Phase 1)
+
+Before starting the first activity, present the user with a map of the journey:
+
+> **Here's what we'll do together:**
+>
+> **Phase 1 – Discovery** (5 activities): Define the problem, identify your audience, map assumptions, research competitors, optionally interview users.
+> **Phase 2 – Strategy** (4 activities): Map user behavior, craft your brand story, create story panels, plan the business model.
+> **Phase 3 – Planning** (2 activities): Define MVP requirements, design information architecture.
+> **Phase 4 – Design & validation** (8+ activities): Psychology audits, design references, prototyping, Figma workflow, additional psychology skills, comprehensive review.
+> **Phase 5 – Development**: Set up the project, implement phase by phase with testing and quality checks.
+>
+> You can stop at any point – your progress is saved automatically. Run `/de:start` to resume where you left off. Run `/de:stop` if you want to save mid-activity progress.
+
+Use AskUserQuestion to confirm the user is ready to begin.
 
 ---
 
@@ -230,6 +248,14 @@ After all Phase 3 skills complete, invoke `meta-document` to:
 
 ---
 
+## [COMPACTION BREAKPOINT 1]
+
+After Phase 3 completes, suggest compaction. The design activities (Phases 1–3) are done and all deliverables are saved to files. A fresh context for Phase 4 (prototyping, Figma, psychology) produces better results.
+
+Read `skills/shared-references/compact-template.md` and generate a ready-to-use compact message for the user. Include it in the same response. This is a suggestion, not a requirement – if the user dismisses it, do not bring it up again.
+
+---
+
 ## Phase 4: Design and Validation
 
 Applies design principles, creates visual designs, builds prototypes, and validates the product concept. This is the most skill-dense phase.
@@ -283,6 +309,26 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **Hands off to**: ux-full-review (if included) or meta-document
 - **Notes**: Asks the user about their preferred Figma integration method (MCP, manual, screenshots, Playwright, Chrome extension) via AskUserQuestion. Adapts the workflow to the available tools. The validated prototype informs which key screens to design in Figma. Focus Figma work on the screens that set the visual style (typically 5-10 screens).
 
+### [FIGMA DESIGN CHECKPOINT]
+
+After ui-figma-guide completes, the user leaves to design in Figma. This is a natural pause point.
+
+Present via AskUserQuestion:
+```
+question: "Your prototypes are in Figma. What would you like to do?"
+header: "Figma checkpoint"
+options:
+  - label: "I'm done designing"
+    description: "My Figma designs are ready for psychology review"
+  - label: "I need more time"
+    description: "I'll come back when my designs are ready – save my progress"
+  - label: "Skip Figma"
+    description: "I'll use the prototype as-is for the psychology review"
+allowMultiSelect: false
+```
+
+If "I need more time": save state, suggest compaction with compact-template.md, and make it easy to resume. The user will start a new session and run `/de:start` to pick up at "designs ready for psychology review."
+
 ### Skill 4.7: ui-figma-handoff (OPTIONAL)
 
 - **Required**: No
@@ -293,22 +339,57 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 - **When to skip**: When using the minimal Figma workflow without Figma Console MCP, or when the design system is being built entirely in code
 - **Notes**: Automates the structuring of raw Figma designs (components, variables, styles) and prepares them for dev handoff (annotations, sections, connectors, dev status badges). Requires Figma Console MCP.
 
-### Skill 4.8: ux-motivation-audit
+### Skill 4.8: Psychology skill selection (dynamic)
+
+- **Required**: Yes (at least ux-motivation-audit)
+- **Depends on**: dev-prototyping, ui-figma-guide, Phase 1-3 deliverables
+- **Notes**: The plugin has 14 psychology skills. Instead of hardcoding which ones run, present ALL available skills and let the user choose.
+
+**Step 1**: Present all available psychology skills in a message (one line each: name + what it does + when it's useful):
+
+- `ux-motivation-audit` – Screen-level motivation vs friction analysis. Identifies where users abandon and where motivation peaks. Recommended for all products.
+- `psych-cognitive-load` – Cognitive interaction fundamentals. Choice architecture, information grouping, discoverability. Recommended for complex UIs.
+- `psych-cognitive-biases` – Cognitive biases and self-perception. Knowledge gaps, planning fallacies. Useful for products involving user decisions.
+- `psych-decision-fundamentals` – Core decision-making. Loss aversion, decision fatigue, anchoring, defaults. Useful for products with pricing or onboarding choices.
+- `psych-decision-persuasion` – Advanced persuasion. Scarcity, social proof, ethical influence. Useful for products needing conversion optimization.
+- `psych-delight-design` – Emotional design. Peak moments, micro-delighters, perceived effort. Useful for consumer products.
+- `psych-emotional-retention` – Re-engagement and emotional retention. Useful for products needing repeat usage.
+- `psych-engagement-patterns` – Engagement loops and habit triggers. Useful for daily-use products.
+- `psych-habit-formation` – Habit formation mechanics. Useful for products that need to become part of the user's routine.
+- `psych-pricing-psychology` – Pricing perception and framing. Useful for products with pricing pages or tiers.
+- `psych-simplification` – Interface simplification and progressive disclosure. Useful for feature-rich products.
+- `psych-social-influence` – Social dynamics and peer effects. Useful for products with social or community features.
+- `psych-time-perception` – Time perception and wait management. Useful for products with loading or processing states.
+- `psych-visual-perception` – Visual hierarchy and attention patterns. Recommended for landing pages and dashboards.
+
+**Step 2**: Use AskUserQuestion with multiSelect. Pre-select the recommended skills based on the product type. Always include ux-motivation-audit as the first option.
+
+```
+question: "Which psychology audits would you like to run on your designs?"
+header: "Psychology skills"
+options:
+  - label: "ux-motivation-audit (recommended)"
+    description: "Screen-level motivation analysis – where users abandon and where they're motivated"
+  - label: "[AI-recommended skill 2]"
+    description: "[Why it's relevant to this product]"
+  - label: "[AI-recommended skill 3]"
+    description: "[Why it's relevant to this product]"
+  - label: "[AI-recommended skill 4]"
+    description: "[Why it's relevant to this product]"
+allowMultiSelect: true
+```
+
+The user can also type additional skills from the full list shown in the message.
+
+**Step 3**: Run the selected skills in order. Each follows its own SKILL.md workflow with Step 0, BLOCKING tags, and incremental output.
+
+### Skill 4.9: ux-full-review (Required)
 
 - **Required**: Yes
-- **Depends on**: dev-prototyping, ui-figma-guide, Phase 1-3 deliverables
-- **Produces**: Motivation Framework analysis – screen-level Motivation Levels and Experience Value analysis
-- **Hands off to**: ux-full-review (if included) or meta-document
-- **Notes**: Analyzes each screen's motivation vs friction using the Motivation Framework (Experience Value = Expected Utility − Expected Interaction Cost). Requires actual designs or prototypes to analyze – that's why it runs after prototyping and Figma work, not during Strategy. Identifies where users are most likely to abandon and where motivation peaks.
-
-### Skill 4.9: ux-full-review (OPTIONAL)
-
-- **Required**: No
 - **Depends on**: dev-prototyping, all Phase 1-4 deliverables
 - **Produces**: Product Assessment document – comprehensive evaluation using a structured checklist
 - **Hands off to**: meta-document
-- **When to include**: Before moving to development, to catch issues across all dimensions (usability, business viability, technical feasibility, design quality).
-- **When to skip**: When the user is confident in the prototype and wants to move directly to development.
+- **Notes**: Runs before moving to development, to catch issues across all dimensions (usability, business viability, technical feasibility, design quality). This is a required checkpoint to ensure design integrity before entering the development phase.
 
 ### Phase 4 Completion: meta-document
 
@@ -354,9 +435,36 @@ If the user picks Sonnet, suggest: "Switch with `/model sonnet` before we contin
 
 ---
 
+## [COMPACTION BREAKPOINT 2]
+
+After the User Approval Checkpoint and before development begins, suggest compaction. Phases 1–4 are complete, all design deliverables are saved, and development needs a fresh context for implementation work.
+
+Read `skills/shared-references/compact-template.md` and generate a ready-to-use compact message. Include it in the same response. This is a suggestion, not a requirement.
+
+---
+
 ## Phase 5: Development
 
 Sets up the development environment, creates implementation guides, and manages the development workflow. This phase transitions from design thinking to code.
+
+### Build Target Detection
+
+Before running any Phase 5 skills, read the MVP requirements and Information Architecture documents to identify distinct build targets (e.g., macOS app + web landing page, Chrome extension + backend API, mobile app + web dashboard).
+
+If multiple build targets exist, present via AskUserQuestion:
+
+```
+question: "Your product has multiple build targets. Which would you like to build first?"
+header: "Build targets"
+options:
+  - label: "[Target 1 name]"
+    description: "[Tech stack and scope]"
+  - label: "[Target 2 name]"
+    description: "[Tech stack and scope]"
+allowMultiSelect: false
+```
+
+Each build target gets its own Phase 5 loop: separate CLAUDE.md, separate git repo/folder, separate design system, separate development loop. After the first target is complete, ask if the user wants to proceed to the next target.
 
 ### Skill 5.1: dev-claude-md
 
@@ -414,15 +522,17 @@ After initial setup, development enters an iterative loop for each feature:
 2. **Plan Mode** – enter Plan Mode, write structured plan, get approval, save to `plans/`
 3. **test-writer** (agent) – writes failing Playwright CLI test scripts to `tests/`
 4. **Run tests** – verify Red phase (all tests fail – feature not built yet)
-5. **Backend implementation** – server-side code
-6. **`/simplify`** – review backend changes for reuse, quality, and efficiency
-7. **Frontend implementation** – client-side code and UI
-8. **`/simplify`** – review frontend changes for reuse, quality, and efficiency
+5. **backend-implementer** (agent) – server-side code. Delegate to the agent, do not write backend code yourself.
+6. **`/simplify`** – MANDATORY review of backend changes for reuse, quality, and efficiency
+7. **frontend-implementer** (agent) – client-side code and UI. Delegate to the agent, do not write frontend code yourself.
+8. **`/simplify`** – MANDATORY review of frontend changes for reuse, quality, and efficiency
 9. **Run tests** – verify Green phase (all tests pass)
 10. **`/simplify`** (final pass) – review all code changes together
 11. **design-system-auditor** (agent) – verifies new code follows the design system
 12. **Archive tests** – move test scripts from `tests/` to `tests/archive/`
 13. **meta-document** – documents progress after each feature
+
+**BLOCKING: Per-phase approval is mandatory.** Never implement multiple phases in a single turn. Each phase: implement → present with QA instructions from the plan → WAIT for explicit user approval → only then proceed to next phase. If a phase has no manual QA possible, state "No manual QA needed for this phase" instead of skipping the approval step.
 
 ### Skill 5.7: dev-status-tracking (ONGOING)
 
@@ -438,6 +548,24 @@ Final invocation of `meta-document` to:
 - Record all learnings across the entire pipeline
 - Update the project state file to reflect completion
 - Create a final summary of the project
+
+### Pipeline Conclusion
+
+After dev-status-tracking and the final meta-document, present a personalized, dynamic conclusion. This is NOT a generic checklist. Read the actual deliverables and project state, then:
+
+1. **Acknowledge what was accomplished** – specific to this product, referencing actual deliverables and decisions
+2. **Highlight key decisions** – the choices that shaped the product (from MEMORY.md key decisions or deliverables)
+3. **Show what's possible next** – dynamic, based on what was built and what the plugin can still help with:
+   - Iterate on user feedback
+   - Add new features via `/de:design` (existing project flow)
+   - Run design reviews or psychology audits via `/de:review`
+   - Build additional build targets (if any remain)
+   - Run specific psychology skills on real screens
+   - Refine Figma designs and sync code
+   - Set up user testing
+4. **Make the user feel good** – like a mentor wrapping up, not a checkbox completion screen
+
+Use AskUserQuestion for next steps (never plain text).
 
 ---
 

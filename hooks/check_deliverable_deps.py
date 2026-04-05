@@ -5,6 +5,7 @@ import json
 import os
 import sys
 import re
+from datetime import datetime, timedelta
 
 # Only active in projects that have run /de:start
 if not os.path.isfile('.design-engineer-plugin/config.yaml'):
@@ -23,7 +24,7 @@ def parse_simple_yaml(text):
         indent = len(line) - len(line.lstrip())
         if indent == 2 and stripped.endswith(":") and not stripped.startswith("-"):
             current = stripped[:-1]
-            deliverables[current] = {"informs": [], "folder": ""}
+            deliverables[current] = {"informs": [], "folder": "", "last_updated": ""}
         elif current and indent == 4:
             m = re.match(r"(\w[\w-]*):\s*(.*)", stripped)
             if m:
@@ -37,6 +38,8 @@ def parse_simple_yaml(text):
                         deliverables[current]["informs"] = []
                 elif key == "folder":
                     deliverables[current]["folder"] = val.strip()
+                elif key == "last_updated":
+                    deliverables[current]["last_updated"] = val.strip().strip("'\"")
         elif current and indent == 6 and stripped.startswith("- "):
             val = stripped[2:].strip().strip("'\"")
             if "informs" in deliverables.get(current, {}):
@@ -56,6 +59,35 @@ def find_deliverable_key(filepath, deliverables):
     return None
 
 
+def find_project_root(filepath):
+    """Walk up from filepath looking for .design-engineer-plugin/dependencies.yaml."""
+    normalized = filepath.replace("\\", "/")
+    directory = os.path.dirname(normalized)
+    while directory and directory != os.path.dirname(directory):
+        deps_path = os.path.join(directory, ".design-engineer-plugin", "dependencies.yaml")
+        if os.path.isfile(deps_path):
+            return directory, deps_path
+        directory = os.path.dirname(directory)
+    return None, None
+
+
+def check_staleness(filepath, key, deliverables):
+    """Check if a research deliverable is stale (>90 days old)."""
+    normalized = filepath.replace("\\", "/")
+    if "/research/" not in normalized:
+        return None
+    last_updated = deliverables.get(key, {}).get("last_updated", "")
+    if not last_updated:
+        return None
+    try:
+        updated_date = datetime.strptime(last_updated, "%Y-%m-%d")
+        if datetime.now() - updated_date > timedelta(days=90):
+            return last_updated
+    except ValueError:
+        pass
+    return None
+
+
 def main():
     try:
         hook_input = json.loads(sys.stdin.read())
@@ -67,18 +99,9 @@ def main():
     if not filepath:
         return
 
-    # Only act on files in the documents/design/ directory
-    if "documents/design/" not in filepath.replace("\\", "/"):
-        return
-
-    # Find .dependencies.yaml relative to the documents/design/ root
-    design_idx = filepath.replace("\\", "/").index("documents/design/")
-    project_root = filepath[:design_idx]
-    deps_path = os.path.join(project_root, ".design-engineer-plugin", "dependencies.yaml")
-    if not os.path.isfile(deps_path):
-        deps_path = os.path.join(project_root, "documents", "design", ".dependencies.yaml")
-
-    if not os.path.isfile(deps_path):
+    # Find project root by looking for .design-engineer-plugin/dependencies.yaml
+    project_root, deps_path = find_project_root(filepath)
+    if not project_root or not deps_path:
         return
 
     try:
@@ -98,6 +121,11 @@ def main():
 
     items = ", ".join(downstream)
     print(f"Updated '{key}'. Downstream dependents that may need review: {items}")
+
+    # Check staleness for research deliverables
+    stale_date = check_staleness(filepath, key, deliverables)
+    if stale_date:
+        print(f"Note: This research was last updated on {stale_date} (more than 90 days ago). Consider re-running it for current data.")
 
 
 if __name__ == "__main__":

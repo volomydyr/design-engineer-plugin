@@ -34,6 +34,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess your readiness and existing materials, 2) share my initial read on the StoryBrand narrative, 3) ask 7–10 strategic questions covering the 7-element framework, 4) draft the StoryBrand canvas together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with the StoryBrand framework and why it matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Assess Readiness
 
 ```
@@ -50,7 +64,13 @@ options:
     description: "I have not done user research or persona work yet"
 ```
 
+```
+multiSelect: false  # User must choose one readiness state
+```
+
 If the user has not done user research, strongly recommend completing `ux-target-audience` first. StoryBrand works best when grounded in real user understanding, not assumptions. However, if the user wants to proceed, continue with available context.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -69,6 +89,8 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 - Application to marketing, social posts, email, ad campaigns, product branding, website copy, UX microcopy
 
 Ask in small batches (2-3 at a time). Wait for answers before continuing.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
 
 ---
 
@@ -106,6 +128,16 @@ Save the final StoryBrand canvas to `{deliverables_path}/foundation/storybrand.m
 The document should follow the complete structure from [storybrand-canvas-template.md](./references/storybrand-canvas-template.md).
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing story element, an unaddressed emotional layer, a persona insight nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **No solutions in discovery**: During this activity, do not introduce specific product features or solutions. Stay focused on the narrative framework – the hero's journey, the problem layers, the transformation. Feature decisions belong in later pipeline phases.
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

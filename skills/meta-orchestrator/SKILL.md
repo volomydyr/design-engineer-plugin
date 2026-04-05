@@ -48,6 +48,8 @@ A **user approval checkpoint** separates these two stages. Even in Autopilot, pa
 
 After each phase, automatically invoke `meta-document` to save progress, document learnings, and maintain context continuity.
 
+**Agent delegation**: After each phase completion, invoke the **compound-documenter** agent to update status tracking. Use the Agent tool to spawn it with the phase results. This ensures project status is always current across sessions.
+
 ### 2. Guided Mode (Interactive)
 
 Step-by-step execution with user input at every stage. Agents CAN and SHOULD run for their specialized tasks (research, scanning, analysis). But after an agent completes, parse the agent's output into individual findings or sections and present them one at a time with AskUserQuestion interaction. Never show the agent's raw output directly. Never dump all findings at once.
@@ -99,7 +101,7 @@ How would you like to proceed?
 3. **Review stale deliverables first** – Update [stale_dependents] before continuing
 </ask-user>
 
-3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `design-docs/project-state.md` for full context.
+3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `{deliverables_path}/project-state.md` for full context.
 
 4. After resuming, clear the `resume:` section from `.design-engineer-plugin/config.yaml` to avoid stale resume data in the next session.
 
@@ -152,7 +154,7 @@ What is your project status?
 
 If the user selected "Partially done" or "Existing product":
 
-1. Check for an existing project state file at `design-docs/project-state.md`
+1. Check for an existing project state file at `{deliverables_path}/project-state.md`
 2. If found, read it and confirm the current status with the user
 3. If not found, ask the user which deliverables they already have
 4. Determine the correct entry point in the pipeline based on what exists
@@ -160,13 +162,19 @@ If the user selected "Partially done" or "Existing product":
 
 If the user selected "Resume":
 
-1. Read the project state file at `design-docs/project-state.md`
+1. Read the project state file at `{deliverables_path}/project-state.md`
 2. Present the current status: which phases are complete, which skill is next
 3. Ask the user to confirm or adjust before continuing
 
 ## Pipeline Execution
 
 Refer to [pipeline-sequence.md](./references/pipeline-sequence.md) for the complete skill sequence. The high-level flow is:
+
+### Pipeline overview (before Phase 1)
+Before starting the first activity, present the user with a map of the journey – all phases, what each does, that they can stop anytime. See pipeline-sequence.md for the exact overview text.
+
+### Progress indication (throughout the pipeline)
+At the start of each new skill, briefly tell the user where they are: "Phase [N] ([name]) – step [X] of [Y]: [skill description]." This gives them a sense of progress and what's ahead. Keep it to one line – not a full overview, just a position marker.
 
 ### Phase 1: Discovery and Foundation
 Skills: `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-competitor-analysis`, `ux-user-interviews` (optional)
@@ -180,16 +188,32 @@ Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md
 Skills: `ux-mvp-requirements`, `ux-information-architecture`
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
 
+### [COMPACTION BREAKPOINT 1]
+After Phase 3, suggest compaction using `skills/shared-references/compact-template.md`. Design activities are done, deliverables are saved – fresh context for Phase 4 produces better results.
+
 ### Phase 4: Design and Validation
-Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-references-moodboard`, `dev-prototyping`, `ui-figma-guide`, `ui-figma-handoff` (optional), `ux-motivation-audit`, `ux-full-review` (optional)
+Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-references-moodboard`, `dev-prototyping`, `ui-landing-page` (if requested), `ui-figma-guide`, `[FIGMA DESIGN CHECKPOINT]`, `ui-figma-handoff` (optional), `[SMART PSYCH SELECTION]` (dynamic – user chooses from all 14 psych skills), `ux-full-review` (required)
 Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
+
+Key Phase 4 additions:
+- **Figma design checkpoint**: After ui-figma-guide, pause for user to design in Figma. Wait for them to return.
+- **Smart psych selection**: Present all 14 psych skills, recommend relevant ones, user chooses via multiSelect.
+- **ux-full-review is now required**: Comprehensive review before development – every project gets this checkpoint.
 
 ### User Approval Checkpoint
 After Phase 4, present a summary of all pre-development work and wait for explicit user approval before proceeding to Phase 5.
 
+### [COMPACTION BREAKPOINT 2]
+After the User Approval Checkpoint and before development, suggest compaction using compact-template.md. Fresh context for implementation.
+
 ### Phase 5: Development
+**Build target detection**: Before any setup, read MVP requirements and IA to identify distinct build targets. If multiple exist, ask the user which to build first.
+
 Skills: `dev-claude-md`, `dev-starter-prompts`, `dev-agent-setup`, `dev-mcp-setup`, `dev-github-workflow`, `ui-design-system`
-Then enter the development loop and run: `meta-document` (final documentation)
+Then enter the development loop (with per-phase approval – BLOCKING) and run: `meta-document` (final documentation)
+
+### Pipeline conclusion
+After development completes, present a personalized, dynamic conclusion – not a generic checklist. Acknowledge what was built, highlight key decisions, show what's possible next. See pipeline-sequence.md for details.
 
 ## Skill Invocation Pattern
 
@@ -230,14 +254,14 @@ When the pipeline reaches a parallel group:
 
 Each skill in the pipeline builds on the work of previous skills. To maintain context:
 
-1. After each skill completes, ensure its deliverable is saved to the standardized location in `design-docs/`
+1. After each skill completes, ensure its deliverable is saved to the standardized location in `{deliverables_path}/`
 2. Before invoking the next skill, confirm that all required upstream deliverables exist
 3. If a deliverable is missing (e.g., user skipped a skill), note this gap and inform the next skill about what context is unavailable
 4. Invoke `meta-document` at the end of every phase to consolidate learnings and update the project state
 
 ## Project State Management
 
-Maintain the project state file at `design-docs/project-state.md` following the schema in [project-state-schema.md](./references/project-state-schema.md). Update this file:
+Maintain the project state file at `{deliverables_path}/project-state.md` following the schema in [project-state-schema.md](./references/project-state-schema.md). Update this file:
 
 - After every skill completes (update the skill's status and timestamp)
 - After every `meta-document` run (update phase status and learnings)

@@ -22,6 +22,7 @@ A plugin for Claude Code that walks you through building a product, start to fin
 | `/de:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
 | `/de:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
 | `/de:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
+| `/de:stop` | Save progress and pause mid-activity – pick up later with `/de:start` |
 | `/de:help` | This help screen |
 
 You only need to remember `/de:start`. It guides you to everything else.
@@ -35,7 +36,7 @@ Most commands work in two ways:
 
 ### What makes it different
 
-- **49 skills** that teach how to think about problems, users, and psychology before writing code
+- **54 skills** that teach how to think about problems, users, and psychology before writing code
 - **9 specialized agents** for research, implementation, testing, and design system compliance
 - **100+ psychology principles** the AI draws from when reviewing your work
 - **Safety hooks** that prevent scope creep, enforce test-first development, and check every code write against your approved plan

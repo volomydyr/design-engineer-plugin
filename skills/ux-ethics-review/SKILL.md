@@ -31,6 +31,20 @@ Being on the ethical side is necessary but not sufficient. Teams should also str
 
 Second-order effects matter: when you solve one problem, you can create another that is even worse. Decisions can initiate cause-and-effect chains that are hard to anticipate and control. The ability to think through problems to the second and third order supercharges your decisions.
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you want to review, 2) run the three ethical tests (Regret Test, Manipulation Matrix, Black Mirror Test), 3) check the three Humane Design Principles, 4) evaluate second-order effects, 5) apply the 'In Real Life' test, 6) present findings and recommendations." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with ethical design review and the difference between ethical and humane design. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product. Use the "Core Concept" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Workflow
 
 ### Step 1: Understand the Context
@@ -45,7 +59,13 @@ What would you like to review?
 5. **Something else** – describe your specific concern
 </ask-user>
 
+```
+multiSelect: false  # User must choose one review type
+```
+
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ### Step 2: Run Ethical Tests
 
@@ -57,6 +77,8 @@ Refer to [ethics-tests.md](./references/ethics-tests.md) and apply each test:
 
 **Test 3 – Black Mirror Test**: Imagine a world where your product is used all the time by everyone. Does it end well?
 
+**BLOCKING REQUIREMENT**: Present ethical test findings and wait for the user's input before proceeding to Step 3.
+
 ### Step 3: Check Humane Principles
 
 Refer to [humane-design-principles.md](./references/humane-design-principles.md):
@@ -65,11 +87,15 @@ Refer to [humane-design-principles.md](./references/humane-design-principles.md)
 2. **Value Attention** – Does the product value attention instead of interrupting whenever convenient?
 3. **Reflect Human Values** – Does the product reflect human values instead of shareholders' interests?
 
+**BLOCKING REQUIREMENT**: Present Humane Principles findings and wait for the user's input before proceeding to Step 4.
+
 ### Step 4: Evaluate Second-Order Effects
 
 With the team, brainstorm:
 - List all potential negative side effects that could emerge from this feature
 - Brainstorm how to prevent those scenarios
+
+**BLOCKING REQUIREMENT**: Present second-order effects findings and wait for the user's input before proceeding to Step 5.
 
 ### Step 5: Apply the "In Real Life" Test
 
@@ -78,6 +104,8 @@ Transform screens and interactions into real people:
 - What would they say?
 - How would they act?
 - Is it a person you would want to know and hang out with?
+
+**BLOCKING REQUIREMENT**: Present "In Real Life" test findings and wait for the user's input before proceeding to Step 6.
 
 ### Step 6: Present Findings
 
@@ -89,6 +117,12 @@ How would you like the results?
 3. **Humane redesign suggestions** – I will suggest specific changes to make the product more humane
 4. **Team discussion guide** – I will create a document to facilitate an ethics discussion with your team
 </ask-user>
+
+```
+multiSelect: false  # User must choose one output format
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
 ## Output Format
 
@@ -126,6 +160,15 @@ How would you like the results?
 2. [Second priority]
 3. [Third priority]
 ```
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing ethical concern, an unaddressed risk, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Cross-References
 

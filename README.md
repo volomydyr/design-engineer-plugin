@@ -1,3 +1,5 @@
+> **v2.4.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
 # Design Engineer Plugin
@@ -36,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-7 commands, 49 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+8 commands, 54 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|
@@ -46,6 +48,7 @@ This is the only command you need to remember. It figures out your situation –
 | `/de:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
 | `/de:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
 | `/de:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
+| `/de:stop` | Save progress and pause mid-activity – pick up later with `/de:start` |
 | `/de:help` | Shows all available commands, current project status, and mode |
 
 <br>
@@ -60,7 +63,7 @@ This is the only command you need to remember. It figures out your situation –
 
 Claude Code is a general-purpose AI coding tool. It can write code, answer questions, and run commands.
 
-This plugin adds **a product design methodology on top of it** – 49 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
+This plugin adds **a product design methodology on top of it** – 54 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
 
 - **Safety hooks** that prevent common AI mistakes (scope creep, skipping tests, ignoring your requirements)
 - **Specialized agents** that handle specific parts of the workflow
@@ -101,7 +104,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 ### Structure
 
 <details>
-<summary>5. What are the 7 commands and when do I use each one?</summary>
+<summary>5. What are the 8 commands and when do I use each one?</summary>
 <br>
 
 - **`/de:start`** – always start here. It detects your situation and routes you.
@@ -110,6 +113,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 - **`/de:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
 - **`/de:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
 - **`/de:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
+- **`/de:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/de:start`.
 - **`/de:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
 You only need to remember `/de:start`. It guides you to everything else.
@@ -119,9 +123,9 @@ You only need to remember `/de:start`. It guides you to everything else.
 <summary>7. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 7 entry points you type (like `/de:design`).
+**Commands** are the 8 entry points you type (like `/de:design`).
 
-**Skills** are the 49 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
+**Skills** are the 54 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 
 You don't need to call skills directly. Commands handle the orchestration. But if you want to run a specific skill on its own, you can (e.g., `/ux-problem-statement` or `/psych-cognitive-load`).
 </details>
@@ -151,7 +155,6 @@ Agents activate automatically when needed. You don't call them directly.
 
 The plugin installs several hooks that work without you doing anything:
 
-- **Prompt cleanup** – light grammar fixes and filler word removal before Claude processes your messages. Helpful if you use voice-to-text.
 - **Destructive command protection** – catches dangerous commands (`rm -rf`, `git push --force`, `DROP TABLE`) and shows safer alternatives.
 - **Test-first enforcement** – blocks code writes until test scripts exist. Keeps test-driven development honest.
 - **Requirement fidelity (code)** – after every code write, checks that the implementation matches your approved plan. Catches scope creep, unplanned files, phases implemented out of order, and new components that duplicate existing ones.
@@ -253,7 +256,7 @@ This means deliverables stay connected to each other instead of going stale as y
 
 <br>
 
-## All 49 skills
+## All 54 skills
 
 <details>
 <summary>Show all</summary>

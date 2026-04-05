@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check for any saved design decisions from a previous session, 2) determine the current state of your design system, 3) define the architecture – depth strategy, tokens, semantic aliases, components, 4) guide incremental extraction if code already exists, 5) run a compliance audit, 6) produce the deliverable, 7) save design decisions for future sessions." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with code-first design systems and atomic design patterns. If yes, give a one-sentence refresher. If no, explain it in simple terms: instead of designing a system in Figma first, you build tokens and components in code as you develop – colors, spacing, and typography get extracted into reusable values, and components get refactored into reusable pieces, so everything stays consistent and actually used.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding.
+
+---
+
 ## Step 0: Check for Saved Design Decisions
 
 Before starting, check if the project has a saved design system file at `.design-system/system.md`. If it exists, read it and apply the saved decisions – direction, depth strategy, spacing base unit, key patterns, component inventory. This prevents re-inventing decisions that were already made in a previous session.
@@ -46,6 +60,12 @@ options:
   - label: "Full design system – need audit"
     description: "System exists but may have compliance gaps or violations"
 ```
+
+```
+multiSelect: false  # User must choose one current state
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -120,6 +140,12 @@ options:
       Borders for containers,
       shadows for interactive elements.
 ```
+
+```
+multiSelect: false  # User must choose one depth strategy
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
 ### Layer 1: Design Tokens (Base Values)
 Foundation layer containing raw values – colors (hex/RGB), spacing (points/pixels), typography (font sizes, weights, line heights), border radii, shadow definitions, animation durations, icon sizes, and accessibility constants (minimum tap target size of 56 points).
@@ -198,6 +224,15 @@ This compounds: each save makes future work faster and more consistent. On subse
 **Consistency checks:** If `.design-system/system.md` exists, check against it: spacing on the defined grid, depth using the declared strategy, colors from the defined palette, documented patterns reused instead of reinvented.
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing token value, an undocumented component pattern – ask via AskUserQuestion. Never fill gaps silently. Never invent design tokens, color values, or component specifications. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

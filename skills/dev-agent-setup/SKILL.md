@@ -23,6 +23,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess your project type, 2) explain the proven agent pipeline pattern, 3) read memory for project context, 4) set up the agent files customized to your project, 5) configure the pipeline in your CLAUDE.md, 6) explain how iteration works." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with the agent pipeline concept – sub-agents running in separate chats with separate token limits. If yes, give a one-sentence refresher. If no, explain it in simple terms: agents are specialized AI workers that handle heavy tasks (analyzing code, implementing features, auditing quality) in their own conversations, so your main conversation stays light and responsive.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Assess the Project
 
 ```
@@ -38,6 +52,12 @@ options:
   - label: "Not sure yet"
     description: "Help me decide which agents I need"
 ```
+
+```
+multiSelect: false  # User must choose one project type
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -170,6 +190,15 @@ A good practice is to ask AI to update documents and settings when the project h
 - Implementing code without running tests first (Red phase)
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing tech stack detail, an unclear project structure – ask via AskUserQuestion. Never fill gaps silently. Never invent agent configurations, project paths, or workflow steps. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

@@ -35,6 +35,20 @@ The Product Assessment Checklist is a step-by-step process that covers five area
 
 Each area can invoke a deeper skill when needed. This assessment acts as a meta-checklist – it identifies what needs attention and routes you to the right skill for a deep dive.
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) determine the assessment scope, 2) gather context about the product, 3) assess Area 1 – Understand User Behaviors, 4) assess Area 2 – Find the Gaps (Bias Audit), 5) assess Area 3 – Create Delightful Journeys, 6) assess Area 4 – Communicate Product Decisions, 7) assess Area 5 – Create Ethical and Humane Products, 8) produce the assessment report." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with the Product Assessment Checklist and its five areas. If yes, give a one-sentence refresher. If no, explain the purpose and structure in simple terms with a concrete example tied to their product.
+
+3. **Output presentation rule**: Present each review area one at a time. Do not grade your own work "Strong" across the board. Present findings for the user to evaluate – this is the user critically evaluating the work with AI's help pointing out gaps and inconsistencies, not AI rubber-stamping its own deliverables.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Workflow
 
 ### Step 1: Determine Assessment Scope
@@ -49,7 +63,13 @@ What would you like to assess?
 5. **Something else** – describe your specific need
 </ask-user>
 
+```
+multiSelect: false  # User must choose one assessment type
+```
+
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ### Step 2: Gather Context
 
@@ -65,6 +85,8 @@ Tell me about the product or feature:
 </ask-user>
 
 If the user has completed prior skills (`ux-story-panels`, `ux-behavior-mapping`, `ux-motivation-audit`, `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review`), reference those deliverables rather than re-doing the work. Note which deliverables exist and which areas have gaps.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding to Step 3.
 
 ### Step 3: Area 1 – Understand User Behaviors
 
@@ -96,6 +118,8 @@ Work through each checklist item:
 For each item, mark it as: Complete (reference the deliverable), Partially done (note what is missing), or Not done (flag as a gap).
 
 If critical gaps exist in this area, suggest: "For a deeper dive, run `ux-behavior-mapping` or `ux-story-panels`."
+
+**BLOCKING REQUIREMENT**: Present Area 1 findings and wait for the user's input before proceeding to Step 4.
 
 ### Step 4: Area 2 – Find the Gaps (Bias Audit)
 
@@ -143,6 +167,8 @@ Then work through each bias audit step:
 
 For each step, flag specific findings. If deeper analysis is needed, suggest: "For a full bias audit, run `ux-bias-audit`."
 
+**BLOCKING REQUIREMENT**: Present Area 2 findings and wait for the user's input before proceeding to Step 5.
+
 ### Step 5: Area 3 – Create Delightful Journeys
 
 Refer to the "Create Delightful Journeys" section of [product-assessment-checklist.md](./references/product-assessment-checklist.md).
@@ -159,6 +185,8 @@ Evaluate the journey's key components:
 8. **The "In Real Life" test** – If your experience is mainly digital, which part would feel the most awkward in its real-life equivalent?
 
 If no journey map exists, suggest: "For a full journey mapping exercise, run `ux-journey-mapping`."
+
+**BLOCKING REQUIREMENT**: Present Area 3 findings and wait for the user's input before proceeding to Step 6.
 
 ### Step 6: Area 4 – Communicate Product Decisions
 
@@ -178,7 +206,11 @@ Then review meeting preparation:
 
 If stakeholder communication is a gap, suggest: "For a deeper dive, run `ux-communicating-decisions`."
 
+**BLOCKING REQUIREMENT**: Present Area 4 findings and wait for the user's input before proceeding to Step 7.
+
 ### Step 7: Area 5 – Create Ethical and Humane Products
+
+**Agent delegation**: For the psychology review area, invoke the **psych-scanner** agent. Use the Agent tool to spawn it with the deliverables to review. Present its findings step by step to the user – do not dump the agent's raw output.
 
 Refer to the "Create Ethical and Humane Products" section of [product-assessment-checklist.md](./references/product-assessment-checklist.md).
 
@@ -204,6 +236,8 @@ Run the ethical tests:
 
 If deeper ethical review is needed, suggest: "For a full ethics audit, run `ux-ethics-review`."
 
+**BLOCKING REQUIREMENT**: Present Area 5 findings and wait for the user's input before proceeding to Step 8.
+
 ### Step 8: Produce the Assessment Report
 
 <ask-user>
@@ -214,6 +248,12 @@ How would you like the assessment results?
 3. **Gap analysis** – which areas are strong and which need attention
 4. **Action plan** – prioritized list of improvements with skill routing
 </ask-user>
+
+```
+multiSelect: false  # User must choose one output format
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
 Save the assessment to `{deliverables_path}/reviews/product-assessment.md`.
 
@@ -266,6 +306,15 @@ Save the assessment to `{deliverables_path}/reviews/product-assessment.md`.
 ### Cross-Reference Map
 - [Which skills have been completed and which should be run next]
 ```
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing area, an unaddressed concern, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Cross-References
 

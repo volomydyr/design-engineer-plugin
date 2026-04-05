@@ -25,7 +25,21 @@ license: MIT
 
 ## Workflow
 
-<step number="1" required="true">
+<step number="0" required="true">
+### Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand your context and the desired behavior, 2) teach the Behavior Map formula, 3) gather customer research with empathy questions, 4) analyze the 10 behavior levers, 5) map the behavior and determine threshold position, 6) validate the prompt, 7) produce the Behavior Map document." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with the Behavior Map framework (Behavior = Motivation x Ability x Prompt). If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Walk through one concept at a time, explain it simply, give a concrete example related to the user's product, then ask. Do not batch multiple abstract concepts into one question with pre-combined ratings as options.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+</step>
+
+<step number="1" required="true" depends_on="0">
 ### Step 1: Understand the Context
 
 Determine what the user is working on and whether they have prior deliverables.
@@ -40,6 +54,10 @@ To create a meaningful Behavior Map, I need to understand your context:
 3. Have you already created a Story Panel for this experience? If yes, what was the key moment / biggest gap you identified?
 4. Do you have any customer research data (survey responses, interview notes, analytics)? If yes, share the key insights.
 5. Is this a NEW product (you are predicting behavior) or an EXISTING product (the desired behavior is not happening enough)?
+```
+
+```
+multiSelect: false  # User must answer all context questions
 ```
 
 **BLOCKING REQUIREMENT:** Wait for user answers before proceeding. Do not assume customer motivations or abilities.
@@ -99,6 +117,10 @@ Do you have answers to these 3 empathy questions from real customers?
 3. No, and I cannot access customers – let's work with assumptions (will be clearly marked as hypotheses)
 ```
 
+```
+multiSelect: false  # User must choose one research state
+```
+
 **BLOCKING REQUIREMENT:** Wait for user response. If they choose option 2, format the empathy questions with their specific product context (replacing X and Y). If they choose option 3, proceed but label all motivation/ability assessments as hypotheses.
 </step>
 
@@ -134,27 +156,46 @@ Walk the user through assessing each of the 10 behavior levers for their specifi
 
 **Important:** The customer's ability is a function of the SCARCEST of the five ability levers at that moment. One very low ability lever can kill the behavior even if the other four are high.
 
-**Use AskUserQuestion** to walk through each category:
+Walk through each category ONE AT A TIME. Do not batch all levers into a single question. Explain each concept simply with a concrete example tied to the user's product before asking them to rate it.
 
-```
-Let's assess your user's behavior levers. For the desired behavior you described, rate each on a scale of Low / Medium / High:
+**Category 1: Motivation**
 
-MOTIVATION:
-1. Anticipation (hope/fear) – How strongly does this behavior connect to something the user hopes for or fears?
-2. Sensation (pleasure/pain) – Does this behavior involve seeking pleasure or avoiding pain?
-3. Belonging (acceptance/rejection) – Does this behavior connect to social acceptance or fear of rejection?
+Explain what motivation means in this context. Then ask about each lever separately:
 
-ABILITY:
-4. Time – How long does it take?
-5. Money – How much does it cost?
-6. Physical Capacity – How physically demanding is it?
-7. Mental Capacity – How complicated is it?
-8. Practice – How familiar is it to the user?
+1. **Anticipation (hope/fear)** – Explain: "Does your user hope for something or fear something that connects to this behavior?" Give a product-specific example. Then ask the user to rate: Low / Medium / High.
 
-PROMPT:
-9. Do you have an explicit prompt (button, notification, email) at the right moment?
-10. Are there implicit prompts (situations, emotions, habits) that trigger this behavior?
-```
+**BLOCKING REQUIREMENT**: Wait for the user's answer before asking the next lever.
+
+2. **Sensation (pleasure/pain)** – Explain: "Does this behavior involve seeking immediate pleasure or avoiding immediate pain?" Give a product-specific example. Then ask to rate.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer.
+
+3. **Belonging (acceptance/rejection)** – Explain: "Does this behavior connect to social acceptance or fear of rejection?" Give a product-specific example. Then ask to rate.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer.
+
+**Category 2: Ability**
+
+Explain what ability means – how easy or hard is the behavior? Then walk through each lever:
+
+4. **Time** – "How long does it take?" Rate.
+5. **Money** – "How much does it cost?" Rate.
+6. **Physical capacity** – "How physically demanding is it?" Rate.
+7. **Mental capacity** – "How complicated is it to understand?" Rate.
+8. **Practice** – "How familiar is this to the user already?" Rate.
+
+Ask these in a small batch (2–3 at a time) since they're simpler. Wait for answers before the next batch.
+
+**BLOCKING REQUIREMENT**: Wait for all ability ratings.
+
+**Category 3: Prompt**
+
+Explain what prompts are – the triggers that cause action. Then ask:
+
+9. "Do you have an explicit prompt (button, notification, email) at the right moment?"
+10. "Are there implicit prompts (situations, emotions, habits) that trigger this behavior?"
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding to Step 5.
 </step>
 
 <step number="5" required="true" depends_on="4">
@@ -194,6 +235,12 @@ Let's validate your prompt. Answer these questions:
 4. Could the prompt be delivered through a different channel for better timing?
 5. Are there natural implicit prompts (situations, habits) you could leverage?
 ```
+
+```
+multiSelect: false  # User answers prompt validation questions
+```
+
+**BLOCKING REQUIREMENT**: Wait for the user's prompt validation answers before proceeding to Step 7.
 
 **Example:** Uber Eats sends food delivery notifications around lunch and dinner time because hunger increases motivation, which increases the chance of being above the Activation Threshold. The prompt itself has not changed – only its timing.
 </step>
@@ -247,11 +294,23 @@ Compile the analysis into a structured Behavior Map document:
 ```
 
 **Final output:** Present the completed Behavior Map and ask the user to review it.
+
+After completing the behavior map, check if any new assumptions surfaced. If so, Read `{deliverables_path}/foundation/assumptions.md` and append the new assumptions with a note: 'Added from behavior mapping on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 </step>
 
 </critical_sequence>
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing lever assessment, an unaddressed behavior, a motivation nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **No invented motivations**: During this activity, do not invent customer motivations or ability assessments. If the user has no customer data, every motivation and ability assessment must be labeled as a hypothesis to validate.
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 

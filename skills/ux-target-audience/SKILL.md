@@ -30,6 +30,20 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0: Before starting
+
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess what you already know about your target users, 2) share my initial read on the audience, 3) ask 7–10 strategic questions to build the persona, 4) draft the persona document together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+
+2. **Conditional teaching**: Ask the user if they are familiar with what a user persona is and why it matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+
+3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
+
+4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
+
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding to Step 1.
+
+---
+
 ## Step 1: Assess Current Knowledge
 
 ```
@@ -46,7 +60,13 @@ options:
     description: "I have a persona document that needs revision based on new insights"
 ```
 
+```
+multiSelect: false  # User must choose one current state
+```
+
 If the user has existing data, surveys, or persona drafts, ask them to share before proceeding.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
@@ -68,6 +88,8 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 - 3 reasons ideas fail: users not motivated enough, product too complex, no trigger to act
 
 Ask questions in small batches (2-3 at a time). Wait for answers before continuing.
+
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
 
 ---
 
@@ -103,6 +125,16 @@ Save the final persona document to `{deliverables_path}/foundation/target-audien
 The document should follow the complete structure from [persona-framework.md](./references/persona-framework.md).
 
 ---
+
+## Content Integrity
+
+1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing audience segment, an unaddressed risk, an assumption nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
+2. **Do not add secondary personas or audience segments without asking the user first.** If you see a gap, ask: "Should we consider a secondary audience?"
+3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
+
+## Anti-slop Writing
+
+Before generating any text for the deliverable, read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and apply its rules. Scan your output before presenting it to the user.
 
 ## Decision Hierarchy
 
