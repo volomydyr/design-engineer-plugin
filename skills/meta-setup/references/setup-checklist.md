@@ -67,7 +67,7 @@ Where all skill outputs are saved. Default: `documents/design/` in the project r
 ### Folder Structure
 
 ```
-{deliverables_path}/
+documents/design/
 ├── foundation/     Core product definition
 │   ├── problem-statement.md
 │   ├── target-audience.md

@@ -24,7 +24,7 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 3. Audit existing components directory to catalog all reusable UI elements
 4. Audit existing views/screens to understand established patterns
 5. Review the approved implementation plan from `plans/`
-6. **Get design data via `get_design_context`** – never use screenshots alone. This returns structured code, metadata, and a screenshot together
+6. **If Figma plugin is connected, get design data via `get_design_context`** – never use screenshots alone. This returns structured code, metadata, and a screenshot together. If Figma is not connected, ask the user to share specs (screenshots + structured info on interactions, states, animations) before implementing.
 7. **Ask clarifying questions** via AskUserQuestion about anything the static designs don't show – interactions, animations, state changes, component reuse, responsive behavior, edge cases. Static mockups are always ambiguous about these things; do not guess
 
 ## Design Grounding Pre-Flight (BLOCKING)

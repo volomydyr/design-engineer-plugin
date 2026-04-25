@@ -95,7 +95,7 @@ For each selected area, Read these reference files BEFORE analyzing code:
 | Visual quality | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-to-code-qa/references/` |
 | Accessibility | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-accessibility/references/` |
 | Design system compliance | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/references/` |
-| Figma comparison | Use Figma plugin `get_design_context` for structured design data |
+| Figma comparison | If Figma plugin is connected, use `get_design_context` for structured design data; otherwise fall back to screenshots provided by the user |
 | Psychology scan | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-full-scan/references/principles-master.md` |
 | Ethics review | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-ethics-review/references/` |
 

@@ -255,7 +255,7 @@ multiSelect: false  # User must choose one output format
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
-Save the assessment to `{deliverables_path}/reviews/product-assessment.md`.
+Save the assessment to `documents/design/reviews/product-assessment.md`.
 
 ## Output Format
 

@@ -134,7 +134,7 @@ This creates the standardized folder structure. See [setup-checklist.md](./refer
 The script creates:
 
 ```
-{deliverables_path}/
+documents/design/
 ├── foundation/          # Core product definition deliverables
 ├── research/            # Research findings and competitive analysis
 │   └── archive/         # Archived research versions
@@ -187,6 +187,8 @@ dependencies:
 ### Initialize Auto-Memory
 
 After writing the config, seed the auto-memory structure for this project. Auto-memory lives at `~/.claude/projects/<project>/memory/` and MEMORY.md auto-loads every session (first 200 lines).
+
+**Note**: writes to these auto-memory files are advisory — Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` (Anthropic's documented `memory: project` mechanism). Auto-memory is the lighter session-context layer; the compound-documenter agent is the durable pipeline-state layer. Both are seeded during setup.
 
 **For new projects (Path B, "New product idea"):**
 

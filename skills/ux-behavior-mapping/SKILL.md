@@ -295,7 +295,7 @@ Compile the analysis into a structured Behavior Map document:
 
 **Final output:** Present the completed Behavior Map and ask the user to review it.
 
-After completing the behavior map, check if any new assumptions surfaced. If so, Read `{deliverables_path}/foundation/assumptions.md` and append the new assumptions with a note: 'Added from behavior mapping on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+After completing the behavior map, check if any new assumptions surfaced. If so, Read `documents/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from behavior mapping on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 </step>
 
 </critical_sequence>

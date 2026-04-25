@@ -129,7 +129,7 @@ Read from the deliverables directory and extract:
 - **Screens, flows, navigation structure** from the Information Architecture document
 - **Feature priorities and acceptance criteria** from MVP Requirements
 - **Psychology insights and bias considerations** from `bias-audit.md` and `journey-map.md` (if they exist)
-- **Bias audit recommendations** from `{deliverables_path}/design/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
+- **Bias audit recommendations** from `documents/design/design/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
 
 Present a summary of what was found:
 
@@ -262,7 +262,7 @@ Generate static screens showing key states and flows. This is NOT the final prot
 
 ### File location
 
-Save to: `{deliverables_path}/prototype/storyboard.html`
+Save to: `documents/design/prototype/storyboard.html`
 
 Create the directory if it does not exist.
 
@@ -284,7 +284,7 @@ Take the approved storyboard and build the real clickable version. This step is 
 
 ### File location
 
-Save to: `{deliverables_path}/prototype/prototype.html`
+Save to: `documents/design/prototype/prototype.html`
 
 **BLOCKING REQUIREMENT**: Wait for the user to review the interactive prototype before proceeding.
 
@@ -334,11 +334,11 @@ Save two files:
 
 ### 1. Final prototype
 
-Ensure `{deliverables_path}/prototype/prototype.html` is the latest version with all iterations applied.
+Ensure `documents/design/prototype/prototype.html` is the latest version with all iterations applied.
 
 ### 2. Prototype notes
 
-Save `{deliverables_path}/prototype/prototype-notes.md` with:
+Save `documents/design/prototype/prototype-notes.md` with:
 
 ```markdown
 # Prototype notes

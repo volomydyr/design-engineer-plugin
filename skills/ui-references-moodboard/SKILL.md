@@ -273,7 +273,7 @@ Help the user compile their references into a structured document. For each key 
 
 ## Step 8: Produce the Deliverable
 
-Save the references document to `{deliverables_path}/design/references/references.md`. Save any collected reference images to the same folder: `{deliverables_path}/design/references/`.
+Save the references document to `documents/design/design/references/references.md`. Save any collected reference images to the same folder: `documents/design/design/references/`.
 
 The document should include:
 

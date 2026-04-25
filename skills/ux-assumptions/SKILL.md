@@ -133,7 +133,7 @@ Repeat until the user explicitly approves the assumptions document.
 
 ## Step 7: Produce the Deliverable
 
-Save the final assumptions document to `{deliverables_path}/foundation/assumptions.md`.
+Save the final assumptions document to `documents/design/foundation/assumptions.md`.
 
 The document should follow the complete structure from [assumptions-template.md](./references/assumptions-template.md).
 

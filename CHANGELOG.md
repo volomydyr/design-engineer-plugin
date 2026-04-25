@@ -4,6 +4,25 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.1] – 2026-04-25
+
+Closes the four remaining items from Round B's critical-bug audit (H1 already fixed in 2.6.0). Consistency and honesty pass — no new features.
+
+### Changed
+
+- **Memory-management language softened in CLAUDE.md** (H3) — auto-memory writes (`MEMORY.md`, `project-map.md`, `debug-solutions.md`) are now explicitly described as advisory, not contracts. Claude Code does not structurally enforce these writes; the docs now match. Pointed users at the structurally enforced layer (compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/`).
+- **Hardcoded `documents/design/` everywhere** (M1) — replaced 24 instances of the `{deliverables_path}/` template token with the actual path across all skill, agent, command, and hook files. The `deliverables_path` config field was advertised as configurable but no code ever read it from `config.yaml`, so the configurability was fiction. Marked the field as reserved-for-future-use in CLAUDE.md.
+- **Hedged Figma plugin function references** (L2) — `commands/de/review.md` and `agents/frontend-implementer.md` now explicitly say "if Figma plugin is connected" before invoking `get_design_context` etc., matching the optional-tool reality.
+- **CLAUDE.md "Living Documents" section rewritten** to describe both layers (static graph + agent memory) honestly, replacing the old "tracked via .dependencies.yaml" framing that was tied to the dead subsystem.
+
+### Removed
+
+- Root `.mcp.json` (L1) — duplicated `plugin.json mcpServers.context7`. The plugin manifest is the authoritative declaration; the root `.mcp.json` was redundant for a self-installing plugin.
+
+### Verified
+
+- H2 (project-state.md / status.md confusion) verified clean — remaining mentions are intentional (user-side dev-status guidance examples, the "don't write here" warning in compound-documenter, and the legitimate `project-status` deliverable name).
+
 ## [2.6.0] – 2026-04-25
 
 Major fix to the "living documents" subsystem from Round B critical-bug audit. The dependency tracking system was dead since launch — nothing wrote `status: complete` or `last_updated` to `dependencies.yaml`, so the entire feature was advertised but non-functional. Re-architected around the documented Anthropic primitive (agent `memory: project`).

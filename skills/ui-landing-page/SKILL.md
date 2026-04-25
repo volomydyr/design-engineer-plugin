@@ -37,7 +37,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Read StoryBrand deliverable
 
-Read `{deliverables_path}/foundation/storybrand.md` to extract the 7-part narrative:
+Read `documents/design/foundation/storybrand.md` to extract the 7-part narrative:
 
 1. **Hero** – who is the user, what do they want
 2. **Problem** – external, internal, philosophical
@@ -49,7 +49,7 @@ Read `{deliverables_path}/foundation/storybrand.md` to extract the 7-part narrat
 
 If the StoryBrand deliverable does not exist, warn the user and suggest running the `ux-storybrand` skill first. If they want to proceed without it, gather the narrative through questions instead.
 
-Also read: `{deliverables_path}/foundation/business-plan.md` (for pricing info, if applicable) and `{deliverables_path}/design/references.md` (for design tokens).
+Also read: `documents/design/foundation/business-plan.md` (for pricing info, if applicable) and `documents/design/design/references.md` (for design tokens).
 
 Present what was extracted:
 
@@ -197,7 +197,7 @@ Assemble all approved sections into a single HTML file with all CSS in `<style>`
 
 ### File location
 
-Save to: `{deliverables_path}/prototype/landing-page.html`
+Save to: `documents/design/prototype/landing-page.html`
 
 ---
 
@@ -214,7 +214,7 @@ Same iteration approach as product prototyping:
 
 ## Step 6: Save deliverable
 
-Save the final landing page to `{deliverables_path}/prototype/landing-page.html`.
+Save the final landing page to `documents/design/prototype/landing-page.html`.
 
 ---
 

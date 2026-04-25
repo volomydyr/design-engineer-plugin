@@ -141,7 +141,14 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 
 ## Living Documents
 
-Deliverables created by this plugin are living documents tracked via `.dependencies.yaml`. When an upstream deliverable changes, downstream documents may need review. The hook scripts in `hooks/` implement this tracking automatically.
+Deliverables created by this plugin are documented in two layers:
+
+- **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` — read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
+- **Live progress** at `.claude/agent-memory/compound-documenter/` — three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
+
+Run `/de:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
+
+**Path note**: deliverable files always live at `documents/design/...` — this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
 
 ## Plan Mode
 
@@ -441,6 +448,8 @@ Important:
 
 This plugin integrates with Claude Code's auto-memory system (`~/.claude/projects/<project>/memory/`) to maintain project awareness across sessions. MEMORY.md auto-loads every session (first 200 lines). Topic files load on demand.
 
+**Note on enforcement**: auto-memory writes are advisory — Claude updates these files when it notices a relevant trigger, but nothing in the plugin or Claude Code structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` is the structurally enforced layer for pipeline state — see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
+
 ### Project Map (`memory/project-map.md`)
 
 Maintain a living file tree of the project. Every entry follows this format:
@@ -449,11 +458,11 @@ Maintain a living file tree of the project. Every entry follows this format:
 path – description (≤10 words) | when to read
 ```
 
-**Update rules:**
-- After creating any file or folder → add an entry with path, description, and read trigger
-- After deleting any file or folder → remove its entry
-- After significant restructuring (moving files, renaming directories) → update affected entries
-- Do NOT update entries for minor edits to existing files – only structural changes
+**Update guidance** (advisory — Claude does this when it notices the trigger; not structurally enforced):
+- After creating any file or folder, consider adding an entry with path, description, and read trigger
+- After deleting any file or folder, consider removing its entry
+- After significant restructuring (moving files, renaming directories), update affected entries
+- Skip minor edits to existing files – only structural changes warrant a project-map update
 
 **Read project-map.md BEFORE:**
 - Any filesystem exploration or file search
@@ -470,15 +479,15 @@ Keep MEMORY.md under 150 lines. It stores:
 - **Key Decisions**: one-line entries for cross-cutting decisions that affect multiple downstream deliverables (e.g., "B2B focus", "mobile-first", "subscription model chosen over freemium")
 - **Topic Files routing table**: links to topic files with explicit "read when..." triggers
 
-**What to save to MEMORY.md:**
-- Pipeline position changes (after completing a skill or phase)
+**What to save to MEMORY.md** (when relevant — advisory):
+- Pipeline position changes (after completing a skill or phase). Note: the structurally tracked version of this lives in `.claude/agent-memory/compound-documenter/pipeline-state.md` — MEMORY.md is a redundant short-form copy for the auto-loaded session context.
 - Business/design decisions that affect 2+ deliverables downstream
 - Mode preference and project type
 
 **What NOT to save anywhere in memory:**
 - Individual deliverable content (already in documents/design/)
-- Resume state details (already in .design-engineer-plugin/config.yaml)
-- Dependency status (already in .dependencies.yaml)
+- Resume state details (already in .design-engineer-plugin/config.yaml + the compound-documenter agent memory)
+- Dependency status (already in .design-engineer-plugin/dependencies.yaml as static graph)
 - Anything already in this CLAUDE.md
 - How the plugin works or what skills exist
 
@@ -500,12 +509,14 @@ Each entry: the error, what was tried and failed, what actually fixed it.
 | When encountering errors | debug-solutions.md – check for known fixes |
 | After chat compaction | Re-read MEMORY.md for recovered context |
 
-### When to Write Memory
+### When to Write Memory (advisory)
+
+These are heuristics. Claude updates the files when it notices the trigger; nothing structurally forces the write.
 
 | Trigger | What to update |
 |---------|---------------|
 | File/folder created or deleted | project-map.md – add or remove entry |
-| Cross-cutting design decision made | MEMORY.md "Key Decisions" – one-line entry with date |
-| Skill or phase completed | MEMORY.md "Pipeline State" – update position |
+| Cross-cutting design decision made | MEMORY.md "Key Decisions" – one-line entry with date (also captured by compound-documenter in key-decisions.md) |
+| Skill or phase completed | invoke compound-documenter (it updates pipeline-state.md structurally); optionally mirror the line in MEMORY.md |
 | Hard bug solved (3+ attempts) | debug-solutions.md – error + failed attempts + fix |
-| Session ending (Stop hook reminder) | All of the above if changes occurred this session |
+| Session ending (Stop hook reminder) | run /de:document so compound-documenter flushes its memory; optionally update MEMORY.md / project-map.md / debug-solutions.md if relevant changes occurred |
