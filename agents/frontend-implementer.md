@@ -27,6 +27,67 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 6. **Get design data via `get_design_context`** – never use screenshots alone. This returns structured code, metadata, and a screenshot together
 7. **Ask clarifying questions** via AskUserQuestion about anything the static designs don't show – interactions, animations, state changes, component reuse, responsive behavior, edge cases. Static mockups are always ambiguous about these things; do not guess
 
+## Design Grounding Pre-Flight (BLOCKING)
+
+Before writing any UI code, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) will hard-deny your Write/Edit/MultiEdit calls on any UI file (.tsx .jsx .html .svelte .vue .css .scss) until you have:
+
+1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
+2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
+3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
+4. Confirmed `documents/design/design/references/references.md` exists in the project (or run `ui-references-moodboard` first)
+5. Read `documents/design/prototype/prototype.html` if it exists — your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+
+This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing.
+
+After the Reads, output this block verbatim and fill in EVERY field:
+
+### Design Intent
+- **Who is this human**: [a specific person, not "users". Where they are when they open this, what's on their mind right now]
+- **What verb must they accomplish**: [the actual action — "approve the payment", "find the broken deployment" — not "use the dashboard"]
+- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise like a surgical instrument / playful like a creative tool — NEVER "clean and modern"]
+
+### Domain Exploration
+- **Domain words (5+)**: [vocabulary from this product's actual world — "ticket rail, table turn, mise en place" not generic UX terms]
+- **Color world (5+)**: [colors that exist naturally in this product's domain — "scrub teal, warming-lamp amber, chart manila" not "blue, gray, white"]
+- **Signature element (1)**: [one element — visual, structural, or interaction — that could only exist for THIS product. If you can name it for any product, keep exploring]
+- **Named defaults (3)**: [obvious choices for this product type that you will NOT do, named so you can avoid them]
+
+### WHY Checkpoint
+- **Palette WHY**: [why these specific colors fit this product's world]
+- **Depth WHY**: [borders / shadows / layered surfaces — and why this approach fits the intent]
+- **Surfaces WHY**: [your elevation scale and why this color temperature]
+- **Typography WHY**: [your typeface and why it fits the intent. NOT Inter/SF Pro/Roboto/Lato/Montserrat unless you state a specific reason tied to the product]
+- **Spacing WHY**: [your base unit and what it says about density (compact tool panel ≠ premium card)]
+- **Token names WHY**: [the words your tokens use — `--ink`, `--parchment`, `--scrub-teal`. NOT `--gray-700`, `--surface-2`, `--primary`]
+
+### Anti-pattern self-check
+For each, state PASS (and why) or how I am avoiding:
+- [ ] Cream/beige background + orange CTA combo (the new "Inter font" of mobile design)
+- [ ] 3D Apple/Google emoji as character illustration or page hero
+- [ ] Flag emoji or any emoji as avatars
+- [ ] Pill chips with leading emoji ("🏄 Surfing")
+- [ ] Generic CTA copy ("Get started", "Join this event", "Learn more", "Continue")
+- [ ] Inter / SF Pro / Roboto / Lato / Montserrat / Open Sans typeface without stated WHY
+- [ ] Generic token names (`--gray-N`, `--surface-N`, `--primary`, `--secondary`, `--accent`)
+- [ ] Cards nested in cards
+- [ ] Identical card grids (same size, same icon-heading-body pattern)
+- [ ] Glassmorphism / blur effects as decoration
+- [ ] Centering everything
+- [ ] Default drop shadows (rounded rectangles with soft gray shadows)
+- [ ] Gradient text on headings
+- [ ] Purple-blue gradients / cyan-on-dark / neon accents
+- [ ] Modal for everything
+
+### Signature Test
+List 5 specific places where the design intent manifests in this output:
+1. [specific element + why it expresses the intent]
+2. ...
+3. ...
+4. ...
+5. ...
+
+If you cannot fill all 5 with concrete components (not "the overall feel"), the signature does not exist — STOP and rework before any Write.
+
 ## Implementation Process
 
 1. **Component audit** (mandatory before any code): Scan all component directories and produce a table:
@@ -78,6 +139,7 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 - **Use existing icons**: Check the project's asset catalog before requesting new icons
 - **Follow Figma exactly**: No approximations or creative interpretations; pixel-perfect implementation is required
 - **Semantic naming**: Follow the established Design Tokens to Semantic Aliases pattern throughout
+- **Prototype as visual baseline**: If `documents/design/prototype/prototype.html` exists in the project, you MUST Read it first and treat it as the visual baseline. Your implementation must match its layout, spacing, typography, and color choices. Do not creatively deviate. The prototype was approved by the user during the prototyping phase; the dev phase implements it, not reinvents it. The `de-design-grounding-hook` enforces this by denying UI Writes if the prototype exists but was not Read this session.
 
 ## Success Criteria
 

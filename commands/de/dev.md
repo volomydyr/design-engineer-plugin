@@ -48,6 +48,37 @@ Each build target gets its own development setup: tech stack, repo/folder, CLAUD
 
 **BLOCKING REQUIREMENT**: If multiple targets detected, wait for the user's choice before proceeding.
 
+## Step 1.6: Design Grounding Pre-Flight (BLOCKING)
+
+Before any UI code is generated in this command, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) hard-denies Write/Edit/MultiEdit on UI files (.tsx .jsx .html .svelte .vue .css .scss) until you have:
+
+1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
+2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
+3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
+4. Confirmed `documents/design/design/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
+5. Read `documents/design/prototype/prototype.html` if it exists — implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+
+After the Reads, output this block and fill in EVERY field:
+
+### Design Intent
+- **Who is this human**: [a specific person, not "users"]
+- **What verb must they accomplish**: [the actual action]
+- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise / playful — NEVER "clean and modern"]
+
+### Domain Exploration
+- **Domain words (5+)**, **Color world (5+)**, **Signature element (1)**, **Named defaults (3)**
+
+### WHY Checkpoint
+- Palette WHY, Depth WHY, Surfaces WHY, Typography WHY (NOT Inter/SF Pro/Roboto/Lato/Montserrat without stated reason), Spacing WHY, Token names WHY (NOT `--gray-N`, `--surface-N`, `--primary`)
+
+### Anti-pattern self-check
+- [ ] Cream/beige bg + orange CTA, 3D emoji as illustration, emoji avatars, pill chips with emoji, generic CTA copy, default fonts, generic tokens, cards-in-cards, identical card grids, glassmorphism, centered everything, default drop shadows, gradient text, purple-blue gradients, modal for everything
+
+### Signature Test
+List 5 specific places where design intent manifests. If fewer than 5 concrete components — STOP and rework.
+
+For the full inlined block content (with prompts and examples), see `agents/frontend-implementer.md` Design Grounding Pre-Flight section.
+
 ## Step 2: Plan
 
 Based on what you found, present a plan. Only suggest what's relevant:
@@ -87,6 +118,8 @@ Before writing ANY code, follow these steps in order:
 
 **1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
+**1a. Read the prototype FIRST if it exists**: If `documents/design/prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation — your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
+
 **2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` — this is the exact format your plan must follow.
 
 **3. Enter Plan Mode**: Use `EnterPlanMode` to write the implementation plan. Do NOT present the plan as chat text, a summary table, or TaskCreate items. The plan MUST follow the template format with all required fields: Summary, Phases (each with Objective, Depends on, Files, Reuse, Checklist, QA), Risk assessment, Questions for user.
@@ -107,7 +140,7 @@ Before writing ANY code, follow these steps in order:
    e. Wait for approval before next phase
    f. After approval, commit using `dev-github-workflow`
 
-**9. After all phases**: Run `design-system-auditor` to audit compliance. Run `meta-document` to record progress.
+**9. After all phases**: Run `design-system-auditor` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). The auditor will produce a structured report; review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional. Run `meta-document` to record progress.
 
 ### Visual verification (UI changes only)
 

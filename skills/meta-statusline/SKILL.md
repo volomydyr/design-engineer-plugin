@@ -171,13 +171,12 @@ Read and display:
 When installed, the status line displays below every Claude Code prompt:
 
 ```
-Opus * my-project | 5h: 12% (2h31m) * 7d: 8% | [=======---] 35% | Phase 2: Strategy * 3/7
+Opus  my-project | context [██░░░] 30% | 5h: 12% | 7d: 8%
 ```
 
 - **Model + directory** – shortened model name and project folder
-- **Usage limits** – 5-hour and 7-day utilization with reset time (fetched from Anthropic API, cached 60s)
 - **Context bar** – context window usage with color coding (green/yellow/orange/red)
-- **Pipeline state** – current phase and deliverable progress (only shown when a design pipeline is active)
+- **Usage limits** – 5-hour and 7-day utilization (read from stdin `rate_limits`, no external monitor needed)
 
 ---
 
@@ -188,6 +187,10 @@ Opus * my-project | 5h: 12% (2h31m) * 7d: 8% | [=======---] 35% | Phase 2: Strat
 3. **AI suggestions** fill gaps only when user provides no guidance.
 
 ## Common Issues
+
+### Status line stale during long file generation
+
+The status line refreshes at the end of each model turn. If a single tool call (for example, generating a long file or running a long-running script) takes minutes, the line may show stale numbers until that turn completes. This is Claude Code's update model, not a plugin bug. The numbers catch up after the long write finishes.
 
 ### Status line not appearing
 If the status line does not show after installation:

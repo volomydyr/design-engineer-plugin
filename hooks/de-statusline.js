@@ -1,22 +1,14 @@
 #!/usr/bin/env node
 // Design-Engineer Status Line
-// Shows: model (context) + dir | context bar | 5h/7d usage | pipeline state
+// Shows: model (context) + dir | context bar | 5h/7d usage
 // All data from stdin JSON — no external cache or monitor needed.
+// Note: pipeline-state segment removed in v2.5.0 — it depended on a
+// status: complete write to dependencies.yaml that no part of the plugin
+// ever performed, so the segment had been dead since launch.
 
-const fs = require('fs');
 const path = require('path');
-const os = require('os');
 
 const AUTO_COMPACT_BUFFER_PCT = 16.5;
-
-// Phase names (short, for statusline display)
-const PHASE_NAMES = {
-  '1': 'Discovery',
-  '2': 'Strategy',
-  '3': 'Planning',
-  '4': 'Design',
-  '5': 'Development'
-};
 
 // ─── Main statusline ────────────────────────────────────────────────────────
 let input = '';
@@ -42,10 +34,6 @@ process.stdin.on('end', () => {
     // Segment 3: Usage limits (from stdin rate_limits)
     const usageSeg = buildUsageSegment(data.rate_limits);
     if (usageSeg) segments.push(usageSeg);
-
-    // Segment 4: Pipeline state (conditional)
-    const pipelineSeg = buildPipelineSegment(data.workspace?.current_dir);
-    if (pipelineSeg) segments.push(pipelineSeg);
 
     // Join with dim vertical bar
     process.stdout.write(segments.join(' \x1b[2m\u2502\x1b[0m '));
@@ -142,147 +130,4 @@ function buildContextSegment(remaining) {
   if (used < 80) return `\x1b[38;5;208m${label} ${bar} ${used}%\x1b[0m`;
   if (used < 95) return `\x1b[31m${label} ${bar} ${used}% [!]\x1b[0m`;
   return `\x1b[31m${label} ${bar} ${used}% [!!]\x1b[0m`;
-}
-
-// ─── Pipeline state segment ─────────────────────────────────────────────────
-function buildPipelineSegment(dir) {
-  if (!dir) return null;
-  try {
-    const depsPath = findDepsPath(dir);
-    if (!depsPath) return null;
-
-    const text = fs.readFileSync(depsPath, 'utf8');
-    const deliverables = parseDependenciesYaml(text);
-    if (!deliverables || Object.keys(deliverables).length === 0) return null;
-
-    const phases = {};
-    let hasInProgress = false;
-    for (const [key, val] of Object.entries(deliverables)) {
-      const phase = val.phase;
-      if (!phase) continue;
-      if (!phases[phase]) phases[phase] = { total: 0, complete: 0, inProgress: 0 };
-      phases[phase].total++;
-      if (val.status === 'complete') phases[phase].complete++;
-      if (val.status === 'in_progress') {
-        phases[phase].inProgress++;
-        hasInProgress = true;
-      }
-    }
-
-    const sortedPhases = Object.keys(phases).sort();
-    if (sortedPhases.length === 0) return null;
-
-    // Find current phase: the most advanced phase that has any completed deliverables
-    // but is not fully complete yet. If all phases are complete, show the last one.
-    let currentPhase = null;
-    for (const p of sortedPhases) {
-      if (phases[p].inProgress > 0) {
-        currentPhase = p;
-        break;
-      }
-      if (phases[p].complete > 0 && phases[p].complete < phases[p].total) {
-        currentPhase = p;
-        break;
-      }
-    }
-    // If no partially complete phase found, find the first phase with no completions
-    // (the next phase to start) or show the last completed phase
-    if (!currentPhase) {
-      for (const p of sortedPhases) {
-        if (phases[p].complete === 0) {
-          currentPhase = p;
-          break;
-        }
-      }
-    }
-    if (!currentPhase) {
-      // All phases complete — show the last one
-      currentPhase = sortedPhases[sortedPhases.length - 1];
-    }
-
-    const phaseName = PHASE_NAMES[currentPhase] || `Phase ${currentPhase}`;
-    const completed = phases[currentPhase].complete;
-    const total = phases[currentPhase].total;
-
-    return `Phase ${currentPhase}: ${phaseName} \u2022 ${completed}/${total}`;
-  } catch (e) {
-    return null;
-  }
-}
-
-// ─── Find dependencies.yaml ─────────────────────────────────────────────────
-function findDepsPath(startDir) {
-  let d = startDir;
-  for (let i = 0; i < 4; i++) {
-    // Check new path first, then legacy
-    const newPath = path.join(d, '.design-engineer-plugin', 'dependencies.yaml');
-    if (fs.existsSync(newPath)) return newPath;
-    const legacyPath = path.join(d, 'documents', 'design', '.dependencies.yaml');
-    if (fs.existsSync(legacyPath)) return legacyPath;
-    const oldLegacyPath = path.join(d, 'docs', 'design', '.dependencies.yaml');
-    if (fs.existsSync(oldLegacyPath)) return oldLegacyPath;
-    const parent = path.dirname(d);
-    if (parent === d) break;
-    d = parent;
-  }
-  return null;
-}
-
-// ─── Minimal YAML parser ────────────────────────────────────────────────────
-function parseDependenciesYaml(text) {
-  const deliverables = {};
-  let current = null;
-  let currentListKey = null;
-
-  for (const line of text.split('\n')) {
-    const stripped = line.trim();
-    if (!stripped || stripped.startsWith('#')) continue;
-
-    const indent = line.length - line.trimStart().length;
-
-    if (indent === 2 && stripped.endsWith(':') && !stripped.startsWith('-')) {
-      current = stripped.slice(0, -1);
-      deliverables[current] = { informs: [], depends_on: [], status: 'not_started', phase: null };
-      currentListKey = null;
-      continue;
-    }
-
-    if (!current) continue;
-
-    if (indent === 4) {
-      const m = stripped.match(/^([\w_-]+):\s*(.*)/);
-      if (m) {
-        const key = m[1];
-        const val = m[2].trim();
-        if (key === 'informs' || key === 'depends_on') {
-          currentListKey = key;
-          if (val && val !== '[]') {
-            deliverables[current][key] = val.replace(/[\[\]]/g, '').split(',')
-              .map(v => v.trim().replace(/^['"]|['"]$/g, ''));
-          } else {
-            deliverables[current][key] = [];
-          }
-        } else if (key === 'status') {
-          currentListKey = null;
-          deliverables[current].status = val || 'not_started';
-        } else if (key === 'phase') {
-          currentListKey = null;
-          deliverables[current].phase = val || null;
-        } else {
-          currentListKey = null;
-          deliverables[current][key] = val;
-        }
-      }
-      continue;
-    }
-
-    if (indent === 6 && stripped.startsWith('- ')) {
-      const val = stripped.slice(2).trim().replace(/^['"]|['"]$/g, '');
-      if (currentListKey && deliverables[current]?.[currentListKey]) {
-        deliverables[current][currentListKey].push(val);
-      }
-    }
-  }
-
-  return deliverables;
 }

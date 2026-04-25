@@ -4,6 +4,33 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.5.0] – 2026-04-25
+
+Major fix targeting the AI-slop problem from beta testing — every fingerprint of generic AI-generated UI was appearing in tester output (cream/beige + orange CTA, 3D Apple-emoji as illustration, flag-emoji avatars, pill-chips-with-emoji, generic "Join this event" CTA copy). Root cause: the plugin's design knowledge was treated as reference material rather than mandatory operating procedure, and `/de:dev` + `frontend-implementer` never read any of it. Fix uses Anthropic's documented `PreToolUse` hard-block primitive plus inlined operating rules in the agent/skill/command prompts.
+
+### Added
+- **Design grounding hook** (`hooks/de-design-grounding-hook.js`) — new PreToolUse hook that hard-denies UI Writes/Edits/MultiEdits (.tsx .jsx .html .svelte .vue .css .scss) until required design knowledge has been Read this session and `references.md` exists in the project. If `prototype.html` exists, denies Writes that don't Read it first. Uses the documented `permissionDecision: "deny"` primitive — this is real enforcement, not advisory context.
+- **Mobile App Anti-Patterns (2026)** section added to `anti-patterns.md` — cream/beige + orange CTA, 3D emoji as illustration, emoji avatars, pill chips with emoji, generic CTA copy. Plus a Hard Bans section listing typefaces (Inter/SF Pro/Roboto/Lato/Montserrat/Open Sans), token names (`--gray-N`/`--surface-N`/`--primary`), and emoji as avatars/illustrations as choices that ALWAYS require user-stated WHY.
+- **Curated reference apps** (`skills/ui-references-moodboard/references/curated-references.md`) — 8 product-type categories with 3–5 distinctive-design reference apps each and a specific quality to study, so users skipping moodboard still have aesthetic anchors against AI defaults.
+- **Aesthetic audit pass** in `design-system-auditor` agent — extended from token-compliance only to also run the 4 lenses (Composition / Craft / Content / Structure) + 4 named tests (Swap / Squint / Signature / Token) + AI Slop Test from `critique-framework.md`, with structured PASS/FAIL output per test.
+
+### Changed
+- **Inlined the WHY Checkpoint, anti-pattern self-check, and Signature Test** into `agents/frontend-implementer.md`, `skills/dev-prototyping/SKILL.md`, and `commands/de/dev.md` — the operating procedure is now in the prompts that actually load (agent system prompt + skill content), not in reference files the model may not Read. The reference files remain canonical for deep dives.
+- **Tight prototype-to-dev coupling** — `/de:dev` and `frontend-implementer` now treat `prototype.html` as the visual baseline when it exists; no creative deviation. Enforced by the new hook.
+
+### Removed
+- **Phase indicator from status line** — the segment had been dead since launch (nothing in the plugin ever wrote `status: complete` to `dependencies.yaml`, so the count was permanently zero). Removed `buildPipelineSegment()`, `findDepsPath()`, `parseDependenciesYaml()`, and the `PHASE_NAMES` lookup from `de-statusline.js`. Updated `meta-statusline` skill docs to reflect the new (smaller, more honest) status line: model + dir + context bar + 5h/7d usage.
+
+### Fixed
+- **Status-line lag during long tool calls** — documented as Claude Code's update model (the line refreshes at the end of each model turn), not a plugin bug. Added a Common Issues entry to `meta-statusline` skill.
+- **Expo "training" question from beta tester** — confirmed not a bug. The plugin has zero Expo-specific training; Claude proposes Expo when product type is "mobile app" because it's a reasonable React Native framework. No code change needed.
+
+## [2.4.1] – 2026-04-25
+
+### Fixed
+
+- **Plugin install failure for some users** – replaced bare relative source (`"./"`) in `marketplace.json` with explicit GitHub source (`{source: "github", repo: "volomydyr/design-engineer-plugin"}`). Aligns with the documented Anthropic plugin-source patterns and removes a path-resolution edge case reported by one beta tester (`/plugin install design-engineer@design-engineer-plugin` returned "Plugin not found in any marketplace" even though the marketplace had been added successfully).
+
 ## [2.4.0] – 2026-04-04
 
 66 issues identified and fixed from end-to-end main flow testing (new product from scratch). Grouped into 12 root causes, implemented across 6 phases.

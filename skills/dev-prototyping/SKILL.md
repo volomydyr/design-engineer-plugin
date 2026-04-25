@@ -35,6 +35,67 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0.5: Design Grounding Pre-Flight (BLOCKING)
+
+Before generating any HTML for storyboard or prototype, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) will hard-deny your Write/Edit calls on any `.html` file until you have:
+
+1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
+2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
+3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
+4. Confirmed `documents/design/design/references/references.md` exists (or run `ui-references-moodboard` first)
+
+This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop — they set the visual baseline that downstream development inherits.
+
+After the Reads, output this block and fill in EVERY field:
+
+### Design Intent
+- **Who is this human**: [a specific person, not "users". Where they are, what's on their mind right now]
+- **What verb must they accomplish**: [the actual action, not "use the app"]
+- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise like a surgical instrument / playful like a creative tool — NEVER "clean and modern"]
+
+### Domain Exploration
+- **Domain words (5+)**: [vocabulary from this product's world]
+- **Color world (5+)**: [colors that exist naturally in this product's domain]
+- **Signature element (1)**: [one element that could only exist for THIS product]
+- **Named defaults (3)**: [obvious choices for this product type that you will NOT do]
+
+### WHY Checkpoint
+- **Palette WHY**: [why these colors fit this product's world]
+- **Depth WHY**: [borders / shadows / layered — and why this fits the intent]
+- **Surfaces WHY**: [elevation scale and why this color temperature]
+- **Typography WHY**: [typeface and why it fits — NOT Inter/SF Pro/Roboto/Lato/Montserrat unless stated WHY]
+- **Spacing WHY**: [base unit and what it says about density]
+- **Token names WHY**: [`--ink`, `--parchment`, `--scrub-teal` — NOT `--gray-700`, `--surface-2`, `--primary`]
+
+### Anti-pattern self-check
+For each, state PASS or how I am avoiding:
+- [ ] Cream/beige background + orange CTA combo
+- [ ] 3D Apple/Google emoji as character illustration or hero
+- [ ] Flag emoji or any emoji as avatars
+- [ ] Pill chips with leading emoji
+- [ ] Generic CTA copy ("Get started", "Join this event", "Learn more")
+- [ ] Inter / SF Pro / Roboto / Lato / Montserrat without stated WHY
+- [ ] Generic token names (`--gray-N`, `--surface-N`, `--primary`)
+- [ ] Cards nested in cards
+- [ ] Identical card grids
+- [ ] Glassmorphism / blur effects as decoration
+- [ ] Centering everything
+- [ ] Default drop shadows
+- [ ] Gradient text on headings
+- [ ] Purple-blue gradients / cyan-on-dark / neon accents
+
+### Signature Test
+List 5 specific places where the design intent manifests:
+1. [specific element + why it expresses the intent]
+2. ...
+3. ...
+4. ...
+5. ...
+
+If you cannot fill all 5 with concrete components, the signature does not exist — STOP and rework before any Write.
+
+---
+
 ## Step 1: Scope
 
 ```

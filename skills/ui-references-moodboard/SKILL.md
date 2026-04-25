@@ -227,6 +227,8 @@ multiSelect: true  # User can select multiple key screens
 
 Walk the user through collecting references using the approach in [reference-gathering-guide.md](./references/reference-gathering-guide.md).
 
+If the user does not know which apps in their domain are worth studying, Read [curated-references.md](./references/curated-references.md) — it has 8 product-type categories (mobile event/social, mobile productivity, mobile fintech, mobile health, web SaaS dashboard, web fintech, web content/media, macOS native) with 3–5 distinctive-design reference apps per category and a specific quality to study for each. These are seed references, not requirements — the user can override.
+
 For each key screen identified in Step 4 (or generally, if screens haven't been identified yet):
 
 1. Ask the user to share references they already like — screenshots, URLs, app names
