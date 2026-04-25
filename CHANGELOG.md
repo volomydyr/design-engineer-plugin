@@ -4,6 +4,35 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.0] – 2026-04-25
+
+Major fix to the "living documents" subsystem from Round B critical-bug audit. The dependency tracking system was dead since launch — nothing wrote `status: complete` or `last_updated` to `dependencies.yaml`, so the entire feature was advertised but non-functional. Re-architected around the documented Anthropic primitive (agent `memory: project`).
+
+### Added
+
+- **Agent-memory progress tracking** — `compound-documenter` agent gains `memory: project` frontmatter, writing structured state to `.claude/agent-memory/compound-documenter/`: `pipeline-state.md` (current phase, last completed skill, recent deliverables), `key-decisions.md` (append-only log of cross-cutting decisions affecting 2+ deliverables), `stale-dependents.md` (downstream deliverables not refreshed since upstream change). Uses Anthropic's documented agent-memory mechanism, which Claude Code wires up structurally rather than by prose instruction.
+
+### Changed
+
+- **`dependencies.yaml` is now a static reference graph.** Removed `status:` and `last_updated:` fields from every entry — they were never written. The file documents which deliverables inform which downstream ones; runtime progress is now in agent memory. File header rewritten to make the static-only role explicit.
+- **`check_deliverable_deps.py`** simplified to print only the static "You edited X. Downstream deliverables that may need review: …" relationship. Removed the dead 90-day staleness check (relied on `last_updated`).
+- **`session_dep_summary.py`** simplified — removed the false "deliverables updated this session" claim and the dead `derive_resume_state` / `write_resume_state` machinery (all relied on `last_updated` which was never set). Now prints a clean session-end reminder pointing at `/de:document` for state writes.
+- **`de-postcompact-hook.sh`** removed the dead "Deliverables completed: N" count (always 0). Now points the model at the compound-documenter agent's pipeline-state.md for live state recovery after compaction.
+- **`compound-documenter` agent** rewritten to write to its agent-memory directory using the documented schema, instead of an ambiguous `status.md`.
+- **`meta-document/SKILL.md`** now invokes compound-documenter to handle state writes instead of trying to write `status.md` directly.
+- **`meta-orchestrator/SKILL.md`** Step 0 now reads `.claude/agent-memory/compound-documenter/pipeline-state.md` (not the never-written `documents/design/project-state.md`).
+- **`meta-orchestrator/references/project-state-schema.md`** rewritten as a deprecation redirect note pointing to compound-documenter as the new owner of pipeline state.
+- **`meta-document/references/context-engineering-guide.md`** updated to reference the agent-memory pipeline-state.md instead of the old `status.md` convention.
+- **README FAQs #14 + #15** rewritten to honestly describe both layers (static graph + agent memory). No more "the plugin flags downstream dependents when upstream changes" promise — the plugin surfaces stale candidates; the user decides what's worth refreshing.
+
+### Removed
+
+- Dead `status:` / `last_updated:` fields from `dependencies-default.yaml` seed (every deliverable entry).
+- 90-day staleness detection (relied on `last_updated`, dead since launch).
+- The `derive_resume_state` and `write_resume_state` functions in `session_dep_summary.py` and the supporting YAML parser / `is_recent` helper (all built on `last_updated`).
+- `status.md` references from `meta-document` and `compound-documenter` (the file was never the right primitive — split into three specific agent-memory files instead).
+- `project-state.md` references from `meta-orchestrator` (file was never created or written).
+
 ## [2.5.1] – 2026-04-25
 
 ### Fixed

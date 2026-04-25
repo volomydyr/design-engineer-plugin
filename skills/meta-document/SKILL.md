@@ -17,7 +17,7 @@ After any significant work is completed (a design deliverable, a development pha
 
 This is not for pet projects that you start and abandon. This is for actual complex projects planned to run for years, potentially becoming million-dollar products with multiple teams working on them.
 
-**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `{deliverables_path}/dev/[category]/`. The project status file lives at the project root as `status.md`.
+**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `{deliverables_path}/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/compound-documenter/` — Anthropic's documented persistence primitive for subagents.
 
 ---
 
@@ -180,49 +180,19 @@ tags: [tags]
 </step>
 
 <step number="5" required="true" depends_on="4">
-### Step 5: Update Project Status File
+### Step 5: Invoke compound-documenter to update agent memory
 
-Update the project status file (`status.md`) at the project root.
+Live pipeline state is tracked by the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The agent maintains three structured files:
 
-**Status file structure:**
+- **pipeline-state.md** — current phase, last completed skill, next skill, recent deliverables
+- **key-decisions.md** — append-only log of cross-cutting decisions affecting 2+ deliverables
+- **stale-dependents.md** — downstream deliverables that may need refreshing
 
-```markdown
-# Project Status
+**Action**: Use the Agent tool to spawn `compound-documenter` with the context from this session (activity completed, deliverable file path, any cross-cutting decisions). The agent will read its existing memory, gather context, and overwrite/append the appropriate files.
 
-## Last Updated
-[Date and activity that triggered this update]
+You do not write to `.claude/agent-memory/...` directly from this skill — the agent owns its memory directory. Just invoke it with the context.
 
-## Completed Phases
-[List of completed phases with dates]
-
-## Current Phase
-[What phase is active, what step within it]
-
-## Deliverables Produced
-[List of all deliverables with file paths]
-
-## Key Decisions Log
-[Chronological log of important decisions]
-
-## What Has Not Worked
-[Approaches that failed – prevents AI from repeating them]
-
-## Open Questions
-[Unresolved issues across all phases]
-
-## Next Steps
-[What should happen next in the pipeline]
-
-## Warnings
-[Token limits approaching, context that might be lost, blockers]
-```
-
-**Update rules:**
-
-- Append to existing sections, do not overwrite previous entries
-- Move completed items from "Current Phase" to "Completed Phases"
-- Remove resolved items from "Open Questions"
-- Always update "Last Updated" with current date and trigger
+**Why agent memory and not a status.md file at the project root?** The agent-memory directory is Anthropic's documented persistence primitive (`memory: project` frontmatter on the agent). It is project-local, version-controllable, and survives across sessions reliably. Writing to a project-root `status.md` from this skill was the old approach — it was advisory and depended on the model remembering to do it. The agent-memory mechanism is the correct platform path.
 </step>
 
 <step number="6" required="false" depends_on="5">
@@ -241,7 +211,7 @@ grep -r "[activity keywords]" "${deliverables_path}/dev/"
 
 **If pattern detected** (3+ similar entries):
 
-- Note the pattern in status.md under a "Patterns" section
+- Mention the pattern in the next compound-documenter invocation so it can be reflected in pipeline-state.md or key-decisions.md as relevant
 - Suggest consolidation if appropriate
 
 </step>
@@ -261,7 +231,7 @@ Documentation complete.
 
 File created:
 - {deliverables_path}/dev/[category]/[filename].md
-- status.md updated
+- .claude/agent-memory/compound-documenter/ updated by the agent
 
 What's next?
 1. Continue workflow (recommended)
@@ -307,7 +277,7 @@ This skill implements context engineering best practices documented in [context-
 1. **One activity = one chat** – save deliverables to project knowledge, start fresh for the next activity
 2. **Manual compaction over auto-compaction** – warn the user when approaching token limits so they can manually compact with specific preservation instructions instead of losing context to automatic compression
 3. **Sub-agent token preservation** – heavy work happens in sub-agents with their own token budgets, keeping the main conversation lean
-4. **Status file as ground truth** – AI reads `status.md` at the start of every task to recover full project context
+4. **Agent memory as ground truth** – AI reads `.claude/agent-memory/compound-documenter/pipeline-state.md` at the start of every task to recover full project context. Persistence handled by Anthropic's documented `memory: project` mechanism.
 5. **Separation of concerns** – use small dedicated files instead of one large CLAUDE.md to prevent AI from ignoring parts due to context limits
 
 ---
@@ -352,12 +322,12 @@ Documentation is successful when ALL of the following are true:
 
 **Status file not found:**
 
-- Create initial status.md with current entry as first item
+- Invoke compound-documenter to seed the agent-memory directory with an initial pipeline-state.md
 - Warn user that no previous status was found
 
 **Token limit warning:**
 
-- If conversation is approaching token limits, prioritize updating status.md immediately
+- If conversation is approaching token limits, prioritize invoking compound-documenter to flush state to its agent memory
 - Proactively suggest compacting with a ready-to-use compact message included in the same response – do not wait for the user to agree before generating it
 - The compact message must contain actual session values (project state, decisions, phase, next steps), not placeholders
 
@@ -368,7 +338,7 @@ Documentation is successful when ALL of the following are true:
 **MUST do:**
 - Validate YAML frontmatter before writing (block if invalid)
 - Record what did NOT work (prevents AI from repeating failed approaches)
-- Update status.md every time (this is the ground truth for future sessions)
+- Invoke compound-documenter every time so the agent memory stays current (this is the ground truth for future sessions)
 - Include file paths for all deliverables
 
 **MUST NOT do:**

@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
-"""PostToolUse hook: check dependency graph after deliverable edits."""
+"""PostToolUse hook: print downstream dependents from the static graph after a deliverable edit.
+
+The dependencies.yaml file is READ-ONLY documentation. We don't try to track
+"updated this session" since `last_updated` was never written by anything in
+the plugin (it was advertised but never wired). We just look up the static
+relationship and remind the user what's downstream.
+
+Live progress lives in the compound-documenter agent's memory at
+.claude/agent-memory/compound-documenter/ — that's the documented Anthropic
+primitive for project-local persistent state.
+"""
 
 import json
 import os
 import sys
 import re
-from datetime import datetime, timedelta
 
 # Only active in projects that have run /de:start
 if not os.path.isfile('.design-engineer-plugin/config.yaml'):
@@ -24,7 +33,7 @@ def parse_simple_yaml(text):
         indent = len(line) - len(line.lstrip())
         if indent == 2 and stripped.endswith(":") and not stripped.startswith("-"):
             current = stripped[:-1]
-            deliverables[current] = {"informs": [], "folder": "", "last_updated": ""}
+            deliverables[current] = {"informs": [], "folder": ""}
         elif current and indent == 4:
             m = re.match(r"(\w[\w-]*):\s*(.*)", stripped)
             if m:
@@ -38,8 +47,6 @@ def parse_simple_yaml(text):
                         deliverables[current]["informs"] = []
                 elif key == "folder":
                     deliverables[current]["folder"] = val.strip()
-                elif key == "last_updated":
-                    deliverables[current]["last_updated"] = val.strip().strip("'\"")
         elif current and indent == 6 and stripped.startswith("- "):
             val = stripped[2:].strip().strip("'\"")
             if "informs" in deliverables.get(current, {}):
@@ -69,23 +76,6 @@ def find_project_root(filepath):
             return directory, deps_path
         directory = os.path.dirname(directory)
     return None, None
-
-
-def check_staleness(filepath, key, deliverables):
-    """Check if a research deliverable is stale (>90 days old)."""
-    normalized = filepath.replace("\\", "/")
-    if "/research/" not in normalized:
-        return None
-    last_updated = deliverables.get(key, {}).get("last_updated", "")
-    if not last_updated:
-        return None
-    try:
-        updated_date = datetime.strptime(last_updated, "%Y-%m-%d")
-        if datetime.now() - updated_date > timedelta(days=90):
-            return last_updated
-    except ValueError:
-        pass
-    return None
 
 
 def main():
@@ -120,12 +110,8 @@ def main():
         return
 
     items = ", ".join(downstream)
-    print(f"Updated '{key}'. Downstream dependents that may need review: {items}")
-
-    # Check staleness for research deliverables
-    stale_date = check_staleness(filepath, key, deliverables)
-    if stale_date:
-        print(f"Note: This research was last updated on {stale_date} (more than 90 days ago). Consider re-running it for current data.")
+    print(f"You edited '{key}'. Downstream deliverables that may need review: {items}")
+    print("(See the static dependency graph at .design-engineer-plugin/dependencies.yaml for the full map.)")
 
 
 if __name__ == "__main__":

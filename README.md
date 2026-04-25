@@ -1,4 +1,4 @@
-> **v2.5.1 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v2.6.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -233,25 +233,29 @@ The result: you stay in control of what gets built and when, and nothing ships t
 <summary>14. Does it remember things across sessions?</summary>
 <br>
 
-Yes. The plugin maintains a memory system that persists between chat sessions:
+Yes, through Anthropic's documented agent-memory mechanism. The `compound-documenter` agent has `memory: project` set in its frontmatter, which gives it a project-local persistent directory at `.claude/agent-memory/compound-documenter/`. Inside that directory it maintains three files that survive across sessions:
 
-- **Pipeline state** – which phase you're in, what you've completed, what's next
-- **Key decisions** – cross-cutting choices (like "B2B focus" or "mobile-first") that affect multiple deliverables downstream
-- **Project map** – a living file tree so Claude doesn't need to re-explore your project structure every session
-- **Debug solutions** – hard-won fixes that took multiple attempts, saved so you don't have to solve the same problem twice
+- **`pipeline-state.md`** – which phase you're in, what you've completed, what's next, mode, project type, recent deliverables
+- **`key-decisions.md`** – append-only log of cross-cutting choices (like "B2B focus" or "mobile-first") that affect multiple deliverables downstream
+- **`stale-dependents.md`** – downstream deliverables that may need refreshing because an upstream changed
 
-When you start a new session, the plugin picks up where you left off. You don't need to re-explain your project or decisions.
+When you start a new session, run `/de:document` to invoke the compound-documenter agent — it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
+
+The plugin also recommends maintaining a `project-map.md` (file tree) and `debug-solutions.md` (hard-won fixes) in your auto-memory at `~/.claude/projects/<project>/memory/` for cross-session continuity beyond the design pipeline.
 </details>
 
 <details>
 <summary>15. What are living documents?</summary>
 <br>
 
-Every deliverable the plugin creates (problem statement, personas, business plan, MVP requirements, etc.) is tracked with its dependencies. When you change an upstream document, the plugin flags which downstream documents might need updating.
+Two layers, separated by concern:
 
-For example, if you revise your problem statement, the plugin knows that your target audience, assumptions, and competitor analysis all depend on it – and tells you they may need review.
+- **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml`. This file is read-only documentation that maps every deliverable to its upstream and downstream relationships. When you revise your problem statement, you can read the graph to see that your target audience, assumptions, and competitor analysis all depend on it — and decide which to refresh.
+- **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent — it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
 
-This means deliverables stay connected to each other instead of going stale as your thinking evolves.
+So when you change an upstream document, the workflow is: edit the document → run `/de:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
+
+This is honest about what the plugin does and what you do. The plugin documents the relationships and surfaces stale candidates; you decide what's worth refreshing.
 </details>
 
 <br>

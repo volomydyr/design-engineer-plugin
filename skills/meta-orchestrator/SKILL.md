@@ -101,7 +101,7 @@ How would you like to proceed?
 3. **Review stale deliverables first** – Update [stale_dependents] before continuing
 </ask-user>
 
-3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `{deliverables_path}/project-state.md` for full context.
+3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `.claude/agent-memory/compound-documenter/pipeline-state.md` for full context (written by the compound-documenter agent on prior phase completions).
 
 4. After resuming, clear the `resume:` section from `.design-engineer-plugin/config.yaml` to avoid stale resume data in the next session.
 
@@ -154,7 +154,7 @@ What is your project status?
 
 If the user selected "Partially done" or "Existing product":
 
-1. Check for an existing project state file at `{deliverables_path}/project-state.md`
+1. Check for an existing pipeline state file at `.claude/agent-memory/compound-documenter/pipeline-state.md`
 2. If found, read it and confirm the current status with the user
 3. If not found, ask the user which deliverables they already have
 4. Determine the correct entry point in the pipeline based on what exists
@@ -162,7 +162,7 @@ If the user selected "Partially done" or "Existing product":
 
 If the user selected "Resume":
 
-1. Read the project state file at `{deliverables_path}/project-state.md`
+1. Read the pipeline state file at `.claude/agent-memory/compound-documenter/pipeline-state.md`
 2. Present the current status: which phases are complete, which skill is next
 3. Ask the user to confirm or adjust before continuing
 
@@ -261,7 +261,7 @@ Each skill in the pipeline builds on the work of previous skills. To maintain co
 
 ## Project State Management
 
-Maintain the project state file at `{deliverables_path}/project-state.md` following the schema in [project-state-schema.md](./references/project-state-schema.md). Update this file:
+Maintain pipeline state by invoking the `compound-documenter` agent — it owns its memory at `.claude/agent-memory/compound-documenter/` and updates the three structured files there (pipeline-state.md, key-decisions.md, stale-dependents.md). Invoke compound-documenter:
 
 - After every skill completes (update the skill's status and timestamp)
 - After every `meta-document` run (update phase status and learnings)
