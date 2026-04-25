@@ -371,6 +371,21 @@ This is especially important in UI copy – prototypes, components, and any gene
    - Filler phrases ("In order to", "Due to the fact that", "It is important to note that")
 5. **AskUserQuestion must always have 2–4 options** – never send an AskUserQuestion with only 1 option. The minimum is 2. Always specify `multiSelect: true` or `multiSelect: false` explicitly. Use `multiSelect: true` when multiple answers are valid (failure modes, risk assessment, feature selection, review areas, psychology skills). Use `multiSelect: false` when the user must choose one direction (mode, approach, framework, scope).
 
+6. **Pad the chat before AskUserQuestion** – on most clients, the question panel overlays the bottom of the chat, hiding whatever you wrote just above it. Before EVERY AskUserQuestion call, end your preceding message with a vertical spacer so the overlay covers the spacer instead of substantive content. Use this exact spacer block (it renders as visible vertical space in markdown clients):
+
+   ```
+   ───────────────────
+   ───────────────────
+   ───────────────────
+   ───────────────────
+   ───────────────────
+   ───────────────────
+   ───────────────────
+   ───────────────────
+   ```
+
+   Eight horizontal-rule lines is the floor – add more if your last message ended with a finding, a recommendation list, or any content the user must read before answering. The spacer must be the last thing in the chat message before the AskUserQuestion call. This rule applies to every AskUserQuestion in commands, skills, and agents – no exceptions.
+
 ## Project state injection
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.

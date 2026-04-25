@@ -113,27 +113,44 @@ Agents CAN run for analysis. But after an agent completes, parse its output and 
    - Principle name and severity
    - File:line reference
    - What's wrong and why it matters
-   - At least 3 recommendations. Each recommendation must include:
+   - Up to 3 recommendations (cap at 3 so the question fits 4 buttons – recommended one plus 2 alternatives is enough; if the agent has more ideas, fold them into the top 3 or save for "Other"). Each recommendation must include:
      - **What to do** (1 sentence)
      - **Why it helps** (1 sentence)
      - **Tradeoff** (1 sentence)
-   - Mark the best recommendation "(Recommended)"
-4. Ask via AskUserQuestion after each finding:
+   - Give each recommendation a short title (3–5 words) so it can fit on a button label
+   - Mark the best one as the recommended pick (it goes in the first slot)
+4. After presenting the finding, ask ONE AskUserQuestion (multiSelect: false). The recommendations themselves are the primary action buttons – users can pick the recommended one or any alternative with a single click:
    ```
-   question: "What would you like to do with this finding?"
+   question: "How would you like to address this finding?"
    header: "Action"
    options:
-     - label: "Fix it now"
-       description: "Implement the fix before moving on"
-     - label: "Note and continue"
-       description: "Save for later, show next finding"
-     - label: "Skip"
-       description: "Not relevant, show next"
-     - label: "Explain this principle"
-       description: "Teach me why this matters"
+     - label: "<short title 1> (Recommended)"
+       description: "<what to do – why it helps – tradeoff, in one line>"
+     - label: "<short title 2>"
+       description: "<what to do – why it helps – tradeoff, in one line>"
+     - label: "<short title 3>"
+       description: "<what to do – why it helps – tradeoff, in one line>"
+     - label: "Skip or explain"
+       description: "Not relevant, or teach me why this principle matters first"
    ```
-5. After all findings: summary table grouped by severity
-6. Ask what to do next (see post-review below)
+   - The auto-added "Other" slot lets the user describe a custom approach in free text – do not list "Other" yourself
+   - If the agent produced only 1 or 2 recommendations, list what exists and use the remaining slots for "Skip or explain" (always keep that slot)
+5. **Branching on the answer:**
+   - **Recommendation 1, 2, or 3**: record `(finding, chosen recommendation)` for the Step 5 batch fix plan, then continue to the next finding. Do NOT silently substitute the agent's recommended pick when the user chose an alternative
+   - **Other (custom approach)**: record `(finding, custom approach text)` for the batch plan and continue
+   - **Skip or explain**: ask a tiny follow-up AskUserQuestion (multiSelect: false):
+     ```
+     question: "What did you mean?"
+     header: "Action"
+     options:
+       - label: "Skip this finding"
+         description: "Not relevant, show next"
+       - label: "Explain this principle"
+         description: "Teach me why this matters, then re-ask the question"
+     ```
+     If "Skip", drop the finding and continue. If "Explain", give the explanation, then loop back to the original question for this same finding
+6. After all findings: summary table grouped by severity, including which recommendation was chosen for each item that goes into the fix plan
+7. Ask what to do next (see post-review below)
 
 ### Autopilot
 
@@ -143,12 +160,12 @@ Agents CAN run for analysis. But after an agent completes, parse its output and 
 
 ## Step 5: Fix execution (after review)
 
-Collect everything the user marked "fix" or "note and continue" during the review.
+Collect every finding for which the user picked a recommendation (rec 1, rec 2, rec 3, or a custom "Other" approach). Skipped findings drop out.
 
 If there are fixes to make:
-1. Present the list of noted fixes
+1. Present the list of selected fixes – each line names the finding AND the chosen recommendation, so the user can confirm at a glance
 2. Read the plan template at the plugin's `skills/meta-setup/references/plan-template.md`
-3. Use `EnterPlanMode` to create ONE structured plan covering all fixes
+3. Use `EnterPlanMode` to create ONE structured plan covering all fixes. The plan MUST implement the recommendation the user picked for each finding – never silently substitute the agent's recommended pick when the user chose an alternative or a custom "Other" approach
 4. `ExitPlanMode` for user approval
 5. IMMEDIATELY copy approved plan to `plans/[YYYY-MM-DD]-[name].md`
 6. Execute per the plan workflow (CLAUDE.md): phase by phase, QA per phase

@@ -4,6 +4,20 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.2] – 2026-04-25
+
+Two UX fixes from tester feedback — users could not pick alternative recommendations during a guided review, and the AskUserQuestion panel overlay was hiding the message above it (especially the finding context).
+
+### Added
+
+- **Spacer rule for AskUserQuestion calls (CLAUDE.md rule 6)** — on most clients the panel overlays the bottom of the chat and hides whatever was written just above it. Every AskUserQuestion call must now be preceded by a vertical spacer (eight horizontal-rule lines, more if the message ended on important content) so the overlay covers the spacer instead of substantive content. Applies to every command, skill, and agent.
+
+### Changed
+
+- **`/de:review` guided mode now puts the recommendations themselves on the action buttons.** Previously the post-finding question offered "Fix it now / Note and continue / Skip / Explain", and "Fix it now" implicitly applied the agent's recommended pick — alternative recommendations were unreachable via buttons. The new flow shows up to 3 recommendations as the primary AskUserQuestion options (recommended one first, marked clearly), with a 4th "Skip or explain" slot that branches to a tiny follow-up question only when needed. The auto-added "Other" slot lets users describe a custom approach in free text. The fix-execution plan in Step 5 implements whichever recommendation (or custom approach) the user actually picked, never silently substituting.
+- **Collapsed "Fix it now" and "Note and continue"** — both previously fed the same Step 5 batch plan, so the distinction was cosmetic. Picking any recommendation now means "include this in the fix plan", and the batch executes after all findings are reviewed. One click per finding instead of two.
+- **Recommendations now require a short title (3–5 words)** so they can fit on AskUserQuestion button labels. The full what / why / tradeoff is shown in the option description. Cap at 3 recommendations per finding so the question fits cleanly into 4 buttons.
+
 ## [2.6.1] – 2026-04-25
 
 Closes the four remaining items from Round B's critical-bug audit (H1 already fixed in 2.6.0). Consistency and honesty pass — no new features.
