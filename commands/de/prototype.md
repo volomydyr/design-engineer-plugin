@@ -14,7 +14,7 @@ Generate a single-file HTML prototype using the `dev-prototyping` skill.
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/god)
+1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot)
 2. Check what design deliverables exist (documents/design/ — problem statement, IA, user flows, etc.)
 3. Check if Figma is connected
 

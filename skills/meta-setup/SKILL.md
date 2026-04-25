@@ -136,21 +136,25 @@ The script creates:
 ```
 {deliverables_path}/
 ├── foundation/          # Core product definition deliverables
-│   ├── .gitkeep
 ├── research/            # Research findings and competitive analysis
-│   ├── .gitkeep
-├── design/              # Design-specific deliverables (IA, flows, references)
-│   ├── .gitkeep
-├── psych/               # Psychology audit results and principle applications
-│   ├── .gitkeep
-├── dev/                 # Development preparation deliverables
-│   ├── .gitkeep
-├── solutions/           # Compound documentation (solved problems, learnings, status)
-│   ├── .gitkeep
-└── .dependencies.yaml   # Dependency graph tracking all deliverables
+│   └── archive/         # Archived research versions
+├── planning/            # MVP requirements, information architecture
+├── design/              # Design deliverables (bias audit, journey, references, story panels)
+│   ├── references/      # UI reference images
+│   └── story-panels/    # Story panel images and scripts
+├── prototype/           # HTML prototypes (storyboard, prototype, landing page)
+├── psych/               # Psychology audit results
+├── reviews/             # Design reviews and assessments
+└── dev/                 # Development preparation deliverables
+
+.design-engineer-plugin/
+└── dependencies.yaml    # Dependency graph tracking all deliverables
+
+plans/
+└── archive/             # Completed implementation plans
 ```
 
-The `.dependencies.yaml` file is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
+The `dependencies.yaml` file lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `documents/design/`) and is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
 
 ---
 
@@ -208,14 +212,16 @@ Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [select
 ## documents/design/
 ├── foundation/ – core product definition deliverables | read at pipeline start
 ├── research/ – research findings and analysis | read before positioning
-├── design/ – IA, flows, design references | read before prototyping
+├── planning/ – MVP requirements and information architecture | read before design and dev
+├── design/ – bias audit, journey, references, story panels | read before prototyping
+├── prototype/ – HTML prototypes (storyboard, prototype, landing page) | read before dev
 ├── psych/ – psychology audit results | read during design review
-├── dev/ – development preparation | read before dev phase
-├── solutions/ – compound docs and status | read for project context
-└── .dependencies.yaml – deliverable dependency graph | read by hooks automatically
+├── reviews/ – design reviews and assessments | read for quality history
+└── dev/ – development preparation | read before dev phase
 
 ## Project Root
 ├── .design-engineer-plugin/config.yaml – plugin config and resume state | read by /de:start
+├── .design-engineer-plugin/dependencies.yaml – deliverable dependency graph | read by hooks automatically
 ```
 
 3. Save `debug-solutions.md`:
@@ -268,7 +274,7 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 "Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials – only the monitor does, and only in that separate terminal."
 
-Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `{deliverables_path}/.dependencies.yaml`.
+Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `.design-engineer-plugin/dependencies.yaml` (the canonical path — kept separate from user deliverables in `documents/design/`).
 
 Display a summary in plain language – no file names or config paths:
 

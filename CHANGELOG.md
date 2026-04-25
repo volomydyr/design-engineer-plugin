@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.5.1] – 2026-04-25
+
+### Fixed
+
+- **Stale "guided/god" mode reference** in `commands/de/prototype.md` — updated to "guided/autopilot" (leftover from before v2.0.0 renamed God mode → Autopilot).
+- **Resume-state routing was dead** — `hooks/de-start-state.sh` now emits `returning_with_resume` or `returning_no_resume` based on whether `.design-engineer-plugin/config.yaml` has a `resume:` section, matching `commands/de/start.md`'s expected vocabulary. Previously the hook only emitted two states (`new_to_plugin`, `existing_project`), so the resume-where-you-left-off routing in start.md never fired since v2.0.0.
+- **Stale `/de:start install` and `/de:start uninstall` references** in `skills/meta-statusline/SKILL.md` — replaced with the current invocation (re-run `/de:start` and select from the status-line question). Old syntax was from v1.4.0's removed `/de:statusline install` command.
+- **Folder scaffold doc out of sync with reality** — `skills/meta-setup/SKILL.md` Step 4 documented a v1.x folder layout (`foundation/ research/ design/ psych/ dev/ solutions/`) but `init-project-structure.sh` actually creates the v2.4.0+ structure (`foundation/ research/ research/archive/ planning/ design/ design/references/ design/story-panels/ prototype/ psych/ reviews/ dev/`). Doc rewritten to match the script.
+- **Dependency-file path inconsistency** — standardized all docs on `.design-engineer-plugin/dependencies.yaml` (the canonical path the init script creates). Removed legacy `documents/design/.dependencies.yaml` and `{deliverables_path}/.dependencies.yaml` references from `skills/meta-setup/SKILL.md` (3 places) and `skills/meta-orchestrator/SKILL.md` (1 place). The dual-path readers in `session_dep_summary.py` and `de-postcompact-hook.sh` stay for v1.x backwards-compat.
+- **README skill counts didn't match anything** — headline claimed `54 skills` (3 places); public-facing tables summed to 49; actual SKILL.md file count is 53 (3 of those are hook-driven internal helpers). Added `ui-landing-page` to the UI design table (UI design (7) → UI design (8)) and updated headline `54 skills` → `50 skills` everywhere — that's the public-table sum: 4 Meta + 9 UX research + 8 UX design + 14 Psychology + 8 UI design + 7 Development.
+
 ## [2.5.0] – 2026-04-25
 
 Major fix targeting the AI-slop problem from beta testing — every fingerprint of generic AI-generated UI was appearing in tester output (cream/beige + orange CTA, 3D Apple-emoji as illustration, flag-emoji avatars, pill-chips-with-emoji, generic "Join this event" CTA copy). Root cause: the plugin's design knowledge was treated as reference material rather than mandatory operating procedure, and `/de:dev` + `frontend-implementer` never read any of it. Fix uses Anthropic's documented `PreToolUse` hard-block primitive plus inlined operating rules in the agent/skill/command prompts.

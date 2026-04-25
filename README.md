@@ -1,4 +1,4 @@
-> **v2.5.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v2.5.1 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-8 commands, 54 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+8 commands, 50 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|
@@ -63,7 +63,7 @@ This is the only command you need to remember. It figures out your situation –
 
 Claude Code is a general-purpose AI coding tool. It can write code, answer questions, and run commands.
 
-This plugin adds **a product design methodology on top of it** – 54 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
+This plugin adds **a product design methodology on top of it** – 50 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
 
 - **Safety hooks** that prevent common AI mistakes (scope creep, skipping tests, ignoring your requirements)
 - **Specialized agents** that handle specific parts of the workflow
@@ -256,7 +256,7 @@ This means deliverables stay connected to each other instead of going stale as y
 
 <br>
 
-## All 54 skills
+## All 50 skills
 
 <details>
 <summary>Show all</summary>
@@ -319,7 +319,7 @@ All skills run automatically through commands. If you want, you can also call an
 | `psych-cognitive-biases` | Availability heuristic, negativity bias |
 | `psych-time-perception` | Familiarity bias, shaping, aha moment |
 
-**UI design (7)**
+**UI design (8)**
 
 | Skill | What it does |
 |-------|-------------|
@@ -330,6 +330,7 @@ All skills run automatically through commands. If you want, you can also call an
 | `ui-design-system` | Design system architecture and compliance |
 | `ui-design-to-code-qa` | Checks if the code matches the design |
 | `ui-accessibility` | Accessibility audit (WCAG) |
+| `ui-landing-page` | Single-file HTML landing page from StoryBrand narrative |
 
 **Development (7)**
 

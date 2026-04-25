@@ -125,7 +125,7 @@ If the AskUserQuestion tool is unavailable, present these as a numbered list and
 
 #### Progress Summary
 
-Before asking the project state question, check if `documents/design/.dependencies.yaml` exists. If it does, read it and present a compact progress summary:
+Before asking the project state question, check if `.design-engineer-plugin/dependencies.yaml` exists. If it does, read it and present a compact progress summary:
 
 ```
 Phase 1 (Discovery): [N]/5 complete → Next: [skill_name]

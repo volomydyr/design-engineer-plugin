@@ -102,18 +102,20 @@ Where all skill outputs are saved. Default: `documents/design/` in the project r
 │   ├── section-8-social-influence.md
 │   ├── section-9-cognitive-biases.md
 │   └── section-10-time-behavior.md
-├── dev/            Development preparation
-│   ├── claude-md-draft.md
-│   ├── kickstart-prompts.md
-│   ├── agent-pipeline.md
-│   ├── mcp-notes.md
-│   └── github-workflow.md
-├── solutions/      Compound documentation
-│   ├── project-status.md
-│   ├── solved-problems.md
-│   └── learnings.md
-└── .dependencies.yaml
+├── prototype/      HTML prototypes (storyboard, prototype, landing page)
+├── reviews/        Design reviews and assessments
+└── dev/            Development preparation
+    ├── claude-md-draft.md
+    ├── kickstart-prompts.md
+    ├── agent-pipeline.md
+    ├── mcp-notes.md
+    ├── github-workflow.md
+    ├── project-status.md
+    ├── solved-problems.md
+    └── learnings.md
 ```
+
+The dependency graph lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `documents/design/`).
 
 ### Living Documents
 

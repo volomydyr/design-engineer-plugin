@@ -25,8 +25,16 @@ elif grep -q "project_type: existing" "$CONFIG" 2>/dev/null; then
 HOOK_EOF
 
 else
-  # Case 3: Config exists with project_type: new (or other) — inject plugin root only
+  # Case 3: Config exists with project_type: new — inject plugin root + resume state
+  # The state distinguishes "returning user with active pipeline state" vs
+  # "returning user without resume state" so /de:start can route to the right
+  # path in meta-setup. Detection logic mirrors skills/meta-setup/scripts/detect-state.sh.
+  if grep -q "^resume:" "$CONFIG" 2>/dev/null; then
+    STATE="returning_with_resume"
+  else
+    STATE="returning_no_resume"
+  fi
   cat <<HOOK_EOF
-{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"DESIGN_ENGINEER_PLUGIN_ROOT: $PLUGIN_ROOT"}}
+{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"DESIGN_ENGINEER_PLUGIN_ROOT: $PLUGIN_ROOT\n\nDESIGN_ENGINEER_PROJECT_STATE: $STATE"}}
 HOOK_EOF
 fi

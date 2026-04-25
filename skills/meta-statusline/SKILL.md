@@ -124,8 +124,8 @@ Status line installed.
 The status line will appear on the next Claude Code prompt.
 Usage limits (5h/7d) will appear after the first background API fetch (~1 minute).
 
-To update after a plugin update: /de:start install
-To remove: /de:start uninstall
+To update after a plugin update: re-run /de:start and select "Install" from the status-line question.
+To remove: re-run /de:start and select "Uninstall" from the status-line question (or follow Step 4 below manually).
 ```
 
 ---
