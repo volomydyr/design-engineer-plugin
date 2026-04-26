@@ -1,5 +1,5 @@
 ---
-name: de:review
+name: design-engineer:review
 description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or as a summary in Autopilot.
 argument-hint: "[specific area to review]"
 ---

@@ -6,7 +6,7 @@ checking `last_updated` timestamps in dependencies.yaml. But nothing in the
 plugin ever wrote those timestamps, so the detection was always empty and the
 "stale dependents" claim was fiction. v2.6.0 removed that machinery.
 
-This hook now prints a simple reminder: run /de:document if work happened
+This hook now prints a simple reminder: run /design-engineer:document if work happened
 this session, so the compound-documenter agent can update its project-local
 agent-memory at .claude/agent-memory/compound-documenter/.
 """
@@ -14,7 +14,7 @@ agent-memory at .claude/agent-memory/compound-documenter/.
 import os
 import sys
 
-# Only active in projects that have run /de:start
+# Only active in projects that have run /design-engineer:start
 if not os.path.isfile('.design-engineer-plugin/config.yaml'):
     sys.exit(0)
 
@@ -22,7 +22,7 @@ if not os.path.isfile('.design-engineer-plugin/config.yaml'):
 def main():
     """Print a session-end reminder. No false claims about "updated" deliverables."""
     print("--- Session ended ---")
-    print("If you completed any work this session, run /de:document to update")
+    print("If you completed any work this session, run /design-engineer:document to update")
     print("the compound-documenter agent's memory at:")
     print("  .claude/agent-memory/compound-documenter/")
     print("This keeps your pipeline-state, key decisions, and stale-dependents")

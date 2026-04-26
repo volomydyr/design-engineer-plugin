@@ -16,7 +16,7 @@ import os
 import sys
 import re
 
-# Only active in projects that have run /de:start
+# Only active in projects that have run /design-engineer:start
 if not os.path.isfile('.design-engineer-plugin/config.yaml'):
     sys.exit(0)
 

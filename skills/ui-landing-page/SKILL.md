@@ -243,7 +243,7 @@ After the landing page is complete, suggest:
 
 - **If product prototype also needed**: return to `dev-prototyping`
 - **If Figma designs needed**: suggest `ui-figma-guide`
-- **If ready for development**: suggest `/de:dev`
+- **If ready for development**: suggest `/design-engineer:dev`
 
 ---
 

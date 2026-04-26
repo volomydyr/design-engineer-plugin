@@ -109,7 +109,7 @@ Extract from the parent conversation history:
 - **Cross-cutting decisions** — anything mentioned that affects 2+ downstream deliverables (e.g., "we're going B2B", "macOS only", "subscription model")
 - **Stale dependents** — read `.design-engineer-plugin/dependencies.yaml` to find which downstream deliverables `informs:` the deliverables that were just touched
 
-If the user invoked you directly via `/de:document` and context is unclear, use `AskUserQuestion` to confirm:
+If the user invoked you directly via `/design-engineer:document` and context is unclear, use `AskUserQuestion` to confirm:
 
 1. What activity completed?
 2. What file was produced?
@@ -156,6 +156,6 @@ Print a short confirmation:
 
 ## Integration
 
-- **Invoked by**: `/de:document` command (manual), `meta-document` skill (auto after phase completions), and other skills/commands at major milestones.
+- **Invoked by**: `/design-engineer:document` command (manual), `meta-document` skill (auto after phase completions), and other skills/commands at major milestones.
 - **Reads**: `.design-engineer-plugin/dependencies.yaml` (static graph), `.design-engineer-plugin/config.yaml` (mode + project type), the parent conversation history.
 - **Writes**: only to `.claude/agent-memory/compound-documenter/` (the three files above). Nothing else.

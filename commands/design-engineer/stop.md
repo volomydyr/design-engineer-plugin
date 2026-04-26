@@ -1,5 +1,5 @@
 ---
-name: de:stop
+name: design-engineer:stop
 description: Save progress and pause. Use when you want to stop mid-activity and come back later. Your progress is saved automatically after completed activities — this command is for pausing mid-activity.
 ---
 
@@ -7,7 +7,7 @@ description: Save progress and pause. Use when you want to stop mid-activity and
 
 ## What this command does
 
-This is an optional safety net for pausing mid-activity. If you've completed a full activity (problem statement, assumptions, etc.), your progress is already saved automatically. Use `/de:stop` when you're in the middle of an activity and want to pause cleanly.
+This is an optional safety net for pausing mid-activity. If you've completed a full activity (problem statement, assumptions, etc.), your progress is already saved automatically. Use `/design-engineer:stop` when you're in the middle of an activity and want to pause cleanly.
 
 ## Step 1: Read current state
 
@@ -46,7 +46,7 @@ Read `skills/shared-references/compact-template.md` and generate a ready-to-use 
 
 Tell the user what was saved, where they are in the pipeline, and how to resume:
 
-> "Saved. You're in Phase [N] ([name]), last completed [skill]. Run `/de:start` in a new session to pick up where you left off."
+> "Saved. You're in Phase [N] ([name]), last completed [skill]. Run `/design-engineer:start` in a new session to pick up where you left off."
 
 Use AskUserQuestion:
 

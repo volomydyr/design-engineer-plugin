@@ -1,5 +1,5 @@
 ---
-name: de:design
+name: design-engineer:design
 description: Design workflow. For new products, runs the full pipeline. For existing projects, runs an abbreviated feature-focused flow.
 argument-hint: "[phase N | skill-name]"
 ---
@@ -14,7 +14,7 @@ argument-hint: "[phase N | skill-name]"
 
 1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot) and project type
 2. Check for existing deliverables in `design/`
-3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:start` first
 4. Scan the project: what tech stack, what components exist, what design patterns are used
 
 ## Step 2: Route based on project type
@@ -36,7 +36,7 @@ This project already exists. Do NOT run the full 4-phase from-scratch pipeline. 
    - Psychology audit on the planned feature
    - Figma comparison (if designs exist)
 
-5. **Proceed to implementation**: Load `/de:dev` with the feature plan.
+5. **Proceed to implementation**: Load `/design-engineer:dev` with the feature plan.
 
 In Guided mode: ask the user at each step, iterate. Do NOT delegate to agents – the main model does the work interactively.
 In Autopilot: execute the abbreviated flow, present results.

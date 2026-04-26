@@ -11,7 +11,7 @@ license: MIT
 
 Generate interactive single-file HTML prototypes directly in Claude Code. Two-step approach: first a visual storyboard for layout/flow review, then a clickable interactive prototype. Works for new products (after planning docs exist), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs.
 
-**Important**: No git, no /simplify, no TDD during prototyping. The prototype exists for visual feedback and as a reference for real implementation. Git init, branches, commits, tests, and code quality checks start at `/de:dev`. Prototype HTML can be messy – nobody cares about code quality in a throwaway artifact.
+**Important**: No git, no /simplify, no TDD during prototyping. The prototype exists for visual feedback and as a reference for real implementation. Git init, branches, commits, tests, and code quality checks start at `/design-engineer:dev`. Prototype HTML can be messy – nobody cares about code quality in a throwaway artifact.
 
 ## Interaction Method
 
@@ -419,7 +419,7 @@ After prototyping, suggest the logical next step based on what exists:
 - **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype
 - **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
 - **If designs exist but need review**: suggest `ui-aesthetic-review` or `ui-design-to-code-qa` to evaluate the prototype against design intent
-- **If the prototype needs production implementation**: suggest the development pipeline via `/de:dev`
+- **If the prototype needs production implementation**: suggest the development pipeline via `/design-engineer:dev`
 
 ---
 

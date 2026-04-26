@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Detect project state for /de:start routing.
+# Detect project state for /design-engineer:start routing.
 # Outputs exactly one line: STATE=<value>
 #
 # Values:

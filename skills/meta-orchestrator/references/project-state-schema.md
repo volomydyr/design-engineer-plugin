@@ -24,7 +24,7 @@ If the file does not exist (first run for a new project), the orchestrator conti
 
 ## How to update it
 
-You don't update these files by hand. Invoke `compound-documenter` via the Agent tool whenever a phase completes or a cross-cutting decision is made. The agent reads its existing memory, gathers context from the parent conversation, and writes the appropriate updates. The `meta-document` skill handles this automatically; users can also trigger it manually via `/de:document`.
+You don't update these files by hand. Invoke `compound-documenter` via the Agent tool whenever a phase completes or a cross-cutting decision is made. The agent reads its existing memory, gathers context from the parent conversation, and writes the appropriate updates. The `meta-document` skill handles this automatically; users can also trigger it manually via `/design-engineer:document`.
 
 ## Static dependency graph (separate concern)
 

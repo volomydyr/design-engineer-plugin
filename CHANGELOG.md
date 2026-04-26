@@ -4,6 +4,41 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.0.0] – 2026-04-26 — BREAKING
+
+Beta tester reported that typing `/de:` triggered Claude Code's session-naming logic to interpret `de` as the German language code, producing chat titles like "Start German language feature". Real UX papercut for every chat using this plugin.
+
+This release renames the command prefix from `/de:` to `/design-engineer:` to eliminate the language-code collision.
+
+### Changed (BREAKING)
+
+- **Command prefix renamed**: `/de:` → `/design-engineer:`. All 8 commands now use the longer prefix:
+  - `/de:start` → `/design-engineer:start`
+  - `/de:design` → `/design-engineer:design`
+  - `/de:dev` → `/design-engineer:dev`
+  - `/de:review` → `/design-engineer:review`
+  - `/de:prototype` → `/design-engineer:prototype`
+  - `/de:document` → `/design-engineer:document`
+  - `/de:stop` → `/design-engineer:stop`
+  - `/de:help` → `/design-engineer:help`
+- **Command directory moved**: `commands/de/` → `commands/design-engineer/` (slash-command resolution is directory-based — the directory move IS the prefix rename).
+- **Command frontmatter `name:` fields updated** in all 8 command files to match the new prefix.
+- **All references migrated** across ~42 active plugin files (commands, agents, skills, hooks, scripts, CLAUDE.md, README, evals).
+
+### Migration
+
+No file moves needed in your project. Just type the new prefix:
+
+```
+/design-engineer:start
+```
+
+Tab-completion in Claude Code makes the longer prefix manageable: `/de` + Tab no longer auto-completes to `/de:` (because that prefix no longer exists); type a few more characters for `/design-engineer:` to autocomplete.
+
+### Notes
+
+- **Internal hook filenames retain `de-` prefix** (`de-start-state.sh`, `de-tdd-hook.js`, `de-design-grounding-hook.js`, etc.) — these are file paths inside the plugin, never invoked as slash commands. Renaming them would require updates to `hooks.json` plus more file moves with no user-visible benefit. Out of scope for this release.
+
 ## [3.0.0] – 2026-04-26 — BREAKING
 
 Beta tester reported three structural complaints about the deliverables folder layout:

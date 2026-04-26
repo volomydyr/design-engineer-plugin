@@ -209,7 +209,7 @@ When routing to a section skill, pass along:
 ## Cross-References
 
 - **This skill feeds into**: All 13 section-specific psychology skills (see [section-routing-guide.md](./references/section-routing-guide.md))
-- **Invoked by**: `/de:review` (psychology option)
+- **Invoked by**: `/design-engineer:review` (psychology option)
 - **Uses agent**: `psych-scanner` for broad scan processing
 - **Pairs with**: `ux-full-review` for comprehensive product review, `ui-design-to-code-qa` for implementation-level checks
 

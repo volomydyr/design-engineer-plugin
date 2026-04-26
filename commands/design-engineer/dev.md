@@ -1,5 +1,5 @@
 ---
-name: de:dev
+name: design-engineer:dev
 description: Development pipeline. Setup, implementation, and AI-assisted building. Mode determined by your config.
 argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]"
 ---
@@ -16,7 +16,7 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot), project type, and environment
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
-3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:start` first
 
 ## Step 1.5: Detect build targets
 
@@ -91,7 +91,7 @@ Based on what you found, present a plan. Only suggest what's relevant:
 - **Kick-start prompts** – helpful for teams, optional for solo
 - **Feature implementation** – if the user's goal was "Implement from Figma" or they have a specific feature to build
 
-If an argument was provided (`/de:dev setup`, `/de:dev pipeline`), skip planning and go directly to that activity.
+If an argument was provided (`/design-engineer:dev setup`, `/design-engineer:dev pipeline`), skip planning and go directly to that activity.
 
 In **Guided mode**: ask the user to confirm or adjust the plan.
 In **Autopilot**: show the plan briefly, then execute.

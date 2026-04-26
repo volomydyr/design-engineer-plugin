@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-// Only active in projects that have run /de:start
+// Only active in projects that have run /design-engineer:start
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.yaml'))) {
   process.exit(0);
 }

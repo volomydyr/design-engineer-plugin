@@ -1,5 +1,5 @@
 ---
-name: de:prototype
+name: design-engineer:prototype
 description: HTML prototype generation. Create clickable prototypes from planning docs, existing designs, or just an idea.
 argument-hint: "[new | feature | redesign]"
 ---

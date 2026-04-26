@@ -149,7 +149,7 @@ Living file tree of the project. Format per entry:
 - HTML prototypes (storyboard, prototype, landing page) | read before dev
 
 ## Project Root
-- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /de:start
+- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /design-engineer:start
 - .design-engineer-plugin/dependencies.yaml – deliverable dependency graph | read by hooks automatically
 MAP
   echo ""

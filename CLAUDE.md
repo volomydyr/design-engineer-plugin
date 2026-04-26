@@ -130,14 +130,14 @@ Effort and model are independent axes:
 
 Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Claude Code's built-in `/review` and `/plan`:
 
-- `/de:start` - Smart entry point (new projects, returning projects, existing projects)
-- `/de:design` - Full design workflow orchestrator
-- `/de:prototype` - HTML prototype generation
-- `/de:dev` - Development pipeline
-- `/de:review` - Multi-layer design review (includes psychology audit)
-- `/de:document` - Knowledge documentation and stakeholder communication
-- `/de:stop` - Save progress and pause mid-activity
-- `/de:help` - Shows all available commands, project status, and mode
+- `/design-engineer:start` - Smart entry point (new projects, returning projects, existing projects)
+- `/design-engineer:design` - Full design workflow orchestrator
+- `/design-engineer:prototype` - HTML prototype generation
+- `/design-engineer:dev` - Development pipeline
+- `/design-engineer:review` - Multi-layer design review (includes psychology audit)
+- `/design-engineer:document` - Knowledge documentation and stakeholder communication
+- `/design-engineer:stop` - Save progress and pause mid-activity
+- `/design-engineer:help` - Shows all available commands, project status, and mode
 
 ## Living Documents
 
@@ -146,7 +146,7 @@ Deliverables created by this plugin are documented in two layers:
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` — read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
 - **Live progress** at `.claude/agent-memory/compound-documenter/` — three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
 
-Run `/de:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
+Run `/design-engineer:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
 **Path note**: deliverable files always live at `design/...` — this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
 
@@ -260,7 +260,7 @@ After every code-producing step, run `/simplify` to review changed code for reus
 - After `frontend-implementer` returns
 - Final pass after all code changes (before `design-system-auditor`)
 
-Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual artifacts — code quality doesn't matter. /simplify only applies during `/de:dev` implementation.
+Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual artifacts — code quality doesn't matter. /simplify only applies during `/design-engineer:dev` implementation.
 
 ### How
 
@@ -394,7 +394,7 @@ Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/
 
 ## Project state injection
 
-A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.
+A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/design-engineer:start` routes correctly even when auto-memory contains rich project context from previous sessions.
 
 ## Command execution philosophy
 
@@ -456,7 +456,7 @@ Format the suggestion like this:
 
 > This session has covered a lot of ground. Context is getting heavy – if you'd like to compact, here's a message you can use with `/compact`:
 >
-> `Keep full context of [project] at [path]. Current state: v[X], running /de:[command] in [mode] mode. Phase [N] ([name]): completed [skills], next is [skill]. Key decisions: [list]. Deliverables updated: [list]. Stale dependents: [list]. Next step: [action]. [Any blockers or open questions].`
+> `Keep full context of [project] at [path]. Current state: v[X], running /design-engineer:[command] in [mode] mode. Phase [N] ([name]): completed [skills], next is [skill]. Key decisions: [list]. Deliverables updated: [list]. Stale dependents: [list]. Next step: [action]. [Any blockers or open questions].`
 
 Fill in the template with actual values from the current session – never output the template with placeholders.
 
@@ -536,4 +536,4 @@ These are heuristics. Claude updates the files when it notices the trigger; noth
 | Skill or phase completed | invoke compound-documenter (it updates pipeline-state.md structurally) |
 | Hard bug solved (3+ attempts) | `.design-engineer-plugin/memory/debug-solutions.md` – error + failed attempts + fix |
 | Cross-cutting design decision made | compound-documenter records it in key-decisions.md structurally |
-| Session ending (Stop hook reminder) | run /de:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |
+| Session ending (Stop hook reminder) | run /design-engineer:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |

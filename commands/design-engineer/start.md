@@ -1,5 +1,5 @@
 ---
-name: de:start
+name: design-engineer:start
 description: Universal entry point. New projects get setup, returning projects resume where they left off, existing projects get a capability guide.
 argument-hint: ""
 ---

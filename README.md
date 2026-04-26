@@ -1,4 +1,4 @@
-> **v3.0.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v4.0.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -6,7 +6,7 @@
 
 🇺🇦  Плагін для Claude Code, заснований на технічних статтях і практичних прикладах з [volomydyr.com](https://volomydyr.com). Це як швейцарський ніж для дизайн-інженерів: ідеація, дослідження, психологія, прототипування та розробка – усе в одному зручному й легкому у використанні інструменті.
 
-Пишете команду `/de:start`, плагін розуміє, на якому ви етапі – чи починаєте з нуля, чи продовжуєте створення продукту, чи хочете скористатися ним для існуючого комерційного проекту. Детальну інструкцію та повний опис можна знайти нижче англійською.
+Пишете команду `/design-engineer:start`, плагін розуміє, на якому ви етапі – чи починаєте з нуля, чи продовжуєте створення продукту, чи хочете скористатися ним для існуючого комерційного проекту. Детальну інструкцію та повний опис можна знайти нижче англійською.
 
 [Звʼязатися з автором (LinkedIn)](https://www.linkedin.com/in/merlenkov/) · [Телеграм спільнота про АІ та Дизайн (1,100+ учасників)](https://t.me/+RzzmoFVG5awzYjIy)
 
@@ -29,7 +29,7 @@ A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that 
 That's it. The plugin is available in every Claude Code session from now on. **Start a new session in your project directory and type:**
 
 ```
-/de:start
+/design-engineer:start
 ```
 
 This is the only command you need to remember. It figures out your situation – new product, returning project, or existing codebase – and takes you where you need to go. The plugin also checks for recommended tools during setup and helps install anything that's missing.
@@ -42,14 +42,14 @@ This is the only command you need to remember. It figures out your situation –
 
 | Command | What it does |
 |---------|-------------|
-| `/de:start` | Detects your situation – setup, resume, or capability guide |
-| `/de:design` | Runs the design workflow – discovery, strategy, planning, validation |
-| `/de:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
-| `/de:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
-| `/de:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
-| `/de:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
-| `/de:stop` | Save progress and pause mid-activity – pick up later with `/de:start` |
-| `/de:help` | Shows all available commands, current project status, and mode |
+| `/design-engineer:start` | Detects your situation – setup, resume, or capability guide |
+| `/design-engineer:design` | Runs the design workflow – discovery, strategy, planning, validation |
+| `/design-engineer:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
+| `/design-engineer:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
+| `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
+| `/design-engineer:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
+| `/design-engineer:stop` | Save progress and pause mid-activity – pick up later with `/design-engineer:start` |
+| `/design-engineer:help` | Shows all available commands, current project status, and mode |
 
 <br>
 
@@ -85,7 +85,7 @@ If you're an engineer who wants to build better products but doesn't have a desi
 <summary>3. Can I use this for an existing project or only new products?</summary>
 <br>
 
-Both. `/de:start` detects your situation:
+Both. `/design-engineer:start` detects your situation:
 
 - **New product** – walks you through the full pipeline from problem definition to code
 - **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do
@@ -107,23 +107,23 @@ During setup, the plugin detects and helps install optional tools that expand it
 <summary>5. What are the 8 commands and when do I use each one?</summary>
 <br>
 
-- **`/de:start`** – always start here. It detects your situation and routes you.
-- **`/de:design`** – when you need to work through the design process: research, strategy, planning, validation.
-- **`/de:prototype`** – when you want a clickable HTML prototype from an idea or existing designs.
-- **`/de:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
-- **`/de:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
-- **`/de:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
-- **`/de:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/de:start`.
-- **`/de:help`** – shows all available commands, your current project status, and mode. Works anywhere.
+- **`/design-engineer:start`** – always start here. It detects your situation and routes you.
+- **`/design-engineer:design`** – when you need to work through the design process: research, strategy, planning, validation.
+- **`/design-engineer:prototype`** – when you want a clickable HTML prototype from an idea or existing designs.
+- **`/design-engineer:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
+- **`/design-engineer:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
+- **`/design-engineer:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
+- **`/design-engineer:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/design-engineer:start`.
+- **`/design-engineer:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
-You only need to remember `/de:start`. It guides you to everything else.
+You only need to remember `/design-engineer:start`. It guides you to everything else.
 </details>
 
 <details>
 <summary>7. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 8 entry points you type (like `/de:design`).
+**Commands** are the 8 entry points you type (like `/design-engineer:design`).
 
 **Skills** are the 54 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 
@@ -177,7 +177,7 @@ The plugin installs several hooks that work without you doing anything:
 - Good and bad examples
 - Edge cases and constraints
 
-For example, `/de:review` can scan your product against principles like loss aversion, cognitive load, social proof, the peak-end rule, habit formation, pricing psychology, and dozens more.
+For example, `/design-engineer:review` can scan your product against principles like loss aversion, cognitive load, social proof, the peak-end rule, habit formation, pricing psychology, and dozens more.
 
 Psychology is built into the review process from the ground up, so it shows up where it matters – during design decisions, not as a separate step.
 </details>
@@ -239,7 +239,7 @@ Yes, through Anthropic's documented agent-memory mechanism. The `compound-docume
 - **`key-decisions.md`** – append-only log of cross-cutting choices (like "B2B focus" or "mobile-first") that affect multiple deliverables downstream
 - **`stale-dependents.md`** – downstream deliverables that may need refreshing because an upstream changed
 
-When you start a new session, run `/de:document` to invoke the compound-documenter agent — it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
+When you start a new session, run `/design-engineer:document` to invoke the compound-documenter agent — it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
 
 The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (hard-won fixes) at `.design-engineer-plugin/memory/` in your project for cross-session continuity beyond the design pipeline. These are project-local files (no auto-memory paths involved).
 </details>
@@ -253,7 +253,7 @@ Two layers, separated by concern:
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml`. This file is read-only documentation that maps every deliverable to its upstream and downstream relationships. When you revise your problem statement, you can read the graph to see that your target audience, assumptions, and competitor analysis all depend on it — and decide which to refresh.
 - **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent — it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
 
-So when you change an upstream document, the workflow is: edit the document → run `/de:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
+So when you change an upstream document, the workflow is: edit the document → run `/design-engineer:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
 
 This is honest about what the plugin does and what you do. The plugin documents the relationships and surfaces stale candidates; you decide what's worth refreshing.
 </details>
