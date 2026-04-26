@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.3] – 2026-04-26
+
+Process-discipline fix from beta tester feedback (and from observing the assistant repeatedly drift mid-session). Across long sessions, Claude was forgetting to follow agreed processes — the prototype-as-baseline rule, multi-step plugin workflows, the iterative-feedback workflow — until the user manually re-anchored with "you forgot the process". This release automates that re-anchor.
+
+### Added
+
+- **Process-recall metacognitive nudge hook** (`hooks/de-process-recall-hook.sh`, wired as a `UserPromptSubmit` hook) — fires on every user prompt and injects ~3 lines of `additionalContext` asking Claude to check whether a process is active (CLAUDE.md, an active skill/command/agent, or what the user established earlier) before responding. If a process IS active, Claude must briefly state at the top of its response which process and which step. If no process is active, Claude must respond normally without mentioning anything about process. The nudge is fully generic – it never names a specific process, so future processes added to the plugin (or stated mid-conversation by users) automatically benefit. Survives compaction and long sessions because UserPromptSubmit re-fires every turn, unlike CLAUDE.md rules which fade behind newer context.
+
 ## [2.6.2] – 2026-04-25
 
 Two UX fixes from tester feedback — users could not pick alternative recommendations during a guided review, and the AskUserQuestion panel overlay was hiding the message above it (especially the finding context).

@@ -10,6 +10,15 @@
             "timeout": 3
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-process-recall-hook.sh",
+            "timeout": 3
+          }
+        ]
       }
     ],
     "PreToolUse": [
