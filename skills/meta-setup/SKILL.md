@@ -127,14 +127,14 @@ options:
 
 ## Step 4: Scaffold Project Structure
 
-Run `scripts/init-project-structure.sh` with the default deliverables path `documents/design/`.
+Run `scripts/init-project-structure.sh` with the default deliverables path `design/`.
 
 This creates the standardized folder structure. See [setup-checklist.md](./references/setup-checklist.md) for the full configuration reference.
 
 The script creates:
 
 ```
-documents/design/
+design/
 ├── foundation/          # Core product definition deliverables
 ├── research/            # Research findings and competitive analysis
 │   └── archive/         # Archived research versions
@@ -154,7 +154,7 @@ plans/
 └── archive/             # Completed implementation plans
 ```
 
-The `dependencies.yaml` file lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `documents/design/`) and is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
+The `dependencies.yaml` file lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `design/`) and is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
 
 ---
 
@@ -169,7 +169,7 @@ Generate `.design-engineer-plugin/config.yaml` in the project root:
 project:
   type: "new"
   mode: "{answer_mode}"
-  deliverables_path: "documents/design/"
+  deliverables_path: "design/"
 
 environment:
   plugins:
@@ -199,7 +199,7 @@ The skeletons are already in place at `.design-engineer-plugin/memory/project-ma
 
 **For existing projects (Path B, "Existing project"):**
 
-Same skeletons. project-map.md starts with only the documents/design/ scaffold and `.design-engineer-plugin/config.yaml` — do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
+Same skeletons. project-map.md starts with only the design/ scaffold and `.design-engineer-plugin/config.yaml` — do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
 
 **For returning projects (Path A):**
 
@@ -236,7 +236,7 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 "Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials – only the monitor does, and only in that separate terminal."
 
-Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `.design-engineer-plugin/dependencies.yaml` (the canonical path — kept separate from user deliverables in `documents/design/`).
+Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `.design-engineer-plugin/dependencies.yaml` (the canonical path — kept separate from user deliverables in `design/`).
 
 Display a summary in plain language – no file names or config paths:
 
@@ -244,7 +244,7 @@ Display a summary in plain language – no file names or config paths:
 You're all set.
 
 Mode: {Guided / Autopilot}
-Your design docs will live in documents/design/
+Your design docs will live in design/
 {Figma connected / Figma not connected – offer help}
 Status line: {installed / skipped}
 

@@ -128,11 +128,11 @@ Repeat until the user explicitly approves the MVP requirements.
 
 ## Step 7: Produce the Deliverable
 
-Save the final MVP requirements to `documents/design/planning/mvp-requirements.md`.
+Save the final MVP requirements to `design/planning/mvp-requirements.md`.
 
 The document should follow the complete structure from [mvp-prioritization-framework.md](./references/mvp-prioritization-framework.md).
 
-After completing the MVP requirements, check if any new assumptions surfaced. If so, Read `documents/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from MVP requirements on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+After completing the MVP requirements, check if any new assumptions surfaced. If so, Read `design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from MVP requirements on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 
 ---
 

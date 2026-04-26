@@ -39,7 +39,7 @@ options:
     description: "Check an HTML prototype file for accessibility issues"
 ```
 
-When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `documents/design/prototype/prototype.html`). Run the full accessibility checklist with particular attention to contrast ratios, touch/click target sizes, keyboard navigation, screen reader support (semantic HTML, ARIA labels), and heading hierarchy.
+When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `prototype/prototype.html`). Run the full accessibility checklist with particular attention to contrast ratios, touch/click target sizes, keyboard navigation, screen reader support (semantic HTML, ARIA labels), and heading hierarchy.
 
 ---
 
@@ -94,7 +94,7 @@ For each issue, document:
 - **Issue**: what the problem is
 - **Fix**: recommended solution with implementation guidance
 
-Save to `documents/design/reviews/accessibility-review.md`.
+Save to `design/reviews/accessibility-review.md`.
 
 ---
 

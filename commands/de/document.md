@@ -15,7 +15,7 @@ Documents decisions, learnings, and project state. Ensures context survives acro
 ## Step 1: Read project context
 
 1. Read `.design-engineer-plugin/config.yaml` for mode and project state
-2. Scan existing deliverables in `documents/design/`
+2. Scan existing deliverables in `design/`
 3. Check what has changed recently (git status if available)
 
 ## Step 2: Determine what to document

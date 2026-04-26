@@ -137,7 +137,7 @@ Repeat until the user explicitly approves the problem statement.
 
 ## Step 6: Produce the Deliverable
 
-Save the final problem statement document to `documents/design/foundation/problem-statement.md`.
+Save the final problem statement document to `design/foundation/problem-statement.md`.
 
 The document should follow the complete structure from [problem-statement-template.md](./references/problem-statement-template.md), including:
 

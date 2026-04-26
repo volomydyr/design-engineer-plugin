@@ -17,7 +17,7 @@ After any significant work is completed (a design deliverable, a development pha
 
 This is not for pet projects that you start and abandon. This is for actual complex projects planned to run for years, potentially becoming million-dollar products with multiple teams working on them.
 
-**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `documents/design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/compound-documenter/` — Anthropic's documented persistence primitive for subagents.
+**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/compound-documenter/` — Anthropic's documented persistence primitive for subagents.
 
 ---
 
@@ -131,9 +131,9 @@ Please provide corrected values.
 ```bash
 CATEGORY="[mapped from deliverable_type]"
 FILENAME="[generated-filename].md"
-DOC_PATH="$documents/design/dev/${CATEGORY}/${FILENAME}"
+DOC_PATH="$design/dev/${CATEGORY}/${FILENAME}"
 
-mkdir -p "$documents/design/dev/${CATEGORY}"
+mkdir -p "$design/dev/${CATEGORY}"
 ```
 
 **File structure:**
@@ -201,7 +201,7 @@ You do not write to `.claude/agent-memory/...` directly from this skill — the 
 **Search existing docs** for related solutions:
 
 ```bash
-grep -r "[activity keywords]" "$documents/design/dev/"
+grep -r "[activity keywords]" "$design/dev/"
 ```
 
 **If related entry found:**
@@ -230,7 +230,7 @@ After successful documentation, present:
 Documentation complete.
 
 File created:
-- documents/design/dev/[category]/[filename].md
+- design/dev/[category]/[filename].md
 - .claude/agent-memory/compound-documenter/ updated by the agent
 
 What's next?

@@ -255,7 +255,7 @@ header: "In Real Life Test"
 
 ## Step 8: Produce the Deliverable
 
-Save the final journey map and improvement plan to `documents/design/design/customer-journey-map.md`.
+Save the final journey map and improvement plan to `design/craft/customer-journey-map.md`.
 
 The document should include:
 

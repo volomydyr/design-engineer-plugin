@@ -123,7 +123,7 @@ Repeat until the user explicitly approves the StoryBrand canvas.
 
 ## Step 6: Produce the Deliverable
 
-Save the final StoryBrand canvas to `documents/design/foundation/storybrand.md`.
+Save the final StoryBrand canvas to `design/foundation/storybrand.md`.
 
 The document should follow the complete structure from [storybrand-canvas-template.md](./references/storybrand-canvas-template.md).
 

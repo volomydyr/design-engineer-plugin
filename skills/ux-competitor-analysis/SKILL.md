@@ -138,11 +138,11 @@ Repeat until the user explicitly approves the analysis.
 
 ## Step 7: Produce the Deliverable
 
-Save the final competitive analysis to `documents/design/foundation/competitor-analysis.md`.
+Save the final competitive analysis to `design/foundation/competitor-analysis.md`.
 
 The document should follow the complete structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).
 
-After completing the competitor analysis, check if any new assumptions surfaced during the research. If so, Read `documents/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from competitor analysis on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+After completing the competitor analysis, check if any new assumptions surfaced during the research. If so, Read `design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from competitor analysis on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 
 ---
 

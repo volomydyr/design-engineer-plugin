@@ -188,7 +188,7 @@ Use the checklist from [compliance-checklist.md](./references/compliance-checkli
 
 ## Step 5: Produce the Deliverable
 
-Save the design system documentation to `documents/design/dev/design-system.md` containing:
+Save the design system documentation to `design/dev/design-system.md` containing:
 
 - Architecture diagram (tokens -> aliases -> components)
 - Token inventory (all defined base values)

@@ -44,7 +44,7 @@ After receiving the mode answer, do these in order:
    project:
      type: "existing"
      mode: "{selected_mode}"
-     deliverables_path: "documents/design/"
+     deliverables_path: "design/"
 
    environment:
      plugins:
@@ -59,7 +59,7 @@ After receiving the mode answer, do these in order:
      auto_suggest: true
    ```
 
-3. Scaffold `documents/design/` folder structure using `init-project-structure.sh` from the `meta-setup` skill's scripts directory.
+3. Scaffold `design/` folder structure using `init-project-structure.sh` from the `meta-setup` skill's scripts directory.
 
 4. Show a brief summary of what was set up.
 

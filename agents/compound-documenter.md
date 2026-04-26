@@ -38,11 +38,11 @@ Schema:
 
 ## Recent deliverables (last 5)
 
-- 2026-04-25 — mvp-requirements.md — ux-mvp-requirements — documents/design/planning/mvp-requirements.md
-- 2026-04-24 — business-plan.md — ux-business-plan — documents/design/foundation/business-plan.md
-- 2026-04-23 — storybrand.md — ux-storybrand — documents/design/foundation/storybrand.md
-- 2026-04-23 — competitor-analysis.md — ux-competitor-analysis — documents/design/foundation/competitor-analysis.md
-- 2026-04-22 — assumptions.md — ux-assumptions — documents/design/foundation/assumptions.md
+- 2026-04-25 — mvp-requirements.md — ux-mvp-requirements — design/planning/mvp-requirements.md
+- 2026-04-24 — business-plan.md — ux-business-plan — design/foundation/business-plan.md
+- 2026-04-23 — storybrand.md — ux-storybrand — design/foundation/storybrand.md
+- 2026-04-23 — competitor-analysis.md — ux-competitor-analysis — design/foundation/competitor-analysis.md
+- 2026-04-22 — assumptions.md — ux-assumptions — design/foundation/assumptions.md
 
 ## Open questions
 
@@ -147,7 +147,7 @@ Print a short confirmation:
 
 ## Critical Reminders
 
-- **The memory directory IS the persistence layer.** Don't create files in `documents/design/` for state. Don't write to a project-root `status.md` (the old fictional file). Don't update `.design-engineer-plugin/dependencies.yaml` (read-only static graph).
+- **The memory directory IS the persistence layer.** Don't create files in `design/` for state. Don't write to a project-root `status.md` (the old fictional file). Don't update `.design-engineer-plugin/dependencies.yaml` (read-only static graph).
 - **Always read before writing.** Especially key-decisions.md (append-only — losing entries is data loss).
 - **Keep pipeline-state.md compact.** Under 50 lines. The next session reads this — it must be scannable.
 - **Don't fabricate.** If you can't determine the current phase, say "unknown" rather than guessing. If no deliverables were produced this session, the file should reflect that honestly.

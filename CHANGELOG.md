@@ -4,6 +4,63 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [3.0.0] – 2026-04-26 — BREAKING
+
+Beta tester reported three structural complaints about the deliverables folder layout:
+1. `documents/` is a redundant wrapper — it only ever contains `design/`, so the extra level adds zero information.
+2. `design/design/` is a confusing double-word path — both depths used the same word.
+3. `prototype/` doesn't belong inside `documents/` because (a) a prototype isn't really a document, (b) it's the most-viewed artefact and burying it makes it hard to find.
+
+This release restructures the artefact folder layout to address all three. **Breaking change for existing projects**: paths are different. One-time migration command below.
+
+### Changed (BREAKING)
+
+- **Dropped `documents/` wrapper.** Top-level project structure is now `design/`, `prototype/`, `plans/`, `.claude/`, `.design-engineer-plugin/` — no `documents/` parent.
+- **Renamed inner `design/` to `craft/`.** What was `documents/design/design/` (containing references, story panels, journey, bias audit, ethics, behavior map) is now `design/craft/`. Captures "design-craft work" without the double-word path confusion.
+- **Moved `prototype/` to project root.** What was `documents/design/prototype/` is now just `prototype/` — sibling of `design/` and `plans/`. A prototype isn't a document; it's the artefact users open.
+- **`init-project-structure.sh`** rewritten for the new layout. Default `DELIVERABLES_PATH` is now `design` (was `documents/design`). Idempotent: re-runs are safe.
+- **All ~40 plugin files migrated**: commands, agents, skills, hooks, scripts, README, CLAUDE.md updated to reference new paths. CHANGELOG entries from prior versions retain old paths for historical accuracy.
+
+### Migration (one-time, run from project root)
+
+If you have an existing project on v2.x, run this once to migrate:
+
+```bash
+mv documents/design/design design/craft && \
+mv documents/design/prototype prototype && \
+mv documents/design design && \
+rmdir documents
+```
+
+Adjust if you customised the deliverables path. After running, all v3.0.0 plugin commands will find content at the new locations.
+
+### Final shape
+
+```
+project-root/
+├── .claude/
+├── .design-engineer-plugin/
+│   └── memory/                 # plugin-local memory (project-map.md, debug-solutions.md)
+├── design/
+│   ├── foundation/
+│   ├── research/
+│   ├── planning/
+│   ├── craft/                  # was documents/design/design/
+│   │   ├── references/
+│   │   └── story-panels/
+│   ├── psych/
+│   ├── reviews/
+│   └── dev/
+├── prototype/                  # was documents/design/prototype/
+└── plans/
+    └── archive/
+```
+
+### Also in this release
+
+- **Process-recall hook now lists all steps, not just the current one.** The previous v2.6.3 nudge made Claude announce "Process X, Step N" at the top of responses but didn't force it to list the other steps — so Claude would forget what comes next mid-process. Updated `hooks/de-process-recall-hook.sh` to require a numbered list of EVERY step with a `← current` marker on the active one, re-listed on every response while the process is active.
+- **`de-design-grounding-hook.js` legacy prototype path corrected.** The fallback `'design/prototype.html'` (which never matched any real layout) was replaced with `'documents/design/prototype/prototype.html'` for v2.x backwards compatibility during migration. New primary path is `'prototype/prototype.html'`.
+
 ## [2.7.0] – 2026-04-26
 
 Beta tester feature request: a skill that produces detailed image-generation instructions to feed into Nanobanana / ChatGPT / Midjourney / etc. (referenced msitarzewski's design-image-prompt-engineer agent). Confirmed pain: when prototype/landing pages need images, Claude defaults to gray-gradient + emoji slop, weird SVGs, or low-quality Pexels grabs because the plugin had zero image-handling skills. User clarified scope: handle BOTH stock photos (right for lists/avatars/decorative — 50 user avatars don't need 50 unique generations) AND AI generation (right for hero/marketing/brand-specific placeholders), and ensure the skill actually fires when needed (hard-wire from prototype/landing flows, soft-wire via description, plus a CLAUDE.md rule).

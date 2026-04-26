@@ -30,7 +30,7 @@ const EXEMPT_PATHS = [
   '/plans/', '/docs/', '/node_modules/', '/.git/',
   '/agents/', '/skills/', '/hooks/', '/commands/',
   '/.claude/', '/.design-system/',
-  '/documents/design/prototype/'  // editing the prototype itself is allowed
+  '/prototype/'  // editing the prototype itself is allowed
 ];
 
 // Required design knowledge files (basename match in transcript Reads).
@@ -43,16 +43,18 @@ const REQUIRED_READ_BASENAMES = [
 
 // Possible references.md locations (the project may have either layout)
 const REFERENCES_MD_CANDIDATES = [
-  'documents/design/design/references/references.md',
-  'documents/design/design/references.md',
-  'documents/design/references/references.md',
-  'documents/design/references.md'
+  'design/craft/references/references.md',
+  'design/craft/references.md',
+  'design/references/references.md',
+  'design/references.md'
 ];
 
 // Possible prototype.html locations
+// v3.0.0+ uses prototype/ at project root. Legacy v2.x fallback retained for
+// users who haven't run the migration command yet.
 const PROTOTYPE_HTML_CANDIDATES = [
-  'documents/design/prototype/prototype.html',
-  'documents/design/prototype.html'
+  'prototype/prototype.html',
+  'documents/design/prototype/prototype.html'
 ];
 
 function appendLog(level, message) {
@@ -208,7 +210,7 @@ function main() {
           'Before writing UI, establish design intent: who is this user (a specific person, not "users"), ' +
           'what verb must they perform (the actual action), how should it feel ' +
           '(warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app — ' +
-          'NEVER "clean and modern"). Save this to documents/design/design/references/references.md ' +
+          'NEVER "clean and modern"). Save this to design/craft/references/references.md ' +
           'or run the ui-references-moodboard skill first.'
         );
         return process.exit(0);

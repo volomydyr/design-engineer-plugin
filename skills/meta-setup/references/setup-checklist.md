@@ -62,12 +62,12 @@ Determines how design-related skills interact with the user's design workflow.
 
 ## 5. Deliverables Path
 
-Where all skill outputs are saved. Default: `documents/design/` in the project root.
+Where all skill outputs are saved. Default: `design/` in the project root.
 
 ### Folder Structure
 
 ```
-documents/design/
+design/
 ├── foundation/     Core product definition
 │   ├── problem-statement.md
 │   ├── target-audience.md
@@ -115,7 +115,7 @@ documents/design/
     └── learnings.md
 ```
 
-The dependency graph lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `documents/design/`).
+The dependency graph lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `design/`).
 
 ### Living Documents
 

@@ -254,7 +254,7 @@ When the pipeline reaches a parallel group:
 
 Each skill in the pipeline builds on the work of previous skills. To maintain context:
 
-1. After each skill completes, ensure its deliverable is saved to the standardized location in `documents/design/`
+1. After each skill completes, ensure its deliverable is saved to the standardized location in `design/`
 2. Before invoking the next skill, confirm that all required upstream deliverables exist
 3. If a deliverable is missing (e.g., user skipped a skill), note this gap and inform the next skill about what context is unavailable
 4. Invoke `meta-document` at the end of every phase to consolidate learnings and update the project state

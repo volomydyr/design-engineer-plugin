@@ -134,7 +134,7 @@ Share guidance on getting the best results with "Figma Plugin":
 
 ## Step 5: Produce the Deliverable
 
-Help the user create a Figma strategy document saved to `documents/design/design/figma-strategy.md` that includes:
+Help the user create a Figma strategy document saved to `design/craft/figma-strategy.md` that includes:
 
 - Integration method chosen and setup status
 - List of key screens to design (5-8 screens)

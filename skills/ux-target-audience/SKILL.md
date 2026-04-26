@@ -120,7 +120,7 @@ Repeat until the user explicitly approves the persona.
 
 ## Step 6: Produce the Deliverable
 
-Save the final persona document to `documents/design/foundation/target-audience.md`.
+Save the final persona document to `design/foundation/target-audience.md`.
 
 The document should follow the complete structure from [persona-framework.md](./references/persona-framework.md).
 

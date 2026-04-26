@@ -186,7 +186,7 @@ Repeat until the user explicitly approves the IA.
 
 ## Step 6: Produce the Deliverable
 
-Save the final IA document to `documents/design/planning/information-architecture.md`.
+Save the final IA document to `design/planning/information-architecture.md`.
 
 The document should follow the complete structure from [ia-deliverable-template.md](./references/ia-deliverable-template.md).
 

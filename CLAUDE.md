@@ -148,7 +148,7 @@ Deliverables created by this plugin are documented in two layers:
 
 Run `/de:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
-**Path note**: deliverable files always live at `documents/design/...` — this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
+**Path note**: deliverable files always live at `design/...` — this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
 
 ## Plan Mode
 
@@ -390,7 +390,7 @@ This is especially important in UI copy – prototypes, components, and any gene
 
 ## Image handling
 
-Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `documents/design/design/images/`. This rule applies to every `<img>` tag the model emits — no exceptions, no "the user will replace it later" shortcuts.
+Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/craft/images/`. This rule applies to every `<img>` tag the model emits — no exceptions, no "the user will replace it later" shortcuts.
 
 ## Project state injection
 
@@ -502,7 +502,7 @@ This replaces ad-hoc exploration. If project-map.md exists, use it instead of gl
 Claude Code's auto-memory `MEMORY.md` is loaded automatically every session. The plugin does not Read or Write this file directly — Claude Code's `/memory` command and its built-in auto-memory mechanism handle it. If you want to record cross-session context, ask the user to use `/memory` or just rely on Claude Code's auto-memory writes.
 
 **What NOT to save anywhere in plugin memory or auto-memory:**
-- Individual deliverable content (already in documents/design/)
+- Individual deliverable content (already in design/)
 - Resume state details (already in .design-engineer-plugin/config.yaml + the compound-documenter agent memory)
 - Dependency status (already in .design-engineer-plugin/dependencies.yaml as static graph)
 - Anything already in this CLAUDE.md

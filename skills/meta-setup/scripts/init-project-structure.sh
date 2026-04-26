@@ -2,11 +2,11 @@
 # init-project-structure.sh
 # Creates the standardized deliverables folder structure for the design-engineer plugin.
 # Usage: ./init-project-structure.sh [deliverables_path]
-# Default path: documents/design
+# Default path: design
 
 set -euo pipefail
 
-DELIVERABLES_PATH="${1:-documents/design}"
+DELIVERABLES_PATH="${1:-design}"
 
 echo "=== Scaffolding Design-Engineer Deliverables ==="
 echo "Path: $DELIVERABLES_PATH"
@@ -41,29 +41,29 @@ mkdir -p "$DELIVERABLES_PATH/planning"
 touch "$DELIVERABLES_PATH/planning/.gitkeep"
 echo "[CREATED] planning/ -- MVP requirements, information architecture"
 
-# design/ -- Design-specific deliverables
+# craft/ -- Design-craft deliverables
 # Contains: Bias audit, journey map, ethics review, behavior map,
-#           design references, Figma workflow notes
-mkdir -p "$DELIVERABLES_PATH/design"
-touch "$DELIVERABLES_PATH/design/.gitkeep"
-echo "[CREATED] design/ -- design deliverables"
+#           design references, Figma workflow notes, image manifests
+mkdir -p "$DELIVERABLES_PATH/craft"
+touch "$DELIVERABLES_PATH/craft/.gitkeep"
+echo "[CREATED] craft/ -- design-craft deliverables"
 
-# design/references/ -- UI reference images from the user
-mkdir -p "$DELIVERABLES_PATH/design/references"
-touch "$DELIVERABLES_PATH/design/references/.gitkeep"
-echo "[CREATED] design/references/ -- UI reference images"
+# craft/references/ -- UI reference images from the user
+mkdir -p "$DELIVERABLES_PATH/craft/references"
+touch "$DELIVERABLES_PATH/craft/references/.gitkeep"
+echo "[CREATED] craft/references/ -- UI reference images"
 
-# design/story-panels/ -- Story panel images and scripts
+# craft/story-panels/ -- Story panel images and scripts
 # One subfolder per panel: story-panels/[name]/script.md + panel.png
-mkdir -p "$DELIVERABLES_PATH/design/story-panels"
-touch "$DELIVERABLES_PATH/design/story-panels/.gitkeep"
-echo "[CREATED] design/story-panels/ -- story panel images and scripts"
+mkdir -p "$DELIVERABLES_PATH/craft/story-panels"
+touch "$DELIVERABLES_PATH/craft/story-panels/.gitkeep"
+echo "[CREATED] craft/story-panels/ -- story panel images and scripts"
 
-# prototype/ -- HTML prototypes
+# prototype/ at PROJECT ROOT (sibling of design/, not under it)
 # Contains: storyboard.html, prototype.html, landing-page.html, prototype-notes.md
-mkdir -p "$DELIVERABLES_PATH/prototype"
-touch "$DELIVERABLES_PATH/prototype/.gitkeep"
-echo "[CREATED] prototype/ -- HTML prototypes"
+mkdir -p "prototype"
+touch "prototype/.gitkeep"
+echo "[CREATED] prototype/ -- HTML prototypes (project root, sibling of design/)"
 
 # psych/ -- Psychology audit results and principle applications
 mkdir -p "$DELIVERABLES_PATH/psych"
@@ -136,15 +136,17 @@ else
 Living file tree of the project. Format per entry:
 `path – description (≤10 words) | when to read`
 
-## documents/design/
+## design/
 - foundation/ – core product definition deliverables | read at pipeline start
 - research/ – research findings and analysis | read before positioning
 - planning/ – MVP requirements and information architecture | read before design and dev
-- design/ – bias audit, journey, references, story panels | read before prototyping
-- prototype/ – HTML prototypes (storyboard, prototype, landing page) | read before dev
+- craft/ – bias audit, journey, references, story panels, image manifests | read before prototyping
 - psych/ – psychology audit results | read during design review
 - reviews/ – design reviews and assessments | read for quality history
 - dev/ – development preparation | read before dev phase
+
+## prototype/ (project root, sibling of design/)
+- HTML prototypes (storyboard, prototype, landing page) | read before dev
 
 ## Project Root
 - .design-engineer-plugin/config.yaml – plugin config and resume state | read by /de:start
@@ -187,13 +189,14 @@ echo "  ├── foundation/          Core product definition"
 echo "  ├── research/            Research findings and analysis"
 echo "  │   └── archive/         Archived research versions"
 echo "  ├── planning/            MVP requirements, information architecture"
-echo "  ├── design/              Design deliverables"
+echo "  ├── craft/               Design-craft deliverables"
 echo "  │   ├── references/      UI reference images"
 echo "  │   └── story-panels/    Story panel images and scripts"
-echo "  ├── prototype/           HTML prototypes"
 echo "  ├── psych/               Psychology audit results"
 echo "  ├── reviews/             Design reviews and assessments"
 echo "  └── dev/                 Development preparation"
+echo ""
+echo "  prototype/               HTML prototypes (project root, sibling of $DELIVERABLES_PATH/)"
 echo ""
 echo "  plans/                   Implementation plans"
 echo "  plans/archive/           Completed plans"

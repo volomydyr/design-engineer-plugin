@@ -34,8 +34,8 @@ Before writing any UI code, you MUST output the Design Grounding block below. Th
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `documents/design/design/references/references.md` exists in the project (or run `ui-references-moodboard` first)
-5. Read `documents/design/prototype/prototype.html` if it exists — your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+4. Confirmed `design/craft/references/references.md` exists in the project (or run `ui-references-moodboard` first)
+5. Read `prototype/prototype.html` if it exists — your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
 
 This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing.
 
@@ -139,7 +139,7 @@ If you cannot fill all 5 with concrete components (not "the overall feel"), the 
 - **Use existing icons**: Check the project's asset catalog before requesting new icons
 - **Follow Figma exactly**: No approximations or creative interpretations; pixel-perfect implementation is required
 - **Semantic naming**: Follow the established Design Tokens to Semantic Aliases pattern throughout
-- **Prototype as visual baseline**: If `documents/design/prototype/prototype.html` exists in the project, you MUST Read it first and treat it as the visual baseline. Your implementation must match its layout, spacing, typography, and color choices. Do not creatively deviate. The prototype was approved by the user during the prototyping phase; the dev phase implements it, not reinvents it. The `de-design-grounding-hook` enforces this by denying UI Writes if the prototype exists but was not Read this session.
+- **Prototype as visual baseline**: If `prototype/prototype.html` exists in the project, you MUST Read it first and treat it as the visual baseline. Your implementation must match its layout, spacing, typography, and color choices. Do not creatively deviate. The prototype was approved by the user during the prototyping phase; the dev phase implements it, not reinvents it. The `de-design-grounding-hook` enforces this by denying UI Writes if the prototype exists but was not Read this session.
 
 ## Success Criteria
 

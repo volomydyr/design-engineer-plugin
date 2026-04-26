@@ -109,7 +109,7 @@ fi
 
 # Check for existing deliverables folder
 if [ -d "documents/design" ]; then
-  echo "[FOUND] documents/design/ folder exists"
+  echo "[FOUND] design/ folder exists"
   FILE_COUNT=$(find documents/design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
   echo "        Contains $FILE_COUNT deliverable file(s)"
 else

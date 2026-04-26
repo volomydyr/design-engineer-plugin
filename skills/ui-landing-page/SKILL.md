@@ -37,7 +37,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Read StoryBrand deliverable
 
-Read `documents/design/foundation/storybrand.md` to extract the 7-part narrative:
+Read `design/foundation/storybrand.md` to extract the 7-part narrative:
 
 1. **Hero** – who is the user, what do they want
 2. **Problem** – external, internal, philosophical
@@ -49,7 +49,7 @@ Read `documents/design/foundation/storybrand.md` to extract the 7-part narrative
 
 If the StoryBrand deliverable does not exist, warn the user and suggest running the `ux-storybrand` skill first. If they want to proceed without it, gather the narrative through questions instead.
 
-Also read: `documents/design/foundation/business-plan.md` (for pricing info, if applicable) and `documents/design/design/references.md` (for design tokens).
+Also read: `design/foundation/business-plan.md` (for pricing info, if applicable) and `design/craft/references.md` (for design tokens).
 
 Present what was extracted:
 
@@ -192,13 +192,13 @@ Assemble all approved sections into a single HTML file with all CSS in `<style>`
 1. Apply design tokens from references.md – same visual direction as the product prototype
 2. Use CSS custom properties for all tokens in `:root {}`
 3. Follow the mobile optimization rules from [landing-page-structure.md](./references/landing-page-structure.md): full-width CTAs, 48px tap targets, 16px min font
-4. **Image-slot rule (HARD)**: each section that needs an image (hero, social proof / press logos, testimonial avatars, product shots, feature illustrations) MUST go through the `ui-images` skill BEFORE writing the `<img>` tag. The skill decides per-image generate-vs-stock, writes prompts or search queries, and places the file in `documents/design/design/images/`. Do not emit gradient placeholders, emoji-stamped SVGs, or random Pexels grabs. Do not skip the skill on the assumption that "the user will replace it later" — they won't, and the slop ships.
+4. **Image-slot rule (HARD)**: each section that needs an image (hero, social proof / press logos, testimonial avatars, product shots, feature illustrations) MUST go through the `ui-images` skill BEFORE writing the `<img>` tag. The skill decides per-image generate-vs-stock, writes prompts or search queries, and places the file in `design/craft/images/`. Do not emit gradient placeholders, emoji-stamped SVGs, or random Pexels grabs. Do not skip the skill on the assumption that "the user will replace it later" — they won't, and the slop ships.
 5. Before presenting, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review for design anti-patterns
 6. Read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and verify all copy passes the anti-slop check
 
 ### File location
 
-Save to: `documents/design/prototype/landing-page.html`
+Save to: `prototype/landing-page.html`
 
 ---
 
@@ -215,7 +215,7 @@ Same iteration approach as product prototyping:
 
 ## Step 6: Save deliverable
 
-Save the final landing page to `documents/design/prototype/landing-page.html`.
+Save the final landing page to `prototype/landing-page.html`.
 
 ---
 

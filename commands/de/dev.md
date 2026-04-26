@@ -55,8 +55,8 @@ Before any UI code is generated in this command, you MUST output the Design Grou
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `documents/design/design/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
-5. Read `documents/design/prototype/prototype.html` if it exists — implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+4. Confirmed `design/craft/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
+5. Read `prototype/prototype.html` if it exists — implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
 
 After the Reads, output this block and fill in EVERY field:
 
@@ -118,7 +118,7 @@ Before writing ANY code, follow these steps in order:
 
 **1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
-**1a. Read the prototype FIRST if it exists**: If `documents/design/prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation — your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
+**1a. Read the prototype FIRST if it exists**: If `prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation — your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
 
 **2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` — this is the exact format your plan must follow.
 

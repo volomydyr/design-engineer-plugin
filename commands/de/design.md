@@ -13,7 +13,7 @@ argument-hint: "[phase N | skill-name]"
 ## Step 1: Read project context
 
 1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot) and project type
-2. Check for existing deliverables in `documents/design/`
+2. Check for existing deliverables in `design/`
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/de:start` first
 4. Scan the project: what tech stack, what components exist, what design patterns are used
 
@@ -27,7 +27,7 @@ This project already exists. Do NOT run the full 4-phase from-scratch pipeline. 
 
 1. **Understand the feature**: Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
 
-2. **Create feature folder**: Create `documents/design/features/[feature-slug]/` for all deliverables related to this feature. Example: `documents/design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
+2. **Create feature folder**: Create `design/features/[feature-slug]/` for all deliverables related to this feature. Example: `design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
 
 3. **Plan the feature**: Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages. Save all deliverables in the feature folder.
 
