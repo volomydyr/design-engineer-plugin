@@ -20,6 +20,7 @@ Both audits produce findings in the same report. Token violations and aesthetic 
 4. **Standardize icon usage** to use the project's established icon system exclusively
 5. **Eliminate duplicated logic** by moving shared code into services, utilities, or reusable components
 6. **Ensure proper design system usage** following the Design Tokens to Semantic Aliases to Components pattern
+7. **Audit the component gallery.** If the project has UI components but no gallery file yet, **auto-scaffold one transparently** by invoking `dev-component-gallery` (no menu, no permission ask — gallery is treated as standard infrastructure for any UI project). When auto-scaffolding occurs, surface a one-line mention to the user. Then audit the gallery against the Gallery Contract from `skills/dev-component-gallery/references/gallery-contract.md`. Findings at the same FAIL severity as design-system violations.
 
 ## Systematic Audit Process
 
@@ -29,6 +30,12 @@ Both audits produce findings in the same report. Token violations and aesthetic 
 4. **Implement fixes** by replacing violations with proper design system usage
 5. **Create missing design system elements** when needed (modifiers, extensions, constants)
 6. **Document changes** and ensure consistency across all modified files
+7. **Gallery audit pass** (runs alongside design-system compliance and aesthetic audits, equal weight):
+   - **Coverage**: every file in the project's components directory has a gallery entry. Missing entry → FAIL.
+   - **No hardcoded styles**: scan the gallery file for inline `style=` attributes, extra style rules, language-equivalent style overrides (StyleSheet objects, styled() wrappers, sx props, NSAttributedString-style attributes, etc.). Any hit → FAIL.
+   - **Imports resolve to production paths**: every component referenced in the gallery imports from a path that exists in the project (no broken imports, no copy-paste duplicates living inside the gallery file). Any unresolved import or inlined component definition → FAIL.
+   - **Visually-identical entries**: flag two or more entries that render the same way but reference different source files — these are duplicate-component candidates. Report as a redundancy finding (the user picks which to keep).
+   - **Variant API discipline**: variants reached only via the component's public API (props / attributes / modifiers / classes / slots). If the gallery sets variant state by overriding styles or wrapping the component in extra logic, FAIL.
 
 ## Critical Code Quality Fixes
 

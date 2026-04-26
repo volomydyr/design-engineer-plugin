@@ -270,6 +270,27 @@ Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual a
 
 Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not inside sub-agents.
 
+## Component Gallery Contract
+
+The plugin maintains a **single-page component gallery** in every project where UI work happens — a visual catalog of every component, all variants visible at once, real production styles, source-path labels per entry. Two purposes: (a) duplicate detection (Claude tends to create five new versions of an existing component — the gallery makes redundancy visually obvious), and (b) visual quality assurance (one viewport, all components, real styles — closer to a design canvas than a docs site).
+
+The gallery is **stack-agnostic**. The skill `skills/dev-component-gallery/` queries the bundled context7 MCP for each project's framework's idiomatic showcase pattern and scaffolds accordingly — Next.js route, SwiftUI `#Preview` canvas, Jetpack Compose `@Preview`, vanilla HTML, Astro page, Flutter widgets-gallery, whatever the framework's docs say is current. No hardcoded "framework → location" table; the skill adapts.
+
+### The universal Gallery Contract
+
+Every gallery file the skill scaffolds carries this contract at the top in language-appropriate comment syntax (see `skills/dev-component-gallery/references/gallery-contract.md` for the canonical text and the per-language adaptation table):
+
+> Every component MUST be imported (or used) from its production source. Never copy-paste, restub, or inline a component. NO hardcoded styles, no inline `style="..."` attributes, no extra style rules in the gallery file, no language-equivalent style overrides. Variants are reached via the component's own public API only (props / attributes / modifiers / classes / slots). If a state can't be reached via the component's API, that's a component bug — fix at the component, not in the gallery. Every entry shows its source file path next to the rendered component. The gallery is a viewer, not a workshop.
+
+### Enforcement (no hooks)
+
+- **`agents/frontend-implementer.md`** — after creating or modifying any component, invokes `dev-component-gallery` to add or update its entry; never duplicates components in the gallery; never writes inline styles in the gallery file. Reads the existing gallery before adding new components (duplicate-detection step).
+- **`agents/design-system-auditor.md`** — gallery audit pass at FAIL severity (every component has an entry, no inline styles, imports resolve to production paths, visually-identical entries flagged as duplicates, variants via API only).
+- **`skills/dev-claude-md/SKILL.md`** — generated project CLAUDE.md includes the Gallery Contract so the rule survives in the user's repo.
+- **`skills/dev-prototyping/SKILL.md`** — cross-references the lifecycle (prototype = design exploration before implementation; gallery = shipped components after).
+
+There is no PreToolUse or Stop hook for the gallery contract. Enforcement is the agents' responsibility.
+
 ## TDD with Playwright CLI
 
 All code-producing steps follow Test-Driven Development using Playwright CLI. A PreToolUse hook enforces this – source code writes are blocked when no test scripts exist in `tests/`.

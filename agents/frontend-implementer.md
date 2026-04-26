@@ -16,6 +16,7 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 3. **Build reusable components** following the project's framework best practices and conventions
 4. **Extract missing design elements** only when needed and add them to the existing design system structure
 5. **Implement proper navigation** and state management using the framework's native patterns
+6. **Keep the component gallery in sync (transparent to the user).** After creating or modifying any component, invoke the `dev-component-gallery` skill. The skill auto-scaffolds the gallery on first invocation if it doesn't exist yet (no menu, no permission ask — it just gets created), and updates it on every subsequent component change. When the skill scaffolds for the first time in a project, surface a one-line mention to the user ("Created a component gallery at <path> — every component in your codebase, all variants, in one place. Open it to spot duplicates and check visual consistency.") so the user discovers it organically. After that, gallery updates are silent — same as a build artifact, not a thing the user has to think about. Import (or use) the component from its production source path — **never duplicate or restub it in the gallery**. Add **NO inline styles, no extra style rules, no API-bypassing hacks** to the gallery file. Variants must use only the component's exposed public API (props / attributes / modifiers / classes / slots). If a state can't be reached via the component's API, that's a missing capability of the component — fix it at the component, not in the gallery. The gallery is a viewer, not a workshop. Full contract in `skills/dev-component-gallery/references/gallery-contract.md`; enforcement at FAIL severity by `design-system-auditor`.
 
 ## Before Implementation
 
@@ -26,6 +27,7 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 5. Review the approved implementation plan from `plans/`
 6. **If Figma plugin is connected, get design data via `get_design_context`** – never use screenshots alone. This returns structured code, metadata, and a screenshot together. If Figma is not connected, ask the user to share specs (screenshots + structured info on interactions, states, animations) before implementing.
 7. **Ask clarifying questions** via AskUserQuestion about anything the static designs don't show – interactions, animations, state changes, component reuse, responsive behavior, edge cases. Static mockups are always ambiguous about these things; do not guess
+8. **Read the component gallery before adding new components.** If a gallery file exists for the project (path in `.design-engineer-plugin/config.yaml` under `gallery.path`, or scaffolded by `dev-component-gallery` on first run), Read it and review existing entries. This is the duplicate-detection step — if the component you're about to create looks visually identical to an existing one, stop and propose extending the existing component instead of creating a new variant.
 
 ## Design Grounding Pre-Flight (BLOCKING)
 

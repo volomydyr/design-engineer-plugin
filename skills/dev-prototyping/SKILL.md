@@ -429,3 +429,14 @@ After prototyping, suggest the logical next step based on what exists:
 - [starter-values.md](../ui-design-system/references/starter-values.md) – CSS token baseline when no existing design system is detected
 - [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) – Design anti-patterns to check against before presenting screens
 - [anti-slop-writing.md](../shared-references/anti-slop-writing.md) – Writing quality rules for all text output
+
+---
+
+## Lifecycle relationship: prototype vs. component gallery
+
+Prototype and component gallery sit at different points in the product lifecycle — do not conflate them:
+
+- **Prototype** is for design exploration *before* implementation. Throwaway HTML, no component-reuse rules, free to inline styles, free to fake interactivity. Lives at `prototype/prototype.html`. Goal: validate the design intent quickly.
+- **Component gallery** is for shipped components *after* implementation. Real imports from production paths, real production styles, contract-bound (no duplicates, no inline styles, variants via component API only). Path determined by the project's stack via `skills/dev-component-gallery/`. Goal: visual QA + redundancy detection on what's actually in the codebase.
+
+Don't move prototype HTML into the gallery. Don't write gallery entries in prototype style. The two artifacts have opposite rules because they serve opposite purposes.
