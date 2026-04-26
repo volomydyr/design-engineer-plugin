@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.1.3] – 2026-04-26
+
+User caught the v4.1.2 hook fix being too rigid. The previous wording locked in a specific header format ("PROCESS RECALL CHECK — <process name>:") and a 4-step example, which would constrain processes of different lengths (2 steps, 30 steps, 100 steps).
+
+### Changed
+
+- **`hooks/de-process-recall-hook.sh` nudge text relaxed** to make the format flexible while keeping the rule intact. The requirement is now explicitly "list EVERY numbered step with a `← current` marker — the number of steps is whatever the process actually has". Surrounding format (header, punctuation) is flexible. Forbidden shortcuts are listed as a bullet list (summarizing, "currently between step X and Y" shorthand, mentioning step count without enumeration, skipping list because process feels familiar, omitting steps to keep list short). The illustrative example is now clearly labeled as illustrative and tells the model not to invent steps to match it.
+
 ## [4.1.2] – 2026-04-26
 
 User caught the model still skipping the process-step listing despite the v3.0.0 fix. The previous nudge said "list ALL steps" but the model was treating that as flexible — writing summaries like "7-step workflow, currently between step 1 and step 3" instead of the full enumerated list. Tightened the wording.
