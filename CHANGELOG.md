@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.1.1] – 2026-04-26
+
+Replacement of the v4.1.0 sound files. The user auditioned all 52 Kenney UI Audio sounds during testing and found them too high-pitched and clicky for this use case. We collaborated on synth alternatives — short, futuristic, low-frequency, with a bit of mid for clarity — and converged on these.
+
+### Changed
+
+- **Replaced `de-complete.wav` and `de-attention.wav`** with original synthesized tones generated via ffmpeg's lavfi sine source plus lowpass, echo, and loudness normalization. No third-party samples. Public domain (CC0) — use, modify, redistribute freely. Recipes for full reproducibility are in `assets/sounds/LICENSE.md`.
+  - **`de-complete.wav`** — ascending fourth G3→C4 (196→261 Hz) with octave-up harmonics (×0.35) for warmth and clarity. Fade envelope, lowpass at 4500 Hz, subtle echo, loudnorm to -9 LUFS. Plays when Claude finishes responding.
+  - **`de-attention.wav`** — double-tap at A3 (220 Hz) with octave-up harmonics. Two short pulses with a silence between, brighter envelope. Plays when Claude waits for permission or AskUserQuestion answer.
+- **`LICENSE.md` rewritten** to reflect the new origin (synthesized originals, not Kenney CC0). Recipes documented for reproducibility.
+
 ## [4.1.0] – 2026-04-26
 
 Beta tester feature request: audio cues when Claude finishes responding or needs user action. They linked an example using `afplay` (macOS-only). User refined the scope: hybrid opt-in install, same bundled sounds for everyone (not OS system sounds), suggest a specific sound source.
