@@ -463,11 +463,16 @@ Important:
 
 ## Memory Management
 
-This plugin integrates with Claude Code's auto-memory system (`~/.claude/projects/<project>/memory/`) to maintain project awareness across sessions. MEMORY.md auto-loads every session (first 200 lines). Topic files load on demand.
+The plugin uses two memory layers:
 
-**Note on enforcement**: auto-memory writes are advisory — Claude updates these files when it notices a relevant trigger, but nothing in the plugin or Claude Code structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` is the structurally enforced layer for pipeline state — see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
+- **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) — owned and managed by Claude Code itself. The first 200 lines auto-load every session. **Do NOT call Read on this file** — Claude Code already loads it for you, and on fresh projects the file may not exist yet, surfacing a confusing red "File does not exist" error.
+- **Plugin-local memory** (`.design-engineer-plugin/memory/`) — owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded by `init-project-structure.sh` during meta-setup; loaded on demand.
 
-### Project Map (`memory/project-map.md`)
+**Defensive read pattern** (belt and suspenders): before calling Read on any plugin memory file, check existence first. Use `Bash test -f .design-engineer-plugin/memory/project-map.md` or `Glob` to verify the file is there. If absent, skip silently — fresh project, nothing to read. Never call Read on `~/.claude/projects/.../memory/MEMORY.md`.
+
+**Note on enforcement**: writes to plugin-local memory files are advisory — Claude updates them when it notices a relevant trigger, but nothing structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` is the structurally enforced layer for pipeline state — see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
+
+### Project Map (`.design-engineer-plugin/memory/project-map.md`)
 
 Maintain a living file tree of the project. Every entry follows this format:
 
@@ -488,27 +493,18 @@ path – description (≤10 words) | when to read
 
 This replaces ad-hoc exploration. If project-map.md exists, use it instead of globbing or grepping for structure.
 
-### MEMORY.md (Pipeline State + Key Decisions)
+### Auto-memory MEMORY.md (managed by Claude Code, NOT by this plugin)
 
-Keep MEMORY.md under 150 lines. It stores:
+Claude Code's auto-memory `MEMORY.md` is loaded automatically every session. The plugin does not Read or Write this file directly — Claude Code's `/memory` command and its built-in auto-memory mechanism handle it. If you want to record cross-session context, ask the user to use `/memory` or just rely on Claude Code's auto-memory writes.
 
-- **Pipeline State**: current phase, last completed skill, next skill, mode
-- **Key Decisions**: one-line entries for cross-cutting decisions that affect multiple downstream deliverables (e.g., "B2B focus", "mobile-first", "subscription model chosen over freemium")
-- **Topic Files routing table**: links to topic files with explicit "read when..." triggers
-
-**What to save to MEMORY.md** (when relevant — advisory):
-- Pipeline position changes (after completing a skill or phase). Note: the structurally tracked version of this lives in `.claude/agent-memory/compound-documenter/pipeline-state.md` — MEMORY.md is a redundant short-form copy for the auto-loaded session context.
-- Business/design decisions that affect 2+ deliverables downstream
-- Mode preference and project type
-
-**What NOT to save anywhere in memory:**
+**What NOT to save anywhere in plugin memory or auto-memory:**
 - Individual deliverable content (already in documents/design/)
 - Resume state details (already in .design-engineer-plugin/config.yaml + the compound-documenter agent memory)
 - Dependency status (already in .design-engineer-plugin/dependencies.yaml as static graph)
 - Anything already in this CLAUDE.md
 - How the plugin works or what skills exist
 
-### Debug Solutions (`memory/debug-solutions.md`)
+### Debug Solutions (`.design-engineer-plugin/memory/debug-solutions.md`)
 
 Save hard-won debugging fixes that took 3+ attempts or required non-obvious solutions.
 
@@ -518,13 +514,13 @@ Each entry: the error, what was tried and failed, what actually fixed it.
 
 ### When to Read Memory
 
+All Read operations on plugin-local memory files MUST verify existence first (Bash `test -f` or `Glob`); skip silently if absent. Never call Read on auto-memory `~/.claude/projects/<slug>/memory/MEMORY.md` — Claude Code already auto-loads it.
+
 | Trigger | What to read |
 |---------|-------------|
-| Session start | MEMORY.md auto-loads. Read project-map.md before any exploration. |
-| Before phase transitions | MEMORY.md – verify key decisions still hold |
-| Before implementation/planning | project-map.md – know the project structure |
-| When encountering errors | debug-solutions.md – check for known fixes |
-| After chat compaction | Re-read MEMORY.md for recovered context |
+| Session start | Auto-memory MEMORY.md auto-loads (no Read call needed). Verify and Read `.design-engineer-plugin/memory/project-map.md` if present, before any exploration. |
+| Before implementation/planning | `.design-engineer-plugin/memory/project-map.md` (if present) – know the project structure |
+| When encountering errors | `.design-engineer-plugin/memory/debug-solutions.md` (if present) – check for known fixes |
 
 ### When to Write Memory (advisory)
 
@@ -532,8 +528,8 @@ These are heuristics. Claude updates the files when it notices the trigger; noth
 
 | Trigger | What to update |
 |---------|---------------|
-| File/folder created or deleted | project-map.md – add or remove entry |
-| Cross-cutting design decision made | MEMORY.md "Key Decisions" – one-line entry with date (also captured by compound-documenter in key-decisions.md) |
-| Skill or phase completed | invoke compound-documenter (it updates pipeline-state.md structurally); optionally mirror the line in MEMORY.md |
-| Hard bug solved (3+ attempts) | debug-solutions.md – error + failed attempts + fix |
-| Session ending (Stop hook reminder) | run /de:document so compound-documenter flushes its memory; optionally update MEMORY.md / project-map.md / debug-solutions.md if relevant changes occurred |
+| File/folder created or deleted | `.design-engineer-plugin/memory/project-map.md` – add or remove entry |
+| Skill or phase completed | invoke compound-documenter (it updates pipeline-state.md structurally) |
+| Hard bug solved (3+ attempts) | `.design-engineer-plugin/memory/debug-solutions.md` – error + failed attempts + fix |
+| Cross-cutting design decision made | compound-documenter records it in key-decisions.md structurally |
+| Session ending (Stop hook reminder) | run /de:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |

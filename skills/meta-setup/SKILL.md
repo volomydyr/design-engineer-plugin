@@ -184,66 +184,26 @@ dependencies:
   auto_suggest: true
 ```
 
-### Initialize Auto-Memory
+### Memory layer
 
-After writing the config, seed the auto-memory structure for this project. Auto-memory lives at `~/.claude/projects/<project>/memory/` and MEMORY.md auto-loads every session (first 200 lines).
+The plugin uses two memory layers:
 
-**Note**: writes to these auto-memory files are advisory — Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` (Anthropic's documented `memory: project` mechanism). Auto-memory is the lighter session-context layer; the compound-documenter agent is the durable pipeline-state layer. Both are seeded during setup.
+- **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) — owned and managed by Claude Code itself. Auto-loads first 200 lines every session. The plugin does NOT touch this file. Do not call Read on it; do not write skeletons to it.
+- **Plugin-local memory** (`.design-engineer-plugin/memory/`) — owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded automatically by `init-project-structure.sh` (the script Step 4 already ran), so by the time you reach this point the skeletons exist. No further action required during setup.
+
+**Note**: writes to plugin-local memory files are advisory — Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
 
 **For new projects (Path B, "New product idea"):**
 
-1. Save `MEMORY.md`:
-```markdown
-# [Project Name] – Design Engineer
-
-## Pipeline State
-Phase: 1 (Discovery) | Last: (none) | Next: ux-problem-statement | Mode: [selected mode]
-
-## Key Decisions
-(none yet)
-
-## Topic Files
-- [project-map.md](./project-map.md) – read BEFORE any exploration, plan creation, or file search
-- [debug-solutions.md](./debug-solutions.md) – read when encountering build/deploy/env errors
-```
-
-2. Save `project-map.md` with the scaffolded structure from Step 4:
-```markdown
-# Project Map
-
-## documents/design/
-├── foundation/ – core product definition deliverables | read at pipeline start
-├── research/ – research findings and analysis | read before positioning
-├── planning/ – MVP requirements and information architecture | read before design and dev
-├── design/ – bias audit, journey, references, story panels | read before prototyping
-├── prototype/ – HTML prototypes (storyboard, prototype, landing page) | read before dev
-├── psych/ – psychology audit results | read during design review
-├── reviews/ – design reviews and assessments | read for quality history
-└── dev/ – development preparation | read before dev phase
-
-## Project Root
-├── .design-engineer-plugin/config.yaml – plugin config and resume state | read by /de:start
-├── .design-engineer-plugin/dependencies.yaml – deliverable dependency graph | read by hooks automatically
-```
-
-3. Save `debug-solutions.md`:
-```markdown
-# Debug Solutions
-
-Hard-won fixes. Read this before attempting fixes for build, deploy, or environment errors.
-
-(none yet)
-```
+The skeletons are already in place at `.design-engineer-plugin/memory/project-map.md` and `.design-engineer-plugin/memory/debug-solutions.md`. As work progresses, Claude updates them per the triggers in CLAUDE.md.
 
 **For existing projects (Path B, "Existing project"):**
 
-Same structure, but:
-- Pipeline State: `Phase: N/A – using individual capabilities | Mode: N/A`
-- project-map.md: start with only the documents/design/ scaffold and .design-engineer-plugin/config.yaml – do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
+Same skeletons. project-map.md starts with only the documents/design/ scaffold and `.design-engineer-plugin/config.yaml` — do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
 
 **For returning projects (Path A):**
 
-Memory already exists – do not re-initialize. It will be read during the startup sequence.
+Memory already exists — do not overwrite. It will be read on demand during the startup sequence.
 
 ---
 

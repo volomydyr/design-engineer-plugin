@@ -118,6 +118,59 @@ YAML
 fi
 
 # ─────────────────────────────────────────────
+# Seed plugin-local memory directory
+# ─────────────────────────────────────────────
+# project-map.md and debug-solutions.md live in .design-engineer-plugin/memory/
+# (plugin-local, NOT in Claude Code's auto-memory dir). MEMORY.md is owned by
+# Claude Code itself (auto-memory) and the plugin does not touch it.
+mkdir -p ".design-engineer-plugin/memory"
+
+PROJECT_MAP_FILE=".design-engineer-plugin/memory/project-map.md"
+if [ -f "$PROJECT_MAP_FILE" ]; then
+  echo ""
+  echo "[EXISTS] memory/project-map.md already exists -- skipping seed"
+else
+  cat > "$PROJECT_MAP_FILE" << 'MAP'
+# Project Map
+
+Living file tree of the project. Format per entry:
+`path – description (≤10 words) | when to read`
+
+## documents/design/
+- foundation/ – core product definition deliverables | read at pipeline start
+- research/ – research findings and analysis | read before positioning
+- planning/ – MVP requirements and information architecture | read before design and dev
+- design/ – bias audit, journey, references, story panels | read before prototyping
+- prototype/ – HTML prototypes (storyboard, prototype, landing page) | read before dev
+- psych/ – psychology audit results | read during design review
+- reviews/ – design reviews and assessments | read for quality history
+- dev/ – development preparation | read before dev phase
+
+## Project Root
+- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /de:start
+- .design-engineer-plugin/dependencies.yaml – deliverable dependency graph | read by hooks automatically
+MAP
+  echo ""
+  echo "[CREATED] memory/project-map.md -- living file tree (skeleton)"
+fi
+
+DEBUG_FILE=".design-engineer-plugin/memory/debug-solutions.md"
+if [ -f "$DEBUG_FILE" ]; then
+  echo "[EXISTS] memory/debug-solutions.md already exists -- skipping seed"
+else
+  cat > "$DEBUG_FILE" << 'DEBUG'
+# Debug Solutions
+
+Hard-won fixes. Read this before attempting fixes for build, deploy, or environment errors.
+
+Each entry: the error, what was tried and failed, what actually fixed it.
+
+(none yet)
+DEBUG
+  echo "[CREATED] memory/debug-solutions.md -- known fixes log (skeleton)"
+fi
+
+# ─────────────────────────────────────────────
 # Create plans directory
 # ─────────────────────────────────────────────
 mkdir -p "plans/archive"

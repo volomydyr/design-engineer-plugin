@@ -1,4 +1,4 @@
-> **v2.6.5 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v2.6.6 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -241,7 +241,7 @@ Yes, through Anthropic's documented agent-memory mechanism. The `compound-docume
 
 When you start a new session, run `/de:document` to invoke the compound-documenter agent — it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
 
-The plugin also recommends maintaining a `project-map.md` (file tree) and `debug-solutions.md` (hard-won fixes) in your auto-memory at `~/.claude/projects/<project>/memory/` for cross-session continuity beyond the design pipeline.
+The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (hard-won fixes) at `.design-engineer-plugin/memory/` in your project for cross-session continuity beyond the design pipeline. These are project-local files (no auto-memory paths involved).
 </details>
 
 <details>

@@ -82,7 +82,7 @@ When invoked, determine the user's situation before running any skills.
 
 ### Step 0: Check Memory and Resume State
 
-**Memory check**: If auto-memory exists (`~/.claude/projects/<project>/memory/MEMORY.md`), it auto-loaded at session start. Read `project-map.md` for project structure – use this instead of exploring the filesystem. Check MEMORY.md for pipeline state and key decisions from previous sessions. This complements `.design-engineer-plugin/config.yaml` – memory has cross-cutting decisions, the YAML has mechanical resume data.
+**Memory check**: Claude Code auto-loads its auto-memory MEMORY.md at session start — the plugin does not call Read on it. Instead, verify `.design-engineer-plugin/memory/project-map.md` exists (Bash `test -f`) and Read it for project structure if present – use this instead of exploring the filesystem. Cross-cutting decisions and pipeline state live in the compound-documenter agent's memory at `.claude/agent-memory/compound-documenter/`. This complements `.design-engineer-plugin/config.yaml` – agent memory has cross-cutting decisions, the YAML has mechanical resume data.
 
 Then check if `.design-engineer-plugin/config.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
 
@@ -178,22 +178,22 @@ At the start of each new skill, briefly tell the user where they are: "Phase [N]
 
 ### Phase 1: Discovery and Foundation
 Skills: `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-competitor-analysis`, `ux-user-interviews` (optional)
-Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
+Then run: `meta-document`. Update `.design-engineer-plugin/memory/project-map.md` with new deliverables; pipeline position is recorded by compound-documenter.
 
 ### Phase 2: Strategy and Positioning
 Skills: `ux-behavior-mapping`, `ux-storybrand`, `ux-story-panels`, `ux-business-plan`
-Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
+Then run: `meta-document`. Update `.design-engineer-plugin/memory/project-map.md` with new deliverables; pipeline position is recorded by compound-documenter.
 
 ### Phase 3: Product Planning
 Skills: `ux-mvp-requirements`, `ux-information-architecture`
-Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
+Then run: `meta-document`. Update `.design-engineer-plugin/memory/project-map.md` with new deliverables; pipeline position is recorded by compound-documenter.
 
 ### [COMPACTION BREAKPOINT 1]
 After Phase 3, suggest compaction using `skills/shared-references/compact-template.md`. Design activities are done, deliverables are saved – fresh context for Phase 4 produces better results.
 
 ### Phase 4: Design and Validation
 Skills: `ux-bias-audit`, `ux-journey-mapping`, `ux-ethics-review` (optional), `ui-references-moodboard`, `dev-prototyping`, `ui-landing-page` (if requested), `ui-figma-guide`, `[FIGMA DESIGN CHECKPOINT]`, `ui-figma-handoff` (optional), `[SMART PSYCH SELECTION]` (dynamic – user chooses from all 14 psych skills), `ux-full-review` (required)
-Then run: `meta-document`. Update MEMORY.md pipeline position and project-map.md with new deliverables.
+Then run: `meta-document`. Update `.design-engineer-plugin/memory/project-map.md` with new deliverables; pipeline position is recorded by compound-documenter.
 
 Key Phase 4 additions:
 - **Figma design checkpoint**: After ui-figma-guide, pause for user to design in Figma. Wait for them to return.
@@ -269,14 +269,14 @@ Maintain pipeline state by invoking the `compound-documenter` agent — it owns 
 
 The project state file is the source of truth for pipeline progress. Always read it at the start of a new session. This addresses the context degradation problem: when conversations hit token limits and earlier parts get compressed or lost, the state file preserves what has been completed, what decisions were made, and what approaches did not work.
 
-## Auto-Memory Updates
+## Memory Updates
 
-In addition to the project state file, update auto-memory when:
-- A **cross-cutting decision** is made (business model choice, target market shift, tech stack decision, architectural choice affecting multiple features) → save a one-line entry to MEMORY.md "Key Decisions" with date
-- A **phase completes** → update MEMORY.md pipeline position (phase, last skill, next skill)
-- **New deliverables are created** → add entries to project-map.md
+In addition to the project state file, update plugin-local memory when:
+- A **cross-cutting decision** is made (business model choice, target market shift, tech stack decision, architectural choice affecting multiple features) → compound-documenter records it in `.claude/agent-memory/compound-documenter/key-decisions.md` structurally
+- A **phase completes** → compound-documenter updates `.claude/agent-memory/compound-documenter/pipeline-state.md` structurally
+- **New deliverables are created** → add entries to `.design-engineer-plugin/memory/project-map.md` (verify exists first; skip if not)
 
-Do NOT duplicate deliverable content or detailed status into memory – that belongs in project files.
+Do NOT call Read on Claude Code's auto-memory `MEMORY.md` — it is auto-loaded by Claude Code at session start. Do NOT duplicate deliverable content or detailed status into memory – that belongs in project files.
 
 ## Error Recovery
 

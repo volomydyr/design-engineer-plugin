@@ -203,7 +203,7 @@ Once the final image is approved:
 1. **Store the panel files** in a dedicated subfolder per story panel:
    - Script: `documents/design/design/story-panels/[panel-name]/script.md`
    - Image: `documents/design/design/story-panels/[panel-name]/panel.png`
-2. **Update project-map.md** in auto-memory with the new files
+2. **Update `.design-engineer-plugin/memory/project-map.md`** with the new files (verify exists first; skip if not)
 
 Then guide the user to extract actionable insights:
 

@@ -4,6 +4,26 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.6] – 2026-04-26
+
+Beta tester reported a confusing red error during /de:start on a brand-new Windows project: `File does not exist: C:\Users\Admin\.claude\projects\D--Coding-projects-mexico-2/memory/MEMORY.md`. The path was not mangled — that's the standard Claude Code auto-memory slug. The actual problem: Claude Code creates the auto-memory dir lazily when it first writes there, but the plugin was instructing Claude to Read `MEMORY.md` via the Read tool — redundant (per Anthropic docs, MEMORY.md auto-loads first 200 lines every session) and broken for fresh projects.
+
+### Fixed
+
+- **No more "File does not exist" red error on /de:start for fresh projects.** Plugin no longer issues `Read MEMORY.md` calls — auto-memory MEMORY.md is owned by Claude Code itself and auto-loads every session per Anthropic docs.
+
+### Changed
+
+- **Plugin-defined memory files moved to `.design-engineer-plugin/memory/`** — `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log) now live in the plugin-local config dir, seeded by `init-project-structure.sh` during meta-setup. Avoids needing to mirror Claude Code's auto-memory slug encoding (which is brittle cross-platform: Mac, Windows, git-root vs working-dir derivation).
+- **`init-project-structure.sh` extended** to seed `.design-engineer-plugin/memory/{project-map.md,debug-solutions.md}` skeletons idempotently. If files exist, skip; if not, create with starter content from the prior `meta-setup/SKILL.md` block.
+- **CLAUDE.md memory section rewritten** — clearly separates the two memory layers (Claude Code auto-memory MEMORY.md, owned by Claude Code; plugin-local memory at `.design-engineer-plugin/memory/`, owned by the plugin). Adds a defensive read pattern: verify existence with Bash `test -f` or Glob before Read; skip silently if absent. Removes redundant "Read MEMORY.md" instructions.
+- **`meta-setup/SKILL.md` "Initialize Auto-Memory" section** replaced with a short pointer noting the seeding is now done by the script.
+- **`meta-orchestrator/SKILL.md`, `dev-agent-setup/SKILL.md`, `ux-story-panels/SKILL.md`, README FAQ** updated to reference the new plugin-local paths.
+
+### Migration note
+
+If you have existing notes in `~/.claude/projects/<slug>/memory/project-map.md` or `~/.claude/projects/<slug>/memory/debug-solutions.md` from a prior plugin version, copy them to `.design-engineer-plugin/memory/` in your project — the plugin no longer reads from auto-memory for these files. Auto-memory MEMORY.md is unaffected; Claude Code continues managing it.
+
 ## [2.6.5] – 2026-04-26
 
 ### Changed

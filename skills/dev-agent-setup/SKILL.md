@@ -93,9 +93,9 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 ## Step 3: Read Memory Before Setup
 
-Before setting up agents, read auto-memory if it exists:
-- **project-map.md** – understand the current project structure without exploring
-- **debug-solutions.md** – check for known environment gotchas before configuring
+Before setting up agents, read plugin-local memory if it exists. Verify each file with `Bash test -f` first; skip silently if absent (fresh project):
+- **`.design-engineer-plugin/memory/project-map.md`** – understand the current project structure without exploring
+- **`.design-engineer-plugin/memory/debug-solutions.md`** – check for known environment gotchas before configuring
 
 ## Step 4: Set Up Agent Files
 
@@ -159,9 +159,9 @@ PHASE 5: WRAP UP
 
 When a debugging session during the development loop takes 3+ attempts or the fix is non-obvious:
 
-1. Save to `memory/debug-solutions.md`: the error, what was tried and failed, what actually fixed it
-2. Before attempting fixes for similar errors in future cycles, read `debug-solutions.md` first
-3. After each feature cycle, update `project-map.md` with any new files or folders created
+1. Save to `.design-engineer-plugin/memory/debug-solutions.md`: the error, what was tried and failed, what actually fixed it
+2. Before attempting fixes for similar errors in future cycles, verify `.design-engineer-plugin/memory/debug-solutions.md` exists and read it first
+3. After each feature cycle, update `.design-engineer-plugin/memory/project-map.md` with any new files or folders created
 
 This prevents re-discovering solutions across sessions. The development loop often spans multiple conversations, and hard-won fixes must survive session boundaries.
 
