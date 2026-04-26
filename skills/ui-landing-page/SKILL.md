@@ -192,8 +192,9 @@ Assemble all approved sections into a single HTML file with all CSS in `<style>`
 1. Apply design tokens from references.md – same visual direction as the product prototype
 2. Use CSS custom properties for all tokens in `:root {}`
 3. Follow the mobile optimization rules from [landing-page-structure.md](./references/landing-page-structure.md): full-width CTAs, 48px tap targets, 16px min font
-4. Before presenting, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review for design anti-patterns
-5. Read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and verify all copy passes the anti-slop check
+4. **Image-slot rule (HARD)**: each section that needs an image (hero, social proof / press logos, testimonial avatars, product shots, feature illustrations) MUST go through the `ui-images` skill BEFORE writing the `<img>` tag. The skill decides per-image generate-vs-stock, writes prompts or search queries, and places the file in `documents/design/design/images/`. Do not emit gradient placeholders, emoji-stamped SVGs, or random Pexels grabs. Do not skip the skill on the assumption that "the user will replace it later" — they won't, and the slop ships.
+5. Before presenting, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review for design anti-patterns
+6. Read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and verify all copy passes the anti-slop check
 
 ### File location
 

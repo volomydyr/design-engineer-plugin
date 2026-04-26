@@ -388,6 +388,10 @@ This is especially important in UI copy – prototypes, components, and any gene
    
    The spacer exists to defeat the panel overlay – no panel, no need for spacer.
 
+## Image handling
+
+Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `documents/design/design/images/`. This rule applies to every `<img>` tag the model emits — no exceptions, no "the user will replace it later" shortcuts.
+
 ## Project state injection
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.

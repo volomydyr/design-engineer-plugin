@@ -4,6 +4,22 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.7.0] – 2026-04-26
+
+Beta tester feature request: a skill that produces detailed image-generation instructions to feed into Nanobanana / ChatGPT / Midjourney / etc. (referenced msitarzewski's design-image-prompt-engineer agent). Confirmed pain: when prototype/landing pages need images, Claude defaults to gray-gradient + emoji slop, weird SVGs, or low-quality Pexels grabs because the plugin had zero image-handling skills. User clarified scope: handle BOTH stock photos (right for lists/avatars/decorative — 50 user avatars don't need 50 unique generations) AND AI generation (right for hero/marketing/brand-specific placeholders), and ensure the skill actually fires when needed (hard-wire from prototype/landing flows, soft-wire via description, plus a CLAUDE.md rule).
+
+### Added
+
+- **New `ui-images` skill** (`skills/ui-images/`) — single skill that handles both stock-photo selection and AI-generation prompt writing. Walks the user through an image manifest, decides per image whether to generate or stock-fetch (heuristic: hero/marketing/brand → generate; avatars/list rows/decorative many-of-a-kind → stock; user can override), and produces the right artefact for each path. For stock: writes a strong search query and uses Playwright CLI (when available) to visually rank top results so Claude doesn't grab low-quality images; falls back to URL list when Playwright isn't installed. For generation: asks which generator the user wants (Nanobanana / ChatGPT / Midjourney / Flux / etc.) and writes detailed prompts using per-generator templates that cover syntax differences (aspect-ratio params, style modifiers, negative prompts). Saves manifest + prompts to `documents/design/design/images/` with subfolders for `prompts/`, `generated/`, `stock/`.
+- **`skills/ui-images/references/prompt-templates.md`** — per-generator templates for Gemini Nanobanana, ChatGPT/DALL·E, Midjourney, Flux/Stable Diffusion, Ideogram, plus a generator-agnostic core that covers subject + composition + style + lighting + palette + aspect ratio + negatives.
+
+### Changed
+
+- **`dev-prototyping/SKILL.md` Step 5** — added a hard image-slot rule: BEFORE generating any `<img>` tag, gradient placeholder, or emoji-stamped SVG, invoke `ui-images`. This is what prevents the gray-gradient + emoji slop default.
+- **`ui-landing-page/SKILL.md` Step 4** — added the same hard rule for landing page sections (hero, social proof, testimonial avatars, product shots, feature illustrations).
+- **`CLAUDE.md`** — new "Image handling" section: before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links, invoke `ui-images`. Applies to every `<img>` tag — no exceptions, no "the user will replace it later" shortcuts.
+- **`README.md`** — banner v2.7.0, added `ui-images` to the UI design skills table, skill count updated.
+
 ## [2.6.7] – 2026-04-26
 
 Beta tester reported: asked for a responsive website, plugin generated a desktop browser page with a mobile-phone-shaped mockup floating in the center surrounded by cream space. Root cause: `dev-prototyping/SKILL.md` never asked the user what target platform to design for, so when planning docs lacked an explicit signal Claude defaulted to mobile-shaped layouts wrapped in a desktop chrome.
