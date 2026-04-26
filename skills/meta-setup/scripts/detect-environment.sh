@@ -142,6 +142,79 @@ fi
 echo ""
 
 # ─────────────────────────────────────────────
+# 2.5. Project Context Detection (existing-project signal)
+# ─────────────────────────────────────────────
+# Detects markers that indicate this is an established project so the onboarding
+# flow can ask the user about off-repo references (Figma, Notion, etc.) and
+# biased ux-* skills can short-circuit when the relevant artifact already exists.
+
+echo "--- Project Context Detection ---"
+
+# Design system markers
+DESIGN_SYSTEM_PATH=""
+for p in "design-system" "src/design-system" "packages/design-system" "Foundation/Tokens" "theme" "src/theme" "src/styles/tokens"; do
+  if [ -d "$p" ]; then DESIGN_SYSTEM_PATH="$p"; break; fi
+done
+if [ -z "$DESIGN_SYSTEM_PATH" ]; then
+  for f in "tokens.css" "tokens.json" "src/tokens.css" "theme.ts" "src/theme.ts"; do
+    if [ -f "$f" ]; then DESIGN_SYSTEM_PATH="$f"; break; fi
+  done
+fi
+if [ -z "$DESIGN_SYSTEM_PATH" ] && [ -f "tailwind.config.js" ]; then
+  if grep -q "extend:" tailwind.config.js 2>/dev/null; then DESIGN_SYSTEM_PATH="tailwind.config.js (custom theme)"; fi
+fi
+if [ -n "$DESIGN_SYSTEM_PATH" ]; then
+  echo "[FOUND] existing_design_system: $DESIGN_SYSTEM_PATH"
+else
+  echo "[NONE] existing_design_system: none detected"
+fi
+
+# Brand docs / written specs
+BRAND_DOC=""
+for f in "BRAND.md" "BRANDING.md" "STYLE-GUIDE.md" "docs/brand.md" "docs/branding.md"; do
+  if [ -f "$f" ]; then BRAND_DOC="$f"; break; fi
+done
+if [ -z "$BRAND_DOC" ] && [ -f "README.md" ]; then
+  RM_LINES=$(wc -l < README.md 2>/dev/null || echo 0)
+  if [ "$RM_LINES" -gt 200 ]; then BRAND_DOC="README.md ($RM_LINES lines — substantial)"; fi
+fi
+if [ -n "$BRAND_DOC" ]; then
+  echo "[FOUND] existing_brand_docs: $BRAND_DOC"
+else
+  echo "[NONE] existing_brand_docs: none detected"
+fi
+
+# Spec / docs folder
+SPECS_PATH=""
+for d in "docs" "documentation" "specs"; do
+  if [ -d "$d" ] && [ "$(ls -1 "$d" 2>/dev/null | wc -l)" -gt 1 ]; then SPECS_PATH="$d"; break; fi
+done
+if [ -n "$SPECS_PATH" ]; then
+  echo "[FOUND] existing_specs: $SPECS_PATH"
+else
+  echo "[NONE] existing_specs: none detected"
+fi
+
+# Shipped UI markers (framework-natural routable-page locations)
+SHIPPED_UI="false"
+for d in "app" "pages" "src/routes" "src/pages" "lib/screens" "Sources/Views"; do
+  if [ -d "$d" ] && [ "$(find "$d" -maxdepth 3 -type f 2>/dev/null | wc -l)" -gt 0 ]; then SHIPPED_UI="true"; break; fi
+done
+echo "[INFO] shipped_ui: $SHIPPED_UI"
+
+# Component count (rough signal: 0 = greenfield, >20 = established)
+COMPONENT_COUNT=0
+for d in "components" "Components" "src/components" "src/Components" "packages/ui/src/components"; do
+  if [ -d "$d" ]; then
+    n=$(find "$d" -maxdepth 4 -type f \( -name "*.tsx" -o -name "*.jsx" -o -name "*.vue" -o -name "*.svelte" -o -name "*.swift" -o -name "*.kt" -o -name "*.dart" \) 2>/dev/null | wc -l | tr -d ' ')
+    COMPONENT_COUNT=$((COMPONENT_COUNT + n))
+  fi
+done
+echo "[INFO] component_count: $COMPONENT_COUNT"
+
+echo ""
+
+# ─────────────────────────────────────────────
 # 3. Summary
 # ─────────────────────────────────────────────
 echo "--- Summary ---"

@@ -1,7 +1,7 @@
 ---
 name: design-engineer:design
-description: Design workflow. For new products, runs the full pipeline. For existing projects, runs an abbreviated feature-focused flow.
-argument-hint: "[phase N | skill-name]"
+description: Design workflow. For new products, runs the full pipeline. For existing projects, runs an abbreviated feature-focused flow. Argument `feature-spec` produces a truly minimal spec for established products with existing brand / design system.
+argument-hint: "[phase N | skill-name | feature-spec]"
 ---
 
 # Design Workflow
@@ -9,6 +9,10 @@ argument-hint: "[phase N | skill-name]"
 ## Context
 
 <context> #$ARGUMENTS </context>
+
+## Argument routing
+
+If `$ARGUMENTS` is `feature-spec`, jump to **Step F1: Minimal feature spec** below. Otherwise proceed to Step 1.
 
 ## Step 1: Read project context
 
@@ -122,3 +126,58 @@ options:
   - label: "Save progress and stop"
     description: "Document progress so you can pick up next time"
 ```
+
+---
+
+## Step F1: Minimal feature spec (`feature-spec` argument)
+
+This branch is for adding a feature to an established product that already has a design language and existing documentation. The plugin must NOT push StoryBrand, business-plan thinking, or full Phase 1+2 / Phase 3 work for these tasks. The output is a single short spec the user (and `/design-engineer:dev`) can act on.
+
+### F1.1: Verify project context
+
+Read `.design-engineer-plugin/config.yaml` `project.context`:
+
+- `shipped_ui: true` is required. If false / missing, tell the user feature-spec is for established products only; offer to fall back to the standard Feature flow.
+- `existing_design_system: <truthy>` OR `existing_brand_docs: <truthy>` is required. If neither is set, ask the user once: "I don't see a design system or brand docs detected. Can you point me at one (Figma, Notion, Storybook, etc.) or do you want the standard Feature flow instead?" — capture the answer, persist to `off_repo_references`, and proceed only if they pointed somewhere.
+
+### F1.2: Capture the feature
+
+Ask via natural-language prompt or AskUserQuestion: "Describe the feature — what it does, who uses it, why now." Keep it open-ended; the user is the domain expert.
+
+### F1.3: Draft the spec
+
+Read whatever brand voice / design-system context is available:
+
+1. If `design/foundation/storybrand.md` exists, read it for the brand voice.
+2. Else if `existing_brand_docs` points at a local file, read that.
+3. Else if `off_repo_references` names an external source, mention you can't read it but ask the user for 1–2 sentences capturing the brand voice in their own words.
+
+Generate the spec at `design/features/[feature-slug]/feature-spec.md` (the `design/features/[slug]/` convention is established in design.md's Feature flow section). The spec is short — under one page:
+
+```markdown
+# [Feature name] — Spec
+
+## Problem (in project's voice)
+[1 paragraph using the existing brand voice]
+
+## Affected pages
+- [Page 1] — [what changes]
+- [Page 2] — [what changes]
+
+## Key interactions
+[bullet list — what users can do, what the system does in response]
+
+## Success criteria
+[bullet list — observable outcomes that mean this feature works]
+
+## Out of scope
+[what this spec deliberately does NOT cover]
+```
+
+**No phases. No StoryBrand framing (it's already in the existing brand). No business plan rewrite. No full IA regeneration.** If you find yourself wanting to add any of those, stop — that's the standard Feature flow, not feature-spec.
+
+### F1.4: Hand off
+
+Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement this feature", description: "Route to /design-engineer:dev with the spec"}, {label: "Refine the spec further", description: "Iterate before development"}, {label: "Save and stop", description: "Spec is on disk; pick up later"}]`.
+
+If "Implement", route to `/design-engineer:dev` and pass the spec path so the dev command can read it and create an implementation plan respecting it.

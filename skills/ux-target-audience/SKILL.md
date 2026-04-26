@@ -9,6 +9,17 @@ license: MIT
 
 # Target Audience
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_personas` (or check `off_repo_references` for Notion / Confluence pages that may carry persona docs). If personas already exist, do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists (and where — repo path or off-repo reference).
+2. Ask via AskUserQuestion: "Your project already has user personas at <location>. What would you like to do?" Options: "Use them as-is and proceed", "Refine specific personas (I'll describe)", "Re-run from scratch anyway".
+3. If "Use them as-is" → yield.
+4. If "Refine" → narrow scope to the user's described refinement only.
+5. If "Re-run anyway" → proceed normally below.
+
 ## Why This Matters
 
 A user persona helps you stay focused on who you are building the product for. Every time a new idea pops into your head, check it against the persona. This way, you avoid one of the most common traps – building features instead of solving real needs.

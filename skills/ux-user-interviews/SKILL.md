@@ -9,6 +9,14 @@ license: MIT
 
 # ux-user-interviews Skill
 
+## Existing-context augmentation
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.off_repo_references`. This skill enriches existing user research rather than writing a single canonical deliverable, so the pattern is **input augmentation, not skip-check**:
+
+1. If the user has off-repo references to prior user research (Notion findings, recorded interviews, survey results in Linear/Jira tickets, etc.), ask them to share what they have OR point this skill at the source.
+2. Treat the existing research as the **starting context** — the new instruments / scripts / analyses should build on it, not start blank. Reference what's already known about users when designing new interview questions, so you're not asking what's already been answered.
+3. If no existing research is referenced, proceed normally — design new instruments from scratch using the framework below.
+
 **Purpose:** Help you design effective user research instruments (surveys and interviews), prepare proper scripts, find and motivate participants, and analyze results using a dual-analysis methodology that prevents AI hallucination in research findings.
 
 This skill operates in guided mode only because interviews and surveys require human interaction with real users. AI cannot conduct the research for you, but it can prepare you thoroughly and help you make sense of what you learn.

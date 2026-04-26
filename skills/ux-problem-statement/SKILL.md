@@ -9,6 +9,17 @@ license: MIT
 
 # Problem Statement
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_problem_statement` (or treat `project.context.shipped_ui: true` as a softer signal — shipped products implicitly have a problem framing). If problem framing already exists in repo or is referenced off-repo (Notion, Linear, Confluence), do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists (and where — repo path or off-repo reference).
+2. Ask via AskUserQuestion: "Your project already has a problem framing at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Refine specific parts (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield.
+4. If "Refine" → narrow scope to the user's described refinement only.
+5. If "Re-run anyway" → proceed normally below.
+
 ## Why This Matters
 
 The very first step in building a product is defining the problem you are solving. Without this, everything else – personas, hypotheses, even design decisions – will float in the air without a foundation.

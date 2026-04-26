@@ -9,6 +9,17 @@ license: MIT
 
 # StoryBrand Framework
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_brand_docs`. If it indicates the project already has brand voice / messaging documentation (in repo or via an off-repo reference such as Figma / Notion / Storybook), and the user did not explicitly request rerunning this skill, do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists (and where — repo path or off-repo reference).
+2. Ask via AskUserQuestion: "Your project already has brand voice / StoryBrand framing at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Refine specific parts (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield; the calling flow continues with the existing artifact.
+4. If "Refine" → narrow scope to the user's described refinement only.
+5. If "Re-run anyway" → proceed normally below.
+
 ## Why This Matters
 
 StoryBrand is a storytelling method where the user is the main hero, and your product is simply the guide that helps them succeed. It is used far beyond tech – authors and screenwriters apply the same structure. Think about the flow of your favorite movie and you will see the pattern.

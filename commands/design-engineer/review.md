@@ -1,7 +1,7 @@
 ---
 name: design-engineer:review
-description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or as a summary in Autopilot.
-argument-hint: "[specific area to review]"
+description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or as a summary in Autopilot. Argument `audit` runs a multi-page commercial audit with designer-feedback capture per page.
+argument-hint: "[specific area to review | audit]"
 ---
 
 # Design Review
@@ -9,6 +9,14 @@ argument-hint: "[specific area to review]"
 ## Context
 
 <context> #$ARGUMENTS </context>
+
+## Note: existing-codebase component gallery (auto-scaffold)
+
+If the project has UI components but no gallery yet, `design-system-auditor` will auto-scaffold one transparently during this review (v4.6.0 transparent infrastructure — no menu, no permission ask). The gallery is a single-page visual catalog of every component, all variants, real production styles, source-path labels — useful here for redundancy detection on existing codebases.
+
+## Argument routing
+
+If `$ARGUMENTS` is `audit`, jump to **Step A1: Page-by-page commercial audit** below. Otherwise proceed to Step 1.
 
 ## Step 1: Read project context
 
@@ -206,3 +214,80 @@ options:
 ```
 
 IMPORTANT: Every transition point in the review flow MUST use AskUserQuestion. Never end with "Is there anything else?" or any plain text question.
+
+---
+
+## Step A1: Page-by-page commercial audit (`audit` argument)
+
+This branch is for designers hired to improve an existing commercial app. It walks every page (or a user-named subset), runs the standard review agents per page, captures the designer's professional feedback per page alongside the AI findings, and synthesizes a redesign brief at the end.
+
+### A1.1: Verify project context
+
+1. Read `.design-engineer-plugin/config.yaml` `project.context.shipped_ui`. If `false` (or the field is missing), tell the user audit needs a shipped product to walk; offer to fall back to single-page review or route to the design pipeline. Do not proceed.
+2. Confirm Playwright is available (bundled MCP since v4.3.0 — should be).
+
+### A1.2: Scope the audit
+
+Ask via ONE AskUserQuestion call (multiple questions in the array):
+
+- question: "How should I find the pages to audit?" header: "Page source" options: `[{label: "I'll list URLs / paths", description: "I name each page or URL"}, {label: "Crawl from an entry URL", description: "Start at one URL and discover the rest"}, {label: "Use a sitemap.xml", description: "Read sitemap.xml from the deployed site"}]`
+- question: "Cap on pages?" header: "Page cap" options: `[{label: "Up to 5", description: "Quick audit"}, {label: "Up to 15", description: "Medium audit"}, {label: "Up to 30", description: "Deep audit (may take a while)"}, {label: "No cap", description: "Audit everything (long-running)"}]`
+
+If the user picks "I'll list URLs / paths", collect them via a follow-up. If they pick crawl, ask for the entry URL. If sitemap, ask for the sitemap URL or detect locally.
+
+### A1.3: Per-page loop
+
+For each page (capped per the user's cap):
+
+1. **Capture**: navigate via Playwright → take a screenshot → snapshot the DOM/structure. Save the screenshot to `design/reviews/[YYYY-MM-DD]-audit/[page-slug]/screenshot.png`.
+2. **Run AI agents** in this order, gathering findings into one in-memory bundle per page:
+   - `psych-scanner` (cognitive load, decision fatigue, dark patterns, motivation) — see `agents/psych-scanner.md`
+   - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) — see `skills/ui-aesthetic-review/`
+   - `design-system-auditor` (token usage, hardcoded styles, monolithic views, gallery audit if applicable) — see `agents/design-system-auditor.md`
+   - `ux-motivation-audit` (screen-level psychology) — see `skills/ux-motivation-audit/`
+3. **Present AI findings** to the designer for THIS page (compact: top 5–7 findings grouped by severity).
+4. **Capture designer feedback** via AskUserQuestion: question="Your professional feedback on this page?" options: `[{label: "I'll write notes", description: "Open-ended notes I'll type now"}, {label: "Agrees with AI on all points", description: "AI findings match my read"}, {label: "Disagree with one or more findings", description: "I'll explain which and why"}, {label: "Skip / no feedback", description: "Move on"}]`. If "I'll write notes" or "Disagree", collect the prose via natural-language follow-up.
+5. **Write the per-page deliverable** to `design/reviews/[YYYY-MM-DD]-audit/[page-slug]/audit.md`:
+
+```markdown
+# [Page name] — Audit
+
+**URL**: [captured URL]
+**Date**: [YYYY-MM-DD]
+**Screenshot**: ./screenshot.png
+
+## AI findings
+
+### Psychology (psych-scanner)
+[findings]
+
+### Visual / aesthetic (ui-aesthetic-review)
+[findings]
+
+### Design system compliance (design-system-auditor)
+[findings]
+
+### Motivation / UX (ux-motivation-audit)
+[findings]
+
+## Designer's feedback
+
+[user's professional notes per the AskUserQuestion / freeform]
+
+## Combined recommendation
+
+[synthesis: which AI findings to act on, which to defer per designer's input, what the designer flagged that AI missed]
+```
+
+### A1.4: Synthesize the redesign brief
+
+After all pages: write `design/reviews/[YYYY-MM-DD]-audit/SUMMARY.md`:
+
+- Cross-page patterns (e.g., "same hardcoded color used on 8 of 14 pages")
+- Top redesign priorities ranked by combined AI + designer signal
+- Per-page links back to the individual audit files
+- Recommended next step (route to `/design-engineer:dev` with this brief, or to `/design-engineer:design feature-spec` for specific feature redesigns)
+
+### A1.5: Hand off
+
+Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement priority fixes", description: "Route to /design-engineer:dev with the brief"}, {label: "Spec specific feature redesigns", description: "Route to /design-engineer:design feature-spec for selected pages"}, {label: "Document and stop", description: "Brief is saved; pick up later"}]`.

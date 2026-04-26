@@ -9,6 +9,17 @@ license: MIT
 
 # Business Plan
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_business_plan` (or treat `project.context.shipped_ui: true` as a softer signal — established products usually have a working business model). If a business plan already exists, or the project is shipping with a working revenue model, do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists or is implied by the shipped product.
+2. Ask via AskUserQuestion: "Your project already has a business model in place. What would you like to do?" Options: "Use it as-is and proceed", "Refine specific parts (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield.
+4. If "Refine" → narrow scope to the user's described refinement only.
+5. If "Re-run anyway" → proceed normally below.
+
 ## Why This Matters
 
 Business model, market research, and financial planning are important steps that founders often postpone until launch. That approach backfires. Better to tackle them early, even imperfectly.

@@ -9,6 +9,16 @@ license: MIT
 
 # Information Architecture
 
+## Established-product scope reduction
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. If `shipped_ui: true` AND the user is here for a single feature (not a full pipeline), reduce scope:
+
+1. Do NOT regenerate the project's full IA — the product has shipped pages/routes, the navigation is established.
+2. Focus only on what the *specific feature* the user named needs: which existing pages this feature touches, where new pages slot into existing navigation, content hierarchy for THIS feature only.
+3. Output goes to `design/features/[feature-slug]/ia.md`, not the project-level `design/planning/information-architecture.md`.
+
+If `shipped_ui: false` (greenfield) or the user explicitly wants project-level IA definition, proceed normally below.
+
 ## Why This Matters
 
 Imagine you are building a house from scratch. Would you create an architectural plan first, or wing it room by room? Most people would plan first. Yet designers often jump straight into UI without a clear structural plan. That is where Information Architecture (IA) comes in.

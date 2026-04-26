@@ -9,6 +9,14 @@ license: MIT
 
 # ux-behavior-mapping Skill
 
+## Existing-context augmentation
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. This skill enriches existing behavior insights rather than writing a single canonical deliverable, so the pattern is **input augmentation, not skip-check**:
+
+1. If `shipped_ui: true` AND there's prior research / behavior data referenced in `off_repo_references` (Mixpanel, Amplitude, Hotjar findings, conversion analyses in Notion, etc.), ask the user to share what they already know about user behavior on this product OR point this skill at the source.
+2. Treat the existing insights as the **starting context** — the Behavior Map should incorporate what's already known about activation thresholds and motivation gaps, not invent them from scratch.
+3. If no existing behavior insights are referenced, proceed normally — build the map from first principles using the framework below.
+
 **Purpose:** Guide the user through creating a Behavior Map that visualizes the forces influencing user behavior for a specific product experience. The Behavior Map helps articulate WHY users do or do not take a desired action, and identifies the most efficient levers to change that behavior.
 
 **Classification:** Optional / Advanced. Most useful for complex products where user motivation is unclear, when a desired behavior is not happening, or when a team cannot agree on why users are not converting. Core proven activities are Story Panels and bias audit, but Behavior Mapping adds significant depth when applied.

@@ -9,6 +9,17 @@ license: MIT
 
 # Assumptions and Hypotheses
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_assumptions_log` (rare in repos; more often referenced via Notion / Linear in `off_repo_references`). If an assumption / hypothesis log already exists, do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists (and where — repo path or off-repo reference).
+2. Ask via AskUserQuestion: "Your project already has an assumption / hypothesis log at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Add new assumptions to it (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield.
+4. If "Add new" → narrow scope to appending only the new assumptions the user describes.
+5. If "Re-run anyway" → proceed normally below.
+
 ## Why This Matters
 
 There are two main types of hypotheses: those based on user, product, or business assumptions, and those tied to functionality. A hypothesis is essentially an assumption with a research method attached to it.

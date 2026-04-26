@@ -9,6 +9,16 @@ license: MIT
 
 # MVP Requirements
 
+## Established-product scope reduction
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. If `shipped_ui: true` AND the user is here for a single feature (not a full pipeline), reduce scope:
+
+1. Do NOT regenerate the project's full MVP scope — the product has shipped, MVP is decided.
+2. Focus only on what the *specific feature* the user named needs: minimum viable scope for THIS feature, must-have vs nice-to-have for THIS feature, ICE prioritization within THIS feature's tasks.
+3. Output goes to `design/features/[feature-slug]/mvp.md`, not the project-level `design/planning/mvp-requirements.md`.
+
+If `shipped_ui: false` (greenfield) or the user explicitly wants project-level MVP definition, proceed normally below.
+
 ## Why This Matters
 
 Beginner founders usually think everything is important. They try to pack every possible feature into their product, which means years of building and no launch. Writing clear MVP requirements protects you from that trap.

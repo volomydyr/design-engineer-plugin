@@ -9,6 +9,17 @@ license: MIT
 
 # ux-story-panels Skill
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_story_panels` (or treat `project.context.shipped_ui: true` as a softer signal — for established products, story panels often aren't needed; the product itself encodes the user's journey). If story panels already exist, or the user is here to add a feature to an established product (not to map a brand-new customer experience), do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists (and where — repo path or off-repo reference) OR explain that the established product itself documents the user journey through its shipped flows.
+2. Ask via AskUserQuestion: "Your project already has user-journey artifacts. What would you like to do?" Options: "Use them as-is and proceed", "Create panels only for a specific new flow (I'll describe)", "Re-run from scratch anyway".
+3. If "Use them as-is" → yield.
+4. If "Specific new flow" → narrow scope to that flow only.
+5. If "Re-run anyway" → proceed normally below.
+
 **Purpose:** Guide the user through creating a Story Panel – a one-pager comic with six panels depicting what a customer goes through for a given experience. The final output is a set of **generated images**, not text descriptions.
 
 **Why stories, not screens?** Screens merely tell you what happens. Only journeys can tell you *why* and *how*. Screens make you focus on your product, not the problem. It is dangerously easy to become attached to existing solutions you have put a lot of effort into (Sunk Cost Fallacy). Stories focus on the customer first.

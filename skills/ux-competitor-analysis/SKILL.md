@@ -9,6 +9,17 @@ license: MIT
 
 # Competitor Analysis
 
+## Existing-project skip-check
+
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_competitor_analysis` (or check `off_repo_references` for Notion / Confluence pages that may carry competitive landscape docs). If a competitor analysis already exists, do not regenerate from scratch.
+
+Instead:
+1. In one line, summarize what already exists (and where — repo path or off-repo reference).
+2. Ask via AskUserQuestion: "Your project already has a competitor analysis at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Update specific competitors (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield.
+4. If "Update" → narrow scope to the competitors the user names.
+5. If "Re-run anyway" → proceed normally below.
+
 ## Why This Matters
 
 Classic competitor analysis can eat up days. AI makes it much faster if you know how to set it up correctly. The key is never just asking AI to "do a competitor analysis" – that produces garbage. The quality depends entirely on the specificity of the prompt and the context provided.
