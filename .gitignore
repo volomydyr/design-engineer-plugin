@@ -21,3 +21,12 @@ __pycache__/
 # Environment
 .env
 .env.local
+
+# Plugin scaffold leaks (created by init-project-structure.sh when run
+# from this repo during testing; belong in user projects, not plugin source)
+.design-engineer-plugin/
+prototype/
+design/
+
+# Audit artifacts (one-off audits; preserved in commit history when needed)
+audit/
