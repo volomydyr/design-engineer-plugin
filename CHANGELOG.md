@@ -4,6 +4,18 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.1.4] – 2026-04-26
+
+User caught two more drift patterns in the process-recall hook even after v4.1.3:
+1. Listing the steps with a current marker, then immediately performing the NEXT step's actions in the same turn (theatrical listing — marker doesn't match actual work).
+2. Assuming earlier steps "were already done" earlier in the session (e.g., "docs were fetched two messages ago, skipping fetch"). The whole point of a process is following it every single time, not deciding which steps to skip based on session memory.
+
+### Changed
+
+- **`hooks/de-process-recall-hook.sh` adds two new forbidden shortcuts** to the bullet list:
+  - Marker mismatch: "Marking yourself on step N then performing step N+1's actions in the same turn — the marker must match the actual work happening this turn."
+  - Already-done shortcuts: "Assuming any step is already done because you did it earlier in the session ('docs were fetched two messages ago', 'I already analyzed this', etc.) — every run of the process redoes every step from scratch, period. The point of a process is following it every single time. 'Already done earlier' is forbidden reasoning."
+
 ## [4.1.3] – 2026-04-26
 
 User caught the v4.1.2 hook fix being too rigid. The previous wording locked in a specific header format ("PROCESS RECALL CHECK — <process name>:") and a 4-step example, which would constrain processes of different lengths (2 steps, 30 steps, 100 steps).
