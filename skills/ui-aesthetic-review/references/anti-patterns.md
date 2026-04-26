@@ -50,17 +50,17 @@ Every pattern listed here is the fingerprint of AI-generated work from 2024–20
 
 These are the new defaults of AI-generated mobile apps. Every one of them appeared on a real tester's output that should have been distinctive but was not.
 
-**Cream/beige background + orange CTA** – The new "Inter font" of mobile design. AI has decided that "warm friendly mobile app" means a `#F4ECE0`-ish background and a `#E5734A`-ish primary button. Event apps, social apps, booking apps, marketplaces — they all converge on this palette now. If your product genuinely belongs to this color world (a coffee app, a wellness app rooted in earth tones), say WHY out loud. Otherwise this is the default talking, not you.
+**Cream/beige background + orange CTA** – The new "Inter font" of mobile design. AI has decided that "warm friendly mobile app" means a `#F4ECE0`-ish background and a `#E5734A`-ish primary button. Event apps, social apps, booking apps, marketplaces – they all converge on this palette now. If your product genuinely belongs to this color world (a coffee app, a wellness app rooted in earth tones), say WHY out loud. Otherwise this is the default talking, not you.
 
-**3D Apple/Google emoji as character illustration** – Reaching for `🏄`, `👨‍💻`, `🎨` as page heroes or section illustrations because the model needed an image and emoji are the cheapest path. They feel charming for one screen and templated by the third. A real product has a real illustration system — even if that system is "no illustrations, only typography."
+**3D Apple/Google emoji as character illustration** – Reaching for `🏄`, `👨‍💻`, `🎨` as page heroes or section illustrations because the model needed an image and emoji are the cheapest path. They feel charming for one screen and templated by the third. A real product has a real illustration system – even if that system is "no illustrations, only typography."
 
 **Emoji avatars** – Flag emojis next to user names ("🇩🇪 Kai · 8 events"), country emojis, generic person emojis substituting for photos or letter monograms. The model uses emoji because user data does not exist yet, but the result reads as "we did not decide on an avatar system." Default to letter monograms with assigned colors, or commit to a real photo-based system. Never emoji.
 
 **Pill chips with leading emoji** – Small rounded badges that pair an emoji with a category label: `🏄 Surfing`, `🍕 Food`, `📚 Reading`. Telegram Stories and Instagram normalized this; AI now reaches for it on every list view. The pattern fights your typography because the emoji's visual weight competes with the label. If you need categorical badges, use color or shape, not emoji.
 
-**Generic CTA copy** – "Get started", "Join this event", "Learn more", "Continue", "Submit". Every AI-generated mobile app has a button labeled "Join this event." The product disappears in copy this generic. Write the verb the user is actually doing in the voice of the product. A surf app's CTA is "Paddle out" or "I'm in" — not "Join this event."
+**Generic CTA copy** – "Get started", "Join this event", "Learn more", "Continue", "Submit". Every AI-generated mobile app has a button labeled "Join this event." The product disappears in copy this generic. Write the verb the user is actually doing in the voice of the product. A surf app's CTA is "Paddle out" or "I'm in" – not "Join this event."
 
-**Mobile mockup floating in desktop frame** – When the target platform is responsive web or desktop web, do NOT wrap the UI in a centered phone-shaped container with empty space (cream, gray, or otherwise) around it. This is the "I built it mobile-first and ran out of time to design the desktop version" tell. Layouts MUST fill the viewport at every size. The browser viewport is the canvas, not a desktop chrome with a phone glued to the middle. If the target IS a mobile app, design at mobile viewport (375–414px) without a desktop wrapper. If the user wants to show a mobile version inside a marketing page, that's a deliberate marketing choice and must be stated explicitly — never the default.
+**Mobile mockup floating in desktop frame** – When the target platform is responsive web or desktop web, do NOT wrap the UI in a centered phone-shaped container with empty space (cream, gray, or otherwise) around it. This is the "I built it mobile-first and ran out of time to design the desktop version" tell. Layouts MUST fill the viewport at every size. The browser viewport is the canvas, not a desktop chrome with a phone glued to the middle. If the target IS a mobile app, design at mobile viewport (375–414px) without a desktop wrapper. If the user wants to show a mobile version inside a marketing page, that's a deliberate marketing choice and must be stated explicitly – never the default.
 
 ---
 
@@ -71,7 +71,7 @@ These choices ALWAYS require an explicit user-stated WHY before they're allowed.
 - **Typefaces**: Inter, SF Pro, Roboto, Lato, Open Sans, Montserrat. These are infrastructure fonts, not design decisions. If the user picked one with a real reason, document the reason in the references doc. Otherwise pick something with character.
 - **Token names**: `--gray-N`, `--surface-N`, `--primary`, `--secondary`, `--accent`. Tokens named like a CSS framework are not design decisions. Names like `--ink`, `--parchment`, `--scrub-teal`, `--ticket-orange` evoke a world. If a tester reads your tokens out loud, they should be able to guess what the product is.
 - **Emoji as avatars / illustrations / hero images**: Always. Letter monograms, photo systems, custom illustrations are real choices. Emoji is the absence of a choice.
-- **Cream + orange combo**: Without a domain-grounded reason. Coffee shop, sunset app, wellness brand rooted in earth tones — fine. Generic event app — no.
+- **Cream + orange combo**: Without a domain-grounded reason. Coffee shop, sunset app, wellness brand rooted in earth tones – fine. Generic event app – no.
 
 ---
 

@@ -11,13 +11,13 @@ license: MIT
 
 ## Existing-project skip-check
 
-Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_competitor_analysis` (or check `off_repo_references` for Notion / Confluence pages that may carry competitive landscape docs). If a competitor analysis already exists, do not regenerate from scratch.
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_competitor_analysis`. If it indicates the project already has a competitor analysis (in repo, or via an off-repo reference such as Notion / Confluence captured in `off_repo_references`), OR `project.context.shipped_ui: true` indicates an established product where regenerating from scratch isn't appropriate, AND the user did not explicitly request rerunning this skill, do not regenerate.
 
 Instead:
-1. In one line, summarize what already exists (and where — repo path or off-repo reference).
-2. Ask via AskUserQuestion: "Your project already has a competitor analysis at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Update specific competitors (I'll describe)", "Re-run from scratch anyway".
-3. If "Use it as-is" → yield.
-4. If "Update" → narrow scope to the competitors the user names.
+1. In one line, summarize what already exists (and where – repo path or off-repo reference) OR explain how the shipped product implies the competitive positioning.
+2. Ask via AskUserQuestion: "Your project already has a competitor analysis at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Refine specific parts (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield; the calling flow continues with the existing artifact.
+4. If "Refine" → narrow scope to the user's described refinement only (e.g., updating specific competitors).
 5. If "Re-run anyway" → proceed normally below.
 
 ## Why This Matters
@@ -197,7 +197,7 @@ After competitive analysis is finalized, suggest:
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

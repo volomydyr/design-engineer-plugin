@@ -49,12 +49,10 @@ const REFERENCES_MD_CANDIDATES = [
   'design/references.md'
 ];
 
-// Possible prototype.html locations
-// v3.0.0+ uses prototype/ at project root. Legacy v2.x fallback retained for
-// users who haven't run the migration command yet.
+// prototype.html lives at project root in prototype/. The init script
+// (init-project-structure.sh) creates it there as a sibling of design/.
 const PROTOTYPE_HTML_CANDIDATES = [
-  'prototype/prototype.html',
-  'documents/design/prototype/prototype.html'
+  'prototype/prototype.html'
 ];
 
 function appendLog(level, message) {
@@ -194,7 +192,7 @@ function main() {
           appendLog('DENIED', 'Prototype not Read: ' + filePath);
           deny(
             'Prototype exists at ' + prototypeRel + ' but you have not Read it this session. ' +
-            'Read it first — your implementation must match its layout, spacing, typography, and color choices. ' +
+            'Read it first – your implementation must match its layout, spacing, typography, and color choices. ' +
             'No creative deviation. Run: Read ' + path.join(process.cwd(), prototypeRel)
           );
           return process.exit(0);
@@ -209,7 +207,7 @@ function main() {
           'No references.md found in any of: ' + REFERENCES_MD_CANDIDATES.join(', ') + '. ' +
           'Before writing UI, establish design intent: who is this user (a specific person, not "users"), ' +
           'what verb must they perform (the actual action), how should it feel ' +
-          '(warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app — ' +
+          '(warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app – ' +
           'NEVER "clean and modern"). Save this to design/craft/references/references.md ' +
           'or run the ui-references-moodboard skill first.'
         );
@@ -228,7 +226,7 @@ function main() {
         appendLog('DENIED', 'Missing Reads: ' + missing.join(',') + ' for: ' + filePath);
         deny(
           'Required design knowledge not yet Read this session: ' + missing.join(', ') + '. ' +
-          'Read these files BEFORE any UI Write — they contain the operating procedure for crafted output ' +
+          'Read these files BEFORE any UI Write – they contain the operating procedure for crafted output ' +
           '(WHY Checkpoint, AI Slop Test, named tests, anti-pattern catalog). ' +
           'Also output the Design Grounding Pre-Flight block (Intent / Domain Exploration / WHY / anti-pattern self-check / Signature Test) ' +
           'before generating any code. Files to Read:\n' +

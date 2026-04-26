@@ -107,18 +107,18 @@ function main() {
 
       // Only enforce during active implementation (plan exists)
       if (!hasActivePlan()) {
-        appendLog('SKIP', `No active plan — allowing: ${filePath}`);
+        appendLog('SKIP', `No active plan – allowing: ${filePath}`);
         return process.exit(0);
       }
 
       // Check for test scripts
       if (hasTestScripts()) {
-        appendLog('ALLOW', `Tests exist — allowing: ${filePath}`);
+        appendLog('ALLOW', `Tests exist – allowing: ${filePath}`);
         return process.exit(0);
       }
 
       // Block: implementing without tests
-      appendLog('DENIED', `No test scripts in tests/ — blocked: ${filePath}`);
+      appendLog('DENIED', `No test scripts in tests/ – blocked: ${filePath}`);
       deny(
         'TDD violation: No test scripts found in tests/.\n' +
         'Write failing tests first using the test-writer agent before implementing code.\n' +

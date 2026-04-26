@@ -7,6 +7,8 @@
 #   returning_no_resume    – .design-engineer-plugin/config.yaml exists but no resume: section
 #   new_to_plugin          – no .design-engineer-plugin/config.yaml found
 
+set -euo pipefail
+
 CONFIG_FILE=".design-engineer-plugin/config.yaml"
 
 if [ ! -f "$CONFIG_FILE" ]; then

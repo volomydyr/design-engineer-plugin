@@ -78,15 +78,15 @@ Additionally, `/design-engineer:prototype` provides a standalone entry point for
 
 ## Advisor checkpoints
 
-The orchestrator invokes the `advisor` skill (`skills/advisor/`) at strategic transitions in the pipeline — implementing the docs' recommendation: "On tasks longer than a few steps, call advisor at least once before committing to an approach and once before declaring done" ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)).
+The orchestrator invokes the `advisor` skill (`skills/advisor/`) at strategic transitions in the pipeline – implementing the docs' recommendation: "On tasks longer than a few steps, call advisor at least once before committing to an approach and once before declaring done" ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)).
 
 Required orchestrator-level checkpoints:
 
-1. **At the user-approval gate between Phase 4 (Design) and Phase 5 (Development)** — before presenting the gate question, invoke `advisor` with: phases completed, deliverables produced, key trade-offs the user accepted, anything that surprised you. Apply or reconcile.
+1. **At the user-approval gate between Phase 4 (Design) and Phase 5 (Development)** – before presenting the gate question, invoke `advisor` with: phases completed, deliverables produced, key trade-offs the user accepted, anything that surprised you. Apply or reconcile.
 2. **At any major phase transition where the next phase's scope depends on the prior phase's framing** (Phase 1→2 strategy hand-off, Phase 3→4 planning hand-off). Brief with the prior phase's outputs and the next phase's planned skills.
-3. **When the user picks a non-standard path** (e.g., skips a Phase 4 skill, jumps from Direct Access into a phase with missing prerequisites) — consult the advisor before proceeding. The docs flag this exact moment: "When considering a change of approach."
+3. **When the user picks a non-standard path** (e.g., skips a Phase 4 skill, jumps from Direct Access into a phase with missing prerequisites) – consult the advisor before proceeding. The docs flag this exact moment: "When considering a change of approach."
 
-The orchestrator does NOT invoke the advisor on every skill completion — that erases the cost advantage and produces noisy advice. Per the docs: "On short reactive tasks where the next action is dictated by tool output you just read, you don't need to keep calling — the advisor adds most of its value on the first call, before the approach crystallizes."
+The orchestrator does NOT invoke the advisor on every skill completion – that erases the cost advantage and produces noisy advice. Per the docs: "On short reactive tasks where the next action is dictated by tool output you just read, you don't need to keep calling – the advisor adds most of its value on the first call, before the approach crystallizes."
 
 ## Startup Sequence
 
@@ -94,7 +94,7 @@ When invoked, determine the user's situation before running any skills.
 
 ### Step 0: Check Memory and Resume State
 
-**Memory check**: Claude Code auto-loads its auto-memory MEMORY.md at session start — the plugin does not call Read on it. Instead, verify `.design-engineer-plugin/memory/project-map.md` exists (Bash `test -f`) and Read it for project structure if present – use this instead of exploring the filesystem. Cross-cutting decisions and pipeline state live in the compound-documenter agent's memory at `.claude/agent-memory/compound-documenter/`. This complements `.design-engineer-plugin/config.yaml` – agent memory has cross-cutting decisions, the YAML has mechanical resume data.
+**Memory check**: Claude Code auto-loads its auto-memory MEMORY.md at session start – the plugin does not call Read on it. Instead, verify `.design-engineer-plugin/memory/project-map.md` exists (Bash `test -f`) and Read it for project structure if present – use this instead of exploring the filesystem. Cross-cutting decisions and pipeline state live in the compound-documenter agent's memory at `.claude/agent-memory/compound-documenter/`. This complements `.design-engineer-plugin/config.yaml` – agent memory has cross-cutting decisions, the YAML has mechanical resume data.
 
 Then check if `.design-engineer-plugin/config.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
 
@@ -273,7 +273,7 @@ Each skill in the pipeline builds on the work of previous skills. To maintain co
 
 ## Project State Management
 
-Maintain pipeline state by invoking the `compound-documenter` agent — it owns its memory at `.claude/agent-memory/compound-documenter/` and updates the three structured files there (pipeline-state.md, key-decisions.md, stale-dependents.md). Invoke compound-documenter:
+Maintain pipeline state by invoking the `compound-documenter` agent – it owns its memory at `.claude/agent-memory/compound-documenter/` and updates the three structured files there (pipeline-state.md, key-decisions.md, stale-dependents.md). Invoke compound-documenter:
 
 - After every skill completes (update the skill's status and timestamp)
 - After every `meta-document` run (update phase status and learnings)
@@ -288,7 +288,7 @@ In addition to the project state file, update plugin-local memory when:
 - A **phase completes** → compound-documenter updates `.claude/agent-memory/compound-documenter/pipeline-state.md` structurally
 - **New deliverables are created** → add entries to `.design-engineer-plugin/memory/project-map.md` (verify exists first; skip if not)
 
-Do NOT call Read on Claude Code's auto-memory `MEMORY.md` — it is auto-loaded by Claude Code at session start. Do NOT duplicate deliverable content or detailed status into memory – that belongs in project files.
+Do NOT call Read on Claude Code's auto-memory `MEMORY.md` – it is auto-loaded by Claude Code at session start. Do NOT duplicate deliverable content or detailed status into memory – that belongs in project files.
 
 ## Error Recovery
 

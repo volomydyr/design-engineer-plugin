@@ -11,13 +11,13 @@ license: MIT
 
 ## Existing-project skip-check
 
-Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_story_panels` (or treat `project.context.shipped_ui: true` as a softer signal — for established products, story panels often aren't needed; the product itself encodes the user's journey). If story panels already exist, or the user is here to add a feature to an established product (not to map a brand-new customer experience), do not regenerate from scratch.
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_story_panels`. If it indicates the project already has user-journey story panels (in repo, or via an off-repo reference such as Figma / Miro / Notion captured in `off_repo_references`), OR `project.context.shipped_ui: true` indicates an established product where regenerating from scratch isn't appropriate, AND the user did not explicitly request rerunning this skill, do not regenerate.
 
 Instead:
-1. In one line, summarize what already exists (and where — repo path or off-repo reference) OR explain that the established product itself documents the user journey through its shipped flows.
-2. Ask via AskUserQuestion: "Your project already has user-journey artifacts. What would you like to do?" Options: "Use them as-is and proceed", "Create panels only for a specific new flow (I'll describe)", "Re-run from scratch anyway".
-3. If "Use them as-is" → yield.
-4. If "Specific new flow" → narrow scope to that flow only.
+1. In one line, summarize what already exists (and where – repo path or off-repo reference) OR explain that the established product itself documents the user journey through its shipped flows.
+2. Ask via AskUserQuestion: "Your project already has user-journey story panels at <location>. What would you like to do?" Options: "Use them as-is and proceed", "Refine specific parts (I'll describe)", "Re-run from scratch anyway".
+3. If "Use them as-is" → yield; the calling flow continues with the existing artifact.
+4. If "Refine" → narrow scope to the user's described refinement only (e.g., creating panels for a specific new flow).
 5. If "Re-run anyway" → proceed normally below.
 
 **Purpose:** Guide the user through creating a Story Panel – a one-pager comic with six panels depicting what a customer goes through for a given experience. The final output is a set of **generated images**, not text descriptions.
@@ -263,7 +263,7 @@ Never invent customer research. If the user has no customer data, the Story Pane
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

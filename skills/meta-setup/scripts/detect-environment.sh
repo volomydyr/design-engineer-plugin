@@ -41,7 +41,7 @@ except Exception:
 fi
 
 # Context7, Figma, and Playwright are bundled with the design-engineer plugin (v4.3.0+).
-# We still detect their availability so we can surface accurate status — but the messaging
+# We still detect their availability so we can surface accurate status – but the messaging
 # now reflects "bundled, runs when prerequisites are present" rather than "needs install".
 
 # Context7 -- bundled, no prereq
@@ -61,7 +61,7 @@ else
   echo "[BUNDLED, prereq missing] Playwright -- browser testing. Install Node.js v18+ to enable. The MCP fetches @playwright/mcp via npx on first use."
 fi
 
-# Figma Console MCP (standalone, OPTIONAL companion — not bundled)
+# Figma Console MCP (standalone, OPTIONAL companion – not bundled)
 if config_contains "figma.console|figma-console|southleft"; then
   MCPS_FOUND+=("Figma Console")
   echo "[FOUND] Figma Console MCP -- perform actions in Figma directly (optional companion, already installed)"
@@ -99,9 +99,9 @@ else
 fi
 
 # Check for existing deliverables folder
-if [ -d "documents/design" ]; then
+if [ -d "design" ]; then
   echo "[FOUND] design/ folder exists"
-  FILE_COUNT=$(find documents/design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
+  FILE_COUNT=$(find design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
   echo "        Contains $FILE_COUNT deliverable file(s)"
 else
   echo "[MISSING] No deliverables folder"
@@ -176,7 +176,7 @@ for f in "BRAND.md" "BRANDING.md" "STYLE-GUIDE.md" "docs/brand.md" "docs/brandin
 done
 if [ -z "$BRAND_DOC" ] && [ -f "README.md" ]; then
   RM_LINES=$(wc -l < README.md 2>/dev/null || echo 0)
-  if [ "$RM_LINES" -gt 200 ]; then BRAND_DOC="README.md ($RM_LINES lines — substantial)"; fi
+  if [ "$RM_LINES" -gt 200 ]; then BRAND_DOC="README.md ($RM_LINES lines – substantial)"; fi
 fi
 if [ -n "$BRAND_DOC" ]; then
   echo "[FOUND] existing_brand_docs: $BRAND_DOC"
@@ -225,7 +225,7 @@ echo "MCPs missing:   ${MCPS_MISSING[*]:-none}"
 echo "Git:            $([ -d '.git' ] && echo 'yes' || echo 'no')"
 echo "CLAUDE.md:      $([ -f 'CLAUDE.md' ] && echo 'yes' || echo 'no')"
 echo "Config:         $([ -f '.design-engineer-plugin/config.yaml' ] && echo 'yes' || echo 'no')"
-echo "Deliverables:   $([ -d 'documents/design' ] && echo 'yes' || echo 'no')"
+echo "Deliverables:   $([ -d 'design' ] && echo 'yes' || echo 'no')"
 echo "Source code:    $HAS_CODE"
 echo ""
 echo "=== Detection Complete ==="

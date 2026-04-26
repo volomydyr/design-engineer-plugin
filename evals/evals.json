@@ -965,7 +965,7 @@
       "id": 121,
       "type": "functional",
       "skill_name": "meta-statusline",
-      "prompt": "My status line is acting weird — I think I have two status lines fighting each other. One from another plugin and one from design-engineer. Can you check what's installed and help me clean it up? I probably want to just remove the design-engineer one.",
+      "prompt": "My status line is acting weird \u2014 I think I have two status lines fighting each other. One from another plugin and one from design-engineer. Can you check what's installed and help me clean it up? I probably want to just remove the design-engineer one.",
       "expected_output": "Should read ~/.claude/settings.json and detect the current statusLine command value, identify which plugin it belongs to, report the finding, present the action menu (install/uninstall/check status), proceed with uninstall flow since user wants removal, delete the statusLine field from settings.json while preserving all other settings, ask whether to also delete the hook script file, and confirm removal with a summary of what was changed.",
       "files": []
     },
@@ -973,7 +973,7 @@
       "id": 122,
       "type": "functional",
       "skill_name": "ui-aesthetic-review",
-      "prompt": "Just finished building the main analytics dashboard for our SaaS app. It works but looks like every other dashboard. Can you run a full design critique? I want the 4-lens breakdown and all the named tests — swap, squint, signature, token, AI slop.",
+      "prompt": "Just finished building the main analytics dashboard for our SaaS app. It works but looks like every other dashboard. Can you run a full design critique? I want the 4-lens breakdown and all the named tests \u2014 swap, squint, signature, token, AI slop.",
       "expected_output": "Should ask for critique scope and input method, then run the full 4-lens framework: Composition (rhythm, proportions, focal point, balance), Craft (spacing, typography, surfaces, interactive states), Content (story coherence, data presentation), Structure (layout hacks, consistency). Then run all 5 named tests: Swap Test, Squint Test, Signature Test, Token Test, AI Slop Test. Produce a critique report grouped by lens with pass/fail on each named test, and offer to fix issues prioritized by composition failures first.",
       "files": []
     },
@@ -981,7 +981,7 @@
       "id": 123,
       "type": "functional",
       "skill_name": "ui-aesthetic-review",
-      "prompt": "I have this project card component — it's got the title, description, status badge, and team avatars. It technically works fine but it just feels generic. Can you do a deep critique on just this component and tell me if I actually made design decisions or just accepted defaults?",
+      "prompt": "I have this project card component \u2014 it's got the title, description, status badge, and team avatars. It technically works fine but it just feels generic. Can you do a deep critique on just this component and tell me if I actually made design decisions or just accepted defaults?",
       "expected_output": "Should ask for input method, set scope to specific component, then run the full critique focused on the card across all 4 lenses. Run all 5 named tests against the component specifically. Highlight where defaults replaced intentional choices using the Common Default Patterns for cards. Save report and offer to rebuild with intentional decisions replacing each identified default.",
       "files": []
     },
@@ -989,7 +989,7 @@
       "id": 124,
       "type": "functional",
       "skill_name": "ui-figma-handoff",
-      "prompt": "I have a bunch of Figma frames I designed — they're basically flat layers, no components, no variables, just raw shapes and text. I need to turn these into a proper component library with design tokens before my devs start building next week.",
+      "prompt": "I have a bunch of Figma frames I designed \u2014 they're basically flat layers, no components, no variables, just raw shapes and text. I need to turn these into a proper component library with design tokens before my devs start building next week.",
       "expected_output": "Should select the Structure raw designs path, verify Figma Console MCP is connected, confirm Figma Desktop is open with the target file, ask which pages to process and about theme modes, then execute the 7-phase structuring methodology: Audit, Create Variables, Create Styles, Create Components, Build Design System Page, Rebuild Screens, Quality Pass. Present handoff summary with counts of components, variables, styles, and screens rebuilt.",
       "files": []
     },
@@ -997,7 +997,7 @@
       "id": 125,
       "type": "functional",
       "skill_name": "ui-figma-handoff",
-      "prompt": "Our Figma file already has components and a basic token system. What I need is to get it ready for devs — add dev status badges, write annotations on the frames explaining interactions, organize everything into proper sections so engineers know where to start.",
+      "prompt": "Our Figma file already has components and a basic token system. What I need is to get it ready for devs \u2014 add dev status badges, write annotations on the frames explaining interactions, organize everything into proper sections so engineers know where to start.",
       "expected_output": "Should select the Existing structured file path (skip structuring, handoff prep only), verify Figma Console MCP is connected, then execute dev handoff preparation: Organize into Sections, Add Canvas Headers, Set Native Annotations, Set Component Descriptions, Mark Dev Status as READY_FOR_DEV, Add Visual Connectors, Apply Naming Conventions. Run the handoff checklist and present a summary.",
       "files": []
     },
@@ -1381,7 +1381,7 @@
       "id": 173,
       "type": "trigger_negative",
       "skill_name": "psych-full-scan",
-      "prompt": "Users say our settings page feels overwhelming — there are too many toggles and options visible at once. How can we reduce the mental effort?",
+      "prompt": "Users say our settings page feels overwhelming \u2014 there are too many toggles and options visible at once. How can we reduce the mental effort?",
       "expected_output": "Should NOT trigger psych-full-scan. This is a specific cognitive load problem. Should route to psych-cognitive-load instead.",
       "files": []
     },
@@ -1437,7 +1437,7 @@
       "id": 180,
       "type": "trigger_negative",
       "skill_name": "psych-visual-perception",
-      "prompt": "Users say our product page feels cluttered — too many elements competing for attention and they can't focus on what matters.",
+      "prompt": "Users say our product page feels cluttered \u2014 too many elements competing for attention and they can't focus on what matters.",
       "expected_output": "Should NOT trigger psych-visual-perception. The core issue is information overload, which is cognitive load. Should route to psych-cognitive-load instead.",
       "files": []
     },
@@ -1469,7 +1469,7 @@
       "id": 184,
       "type": "trigger_negative",
       "skill_name": "psych-decision-fundamentals",
-      "prompt": "We want to add urgency indicators to our booking page — 'Only 3 rooms left' and a countdown timer. How do we do this without it feeling manipulative?",
+      "prompt": "We want to add urgency indicators to our booking page \u2014 'Only 3 rooms left' and a countdown timer. How do we do this without it feeling manipulative?",
       "expected_output": "Should NOT trigger psych-decision-fundamentals. Scarcity tactics are advanced persuasion. Should route to psych-decision-persuasion instead.",
       "files": []
     },
@@ -1525,7 +1525,7 @@
       "id": 191,
       "type": "trigger_positive",
       "skill_name": "psych-engagement-patterns",
-      "prompt": "We're building a fitness app and want to add gamification — progress bars, streaks, rewards. What's the right way to design these?",
+      "prompt": "We're building a fitness app and want to add gamification \u2014 progress bars, streaks, rewards. What's the right way to design these?",
       "expected_output": "Should trigger psych-engagement-patterns. Goal gradient, variable reward, and feedback loops are gamification engagement principles.",
       "files": []
     },
@@ -1541,7 +1541,7 @@
       "id": 193,
       "type": "trigger_negative",
       "skill_name": "psych-engagement-patterns",
-      "prompt": "Our community forum has a bandwagon problem — popular posts get all the votes while equally good newer posts get ignored.",
+      "prompt": "Our community forum has a bandwagon problem \u2014 popular posts get all the votes while equally good newer posts get ignored.",
       "expected_output": "Should NOT trigger psych-engagement-patterns. Bandwagon effect is social influence. Should route to psych-social-influence instead.",
       "files": []
     },
@@ -1549,7 +1549,7 @@
       "id": 194,
       "type": "trigger_positive",
       "skill_name": "psych-delight-design",
-      "prompt": "Our app works fine but feels flat and forgettable. Users complete tasks but there's no emotional payoff — no celebration anywhere.",
+      "prompt": "Our app works fine but feels flat and forgettable. Users complete tasks but there's no emotional payoff \u2014 no celebration anywhere.",
       "expected_output": "Should trigger psych-delight-design. Adding celebration moments and micro-delighters is core to this skill.",
       "files": []
     },
@@ -1629,7 +1629,7 @@
       "id": 204,
       "type": "trigger_negative",
       "skill_name": "psych-simplification",
-      "prompt": "Our mobile app shows a feed with 20 items and users scroll past most of them. Everything looks equally important — nothing grabs attention.",
+      "prompt": "Our mobile app shows a feed with 20 items and users scroll past most of them. Everything looks equally important \u2014 nothing grabs attention.",
       "expected_output": "Should NOT trigger psych-simplification. Visual hierarchy and information priority is cognitive load territory. Should route to psych-cognitive-load instead.",
       "files": []
     },
@@ -1661,7 +1661,7 @@
       "id": 208,
       "type": "trigger_negative",
       "skill_name": "psych-pricing-psychology",
-      "prompt": "We want users to complete their profile step by step — start with a name, then a photo, then preferences. How do we make each small step rewarding?",
+      "prompt": "We want users to complete their profile step by step \u2014 start with a name, then a photo, then preferences. How do we make each small step rewarding?",
       "expected_output": "Should NOT trigger psych-pricing-psychology. Gradual commitment ladders are about commitment and consistency. Should route to psych-habit-formation instead.",
       "files": []
     },
@@ -1741,8 +1741,8 @@
       "id": 218,
       "type": "trigger_positive",
       "skill_name": "psych-cognitive-biases",
-      "prompt": "I've been designing this app for 2 years and our new hire says the onboarding is confusing. I think it's perfectly clear — am I too close to see the problems?",
-      "expected_output": "Should trigger psych-cognitive-biases. Curse of Knowledge — the designer's familiarity blinds them to complexity.",
+      "prompt": "I've been designing this app for 2 years and our new hire says the onboarding is confusing. I think it's perfectly clear \u2014 am I too close to see the problems?",
+      "expected_output": "Should trigger psych-cognitive-biases. Curse of Knowledge \u2014 the designer's familiarity blinds them to complexity.",
       "files": []
     },
     {
@@ -1757,7 +1757,7 @@
       "id": 220,
       "type": "trigger_negative",
       "skill_name": "psych-cognitive-biases",
-      "prompt": "We want to do a systematic bias audit of our checkout flow — map the user's fast-thinking patterns and design interventions using a structured framework.",
+      "prompt": "We want to do a systematic bias audit of our checkout flow \u2014 map the user's fast-thinking patterns and design interventions using a structured framework.",
       "expected_output": "Should NOT trigger psych-cognitive-biases. A structured design-level bias audit is the UX bias audit process. Should route to ux-bias-audit instead.",
       "files": []
     },
@@ -1773,7 +1773,7 @@
       "id": 222,
       "type": "trigger_positive",
       "skill_name": "psych-time-perception",
-      "prompt": "Our API calls take 3-5 seconds and users think the app is broken. The actual speed is fine — it's a perception problem.",
+      "prompt": "Our API calls take 3-5 seconds and users think the app is broken. The actual speed is fine \u2014 it's a perception problem.",
       "expected_output": "Should trigger psych-time-perception. Chronoception (perceived vs. actual wait time).",
       "files": []
     },
@@ -1782,7 +1782,7 @@
       "type": "trigger_positive",
       "skill_name": "psych-time-perception",
       "prompt": "We want users to gradually adopt advanced features over weeks instead of dumping everything on them at once.",
-      "expected_output": "Should trigger psych-time-perception. Shaping (Law 100) — gradual behavior change with reinforcement.",
+      "expected_output": "Should trigger psych-time-perception. Shaping (Law 100) \u2014 gradual behavior change with reinforcement.",
       "files": []
     },
     {
@@ -1861,7 +1861,7 @@
       "id": 233,
       "type": "trigger_negative",
       "skill_name": "ux-target-audience",
-      "prompt": "I have my persona ready. Now I want to understand what actually drives users to take action — what triggers them and how motivation works.",
+      "prompt": "I have my persona ready. Now I want to understand what actually drives users to take action \u2014 what triggers them and how motivation works.",
       "expected_output": "Should NOT trigger ux-target-audience. User has a persona and wants behavioral analysis. Should route to ux-behavior-mapping instead.",
       "files": []
     },
@@ -2021,7 +2021,7 @@
       "id": 253,
       "type": "trigger_negative",
       "skill_name": "ux-business-plan",
-      "prompt": "The business plan is done. What's the minimum viable product — the smallest thing we can ship that delivers value?",
+      "prompt": "The business plan is done. What's the minimum viable product \u2014 the smallest thing we can ship that delivers value?",
       "expected_output": "Should NOT trigger ux-business-plan. User wants MVP scope definition. Should route to ux-mvp-requirements instead.",
       "files": []
     },
@@ -2045,7 +2045,7 @@
       "id": 256,
       "type": "trigger_negative",
       "skill_name": "ux-mvp-requirements",
-      "prompt": "We finalized our feature list. Now I need the screen structure — what screens do we need and how does navigation work?",
+      "prompt": "We finalized our feature list. Now I need the screen structure \u2014 what screens do we need and how does navigation work?",
       "expected_output": "Should NOT trigger ux-mvp-requirements. User has features and wants navigation structure. Should route to ux-information-architecture instead.",
       "files": []
     },
@@ -2205,7 +2205,7 @@
       "id": 276,
       "type": "trigger_negative",
       "skill_name": "ux-bias-audit",
-      "prompt": "I need a full psychology compliance scan of our entire product. Check cognitive load, engagement, simplification, time perception — everything.",
+      "prompt": "I need a full psychology compliance scan of our entire product. Check cognitive load, engagement, simplification, time perception \u2014 everything.",
       "expected_output": "Should NOT trigger ux-bias-audit. User wants comprehensive psychology scan. Should route to psych-full-scan instead.",
       "files": []
     },
@@ -2213,7 +2213,7 @@
       "id": 277,
       "type": "trigger_negative",
       "skill_name": "ux-bias-audit",
-      "prompt": "Run a complete psychology review covering every area — cognitive load, decision-making, emotional design, behavioral economics. The full picture.",
+      "prompt": "Run a complete psychology review covering every area \u2014 cognitive load, decision-making, emotional design, behavioral economics. The full picture.",
       "expected_output": "Should NOT trigger ux-bias-audit. User wants full multi-category psychology audit. Should route to psych-full-scan instead.",
       "files": []
     },
@@ -2317,7 +2317,7 @@
       "id": 290,
       "type": "trigger_positive",
       "skill_name": "ux-full-review",
-      "prompt": "We're about to go live. I need a comprehensive review of everything — usability, psychology, accessibility. The full quality gate.",
+      "prompt": "We're about to go live. I need a comprehensive review of everything \u2014 usability, psychology, accessibility. The full quality gate.",
       "expected_output": "Should trigger ux-full-review. User wants comprehensive pre-launch assessment.",
       "files": []
     },
@@ -2373,7 +2373,7 @@
       "id": 297,
       "type": "trigger_negative",
       "skill_name": "ui-accessibility",
-      "prompt": "Review my product's overall user experience — is the navigation clear and are features discoverable?",
+      "prompt": "Review my product's overall user experience \u2014 is the navigation clear and are features discoverable?",
       "expected_output": "Should NOT trigger ui-accessibility. General UX review. Should route to ux-full-review instead.",
       "files": []
     },
@@ -2389,7 +2389,7 @@
       "id": 299,
       "type": "trigger_positive",
       "skill_name": "ui-aesthetic-review",
-      "prompt": "Review the typography, spacing, and color harmony on my landing page — does it look professionally designed?",
+      "prompt": "Review the typography, spacing, and color harmony on my landing page \u2014 does it look professionally designed?",
       "expected_output": "Should trigger ui-aesthetic-review. Requests review of visual design qualities.",
       "files": []
     },
@@ -2429,7 +2429,7 @@
       "id": 304,
       "type": "trigger_negative",
       "skill_name": "ui-design-system",
-      "prompt": "Review my card component — does the implementation match the Figma design? The border radius and padding look different.",
+      "prompt": "Review my card component \u2014 does the implementation match the Figma design? The border radius and padding look different.",
       "expected_output": "Should NOT trigger ui-design-system. Implementation fidelity review. Should route to ui-design-to-code-qa instead.",
       "files": []
     },
@@ -2437,7 +2437,7 @@
       "id": 305,
       "type": "trigger_negative",
       "skill_name": "ui-design-system",
-      "prompt": "Compare my button styles in code against what the designer handed off — are hover states and sizes accurate?",
+      "prompt": "Compare my button styles in code against what the designer handed off \u2014 are hover states and sizes accurate?",
       "expected_output": "Should NOT trigger ui-design-system. Code accuracy against design. Should route to ui-design-to-code-qa instead.",
       "files": []
     },
@@ -2469,7 +2469,7 @@
       "id": 309,
       "type": "trigger_negative",
       "skill_name": "ui-design-to-code-qa",
-      "prompt": "Rate the visual quality of my pricing page — does the layout feel balanced and is the hierarchy clear?",
+      "prompt": "Rate the visual quality of my pricing page \u2014 does the layout feel balanced and is the hierarchy clear?",
       "expected_output": "Should NOT trigger ui-design-to-code-qa. Subjective visual assessment. Should route to ui-aesthetic-review instead.",
       "files": []
     },
@@ -2493,7 +2493,7 @@
       "id": 312,
       "type": "trigger_negative",
       "skill_name": "ui-figma-guide",
-      "prompt": "I have a Figma link ready — extract all the components, tokens, and layers automatically so I can start coding.",
+      "prompt": "I have a Figma link ready \u2014 extract all the components, tokens, and layers automatically so I can start coding.",
       "expected_output": "Should NOT trigger ui-figma-guide. Wants automated extraction. Should route to ui-figma-handoff instead.",
       "files": []
     },
@@ -2533,7 +2533,7 @@
       "id": 317,
       "type": "trigger_negative",
       "skill_name": "ui-figma-handoff",
-      "prompt": "Teach me how to use the Figma MCP tool effectively — what are the key commands?",
+      "prompt": "Teach me how to use the Figma MCP tool effectively \u2014 what are the key commands?",
       "expected_output": "Should NOT trigger ui-figma-handoff. Wants to learn Figma tooling. Should route to ui-figma-guide instead.",
       "files": []
     },
@@ -2557,7 +2557,7 @@
       "id": 320,
       "type": "trigger_negative",
       "skill_name": "ui-references-moodboard",
-      "prompt": "Review my current homepage design — is the visual hierarchy effective and does the whitespace feel balanced?",
+      "prompt": "Review my current homepage design \u2014 is the visual hierarchy effective and does the whitespace feel balanced?",
       "expected_output": "Should NOT trigger ui-references-moodboard. Asks for critique of existing design. Should route to ui-aesthetic-review instead.",
       "files": []
     },
@@ -2581,7 +2581,7 @@
       "id": 323,
       "type": "error",
       "skill_name": "meta-setup",
-      "prompt": "/design-engineer:start — I'm on a fresh Mac, just installed Claude Code. Want to set up the design-engineer plugin for a new SaaS project.",
+      "prompt": "/design-engineer:start \u2014 I'm on a fresh Mac, just installed Claude Code. Want to set up the design-engineer plugin for a new SaaS project.",
       "expected_output": "Should run environment detection and discover Python 3 is not installed. Should warn that Python 3 is missing (needed for dependency tracking hooks), provide install instructions (brew install python3), and continue setup with a note that dependency tracking will not function until Python 3 is installed. Should NOT block the entire setup.",
       "files": []
     },
@@ -2589,7 +2589,7 @@
       "id": 324,
       "type": "error",
       "skill_name": "meta-orchestrator",
-      "prompt": "Skip discovery and strategy entirely — jump me straight to Phase 3 planning. I have all the research in my head.",
+      "prompt": "Skip discovery and strategy entirely \u2014 jump me straight to Phase 3 planning. I have all the research in my head.",
       "expected_output": "Should warn that Phase 1 and Phase 2 deliverables are missing. Should explain that Phase 3 skills depend on upstream deliverables. Should offer: (1) create lightweight upstream deliverables first, or (2) proceed with user providing all context verbally. Should NOT silently skip the warning.",
       "files": []
     },
@@ -2597,7 +2597,7 @@
       "id": 325,
       "type": "error",
       "skill_name": "meta-orchestrator",
-      "prompt": "/design-engineer:design guided — Our deliverables are in docs/product-research/ but the config points to docs/design/ which doesn't exist.",
+      "prompt": "/design-engineer:design guided \u2014 Our deliverables are in docs/product-research/ but the config points to docs/design/ which doesn't exist.",
       "expected_output": "Should detect the configured path does not exist, inform user of the mismatch, and offer to update the path in .design-engineer.yaml, create the directory, or scan for existing deliverables. Should NOT proceed against a nonexistent directory.",
       "files": []
     },
@@ -2605,7 +2605,7 @@
       "id": 326,
       "type": "error",
       "skill_name": "meta-document",
-      "prompt": "/design-engineer:document — I just started this project 5 minutes ago and haven't done anything yet.",
+      "prompt": "/design-engineer:document \u2014 I just started this project 5 minutes ago and haven't done anything yet.",
       "expected_output": "Should detect no deliverables, status.md, or project-docs/ exist. Should inform user there is nothing to document yet and suggest running /design-engineer:start then /design-engineer:design first. Should NOT create empty documentation files.",
       "files": []
     },
@@ -2621,7 +2621,7 @@
       "id": 328,
       "type": "error",
       "skill_name": "meta-statusline",
-      "prompt": "I want to install the status line but I just installed Claude Code fresh — settings file probably doesn't exist yet.",
+      "prompt": "I want to install the status line but I just installed Claude Code fresh \u2014 settings file probably doesn't exist yet.",
       "expected_output": "Should detect ~/.claude/settings.json does not exist. Should create it with minimal structure containing the statusLine config. Should proceed with normal install flow. Should NOT error out.",
       "files": []
     },
@@ -2637,7 +2637,7 @@
       "id": 330,
       "type": "error",
       "skill_name": "command:de:start",
-      "prompt": "/design-engineer:start — I'm trying to set up in a read-only directory.",
+      "prompt": "/design-engineer:start \u2014 I'm trying to set up in a read-only directory.",
       "expected_output": "Should detect write permission error when creating .design-engineer.yaml, inform user that setup requires write access, suggest running in a writable directory. Should NOT leave partial files.",
       "files": []
     },
@@ -2645,7 +2645,7 @@
       "id": 331,
       "type": "error",
       "skill_name": "command:de:design",
-      "prompt": "/design-engineer:design god-mode — Let's build a task management app.",
+      "prompt": "/design-engineer:design god-mode \u2014 Let's build a task management app.",
       "expected_output": "Should check for .design-engineer.yaml and find it missing. Should inform user that /design-engineer:start must be run first, explain what it does, and instruct to run /design-engineer:start before retrying. Should NOT proceed without configuration.",
       "files": []
     },
@@ -2653,7 +2653,7 @@
       "id": 332,
       "type": "error",
       "skill_name": "command:de:dev",
-      "prompt": "/design-engineer:dev claude-md — Generate a CLAUDE.md for this project.",
+      "prompt": "/design-engineer:dev claude-md \u2014 Generate a CLAUDE.md for this project.",
       "expected_output": "Should load dev-claude-md and detect no CLAUDE.md exists. Should treat this as normal first-time generation. If .design-engineer.yaml is also missing, warn that /design-engineer:start hasn't been run but still allow CLAUDE.md generation as standalone.",
       "files": []
     },
@@ -2661,7 +2661,7 @@
       "id": 333,
       "type": "error",
       "skill_name": "command:de:review",
-      "prompt": "/design-engineer:review full — Run a complete product assessment.",
+      "prompt": "/design-engineer:review full \u2014 Run a complete product assessment.",
       "expected_output": "Should detect no designs, URLs, screenshots, or UI components exist to review. Should ask user to provide context: share a URL, screenshots, describe the product, or run /design-engineer:design first. Should NOT attempt to review nothing.",
       "files": []
     },
@@ -2669,7 +2669,7 @@
       "id": 334,
       "type": "error",
       "skill_name": "command:de:prototype",
-      "prompt": "/design-engineer:prototype — I want to build a prototype but I haven't done any planning. No docs, no designs, nothing.",
+      "prompt": "/design-engineer:prototype \u2014 I want to build a prototype but I haven't done any planning. No docs, no designs, nothing.",
       "expected_output": "Should detect no planning documents exist. Should inform user prototyping works best with context but can proceed with verbal description. Should ask for product description via AskUserQuestion. Should suggest /design-engineer:design for better results but NOT block prototyping.",
       "files": []
     },
@@ -2677,7 +2677,7 @@
       "id": 335,
       "type": "error",
       "skill_name": "command:de:document",
-      "prompt": "/design-engineer:document — Just opened a fresh session, haven't done anything yet.",
+      "prompt": "/design-engineer:document \u2014 Just opened a fresh session, haven't done anything yet.",
       "expected_output": "Should detect nothing to document in current session. Should check for existing project-docs/ from previous sessions. If nothing exists, suggest /design-engineer:start or /design-engineer:design first. Should NOT create empty documentation.",
       "files": []
     },
@@ -2693,7 +2693,7 @@
       "id": 337,
       "type": "error",
       "skill_name": "ui-figma-handoff",
-      "prompt": "Run the full handoff preparation on my Figma file. I just created it — it's completely empty, no frames yet.",
+      "prompt": "Run the full handoff preparation on my Figma file. I just created it \u2014 it's completely empty, no frames yet.",
       "expected_output": "Should connect to MCP but detect no frames or elements. Should inform user handoff requires existing designs. Should suggest creating designs first or using ui-references-moodboard for direction. Should NOT process an empty file.",
       "files": []
     },
@@ -2709,7 +2709,7 @@
       "id": 339,
       "type": "error",
       "skill_name": "dev-mcp-setup",
-      "prompt": "/design-engineer:dev mcp — I want to install the recommended MCP servers on a new dev machine.",
+      "prompt": "/design-engineer:dev mcp \u2014 I want to install the recommended MCP servers on a new dev machine.",
       "expected_output": "Should detect npm is not installed. Should inform user that MCP installation requires Node.js v18+ and npm, provide install guidance, list which servers need npm. Should NOT attempt npm commands that will fail.",
       "files": []
     },
@@ -2725,9 +2725,57 @@
       "id": 341,
       "type": "error",
       "skill_name": "dev-prototyping",
-      "prompt": "I want to prototype a dashboard for a logistics company. No planning docs, no codebase, no Figma — just the idea in my head.",
+      "prompt": "I want to prototype a dashboard for a logistics company. No planning docs, no codebase, no Figma \u2014 just the idea in my head.",
       "expected_output": "Should detect no planning context available. Should proceed with verbal description path via AskUserQuestion, asking about purpose, features, users, data types. Should note that /design-engineer:design first would produce stronger prototypes but NOT block the user.",
       "files": []
+    },
+    {
+      "id": 342,
+      "skill_name": "advisor",
+      "prompt": "I'm partway through implementing the auth refactor and the test suite started flaking after my last commit. Should I keep pushing forward or pause and diagnose?",
+      "expected_output": "Should invoke the advisor sub-agent. Sub-agent should return a short enumerated plan (\u2264100 words, no prose) \u2014 e.g., '1. Stop. 2. Bisect last commit. 3. Run failing test in isolation. 4. Fix root cause. 5. Resume.' Should NOT execute tools or produce user-facing prose."
+    },
+    {
+      "id": 343,
+      "skill_name": "dev-component-gallery",
+      "prompt": "I'm in the middle of building the dashboard view and just added three new components (StatCard, ChartLegend, FilterPill). I want to keep the component gallery in sync.",
+      "expected_output": "Should detect framework via existing detect-environment infrastructure, query context7 MCP for the framework's idiomatic showcase pattern, scaffold or update the gallery file with all three new components plus their variants, real production styles only (no inline styles), source-path labels per entry. If gallery doesn't exist yet, scaffold it transparently and surface a one-line discovery mention."
+    },
+    {
+      "id": 344,
+      "skill_name": "meta-setup-configure",
+      "prompt": "I want to change my plugin mode from guided to autopilot for this project, and also update the deliverables path because I prefer 'docs/' instead of 'design/'.",
+      "expected_output": "Should read .design-engineer-plugin/config.yaml, ask via AskUserQuestion which fields to update (mode, deliverables_path, team size, etc.), validate the new values, write back preserving other fields, confirm in plain language without exposing config-file paths."
+    },
+    {
+      "id": 345,
+      "skill_name": "meta-setup-existing",
+      "prompt": "I have a B2B SaaS app I built two years ago \u2014 Next.js, established design system, ~50 components, full Notion docs. I want to use the design-engineer plugin to add new features without redoing all the upfront discovery.",
+      "expected_output": "Should NOT trigger the from-scratch pipeline. Should run detect-environment.sh, recognize existing-project markers (design-system folder, shipped UI, hefty README), ask the off-repo augmentation question, persist project.context.* keys to config.yaml, then route to /design-engineer:design feature-spec or /design-engineer:review for the user's actual goal."
+    },
+    {
+      "id": 346,
+      "skill_name": "meta-setup-welcome",
+      "prompt": "I just installed the plugin and ran /design-engineer:start. I want to see what the plugin can do before committing to a setup.",
+      "expected_output": "Should display the welcome flow: brief plugin intro ('a swiss knife for product design'), the project-type AskUserQuestion (New product / Existing project), then route based on the answer. Should NOT scaffold anything until the user picks a path."
+    },
+    {
+      "id": 347,
+      "skill_name": "shared-references",
+      "prompt": "I'm about to write landing page copy for a B2B SaaS product. I want to make sure I avoid AI-generated writing patterns.",
+      "expected_output": "Should reference shared-references/anti-slop-writing.md as the authoritative source. Should NOT regenerate the rules from scratch \u2014 instead Read the reference file and apply its specific patterns (no 'this is not X \u2013 this is Y' contrasting, no inflated significance, no invented stats, etc.). Same pattern for any skill that pulls from anti-patterns.md or design-intent-guide.md."
+    },
+    {
+      "id": 348,
+      "skill_name": "ui-images",
+      "prompt": "I'm building a landing page hero and need an image. The product is a meditation app for new parents.",
+      "expected_output": "Should NOT reach for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links. Should decide per-image: hero shot like this is brand-specific \u2192 generate via AI (produce a detailed prompt with visual style, mood, composition, lighting). For decorative many-of-a-kind images (avatars, list rows) \u2192 stock-fetch with strong search query. Place in design/craft/images/ following the documented folder layout."
+    },
+    {
+      "id": 349,
+      "skill_name": "ui-landing-page",
+      "prompt": "I have a StoryBrand narrative for my product (founder story, problem, agitation, solution, plan, success vision). Generate a landing page from it.",
+      "expected_output": "Should produce a single-file HTML landing page that follows the StoryBrand narrative structure (hero anchored on the user's transformation, not the product features), uses sentence case for all UI copy, en dashes only, no AI-slop patterns, no Title Case headings, no generic CTAs ('Get Started Now' is a fail). Should invoke ui-images for any <img> tags rather than hardcoding gradient placeholders."
     }
   ]
 }

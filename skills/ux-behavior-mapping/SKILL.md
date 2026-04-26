@@ -14,8 +14,8 @@ license: MIT
 Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. This skill enriches existing behavior insights rather than writing a single canonical deliverable, so the pattern is **input augmentation, not skip-check**:
 
 1. If `shipped_ui: true` AND there's prior research / behavior data referenced in `off_repo_references` (Mixpanel, Amplitude, Hotjar findings, conversion analyses in Notion, etc.), ask the user to share what they already know about user behavior on this product OR point this skill at the source.
-2. Treat the existing insights as the **starting context** — the Behavior Map should incorporate what's already known about activation thresholds and motivation gaps, not invent them from scratch.
-3. If no existing behavior insights are referenced, proceed normally — build the map from first principles using the framework below.
+2. Treat the existing insights as the **starting context** – the Behavior Map should incorporate what's already known about activation thresholds and motivation gaps, not invent them from scratch.
+3. If no existing behavior insights are referenced, proceed normally – build the map from first principles using the framework below.
 
 **Purpose:** Guide the user through creating a Behavior Map that visualizes the forces influencing user behavior for a specific product experience. The Behavior Map helps articulate WHY users do or do not take a desired action, and identifies the most efficient levers to change that behavior.
 
@@ -343,7 +343,7 @@ Never invent customer motivations. If the user has no customer data, every motiv
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

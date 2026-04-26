@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Design-Engineer Status Line
 // Shows: model (context) + dir | context bar | 5h/7d usage
-// All data from stdin JSON — no external cache or monitor needed.
-// Note: pipeline-state segment removed in v2.5.0 — it depended on a
+// All data from stdin JSON – no external cache or monitor needed.
+// Note: pipeline-state segment removed in v2.5.0 – it depended on a
 // status: complete write to dependencies.yaml that no part of the plugin
 // ever performed, so the segment had been dead since launch.
 
@@ -38,7 +38,7 @@ process.stdin.on('end', () => {
     // Join with dim vertical bar
     process.stdout.write(segments.join(' \x1b[2m\u2502\x1b[0m '));
   } catch (e) {
-    // Silent fail — never break statusline
+    // Silent fail – never break statusline
   }
 });
 
@@ -119,7 +119,7 @@ function buildContextSegment(remaining) {
   );
   const used = Math.max(0, Math.min(100, Math.round(100 - usableRemaining)));
 
-  // Build progress bar (5 segments — compact)
+  // Build progress bar (5 segments – compact)
   const filled = Math.round(used / 20);
   const bar = '\u2588'.repeat(filled) + '\u2591'.repeat(5 - filled);
 

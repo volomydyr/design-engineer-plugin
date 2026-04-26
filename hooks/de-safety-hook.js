@@ -286,7 +286,7 @@ function splitPipes(subcmd) {
 function isDataContext(segment) {
   const trimmed = segment.trimStart();
 
-  // Check for execution passthrough first — these override data context
+  // Check for execution passthrough first – these override data context
   for (const pattern of EXECUTION_PASSTHROUGH) {
     if (pattern.test(trimmed)) return false;
   }
@@ -371,7 +371,7 @@ function main() {
         }
       }
 
-      // No match — allow silently
+      // No match – allow silently
       process.exit(0);
     } catch (err) {
       appendLog('ERROR', null, null, 'Failed to process: ' + (err.message || err));

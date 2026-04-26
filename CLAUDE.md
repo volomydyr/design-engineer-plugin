@@ -32,10 +32,10 @@ design-engineer-plugin/           ← repo root = plugin root
 │   ├── de-tdd-hook.js
 │   ├── de-fidelity-hook.js
 │   └── de-prompt-injection-hook.js
-├── agents/                         # 9 specialized agents
+├── agents/                         # 10 specialized agents
 ├── commands/
-│   └── de/                         # 8 commands (de: namespace)
-└── skills/                         # 54 hidden skills
+│   └── design-engineer/            # 9 commands (design-engineer: namespace)
+└── skills/                         # 57 skills (56 with SKILL.md + 1 reference-only)
 ```
 
 ## Skill Compliance Checklist
@@ -50,6 +50,8 @@ When adding or modifying skills:
 - [ ] `model:` present – `opus` (default) or `sonnet` (mechanical tasks only)
 - [ ] `license: MIT` present on ALL skills
 - [ ] `compatibility:` present when skill has external dependencies (MCP servers, Node.js, Python, Bash)
+
+> **Note on `compatibility:`** This is a deliberate plugin-internal extension – not part of Anthropic's canonical skill schema. The plugin uses it for human-readable runtime requirements. Both shapes are accepted: a single string (`compatibility: "Requires Node.js v18+"`) or a structured form for multi-dependency cases (`compatibility:\n  optional:\n    - playwright-cli  # used to rank stock candidates`). Anthropic ignores unknown frontmatter keys, so this is harmless cross-tool.
 
 ### Content Rules (Non-Negotiable)
 
@@ -144,12 +146,12 @@ Commands use `de:` prefix (short for design-engineer) to avoid conflicts with Cl
 
 Deliverables created by this plugin are documented in two layers:
 
-- **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` — read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
-- **Live progress** at `.claude/agent-memory/compound-documenter/` — three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
+- **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` – read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
+- **Live progress** at `.claude/agent-memory/compound-documenter/` – three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
 
 Run `/design-engineer:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
-**Path note**: deliverable files always live at `design/...` — this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
+**Path note**: deliverable files always live at `design/...` – this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
 
 ## Plan Mode
 
@@ -242,7 +244,7 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
    h. **WAIT** – do not proceed until the user responds
    i. If the user has feedback, address it (may take multiple rounds of feedback)
    j. Only proceed to the next phase after explicit user approval
-   k. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer — Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
+   k. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer – Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
 8. After all phases complete, move the plan to `plans/archive/`
 9. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 
@@ -264,7 +266,7 @@ After every code-producing step, run `/simplify` to review changed code for reus
 - After `frontend-implementer` returns
 - Final pass after all code changes (before `design-system-auditor`)
 
-Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual artifacts — code quality doesn't matter. /simplify only applies during `/design-engineer:dev` implementation.
+Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual artifacts – code quality doesn't matter. /simplify only applies during `/design-engineer:dev` implementation.
 
 ### How
 
@@ -272,22 +274,22 @@ Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not 
 
 ## Component Gallery Contract
 
-The plugin maintains a **single-page component gallery** in every project where UI work happens — a visual catalog of every component, all variants visible at once, real production styles, source-path labels per entry. Two purposes: (a) duplicate detection (Claude tends to create five new versions of an existing component — the gallery makes redundancy visually obvious), and (b) visual quality assurance (one viewport, all components, real styles — closer to a design canvas than a docs site).
+The plugin maintains a **single-page component gallery** in every project where UI work happens – a visual catalog of every component, all variants visible at once, real production styles, source-path labels per entry. Two purposes: (a) duplicate detection (Claude tends to create five new versions of an existing component – the gallery makes redundancy visually obvious), and (b) visual quality assurance (one viewport, all components, real styles – closer to a design canvas than a docs site).
 
-The gallery is **stack-agnostic**. The skill `skills/dev-component-gallery/` queries the bundled context7 MCP for each project's framework's idiomatic showcase pattern and scaffolds accordingly — Next.js route, SwiftUI `#Preview` canvas, Jetpack Compose `@Preview`, vanilla HTML, Astro page, Flutter widgets-gallery, whatever the framework's docs say is current. No hardcoded "framework → location" table; the skill adapts.
+The gallery is **stack-agnostic**. The skill `skills/dev-component-gallery/` queries the bundled context7 MCP for each project's framework's idiomatic showcase pattern and scaffolds accordingly – Next.js route, SwiftUI `#Preview` canvas, Jetpack Compose `@Preview`, vanilla HTML, Astro page, Flutter widgets-gallery, whatever the framework's docs say is current. No hardcoded "framework → location" table; the skill adapts.
 
 ### The universal Gallery Contract
 
 Every gallery file the skill scaffolds carries this contract at the top in language-appropriate comment syntax (see `skills/dev-component-gallery/references/gallery-contract.md` for the canonical text and the per-language adaptation table):
 
-> Every component MUST be imported (or used) from its production source. Never copy-paste, restub, or inline a component. NO hardcoded styles, no inline `style="..."` attributes, no extra style rules in the gallery file, no language-equivalent style overrides. Variants are reached via the component's own public API only (props / attributes / modifiers / classes / slots). If a state can't be reached via the component's API, that's a component bug — fix at the component, not in the gallery. Every entry shows its source file path next to the rendered component. The gallery is a viewer, not a workshop.
+> Every component MUST be imported (or used) from its production source. Never copy-paste, restub, or inline a component. NO hardcoded styles, no inline `style="..."` attributes, no extra style rules in the gallery file, no language-equivalent style overrides. Variants are reached via the component's own public API only (props / attributes / modifiers / classes / slots). If a state can't be reached via the component's API, that's a component bug – fix at the component, not in the gallery. Every entry shows its source file path next to the rendered component. The gallery is a viewer, not a workshop.
 
 ### Enforcement (no hooks)
 
-- **`agents/frontend-implementer.md`** — after creating or modifying any component, invokes `dev-component-gallery` to add or update its entry; never duplicates components in the gallery; never writes inline styles in the gallery file. Reads the existing gallery before adding new components (duplicate-detection step).
-- **`agents/design-system-auditor.md`** — gallery audit pass at FAIL severity (every component has an entry, no inline styles, imports resolve to production paths, visually-identical entries flagged as duplicates, variants via API only).
-- **`skills/dev-claude-md/SKILL.md`** — generated project CLAUDE.md includes the Gallery Contract so the rule survives in the user's repo.
-- **`skills/dev-prototyping/SKILL.md`** — cross-references the lifecycle (prototype = design exploration before implementation; gallery = shipped components after).
+- **`agents/frontend-implementer.md`** – after creating or modifying any component, invokes `dev-component-gallery` to add or update its entry; never duplicates components in the gallery; never writes inline styles in the gallery file. Reads the existing gallery before adding new components (duplicate-detection step).
+- **`agents/design-system-auditor.md`** – gallery audit pass at FAIL severity (every component has an entry, no inline styles, imports resolve to production paths, visually-identical entries flagged as duplicates, variants via API only).
+- **`skills/dev-claude-md/SKILL.md`** – generated project CLAUDE.md includes the Gallery Contract so the rule survives in the user's repo.
+- **`skills/dev-prototyping/SKILL.md`** – cross-references the lifecycle (prototype = design exploration before implementation; gallery = shipped components after).
 
 There is no PreToolUse or Stop hook for the gallery contract. Enforcement is the agents' responsibility.
 
@@ -365,23 +367,23 @@ Requirement fidelity is strict on SCOPE but flexible on EXECUTION:
 
 Three rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
 
-1. **En dashes only** – use `–` (en dash). Never `—` (em dash), `--` (double hyphen), or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
+1. **En dashes only** – use `–` (en dash). Never `–` (em dash), `--` (double hyphen), or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
 2. **Sentence case only** – capitalize the first word and proper nouns. Never Title Case. This applies to headings, button labels, tab names, navigation items, placeholder text, menu items, toast messages, and any other text Claude generates.
 3. **No internal jargon in user-facing output** – never mention config file names (`.design-engineer-plugin/config.yaml`, `.dependencies.yaml`), internal skill names (`ux-problem-statement`, `meta-orchestrator`), hook names, script names, or detection logic in messages shown to the user. Describe what things DO, not what they're called internally. "Your progress was saved" not "Resume state written to `.design-engineer-plugin/config.yaml`". "You have Figma connected" not "Figma plugin: [FOUND]". This rule applies to all commands, skills, and agents.
 
-Wrong: "User Settings — Account Details"
+Wrong: "User Settings – Account Details"
 Right: "User settings – account details"
 
 Wrong: "Save Changes", "View All Projects", "Get Started Now"
 Right: "Save changes", "View all projects", "Get started now"
 
-Wrong: "Loading — Please Wait"
+Wrong: "Loading – Please Wait"
 Right: "Loading – please wait"
 
 Wrong: "Problem Statement", "Target Audience", "MVP Requirements"
 Right: "Problem statement", "Target audience", "MVP requirements"
 
-Wrong: "Data density — over marketing", "sovereignty -- wants"
+Wrong: "Data density – over marketing", "sovereignty -- wants"
 Right: "Data density – over marketing", "sovereignty – wants"
 
 This is especially important in UI copy – prototypes, components, and any generated product interface must follow all three rules.
@@ -415,7 +417,7 @@ This is especially important in UI copy – prototypes, components, and any gene
 
 ## Image handling
 
-Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/craft/images/`. This rule applies to every `<img>` tag the model emits — no exceptions, no "the user will replace it later" shortcuts.
+Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/craft/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
 
 ## Project state injection
 
@@ -494,12 +496,12 @@ Important:
 
 The plugin uses two memory layers:
 
-- **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) — owned and managed by Claude Code itself. The first 200 lines auto-load every session. **Do NOT call Read on this file** — Claude Code already loads it for you, and on fresh projects the file may not exist yet, surfacing a confusing red "File does not exist" error.
-- **Plugin-local memory** (`.design-engineer-plugin/memory/`) — owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded by `init-project-structure.sh` during meta-setup; loaded on demand.
+- **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) – owned and managed by Claude Code itself. The first 200 lines auto-load every session. **Do NOT call Read on this file** – Claude Code already loads it for you, and on fresh projects the file may not exist yet, surfacing a confusing red "File does not exist" error.
+- **Plugin-local memory** (`.design-engineer-plugin/memory/`) – owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded by `init-project-structure.sh` during meta-setup; loaded on demand.
 
-**Defensive read pattern** (belt and suspenders): before calling Read on any plugin memory file, check existence first. Use `Bash test -f .design-engineer-plugin/memory/project-map.md` or `Glob` to verify the file is there. If absent, skip silently — fresh project, nothing to read. Never call Read on `~/.claude/projects/.../memory/MEMORY.md`.
+**Defensive read pattern** (belt and suspenders): before calling Read on any plugin memory file, check existence first. Use `Bash test -f .design-engineer-plugin/memory/project-map.md` or `Glob` to verify the file is there. If absent, skip silently – fresh project, nothing to read. Never call Read on `~/.claude/projects/.../memory/MEMORY.md`.
 
-**Note on enforcement**: writes to plugin-local memory files are advisory — Claude updates them when it notices a relevant trigger, but nothing structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` is the structurally enforced layer for pipeline state — see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
+**Note on enforcement**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` is the structurally enforced layer for pipeline state – see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
 
 ### Project Map (`.design-engineer-plugin/memory/project-map.md`)
 
@@ -509,7 +511,7 @@ Maintain a living file tree of the project. Every entry follows this format:
 path – description (≤10 words) | when to read
 ```
 
-**Update guidance** (advisory — Claude does this when it notices the trigger; not structurally enforced):
+**Update guidance** (advisory – Claude does this when it notices the trigger; not structurally enforced):
 - After creating any file or folder, consider adding an entry with path, description, and read trigger
 - After deleting any file or folder, consider removing its entry
 - After significant restructuring (moving files, renaming directories), update affected entries
@@ -524,7 +526,7 @@ This replaces ad-hoc exploration. If project-map.md exists, use it instead of gl
 
 ### Auto-memory MEMORY.md (managed by Claude Code, NOT by this plugin)
 
-Claude Code's auto-memory `MEMORY.md` is loaded automatically every session. The plugin does not Read or Write this file directly — Claude Code's `/memory` command and its built-in auto-memory mechanism handle it. If you want to record cross-session context, ask the user to use `/memory` or just rely on Claude Code's auto-memory writes.
+Claude Code's auto-memory `MEMORY.md` is loaded automatically every session. The plugin does not Read or Write this file directly – Claude Code's `/memory` command and its built-in auto-memory mechanism handle it. If you want to record cross-session context, ask the user to use `/memory` or just rely on Claude Code's auto-memory writes.
 
 **What NOT to save anywhere in plugin memory or auto-memory:**
 - Individual deliverable content (already in design/)
@@ -543,7 +545,7 @@ Each entry: the error, what was tried and failed, what actually fixed it.
 
 ### When to Read Memory
 
-All Read operations on plugin-local memory files MUST verify existence first (Bash `test -f` or `Glob`); skip silently if absent. Never call Read on auto-memory `~/.claude/projects/<slug>/memory/MEMORY.md` — Claude Code already auto-loads it.
+All Read operations on plugin-local memory files MUST verify existence first (Bash `test -f` or `Glob`); skip silently if absent. Never call Read on auto-memory `~/.claude/projects/<slug>/memory/MEMORY.md` – Claude Code already auto-loads it.
 
 | Trigger | What to read |
 |---------|-------------|

@@ -149,11 +149,11 @@ Before generating any text for the deliverable, read [anti-slop-writing.md](../s
 
 ## Required section: Component Gallery Contract
 
-The generated CLAUDE.md MUST include a top-level **Component Gallery Contract** section that survives in the user's project. The section contains the universal contract text from `skills/dev-component-gallery/references/gallery-contract.md` — quote it verbatim — plus this short prose around it:
+The generated CLAUDE.md MUST include a top-level **Component Gallery Contract** section that survives in the user's project. The section contains the universal contract text from `skills/dev-component-gallery/references/gallery-contract.md` – quote it verbatim – plus this short prose around it:
 
-> The project maintains a single-page component gallery for visual quality assurance and duplicate detection. After creating or modifying any component, update the gallery in the same change. Run the `dev-component-gallery` skill via `/design-engineer:dev` to scaffold or update. Never duplicate components in the gallery; never inline styles. Enforcement runs in `frontend-implementer` (sync after every component change) and `design-system-auditor` (audit at FAIL severity) — there is no hook-level enforcement.
+> The project maintains a single-page component gallery for visual quality assurance and duplicate detection. After creating or modifying any component, update the gallery in the same change. Run the `dev-component-gallery` skill via `/design-engineer:dev` to scaffold or update. Never duplicate components in the gallery; never inline styles. Enforcement runs in `frontend-implementer` (sync after every component change) and `design-system-auditor` (audit at FAIL severity) – there is no hook-level enforcement.
 
-If a component gallery already exists in the project, also include the gallery's path (read from `.design-engineer-plugin/config.yaml` under `gallery.path`) so the rule references the actual file location. If no gallery exists yet, the section still goes in — the contract applies the moment the gallery is scaffolded.
+If a component gallery already exists in the project, also include the gallery's path (read from `.design-engineer-plugin/config.yaml` under `gallery.path`) so the rule references the actual file location. If no gallery exists yet, the section still goes in – the contract applies the moment the gallery is scaffolded.
 
 ---
 
@@ -175,7 +175,7 @@ After CLAUDE.md is created, suggest `dev-starter-prompts` to generate initial de
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

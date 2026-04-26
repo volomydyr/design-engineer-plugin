@@ -13,7 +13,7 @@ license: MIT
 
 Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. If `shipped_ui: true` AND the user is here for a single feature (not a full pipeline), reduce scope:
 
-1. Do NOT regenerate the project's full MVP scope — the product has shipped, MVP is decided.
+1. Do NOT regenerate the project's full MVP scope – the product has shipped, MVP is decided.
 2. Focus only on what the *specific feature* the user named needs: minimum viable scope for THIS feature, must-have vs nice-to-have for THIS feature, ICE prioritization within THIS feature's tasks.
 3. Output goes to `design/features/[feature-slug]/mvp.md`, not the project-level `design/planning/mvp-requirements.md`.
 
@@ -185,7 +185,7 @@ After MVP requirements are finalized, suggest:
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

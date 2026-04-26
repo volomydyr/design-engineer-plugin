@@ -6,13 +6,15 @@ argument-hint: "[specific area to review | audit]"
 
 # Design Review
 
+> **Spacer rule (per CLAUDE.md rule #6)**: Before every `AskUserQuestion` tool call this command makes, end the preceding chat message with the canonical 3-horizontal-rule spacer (three lines of `─` characters). This applies to every option set described in this command body.
+
 ## Context
 
 <context> #$ARGUMENTS </context>
 
 ## Note: existing-codebase component gallery (auto-scaffold)
 
-If the project has UI components but no gallery yet, `design-system-auditor` will auto-scaffold one transparently during this review (v4.6.0 transparent infrastructure — no menu, no permission ask). The gallery is a single-page visual catalog of every component, all variants, real production styles, source-path labels — useful here for redundancy detection on existing codebases.
+If the project has UI components but no gallery yet, `design-system-auditor` will auto-scaffold one transparently during this review (v4.6.0 transparent infrastructure – no menu, no permission ask). The gallery is a single-page visual catalog of every component, all variants, real production styles, source-path labels – useful here for redundancy detection on existing codebases.
 
 ## Argument routing
 
@@ -93,7 +95,7 @@ If "Specific page or flow": ask which one.
 
 ## Step 3: Read reference material
 
-Before starting the review, Read the relevant reference files from the plugin's knowledge base. Look for `DESIGN_ENGINEER_PLUGIN_ROOT` in your context — it contains the absolute path to the plugin directory. Use it to resolve file paths.
+Before starting the review, Read the relevant reference files from the plugin's knowledge base. Look for `DESIGN_ENGINEER_PLUGIN_ROOT` in your context – it contains the absolute path to the plugin directory. Use it to resolve file paths.
 
 For each selected area, Read these reference files BEFORE analyzing code:
 
@@ -168,7 +170,7 @@ Agents CAN run for analysis. But after an agent completes, parse its output and 
 
 ## Step 4.5: Pre-presentation advisor checkpoint
 
-Before presenting the final findings (Guided: before the summary table; Autopilot: before the structured summary), invoke the `advisor` skill (`skills/advisor/`) with: review areas covered, top findings by severity, anything that surprised you in the analysis, and "I'm about to present these findings as the review output — any course correction?" Apply the advice or use the reconcile pattern. This catches mis-prioritization (rare critical finding lost in noise) and missed angles before the user sees the report. Skip on tiny single-area reviews where the finding count is one or two.
+Before presenting the final findings (Guided: before the summary table; Autopilot: before the structured summary), invoke the `advisor` skill (`skills/advisor/`) with: review areas covered, top findings by severity, anything that surprised you in the analysis, and "I'm about to present these findings as the review output – any course correction?" Apply the advice or use the reconcile pattern. This catches mis-prioritization (rare critical finding lost in noise) and missed angles before the user sees the report. Skip on tiny single-area reviews where the finding count is one or two.
 
 ## Step 5: Fix execution (after review)
 
@@ -224,7 +226,7 @@ This branch is for designers hired to improve an existing commercial app. It wal
 ### A1.1: Verify project context
 
 1. Read `.design-engineer-plugin/config.yaml` `project.context.shipped_ui`. If `false` (or the field is missing), tell the user audit needs a shipped product to walk; offer to fall back to single-page review or route to the design pipeline. Do not proceed.
-2. Confirm Playwright is available (bundled MCP since v4.3.0 — should be).
+2. Confirm Playwright is available (bundled MCP since v4.3.0 – should be).
 
 ### A1.2: Scope the audit
 
@@ -241,16 +243,16 @@ For each page (capped per the user's cap):
 
 1. **Capture**: navigate via Playwright → take a screenshot → snapshot the DOM/structure. Save the screenshot to `design/reviews/[YYYY-MM-DD]-audit/[page-slug]/screenshot.png`.
 2. **Run AI agents** in this order, gathering findings into one in-memory bundle per page:
-   - `psych-scanner` (cognitive load, decision fatigue, dark patterns, motivation) — see `agents/psych-scanner.md`
-   - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) — see `skills/ui-aesthetic-review/`
-   - `design-system-auditor` (token usage, hardcoded styles, monolithic views, gallery audit if applicable) — see `agents/design-system-auditor.md`
-   - `ux-motivation-audit` (screen-level psychology) — see `skills/ux-motivation-audit/`
+   - `psych-scanner` (cognitive load, decision fatigue, dark patterns, motivation) – see `agents/psych-scanner.md`
+   - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) – see `skills/ui-aesthetic-review/`
+   - `design-system-auditor` (token usage, hardcoded styles, monolithic views, gallery audit if applicable) – see `agents/design-system-auditor.md`
+   - `ux-motivation-audit` (screen-level psychology) – see `skills/ux-motivation-audit/`
 3. **Present AI findings** to the designer for THIS page (compact: top 5–7 findings grouped by severity).
 4. **Capture designer feedback** via AskUserQuestion: question="Your professional feedback on this page?" options: `[{label: "I'll write notes", description: "Open-ended notes I'll type now"}, {label: "Agrees with AI on all points", description: "AI findings match my read"}, {label: "Disagree with one or more findings", description: "I'll explain which and why"}, {label: "Skip / no feedback", description: "Move on"}]`. If "I'll write notes" or "Disagree", collect the prose via natural-language follow-up.
 5. **Write the per-page deliverable** to `design/reviews/[YYYY-MM-DD]-audit/[page-slug]/audit.md`:
 
 ```markdown
-# [Page name] — Audit
+# [Page name] – Audit
 
 **URL**: [captured URL]
 **Date**: [YYYY-MM-DD]

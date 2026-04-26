@@ -98,14 +98,14 @@ Only list what's relevant. Adapt the wording to what was actually detected. Use 
 
 **Internal knowledge for explaining tools to users** (use when explaining status to users – never show these labels or technical names directly):
 
-- **Documentation access** (Context7 MCP, bundled): Gives AI access to up-to-date technical documentation so it does not rely on outdated training data. Bundled — auto-starts when the plugin is enabled. Nothing for the user to install.
-- **Design tool connection** (Figma MCP, bundled): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Bundled — auto-starts. The user just needs to open Figma desktop with Dev Mode enabled to use it.
-- **Browser testing** (Playwright MCP, bundled): Enables browser-based testing and lets AI browse live URLs for visual review. Bundled — auto-starts. Requires Node.js v18+ on the user's machine so npx can fetch the Playwright package on first use.
+- **Documentation access** (Context7 MCP, bundled): Gives AI access to up-to-date technical documentation so it does not rely on outdated training data. Bundled – auto-starts when the plugin is enabled. Nothing for the user to install.
+- **Design tool connection** (Figma MCP, bundled): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Bundled – auto-starts. The user just needs to open Figma desktop with Dev Mode enabled to use it.
+- **Browser testing** (Playwright MCP, bundled): Enables browser-based testing and lets AI browse live URLs for visual review. Bundled – auto-starts. Requires Node.js v18+ on the user's machine so npx can fetch the Playwright package on first use.
 - **Figma actions** (Figma Console MCP, OPTIONAL companion): Can perform actions in Figma directly – create components, apply tokens and styles from prompts. More powerful than the read-only Figma connection but trickier to set up. Not bundled; an optional install for power users only.
 
-**Three MCPs are bundled with this plugin** (Context7, Figma, Playwright) — they auto-start with the plugin and don't need separate installation. Status messaging should reflect "bundled, here's whether the prerequisite (Figma desktop / Node) is in place" rather than "you need to install this".
+**Three MCPs are bundled with this plugin** (Context7, Figma, Playwright) – they auto-start with the plugin and don't need separate installation. Status messaging should reflect "bundled, here's whether the prerequisite (Figma desktop / Node) is in place" rather than "you need to install this".
 
-**If a prerequisite is missing** (Node.js for Playwright, or the user wants Figma Console as an extra), proactively offer to help: explain what it enables in plain language and guide the user through setup. Don't offer to install Figma or Playwright themselves — those are bundled.
+**If a prerequisite is missing** (Node.js for Playwright, or the user wants Figma Console as an extra), proactively offer to help: explain what it enables in plain language and guide the user through setup. Don't offer to install Figma or Playwright themselves – those are bundled.
 
 If any existing configuration conflicts are detected, explain the conflict in plain terms and ask whether to keep the current setup or use the recommended one. Never overwrite existing configuration without asking.
 
@@ -141,16 +141,18 @@ design/
 ├── research/            # Research findings and competitive analysis
 │   └── archive/         # Archived research versions
 ├── planning/            # MVP requirements, information architecture
-├── design/              # Design deliverables (bias audit, journey, references, story panels)
+├── craft/               # Design deliverables (bias audit, journey, references, story panels)
 │   ├── references/      # UI reference images
 │   └── story-panels/    # Story panel images and scripts
-├── prototype/           # HTML prototypes (storyboard, prototype, landing page)
 ├── psych/               # Psychology audit results
 ├── reviews/             # Design reviews and assessments
 └── dev/                 # Development preparation deliverables
 
+prototype/               # HTML prototypes at project root, sibling of design/
+
 .design-engineer-plugin/
-└── dependencies.yaml    # Dependency graph tracking all deliverables
+├── dependencies.yaml    # Dependency graph tracking all deliverables
+└── memory/              # Plugin-local memory (project-map, debug-solutions)
 
 plans/
 └── archive/             # Completed implementation plans
@@ -190,10 +192,10 @@ dependencies:
 
 The plugin uses two memory layers:
 
-- **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) — owned and managed by Claude Code itself. Auto-loads first 200 lines every session. The plugin does NOT touch this file. Do not call Read on it; do not write skeletons to it.
-- **Plugin-local memory** (`.design-engineer-plugin/memory/`) — owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded automatically by `init-project-structure.sh` (the script Step 4 already ran), so by the time you reach this point the skeletons exist. No further action required during setup.
+- **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) – owned and managed by Claude Code itself. Auto-loads first 200 lines every session. The plugin does NOT touch this file. Do not call Read on it; do not write skeletons to it.
+- **Plugin-local memory** (`.design-engineer-plugin/memory/`) – owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded automatically by `init-project-structure.sh` (the script Step 4 already ran), so by the time you reach this point the skeletons exist. No further action required during setup.
 
-**Note**: writes to plugin-local memory files are advisory — Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
+**Note**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
 
 **For new projects (Path B, "New product idea"):**
 
@@ -201,11 +203,11 @@ The skeletons are already in place at `.design-engineer-plugin/memory/project-ma
 
 **For existing projects (Path B, "Existing project"):**
 
-Same skeletons. project-map.md starts with only the design/ scaffold and `.design-engineer-plugin/config.yaml` — do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
+Same skeletons. project-map.md starts with only the design/ scaffold and `.design-engineer-plugin/config.yaml` – do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
 
 **For returning projects (Path A):**
 
-Memory already exists — do not overwrite. It will be read on demand during the startup sequence.
+Memory already exists – do not overwrite. It will be read on demand during the startup sequence.
 
 ---
 
@@ -256,7 +258,7 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 ---
 
-Silently apply commit/PR attribution defaults (no question — this just runs):
+Silently apply commit/PR attribution defaults (no question – this just runs):
 
 1. Read `~/.claude/settings.json` (create the file with `{}` if missing).
 2. Check the `attribution` field:
@@ -271,69 +273,42 @@ Silently apply commit/PR attribution defaults (no question — this just runs):
 
 Ask about sound notifications.
 
-**First**, detect prior installation: read `~/.claude/settings.json` (if it exists) and check if any hook entry under `hooks.Stop` or `hooks.Notification` includes `de-play-sound.sh` in its command. If yes, present the 3-option question; if no, present the 2-option question.
+**Background**: sound hooks are bundled in the plugin's `hooks/hooks.json` (Stop event for completion sound, Notification event for attention sound). They fire automatically. Whether they actually play is controlled by a flag file at `~/.claude/de-sound-muted` – if the flag exists, the playback shim exits silently. So enabling/disabling sounds means adding or removing that flag file.
 
-3-option (already installed):
+**First**, detect current state by checking whether `~/.claude/de-sound-muted` exists (`test -f ~/.claude/de-sound-muted`). If it does NOT exist, sounds are currently on; ask the "keep them on?" question. If it DOES exist, sounds are currently off; ask the "unmute?" question.
+
+Sounds-currently-on (flag absent) – ask:
 ```
-question: "Sound notifications are already installed. What would you like to do?"
+question: "Sound notifications are currently on. Keep them?"
 header: "Sounds"
 options:
-  - label: "Skip – already installed"
-    description: "Keep your current setup, no changes. Use /design-engineer:mute-unmute-sound to silence temporarily."
-  - label: "Reinstall (replace)"
-    description: "Re-write the Stop and Notification entries in ~/.claude/settings.json"
-  - label: "Uninstall"
-    description: "Remove the Stop and Notification sound entries from ~/.claude/settings.json"
+  - label: "Yes (Recommended)"
+    description: "Plays a short bundled sound when Claude finishes (Stop hook) and when Claude waits for your input – permission requests, AskUserQuestion (Notification hook). Works on macOS, Linux (with paplay/aplay/play), and native Windows shells. Silent on WSL. To silence temporarily later, run /design-engineer:mute-unmute-sound."
+  - label: "No, mute them"
+    description: "Creates ~/.claude/de-sound-muted so the playback shim exits silently. Toggle later with /design-engineer:mute-unmute-sound."
 ```
 
-2-option (not installed):
+Sounds-currently-off (flag present) – ask:
 ```
-question: "Would you like sound notifications when Claude finishes responding or needs your input?"
+question: "Sound notifications are currently muted. Unmute?"
 header: "Sounds"
 options:
-  - label: "Yes"
-    description: "Plays a short bundled sound when Claude finishes (Stop hook) and when Claude waits for your input – permission requests, AskUserQuestion (Notification hook). Works on macOS, Linux (with paplay/aplay/play), and native Windows shells. Silent on WSL. To silence temporarily without uninstalling, run /design-engineer:mute-unmute-sound."
-  - label: "No (Recommended for shared spaces)"
-    description: "Skip – no audio. Re-run /design-engineer:start later to install."
+  - label: "Yes, unmute"
+    description: "Removes ~/.claude/de-sound-muted so the bundled sound hooks (Stop + Notification) play their chimes again."
+  - label: "Keep muted"
+    description: "Leave the mute flag in place. No audio. Toggle later with /design-engineer:mute-unmute-sound."
 ```
 
-If "Yes" or "Reinstall":
-1. Read `~/.claude/settings.json` (create if missing). Preserve existing entries — never overwrite the file wholesale.
-2. Ensure `hooks` exists at the top level. Within it, ensure `Stop` and `Notification` arrays exist.
-3. Append two hook entries (skip if an identical entry is already present):
+**Apply the choice** (no writes to `~/.claude/settings.json` – the hooks are already wired in the plugin's own `hooks/hooks.json`):
 
-   For `Stop`:
-   ```json
-   {
-     "hooks": [
-       {
-         "type": "command",
-         "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-complete.wav"
-       }
-     ]
-   }
-   ```
+- If user picks "Yes (Recommended)" or "Yes, unmute": run `rm -f ~/.claude/de-sound-muted` (idempotent; no error if absent). Confirm: "Sounds are on. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input."
+- If user picks "No, mute them" or "Keep muted": run `mkdir -p ~/.claude && touch ~/.claude/de-sound-muted` (idempotent). Confirm: "Sounds muted. Toggle anytime with /design-engineer:mute-unmute-sound."
 
-   For `Notification`:
-   ```json
-   {
-     "hooks": [
-       {
-         "type": "command",
-         "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-attention.wav"
-       }
-     ]
-   }
-   ```
-
-4. Write `~/.claude/settings.json` back with 2-space indentation.
-5. Confirm: "Sound notifications installed. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input. To disable later, re-run /design-engineer:start or remove these entries from ~/.claude/settings.json."
-
-If "No": skip the writes silently.
+**Migration cleanup**: if the user has legacy entries in `~/.claude/settings.json` under `hooks.Stop` or `hooks.Notification` from plugin versions v4.1.0–v4.7.0 that referenced `${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh`, those are dead (the variable does not resolve inside `settings.json`). Detect them by reading the file and checking for `de-play-sound.sh` in any Stop/Notification hook entry. If found, remove just those entries (preserve all other settings) and tell the user "Cleaned up legacy sound-hook entries from settings.json – the plugin now ships its sound hooks bundled at the canonical Anthropic location." Do not write any new entries to `~/.claude/settings.json`.
 
 ---
 
-Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `.design-engineer-plugin/dependencies.yaml` (the canonical path — kept separate from user deliverables in `design/`).
+Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `.design-engineer-plugin/dependencies.yaml` (the canonical path – kept separate from user deliverables in `design/`).
 
 Display a summary in plain language – no file names or config paths:
 

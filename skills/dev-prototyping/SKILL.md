@@ -44,14 +44,14 @@ Before generating any HTML for storyboard or prototype, you MUST output the Desi
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
 4. Confirmed `design/craft/references/references.md` exists (or run `ui-references-moodboard` first)
 
-This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop — they set the visual baseline that downstream development inherits.
+This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop – they set the visual baseline that downstream development inherits.
 
 After the Reads, output this block and fill in EVERY field:
 
 ### Design Intent
 - **Who is this human**: [a specific person, not "users". Where they are, what's on their mind right now]
 - **What verb must they accomplish**: [the actual action, not "use the app"]
-- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise like a surgical instrument / playful like a creative tool — NEVER "clean and modern"]
+- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise like a surgical instrument / playful like a creative tool – NEVER "clean and modern"]
 
 ### Domain Exploration
 - **Domain words (5+)**: [vocabulary from this product's world]
@@ -61,11 +61,11 @@ After the Reads, output this block and fill in EVERY field:
 
 ### WHY Checkpoint
 - **Palette WHY**: [why these colors fit this product's world]
-- **Depth WHY**: [borders / shadows / layered — and why this fits the intent]
+- **Depth WHY**: [borders / shadows / layered – and why this fits the intent]
 - **Surfaces WHY**: [elevation scale and why this color temperature]
-- **Typography WHY**: [typeface and why it fits — NOT Inter/SF Pro/Roboto/Lato/Montserrat unless stated WHY]
+- **Typography WHY**: [typeface and why it fits – NOT Inter/SF Pro/Roboto/Lato/Montserrat unless stated WHY]
 - **Spacing WHY**: [base unit and what it says about density]
-- **Token names WHY**: [`--ink`, `--parchment`, `--scrub-teal` — NOT `--gray-700`, `--surface-2`, `--primary`]
+- **Token names WHY**: [`--ink`, `--parchment`, `--scrub-teal` – NOT `--gray-700`, `--surface-2`, `--primary`]
 
 ### Anti-pattern self-check
 For each, state PASS or how I am avoiding:
@@ -92,7 +92,7 @@ List 5 specific places where the design intent manifests:
 4. ...
 5. ...
 
-If you cannot fill all 5 with concrete components, the signature does not exist — STOP and rework before any Write.
+If you cannot fill all 5 with concrete components, the signature does not exist – STOP and rework before any Write.
 
 ---
 
@@ -285,7 +285,7 @@ Generate static screens showing key states and flows. This is NOT the final prot
    - **Responsive web**: layouts MUST fill the viewport at every breakpoint. NEVER wrap content in a centered phone-shaped container, NEVER apply `max-width: 414px` / `375px` / similar mobile-frame constraints to the page body, NEVER add a "fake-iphone" CSS chrome around the UI. Use grid/flex layouts that breathe across desktop, tablet, mobile.
    - **Desktop web**: full-bleed desktop layout (≥1024px primary viewport). No mobile adaptation required. Same prohibition as Responsive web on mobile-frame wrappers.
    - **Both mobile and web**: generate TWO separate sets of screens – one mobile-viewport set AND one full-width responsive set. NEVER mix them in one layout (no "mobile-mockup-floating-in-desktop-canvas" pattern). Save them to separate filenames if needed.
-5. **Image-slot rule**: BEFORE generating any `<img src="...">` tag, gradient placeholder, emoji-stamped SVG, or random Pexels/Unsplash link, invoke the `ui-images` skill. The skill builds an image manifest, decides per-image whether to generate or stock-fetch, produces strong search queries or detailed AI-generation prompts, and lays out destination folders. This is mandatory whenever the screen has a hero, illustration, photo background, product mockup, avatar, or any other image slot. Do not skip — this is what prevents the gray-gradient + emoji slop default.
+5. **Image-slot rule**: BEFORE generating any `<img src="...">` tag, gradient placeholder, emoji-stamped SVG, or random Pexels/Unsplash link, invoke the `ui-images` skill. The skill builds an image manifest, decides per-image whether to generate or stock-fetch, produces strong search queries or detailed AI-generation prompts, and lays out destination folders. This is mandatory whenever the screen has a hero, illustration, photo background, product mockup, avatar, or any other image slot. Do not skip – this is what prevents the gray-gradient + emoji slop default.
 6. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the listed anti-patterns? Pay special attention to "Mobile mockup floating in desktop frame" if the target is Responsive or Desktop web. If yes, fix before presenting.
 7. Present each screen to the user, one at a time
 8. Discuss, get feedback, iterate on that screen before moving to the next
@@ -434,7 +434,7 @@ After prototyping, suggest the logical next step based on what exists:
 
 ## Lifecycle relationship: prototype vs. component gallery
 
-Prototype and component gallery sit at different points in the product lifecycle — do not conflate them:
+Prototype and component gallery sit at different points in the product lifecycle – do not conflate them:
 
 - **Prototype** is for design exploration *before* implementation. Throwaway HTML, no component-reuse rules, free to inline styles, free to fake interactivity. Lives at `prototype/prototype.html`. Goal: validate the design intent quickly.
 - **Component gallery** is for shipped components *after* implementation. Real imports from production paths, real production styles, contract-bound (no duplicates, no inline styles, variants via component API only). Path determined by the project's stack via `skills/dev-component-gallery/`. Goal: visual QA + redundancy detection on what's actually in the codebase.

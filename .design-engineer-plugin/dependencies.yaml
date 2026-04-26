@@ -1,0 +1,408 @@
+# Design-Engineer Dependency Graph (static reference)
+# ─────────────────────────────────
+# Maps deliverables produced by the plugin and their relationships.
+# This file is READ-ONLY documentation — the plugin does not mutate it at runtime.
+# When you update a deliverable, review its `informs:` entries and decide
+# whether those downstream deliverables need refreshing.
+#
+# Live progress (current phase, recent deliverables, key decisions, stale dependents)
+# is tracked separately in the compound-documenter agent's memory at
+# .claude/agent-memory/compound-documenter/ — auto-updated by /de:document.
+#
+# Each deliverable entry carries:
+#   - depends_on: deliverables that must exist or inform this one
+#   - informs:    deliverables that should be reviewed when this one changes
+#   - folder:     subdirectory within the deliverables path
+#   - phase:      pipeline phase where this deliverable is primarily created
+#   - skill:      the skill that produces this deliverable
+
+deliverables:
+
+  # ═══════════════════════════════════════════
+  # PHASE 1: DISCOVERY & FOUNDATION
+  # ═══════════════════════════════════════════
+
+  problem-statement:
+    depends_on: []
+    informs:
+      - target-audience
+      - assumptions
+      - competitor-analysis
+      - storybrand
+      - business-plan
+      - mvp-requirements
+    folder: foundation
+    phase: 1
+    skill: ux-problem-statement
+
+  target-audience:
+    depends_on:
+      - problem-statement
+    informs:
+      - assumptions
+      - competitor-analysis
+      - user-interviews
+      - storybrand
+      - business-plan
+      - mvp-requirements
+      - journey-map
+      - bias-audit
+    folder: foundation
+    phase: 1
+    skill: ux-target-audience
+
+  assumptions:
+    depends_on:
+      - problem-statement
+      - target-audience
+    informs:
+      - competitor-analysis
+      - user-interviews
+      - business-plan
+      - mvp-requirements
+    folder: foundation
+    phase: 1
+    skill: ux-assumptions
+
+  competitor-analysis:
+    depends_on:
+      - problem-statement
+      - target-audience
+      - assumptions
+    informs:
+      - storybrand
+      - business-plan
+      - mvp-requirements
+      - design-references
+    folder: research
+    phase: 1
+    skill: ux-competitor-analysis
+
+  user-interviews:
+    depends_on:
+      - target-audience
+      - assumptions
+    informs:
+      - storybrand
+      - business-plan
+      - mvp-requirements
+      - journey-map
+      - bias-audit
+    folder: research
+    phase: 1
+    skill: ux-user-interviews
+
+  # ═══════════════════════════════════════════
+  # PHASE 2: STRATEGY & POSITIONING
+  # ═══════════════════════════════════════════
+
+  storybrand:
+    depends_on:
+      - problem-statement
+      - target-audience
+      - competitor-analysis
+    informs:
+      - business-plan
+      - mvp-requirements
+      - journey-map
+    folder: foundation
+    phase: 2
+    skill: ux-storybrand
+
+  business-plan:
+    depends_on:
+      - problem-statement
+      - target-audience
+      - assumptions
+      - competitor-analysis
+      - storybrand
+    informs:
+      - mvp-requirements
+    folder: foundation
+    phase: 2
+    skill: ux-business-plan
+
+  story-panels:
+    depends_on:
+      - target-audience
+      - storybrand
+    informs:
+      - journey-map
+      - bias-audit
+      - mvp-requirements
+    folder: design
+    phase: 2
+    skill: ux-story-panels
+
+  behavior-map:
+    depends_on:
+      - target-audience
+      - user-interviews
+    informs:
+      - journey-map
+      - bias-audit
+      - mvp-requirements
+    folder: design
+    phase: 2
+    skill: ux-behavior-mapping
+
+  psych-variation:
+    depends_on:
+      - target-audience
+      - story-panels
+      - behavior-map
+    informs:
+      - journey-map
+      - bias-audit
+    folder: design
+    phase: 2
+    skill: ux-motivation-audit
+
+  # ═══════════════════════════════════════════
+  # PHASE 3: PRODUCT PLANNING
+  # ═══════════════════════════════════════════
+
+  mvp-requirements:
+    depends_on:
+      - problem-statement
+      - target-audience
+      - assumptions
+      - competitor-analysis
+      - storybrand
+      - business-plan
+      - story-panels
+      - behavior-map
+    informs:
+      - information-architecture
+      - design-references
+      - prototype
+      - kickstart-prompts
+      - agent-pipeline
+    folder: planning
+    phase: 3
+    skill: ux-mvp-requirements
+
+  information-architecture:
+    depends_on:
+      - mvp-requirements
+    informs:
+      - design-references
+      - prototype
+      - figma-workflow
+      - journey-map
+      - kickstart-prompts
+    folder: planning
+    phase: 3
+    skill: ux-information-architecture
+
+  # ═══════════════════════════════════════════
+  # PHASE 4: DESIGN & VALIDATION
+  # ═══════════════════════════════════════════
+
+  bias-audit:
+    depends_on:
+      - target-audience
+      - story-panels
+      - behavior-map
+      - psych-variation
+      - information-architecture
+    informs:
+      - journey-map
+      - ethics-review
+      - product-assessment
+    folder: design
+    phase: 4
+    skill: ux-bias-audit
+
+  journey-map:
+    depends_on:
+      - target-audience
+      - story-panels
+      - information-architecture
+      - bias-audit
+    informs:
+      - ethics-review
+      - product-assessment
+      - figma-workflow
+    folder: design
+    phase: 4
+    skill: ux-journey-mapping
+
+  ethics-review:
+    depends_on:
+      - bias-audit
+      - journey-map
+    informs:
+      - product-assessment
+    folder: design
+    phase: 4
+    skill: ux-ethics-review
+
+  design-references:
+    depends_on:
+      - mvp-requirements
+      - information-architecture
+      - competitor-analysis
+    informs:
+      - figma-workflow
+      - prototype
+    folder: design
+    phase: 4
+    skill: ui-references-moodboard
+
+  prototype:
+    depends_on:
+      - mvp-requirements
+      - information-architecture
+      - design-references
+      - journey-map
+      - bias-audit
+    informs:
+      - figma-workflow
+      - product-assessment
+    folder: prototype
+    phase: 4
+    skill: dev-prototyping
+
+  landing-page:
+    depends_on:
+      - storybrand
+      - mvp-requirements
+    informs:
+      - figma-workflow
+    folder: prototype
+    phase: 4
+    skill: ui-landing-page
+
+  figma-workflow:
+    depends_on:
+      - information-architecture
+      - design-references
+      - journey-map
+      - prototype
+    informs:
+      - figma-handoff
+      - claude-md-draft
+      - kickstart-prompts
+    folder: design
+    phase: 4
+    skill: ui-figma-guide
+
+  figma-handoff:
+    depends_on:
+      - figma-workflow
+    informs:
+      - product-assessment
+      - claude-md-draft
+      - kickstart-prompts
+    folder: design
+    phase: 4
+    skill: ui-figma-handoff
+
+  product-assessment:
+    depends_on:
+      - bias-audit
+      - journey-map
+      - ethics-review
+    informs:
+      - mvp-requirements
+      - claude-md-draft
+    folder: reviews
+    phase: 4
+    skill: ux-full-review
+
+  # ═══════════════════════════════════════════
+  # PHASE 5: DEVELOPMENT
+  # ═══════════════════════════════════════════
+
+  claude-md-draft:
+    depends_on:
+      - mvp-requirements
+      - information-architecture
+      - figma-workflow
+      - product-assessment
+    informs:
+      - kickstart-prompts
+      - agent-pipeline
+    folder: dev
+    phase: 5
+    skill: dev-claude-md
+
+  kickstart-prompts:
+    depends_on:
+      - mvp-requirements
+      - information-architecture
+      - claude-md-draft
+    informs:
+      - agent-pipeline
+    folder: dev
+    phase: 5
+    skill: dev-starter-prompts
+
+  agent-pipeline:
+    depends_on:
+      - claude-md-draft
+      - kickstart-prompts
+      - mvp-requirements
+    informs:
+      - mcp-notes
+    folder: dev
+    phase: 5
+    skill: dev-agent-setup
+
+  mcp-notes:
+    depends_on:
+      - agent-pipeline
+    informs: []
+    folder: dev
+    phase: 5
+    skill: dev-mcp-setup
+
+  github-workflow:
+    depends_on: []
+    informs: []
+    folder: dev
+    phase: 5
+    skill: dev-github-workflow
+
+  # ═══════════════════════════════════════════
+  # PSYCHOLOGY AUDIT (standalone, any phase)
+  # ═══════════════════════════════════════════
+
+  master-audit:
+    depends_on:
+      - information-architecture
+    informs:
+      - bias-audit
+      - journey-map
+      - product-assessment
+    folder: psych
+    phase: any
+    skill: psych-full-scan
+
+  # ═══════════════════════════════════════════
+  # COMPOUND DOCUMENTATION (ongoing)
+  # ═══════════════════════════════════════════
+
+  project-status:
+    depends_on: []
+    informs: []
+    folder: dev
+    phase: ongoing
+    skill: meta-document
+
+  solved-problems:
+    depends_on: []
+    informs:
+      - project-status
+    folder: dev
+    phase: ongoing
+    skill: meta-document
+
+  learnings:
+    depends_on: []
+    informs:
+      - project-status
+    folder: dev
+    phase: ongoing
+    skill: meta-document

@@ -53,7 +53,7 @@
         ]
       },
       {
-        "matcher": "get_screenshot|figma_capture_screenshot|figma_take_screenshot",
+        "matcher": "get_screenshot",
         "hooks": [
           {
             "type": "prompt",
@@ -137,6 +137,22 @@
             "type": "command",
             "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/session_dep_summary.py",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-complete.wav",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-attention.wav",
+            "timeout": 5
           }
         ]
       }

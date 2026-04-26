@@ -12,12 +12,16 @@ compatibility: "Requires Figma MCP (plugin:figma:figma). Figma Console MCP recom
 
 Automate the transformation of raw Figma designs into properly structured design files with components, tokens, variables, and styles – then prepare them for developer handoff with annotations, sections, connectors, and dev status badges.
 
-This skill uses **both Figma MCPs** when available:
+## Prerequisites
 
-- **"Figma Plugin"** (`plugin:figma:figma`) – reading designs (`get_design_context`, `get_screenshot`), JS execution (`use_figma`), design system rules
-- **"Figma Console MCP"** (`figma-console`) – variables/tokens (`figma_batch_create_variables`, `figma_setup_design_tokens`), linting (`figma_lint_design`), parity checking (`figma_check_design_parity`), batch operations, dedicated node tools
+This skill is the **advanced Figma workflow** in the plugin. It uses two MCPs together:
 
-"Figma Console MCP" is recommended for the full workflow but not strictly required – "Figma Plugin"'s `use_figma` JS executor can handle most write operations. See [figma-mcp-routing.md](../ui-figma-guide/references/figma-mcp-routing.md) for the decision guide.
+- **"Figma Plugin"** (`plugin:figma:figma`) – bundled with this plugin (no install needed). Used for reading designs (`get_design_context`, `get_screenshot`), JS execution (`use_figma`), design system rules.
+- **"Figma Console MCP"** (`figma-console`) – **NOT bundled**. A separate community project. Used for variables/tokens (`figma_batch_create_variables`, `figma_setup_design_tokens`), linting (`figma_lint_design`), parity checking (`figma_check_design_parity`), batch operations, and dedicated node tools.
+
+If you don't have the Figma Console MCP installed yet, install it from its repository (search GitHub for "figma-console MCP" or visit https://github.com/southleft/figma-console-mcp). Once installed, the bundled Figma Plugin and the Console MCP run side-by-side.
+
+**Tool-availability check**: at the start of Step 1, attempt a `figma_get_status` call. If it fails with a "tool not found" error, the Console MCP isn't installed – pause, surface the install pointer above, and ask the user to confirm install before continuing. Most write operations also work via "Figma Plugin"'s `use_figma` JS executor as a fallback, but the workflow is faster and more reliable with the Console MCP. See [figma-mcp-routing.md](../ui-figma-guide/references/figma-mcp-routing.md) for the decision guide.
 
 ## Interaction Method
 

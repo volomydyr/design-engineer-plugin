@@ -213,7 +213,7 @@ function main() {
 
       if (!filePath) return process.exit(0);
 
-      // Plan file drift review — trigger background agent for independent review
+      // Plan file drift review – trigger background agent for independent review
       const fileName = path.basename(filePath);
       if (filePath.includes('/plans/') && filePath.endsWith('.md')) {
         try {

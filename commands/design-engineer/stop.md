@@ -1,9 +1,12 @@
 ---
 name: design-engineer:stop
-description: Save progress and pause. Use when you want to stop mid-activity and come back later. Your progress is saved automatically after completed activities — this command is for pausing mid-activity.
+description: Save progress and pause. Use when you want to stop mid-activity and come back later. Your progress is saved automatically after completed activities – this command is for pausing mid-activity.
+argument-hint: ""
 ---
 
 # Stop and save progress
+
+> **Spacer rule (per CLAUDE.md rule #6)**: Before every `AskUserQuestion` tool call this command makes, end the preceding chat message with the canonical 3-horizontal-rule spacer (three lines of `─` characters).
 
 ## What this command does
 
@@ -24,7 +27,7 @@ If there is any in-progress work in the current conversation:
 
 If no in-progress work exists (the user just wants to stop between activities):
 
-1. Skip this step — automatic saving already handled it
+1. Skip this step – automatic saving already handled it
 
 ## Step 3: Update config
 
@@ -57,7 +60,7 @@ options:
   - label: "That's it"
     description: "I'm done for now"
   - label: "Actually, let me continue"
-    description: "I changed my mind — keep going"
+    description: "I changed my mind – keep going"
 allowMultiSelect: false
 ```
 

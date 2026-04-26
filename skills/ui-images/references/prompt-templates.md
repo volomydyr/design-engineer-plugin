@@ -48,7 +48,7 @@ Tips:
 
 ## ChatGPT image (DALL·E 3 via ChatGPT)
 
-Detailed prompt-following. Responds well to structured prompts; ChatGPT will sometimes auto-revise the prompt — append "use my prompt verbatim, do not add stylistic additions" if it does.
+Detailed prompt-following. Responds well to structured prompts; ChatGPT will sometimes auto-revise the prompt – append "use my prompt verbatim, do not add stylistic additions" if it does.
 
 Template:
 
@@ -110,7 +110,7 @@ Template (positive prompt):
 [Subject paragraph], [composition], [style + reference], [lighting + mood], [palette], [quality keywords: highly detailed, sharp focus, professional photography]
 ```
 
-Template (negative prompt — separate field):
+Template (negative prompt – separate field):
 
 ```
 emoji, flag, glossy, glassmorphism, neon, watermark, text overlay, low quality, blurry, distorted, generic stock photo
@@ -151,9 +151,9 @@ These help marginal cases on Stable Diffusion/Flux. They DO NOT help on DALL·E 
 
 ## Anti-pattern phrases (NEVER include)
 
-- "Modern and clean" — meaningless, pushes to default flat aesthetic
-- "Vibrant colors" — pushes to neon
-- "Beautiful" — vague
-- "Professional" without qualification — pushes to generic stock
-- "Trending on ArtStation" — old SD trope, generic now
+- "Modern and clean" – meaningless, pushes to default flat aesthetic
+- "Vibrant colors" – pushes to neon
+- "Beautiful" – vague
+- "Professional" without qualification – pushes to generic stock
+- "Trending on ArtStation" – old SD trope, generic now
 - Just an emoji as the prompt

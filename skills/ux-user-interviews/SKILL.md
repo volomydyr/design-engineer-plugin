@@ -14,8 +14,8 @@ license: MIT
 Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.off_repo_references`. This skill enriches existing user research rather than writing a single canonical deliverable, so the pattern is **input augmentation, not skip-check**:
 
 1. If the user has off-repo references to prior user research (Notion findings, recorded interviews, survey results in Linear/Jira tickets, etc.), ask them to share what they have OR point this skill at the source.
-2. Treat the existing research as the **starting context** — the new instruments / scripts / analyses should build on it, not start blank. Reference what's already known about users when designing new interview questions, so you're not asking what's already been answered.
-3. If no existing research is referenced, proceed normally — design new instruments from scratch using the framework below.
+2. Treat the existing research as the **starting context** – the new instruments / scripts / analyses should build on it, not start blank. Reference what's already known about users when designing new interview questions, so you're not asking what's already been answered.
+3. If no existing research is referenced, proceed normally – design new instruments from scratch using the framework below.
 
 **Purpose:** Help you design effective user research instruments (surveys and interviews), prepare proper scripts, find and motivate participants, and analyze results using a dual-analysis methodology that prevents AI hallucination in research findings.
 
@@ -229,7 +229,7 @@ Never let AI override what the data actually shows. When AI makes a claim based 
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

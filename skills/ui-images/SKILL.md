@@ -34,16 +34,16 @@ Invoke this skill when:
 - A prototype or landing page brief lists image needs (`dev-prototyping` Step 5 and `ui-landing-page` Step 4 invoke this skill explicitly when their flow encounters image slots).
 - The user mentions images, photos, illustrations, hero shots, avatars, or asks how to handle visual assets in a prototype/landing page.
 - The model is about to write `<img src="...">` in generated HTML and has no clear plan for what that source will be.
-- The model is tempted to use a gradient placeholder, emoji as illustration, or generic SVG — STOP and run this skill instead.
+- The model is tempted to use a gradient placeholder, emoji as illustration, or generic SVG – STOP and run this skill instead.
 
 ## Step 1: Build the image manifest
 
 List every image the current artefact needs. Read upstream design context first:
 
-- `design/craft/references/references.md` (if exists) — visual style direction
-- `design/foundation/` — brand voice, target audience
-- `design/craft/story-panels/` (if exists) — character/scene references
-- The current artefact (prototype HTML, landing page sections, IA doc) — every screen/section that has an image slot
+- `design/craft/references/references.md` (if exists) – visual style direction
+- `design/foundation/` – brand voice, target audience
+- `design/craft/story-panels/` (if exists) – character/scene references
+- The current artefact (prototype HTML, landing page sections, IA doc) – every screen/section that has an image slot
 
 Produce a table:
 
@@ -56,21 +56,21 @@ Produce a table:
 
 Save initial draft to `design/craft/images/manifest.md`. Create the folder if it doesn't exist.
 
-## Step 2: Decide per image — generate or stock
+## Step 2: Decide per image – generate or stock
 
 For each row, decide:
 
 **Generate** when:
 - The image is brand-specific (hero, marketing, key feature illustration)
 - One-off and high-visibility (above the fold, in the hero section)
-- Stock libraries don't have what the design intent requires (e.g., "warm scrub-teal kitchen" — too specific)
+- Stock libraries don't have what the design intent requires (e.g., "warm scrub-teal kitchen" – too specific)
 - Style is non-photographic (illustration, abstract, custom)
 
 **Stock** when:
-- Many instances of the same kind (avatars, list rows, gallery thumbnails — 50× generations is expensive overkill)
+- Many instances of the same kind (avatars, list rows, gallery thumbnails – 50× generations is expensive overkill)
 - Decorative or background (the user won't pause on it)
 - Generic photographic content (laptop on desk, coffee cup, cityscape) where Unsplash/Pexels has thousands of high-quality options
-- Quick prototype iteration — generation has a turnaround cost
+- Quick prototype iteration – generation has a turnaround cost
 
 Walk the user through the manifest one image at a time. For each, propose generate vs stock with one-sentence reasoning. User can override.
 
@@ -152,7 +152,7 @@ Update `manifest.md` with:
 
 ## Success Criteria
 
-- Every image slot in the prototype/landing page has a manifest entry — no orphan `<img src="placeholder">` tags.
+- Every image slot in the prototype/landing page has a manifest entry – no orphan `<img src="placeholder">` tags.
 - Decision per image is intentional: generate-vs-stock matches the role (hero ≠ avatar list).
 - Stock candidates were visually ranked, not first-result-grabbed.
 - Generation prompts are detailed enough to produce on-brand output (subject, composition, style, lighting, palette, dimensions, negatives).
@@ -171,5 +171,5 @@ Update `manifest.md` with:
 ## Notes
 
 - **If your generator isn't listed**: write the prompt using the generator-agnostic core (subject + composition + style + lighting + palette + aspect + negatives) and adapt syntax for your tool's parameter format.
-- **Iteration**: real product work re-generates images several times. Manifest is the source of truth — update it each iteration with the chosen variant.
+- **Iteration**: real product work re-generates images several times. Manifest is the source of truth – update it each iteration with the chosen variant.
 - **Cost awareness**: the decision tree in Step 2 exists because generation is slower and (often) costlier than stock. For a list of 50 user avatars, stock wins on cost and consistency.

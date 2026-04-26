@@ -6,6 +6,8 @@ argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]
 
 # Development Pipeline
 
+> **Spacer rule (per CLAUDE.md rule #6)**: Before every `AskUserQuestion` tool call this command makes, end the preceding chat message with the canonical 3-horizontal-rule spacer (three lines of `─` characters). This applies to every option set described in this command body.
+
 ## Context
 
 <context> #$ARGUMENTS </context>
@@ -56,14 +58,21 @@ Before any UI code is generated in this command, you MUST output the Design Grou
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
 4. Confirmed `design/craft/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
-5. Read `prototype/prototype.html` if it exists — implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+5. Read `prototype/prototype.html` if it exists – implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+
+**Behavior on missing files** (so you know what's happening before the hook denies a write):
+
+- If `prototype/prototype.html` is **missing**: skip prototype check (the v4.7.0 feature-spec branch deliberately bypasses prototyping). Implement using design references + gallery only.
+- If `design/craft/references/references.md` is **missing**: hook denies UI writes with a clear message. Run `ui-references-moodboard` first to create it, or stop and ask the user where their design references live.
+- If any of the three `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/.../*.md` plugin docs are **missing**: this means the plugin install is corrupt. Surface the error, don't try to proceed without them.
+- If `CLAUDE.md` is **missing** at project root: hard-block. Surface "this project has no CLAUDE.md – run `/design-engineer:dev claude-md` to scaffold it before any UI implementation."
 
 After the Reads, output this block and fill in EVERY field:
 
 ### Design Intent
 - **Who is this human**: [a specific person, not "users"]
 - **What verb must they accomplish**: [the actual action]
-- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise / playful — NEVER "clean and modern"]
+- **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise / playful – NEVER "clean and modern"]
 
 ### Domain Exploration
 - **Domain words (5+)**, **Color world (5+)**, **Signature element (1)**, **Named defaults (3)**
@@ -75,7 +84,7 @@ After the Reads, output this block and fill in EVERY field:
 - [ ] Cream/beige bg + orange CTA, 3D emoji as illustration, emoji avatars, pill chips with emoji, generic CTA copy, default fonts, generic tokens, cards-in-cards, identical card grids, glassmorphism, centered everything, default drop shadows, gradient text, purple-blue gradients, modal for everything
 
 ### Signature Test
-List 5 specific places where design intent manifests. If fewer than 5 concrete components — STOP and rework.
+List 5 specific places where design intent manifests. If fewer than 5 concrete components – STOP and rework.
 
 For the full inlined block content (with prompts and examples), see `agents/frontend-implementer.md` Design Grounding Pre-Flight section.
 
@@ -118,15 +127,15 @@ Before writing ANY code, follow these steps in order:
 
 **1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
-**1a. Read the prototype FIRST if it exists**: If `prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation — your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
+**1a. Read the prototype FIRST if it exists**: If `prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation – your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
 
-**2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` — this is the exact format your plan must follow.
+**2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` – this is the exact format your plan must follow.
 
 **3. Enter Plan Mode**: Use `EnterPlanMode` to write the implementation plan. Do NOT present the plan as chat text, a summary table, or TaskCreate items. The plan MUST follow the template format with all required fields: Summary, Phases (each with Objective, Depends on, Files, Reuse, Checklist, QA), Risk assessment, Questions for user.
 
 **4. Get approval**: Use `ExitPlanMode` for user approval.
 
-**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it doesn't exist. **This step is CRITICAL — without it, TDD hooks and fidelity hooks cannot activate. Do not write any code until the plan is in `plans/`.**
+**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it doesn't exist. **This step is CRITICAL – without it, TDD hooks and fidelity hooks cannot activate. Do not write any code until the plan is in `plans/`.**
 
 **6. Create feature branch**: If on main/master, run `git checkout -b feat/[plan-slug]`.
 
@@ -141,7 +150,9 @@ Before writing ANY code, follow these steps in order:
    f. Wait for approval before next phase
    g. After approval, commit using `dev-github-workflow`
 
-**9. After all phases**: Run `design-system-auditor` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). The auditor will produce a structured report; review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional. Run `meta-document` to record progress.
+**9. After all phases**: Run `design-system-auditor` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). The auditor will produce a structured report; review aesthetic FAILs before presenting the implementation to the user – these are blocking advisories, not optional.
+
+**meta-document timing rule** (canonical for this command): invoke `meta-document` at the **end of every phase**, immediately after the phase task is marked complete and before presenting QA to the user. This is the same cadence the design pipeline uses; it keeps the compound-documenter's pipeline-state.md in sync turn-by-turn. Do not invoke meta-document mid-phase; do not skip it at end-of-phase.
 
 ### Visual verification (UI changes only)
 

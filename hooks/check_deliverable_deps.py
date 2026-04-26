@@ -7,7 +7,7 @@ the plugin (it was advertised but never wired). We just look up the static
 relationship and remind the user what's downstream.
 
 Live progress lives in the compound-documenter agent's memory at
-.claude/agent-memory/compound-documenter/ — that's the documented Anthropic
+.claude/agent-memory/compound-documenter/ – that's the documented Anthropic
 primitive for project-local persistent state.
 """
 

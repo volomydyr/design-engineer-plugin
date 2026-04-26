@@ -11,13 +11,13 @@ license: MIT
 
 ## Existing-project skip-check
 
-Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_assumptions_log` (rare in repos; more often referenced via Notion / Linear in `off_repo_references`). If an assumption / hypothesis log already exists, do not regenerate from scratch.
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_assumptions_log`. If it indicates the project already has an assumption / hypothesis log (in repo, or via an off-repo reference such as Notion / Linear captured in `off_repo_references`), OR `project.context.shipped_ui: true` indicates an established product where regenerating from scratch isn't appropriate, AND the user did not explicitly request rerunning this skill, do not regenerate.
 
 Instead:
-1. In one line, summarize what already exists (and where — repo path or off-repo reference).
-2. Ask via AskUserQuestion: "Your project already has an assumption / hypothesis log at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Add new assumptions to it (I'll describe)", "Re-run from scratch anyway".
-3. If "Use it as-is" → yield.
-4. If "Add new" → narrow scope to appending only the new assumptions the user describes.
+1. In one line, summarize what already exists (and where – repo path or off-repo reference) OR explain how the shipped product implies the validated assumptions.
+2. Ask via AskUserQuestion: "Your project already has an assumption / hypothesis log at <location>. What would you like to do?" Options: "Use it as-is and proceed", "Refine specific parts (I'll describe)", "Re-run from scratch anyway".
+3. If "Use it as-is" → yield; the calling flow continues with the existing artifact.
+4. If "Refine" → narrow scope to the user's described refinement only (e.g., appending new assumptions).
 5. If "Re-run anyway" → proceed normally below.
 
 ## Why This Matters
@@ -199,7 +199,7 @@ After assumptions are documented, suggest:
 
 Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
 
-> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+> Source: `<relative path to reference file from this skill's directory>` – "<1-line quote of the passage that backs the judgment>"
 
 The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
 

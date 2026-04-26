@@ -27,7 +27,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) collect your references early so everything else is grounded in real examples, 3) explore the product domain, 4) understand the product context, 5) identify key screens, 6) run the WHY checkpoint, 7) organize references into a direction document, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) — before domain exploration. References ground all subsequent decisions in real examples.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) collect your references early so everything else is grounded in real examples, 3) explore the product domain, 4) understand the product context, 5) identify key screens, 6) run the WHY checkpoint, 7) organize references into a direction document, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) – before domain exploration. References ground all subsequent decisions in real examples.
 
 2. **Conditional teaching**: Ask the user if they are familiar with design intent and why it matters before collecting references. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
 
@@ -223,21 +223,21 @@ multiSelect: true  # User can select multiple key screens
 
 ## Step 5: Guide Reference Collection
 
-**This step should happen as early as possible** — ideally right after establishing design intent (Step 1). Reference collection grounds all subsequent decisions (domain exploration, color world, signature element) in real examples the user chose, not abstract brainstorming. If the user already has references to share, collect them before proceeding to domain exploration.
+**This step should happen as early as possible** – ideally right after establishing design intent (Step 1). Reference collection grounds all subsequent decisions (domain exploration, color world, signature element) in real examples the user chose, not abstract brainstorming. If the user already has references to share, collect them before proceeding to domain exploration.
 
 Walk the user through collecting references using the approach in [reference-gathering-guide.md](./references/reference-gathering-guide.md).
 
-If the user does not know which apps in their domain are worth studying, Read [curated-references.md](./references/curated-references.md) — it has 8 product-type categories (mobile event/social, mobile productivity, mobile fintech, mobile health, web SaaS dashboard, web fintech, web content/media, macOS native) with 3–5 distinctive-design reference apps per category and a specific quality to study for each. These are seed references, not requirements — the user can override.
+If the user does not know which apps in their domain are worth studying, Read [curated-references.md](./references/curated-references.md) – it has 8 product-type categories (mobile event/social, mobile productivity, mobile fintech, mobile health, web SaaS dashboard, web fintech, web content/media, macOS native) with 3–5 distinctive-design reference apps per category and a specific quality to study for each. These are seed references, not requirements – the user can override.
 
 For each key screen identified in Step 4 (or generally, if screens haven't been identified yet):
 
-1. Ask the user to share references they already like — screenshots, URLs, app names
+1. Ask the user to share references they already like – screenshots, URLs, app names
 2. For each reference shared, ask: "What specifically do you like about this? The colors? The spacing? The typography? The overall feel?" Extract design principles, not component blueprints.
 3. Suggest specific search terms for Mobbin (e.g., "healthcare onboarding", "medical records detail")
 4. Recommend looking at 3–5 apps in the same domain
 5. Help categorize references by: layout patterns, color approaches, typography styles, interaction models
 
-**Important**: Users may share references from completely different products — a banking app because they love the typography, a game because they love the color palette. Treat all references as aesthetic direction, not component blueprints. The deliverable should capture "from Reference X, take: [specific quality]" — not "replicate Reference X's layout."
+**Important**: Users may share references from completely different products – a banking app because they love the typography, a game because they love the color palette. Treat all references as aesthetic direction, not component blueprints. The deliverable should capture "from Reference X, take: [specific quality]" – not "replicate Reference X's layout."
 
 ---
 

@@ -4,6 +4,58 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.0] – 2026-04-26
+
+Audit-driven full remediation. After v4.7.0 shipped, the author commissioned a comprehensive 6-phase audit of the entire plugin (`audit/2026-04-26-comprehensive/`) that produced 108 findings (2 BLOCKER, 55 HIGH, 38 MEDIUM, 13 LOW). This release addresses every one of them in a single MINOR bump.
+
+### Fixed (BLOCKERs)
+
+- **Sound notifications were 100% broken since v4.1.0** (F-0010). The `meta-setup` install path wrote sound hook entries to `~/.claude/settings.json` with the `${CLAUDE_PLUGIN_ROOT}` variable, but per Anthropic plugin docs that variable only resolves inside the plugin's own `hooks/hooks.json`. So the hook commands never expanded and Stop / Notification fired nothing. Fix: register the sound hooks directly in plugin's `hooks/hooks.json` (Stop event for `de-complete.wav`, Notification event for `de-attention.wav`) where the variable resolves correctly. Preserve the install-time question in `/design-engineer:start` but flip it to control the existing `~/.claude/de-sound-muted` flag-file mechanism: "Yes" removes the flag (sounds play), "No" creates it (sounds suppressed). The `mute-unmute-sound` toggle keeps working unchanged. Migration cleanup: meta-setup detects legacy v4.1.0–v4.7.0 settings.json entries that referenced `de-play-sound.sh` and removes just those entries (preserves all other settings).
+- **Fresh-project deliverable detection always returned `no`** (F-0291). `init-project-structure.sh` creates `design/` at project root, but `detect-environment.sh:102,104,228` checked `documents/design/` (a legacy convention removed in v3.0.0). So every fresh-scaffolded project reported `Deliverables: no` regardless of state. Fix: align all 4 references on `design/` (3 in detect-environment.sh, 1 in `de-design-grounding-hook.js`'s prototype path). The grounding hook's path candidate also changed from `documents/design/prototype/prototype.html` to `prototype/prototype.html` to match what `init-project-structure.sh:64` actually creates (`prototype/` is at project root, sibling of `design/`, not nested under it). The folder-doc tree in `meta-setup/SKILL.md` was rewritten to match the real scaffolded structure (`design/` with `craft/` as the design-deliverables subfolder, not nested `design/design/`).
+
+### Changed (sweep)
+
+- **~335 em dashes replaced with en dashes across plugin source.** CLAUDE.md rule #1 forbids em dashes; the plugin self-violated this rule across 90% of files. Mechanical sed pass on `skills/`, `agents/`, `commands/`, `hooks/`, `README.md`, `CLAUDE.md` (`CHANGELOG.md`, `plans/archive/`, `audit/` deliberately skipped as historical record). Scoped per user direction.
+- **Skip-check preamble normalized across 7 ux-* skills** (`ux-storybrand`, `ux-business-plan`, `ux-problem-statement`, `ux-target-audience`, `ux-assumptions`, `ux-competitor-analysis`, `ux-story-panels`). The v4.7.0 sweep had drifted: most read only `existing_X`, some added `shipped_ui` softer signal, ux-problem-statement and ux-story-panels used both. Now every preamble reads BOTH keys in identical structure: `existing_<artifact>: true` OR `shipped_ui: true` AND user did not explicitly request rerunning → ask via AskUserQuestion (use-as-is / refine / re-run anyway).
+- **Figma MCP routing clarified** (F-0080). The `ui-figma-handoff` skill required tools from the third-party `figma-console` MCP that the plugin doesn't bundle. Author had it locally; everyone else got dead tools. Fix: keep both Figma MCPs documented (the bundled `figma` MCP at mcp.figma.com is the default; `figma-console` is opt-in for advanced workflows). `ui-figma-guide` Step 1 now labels options as "Figma Plugin (Recommended, bundled)" and "Both (advanced – requires figma-console install)" with the GitHub install link surfaced when picked. `ui-figma-handoff` adds an explicit Prerequisites section with the install pointer and a tool-availability check at Step 1. `dev-mcp-setup` and the README skill catalog cross-reference. PreToolUse matcher in `hooks/hooks.json:56` cleaned to `get_screenshot` only (drops the figma-console-only matchers that were dead for users without that MCP).
+- **Agent headings normalized to sentence case** (CLAUDE.md rule #2): 116 headings across 9 of 10 agents converted from Title Case to sentence case. Acronyms preserved (RED, GREEN, MCP, etc.) and one intentional caps heading kept (`The Iron Law` in test-writer.md).
+- **`commands/design-engineer/mute-unmute-sound.md` documentation updated** to reflect that sound hooks are bundled in `hooks/hooks.json` (no separate install required); removed stale "wired through ~/.claude/settings.json" wording.
+- **`commands/design-engineer/stop.md` and `mute-unmute-sound.md` got missing `argument-hint:`** frontmatter (empty string for consistency with other commands).
+- **Spacer-rule reminders added to 4 commands** that use AskUserQuestion (`design.md`, `dev.md`, `review.md`, `stop.md`). Top-of-file note pointing to CLAUDE.md rule #6 so the runtime model emits the canonical 3-horizontal-rule spacer before every AskUserQuestion call.
+- **`commands/design-engineer/dev.md` design-grounding pre-flight** now documents missing-file behavior explicitly: prototype absent → skip (feature-spec branch supports this), references.md absent → hook denies with clear message, plugin docs missing → install corrupt, CLAUDE.md missing → hard-block with scaffolding instruction. Plus a canonical `meta-document` invocation rule (end of every phase, never mid-phase).
+- **`commands/design-engineer/design.md` feature-spec branch** got an advisor checkpoint at F1.3.5 (after spec drafted, before user handoff) – mirrors the per-phase advisor pattern in the main pipeline.
+
+### Added
+
+- **`hooks/hooks.json` Notification event registration** for the attention sound. Previously only Stop was used (and only for `session_dep_summary.py`). Both sound hooks now share the same shim and respect the same `~/.claude/de-sound-muted` flag.
+- **Defensive read pattern documented in `agents/compound-documenter.md` body** (was only in CLAUDE.md). Author of compound-documenter no longer has to read CLAUDE.md to know the rule.
+- **Required vs Optional pre-reads sections in `agents/frontend-implementer.md`.** Calling skills now know what to brief vs. what's optional. Includes explicit fallback when prototype absent.
+- **Invocation contract preamble at top of `agents/advisor.md` body**: "you receive a brief, return one short enumerated plan or course correction, and stop. No prose. No tools. No user-facing output."
+- **Concrete file path in `agents/context-analyzer.md`**: status tracking file = `.claude/agent-memory/compound-documenter/pipeline-state.md` (was ambiguous "status tracking file").
+- **`compatibility:` frontmatter documented as a deliberate plugin extension** in CLAUDE.md (not Anthropic-canonical, but harmless – Anthropic ignores unknown keys). Both shape variants accepted.
+- **8 eval coverage stubs added to `evals/evals.json`** for the previously-uncovered skills: `advisor`, `dev-component-gallery`, `meta-setup-configure`, `meta-setup-existing`, `meta-setup-welcome`, `shared-references`, `ui-images`, `ui-landing-page`. Smallest-end-to-end stubs to flag regressions; full eval execution is a v4.9.0+ effort.
+- **`skills/dev-mcp-setup/references/essential-mcps.md`** created (the references/ directory was empty per audit). Documents the 3 bundled MCPs + 1 optional companion with purpose, when-to-use, and prerequisites.
+- **8 `references/section-N-case-studies.md` stubs** in psych skills missing them: `psych-cognitive-biases`, `psych-decision-fundamentals`, `psych-decision-persuasion`, `psych-delight-design`, `psych-emotional-retention`, `psych-habit-formation`, `psych-pricing-psychology`, `psych-time-perception`. Stubs reference the principle file and explain the format; author fills in real cases over time.
+
+### Doc fixes
+
+- README "51 skills" → "57 skills" (line 67 was internally inconsistent with three other places saying 57). CLAUDE.md "9 specialized agents" → "10", "54 hidden skills" → "57 skills (56 with SKILL.md + 1 reference-only)". Sub-folder reference `commands/de/` → `commands/design-engineer/` to match v4.0.0 prefix rename.
+- `agents/advisor.md` and `skills/dev-component-gallery/SKILL.md` frontmatter: added missing `disable-model-invocation: true`. CLAUDE.md mandates it on every skill/agent.
+- `skills/advisor/SKILL.md` frontmatter: added missing `disable-model-invocation: true` AND `effort: medium`.
+
+### Hooks + scripts polish
+
+- `skills/meta-setup/scripts/detect-state.sh`: added `set -euo pipefail` (consistent with the other two scripts in the folder).
+- `chmod +x` on every shell script and hook (was inconsistent: 6 hooks lacked the executable bit). Plugin scripts were always invoked with explicit interpreter (`bash`, `node`, `python3`) so the missing bit didn't break anything, but the consistent permission is hygiene.
+- PreToolUse matcher cleanup: `get_screenshot|figma_capture_screenshot|figma_take_screenshot` → `get_screenshot` only. The two figma-console matchers were dead for users without that MCP.
+
+### Notes
+
+- **No skill-content changes**, only seam fixes. Skip-check rewrites preserve every non-preamble word; em-dash sweep preserves every code block; the long-skill split (F-0127, F-0143, F-0148, F-0187) was deferred – all 6 long skills are under the 500-line CLAUDE.md cap, so splitting was optional, not required.
+- **Two findings explicitly deferred to v4.9.0+**: F-0082 (playwright MCP usage decision; needs UX research on whether MCP would beat current Bash invocation) and F-0283 (statusline symlink design; structural rework of how plugin's statusline is installed). Both documented in `audit/2026-04-26-comprehensive/LEDGER.md` "Recommended remediation order".
+- **Audit method** (for transparency, per the v4.2.0 source-citation requirement): 6-phase plan executed with sub-agent waves – Phase 0 baseline + canonical Anthropic docs fetch, Phase 1 matrices + reference graph + MCP catalog, Phase 2 ten parallel surface audits (skills/agents/commands/hooks/scripts), Phase 3 docs cross-check, Phase 4 fixture-traced behavioral, Phase 5 process & coverage, Phase 6 synthesis. Full audit including `99-ledger.json` source-of-truth findings + per-surface reports preserved at `audit/2026-04-26-comprehensive/`. The author had previously hand-tested for 18+ feedback rounds; the audit found seams the testing missed.
+- **No version skip**: PATCH was considered (v4.7.1 for BLOCKERs only) but rejected per user direction – single MINOR ship is cleaner.
+
 ## [4.7.0] – 2026-04-26
 
 Plugin author's own feedback: the plugin worked at maybe 30% of its potential on existing/commercial projects because it was structurally biased toward new-from-scratch pet projects. ~9-11 ux-* skills (StoryBrand, business plan, problem statement, target audience, assumptions, competitor analysis, user interviews, behavior mapping, story panels) assumed a blank slate. The Feature flow imposed Phase 3 (mvp-requirements + IA) as the default entry, which is overkill for "add one feature to a B2B app that already has docs." Two concrete commercial scenarios were unsupported: big page-by-page redesign with designer-feedback capture, and minimal feature spec for established products.

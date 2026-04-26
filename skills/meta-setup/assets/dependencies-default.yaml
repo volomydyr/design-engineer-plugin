@@ -1,13 +1,13 @@
 # Design-Engineer Dependency Graph (static reference)
 # ─────────────────────────────────
 # Maps deliverables produced by the plugin and their relationships.
-# This file is READ-ONLY documentation — the plugin does not mutate it at runtime.
+# This file is READ-ONLY documentation – the plugin does not mutate it at runtime.
 # When you update a deliverable, review its `informs:` entries and decide
 # whether those downstream deliverables need refreshing.
 #
 # Live progress (current phase, recent deliverables, key decisions, stale dependents)
 # is tracked separately in the compound-documenter agent's memory at
-# .claude/agent-memory/compound-documenter/ — auto-updated by /de:document.
+# .claude/agent-memory/compound-documenter/ – auto-updated by /de:document.
 #
 # Each deliverable entry carries:
 #   - depends_on: deliverables that must exist or inform this one

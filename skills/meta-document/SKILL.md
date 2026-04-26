@@ -17,7 +17,7 @@ After any significant work is completed (a design deliverable, a development pha
 
 This is not for pet projects that you start and abandon. This is for actual complex projects planned to run for years, potentially becoming million-dollar products with multiple teams working on them.
 
-**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/compound-documenter/` — Anthropic's documented persistence primitive for subagents.
+**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/compound-documenter/` – Anthropic's documented persistence primitive for subagents.
 
 ---
 
@@ -184,15 +184,15 @@ tags: [tags]
 
 Live pipeline state is tracked by the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The agent maintains three structured files:
 
-- **pipeline-state.md** — current phase, last completed skill, next skill, recent deliverables
-- **key-decisions.md** — append-only log of cross-cutting decisions affecting 2+ deliverables
-- **stale-dependents.md** — downstream deliverables that may need refreshing
+- **pipeline-state.md** – current phase, last completed skill, next skill, recent deliverables
+- **key-decisions.md** – append-only log of cross-cutting decisions affecting 2+ deliverables
+- **stale-dependents.md** – downstream deliverables that may need refreshing
 
 **Action**: Use the Agent tool to spawn `compound-documenter` with the context from this session (activity completed, deliverable file path, any cross-cutting decisions). The agent will read its existing memory, gather context, and overwrite/append the appropriate files.
 
-You do not write to `.claude/agent-memory/...` directly from this skill — the agent owns its memory directory. Just invoke it with the context.
+You do not write to `.claude/agent-memory/...` directly from this skill – the agent owns its memory directory. Just invoke it with the context.
 
-**Why agent memory and not a status.md file at the project root?** The agent-memory directory is Anthropic's documented persistence primitive (`memory: project` frontmatter on the agent). It is project-local, version-controllable, and survives across sessions reliably. Writing to a project-root `status.md` from this skill was the old approach — it was advisory and depended on the model remembering to do it. The agent-memory mechanism is the correct platform path.
+**Why agent memory and not a status.md file at the project root?** The agent-memory directory is Anthropic's documented persistence primitive (`memory: project` frontmatter on the agent). It is project-local, version-controllable, and survives across sessions reliably. Writing to a project-root `status.md` from this skill was the old approach – it was advisory and depended on the model remembering to do it. The agent-memory mechanism is the correct platform path.
 </step>
 
 <step number="6" required="false" depends_on="5">

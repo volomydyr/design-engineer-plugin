@@ -1,4 +1,4 @@
-> **v4.7.0** — see the [changelog](CHANGELOG.md) for what's new.
+> **v4.8.0** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -64,7 +64,7 @@ This is the only command you need to remember. It figures out your situation –
 
 Claude Code is a general-purpose AI coding tool. It can write code, answer questions, and run commands.
 
-This plugin adds **a product design methodology on top of it** – 51 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
+This plugin adds **a product design methodology on top of it** – 57 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
 
 - **Safety hooks** that prevent common AI mistakes (scope creep, skipping tests, ignoring your requirements)
 - **Specialized agents** that handle specific parts of the workflow
@@ -91,9 +91,9 @@ Both, and the existing-project path is first-class. `/design-engineer:start` det
 - **New product** – walks you through the full pipeline from problem definition to code.
 - **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do.
 - **Existing project** – auto-detects your design system, brand docs, written specs, shipped UI, and component count from the codebase, then asks you about off-repo references (Figma file, Notion docs, Linear tracker, external design-system page like Storybook / Zeroheight). All of that gets stored as project context. From there:
-  - The 9 ux-* skills that assume a blank slate (StoryBrand, problem statement, target audience, business plan, competitor analysis, assumptions, story panels, user interviews, behavior mapping) respect what already exists — they ask "use as-is, refine, or re-run from scratch" instead of regenerating.
+  - The 9 ux-* skills that assume a blank slate (StoryBrand, problem statement, target audience, business plan, competitor analysis, assumptions, story panels, user interviews, behavior mapping) respect what already exists – they ask "use as-is, refine, or re-run from scratch" instead of regenerating.
   - `/design-engineer:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
-  - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product — no StoryBrand, no business-plan rewrite, just respects the existing brand voice.
+  - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice.
   - You can still run any skill individually (psychology review, accessibility audit, design system setup, etc.) without the full pipeline.
 </details>
 
@@ -151,7 +151,7 @@ You don't need to call skills directly. Commands handle the orchestration. But i
 - **frontend-implementer** – builds frontend with pixel-perfect design matching, keeps the component gallery in sync
 - **test-writer** – writes failing tests before any implementation starts
 - **compound-documenter** – records decisions and maintains context across sessions
-- **advisor** – an Opus 4.7 reviewer model that other skills consult at strategic checkpoints (before substantive work, before declaring done, when stuck) — implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively
+- **advisor** – an Opus 4.7 reviewer model that other skills consult at strategic checkpoints (before substantive work, before declaring done, when stuck) – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively
 
 Agents activate automatically when needed. You don't call them directly.
 </details>
@@ -246,7 +246,7 @@ Yes, through Anthropic's documented agent-memory mechanism. The `compound-docume
 - **`key-decisions.md`** – append-only log of cross-cutting choices (like "B2B focus" or "mobile-first") that affect multiple deliverables downstream
 - **`stale-dependents.md`** – downstream deliverables that may need refreshing because an upstream changed
 
-When you start a new session, run `/design-engineer:document` to invoke the compound-documenter agent — it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
+When you start a new session, run `/design-engineer:document` to invoke the compound-documenter agent – it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
 
 The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (hard-won fixes) at `.design-engineer-plugin/memory/` in your project for cross-session continuity beyond the design pipeline. These are project-local files (no auto-memory paths involved).
 </details>
@@ -255,11 +255,11 @@ The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (h
 <summary>14. What's the component gallery and when does it appear?</summary>
 <br>
 
-A single-page visual catalog of every component in your project — every variant rendered with real production styles, source-path labels per entry. Two purposes: catch duplicates that AI tends to silently introduce (5 different Button components doing similar things), and give you one viewport where you can see the full design system at a glance.
+A single-page visual catalog of every component in your project – every variant rendered with real production styles, source-path labels per entry. Two purposes: catch duplicates that AI tends to silently introduce (5 different Button components doing similar things), and give you one viewport where you can see the full design system at a glance.
 
-It's stack-agnostic. The plugin queries [Context7](https://context7.com) for your specific framework's idiomatic single-page showcase pattern (SwiftUI `#Preview` canvas, Jetpack Compose `@Preview`, Next.js route, vanilla HTML, etc.) and scaffolds accordingly. It imports your real components from their production paths — never copies, never reimplements, never inlines styles. If a state can't be reached via the component's API, that's flagged as a component bug, not patched in the gallery.
+It's stack-agnostic. The plugin queries [Context7](https://context7.com) for your specific framework's idiomatic single-page showcase pattern (SwiftUI `#Preview` canvas, Jetpack Compose `@Preview`, Next.js route, vanilla HTML, etc.) and scaffolds accordingly. It imports your real components from their production paths – never copies, never reimplements, never inlines styles. If a state can't be reached via the component's API, that's flagged as a component bug, not patched in the gallery.
 
-The gallery is **transparent infrastructure**: no menu, no permission ask, no "do you want a gallery?" prompt. The first time `frontend-implementer` touches a component (or `design-system-auditor` runs on a project with components), it auto-scaffolds and surfaces a one-line mention so you discover it organically. After that, gallery updates are silent — same as a build artifact.
+The gallery is **transparent infrastructure**: no menu, no permission ask, no "do you want a gallery?" prompt. The first time `frontend-implementer` touches a component (or `design-system-auditor` runs on a project with components), it auto-scaffolds and surfaces a one-line mention so you discover it organically. After that, gallery updates are silent – same as a build artifact.
 
 `design-system-auditor` audits the gallery alongside its other passes at FAIL severity: every component file has an entry, no inline styles, imports resolve, visually-identical entries flagged as duplicates.
 </details>
@@ -268,19 +268,19 @@ The gallery is **transparent infrastructure**: no menu, no permission ask, no "d
 <summary>15. What's the advisor and how does it work?</summary>
 <br>
 
-A dedicated Opus 4.7 sub-agent that other skills consult at strategic checkpoints — implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. The strategy: a faster executor model consults a higher-intelligence advisor model at high-leverage moments instead of running everything at maximum capability.
+A dedicated Opus 4.7 sub-agent that other skills consult at strategic checkpoints – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. The strategy: a faster executor model consults a higher-intelligence advisor model at high-leverage moments instead of running everything at maximum capability.
 
 The advisor fires automatically at the moments the docs identify as most valuable:
 
-- Before substantive work — before committing to an interpretation, before writing, before declaring an answer
-- Before declaring a phase complete — after deliverables are durable (files written, tests run)
-- When the executor is stuck — errors recurring, approach not converging
+- Before substantive work – before committing to an interpretation, before writing, before declaring an answer
+- Before declaring a phase complete – after deliverables are durable (files written, tests run)
+- When the executor is stuck – errors recurring, approach not converging
 - When considering a change of approach
 - Before plan-driven commits if implementation diverged from the approved plan
 
 The advisor returns short numbered course corrections (under 100 words, enumerated steps), and the calling skill applies the advice or uses the docs' "reconcile" pattern when the advice conflicts with empirical evidence ("I found X, you suggest Y, which constraint breaks the tie?").
 
-You don't invoke the advisor directly — it's wired into Plan Mode workflow, all five `/design-engineer:*` commands, the dev-github-workflow Mode 1 commit flow, and the meta-orchestrator's major phase transitions.
+You don't invoke the advisor directly – it's wired into Plan Mode workflow, all five `/design-engineer:*` commands, the dev-github-workflow Mode 1 commit flow, and the meta-orchestrator's major phase transitions.
 </details>
 
 <details>
@@ -289,8 +289,8 @@ You don't invoke the advisor directly — it's wired into Plan Mode workflow, al
 
 Two layers, separated by concern:
 
-- **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml`. This file is read-only documentation that maps every deliverable to its upstream and downstream relationships. When you revise your problem statement, you can read the graph to see that your target audience, assumptions, and competitor analysis all depend on it — and decide which to refresh.
-- **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent — it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
+- **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml`. This file is read-only documentation that maps every deliverable to its upstream and downstream relationships. When you revise your problem statement, you can read the graph to see that your target audience, assumptions, and competitor analysis all depend on it – and decide which to refresh.
+- **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent – it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
 
 So when you change an upstream document, the workflow is: edit the document → run `/design-engineer:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
 
@@ -370,7 +370,7 @@ All skills run automatically through commands. If you want, you can also call an
 | `ui-references-moodboard` | Design references and inspiration gathering |
 | `ui-aesthetic-review` | 4-lens craft critique with named design tests |
 | `ui-figma-guide` | Figma workflow for AI-assisted development |
-| `ui-figma-handoff` | Figma design structuring and dev handoff |
+| `ui-figma-handoff` | Figma design structuring and dev handoff (advanced – uses figma-console MCP, optional install) |
 | `ui-design-system` | Design system architecture and compliance |
 | `ui-design-to-code-qa` | Checks if the code matches the design |
 | `ui-accessibility` | Accessibility audit (WCAG) |

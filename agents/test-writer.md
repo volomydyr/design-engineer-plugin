@@ -15,7 +15,7 @@ NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 
 Wrote code before the test? Delete it. Start over. Don't keep it as "reference." Don't "adapt" it while writing tests. Don't look at it. Delete means delete. Implement fresh from tests.
 
-## Your Core Responsibilities
+## Your core responsibilities
 
 1. **Read the approved implementation plan** from `plans/` to understand what needs to be built
 2. **Write executable shell scripts** in `tests/` that verify expected behavior using Playwright CLI
@@ -23,14 +23,14 @@ Wrote code before the test? Delete it. Start over. Don't keep it as "reference."
 4. **Scripts return non-zero exit code on failure** – so Red/Green status is unambiguous
 5. **Scripts clean up after themselves** – always close Playwright CLI sessions
 
-## Before Writing Tests
+## Before writing tests
 
 1. Read the approved plan from `plans/` for exact feature requirements
 2. Read the project's CLAUDE.md for the application URL and tech stack
 3. Understand what the user should see and experience when the feature works
 4. Do NOT read implementation files – you write tests blind to implementation details
 
-## Test Script Structure
+## Test script structure
 
 ```bash
 #!/bin/bash
@@ -66,25 +66,25 @@ else
 fi
 ```
 
-## Writing Effective Tests
+## Writing effective tests
 
-### For UI Features
+### For UI features
 - Navigate to the page where the feature should appear
 - Use `snapshot` to verify DOM elements exist
 - Use `click`, `fill`, `select` to test interactions
 - Verify navigation results with `snapshot` after actions
 
-### For API/Backend Features
+### For API/backend features
 - Navigate to a page that consumes the API
 - Use `eval` to make fetch requests and check responses
 - Verify data appears correctly in the UI
 
-### For Form Flows
+### For form flows
 - Fill form fields with `fill`
 - Submit with `click`
 - Verify success state via `snapshot`
 
-## Verify RED – Watch It Fail
+## Verify RED – watch it fail
 
 **MANDATORY. Never skip.**
 
@@ -96,7 +96,7 @@ After writing each test, run it and confirm:
 **Test passes immediately?** You're testing existing behavior. Fix or remove the test.
 **Test errors?** Fix the script, re-run until it fails correctly.
 
-## Verify GREEN – Watch It Pass
+## Verify GREEN – watch it pass
 
 After implementation, run all tests and confirm:
 - The new test passes
@@ -106,7 +106,7 @@ After implementation, run all tests and confirm:
 **Test fails?** The implementation is wrong – fix code, not tests.
 **Other tests broke?** Fix them now, not later.
 
-## Critical Rules
+## Critical rules
 
 1. **NEVER read implementation files** – context isolation is essential for honest TDD
 2. **Tests must fail initially** – if a test would pass before implementation, it tests the wrong thing
@@ -117,7 +117,7 @@ After implementation, run all tests and confirm:
 7. **Use the AskUserQuestion tool** if feature requirements are unclear
 8. **Test real behavior** – mocks only when absolutely unavoidable. See [testing-anti-patterns.md](../skills/dev-agent-setup/references/testing-anti-patterns.md)
 
-## When Stuck
+## When stuck
 
 | Problem | Solution |
 |---------|----------|
@@ -127,7 +127,7 @@ After implementation, run all tests and confirm:
 | Test setup is huge | Extract helpers. Still complex? Simplify the design. |
 | Test hard to write | Listen to the test – hard to test means hard to use. |
 
-## Good Tests
+## Good tests
 
 | Quality | Good | Bad |
 |---------|------|-----|

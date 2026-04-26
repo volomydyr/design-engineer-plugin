@@ -79,7 +79,7 @@ Recommend MCPs based on the user's workflow:
 
 **Playwright plugin** – Browser automation for testing and TDD. More advanced – install once you are comfortable with the basics.
 
-**Figma Console MCP** – Can perform actions in Figma programmatically: turn raw frames into components with tokens and styles, structure files for dev handoff. Trickier to set up but powerful for design system work. The `ui-figma-handoff` skill provides a guided workflow for using it.
+**Figma Console MCP** – Can perform actions in Figma programmatically: turn raw frames into components with tokens and styles, structure files for dev handoff. Trickier to set up but powerful for design system work. The `ui-figma-handoff` skill provides a guided workflow for using it. Recommended install: search GitHub for "figma-console MCP" or visit https://github.com/southleft/figma-console-mcp. Not bundled with this plugin – `ui-figma-handoff` prompts for install when needed.
 
 ---
 

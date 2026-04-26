@@ -30,7 +30,7 @@ CONTEXT="$CONTEXT\n- Project type: ${PROJECT_TYPE:-unknown}"
 if [ "$HAS_AGENT_MEMORY" = "yes" ]; then
   CONTEXT="$CONTEXT\n- Recover detailed state from: $AGENT_MEMORY"
 else
-  CONTEXT="$CONTEXT\n- No agent-memory pipeline-state.md yet — invoke /design-engineer:document after the next phase to seed it."
+  CONTEXT="$CONTEXT\n- No agent-memory pipeline-state.md yet – invoke /design-engineer:document after the next phase to seed it."
 fi
 
 CONTEXT="$CONTEXT\n\nRead .design-engineer-plugin/config.yaml for setup state, and the compound-documenter agent memory above for live pipeline progress."

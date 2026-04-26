@@ -32,15 +32,19 @@ Before starting any design work, establish how designs will be shared with AI to
 question: "How do you want to share Figma designs with your AI coding tool?"
 header: "Figma integration"
 options:
-  - label: ""Figma Plugin" (recommended)"
-    description: "Reads designs, captures web pages into Figma, generates design system rules. Covers most workflows."
-  - label: "Both "Figma Plugin" + "Figma Console MCP""
-    description: ""Figma Plugin" for reading/capturing, "Figma Console MCP" for variables, linting, batch operations, slides, FigJam. Best for design system automation."
+  - label: ""Figma Plugin" (Recommended, bundled)"
+    description: "Reads designs, captures web pages into Figma, generates design system rules. Covers most workflows. Bundled with this plugin – no separate install."
+  - label: "Both "Figma Plugin" + "Figma Console MCP" (advanced)"
+    description: ""Figma Plugin" for reading/capturing plus the third-party "Figma Console MCP" for variables, linting, batch operations, slides, FigJam. The Console MCP is NOT bundled – you'll need to install it separately. Best for design system automation."
   - label: "Manual screenshots"
     description: "Take screenshots of frames and share with AI. Simple but less accurate."
   - label: "Playwright or browser extension"
     description: "Use browser automation to capture live designs."
 ```
+
+If the user picks the "Both" option, surface the install pointer:
+
+> The Figma Console MCP is a separate community project, not bundled with this plugin. Install it from its repository (search GitHub for "figma-console MCP" or visit https://github.com/southleft/figma-console-mcp). Once installed alongside this plugin, the bundled Figma Plugin and the Console MCP run side-by-side. Confirm install before proceeding so this skill can route tool calls correctly.
 
 For detailed guidance on which MCP to use for what, see [figma-mcp-routing.md](./references/figma-mcp-routing.md).
 

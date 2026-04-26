@@ -6,7 +6,7 @@ argument-hint: ""
 
 # Design Engineer Plugin – Help
 
-Present this information to the user. Do not modify the text — show it as written.
+Present this information to the user. Do not modify the text – show it as written.
 
 ---
 

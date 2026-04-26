@@ -6,6 +6,8 @@ argument-hint: "[phase N | skill-name | feature-spec]"
 
 # Design Workflow
 
+> **Spacer rule (per CLAUDE.md rule #6)**: Before every `AskUserQuestion` tool call this command makes, end the preceding chat message with the canonical 3-horizontal-rule spacer (three lines of `─` characters). This applies to every option set described in this command body. The spacer prevents the question panel from overlaying substantive content on most clients.
+
 ## Context
 
 <context> #$ARGUMENTS </context>
@@ -105,7 +107,7 @@ Skills in sequence:
 
 ## Per-phase advisor checkpoint
 
-After completing each phase above (Discovery / Strategy / Planning / Design & validation), before transitioning to the next phase or hand-off, invoke the `advisor` skill (`skills/advisor/`) with: phase name, deliverables produced, key decisions made, anything that surprised you. Apply the advice or use the reconcile pattern. This implements the docs' "before declaring done" call after deliverables are durable — it's the higher-leverage moment in this command, since each phase produces multiple decisions that downstream phases build on.
+After completing each phase above (Discovery / Strategy / Planning / Design & validation), before transitioning to the next phase or hand-off, invoke the `advisor` skill (`skills/advisor/`) with: phase name, deliverables produced, key decisions made, anything that surprised you. Apply the advice or use the reconcile pattern. This implements the docs' "before declaring done" call after deliverables are durable – it's the higher-leverage moment in this command, since each phase produces multiple decisions that downstream phases build on.
 
 Skip the consult on phases where the user explicitly chose to skip optional skills and the produced deliverable is a single trivial document.
 
@@ -138,11 +140,11 @@ This branch is for adding a feature to an established product that already has a
 Read `.design-engineer-plugin/config.yaml` `project.context`:
 
 - `shipped_ui: true` is required. If false / missing, tell the user feature-spec is for established products only; offer to fall back to the standard Feature flow.
-- `existing_design_system: <truthy>` OR `existing_brand_docs: <truthy>` is required. If neither is set, ask the user once: "I don't see a design system or brand docs detected. Can you point me at one (Figma, Notion, Storybook, etc.) or do you want the standard Feature flow instead?" — capture the answer, persist to `off_repo_references`, and proceed only if they pointed somewhere.
+- `existing_design_system: <truthy>` OR `existing_brand_docs: <truthy>` is required. If neither is set, ask the user once: "I don't see a design system or brand docs detected. Can you point me at one (Figma, Notion, Storybook, etc.) or do you want the standard Feature flow instead?" – capture the answer, persist to `off_repo_references`, and proceed only if they pointed somewhere.
 
 ### F1.2: Capture the feature
 
-Ask via natural-language prompt or AskUserQuestion: "Describe the feature — what it does, who uses it, why now." Keep it open-ended; the user is the domain expert.
+Ask via natural-language prompt or AskUserQuestion: "Describe the feature – what it does, who uses it, why now." Keep it open-ended; the user is the domain expert.
 
 ### F1.3: Draft the spec
 
@@ -152,29 +154,33 @@ Read whatever brand voice / design-system context is available:
 2. Else if `existing_brand_docs` points at a local file, read that.
 3. Else if `off_repo_references` names an external source, mention you can't read it but ask the user for 1–2 sentences capturing the brand voice in their own words.
 
-Generate the spec at `design/features/[feature-slug]/feature-spec.md` (the `design/features/[slug]/` convention is established in design.md's Feature flow section). The spec is short — under one page:
+Generate the spec at `design/features/[feature-slug]/feature-spec.md` (the `design/features/[slug]/` convention is established in design.md's Feature flow section). The spec is short – under one page:
 
 ```markdown
-# [Feature name] — Spec
+# [Feature name] – Spec
 
 ## Problem (in project's voice)
 [1 paragraph using the existing brand voice]
 
 ## Affected pages
-- [Page 1] — [what changes]
-- [Page 2] — [what changes]
+- [Page 1] – [what changes]
+- [Page 2] – [what changes]
 
 ## Key interactions
-[bullet list — what users can do, what the system does in response]
+[bullet list – what users can do, what the system does in response]
 
 ## Success criteria
-[bullet list — observable outcomes that mean this feature works]
+[bullet list – observable outcomes that mean this feature works]
 
 ## Out of scope
 [what this spec deliberately does NOT cover]
 ```
 
-**No phases. No StoryBrand framing (it's already in the existing brand). No business plan rewrite. No full IA regeneration.** If you find yourself wanting to add any of those, stop — that's the standard Feature flow, not feature-spec.
+**No phases. No StoryBrand framing (it's already in the existing brand). No business plan rewrite. No full IA regeneration.** If you find yourself wanting to add any of those, stop – that's the standard Feature flow, not feature-spec.
+
+### F1.3.5: Advisor checkpoint (pre-handoff)
+
+After the spec is drafted at `design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, invoke the `advisor` skill (`skills/advisor/`) with: the drafted spec, brand voice context (from `design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This mirrors the per-phase advisor checkpoint in the main pipeline – the feature-spec is substantive enough that a pre-handoff strategic check pays off.
 
 ### F1.4: Hand off
 
