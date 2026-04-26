@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.7] – 2026-04-26
+
+Beta tester reported: asked for a responsive website, plugin generated a desktop browser page with a mobile-phone-shaped mockup floating in the center surrounded by cream space. Root cause: `dev-prototyping/SKILL.md` never asked the user what target platform to design for, so when planning docs lacked an explicit signal Claude defaulted to mobile-shaped layouts wrapped in a desktop chrome.
+
+### Fixed
+
+- **Responsive-web prototypes no longer render as mobile-mockup-in-desktop-frame.** A new mandatory question (Step 1.5: Target platform) locks in Mobile app / Responsive web / Desktop web / Both at the start of the prototype flow, before any HTML is generated.
+
+### Added
+
+- **Step 1.5: Target platform** in `skills/dev-prototyping/SKILL.md` — AskUserQuestion with four options. The choice is binding and feeds into the Step 4 brief.
+- **Target platform field** in the Step 4 prototype brief — surfaces the platform choice as the first row of the brief (above Design intent), so the user reviews and confirms it before any storyboard work.
+- **Step 5 target-platform layout rule (HARD)** — for Responsive/Desktop web targets, layouts MUST fill the viewport. NEVER wrap content in a centered phone-shaped container, NEVER apply `max-width: 414px` / `375px` page-body constraints, NEVER add a fake-iphone CSS chrome around the UI. For Mobile app targets, design at mobile viewport without desktop wrapping. For Both, generate two separate sets of screens, never mixed in one layout.
+- **Anti-pattern: "Mobile mockup floating in desktop frame"** added to `skills/ui-aesthetic-review/references/anti-patterns.md` under the Mobile App Anti-Patterns (2026) section. The Step 5 self-review now flags this case explicitly when target is Responsive or Desktop web.
+
 ## [2.6.6] – 2026-04-26
 
 Beta tester reported a confusing red error during /de:start on a brand-new Windows project: `File does not exist: C:\Users\Admin\.claude\projects\D--Coding-projects-mexico-2/memory/MEMORY.md`. The path was not mangled — that's the standard Claude Code auto-memory slug. The actual problem: Claude Code creates the auto-memory dir lazily when it first writes there, but the plugin was instructing Claude to Read `MEMORY.md` via the Read tool — redundant (per Anthropic docs, MEMORY.md auto-loads first 200 lines every session) and broken for fresh projects.

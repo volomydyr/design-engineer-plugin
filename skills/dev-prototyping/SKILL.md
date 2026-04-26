@@ -23,7 +23,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) gather context from your planning docs, 3) list every screen from your IA document for your approval, 4) create a prototype brief, 5) generate a visual storyboard for review, 6) build the interactive prototype from the approved storyboard, 7) iterate with you, 8) save the deliverable."
+1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) create a prototype brief, 6) generate a visual storyboard for review, 7) build the interactive prototype from the approved storyboard, 8) iterate with you, 9) save the deliverable."
 
 2. **Conditional teaching**: Ask the user if they are familiar with single-file HTML prototyping. If yes, give a one-sentence refresher. If no, explain: a self-contained HTML file with all CSS and JS inline that lets you click through real screens and interactions – no build tools, no dependencies, just open in a browser.
 
@@ -117,6 +117,32 @@ multiSelect: false  # User must choose one scope
 
 If "Product + landing page" or "Landing page only" is selected, note that the landing page will be handled by the `ui-landing-page` skill after the product prototype is complete (or immediately if landing page only).
 
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 1.5.
+
+---
+
+## Step 1.5: Target platform
+
+```
+question: "What is the target platform for this prototype?"
+header: "Target platform"
+options:
+  - label: "Mobile app"
+    description: "Single phone-width layout (375–414px primary viewport). Native iOS/Android-style UI."
+  - label: "Responsive web"
+    description: "Full-width layout that adapts from desktop down to mobile. Fills the viewport at every size."
+  - label: "Desktop web"
+    description: "Fixed-width layout for desktop browsers (≥1024px primary viewport). No mobile adaptation required."
+  - label: "Both mobile and web"
+    description: "Generate two separate sets of screens – a mobile-app version AND a responsive-web version. They are not mixed in one layout."
+```
+
+```
+multiSelect: false
+```
+
+This answer carries forward into the Step 4 prototype brief and governs how Step 5 generates layouts. The answer is binding – the storyboard MUST reflect the chosen platform without exception. See the Step 5 hard rule for what each choice means in practice.
+
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
@@ -204,6 +230,7 @@ If adjustments are needed, iterate until approved.
 
 Synthesize all gathered context into a prototype brief:
 
+- **Target platform**: The choice from Step 1.5 (Mobile app / Responsive web / Desktop web / Both). Repeat this verbatim – do not paraphrase or downgrade it.
 - **Design intent**: How the product should look and feel (warm, clinical, playful, dense, etc.)
 - **Key screens**: The approved list from Step 3
 - **Priority features**: What interactions must work (vs. what can be placeholder)
@@ -214,6 +241,7 @@ Present the brief to the user:
 
 > **Prototype brief**
 >
+> **Target platform:** [verbatim from Step 1.5]
 > **Design intent:** [summary]
 > **Screens:** [numbered list from Step 3]
 > **Priority features:** [list with must-have vs. nice-to-have]
@@ -252,9 +280,14 @@ Generate static screens showing key states and flows. This is NOT the final prot
 1. Generate one screen at a time as a self-contained HTML file
 2. Apply design tokens from the context gathered in Step 2 – not generic Bootstrap-like styling
 3. Use CSS custom properties for all design tokens (colors, spacing, typography, radii, shadows) in `:root {}`
-4. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the listed anti-patterns? If yes, fix before presenting.
-5. Present each screen to the user, one at a time
-6. Discuss, get feedback, iterate on that screen before moving to the next
+4. **Target-platform layout rule (HARD)**: read the Target platform field from the Step 4 brief and apply it without exception:
+   - **Mobile app**: design at mobile viewport (375–414px). The HTML body itself fills the viewport at mobile widths. Do NOT wrap the UI in a desktop-shaped container.
+   - **Responsive web**: layouts MUST fill the viewport at every breakpoint. NEVER wrap content in a centered phone-shaped container, NEVER apply `max-width: 414px` / `375px` / similar mobile-frame constraints to the page body, NEVER add a "fake-iphone" CSS chrome around the UI. Use grid/flex layouts that breathe across desktop, tablet, mobile.
+   - **Desktop web**: full-bleed desktop layout (≥1024px primary viewport). No mobile adaptation required. Same prohibition as Responsive web on mobile-frame wrappers.
+   - **Both mobile and web**: generate TWO separate sets of screens – one mobile-viewport set AND one full-width responsive set. NEVER mix them in one layout (no "mobile-mockup-floating-in-desktop-canvas" pattern). Save them to separate filenames if needed.
+5. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the listed anti-patterns? Pay special attention to "Mobile mockup floating in desktop frame" if the target is Responsive or Desktop web. If yes, fix before presenting.
+6. Present each screen to the user, one at a time
+7. Discuss, get feedback, iterate on that screen before moving to the next
 
 ### Quality standard
 

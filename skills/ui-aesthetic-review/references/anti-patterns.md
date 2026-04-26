@@ -60,6 +60,8 @@ These are the new defaults of AI-generated mobile apps. Every one of them appear
 
 **Generic CTA copy** – "Get started", "Join this event", "Learn more", "Continue", "Submit". Every AI-generated mobile app has a button labeled "Join this event." The product disappears in copy this generic. Write the verb the user is actually doing in the voice of the product. A surf app's CTA is "Paddle out" or "I'm in" — not "Join this event."
 
+**Mobile mockup floating in desktop frame** – When the target platform is responsive web or desktop web, do NOT wrap the UI in a centered phone-shaped container with empty space (cream, gray, or otherwise) around it. This is the "I built it mobile-first and ran out of time to design the desktop version" tell. Layouts MUST fill the viewport at every size. The browser viewport is the canvas, not a desktop chrome with a phone glued to the middle. If the target IS a mobile app, design at mobile viewport (375–414px) without a desktop wrapper. If the user wants to show a mobile version inside a marketing page, that's a deliberate marketing choice and must be stated explicitly — never the default.
+
 ---
 
 ## Hard Bans
