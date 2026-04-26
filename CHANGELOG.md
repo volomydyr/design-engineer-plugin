@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.1.2] – 2026-04-26
+
+User caught the model still skipping the process-step listing despite the v3.0.0 fix. The previous nudge said "list ALL steps" but the model was treating that as flexible — writing summaries like "7-step workflow, currently between step 1 and step 3" instead of the full enumerated list. Tightened the wording.
+
+### Changed
+
+- **`hooks/de-process-recall-hook.sh` nudge text rewritten** to harden the rule. New wording explicitly forbids the common shortcuts: no summarizing, no "between step X and Y" shorthand, no "<N>-step workflow" without listing them, no skipping the list because the process feels familiar from earlier in the session. Includes a concrete format example so the expected shape is unambiguous. Format requires every numbered step verbatim with a `← current` marker on the active one, on every response while a process is active.
+
 ## [4.1.1] – 2026-04-26
 
 Replacement of the v4.1.0 sound files. The user auditioned all 52 Kenney UI Audio sounds during testing and found them too high-pitched and clicky for this use case. We collaborated on synth alternatives — short, futuristic, low-frequency, with a bit of mid for clarity — and converged on these.

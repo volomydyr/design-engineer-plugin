@@ -1,4 +1,4 @@
-> **v4.1.1 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v4.1.2 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
