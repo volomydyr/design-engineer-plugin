@@ -4,6 +4,27 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.5.0] – 2026-04-26
+
+Beta tester asked the plugin to embody Anthropic's [advisor strategy](https://claude.com/blog/the-advisor-strategy) — pair a faster executor with a higher-intelligence advisor that provides strategic guidance at high-leverage moments. The literal [`advisor_20260301` server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) is an Anthropic API beta and Claude Code plugins can't toggle the request-level beta header — so the plugin ships the **strategy** instead: a dedicated Opus 4.7 advisor sub-agent that other skills consult at known checkpoints, with the docs' suggested system prompt baked in near-verbatim. User refinement: "make sure it really works, not just lays in the plugin wait for the user to manually invoke it" — Phase 2 of the plan wired active checkpoints throughout the existing pipeline.
+
+### Added
+
+- **`agents/advisor.md` — Opus 4.7 / xhigh advisor sub-agent.** No tools, no user-facing output. System prompt is the docs' three coding-task blocks (timing, treatment, conciseness) lightly adapted for sub-agent shape. Returns short numbered plans or course corrections in under 100 words — the docs report this conciseness instruction cut total advisor output 35–45% in internal testing without changing call frequency.
+- **`skills/advisor/SKILL.md` — invocation primitive.** Documents when to call (verbatim from docs: BEFORE substantive work / when stuck / when changing approach / when task complete with deliverables durable), when NOT to call (verbatim: short reactive tasks, single-turn Q&A), how to invoke via `Agent` tool, how to treat the advice (verbatim treatment block), and the reconcile pattern for evidence conflicts ("I found X, you suggest Y, which constraint breaks the tie?"). Both source URLs cited at the bottom.
+- **CLAUDE.md Plan Mode workflow now includes two advisor checkpoints**: pre-`ExitPlanMode` for non-trivial plans (early-task consult), and pre-phase-done after deliverables are durable (per-phase consult).
+- **Active integration in all five `/design-engineer:` command files**: `start.md` documents the contract for the loaded onboarding skill to consult after env detection; `dev.md` adds a pre-done consult inside Step 8 sub-steps; `design.md` adds a per-phase advisor checkpoint section; `review.md` adds Step 4.5 pre-presentation consult; `document.md` adds Step 3.5 pre-finalize consult.
+- **`skills/dev-github-workflow/SKILL.md` Mode 1 adds a divergence advisor checkpoint** before drafting the commit message, when implementation diverged from the approved plan.
+- **`skills/meta-orchestrator/SKILL.md` adds an "Advisor checkpoints" section** naming the orchestrator-level moments (user-approval gate between Phase 4 and Phase 5, major phase transitions, non-standard path picks).
+- **README banner v4.5.0** with a one-paragraph "Advisor pattern" feature entry and an advanced-API note for users calling Anthropic API directly.
+
+### Notes
+
+- **Fidelity gap**: the API advisor tool sees the full transcript automatically; Claude Code sub-agents are isolated. The skill explicitly tells callers to brief the advisor with task summary + tool results + decision point. Documented in the skill so users understand it's the strategy, not the literal API plumbing.
+- **Cost**: the docs claim Sonnet+Opus advisor is net-cost-positive (-11.9% per agentic task on internal benchmarks) when paired with cheaper executor work and called only at transitions. Our pipeline shape matches that — checkpoints fire at phase boundaries and pre-hand-off, not per tool call.
+- **Why no hook enforcement**: tempting to add a UserPromptSubmit hook that nags about advisor consult, but the user pushed back on overly rigid hooks earlier (process-recall hook, v4.1.2 → v4.1.4 loosening). Per the docs' own framing, the *executor* decides timing — checkpoints are written into workflow text, not enforced via PreToolUse.
+- **Sources cited per the v4.2.0 source-citation requirement**: https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool and https://claude.com/blog/the-advisor-strategy.
+
 ## [4.4.0] – 2026-04-26
 
 Beta tester wanted Claude Code's default `Co-Authored-By: Claude` trailer disabled on commits and PRs (per Anthropic docs, the official mechanism is `attribution: { commit: "", pr: "" }` in `~/.claude/settings.json`). User refinement: also scope the plugin's own attribution footer ("Built with design-engineer – ...") to plugin-driven commits only, so unrelated user work in other projects doesn't reference the plugin.

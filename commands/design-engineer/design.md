@@ -99,6 +99,12 @@ Skills in sequence:
 7. `ux-motivation-audit` – screen-level psychology analysis
 8. `ux-full-review` – product assessment *(optional)*
 
+## Per-phase advisor checkpoint
+
+After completing each phase above (Discovery / Strategy / Planning / Design & validation), before transitioning to the next phase or hand-off, invoke the `advisor` skill (`skills/advisor/`) with: phase name, deliverables produced, key decisions made, anything that surprised you. Apply the advice or use the reconcile pattern. This implements the docs' "before declaring done" call after deliverables are durable — it's the higher-leverage moment in this command, since each phase produces multiple decisions that downstream phases build on.
+
+Skip the consult on phases where the user explicitly chose to skip optional skills and the produced deliverable is a single trivial document.
+
 ## Post-pipeline
 
 After completing the current work:

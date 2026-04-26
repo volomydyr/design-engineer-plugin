@@ -1,4 +1,4 @@
-> **v4.4.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v4.5.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, can generate landing pages from your brand story, and now consults a higher-intelligence Opus 4.7 advisor at strategic checkpoints (planning, pre-done, pre-commit) — implementing Anthropic's [advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. 67 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -352,6 +352,12 @@ All skills run automatically through commands. If you want, you can also call an
 | `dev-prototyping` | Single-file HTML prototype generation |
 
 </details>
+
+<br>
+
+## Note for advanced API users
+
+The plugin implements Anthropic's [advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively — a dedicated Opus 4.7 advisor sub-agent that other skills consult at strategic checkpoints (before substantive work, before declaring done, when stuck, when changing approach). If you're calling the Anthropic API directly (not via Claude Code), you can also enable the literal `advisor_20260301` server tool with the `anthropic-beta: advisor-tool-2026-03-01` request header — see the [advisor tool docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool). The plugin can't toggle that header itself; it ships the strategy via sub-agent plumbing.
 
 <br>
 

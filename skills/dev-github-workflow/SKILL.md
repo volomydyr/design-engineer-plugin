@@ -113,16 +113,18 @@ Called after the user approves a plan phase. Receives context from the plan work
 
 2. **Stage phase files**: Stage only files changed in this phase. Use `git diff --name-only` to identify changed files, then `git add` each one specifically. Never use `git add .` or `git add -A`.
 
-3. **Generate commit message**: Build from phase context:
+3. **Divergence advisor checkpoint**: Before drafting the commit message, evaluate whether this phase's actual implementation diverged from the approved plan in any non-trivial way (added scope, dropped checklist items, changed approach mid-phase, replaced one technique with another). If yes, invoke the `advisor` skill (`skills/advisor/`) with: the divergence summary, the rationale, and "I'm about to commit this divergence — any course correction before it lands?" Apply the advice or use the reconcile pattern. Skip on phases where implementation matched the checklist exactly.
+
+4. **Generate commit message**: Build from phase context:
    - Type: infer from what was done (new files → `feat`, bug fixes → `fix`, restructuring → `refactor`)
    - Scope: infer from file paths (shared directory name or feature area)
    - Description: one-line summary of what the phase accomplished
    - Body: "Phase N – [objective from the plan]"
    - Footer: attribution line
 
-4. **Commit and push**: `git commit` with the message, then `git push` to the remote.
+5. **Commit and push**: `git commit` with the message, then `git push` to the remote.
 
-5. **Report**: Brief confirmation – "Committed phase N: [description]. Pushed to [branch-name]."
+6. **Report**: Brief confirmation – "Committed phase N: [description]. Pushed to [branch-name]."
 
 ---
 

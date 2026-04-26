@@ -220,11 +220,12 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 ### Workflow
 
 1. `EnterPlanMode` – write a structured plan to the plan file
-2. `ExitPlanMode` – present the plan for user approval
-3. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
-4. If a git repo exists and the current branch is `main` or `master`, create a feature branch: `git checkout -b feat/[plan-name-slug]`
-5. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
-6. **For each phase in dependency order:**
+2. **Advisor checkpoint (early-task):** before `ExitPlanMode` on any plan with more than one phase or non-trivial scope, invoke the `advisor` skill (`skills/advisor/`) with: the user's request, key constraints discovered, the proposed phase breakdown, anything you're uncertain about. Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This is the docs' "before substantive work" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)).
+3. `ExitPlanMode` – present the plan for user approval
+4. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
+5. If a git repo exists and the current branch is `main` or `master`, create a feature branch: `git checkout -b feat/[plan-name-slug]`
+6. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
+7. **For each phase in dependency order:**
    a. Mark the phase task `in_progress` (`TaskUpdate`)
    b. Implement only this phase's changes – never touch files from later phases
    c. Run `/simplify` on changed code
@@ -235,14 +236,15 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
       - For each file edited, verify no important content was removed that wasn't part of the planned change
       - If anything was missed, done differently, or accidentally removed – fix it now
       - Check off each completed item in the plan file
-   e. Mark the phase task `complete` (`TaskUpdate`)
-   f. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
-   g. **WAIT** – do not proceed until the user responds
-   h. If the user has feedback, address it (may take multiple rounds of feedback)
-   i. Only proceed to the next phase after explicit user approval
-   j. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer — Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
-7. After all phases complete, move the plan to `plans/archive/`
-8. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
+   e. **Advisor checkpoint (pre-done):** after deliverables are durable (files written, tests run), invoke the `advisor` skill with: what was implemented, test results, anything that surprised you. Apply or reconcile.
+   f. Mark the phase task `complete` (`TaskUpdate`)
+   g. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
+   h. **WAIT** – do not proceed until the user responds
+   i. If the user has feedback, address it (may take multiple rounds of feedback)
+   j. Only proceed to the next phase after explicit user approval
+   k. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer — Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
+8. After all phases complete, move the plan to `plans/archive/`
+9. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 
 ### Implementation rules
 
@@ -250,6 +252,7 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 - **Every phase must have QA instructions.** If the phase is simple, the QA can be brief ("check the button color changed"). If complex, be specific ("open the settings page, verify the new panel appears, try toggling it on/off, check that the state persists on page reload").
 - **Dependencies determine order.** Always implement sequentially for user review, even if phases are independent.
 - **Feedback is iterative.** The user may have multiple rounds of feedback on a single phase. Address all feedback before moving on.
+- **Advisor consult before declaring done.** After deliverables are durable, invoke the `advisor` skill for a pre-done strategic check. Skip on trivial single-edit tasks (the advisor docs flag short reactive tasks as low-value advisor calls); use it on multi-phase plans and any task where the next action affects what the user sees as "done."
 
 ## Code Quality: /simplify
 

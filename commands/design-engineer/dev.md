@@ -136,9 +136,10 @@ Before writing ANY code, follow these steps in order:
    a. Implement only this phase's changes
    b. Run `/simplify` on changed code (mandatory after every Write/Edit)
    c. Completeness review: check the plan's checklist for this phase
-   d. Present to user with QA instructions from the plan
-   e. Wait for approval before next phase
-   f. After approval, commit using `dev-github-workflow`
+   d. **Advisor checkpoint (pre-done)**: after deliverables are durable (files written, tests run, screenshots captured), invoke the `advisor` skill (`skills/advisor/`) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes).
+   e. Present to user with QA instructions from the plan
+   f. Wait for approval before next phase
+   g. After approval, commit using `dev-github-workflow`
 
 **9. After all phases**: Run `design-system-auditor` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). The auditor will produce a structured report; review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional. Run `meta-document` to record progress.
 

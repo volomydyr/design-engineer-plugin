@@ -47,6 +47,10 @@ Load the `meta-document` skill and follow the selected path.
 In **Guided mode**: present a draft, ask for review, then save.
 In **Autopilot**: execute and save, show summary.
 
+## Step 3.5: Pre-finalize advisor checkpoint
+
+Before writing the deliverable to disk (or after a draft is staged but before the user-facing confirmation), invoke the `advisor` skill (`skills/advisor/`) with: what's being documented, the framing chosen, anything that felt uncertain or contested, and "I'm about to finalize this as the documented record — any course correction?" Apply the advice. Skip on routine status-only updates (`status` argument) where the document is a flat snapshot of project state.
+
 ## Step 4: Confirm
 
 After documenting, confirm what was saved and where. Show a brief summary of the project's current state.

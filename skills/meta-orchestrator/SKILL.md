@@ -76,6 +76,18 @@ The user jumps to any specific skill by name. When invoked in Direct mode:
 
 Additionally, `/design-engineer:prototype` provides a standalone entry point for prototyping outside the pipeline, without needing to invoke the full orchestrator.
 
+## Advisor checkpoints
+
+The orchestrator invokes the `advisor` skill (`skills/advisor/`) at strategic transitions in the pipeline — implementing the docs' recommendation: "On tasks longer than a few steps, call advisor at least once before committing to an approach and once before declaring done" ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)).
+
+Required orchestrator-level checkpoints:
+
+1. **At the user-approval gate between Phase 4 (Design) and Phase 5 (Development)** — before presenting the gate question, invoke `advisor` with: phases completed, deliverables produced, key trade-offs the user accepted, anything that surprised you. Apply or reconcile.
+2. **At any major phase transition where the next phase's scope depends on the prior phase's framing** (Phase 1→2 strategy hand-off, Phase 3→4 planning hand-off). Brief with the prior phase's outputs and the next phase's planned skills.
+3. **When the user picks a non-standard path** (e.g., skips a Phase 4 skill, jumps from Direct Access into a phase with missing prerequisites) — consult the advisor before proceeding. The docs flag this exact moment: "When considering a change of approach."
+
+The orchestrator does NOT invoke the advisor on every skill completion — that erases the cost advantage and produces noisy advice. Per the docs: "On short reactive tasks where the next action is dictated by tool output you just read, you don't need to keep calling — the advisor adds most of its value on the first call, before the approach crystallizes."
+
 ## Startup Sequence
 
 When invoked, determine the user's situation before running any skills.
