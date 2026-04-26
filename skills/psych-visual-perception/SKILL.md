@@ -177,3 +177,16 @@ Several principles in this section have been enriched with additional research a
 - **Banner Blindness** – expanded with research on how users develop selective filtering for ad-like patterns and how this affects notification design
 - **Von Restorff Effect** – enriched with the isolation effect research and practical limits on how many elements can be simultaneously "special"
 - **Visual Hierarchy** – deepened with the relationship between visual weight, scanning patterns, and information architecture
+
+
+---
+
+## Source citation requirement
+
+Whenever you push back on the user's answer (calling it incomplete, too vague, off-target, missing a framework, etc.) OR invoke a named framework or method, you MUST cite the source in the same response. Format:
+
+> Source: `<relative path to reference file from this skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+
+The user is the designer; they are steering. Without the citation, they are working blindfolded. Cite every time, even when the source feels obvious to you – it is not obvious to them.
+
+If the source is in a deliverable (not a skill reference file), cite the deliverable file path the same way. If the source is a generic principle from your training that has no specific file, name the principle explicitly and acknowledge there is no plugin-internal reference: "This is a general design principle, not from a specific reference in this plugin."

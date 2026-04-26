@@ -4,6 +4,27 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.2.0] – 2026-04-26
+
+Beta tester feedback: the plugin asks great clarifying questions and refuses to be a yes-man — but when it pushes back ("this is too vague", "use Problem/Awareness matrix"), it doesn't always cite the source file. As a designer, she said: "I'm steering a horse (Claude) but I'm blindfolded and he has the map 😅."
+
+Audit confirmed the gap: a soft rule existed in `meta-orchestrator/SKILL.md:27` ("provide specific quotes when making claims") but was only in one file and only fired during meta-orchestrator. The 36 evaluation-heavy skills (ux-*, psych-*, ui-aesthetic-review / ui-accessibility / ui-design-system / ui-design-to-code-qa, dev-claude-md) didn't link their judgments back to their reference files.
+
+### Changed
+
+- **Source citation requirement added to 36 evaluation-heavy SKILL.md files.** Whenever a skill pushes back on user input (calling it incomplete, too vague, off-target, missing a framework) OR invokes a named framework or method, Claude must now cite the source in the same response in this format:
+
+  > Source: `<relative path to reference file from the skill's directory>` — "<1-line quote of the passage that backs the judgment>"
+
+  The user is the designer; she's steering. Without the citation, she's working blindfolded. The block has an explicit escape valve for generic principles that have no specific reference file ("This is a general design principle, not from a specific reference in this plugin") to prevent forced fake citations.
+
+- **Skills covered (36)**: ux-problem-statement, ux-target-audience, ux-storybrand, ux-business-plan, ux-assumptions, ux-bias-audit, ux-mvp-requirements, ux-information-architecture, ux-journey-mapping, ux-behavior-mapping, ux-competitor-analysis, ux-user-interviews, ux-story-panels, ux-ethics-review, ux-full-review, ux-motivation-audit, ux-communicating-decisions, psych-cognitive-biases, psych-cognitive-load, psych-decision-fundamentals, psych-decision-persuasion, psych-delight-design, psych-emotional-retention, psych-engagement-patterns, psych-full-scan, psych-habit-formation, psych-pricing-psychology, psych-simplification, psych-social-influence, psych-time-perception, psych-visual-perception, ui-aesthetic-review, ui-accessibility, ui-design-system, ui-design-to-code-qa, dev-claude-md.
+
+### Notes
+
+- **No CLAUDE.md change** in this release — per-skill placement was the chosen approach over a global rule. If real-world testing shows drift, future releases can escalate to (a) a global CLAUDE.md rule, or (b) a PostToolUse hook that scans AskUserQuestion text for evaluative claims without citation. Tracked as a follow-up option.
+- **Existing soft rule in `meta-orchestrator/SKILL.md:27`** is retained — complementary to the per-skill rule.
+
 ## [4.1.4] – 2026-04-26
 
 User caught two more drift patterns in the process-recall hook even after v4.1.3:
