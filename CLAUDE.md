@@ -377,14 +377,9 @@ This is especially important in UI copy – prototypes, components, and any gene
    ───────────────────
    ───────────────────
    ───────────────────
-   ───────────────────
-   ───────────────────
-   ───────────────────
-   ───────────────────
-   ───────────────────
    ```
 
-   Eight horizontal-rule lines is the floor – add more if your last message ended with a finding, a recommendation list, or any content the user must read before answering. The spacer must be the last thing in the chat message before the AskUserQuestion call. This rule applies to every AskUserQuestion in commands, skills, and agents – no exceptions.
+   Three horizontal-rule lines is the standard. The spacer must be the last thing in the chat message before the AskUserQuestion call. This rule applies to every AskUserQuestion in commands, skills, and agents – no exceptions.
 
 ## Project state injection
 

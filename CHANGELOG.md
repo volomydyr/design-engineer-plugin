@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.4] – 2026-04-26
+
+### Changed
+
+- **AskUserQuestion spacer reduced from 8 lines to 3** (CLAUDE.md rule 6) — eight horizontal-rule lines was excessive in practice; three is enough vertical space to keep the panel overlay off the substantive content above it without dominating the chat.
+
 ## [2.6.3] – 2026-04-26
 
 Process-discipline fix from beta tester feedback (and from observing the assistant repeatedly drift mid-session). Across long sessions, Claude was forgetting to follow agreed processes — the prototype-as-baseline rule, multi-step plugin workflows, the iterative-feedback workflow — until the user manually re-anchored with "you forgot the process". This release automates that re-anchor.
