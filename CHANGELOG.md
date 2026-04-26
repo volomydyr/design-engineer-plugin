@@ -4,6 +4,27 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.3.0] – 2026-04-26
+
+Beta tester opened the plugin in Claude desktop's Plugin Directory and saw `Connectors: 1 (context7)`. The plugin documents many other integrations (Figma, Playwright) but they were companion plugins users had to install separately, not bundled connectors. User decided that since 99% of designers using this plugin will use Figma and Playwright at some point, just bundle them. Figma Console MCP stays an optional companion (alternative to the official Figma plugin, less common).
+
+### Added
+
+- **Figma MCP bundled** as a plugin connector (HTTP at `https://mcp.figma.com/mcp`, exact config from Anthropic's official Figma plugin). Auto-starts when the plugin is enabled. Provides structured Dev Mode design data (not screenshots) for design-to-code workflows. Prerequisite: open Figma desktop with Dev Mode enabled.
+- **Playwright MCP bundled** as a plugin connector (`npx @playwright/mcp@latest`, exact config from Anthropic's official Playwright plugin). Auto-starts when the plugin is enabled. Enables browser testing and visual review. Prerequisite: Node.js v18+ on the user's machine so npx can fetch the package on first use.
+- **Connectors count goes from 1 to 3** in the Plugin Directory UI: Context7 (docs), Figma (design data), Playwright (browser testing).
+
+### Changed
+
+- **`skills/meta-setup/SKILL.md`** — tool-detection messaging updated. Status text changes from "Figma plugin: install separately" to "Figma: bundled, open Figma desktop to use". Same for Playwright. The meta-setup flow no longer asks the user to install Figma or Playwright as separate plugins.
+- **`skills/meta-setup/scripts/detect-environment.sh`** — Figma and Playwright statuses now reported as `[BUNDLED]` rather than `[FOUND]`/`[MISSING]`. Playwright additionally checks Node.js v18+ availability and labels as `[BUNDLED, prereq missing]` if Node is absent. Figma Console MCP (companion, NOT bundled) labeled `[OPTIONAL]`.
+- **`README.md` "How it works"** mentions the three bundled connectors.
+
+### Notes
+
+- **Figma Console MCP stays optional** — it's the write-access alternative to the read-only official Figma plugin and is more advanced. Users can install it separately if they want write access to Figma.
+- **Existing users with Anthropic's official Figma or Playwright plugins** installed will see two registrations of the same MCP — Claude Code dedupes by URL/command, so this is non-fatal but cosmetic. Users may uninstall the standalone official plugins now that they're bundled here.
+
 ## [4.2.0] – 2026-04-26
 
 Beta tester feedback: the plugin asks great clarifying questions and refuses to be a yes-man — but when it pushes back ("this is too vague", "use Problem/Awareness matrix"), it doesn't always cite the source file. As a designer, she said: "I'm steering a horse (Claude) but I'm blindfolded and he has the map 😅."

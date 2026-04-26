@@ -96,14 +96,16 @@ Here's what I found in your setup:
 
 Only list what's relevant. Adapt the wording to what was actually detected. Use ✓ for available tools and ✗ for missing ones.
 
-**Internal knowledge for explaining tools to users** (use when offering help with missing tools – never show these labels or technical names directly):
+**Internal knowledge for explaining tools to users** (use when explaining status to users – never show these labels or technical names directly):
 
-- **Documentation access** (Context7 plugin internally): Gives AI access to up-to-date technical documentation so it does not rely on outdated training data. Essential – without it, AI may suggest outdated APIs or deprecated patterns.
-- **Design tool connection** (Figma plugin internally): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Essential for design-driven projects.
-- **Figma actions** (Figma Console MCP internally): Can perform actions in Figma directly – create components, apply tokens and styles from prompts. More powerful than the read-only connection but trickier to set up. Optional.
-- **Browser testing** (Playwright plugin internally): Enables browser-based testing and lets AI browse live URLs for visual review. Needed for test-driven development. Optional – can be added later.
+- **Documentation access** (Context7 MCP, bundled): Gives AI access to up-to-date technical documentation so it does not rely on outdated training data. Bundled — auto-starts when the plugin is enabled. Nothing for the user to install.
+- **Design tool connection** (Figma MCP, bundled): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Bundled — auto-starts. The user just needs to open Figma desktop with Dev Mode enabled to use it.
+- **Browser testing** (Playwright MCP, bundled): Enables browser-based testing and lets AI browse live URLs for visual review. Bundled — auto-starts. Requires Node.js v18+ on the user's machine so npx can fetch the Playwright package on first use.
+- **Figma actions** (Figma Console MCP, OPTIONAL companion): Can perform actions in Figma directly – create components, apply tokens and styles from prompts. More powerful than the read-only Figma connection but trickier to set up. Not bundled; an optional install for power users only.
 
-**If essential tools are missing** (design tool connection or documentation access), proactively offer to help install them – explain what they enable in plain language and guide the user through setup. Browser testing is optional and can be added later.
+**Three MCPs are bundled with this plugin** (Context7, Figma, Playwright) — they auto-start with the plugin and don't need separate installation. Status messaging should reflect "bundled, here's whether the prerequisite (Figma desktop / Node) is in place" rather than "you need to install this".
+
+**If a prerequisite is missing** (Node.js for Playwright, or the user wants Figma Console as an extra), proactively offer to help: explain what it enables in plain language and guide the user through setup. Don't offer to install Figma or Playwright themselves — those are bundled.
 
 If any existing configuration conflicts are detected, explain the conflict in plain terms and ask whether to keep the current setup or use the recommended one. Never overwrite existing configuration without asking.
 

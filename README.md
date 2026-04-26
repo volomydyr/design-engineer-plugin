@@ -1,4 +1,4 @@
-> **v4.2.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v4.3.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-9 commands, 51 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+9 commands, 51 skills, 9 agents, and 3 bundled connectors (Context7 for docs, Figma for Dev Mode design data, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|

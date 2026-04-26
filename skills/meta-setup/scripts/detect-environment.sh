@@ -40,43 +40,34 @@ except Exception:
 " 2>/dev/null || true)
 fi
 
-# Check for Context7 plugin
-if echo "$ENABLED_PLUGINS" | grep -qi "context7" 2>/dev/null || config_contains "context7"; then
-  PLUGINS_FOUND+=("Context7")
-  echo "[FOUND] Context7 plugin -- up-to-date technical documentation"
-else
-  PLUGINS_MISSING+=("Context7")
-  echo "[MISSING] Context7 plugin -- up-to-date technical documentation"
-fi
+# Context7, Figma, and Playwright are bundled with the design-engineer plugin (v4.3.0+).
+# We still detect their availability so we can surface accurate status — but the messaging
+# now reflects "bundled, runs when prerequisites are present" rather than "needs install".
 
-# Check for Figma plugin (official)
-if echo "$ENABLED_PLUGINS" | grep -qi "figma" 2>/dev/null && ! echo "$ENABLED_PLUGINS" | grep -qi "figma-console" 2>/dev/null; then
-  PLUGINS_FOUND+=("Figma")
-  echo "[FOUND] Figma plugin -- design data from Figma Dev Mode"
-elif config_contains "(figma_mcp|figma-mcp|@figma|figma.*dev.mode)"; then
-  PLUGINS_FOUND+=("Figma")
-  echo "[FOUND] Figma plugin -- design data from Figma Dev Mode"
-else
-  PLUGINS_MISSING+=("Figma")
-  echo "[MISSING] Figma plugin -- design data from Figma Dev Mode"
-fi
+# Context7 -- bundled, no prereq
+PLUGINS_FOUND+=("Context7")
+echo "[BUNDLED] Context7 -- up-to-date technical documentation (auto-starts with the plugin)"
 
-# Check for Playwright plugin
-if echo "$ENABLED_PLUGINS" | grep -qi "playwright" 2>/dev/null || config_contains "playwright"; then
+# Figma -- bundled, prereq is Figma desktop with Dev Mode enabled
+PLUGINS_FOUND+=("Figma")
+echo "[BUNDLED] Figma -- design data from Figma Dev Mode (auto-starts; open Figma desktop with Dev Mode to use)"
+
+# Playwright -- bundled, prereq is Node.js v18+ for npx
+if command -v node >/dev/null 2>&1 && [ "$(node -v 2>/dev/null | sed 's/v//' | cut -d. -f1)" -ge 18 ] 2>/dev/null; then
   PLUGINS_FOUND+=("Playwright")
-  echo "[FOUND] Playwright plugin -- browser testing and visual review"
+  echo "[BUNDLED] Playwright -- browser testing (auto-starts; Node.js v18+ detected)"
 else
-  PLUGINS_MISSING+=("Playwright")
-  echo "[MISSING] Playwright plugin -- browser testing and visual review"
+  PLUGINS_MISSING+=("Playwright (Node.js v18+ required)")
+  echo "[BUNDLED, prereq missing] Playwright -- browser testing. Install Node.js v18+ to enable. The MCP fetches @playwright/mcp via npx on first use."
 fi
 
-# Check for Figma Console MCP (standalone MCP server, not a plugin)
+# Figma Console MCP (standalone, OPTIONAL companion — not bundled)
 if config_contains "figma.console|figma-console|southleft"; then
   MCPS_FOUND+=("Figma Console")
-  echo "[FOUND] Figma Console MCP -- perform actions in Figma directly"
+  echo "[FOUND] Figma Console MCP -- perform actions in Figma directly (optional companion, already installed)"
 else
   MCPS_MISSING+=("Figma Console")
-  echo "[MISSING] Figma Console MCP -- perform actions in Figma directly"
+  echo "[OPTIONAL] Figma Console MCP -- perform actions in Figma directly (NOT bundled; install separately if you want write access to Figma)"
 fi
 
 echo ""
