@@ -2,8 +2,8 @@
 name: meta-orchestrator
 description: "Controls the full design pipeline across discovery, strategy, planning, and validation phases. Manages autonomous, guided, and direct access modes while tracking project state. Use when running the end-to-end design workflow via /design-engineer:design."
 disable-model-invocation: true
-model: opus
-effort: max
+model: claude-opus-4-7
+effort: xhigh
 license: MIT
 ---
 

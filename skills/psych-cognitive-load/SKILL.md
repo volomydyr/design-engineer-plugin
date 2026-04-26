@@ -2,7 +2,7 @@
 name: psych-cognitive-load
 description: "Explores cognitive interaction fundamentals (Laws 1-10) for UX design. Covers cognitive load, choice architecture, information grouping, and discoverability. Use when analyzing how an interface manages mental effort and attention. Do NOT use for navigation simplification or form reduction; see psych-simplification instead."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

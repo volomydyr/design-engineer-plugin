@@ -2,7 +2,7 @@
 name: meta-setup-welcome
 description: "Welcome prompt for new-to-plugin projects. The onboarding sequence is injected by the UserPromptSubmit hook."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

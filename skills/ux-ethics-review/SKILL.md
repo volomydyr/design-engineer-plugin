@@ -2,8 +2,8 @@
 name: ux-ethics-review
 description: "Applies ethical design review using the Regret Test, Manipulation Matrix, Black Mirror Test, and Humane Design Principles. Use when auditing products for ethical concerns, reviewing dark patterns, or building humane products. Do NOT use for comprehensive product assessment; see ux-full-review instead."
 disable-model-invocation: true
-model: opus
-effort: max
+model: claude-opus-4-7
+effort: xhigh
 license: MIT
 ---
 

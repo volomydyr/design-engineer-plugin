@@ -2,7 +2,7 @@
 name: psych-time-perception
 description: "Explores time perception and behavior management psychology principles (Laws 91-100) for UX design. Covers patience thresholds, familiarity, and gradual behavior shaping. Use when auditing time-sensitive interactions, progressive onboarding, or long-term engagement patterns. Do NOT use for habit formation or behavior shaping; see psych-habit-formation instead."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

@@ -1,7 +1,7 @@
 ---
 name: test-writer
 description: "Writes failing test scripts using Playwright CLI to verify expected behavior before implementation. Use after plan approval to establish the Red phase of TDD."
-model: opus
+model: claude-opus-4-7
 effort: high
 ---
 

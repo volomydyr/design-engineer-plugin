@@ -2,7 +2,7 @@
 name: dev-prototyping
 description: "Generates a single-file HTML prototype directly in Claude Code. Two-step approach: visual storyboard first, then interactive prototype. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

@@ -84,10 +84,10 @@ Every agent and skill MUST have an explicit `model:` field in its frontmatter.
 
 ### Assignment Principles
 
-- **`model: opus`** – default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation
-- **`model: sonnet`** – for mechanical tasks: file reading, template generation, setup wizards, documentation formatting
-- **No `model: inherit`** – plugin should be explicit about quality expectations
-- **No `model: haiku`** – not used in this plugin
+- **`model: claude-opus-4-7`** – default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation. Pinned explicitly to the version (not the `opus` alias) so the plugin's quality expectations are unambiguous. When Anthropic releases a newer Opus, refresh this pin in a single PATCH bump rather than relying on alias drift.
+- **`model: sonnet`** – alias kept for mechanical tasks (file reading, template generation, setup wizards, documentation formatting). Sonnet is updated less frequently and less variably; the alias is fine here.
+- **No `model: inherit`** – plugin should be explicit about quality expectations.
+- **No `model: haiku`** – not used in this plugin.
 
 ### Skill frontmatter
 
@@ -98,7 +98,7 @@ Skills include `model:` and `effort:` after `disable-model-invocation`:
 name: skill-name
 description: "..."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 ---
 ```
@@ -109,21 +109,22 @@ Every agent and skill MUST have an explicit `effort:` field in its frontmatter, 
 
 #### Assignment principles
 
-- **`effort: max`** – the most complex tasks: broad multi-principle scans, comprehensive reviews, ethical reasoning, pipeline orchestration. Opus 4.6 only.
+- **`effort: xhigh`** – the most complex tasks: broad multi-principle scans, comprehensive reviews, ethical reasoning, pipeline orchestration. New recommended top-tier on Opus 4.7 per Anthropic docs ("Best results for most coding and agentic tasks. Recommended default on Opus 4.7"). Persists across sessions.
 - **`effort: high`** – default for most skills. Tasks requiring synthesis, nuanced judgment, multi-perspective analysis, or creative output.
 - **`effort: medium`** – structured workflows where the model follows established steps: setup wizards, template generation, documentation formatting.
 - **`effort: low`** – not used in this plugin.
+- **`effort: max`** – exists but **NOT recommended** for plugin defaults. Per Anthropic: "may show diminishing returns and is prone to overthinking. Test before adopting broadly". Also session-only (does not persist). Use only if a specific skill demonstrably benefits from it during testing.
 
 Effort and model are independent axes:
-- `model: opus` + `effort: max` – broadest scans and reviews (psych-full-scan, ux-full-review, ux-bias-audit, ux-ethics-review, meta-orchestrator)
-- `model: opus` + `effort: high` – deep analysis, creative output, complex implementation
+- `model: claude-opus-4-7` + `effort: xhigh` – broadest scans and reviews (psych-full-scan, ux-full-review, ux-bias-audit, ux-ethics-review, meta-orchestrator)
+- `model: claude-opus-4-7` + `effort: high` – deep analysis, creative output, complex implementation
 - `model: sonnet` + `effort: high` – sonnet tasks needing thorough reasoning (documentation, testing)
 - `model: sonnet` + `effort: medium` – structured sonnet tasks (setup, templates, status tracking)
 
 ### When adding new agents/skills
 
-- Default to `model: opus` unless the task is clearly mechanical
-- Default to `effort: high` – downgrade to `medium` only for clearly mechanical tasks, upgrade to `max` for broad multi-principle scans
+- Default to `model: claude-opus-4-7` unless the task is clearly mechanical
+- Default to `effort: high` – downgrade to `medium` only for clearly mechanical tasks, upgrade to `xhigh` for broad multi-principle scans
 - Document the rationale if choosing `sonnet` or `medium` for a new component
 
 ## Command Naming Convention

@@ -1,7 +1,7 @@
 ---
 name: psych-scanner
 description: "Performs a broad psychology principles scan across a design, identifying opportunities and violations across 100+ cognitive, behavioral, and emotional principles. Returns prioritized findings. Use as the entry point for psychology-driven design review."
-model: opus
+model: claude-opus-4-7
 effort: high
 ---
 

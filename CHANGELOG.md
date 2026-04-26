@@ -4,6 +4,22 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.3.1] – 2026-04-26
+
+Anthropic released Opus 4.7 and a new effort level `xhigh`. Plugin metadata refreshed accordingly.
+
+### Changed
+
+- **Pinned all opus-using skills and agents to `model: claude-opus-4-7`** (47 files). Previously used the `opus` alias which auto-resolves but obscures intent. Explicit pinning makes the plugin's quality expectations unambiguous and avoids alias drift across providers (Bedrock/Vertex/Foundry resolve `opus` to 4.6 today; we want 4.7 everywhere). Sonnet-using skills (16 files) keep the `sonnet` alias since Sonnet updates less variably.
+- **Bumped `effort: max` → `effort: xhigh`** in 5 skills (`ux-bias-audit`, `meta-orchestrator`, `psych-full-scan`, `ux-ethics-review`, `ux-full-review`). Per Anthropic docs, `xhigh` is the new recommended default for Opus 4.7 ("Best results for most coding and agentic tasks. Recommended default on Opus 4.7"). It also persists across sessions; `max` was session-only.
+- **CLAUDE.md guidance updated**: Model Configuration section pins `claude-opus-4-7` as the default Opus value with rationale. Effort Configuration adds `xhigh` as the recommended top-tier and demotes `max` to "exists but NOT recommended" with the documented Anthropic caveats (diminishing returns, session-only). Assignment principles updated: `claude-opus-4-7 + xhigh` for broadest scans, `claude-opus-4-7 + high` for deep analysis.
+
+### Notes
+
+- **Forward-compat trade-off**: when Anthropic releases Opus 4.8, pinned skills won't auto-upgrade. We'll do another bulk refresh then. Beta phase, acceptable.
+- **Bedrock/Vertex/Foundry users**: `claude-opus-4-7` may not be available on third-party providers immediately. Per Anthropic docs, those providers fall back to a previous version with a notice — non-fatal but cosmetic. Users on those providers can override via `ANTHROPIC_DEFAULT_OPUS_MODEL`.
+- **Effort fallback on Opus 4.6**: per docs, `xhigh` runs as `high` on Opus 4.6 (one tier down). Acceptable for the 5 elevated skills since `high` is still robust and the pin to `claude-opus-4-7` means most users will see the actual `xhigh`.
+
 ## [4.3.0] – 2026-04-26
 
 Beta tester opened the plugin in Claude desktop's Plugin Directory and saw `Connectors: 1 (context7)`. The plugin documents many other integrations (Figma, Playwright) but they were companion plugins users had to install separately, not bundled connectors. User decided that since 99% of designers using this plugin will use Figma and Playwright at some point, just bundle them. Figma Console MCP stays an optional companion (alternative to the official Figma plugin, less common).

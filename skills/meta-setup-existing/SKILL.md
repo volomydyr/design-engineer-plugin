@@ -2,7 +2,7 @@
 name: meta-setup-existing
 description: "Reference for existing-project onboarding. The actual flow is driven by the UserPromptSubmit hook's ONBOARDING SEQUENCE."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

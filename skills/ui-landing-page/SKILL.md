@@ -2,7 +2,7 @@
 name: ui-landing-page
 description: "Generates a single-file HTML landing page with conversion-optimized structure and copy. Reads StoryBrand deliverable as the copy foundation. Use when the user needs a marketing landing page for their product."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

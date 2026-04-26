@@ -1,7 +1,7 @@
 ---
 name: backend-implementer
 description: "Implements backend code including schemas, storage, APIs, and security following the project's CLAUDE.md rules and established patterns. Use after plan approval to implement or verify data layer changes."
-model: opus
+model: claude-opus-4-7
 effort: high
 ---
 

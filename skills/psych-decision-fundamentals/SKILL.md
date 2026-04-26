@@ -2,7 +2,7 @@
 name: psych-decision-fundamentals
 description: "Explores core decision-making psychology principles (Laws 21-25) for UX design. Covers loss aversion, decision fatigue, anchoring, and defaults. Use when auditing interfaces where users must choose between options, such as pricing, forms, or filter systems. Do NOT use for social proof, scarcity, or persuasion tactics; see psych-decision-persuasion instead."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

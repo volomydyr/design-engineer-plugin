@@ -2,8 +2,8 @@
 name: ux-full-review
 description: "Runs a comprehensive product design assessment across usability, psychology, accessibility, and ethics. Covers the full Product Assessment Checklist. Use when reviewing existing products end-to-end or as a final quality gate before launch. Do NOT use for ethics-only reviews or dark pattern audits; see ux-ethics-review instead."
 disable-model-invocation: true
-model: opus
-effort: max
+model: claude-opus-4-7
+effort: xhigh
 license: MIT
 ---
 

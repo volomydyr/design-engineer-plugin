@@ -2,7 +2,7 @@
 name: meta-setup-configure
 description: "Mode selection, project setup, and status line installation for first-time plugin use. Runs after goal selection."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

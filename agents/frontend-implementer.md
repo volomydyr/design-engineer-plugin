@@ -1,7 +1,7 @@
 ---
 name: frontend-implementer
 description: "Implements pixel-perfect UI matching Figma designs with zero creative interpretation, reusing existing design system elements and components. Use after backend verification to build or update frontend screens and components."
-model: opus
+model: claude-opus-4-7
 effort: high
 ---
 

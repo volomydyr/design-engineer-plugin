@@ -2,7 +2,7 @@
 name: ux-journey-mapping
 description: Creates and improves customer journey maps by identifying key moments and applying proven improvement tactics. Use when designing a new product experience, reviewing an existing one, or optimizing the user's emotional arc.
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---

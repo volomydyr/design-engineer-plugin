@@ -2,7 +2,7 @@
 name: ux-user-interviews
 description: "Designs, prepares, and analyzes user interviews and surveys using empathy questions and Replacing X techniques. Guides dual-analysis methodology combining human and AI insights. Use when validating assumptions, understanding user behavior, or gathering qualitative data."
 disable-model-invocation: true
-model: opus
+model: claude-opus-4-7
 effort: high
 license: MIT
 ---
