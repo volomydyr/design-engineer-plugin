@@ -1,4 +1,4 @@
-> **v4.7.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, can generate landing pages from your brand story, consults a higher-intelligence Opus 4.7 advisor at strategic checkpoints (planning, pre-done, pre-commit) — implementing Anthropic's [advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively, scaffolds a stack-agnostic single-page **component gallery** (every component, every variant, real production styles, source-path labels) so duplicates pop visually — adapts to any stack via context7 MCP, and now ships **first-class existing-project support**: auto-detects design-system / brand docs / shipped UI, captures off-repo references (Figma, Notion, Linear), respects existing artifacts in 9 biased ux-* skills, plus two new workflow branches — `/design-engineer:review audit` for page-by-page commercial audits with designer-feedback capture, and `/design-engineer:design feature-spec` for truly minimal feature specs on established products. 69 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v4.7.0** — see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -8,7 +8,7 @@
 
 Пишете команду `/design-engineer:start`, плагін розуміє, на якому ви етапі – чи починаєте з нуля, чи продовжуєте створення продукту, чи хочете скористатися ним для існуючого комерційного проекту. Детальну інструкцію та повний опис можна знайти нижче англійською.
 
-[Звʼязатися з автором (LinkedIn)](https://www.linkedin.com/in/merlenkov/) · [Телеграм спільнота про АІ та Дизайн (1,100+ учасників)](https://t.me/+RzzmoFVG5awzYjIy)
+[Звʼязатися з автором (LinkedIn)](https://www.linkedin.com/in/merlenkov/) · [Телеграм спільнота про АІ та Дизайн (1,200+ учасників)](https://t.me/+RzzmoFVG5awzYjIy)
 
 <br>
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-9 commands, 51 skills, 9 agents, and 3 bundled connectors (Context7 for docs, Figma for Dev Mode design data, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+9 commands, 57 skills, 10 agents, and 3 bundled connectors (Context7 for docs, Figma for Dev Mode design data, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|
@@ -86,11 +86,15 @@ If you're an engineer who wants to build better products but doesn't have a desi
 <summary>3. Can I use this for an existing project or only new products?</summary>
 <br>
 
-Both. `/design-engineer:start` detects your situation:
+Both, and the existing-project path is first-class. `/design-engineer:start` detects your situation:
 
-- **New product** – walks you through the full pipeline from problem definition to code
-- **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do
-- **Existing project** – shows all capabilities, asks about your situation, and recommends what's relevant. You can run any skill individually – a psychology review, an accessibility audit, a design system setup – without going through the full pipeline.
+- **New product** – walks you through the full pipeline from problem definition to code.
+- **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do.
+- **Existing project** – auto-detects your design system, brand docs, written specs, shipped UI, and component count from the codebase, then asks you about off-repo references (Figma file, Notion docs, Linear tracker, external design-system page like Storybook / Zeroheight). All of that gets stored as project context. From there:
+  - The 9 ux-* skills that assume a blank slate (StoryBrand, problem statement, target audience, business plan, competitor analysis, assumptions, story panels, user interviews, behavior mapping) respect what already exists — they ask "use as-is, refine, or re-run from scratch" instead of regenerating.
+  - `/design-engineer:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
+  - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product — no StoryBrand, no business-plan rewrite, just respects the existing brand voice.
+  - You can still run any skill individually (psychology review, accessibility audit, design system setup, etc.) without the full pipeline.
 </details>
 
 <details>
@@ -122,37 +126,38 @@ You only need to remember `/design-engineer:start`. It guides you to everything 
 </details>
 
 <details>
-<summary>7. What are skills and how are they different from commands?</summary>
+<summary>6. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 8 entry points you type (like `/design-engineer:design`).
+**Commands** are the 9 entry points you type (like `/design-engineer:design`).
 
-**Skills** are the 54 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
+**Skills** are the 57 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 
 You don't need to call skills directly. Commands handle the orchestration. But if you want to run a specific skill on its own, you can (e.g., `/ux-problem-statement` or `/psych-cognitive-load`).
 </details>
 
 <details>
-<summary>8. What are agents and what do they do?</summary>
+<summary>7. What are agents and what do they do?</summary>
 <br>
 
-9 specialized personas that handle specific parts of the workflow:
+10 specialized personas that handle specific parts of the workflow:
 
 - **context-analyzer** – reads your project and figures out what to build next
 - **ux-researcher** – runs research activities
 - **deliverable-writer** – writes structured documents
 - **psych-scanner** – checks your designs against 100+ psychology principles
-- **design-system-auditor** – checks your code against design system rules
+- **design-system-auditor** – checks your code against design system rules and audits the component gallery
 - **backend-implementer** – builds backend features
-- **frontend-implementer** – builds frontend with pixel-perfect design matching
+- **frontend-implementer** – builds frontend with pixel-perfect design matching, keeps the component gallery in sync
 - **test-writer** – writes failing tests before any implementation starts
 - **compound-documenter** – records decisions and maintains context across sessions
+- **advisor** – an Opus 4.7 reviewer model that other skills consult at strategic checkpoints (before substantive work, before declaring done, when stuck) — implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively
 
 Agents activate automatically when needed. You don't call them directly.
 </details>
 
 <details>
-<summary>9. What happens automatically in the background?</summary>
+<summary>8. What happens automatically in the background?</summary>
 <br>
 
 The plugin installs several hooks that work without you doing anything:
@@ -170,7 +175,7 @@ The plugin installs several hooks that work without you doing anything:
 ### Design & knowledge
 
 <details>
-<summary>10. What's the psychology component?</summary>
+<summary>9. What's the psychology component?</summary>
 <br>
 
 14 psychology skills covering 100+ behavioral principles from cognitive science, behavioral economics, and product psychology. Every principle comes with:
@@ -185,7 +190,7 @@ Psychology is built into the review process from the ground up, so it shows up w
 </details>
 
 <details>
-<summary>11. How does the plugin handle Figma?</summary>
+<summary>10. How does the plugin handle Figma?</summary>
 <br>
 
 Two integrations:
@@ -199,7 +204,7 @@ Neither is required. The plugin works without Figma, but the design-to-code work
 </details>
 
 <details>
-<summary>12. What's the knowledge base behind it?</summary>
+<summary>11. What's the knowledge base behind it?</summary>
 <br>
 
 ~16,000 lines of reference material across 90+ files – structured frameworks adapted from the author's [technical articles and practical examples](https://volomydyr.com), along with established sources in psychology, behavioral economics, and design methodology.
@@ -219,7 +224,7 @@ When Claude reviews your work or makes suggestions, it draws from this knowledge
 ### Development & workflow
 
 <details>
-<summary>13. How does the development workflow differ from regular Claude Code?</summary>
+<summary>12. How does the development workflow differ from regular Claude Code?</summary>
 <br>
 
 Three key differences:
@@ -232,7 +237,7 @@ The result: you stay in control of what gets built and when, and nothing ships t
 </details>
 
 <details>
-<summary>14. Does it remember things across sessions?</summary>
+<summary>13. Does it remember things across sessions?</summary>
 <br>
 
 Yes, through Anthropic's documented agent-memory mechanism. The `compound-documenter` agent has `memory: project` set in its frontmatter, which gives it a project-local persistent directory at `.claude/agent-memory/compound-documenter/`. Inside that directory it maintains three files that survive across sessions:
@@ -247,7 +252,39 @@ The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (h
 </details>
 
 <details>
-<summary>15. What are living documents?</summary>
+<summary>14. What's the component gallery and when does it appear?</summary>
+<br>
+
+A single-page visual catalog of every component in your project — every variant rendered with real production styles, source-path labels per entry. Two purposes: catch duplicates that AI tends to silently introduce (5 different Button components doing similar things), and give you one viewport where you can see the full design system at a glance.
+
+It's stack-agnostic. The plugin queries [Context7](https://context7.com) for your specific framework's idiomatic single-page showcase pattern (SwiftUI `#Preview` canvas, Jetpack Compose `@Preview`, Next.js route, vanilla HTML, etc.) and scaffolds accordingly. It imports your real components from their production paths — never copies, never reimplements, never inlines styles. If a state can't be reached via the component's API, that's flagged as a component bug, not patched in the gallery.
+
+The gallery is **transparent infrastructure**: no menu, no permission ask, no "do you want a gallery?" prompt. The first time `frontend-implementer` touches a component (or `design-system-auditor` runs on a project with components), it auto-scaffolds and surfaces a one-line mention so you discover it organically. After that, gallery updates are silent — same as a build artifact.
+
+`design-system-auditor` audits the gallery alongside its other passes at FAIL severity: every component file has an entry, no inline styles, imports resolve, visually-identical entries flagged as duplicates.
+</details>
+
+<details>
+<summary>15. What's the advisor and how does it work?</summary>
+<br>
+
+A dedicated Opus 4.7 sub-agent that other skills consult at strategic checkpoints — implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. The strategy: a faster executor model consults a higher-intelligence advisor model at high-leverage moments instead of running everything at maximum capability.
+
+The advisor fires automatically at the moments the docs identify as most valuable:
+
+- Before substantive work — before committing to an interpretation, before writing, before declaring an answer
+- Before declaring a phase complete — after deliverables are durable (files written, tests run)
+- When the executor is stuck — errors recurring, approach not converging
+- When considering a change of approach
+- Before plan-driven commits if implementation diverged from the approved plan
+
+The advisor returns short numbered course corrections (under 100 words, enumerated steps), and the calling skill applies the advice or uses the docs' "reconcile" pattern when the advice conflicts with empirical evidence ("I found X, you suggest Y, which constraint breaks the tie?").
+
+You don't invoke the advisor directly — it's wired into Plan Mode workflow, all five `/design-engineer:*` commands, the dev-github-workflow Mode 1 commit flow, and the meta-orchestrator's major phase transitions.
+</details>
+
+<details>
+<summary>16. What are living documents?</summary>
 <br>
 
 Two layers, separated by concern:
@@ -262,7 +299,7 @@ This is honest about what the plugin does and what you do. The plugin documents 
 
 <br>
 
-## All 51 skills
+## All 57 skills
 
 <details>
 <summary>Show all</summary>
@@ -270,7 +307,7 @@ This is honest about what the plugin does and what you do. The plugin documents 
 
 All skills run automatically through commands. If you want, you can also call any skill directly (e.g., `/ux-problem-statement`).
 
-**Meta (4)**
+**Meta (5)**
 
 | Skill | What it does |
 |-------|-------------|
@@ -278,6 +315,7 @@ All skills run automatically through commands. If you want, you can also call an
 | `meta-orchestrator` | Controls the design pipeline |
 | `meta-document` | Documents knowledge and maintains context |
 | `meta-statusline` | Installs and manages the status line |
+| `advisor` | Strategic-checkpoint consult (before substantive work, before declaring done, when stuck) |
 
 **UX research (9)**
 
@@ -339,7 +377,7 @@ All skills run automatically through commands. If you want, you can also call an
 | `ui-landing-page` | Single-file HTML landing page from StoryBrand narrative |
 | `ui-images` | Per-image stock vs AI generation, prompts, folder layout |
 
-**Development (7)**
+**Development (8)**
 
 | Skill | What it does |
 |-------|-------------|
@@ -350,14 +388,9 @@ All skills run automatically through commands. If you want, you can also call an
 | `dev-mcp-setup` | MCP and plugin configuration |
 | `dev-github-workflow` | GitHub workflow for designers |
 | `dev-prototyping` | Single-file HTML prototype generation |
+| `dev-component-gallery` | Stack-agnostic single-page component gallery, kept in sync transparently as components change |
 
 </details>
-
-<br>
-
-## Note for advanced API users
-
-The plugin implements Anthropic's [advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively — a dedicated Opus 4.7 advisor sub-agent that other skills consult at strategic checkpoints (before substantive work, before declaring done, when stuck, when changing approach). If you're calling the Anthropic API directly (not via Claude Code), you can also enable the literal `advisor_20260301` server tool with the `anthropic-beta: advisor-tool-2026-03-01` request header — see the [advisor tool docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool). The plugin can't toggle that header itself; it ships the strategy via sub-agent plumbing.
 
 <br>
 
