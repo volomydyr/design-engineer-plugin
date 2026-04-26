@@ -4,6 +4,32 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.1.0] – 2026-04-26
+
+Beta tester feature request: audio cues when Claude finishes responding or needs user action. They linked an example using `afplay` (macOS-only). User refined the scope: hybrid opt-in install, same bundled sounds for everyone (not OS system sounds), suggest a specific sound source.
+
+### Added
+
+- **Optional sound notifications** during setup. New question in `meta-setup/SKILL.md` (between status-line install and finalization) asking the user whether to enable sound on Claude's `Stop` (finished responding) and `Notification` (waiting for your input — permission requests, AskUserQuestion) events. Opt-in only; skipped by default if the user picks "No" or doesn't run setup.
+- **Bundled CC0 sounds at `assets/sounds/`** — `de-complete.wav` (Stop, warm "task done" chime) and `de-attention.wav` (Notification, alerting tone, distinct from completion). Sourced from [Kenney UI Audio](https://kenney.nl/assets/ui-audio), CC0 public domain — no attribution required, irrevocable license, redistributable. License note at `assets/sounds/LICENSE.md`.
+- **Cross-platform playback shim** at `hooks/de-play-sound.sh`. Detects OS and uses platform-native player: macOS `afplay`, Linux `paplay`/`aplay`/`play` (in that fallback order), native Windows shells PowerShell `System.Media.SoundPlayer`. Silent on WSL (Windows Subsystem for Linux doesn't expose Windows audio by default). Fail-silent (`exit 0`) so a missing player never blocks Claude Code; backgrounded so playback doesn't delay the calling hook.
+
+### Notes on hook event choice
+
+- **Stop** (Claude finished responding) and **Notification** (Claude waiting for permission/AskUserQuestion answer) are the right events per Anthropic docs.
+- The user's reference snippet also wired `SessionStart` and `UserPromptSubmit` — we skipped both. SessionStart fires every session open (annoying chime on each start). UserPromptSubmit fires when the *user* submits — irrelevant to "Claude needs me" or "Claude finished".
+- Hook entries are written to user-level `~/.claude/settings.json` (not plugin-level) so they fire across all Claude Code work, not just plugin commands. Same scope pattern as the existing status-line install. Existing user settings are preserved (read-merge-write, never overwrite).
+
+### Uninstall and mute
+
+- **Uninstall**: re-run `/design-engineer:start` and pick "Uninstall" on the sound install question, or manually remove the Stop/Notification hook entries from `~/.claude/settings.json`.
+- **Temporary mute**: run `/design-engineer:mute-unmute-sound` to silence sounds without uninstalling. Run again to unmute. Useful for meetings, libraries, or anywhere you want temporary silence. State persists across Claude Code restarts (flag file at `~/.claude/de-sound-muted`).
+
+### Also in this release
+
+- **New `/design-engineer:mute-unmute-sound` command** that toggles sound notifications via a flag file at `~/.claude/de-sound-muted`. The playback shim checks for this file on every invocation and exits silently if present. First call mutes, second call unmutes. Idempotent and safe to run repeatedly. Command count goes from 8 to 9.
+- **"Already installed" detection** in the status-line and sound install questions. When `/design-engineer:start` runs and detects existing plugin config in `~/.claude/settings.json`, the question now offers three options instead of two: `Skip – already installed` (default for re-runs), `Reinstall (replace)`, or `Uninstall`. Eliminates the awkward "do I really want to reinstall?" friction when re-running setup.
+
 ## [4.0.0] – 2026-04-26 — BREAKING
 
 Beta tester reported that typing `/de:` triggered Claude Code's session-naming logic to interpret `de` as the German language code, producing chat titles like "Start German language feature". Real UX papercut for every chat using this plugin.

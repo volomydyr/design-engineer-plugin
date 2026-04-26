@@ -1,4 +1,4 @@
-> **v4.0.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
+> **v4.1.0 – beta testing phase.** Major update: the AI now walks you through each step instead of dumping results, writes like a human instead of sounding like a robot, builds prototypes in two stages (layout first, then interactive), lets you pick which psychology audits matter for your product, and can generate landing pages from your brand story. 66 improvements total. See the [changelog](CHANGELOG.md) for details.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-8 commands, 51 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+9 commands, 51 skills, and 9 agents. Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|
@@ -49,6 +49,7 @@ This is the only command you need to remember. It figures out your situation –
 | `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
 | `/design-engineer:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
 | `/design-engineer:stop` | Save progress and pause mid-activity – pick up later with `/design-engineer:start` |
+| `/design-engineer:mute-unmute-sound` | Toggle plugin sound notifications on or off without uninstalling |
 | `/design-engineer:help` | Shows all available commands, current project status, and mode |
 
 <br>
@@ -104,7 +105,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 ### Structure
 
 <details>
-<summary>5. What are the 8 commands and when do I use each one?</summary>
+<summary>5. What are the 9 commands and when do I use each one?</summary>
 <br>
 
 - **`/design-engineer:start`** – always start here. It detects your situation and routes you.
@@ -114,6 +115,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 - **`/design-engineer:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
 - **`/design-engineer:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
 - **`/design-engineer:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/design-engineer:start`.
+- **`/design-engineer:mute-unmute-sound`** – toggle plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence.
 - **`/design-engineer:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
 You only need to remember `/design-engineer:start`. It guides you to everything else.

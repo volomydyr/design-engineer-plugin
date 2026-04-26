@@ -207,8 +207,24 @@ Memory already exists — do not overwrite. It will be read on demand during the
 
 ---
 
-Ask about the status line:
+Ask about the status line.
 
+**First**, detect prior installation: read `~/.claude/settings.json` (if it exists) and check if `statusLine.command` references `de-statusline.js`. If yes, present the 3-option question; if no, present the 2-option question.
+
+3-option (already installed):
+```
+question: "The design-engineer status line is already installed. What would you like to do?"
+header: "Status Line"
+options:
+  - label: "Skip – already installed"
+    description: "Keep your current setup, no changes"
+  - label: "Reinstall (replace)"
+    description: "Re-copy the script and rewrite the settings entry – useful if it stopped working"
+  - label: "Uninstall"
+    description: "Remove the statusLine entry from ~/.claude/settings.json (script file stays on disk)"
+```
+
+2-option (not installed):
 ```
 question: "Would you like to install the design-engineer status line?"
 header: "Status Line"
@@ -219,7 +235,7 @@ options:
     description: "Skip – re-run /design-engineer:start later to install"
 ```
 
-If "Yes":
+If "Yes" or "Reinstall":
 1. Check if a status line is already configured in `~/.claude/settings.json`
 2. If one exists, inform the user: "A status line is already configured: [current value]. Installing will replace it. The previous script file will not be deleted."
 3. Create directories: `mkdir -p ~/.claude/hooks ~/.claude/cache`
@@ -236,6 +252,72 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 "Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials – only the monitor does, and only in that separate terminal."
 
+---
+
+Ask about sound notifications.
+
+**First**, detect prior installation: read `~/.claude/settings.json` (if it exists) and check if any hook entry under `hooks.Stop` or `hooks.Notification` includes `de-play-sound.sh` in its command. If yes, present the 3-option question; if no, present the 2-option question.
+
+3-option (already installed):
+```
+question: "Sound notifications are already installed. What would you like to do?"
+header: "Sounds"
+options:
+  - label: "Skip – already installed"
+    description: "Keep your current setup, no changes. Use /design-engineer:mute-unmute-sound to silence temporarily."
+  - label: "Reinstall (replace)"
+    description: "Re-write the Stop and Notification entries in ~/.claude/settings.json"
+  - label: "Uninstall"
+    description: "Remove the Stop and Notification sound entries from ~/.claude/settings.json"
+```
+
+2-option (not installed):
+```
+question: "Would you like sound notifications when Claude finishes responding or needs your input?"
+header: "Sounds"
+options:
+  - label: "Yes"
+    description: "Plays a short bundled sound when Claude finishes (Stop hook) and when Claude waits for your input – permission requests, AskUserQuestion (Notification hook). Works on macOS, Linux (with paplay/aplay/play), and native Windows shells. Silent on WSL. To silence temporarily without uninstalling, run /design-engineer:mute-unmute-sound."
+  - label: "No (Recommended for shared spaces)"
+    description: "Skip – no audio. Re-run /design-engineer:start later to install."
+```
+
+If "Yes" or "Reinstall":
+1. Read `~/.claude/settings.json` (create if missing). Preserve existing entries — never overwrite the file wholesale.
+2. Ensure `hooks` exists at the top level. Within it, ensure `Stop` and `Notification` arrays exist.
+3. Append two hook entries (skip if an identical entry is already present):
+
+   For `Stop`:
+   ```json
+   {
+     "hooks": [
+       {
+         "type": "command",
+         "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-complete.wav"
+       }
+     ]
+   }
+   ```
+
+   For `Notification`:
+   ```json
+   {
+     "hooks": [
+       {
+         "type": "command",
+         "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-attention.wav"
+       }
+     ]
+   }
+   ```
+
+4. Write `~/.claude/settings.json` back with 2-space indentation.
+5. Confirm: "Sound notifications installed. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input. To disable later, re-run /design-engineer:start or remove these entries from ~/.claude/settings.json."
+
+If "No": skip the writes silently.
+
+---
+
 Initialize dependency tracking by copying [dependencies-default.yaml](./assets/dependencies-default.yaml) into `.design-engineer-plugin/dependencies.yaml` (the canonical path — kept separate from user deliverables in `design/`).
 
 Display a summary in plain language – no file names or config paths:
@@ -247,6 +329,7 @@ Mode: {Guided / Autopilot}
 Your design docs will live in design/
 {Figma connected / Figma not connected – offer help}
 Status line: {installed / skipped}
+Sound notifications: {installed / skipped}
 
 Next step: Run /design-engineer:design to start designing your product.
 Tip: Run /design-engineer:start anytime to check progress or see what's available.
