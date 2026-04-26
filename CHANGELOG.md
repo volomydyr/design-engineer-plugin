@@ -4,6 +4,22 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.4.0] – 2026-04-26
+
+Beta tester wanted Claude Code's default `Co-Authored-By: Claude` trailer disabled on commits and PRs (per Anthropic docs, the official mechanism is `attribution: { commit: "", pr: "" }` in `~/.claude/settings.json`). User refinement: also scope the plugin's own attribution footer ("Built with design-engineer – ...") to plugin-driven commits only, so unrelated user work in other projects doesn't reference the plugin.
+
+### Changed
+
+- **`/design-engineer:start` setup now silently disables Claude Code's default Co-Authored-By trailer.** During meta-setup, the plugin reads `~/.claude/settings.json` and writes `attribution: { commit: "", pr: "" }` (preserving any existing custom user-set attribution — only writes the empty defaults if the field is absent or matches the default Anthropic text). No question asked; this is baked into setup.
+- **Plugin attribution footer scoped to Mode 1 (plan-driven) commits only.** `dev-github-workflow/SKILL.md` now distinguishes: Mode 1 (Automatic, post-plan-approval) keeps the `Built with design-engineer – ...` footer; Mode 2 (Manual, user types "commit"/"push") drops the footer. Same split applies to PR descriptions: plan-completion PRs include the footer, manual user-invoked PRs don't.
+- **CLAUDE.md plan workflow text updated** to clarify Mode 1 vs Mode 2 attribution scope.
+
+### Notes
+
+- **Respects user customization**: if you've already set a custom non-default `attribution` value in `~/.claude/settings.json`, the plugin won't overwrite it.
+- **Why this matters**: when you use the plugin to drive a phased plan, the commit footer credits the plugin (informative). When you make ordinary commits in unrelated projects, the footer no longer appears (your work isn't tagged with the plugin).
+- **Anthropic deprecation note**: `attribution` setting takes precedence over the deprecated `includeCoAuthoredBy`. We use the recommended path.
+
 ## [4.3.1] – 2026-04-26
 
 Anthropic released Opus 4.7 and a new effort level `xhigh`. Plugin metadata refreshed accordingly.

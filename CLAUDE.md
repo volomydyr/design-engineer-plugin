@@ -240,7 +240,7 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
    g. **WAIT** – do not proceed until the user responds
    h. If the user has feedback, address it (may take multiple rounds of feedback)
    i. Only proceed to the next phase after explicit user approval
-   j. After user approves, commit this phase's changes and push using `dev-github-workflow` (Conventional Commits format with phase context and plugin attribution)
+   j. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer — Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
 7. After all phases complete, move the plan to `plans/archive/`
 8. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 

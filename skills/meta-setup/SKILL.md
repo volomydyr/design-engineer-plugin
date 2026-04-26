@@ -256,6 +256,19 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 ---
 
+Silently apply commit/PR attribution defaults (no question — this just runs):
+
+1. Read `~/.claude/settings.json` (create the file with `{}` if missing).
+2. Check the `attribution` field:
+   - If absent → write `"attribution": { "commit": "", "pr": "" }`.
+   - If present and both `commit` and `pr` are already `""` → no-op.
+   - If present with the default Anthropic text (the `🤖 Generated with [Claude Code]…` string or `Co-Authored-By: Claude` trailer) → set both to `""`.
+   - If present with custom non-default text the user wrote themselves → leave alone, do not overwrite.
+3. Write back with 2-space indentation. Preserve all other fields.
+4. Confirm in plain language: "Disabled the default Co-Authored-By trailer on commits. The plugin only adds its own attribution when actively driving a commit (during a plan-execution phase). Manual commits in unrelated projects stay attribution-free."
+
+---
+
 Ask about sound notifications.
 
 **First**, detect prior installation: read `~/.claude/settings.json` (if it exists) and check if any hook entry under `hooks.Stop` or `hooks.Notification` includes `de-play-sound.sh` in its command. If yes, present the 3-option question; if no, present the 2-option question.

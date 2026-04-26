@@ -60,7 +60,9 @@ Default to private. **BLOCKING REQUIREMENT**: Wait for the user's answer before 
 
 ## Commit Message Format
 
-All commits follow Conventional Commits with plugin attribution:
+All commits follow Conventional Commits. The footer (`Built with design-engineer – ...`) is **scoped** — it appears only when the plugin is actively driving the commit (Mode 1, post-plan-approval), NOT on user-invoked manual commits (Mode 2). This keeps unrelated user work attribution-free.
+
+### Mode 1 commit format (plan-driven — includes plugin attribution)
 
 ```
 type(scope): brief description
@@ -69,6 +71,16 @@ Phase N – what was accomplished
 
 Built with design-engineer – https://github.com/volomydyr/design-engineer-plugin
 ```
+
+### Mode 2 commit format (manual user-invoked — no plugin footer)
+
+```
+type(scope): brief description
+
+[optional body]
+```
+
+Claude Code's default Co-Authored-By trailer is disabled at install via the `attribution` setting in `~/.claude/settings.json` (set during `/design-engineer:start`), so neither mode includes it.
 
 ### Types
 
@@ -87,7 +99,7 @@ Built with design-engineer – https://github.com/volomydyr/design-engineer-plug
 - **Description**: imperative mood, one line, no period ("add dark mode toggle" not "added dark mode toggle.")
 - **Scope**: area of the codebase – component name, page name, or feature area (e.g., `settings`, `auth`, `dashboard`)
 - **Body**: optional – include phase context during plan execution, skip for standalone commits if the description is sufficient
-- **Footer**: always present – plugin attribution on the last line
+- **Footer**: present in **Mode 1 only** (plan-driven commits). Mode 2 (manual user-invoked) commits do NOT include the plugin footer — that's user work potentially unrelated to the plugin pipeline.
 
 ---
 
@@ -160,13 +172,11 @@ multiSelect: false  # User must choose one branch strategy
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
-4. **Generate commit message**: Analyze the changes and draft a message following the format. Present it to the user for approval before committing:
+4. **Generate commit message**: Analyze the changes and draft a Mode-2 message — **no plugin footer**, since this is user-driven work that may be unrelated to the plugin's pipeline. Present it for approval before committing:
 
    > **Proposed commit:**
    > ```
    > feat(dashboard): add usage chart with weekly breakdown
-   >
-   > Built with design-engineer – https://github.com/volomydyr/design-engineer-plugin
    > ```
    > Approve or edit?
 
@@ -185,10 +195,13 @@ When a plan is approved and implementation begins:
 - Create from current main: `git checkout -b feat/plan-name`
 - Push with tracking: `git push -u origin feat/plan-name`
 
-### PR creation (when plan completes)
+### PR creation
 
-After all plan phases are committed:
+**Mode 1 — plan-driven** (after all plan phases are committed): include plugin footer in the PR description.
 1. Create PR: `gh pr create --title "type(scope): plan description" --body "## Summary\n[plan summary]\n\nBuilt with design-engineer – https://github.com/volomydyr/design-engineer-plugin"`
+
+**Mode 2 — manual user-invoked** (user says "create a PR" outside a plan): no plugin footer in the PR description.
+1. Create PR: `gh pr create --title "type(scope): description" --body "## Summary\n[summary]"`
 2. Ask the user:
 
 ```
