@@ -4,6 +4,12 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.6.5] – 2026-04-26
+
+### Changed
+
+- **Clarified spacer scope in CLAUDE.md rule 6** — added an explicit "Do NOT add the spacer to" list (regular chat messages, plain-text questions, end-of-turn summaries) so future sessions don't apply the spacer to messages that aren't followed by an actual `AskUserQuestion` tool call. The spacer exists only to defeat the question-panel overlay; without a panel, no spacer is needed.
+
 ## [2.6.4] – 2026-04-26
 
 ### Changed

@@ -381,6 +381,13 @@ This is especially important in UI copy – prototypes, components, and any gene
 
    Three horizontal-rule lines is the standard. The spacer must be the last thing in the chat message before the AskUserQuestion call. This rule applies to every AskUserQuestion in commands, skills, and agents – no exceptions.
 
+   **Scope**: the spacer is ONLY for messages that are immediately followed by an actual `AskUserQuestion` tool invocation. Do NOT add it to:
+   - Regular chat messages with plain-text questions ("Want me to push it?", "Sound good?", etc.)
+   - End-of-turn summaries
+   - Any message not paired with an AskUserQuestion tool call
+   
+   The spacer exists to defeat the panel overlay – no panel, no need for spacer.
+
 ## Project state injection
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/de:start` routes correctly even when auto-memory contains rich project context from previous sessions.
