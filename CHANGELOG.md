@@ -4,6 +4,18 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.3] – 2026-04-27
+
+Plugin no longer pollutes non-plugin project context with onboarding text. Reported during fresh-install testing of v4.8.2.
+
+### Fixed
+
+- **Onboarding instructions for `/design-engineer:start` were injected into Claude's context on every prompt in every project (~2 KB of text per prompt), even in unrelated repos.** The `de-start-state.sh` UserPromptSubmit hook's "no config" branch (Case 1) emitted the full multi-step onboarding flow as `additionalContext` on every prompt, regardless of whether the user was actually invoking the plugin. So Claude in `~/Cursor-projects/sales-agent-prototype` (or any other unrelated repo) silently paid a per-prompt token tax to carry instructions it would only ever consume if `/design-engineer:start` ran. Fix: relocate the onboarding text from the hook into `commands/design-engineer/start.md`. The hook now emits only `DESIGN_ENGINEER_PLUGIN_ROOT` and `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` markers in non-plugin projects (~150 bytes). When the user invokes `/design-engineer:start`, the command body provides the same step-by-step instructions Claude used to receive from the hook – behavior is unchanged. Audit also confirmed that all 11 other plugin hooks already exit silently in non-plugin projects (CWD gate on `.design-engineer-plugin/config.yaml` was added per hook in earlier releases).
+
+### Note (not a v4.8.3 fix)
+
+The "Plugin directory does not exist: /Users/.../.claude/plugins/cache/design-engineer-plugin/design-engineer/X.X.X" errors that some users have seen are a **stale plugin registry** issue, not a plugin-source bug. They occur when the plugin's cache directory is removed from disk while Claude Code's plugin manager still has the plugin registered as installed at that version. Fix is operational: run `/plugin install design-engineer@design-engineer-plugin` to repopulate the cache. v4.8.3 cannot fix this from plugin source.
+
 ## [4.8.2] – 2026-04-27
 
 Sound system: opt-in by default and gated to plugin projects. Reported during fresh-install testing of v4.8.1.
