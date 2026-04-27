@@ -1,4 +1,4 @@
-> **v4.8.0** – see the [changelog](CHANGELOG.md) for what's new.
+> **v4.8.1** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 

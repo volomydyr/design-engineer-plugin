@@ -4,6 +4,15 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.1] – 2026-04-27
+
+Two onboarding-flow bug fixes reported during fresh-install testing of v4.8.0.
+
+### Fixed
+
+- **Process-recall list shown at the very first prompt of a fresh install.** The plugin's `de-process-recall-hook.sh` fires unconditionally on every UserPromptSubmit, and the onboarding context injected by `de-start-state.sh` reads as a "process" to Claude – so the first thing a brand-new user sees is an enumerated step list before any introduction. Fix: short-circuit the recall hook with `exit 0` when `.design-engineer-plugin/config.yaml` is absent (= first-touch install). Once onboarding writes the config, the recall hook resumes normally on every subsequent prompt as designed.
+- **Welcome AskUserQuestion overlaid and cut off the intro text.** The 3-line spacer rule lives in `CLAUDE.md` rule #6, but `CLAUDE.md` is not auto-injected into hook-driven flows – so on first run the model never saw the rule and emitted no spacer. The question panel then overlaid the last 2–3 lines of the intro paragraph ("a swiss knife for product design… all in" was the only visible text). Fix: include the spacer rule (with the literal 3-horizontal-rule block) directly in the onboarding context that `de-start-state.sh` injects, for both the first-touch case and the existing-project welcome case.
+
 ## [4.8.0] – 2026-04-26
 
 Audit-driven full remediation. After v4.7.0 shipped, the author commissioned a comprehensive 6-phase audit of the entire plugin (`audit/2026-04-26-comprehensive/`) that produced 108 findings (2 BLOCKER, 55 HIGH, 38 MEDIUM, 13 LOW). This release addresses every one of them in a single MINOR bump.
