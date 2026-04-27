@@ -5,12 +5,25 @@
 # Detects the OS, plays the WAV with the OS-native command, fails silently
 # (exit 0) if no player is available so a missing player never blocks
 # Claude Code. Backgrounded so playback doesn't delay the calling hook.
+#
+# Sounds play only when BOTH conditions are true:
+#   1. The user has globally opted in via ~/.claude/de-sound-enabled
+#      (toggled by /design-engineer:mute-unmute-sound; created during
+#      /design-engineer:start onboarding when the user picks "Yes").
+#   2. The current working directory is a design-engineer plugin project,
+#      i.e. it contains .design-engineer-plugin/config.yaml.
+#
+# Either condition false → exit 0, silent. This keeps fresh installs quiet
+# until the user is asked, and prevents the plugin's chimes from firing in
+# unrelated repos.
 
 SOUND_FILE="${1:-}"
 
-# Mute flag: if ~/.claude/de-sound-muted exists, exit silently. Toggled via
-# the /design-engineer:mute-unmute-sound command (creates/removes the flag).
-[ -f "$HOME/.claude/de-sound-muted" ] && exit 0
+# Global opt-in flag missing → silent
+[ -f "$HOME/.claude/de-sound-enabled" ] || exit 0
+
+# Not a plugin project (no .design-engineer-plugin/config.yaml in CWD) → silent
+[ -f "$PWD/.design-engineer-plugin/config.yaml" ] || exit 0
 
 # No file or file missing → exit silently
 [ -n "$SOUND_FILE" ] && [ -f "$SOUND_FILE" ] || exit 0

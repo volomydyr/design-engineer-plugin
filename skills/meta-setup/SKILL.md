@@ -273,36 +273,38 @@ Silently apply commit/PR attribution defaults (no question – this just runs):
 
 Ask about sound notifications.
 
-**Background**: sound hooks are bundled in the plugin's `hooks/hooks.json` (Stop event for completion sound, Notification event for attention sound). They fire automatically. Whether they actually play is controlled by a flag file at `~/.claude/de-sound-muted` – if the flag exists, the playback shim exits silently. So enabling/disabling sounds means adding or removing that flag file.
+**Background**: sound hooks are bundled in the plugin's `hooks/hooks.json` (Stop event for completion sound, Notification event for attention sound). They fire automatically, but the playback shim plays a sound only when BOTH conditions are true: (a) the global opt-in flag `~/.claude/de-sound-enabled` exists, AND (b) the current working directory is a plugin project (has `.design-engineer-plugin/config.yaml`). A fresh install is silent by default until the user opts in here.
 
-**First**, detect current state by checking whether `~/.claude/de-sound-muted` exists (`test -f ~/.claude/de-sound-muted`). If it does NOT exist, sounds are currently on; ask the "keep them on?" question. If it DOES exist, sounds are currently off; ask the "unmute?" question.
+**First**, detect current state by checking whether `~/.claude/de-sound-enabled` exists (`test -f ~/.claude/de-sound-enabled`). If it DOES exist, sounds are currently on; ask the "keep them on?" question. If it does NOT exist, sounds are currently off; ask the "enable?" question.
 
-Sounds-currently-on (flag absent) – ask:
+Sounds-currently-on (flag present) – ask:
 ```
 question: "Sound notifications are currently on. Keep them?"
 header: "Sounds"
 options:
   - label: "Yes (Recommended)"
-    description: "Plays a short bundled sound when Claude finishes (Stop hook) and when Claude waits for your input – permission requests, AskUserQuestion (Notification hook). Works on macOS, Linux (with paplay/aplay/play), and native Windows shells. Silent on WSL. To silence temporarily later, run /design-engineer:mute-unmute-sound."
+    description: "Plays a short bundled sound when Claude finishes (Stop hook) and when Claude waits for your input – permission requests, AskUserQuestion (Notification hook). Sounds fire only inside design-engineer plugin projects, never in unrelated repos. Works on macOS, Linux (with paplay/aplay/play), and native Windows shells. Silent on WSL. To silence temporarily later, run /design-engineer:mute-unmute-sound."
   - label: "No, mute them"
-    description: "Creates ~/.claude/de-sound-muted so the playback shim exits silently. Toggle later with /design-engineer:mute-unmute-sound."
+    description: "Removes ~/.claude/de-sound-enabled so the playback shim exits silently. Toggle later with /design-engineer:mute-unmute-sound."
 ```
 
-Sounds-currently-off (flag present) – ask:
+Sounds-currently-off (flag absent) – ask:
 ```
-question: "Sound notifications are currently muted. Unmute?"
+question: "Sound notifications are currently off. Enable them?"
 header: "Sounds"
 options:
-  - label: "Yes, unmute"
-    description: "Removes ~/.claude/de-sound-muted so the bundled sound hooks (Stop + Notification) play their chimes again."
+  - label: "Yes (Recommended)"
+    description: "Creates ~/.claude/de-sound-enabled so the bundled sound hooks (Stop + Notification) play their chimes – only inside design-engineer plugin projects."
   - label: "Keep muted"
-    description: "Leave the mute flag in place. No audio. Toggle later with /design-engineer:mute-unmute-sound."
+    description: "Leave sounds off. Toggle later with /design-engineer:mute-unmute-sound."
 ```
 
 **Apply the choice** (no writes to `~/.claude/settings.json` – the hooks are already wired in the plugin's own `hooks/hooks.json`):
 
-- If user picks "Yes (Recommended)" or "Yes, unmute": run `rm -f ~/.claude/de-sound-muted` (idempotent; no error if absent). Confirm: "Sounds are on. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input."
-- If user picks "No, mute them" or "Keep muted": run `mkdir -p ~/.claude && touch ~/.claude/de-sound-muted` (idempotent). Confirm: "Sounds muted. Toggle anytime with /design-engineer:mute-unmute-sound."
+- If user picks "Yes (Recommended)": run `mkdir -p ~/.claude && touch ~/.claude/de-sound-enabled` (idempotent). Confirm: "Sounds are on globally. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input – inside plugin projects only."
+- If user picks "No, mute them" or "Keep muted": run `rm -f ~/.claude/de-sound-enabled` (idempotent; no error if absent). Confirm: "Sounds muted. Toggle anytime with /design-engineer:mute-unmute-sound."
+
+**Cleanup the retired legacy mute flag** (idempotent, harmless if absent): `rm -f ~/.claude/de-sound-muted`. Older plugin versions used a default-on mute flag at this path; v4.8.2 retired it in favor of the explicit opt-in flag above. Removing the legacy file keeps the user's `~/.claude/` directory clean and prevents confusion if anyone inspects it manually.
 
 **Migration cleanup**: if the user has legacy entries in `~/.claude/settings.json` under `hooks.Stop` or `hooks.Notification` from plugin versions v4.1.0–v4.7.0 that referenced `${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh`, those are dead (the variable does not resolve inside `settings.json`). Detect them by reading the file and checking for `de-play-sound.sh` in any Stop/Notification hook entry. If found, remove just those entries (preserve all other settings) and tell the user "Cleaned up legacy sound-hook entries from settings.json – the plugin now ships its sound hooks bundled at the canonical Anthropic location." Do not write any new entries to `~/.claude/settings.json`.
 

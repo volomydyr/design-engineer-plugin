@@ -4,6 +4,17 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.2] – 2026-04-27
+
+Sound system: opt-in by default and gated to plugin projects. Reported during fresh-install testing of v4.8.1.
+
+### Fixed
+
+- **Sounds played before the user was asked.** Sound hooks fired on the very first Stop/Notification after install, before `/design-engineer:start` ran the setup question. Root cause: the playback shim only consulted a default-on global mute flag (`~/.claude/de-sound-muted`, presence = mute), so absence meant sounds were on by default. Fix: invert the flag semantics. New flag is `~/.claude/de-sound-enabled` (presence = on). Fresh installs are now silent until the user picks "Yes" during onboarding. The legacy mute flag is retired – `meta-setup` removes it on first run, and nothing in the new code reads it.
+- **Sounds played in every project, not just plugin projects.** The playback shim never checked whether the current directory was actually a plugin project, so chimes fired in unrelated repos too. Fix: gate `de-play-sound.sh` on `.design-engineer-plugin/config.yaml` being present in CWD. Sounds in non-plugin folders now stay silent automatically. The `/design-engineer:mute-unmute-sound` command stays global – the project gate happens at the shim, not at the toggle.
+
+**Upgrade note**: existing v4.8.0/v4.8.1 test installs lose sound after the upgrade until they run `/design-engineer:mute-unmute-sound` once (or re-onboard a project, which asks again). No real-user migration is needed because the prior releases were one and two days old respectively at the time of this fix.
+
 ## [4.8.1] – 2026-04-27
 
 Two onboarding-flow bug fixes reported during fresh-install testing of v4.8.0.
