@@ -6,6 +6,12 @@ argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]
 
 # Development Pipeline
 
+## Plugin paths (authoritative)
+
+Resolved at command-load time via bash injection. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}` or `${CLAUDE_PLUGIN_ROOT}`, use the absolute path below. Do NOT rely on env-var substitution from injected context.
+
+**Plugin root**: !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* 2>/dev/null | sort -V | tail -1`
+
 > **Spacer rule (per CLAUDE.md rule #6)**: Before every `AskUserQuestion` tool call this command makes, end the preceding chat message with the canonical 3-horizontal-rule spacer (three lines of `─` characters). This applies to every option set described in this command body.
 
 ## Context

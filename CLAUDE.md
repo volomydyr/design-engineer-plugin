@@ -1,5 +1,57 @@
 # Design Engineer Plugin Development
 
+## Skill loading from commands (doc-compliant pattern)
+
+This plugin's skills all set `disable-model-invocation: true` (intentional — skills are libraries loaded by commands, not auto-discoverable workflows). The Skill tool will REJECT any attempt to invoke them programmatically with the error: `Skill <name> cannot be used with Skill tool due to disable-model-invocation`.
+
+**Therefore, never tell the model to "load the X skill" or "invoke the Y skill" in a command body.** The model interprets that as a Skill-tool call and the command crashes on the very first run.
+
+### The required pattern
+
+Every command file MUST start its body with this resolution block (placed just after the `# Title` heading and before any other section):
+
+```markdown
+## Plugin paths (authoritative)
+
+Resolved at command-load time via bash injection. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}` or `${CLAUDE_PLUGIN_ROOT}`, use the absolute path below. Do NOT rely on env-var substitution from injected context.
+
+**Plugin root**: !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* 2>/dev/null | sort -V | tail -1`
+```
+
+This relies only on documented Claude Code mechanisms:
+
+- **Bash injection** (`` !`...` ``) — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context. Output is inlined as text at command-load time, before the model sees the rendered command.
+- **Plugin cache layout** (`~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/`) — empirically observed across all current Claude Code releases.
+
+The injection block resolves the absolute plugin root. The model then sees a literal absolute path inline and uses it whenever the body says `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/...`. No reliance on:
+
+- `${CLAUDE_PLUGIN_ROOT}` substitution (only documented for `hooks/hooks.json`, NOT for command bodies).
+- Custom hook-injected env vars (e.g. our `DESIGN_ENGINEER_PLUGIN_ROOT` from `de-start-state.sh`) — works empirically but undocumented.
+
+### Skill references inside commands
+
+When a command needs to invoke skill instructions, write:
+
+```markdown
+Read the SKILL.md at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` (substitute the resolved plugin root from the top of this file) and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
+```
+
+The "do NOT use the Skill tool" guard is mandatory in every such instruction, as a backstop against the model defaulting to Skill-tool invocation.
+
+### What NOT to write
+
+These phrasings have been observed to cause Skill-tool failures and are forbidden:
+
+- ❌ "Load the X skill" — Claude calls `Skill(X)` and crashes.
+- ❌ "Invoke the X skill" — same failure.
+- ❌ "Use the X skill" — ambiguous; Claude may pick Skill tool.
+
+The only correct phrasing is **"Read `<path>/SKILL.md` and follow its instructions"** with an explicit Skill-tool prohibition.
+
+### Hooks vs commands
+
+`${CLAUDE_PLUGIN_ROOT}` IS officially documented for `hooks/hooks.json` `command` fields. Hooks may use it directly (and do, throughout `hooks/hooks.json`). This convention applies only to slash command bodies and skill markdown — not to hooks.
+
 ## Versioning Requirements
 
 Every change to this plugin MUST include updates to all three files:

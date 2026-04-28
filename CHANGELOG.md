@@ -4,6 +4,19 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.5] – 2026-04-28
+
+Audit pass: switched plugin-path resolution in command bodies from undocumented mechanisms to documented bash injection, eliminating an entire class of "skill won't load" bugs.
+
+### Changed
+
+- **Path resolution in commands now uses documented bash injection.** Previously, slash command bodies referenced `${DESIGN_ENGINEER_PLUGIN_ROOT}/...` and relied on the model to substitute the value from hook-injected `additionalContext`. That worked empirically but is not a documented Claude Code mechanism — the docs reserve `${CLAUDE_PLUGIN_ROOT}` for `hooks/hooks.json` only, and don't define how custom env vars resolve in command markdown. v4.8.5 adds an authoritative `## Plugin paths` block at the top of every command (`start`, `design`, `dev`, `document`, `prototype`, `review`) using the documented bash-injection syntax: `` !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* | sort -V | tail -1` ``. The output is inlined as a literal absolute path at command-load time, before the model sees the rendered command. Subsequent `${DESIGN_ENGINEER_PLUGIN_ROOT}/...` references in the same command body resolve against that visible path. No more reliance on undocumented substitution.
+- **CLAUDE.md codifies the convention.** New "Skill loading from commands (doc-compliant pattern)" section documents the required structure for every command: the bash-injection block at the top, the explicit "Read `<path>/SKILL.md`" instruction with mandatory "do NOT use the `Skill` tool" guard, and the forbidden phrasings ("load the X skill", "invoke the X skill", "use the X skill") that previously caused crashes. Future commands and skills must follow this convention.
+
+### Why
+
+v4.8.4 fixed the immediate `Skill design-engineer:meta-setup cannot be used with Skill tool` crash by changing wording, but left the underlying path-resolution mechanism (custom env-var substitution from hook context) undocumented and brittle. v4.8.5 closes that gap so the same class of bug cannot recur — every plugin-internal path is resolved by bash injection, which IS documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context.
+
 ## [4.8.4] – 2026-04-28
 
 `/design-engineer:start` no longer crashes on the very first run. Reported during fresh-install testing of v4.8.3.

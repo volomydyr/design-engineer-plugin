@@ -8,6 +8,12 @@ argument-hint: ""
 
 <context> #$ARGUMENTS </context>
 
+## Plugin paths (authoritative)
+
+The line below is resolved at command-load time via bash injection (the documented `` !`...` `` mechanism). Whenever this command body references `${DESIGN_ENGINEER_PLUGIN_ROOT}` or `${CLAUDE_PLUGIN_ROOT}`, substitute it with the absolute path printed below. Do NOT rely on env-var substitution from injected context — that is undocumented and unreliable.
+
+**Plugin root**: !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* 2>/dev/null | sort -V | tail -1`
+
 ## Routing
 
 Check your context for `DESIGN_ENGINEER_PROJECT_STATE:`.
