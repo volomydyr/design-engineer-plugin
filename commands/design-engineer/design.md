@@ -107,7 +107,7 @@ Skills in sequence:
 
 ## Per-phase advisor checkpoint
 
-After completing each phase above (Discovery / Strategy / Planning / Design & validation), before transitioning to the next phase or hand-off, invoke the `advisor` skill (`skills/advisor/`) with: phase name, deliverables produced, key decisions made, anything that surprised you. Apply the advice or use the reconcile pattern. This implements the docs' "before declaring done" call after deliverables are durable – it's the higher-leverage moment in this command, since each phase produces multiple decisions that downstream phases build on.
+After completing each phase above (Discovery / Strategy / Planning / Design & validation), before transitioning to the next phase or hand-off, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase name, deliverables produced, key decisions made, anything that surprised you. Apply the advice or use the reconcile pattern. This implements the docs' "before declaring done" call after deliverables are durable – it's the higher-leverage moment in this command, since each phase produces multiple decisions that downstream phases build on.
 
 Skip the consult on phases where the user explicitly chose to skip optional skills and the produced deliverable is a single trivial document.
 
@@ -180,7 +180,7 @@ Generate the spec at `design/features/[feature-slug]/feature-spec.md` (the `desi
 
 ### F1.3.5: Advisor checkpoint (pre-handoff)
 
-After the spec is drafted at `design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, invoke the `advisor` skill (`skills/advisor/`) with: the drafted spec, brand voice context (from `design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This mirrors the per-phase advisor checkpoint in the main pipeline – the feature-spec is substantive enough that a pre-handoff strategic check pays off.
+After the spec is drafted at `design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: the drafted spec, brand voice context (from `design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This mirrors the per-phase advisor checkpoint in the main pipeline – the feature-spec is substantive enough that a pre-handoff strategic check pays off.
 
 ### F1.4: Hand off
 

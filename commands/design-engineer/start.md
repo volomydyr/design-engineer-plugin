@@ -13,9 +13,11 @@ argument-hint: ""
 Check your context for `DESIGN_ENGINEER_PROJECT_STATE:`.
 
 - If `new_to_plugin` → follow the **Onboarding sequence** below in this file. Do not skip any step.
-- If `returning_with_resume` → load the `meta-setup` skill, follow Path A (resume state).
-- If `returning_no_resume` → load the `meta-setup` skill, follow Path A (config summary).
-- If not found → load the `meta-setup` skill, it handles detection as fallback.
+- If `returning_with_resume` → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — these skills have `disable-model-invocation: true` and must be loaded by Reading the file.
+- If `returning_no_resume` → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
+- If not found → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions; it handles detection as fallback.
+
+**Skill invocation note**: throughout this file, "load the X skill" or "load the meta-setup skill" means Read the file at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` using the Read tool, then follow its instructions inline. NEVER use the `Skill` tool to invoke these skills — they all set `disable-model-invocation: true` in their frontmatter and the Skill tool will reject them.
 
 ## Spacer rule (applies to every AskUserQuestion below)
 
@@ -51,7 +53,7 @@ After receiving the answer, follow the matching path.
 
 ### Path A – "New product"
 
-Load the `meta-setup` skill and proceed to its Step 2 (Detect Environment). The `meta-setup` skill handles the full new-product setup. Skip Steps 2–4 below.
+Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions starting at Step 2 (Detect Environment). It handles the full new-product setup. Skip Steps 2–4 below. (Do NOT use the `Skill` tool.)
 
 ### Path B – "Existing project"
 
@@ -127,7 +129,7 @@ Then read `~/.claude/settings.json` and set `statusLine` to `{"type": "command",
 
 Say "You're all set. Let's get started." then show: "Tip: Run `/design-engineer:help` anytime to see all available commands and capabilities."
 
-Then load the `/design-engineer:` command matching the goal selected in Step 2:
+Then run the `/design-engineer:` slash command matching the goal selected in Step 2 (these are commands, not skills — invoke them as slash commands):
 
 | Goal selected | Command to load |
 | --- | --- |
@@ -138,6 +140,6 @@ Then load the `/design-engineer:` command matching the goal selected in Step 2:
 
 ## Advisor checkpoint contract for the loaded skill
 
-After environment detection completes (tech stack identified, tools enumerated, project type inferred) but **before** committing to a recommended onboarding path or kickoff plan, the loaded skill (`meta-setup-welcome` or `meta-setup`) MUST invoke the `advisor` skill (`skills/advisor/`) with: detection results, inferred project type, the path it's about to recommend, and "I'm about to commit to this interpretation of the project – any course correction before I show it to the user?" Apply the advice or use the reconcile pattern.
+After environment detection completes (tech stack identified, tools enumerated, project type inferred) but **before** committing to a recommended onboarding path or kickoff plan, the loaded skill (`meta-setup-welcome` or `meta-setup`) MUST consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions with: detection results, inferred project type, the path it's about to recommend, and "I'm about to commit to this interpretation of the project – any course correction before I show it to the user?" Apply the advice or use the reconcile pattern. (As elsewhere in this plugin, advisor is loaded via Read, not the `Skill` tool.)
 
 This is the docs' "before committing to an interpretation" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)). Onboarding is irreversibly directional – wrong project-type inference cascades through every later phase. Skip only when the user invoked `/design-engineer:start` with explicit arguments that make interpretation unambiguous.

@@ -42,14 +42,14 @@ options:
 
 ## Step 3: Execute
 
-Load the `meta-document` skill and follow the selected path.
+Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions for the selected path. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
 In **Guided mode**: present a draft, ask for review, then save.
 In **Autopilot**: execute and save, show summary.
 
 ## Step 3.5: Pre-finalize advisor checkpoint
 
-Before writing the deliverable to disk (or after a draft is staged but before the user-facing confirmation), invoke the `advisor` skill (`skills/advisor/`) with: what's being documented, the framing chosen, anything that felt uncertain or contested, and "I'm about to finalize this as the documented record – any course correction?" Apply the advice. Skip on routine status-only updates (`status` argument) where the document is a flat snapshot of project state.
+Before writing the deliverable to disk (or after a draft is staged but before the user-facing confirmation), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: what's being documented, the framing chosen, anything that felt uncertain or contested, and "I'm about to finalize this as the documented record – any course correction?" Apply the advice. Skip on routine status-only updates (`status` argument) where the document is a flat snapshot of project state.
 
 ## Step 4: Confirm
 

@@ -145,7 +145,7 @@ Before writing ANY code, follow these steps in order:
    a. Implement only this phase's changes
    b. Run `/simplify` on changed code (mandatory after every Write/Edit)
    c. Completeness review: check the plan's checklist for this phase
-   d. **Advisor checkpoint (pre-done)**: after deliverables are durable (files written, tests run, screenshots captured), invoke the `advisor` skill (`skills/advisor/`) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes).
+   d. **Advisor checkpoint (pre-done)**: after deliverables are durable (files written, tests run, screenshots captured), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes).
    e. Present to user with QA instructions from the plan
    f. Wait for approval before next phase
    g. After approval, commit using `dev-github-workflow`

@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.4] – 2026-04-28
+
+`/design-engineer:start` no longer crashes on the very first run. Reported during fresh-install testing of v4.8.3.
+
+### Fixed
+
+- **`/design-engineer:start` immediately failed with `Error: Skill design-engineer:meta-setup cannot be used with Skill tool due to disable-model-invocation`.** The command's routing block told Claude to "load the `meta-setup` skill" – which Claude reasonably interpreted as a `Skill` tool invocation. But every plugin skill sets `disable-model-invocation: true` in its frontmatter (intentional – they're designed to be loaded by Reading their `SKILL.md` files inline, not invoked through the Skill tool). The Skill tool correctly rejected the call, blocking the entire onboarding flow before it could begin. Fix: replaced "load the X skill" wording across all six commands (`start.md`, `design.md`, `dev.md`, `document.md`, `prototype.md`, `review.md`) with explicit `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md` instructions plus an inline reminder not to use the `Skill` tool. Added an explicit "Skill invocation note" at the top of `start.md` calling out the convention. Behavior unchanged – this is purely a wording fix to make the existing intent unambiguous.
+
 ## [4.8.3] – 2026-04-27
 
 Plugin no longer pollutes non-plugin project context with onboarding text. Reported during fresh-install testing of v4.8.2.

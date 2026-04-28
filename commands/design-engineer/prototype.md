@@ -42,7 +42,7 @@ In **Autopilot**: show plan briefly, then build.
 
 ## Step 3: Execute
 
-Load the `dev-prototyping` skill and follow its full 7-step flow.
+Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md` and follow its full 7-step flow. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
 In **Guided mode**: pause after the initial prototype for review, iterate based on feedback.
 In **Autopilot**: build the prototype, present it, ask for feedback.

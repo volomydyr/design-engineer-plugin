@@ -170,7 +170,7 @@ Agents CAN run for analysis. But after an agent completes, parse its output and 
 
 ## Step 4.5: Pre-presentation advisor checkpoint
 
-Before presenting the final findings (Guided: before the summary table; Autopilot: before the structured summary), invoke the `advisor` skill (`skills/advisor/`) with: review areas covered, top findings by severity, anything that surprised you in the analysis, and "I'm about to present these findings as the review output – any course correction?" Apply the advice or use the reconcile pattern. This catches mis-prioritization (rare critical finding lost in noise) and missed angles before the user sees the report. Skip on tiny single-area reviews where the finding count is one or two.
+Before presenting the final findings (Guided: before the summary table; Autopilot: before the structured summary), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: review areas covered, top findings by severity, anything that surprised you in the analysis, and "I'm about to present these findings as the review output – any course correction?" Apply the advice or use the reconcile pattern. This catches mis-prioritization (rare critical finding lost in noise) and missed angles before the user sees the report. Skip on tiny single-area reviews where the finding count is one or two.
 
 ## Step 5: Fix execution (after review)
 
