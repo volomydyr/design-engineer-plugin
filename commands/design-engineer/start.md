@@ -8,11 +8,9 @@ argument-hint: ""
 
 <context> #$ARGUMENTS </context>
 
-## Plugin paths (authoritative)
+## Plugin paths
 
-The line below is resolved at command-load time via bash injection (the documented `` !`...` `` mechanism). Whenever this command body references `${DESIGN_ENGINEER_PLUGIN_ROOT}` or `${CLAUDE_PLUGIN_ROOT}`, substitute it with the absolute path printed below. Do NOT rely on env-var substitution from injected context — that is undocumented and unreliable.
-
-**Plugin root**: !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* 2>/dev/null | sort -V | tail -1`
+Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolute path>` injected by the plugin's UserPromptSubmit hook. Whenever this command body references `${DESIGN_ENGINEER_PLUGIN_ROOT}/...`, substitute the absolute path from that context line. No shell commands are run from this command body.
 
 ## Routing
 

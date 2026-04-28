@@ -4,6 +4,20 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [4.8.6] – 2026-04-28
+
+Reverts the v4.8.5 bash-injection approach, which crashed `/design-engineer:start` in Auto mode.
+
+### Fixed
+
+- **`/design-engineer:start` crashed with `Shell command permission check failed for pattern "!..."`** in Auto mode and any restrictive permission preset. v4.8.5 added a `## Plugin paths (authoritative)` block at the top of every command using bash injection (`` !`ls -d ...` ``) to resolve the absolute plugin root at command-load time. While bash injection IS documented for slash commands, Claude Code's permission system blocks `!`-prefix patterns at load time when it can't statically evaluate them — denying the action with `Reason: Insufficient information about the Bash command to evaluate; action is unverifiable.` Effectively, bash injection in command bodies is unusable in non-interactive permission modes.
+- **Replaced with a permission-free approach.** The plugin's UserPromptSubmit hook (`hooks/de-start-state.sh`) already injects `DESIGN_ENGINEER_PLUGIN_ROOT: <absolute path>` as `additionalContext` text on every prompt. The model sees that line in its conversation context and uses it as the substitution value when it encounters `${DESIGN_ENGINEER_PLUGIN_ROOT}/...` in the command body. No shell commands run from the command body, no permission grants needed, no Skill-tool ambiguity. This is the same mechanism the plugin used in v4.8.0–v4.8.4 — v4.8.5 was a regression.
+- **Updated CLAUDE.md** with the new convention (replaced the bash-injection block with the simpler hook-context note) and added an explicit "Mechanisms NOT to use, and why" section listing bash injection, `${CLAUDE_PLUGIN_ROOT}` in command bodies, and the Skill tool for plugin skills as forbidden, with the failure modes documented.
+
+### Why this is the right approach
+
+The "documented mechanism" angle from v4.8.5 was overstated. Hook-injected `additionalContext` is a documented Claude Code feature (https://code.claude.com/docs/en/hooks.md#userpromptsubmit) — the model sees the injected text and processes it like any other context. Substituting a value-from-context into a path string is plain text processing, not a Claude Code-specific feature. The fact that `${DESIGN_ENGINEER_PLUGIN_ROOT}` happens to look like a shell variable is incidental — the model treats it as a placeholder it fills in from visible context. This works in every permission mode and matches how the rest of the plugin already operates.
+
 ## [4.8.5] – 2026-04-28
 
 Audit pass: switched plugin-path resolution in command bodies from undocumented mechanisms to documented bash injection, eliminating an entire class of "skill won't load" bugs.

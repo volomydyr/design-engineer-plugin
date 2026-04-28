@@ -6,11 +6,9 @@ argument-hint: "[new | feature | redesign]"
 
 # Prototype
 
-## Plugin paths (authoritative)
+## Plugin paths
 
-Resolved at command-load time via bash injection. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}` or `${CLAUDE_PLUGIN_ROOT}`, use the absolute path below. Do NOT rely on env-var substitution from injected context.
-
-**Plugin root**: !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* 2>/dev/null | sort -V | tail -1`
+Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolute path>` injected by the plugin's UserPromptSubmit hook. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}/...`, substitute the absolute path from that context line. No shell commands are run from this command body.
 
 ## Context
 

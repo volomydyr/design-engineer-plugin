@@ -8,25 +8,21 @@ This plugin's skills all set `disable-model-invocation: true` (intentional — s
 
 ### The required pattern
 
-Every command file MUST start its body with this resolution block (placed just after the `# Title` heading and before any other section):
+Every command file MUST start its body with this short note (placed just after the `# Title` heading and before any other section):
 
 ```markdown
-## Plugin paths (authoritative)
+## Plugin paths
 
-Resolved at command-load time via bash injection. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}` or `${CLAUDE_PLUGIN_ROOT}`, use the absolute path below. Do NOT rely on env-var substitution from injected context.
-
-**Plugin root**: !`ls -d "$HOME"/.claude/plugins/cache/*/design-engineer/* 2>/dev/null | sort -V | tail -1`
+Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolute path>` injected by the plugin's UserPromptSubmit hook. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}/...`, substitute the absolute path from that context line. No shell commands are run from this command body.
 ```
 
-This relies only on documented Claude Code mechanisms:
+This relies on a single, permission-free mechanism: **the plugin's UserPromptSubmit hook (`hooks/de-start-state.sh`) injects `DESIGN_ENGINEER_PLUGIN_ROOT: <abs path>` as `additionalContext` text** on every prompt. The model sees that line in its context and uses it as the substitution value when it encounters `${DESIGN_ENGINEER_PLUGIN_ROOT}/...` in the command body.
 
-- **Bash injection** (`` !`...` ``) — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context. Output is inlined as text at command-load time, before the model sees the rendered command.
-- **Plugin cache layout** (`~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/`) — empirically observed across all current Claude Code releases.
+### Mechanisms NOT to use, and why
 
-The injection block resolves the absolute plugin root. The model then sees a literal absolute path inline and uses it whenever the body says `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/...`. No reliance on:
-
-- `${CLAUDE_PLUGIN_ROOT}` substitution (only documented for `hooks/hooks.json`, NOT for command bodies).
-- Custom hook-injected env vars (e.g. our `DESIGN_ENGINEER_PLUGIN_ROOT` from `de-start-state.sh`) — works empirically but undocumented.
+- **Bash injection (`` !`...` ``)** — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context, but Claude Code's permission system blocks `!`-prefix patterns at command-load time in Auto mode and any restrictive permission preset, with: `Shell command permission check failed for pattern "!...". Permission for this action has been denied. Reason: Insufficient information about the Bash command to evaluate; action is unverifiable.` v4.8.5 tried this approach and crashed `/design-engineer:start` for users in Auto mode. Do NOT use bash injection in command bodies.
+- **`${CLAUDE_PLUGIN_ROOT}`** — officially documented for `hooks/hooks.json` `command` fields ONLY. Does not auto-expand inside slash command markdown bodies. Hooks may use it; commands may not.
+- **`Skill` tool to invoke plugin skills** — every plugin skill sets `disable-model-invocation: true`, so the Skill tool will reject them with `Skill <name> cannot be used with Skill tool due to disable-model-invocation`. The only correct way to load a skill is `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md and follow its instructions inline`.
 
 ### Skill references inside commands
 
