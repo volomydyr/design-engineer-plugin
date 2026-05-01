@@ -64,12 +64,30 @@ Create `design/features/[feature-slug]/` for all deliverables related to this fe
 
 Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages. Save all deliverables in the feature folder.
 
-#### Step 2.5: Optional depth (ask the user)
+#### Step 2.5: Optional depth (multi-select)
 
-Offer these as optional add-ons, not defaults:
-- Brief problem statement (if the feature is complex and needs structured thinking)
-- Psychology audit on the planned feature
-- Figma comparison (if designs exist)
+Before proceeding to implementation, ask the user which optional depth steps they want. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) before the AskUserQuestion call.
+
+- question: "Which optional depth steps do you want before implementation?"
+- header: "Optional depth"
+- options:
+  - label: "Brief problem statement"
+    description: "Structured thinking — useful when the feature is ambiguous"
+  - label: "Psychology audit"
+    description: "Apply psych-decision-fundamentals + psych-cognitive-load to the planned feature"
+  - label: "Figma comparison"
+    description: "Pull structured Figma data with ui-figma-guide and compare to the plan"
+  - label: "Design-system check"
+    description: "Run ui-design-system audit against the project's existing tokens and components"
+- multiSelect: true
+
+For each selected option:
+- "Brief problem statement" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-problem-statement/SKILL.md` and follow it inline (do NOT use the Skill tool — plugin skills disable model invocation).
+- "Psychology audit" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-decision-fundamentals/SKILL.md` then `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-cognitive-load/SKILL.md` and follow each inline.
+- "Figma comparison" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow it inline (THIS IS WHERE ISSUE 15 IS RESOLVED — Figma is now reachable from the existing-project flow).
+- "Design-system check" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` and follow it inline.
+
+Persist the selections to `.design-engineer-plugin/config.yaml` under `project.feature_options:` as a list of strings. dev.md will read this list to inform implementation grounding (Step 1.5).
 
 #### Step 2.6: Proceed to implementation
 

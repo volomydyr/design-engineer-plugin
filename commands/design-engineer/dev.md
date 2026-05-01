@@ -24,7 +24,26 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:start` first
 
-## Step 1.5: Detect build targets
+## Step 1.5: Apply UX/psych depth from feature options
+
+If the user came from `/design-engineer:design` (existing-project feature flow), they may have selected optional depth steps in design.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
+
+1. Read `.design-engineer-plugin/config.yaml`. Look for `project.feature_options:` (a list of strings).
+2. If the key is missing or the list is empty, skip this step entirely.
+3. For each option in the list, perform the corresponding skill load and apply it inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them. Always Read SKILL.md and follow its instructions inline.
+
+| Selected option | What to do |
+|---|---|
+| `Psychology audit` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-decision-fundamentals/SKILL.md` and follow it inline against the planned feature, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-cognitive-load/SKILL.md` and follow it inline. |
+| `Figma comparison` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow it inline to pull structured Figma data and compare to the plan. |
+| `Design-system check` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` and follow it inline against the project's existing tokens and components. |
+| `Brief problem statement` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-problem-statement/SKILL.md` and follow it inline. Rare in dev.md context but supported when the feature was ambiguous and the design step skipped it. |
+
+4. After each option's skill is applied, surface the insights to the user in a short summary (1–3 bullets per option) BEFORE moving to Step 1.55 / Step 2. The point is to inform plan generation, not to gate it — proceed once the user has seen the surfaced findings.
+
+If `project.feature_options` is absent (e.g., user invoked `/design-engineer:dev` directly without going through design.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
+
+## Step 1.55: Detect build targets
 
 Read the MVP requirements and Information Architecture documents (if they exist). Before suggesting any tech stack, the product type, platform, and technical requirements should be obvious from these documents. Do not suggest technologies that contradict the product design (e.g., do not suggest Electron for a native macOS overlay app).
 
