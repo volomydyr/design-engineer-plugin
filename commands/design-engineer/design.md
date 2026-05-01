@@ -89,6 +89,27 @@ For each selected option:
 
 Persist the selections to `.design-engineer-plugin/config.yaml` under `project.feature_options:` as a list of strings. dev.md will read this list to inform implementation grounding (Step 1.5).
 
+#### Step 2.55: Figma hand-off (conditional)
+
+If a Figma project is connected (check `.design-engineer-plugin/config.yaml` for `environment.plugins.figma: true` OR `project.context.off_repo_references` contains `Figma project`), and the user did NOT already include "Figma comparison" in the Step 2.5 optional-depth selections, ask before handing off to dev. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6), then call AskUserQuestion:
+
+```
+question: "Pull Figma designs before implementation?"
+header: "Figma"
+multiSelect: false
+options:
+  - label: "Yes – get Figma designs first"
+    description: "Read ui-figma-guide and pull structured Figma data for the affected screens. Recommended if designs exist for this feature."
+  - label: "Skip"
+    description: "Implement without Figma designs (rely on the spec + existing components)."
+```
+
+On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true` and the Skill tool will reject them). Pass the affected pages from the spec / IA as the scope. After Figma data is captured, then hand off to `/design-engineer:dev`.
+
+On "Skip" → proceed directly to `/design-engineer:dev`.
+
+If Figma is not connected, skip this step entirely and go to Step 2.6.
+
 #### Step 2.6: Proceed to implementation
 
 Load `/design-engineer:dev` with the feature plan.
