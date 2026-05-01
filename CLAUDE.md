@@ -486,6 +486,33 @@ Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/design-engineer:start` routes correctly even when auto-memory contains rich project context from previous sessions.
 
+## Process recall mechanism (active-workflow marker contract)
+
+Long deterministic workflows are gated by a marker file at `.design-engineer-plugin/.active-workflow`. The marker stores a single line naming the workflow (for example `dev:feature-implementation`). A `UserPromptSubmit` hook (`hooks/de-process-recall-hook.sh`) checks the marker on every prompt and, when present, injects context that asks the model to render the workflow's full step list at the top of its next response.
+
+**Workflows that write the marker** (long, deterministic, multi-step sequences where step-list recall is high signal):
+- `/design-engineer:dev` feature-implementation flow
+- `/design-engineer:dev` setup
+- `/design-engineer:design` new-product full pipeline
+- `/design-engineer:review` broad audits
+- `dev-prototyping` Steps 5–6
+- `ui-references-moodboard`
+
+**Workflows that do NOT write the marker** (short, branching, or already-visible flows where the AskUserQuestion-driven UI is itself the process indicator):
+- `/design-engineer:start`
+- `/design-engineer:prototype` Step 7
+- `/design-engineer:document`
+- `/design-engineer:help`
+- Individual UX and psychology skills invoked outside a pipeline
+- The existing-project abbreviated feature flow
+- `/design-engineer:design feature-spec` (the F1 minimal-spec branch)
+
+**Why the split**: process recall is high-signal only on long deterministic sequences. Everywhere else, the visible question-and-answer flow already tells the user where they are; injecting a step list there is noise.
+
+**User-visible contract**: when the marker is present, Claude renders a humane preamble plus the workflow's numbered step list at the top of its next response, with `← current` on the active step. When the marker is absent, Claude responds normally and never mentions process.
+
+**Debugging**: run `tail -f ~/.claude/cache/de-process-recall.log` to verify the hook fires when expected. Each fire appends a single line of the form `[ISO_TIMESTAMP] FIRED | workflow=<name> cwd=<path>`.
+
 ## Command execution philosophy
 
 All commands – design, review, dev, prototype, document – must follow the same execution pattern. The mode (from `.design-engineer-plugin/config.yaml`) determines the level of user involvement, but both modes follow the same structure:
