@@ -240,13 +240,20 @@ options:
 ```
 
 If "Yes" or "Reinstall":
-1. Check if a status line is already configured in `~/.claude/settings.json`
-2. If one exists, inform the user: "A status line is already configured: [current value]. Installing will replace it. The previous script file will not be deleted."
-3. Create directories: `mkdir -p ~/.claude/hooks ~/.claude/cache`
-4. Copy the script: `cp ${CLAUDE_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js`
-5. Read `~/.claude/settings.json`, set `statusLine` to `{"type": "command", "command": "node \"{home}/.claude/hooks/de-statusline.js\""}` (replace `{home}` with the actual home directory path), write back with 2-space indentation
-6. Confirm: "Status line installed. It will appear on the next prompt."
-7. Explain the usage monitor: "The status line shows your model, context usage, and pipeline progress automatically. To also see your 5-hour and 7-day usage limits, you need to run a small monitor in a separate terminal window. Open a new terminal tab and run this command:"
+
+Do NOT write to `~/.claude/settings.json` or copy files into `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and have them run it in their next prompt.
+
+1. If a status line is already configured (Reinstall branch), inform the user: "A status line is already configured. The command below will overwrite the `statusLine` entry. The previous script file is not deleted."
+2. Output exactly this block to the chat (substitute the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):
+
+````
+To install the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
+
+! mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
+````
+
+3. Confirm: "Once you paste that command, the status line will appear on the next prompt."
+4. Explain the usage monitor: "The status line shows your model, context usage, and pipeline progress automatically. To also see your 5-hour and 7-day usage limits, you need to run a small monitor in a separate terminal window. Open a new terminal tab and run this command:"
 
 ```
 node ~/.claude/hooks/de-statusline.js --watch

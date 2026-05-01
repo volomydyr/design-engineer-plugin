@@ -162,20 +162,22 @@ Apply the choice using the `! <command>` paste pattern (per the user's preferenc
 
   Confirm: "Sounds muted once you paste that. Toggle anytime with /design-engineer:mute-unmute-sound."
 
-f) Ask status line question. Do NOT use the built-in `statusline-setup` agent. Instead copy the script manually:
+f) Ask status line question. Do NOT use the built-in `statusline-setup` agent, and do NOT write to `~/.claude/settings.json` or copy files to `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and ask them to run it themselves in their next prompt.
 
-```bash
-cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js
-```
+Output exactly this block to the chat (substituting the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):
 
-Then read `~/.claude/settings.json` and set `statusLine` to `{"type": "command", "command": "node ~/.claude/hooks/de-statusline.js"}`, write back.
+````
+To install the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
 
-`AskUserQuestion` (spacer above):
-- question: "Would you like to install the status line?"
+! mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
+````
+
+Then `AskUserQuestion` (spacer above):
+- question: "Status line install"
 - header: "Status line"
 - options:
-  - label: "Yes (Recommended)", description: "Shows model, context usage, and rate limits below every prompt"
-  - label: "No", description: "Skip – re-run /design-engineer:start later to install"
+  - label: "I'll paste the command above", description: "I'll run the install command in my next prompt"
+  - label: "Skip", description: "Re-run /design-engineer:start later if I change my mind"
 
 #### Step 4: Hand off to the goal-matching command
 
