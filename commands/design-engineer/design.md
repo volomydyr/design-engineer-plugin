@@ -144,10 +144,11 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase4" 
 2. `ux-journey-mapping` – journey mapping
 3. `ux-ethics-review` – ethical review *(optional)*
 4. `ui-references-moodboard` – reference gathering
-5. `dev-prototyping` – prototyping and testing
-6. `ui-figma-guide` – Figma workflow
-7. `ux-motivation-audit` – screen-level psychology analysis
-8. `ux-full-review` – product assessment *(optional)*
+5. `ui-design-system` – code-first design system definition. Run after references are gathered and before prototyping consumes them. Ensures the prototype's CSS tokens are grounded in a defined system rather than improvised per-screen.
+6. `dev-prototyping` – prototyping and testing
+7. `ui-figma-guide` – Figma workflow
+8. `ux-motivation-audit` – screen-level psychology analysis
+9. `ux-full-review` – product assessment *(optional)*
 
 ## Per-phase advisor checkpoint
 
