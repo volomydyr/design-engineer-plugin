@@ -33,7 +33,7 @@ At the start of this step, run a Bash command to mark the active workflow so the
 mkdir -p .design-engineer-plugin && printf '%s\n' "moodboard:exploration" > .design-engineer-plugin/.active-workflow
 ```
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) collect your references early so everything else is grounded in real examples, 3) explore the product domain, 4) understand the product context, 5) identify key screens, 6) run the WHY checkpoint, 7) organize references into a direction document, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) – before domain exploration. References ground all subsequent decisions in real examples.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) explore the product domain, 3) understand the product context, 4) identify key screens, 5a) propose curated references and open them in Chrome for you to pick, 5b) capture sectional high-quality screenshots of your picks via Playwright, 6) extract design principles from each, 7) run the WHY checkpoint, 8) organize references into a direction document, 9) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) – before domain exploration. References ground all subsequent decisions in real examples.
 
 2. **Conditional teaching**: Ask the user if they are familiar with design intent and why it matters before collecting references. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
 
@@ -227,23 +227,92 @@ multiSelect: true  # User can select multiple key screens
 
 ---
 
-## Step 5: Guide Reference Collection
+## Step 5a: Curated reference browser preview
 
-**This step should happen as early as possible** – ideally right after establishing design intent (Step 1). Reference collection grounds all subsequent decisions (domain exploration, color world, signature element) in real examples the user chose, not abstract brainstorming. If the user already has references to share, collect them before proceeding to domain exploration.
+Now that you know the product type (Step 3) and key screens (Step 4), propose curated references that match. Read [curated-references.md](./references/curated-references.md) and filter to the matching product-type category (mobile fintech, web SaaS dashboard, mobile health, etc.). Pick 8–12 references with a one-sentence "watch for" note for each (the curated file already provides these notes).
 
-Walk the user through collecting references using the approach in [reference-gathering-guide.md](./references/reference-gathering-guide.md).
+Then open each reference in the user's Chrome browser, sequentially, with a small delay so tabs don't all blast at once. Use:
 
-If the user does not know which apps in their domain are worth studying, Read [curated-references.md](./references/curated-references.md) – it has 8 product-type categories (mobile event/social, mobile productivity, mobile fintech, mobile health, web SaaS dashboard, web fintech, web content/media, macOS native) with 3–5 distinctive-design reference apps per category and a specific quality to study for each. These are seed references, not requirements – the user can override.
+```bash
+open -a "Google Chrome" "https://example.com/reference-1"
+sleep 1
+open -a "Google Chrome" "https://example.com/reference-2"
+sleep 1
+# ... repeat for each
+```
 
-For each key screen identified in Step 4 (or generally, if screens haven't been identified yet):
+(For Linux: `xdg-open` instead. For Windows / WSL: PowerShell `Start-Process` with the URL. Detect OS via `uname -s`.)
 
-1. Ask the user to share references they already like – screenshots, URLs, app names
-2. For each reference shared, ask: "What specifically do you like about this? The colors? The spacing? The typography? The overall feel?" Extract design principles, not component blueprints.
-3. Suggest specific search terms for Mobbin (e.g., "healthcare onboarding", "medical records detail")
-4. Recommend looking at 3–5 apps in the same domain
-5. Help categorize references by: layout patterns, color approaches, typography styles, interaction models
+Tell the user: "I opened these 8 references in Chrome — switch over and look at each one. Tell me which ones resonate with the design feel you picked in Step 1 (you can pick multiple)."
 
-**Important**: Users may share references from completely different products – a banking app because they love the typography, a game because they love the color palette. Treat all references as aesthetic direction, not component blueprints. The deliverable should capture "from Reference X, take: [specific quality]" – not "replicate Reference X's layout."
+Then end the preceding chat message with the canonical 3-horizontal-rule spacer (CLAUDE.md rule #6) and call AskUserQuestion (multiSelect: true) listing the 8 references as options. Each option's description is the "watch for" note from the curated file.
+
+After the user picks, ask one more question (with spacer):
+
+- question: "Do you have your own references to add?"
+- header: "Add refs"
+- options:
+  - label: "No, these are good", description: "Proceed with what's selected."
+  - label: "Yes, I'll share URLs", description: "I'll paste URLs in my next message and you'll add them."
+- multiSelect: false
+
+If "Yes", wait for the user's URLs in plain text. For each URL the user provides, open in Chrome (per the OS-specific command above) and add to the chosen list.
+
+**BLOCKING REQUIREMENT**: Wait for the user's full reference selection (curated picks + optional custom URLs) before proceeding to Step 5b.
+
+---
+
+## Step 5b: Sectional Playwright capture
+
+For each chosen URL, capture sectional screenshots using Playwright. Sections beat full-page captures because (a) the model can read each one in detail, (b) the file size is reasonable, (c) we can wait per-section for animation settle.
+
+For each URL:
+
+1. **Resize the viewport** to match the product type from Step 3:
+   - Web/Desktop: `mcp__playwright__browser_resize { width: 1440, height: 900 }`
+   - Mobile (iOS/Android): `mcp__playwright__browser_resize { width: 414, height: 896 }`
+
+2. **Navigate**: `mcp__playwright__browser_navigate { url: "<chosen-url>" }`
+
+3. **Wait for load + animation settle**: `mcp__playwright__browser_wait_for { time: 3 }` (3 seconds. If a more specific signal exists — e.g., a known visible word — also wait for `text: "<known word>"`).
+
+4. **Scroll to top**: `mcp__playwright__browser_evaluate { function: "() => window.scrollTo(0, 0)" }`
+
+5. **Capture viewport-sized hero** (NOT fullPage): `mcp__playwright__browser_take_screenshot { fullPage: false, filename: "design/craft/references/captures/<reference-slug>/01-hero.png" }`. Ensure the parent dir exists first: `mkdir -p design/craft/references/captures/<reference-slug>`.
+
+6. **Loop sections** until bottom or up to 5 sections:
+   - `mcp__playwright__browser_evaluate { function: "() => window.scrollBy(0, 700)" }`
+   - `mcp__playwright__browser_wait_for { time: 1 }`
+   - `mcp__playwright__browser_take_screenshot { fullPage: false, filename: "design/craft/references/captures/<reference-slug>/02-section.png" }` (incrementing the prefix per section: 02, 03, 04, 05).
+   - Stop when the page bottom is reached: detect via `() => window.innerHeight + window.scrollY >= document.body.scrollHeight - 50`.
+
+7. **Save manifest** at `design/craft/references/captures/<reference-slug>/manifest.md`:
+
+   ```markdown
+   # <Reference name>
+   - URL: <url>
+   - Viewport: <width>×<height>
+   - Captured: <ISO timestamp>
+   - Sections: 01-hero.png, 02-section.png, ...
+   - Watch for: <"watch for" note from curated-references.md>
+   ```
+
+**Quality note on DPR**: Playwright MCP captures at the OS viewport resolution. To get hi-DPR images, the resize command at Step 1 should use a doubled width (e.g., `2880×1800` for desktop or `828×1792` for mobile) — the captured PNG will be at native pixel density. If the captures still look low-resolution after this, document the limitation in the manifest; the sectional + waited approach is still strictly better than the current full-page approach.
+
+**BLOCKING REQUIREMENT**: After all references are captured, present a brief summary to the user (count of references captured, total sections) before proceeding to Step 5 (analysis).
+
+---
+
+## Step 5: Extract design principles from captured references
+
+For each captured reference (curated picks + user-added URLs from Step 5a):
+
+1. Read the manifest.md for the reference (URL, viewport, "watch for" note).
+2. View each section PNG (the model has multimodal access — Read each .png file).
+3. For each section, ask the user (or note for the deliverable): "What specifically is worth taking from this section? Colors, spacing, typography, the way they handle [observable element]?" Extract design principles, not component blueprints.
+4. Aggregate findings per reference: "From <reference> take: [specific quality 1, 2, 3]".
+
+Use the methodology from [reference-gathering-guide.md](./references/reference-gathering-guide.md). Treat all references as aesthetic direction, not component blueprints.
 
 ---
 
