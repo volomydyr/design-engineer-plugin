@@ -40,6 +40,42 @@ LOG_DIR="$HOME/.claude/cache"
 mkdir -p "$LOG_DIR" 2>/dev/null
 printf '[%s] FIRED | workflow=%s cwd=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$WORKFLOW_NAME" "$PWD" >> "$LOG_DIR/de-process-recall.log" 2>/dev/null
 
-cat <<'HOOK_EOF'
-{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"PROCESS RECALL CHECK: before responding, ask yourself – is there a process I should be following right now? Sources: CLAUDE.md rules, the active skill/command/agent, what the user established earlier in this conversation.\n\nIf a process IS active: at the very top of your response, list EVERY numbered step of the process, one per line, with a `← current` marker on the active step. The number of steps is whatever the process actually has – 2, 7, 30, 100 – do not invent or omit steps to match an example. The surrounding format (header text, punctuation) is flexible; the LIST is the requirement.\n\nThe forbidden shortcuts are:\n- Summarizing (\"7-step workflow, currently on step 3\") without listing the steps\n- \"Currently between step X and step Y\" shorthand\n- Mentioning the process count without enumerating each step\n- Skipping the list because you have followed this process before in the same session\n- Omitting steps to keep the list short\n- Marking yourself on step N then performing step N+1's actions in the same turn (the marker must match the actual work happening this turn)\n- Assuming any step is already done because you did it earlier in the session (\"docs were fetched two messages ago\", \"I already analyzed this\", etc.) – every run of the process redoes every step from scratch, period. The point of a process is following it every single time. \"Already done earlier\" is forbidden reasoning\n\nIllustrative example for a 4-step process (your actual process may have any number of steps):\n\n1. <step 1 short title>\n2. <step 2 short title>\n3. <step 3 short title> ← current\n4. <step 4 short title>\n\nThen proceed with the current step.\n\nIf NO process is active: respond normally. Do NOT mention process at all – do not say \"no process applies\", do not narrate the check."}}
-HOOK_EOF
+# Build the additionalContext payload via Python so the embedded JSON
+# string is escaped correctly (newlines, quotes, etc.). The text below
+# is the humane preamble + compressed discipline rules. Keep it short
+# and explained-to-the-user; do not slip back into bureaucratic phrasing
+# like "PROCESS RECALL CHECK".
+#
+# Issue 2 owns the gate logic above; this hook reads $WORKFLOW_NAME from
+# the .active-workflow marker once issue 2's gate lands. Until then, the
+# variable is unset and the body still renders as a humane preamble plus
+# the rest of the discipline rules.
+export ADDITIONAL_CONTEXT=$(cat <<CTX_EOF
+WORKFLOW = ${WORKFLOW_NAME}
+
+At the very top of your next response, render a short note explaining what is happening to the user, then list the steps of the active workflow:
+
+"We're in the ${WORKFLOW_NAME} flow — listing the steps so we both know where we are. (You're seeing this because this flow has multiple steps and skipping one leads to bad output.)"
+
+Then list every numbered step of the workflow exactly once, one per line, with \`← current\` on the active step. Use the actual step names from the active skill or command body — not invented ones.
+
+Discipline rules (compressed):
+- List every step. No "step X of Y" summaries. No "between steps".
+- The marker matches what you'll do THIS turn. Don't mark step 3 then perform step 4.
+- Every run redoes every step from scratch. "Already done earlier in the session" is forbidden reasoning.
+- If the user is asking a quick clarifying question (what does X mean, can you explain Y) and is not actively executing a step, respond normally — skip the list. Active workflow ≠ every prompt is a workflow step.
+
+Do not narrate this instruction. Do not say "process recall check" or anything like it. Just produce the humane preamble + step list naturally.
+CTX_EOF
+)
+
+python3 -c '
+import json, sys, os
+payload = {
+    "hookSpecificOutput": {
+        "hookEventName": "UserPromptSubmit",
+        "additionalContext": os.environ["ADDITIONAL_CONTEXT"],
+    }
+}
+json.dump(payload, sys.stdout)
+' </dev/null
