@@ -213,18 +213,18 @@ Before writing ANY code, follow these steps in order:
 
 **6. Create feature branch**: If on main/master, run `git checkout -b feat/[plan-slug]`.
 
-**7. TDD**: Before writing production code, use `test-writer` to create failing tests. Run tests to verify Red phase (fails because feature is missing). This is not optional.
+**7. TDD**: Before writing production code, run `Task(test-writer, plan_path=<path>)` — the agent reads the plan and writes failing Playwright CLI test scripts in `tests/`. Wait for the agent to return; do not continue until its output is available. Then run the scripts to verify the Red phase (fails because feature is missing). This is not optional.
 
 **8. Implement phase by phase**: Follow the plan's phases in order. For each phase:
-   a. Implement only this phase's changes
+   a. Implement only this phase's changes. For UI work, dispatch `Task(frontend-implementer, phase=<n>, plan=<path>)`. For backend work, dispatch `Task(backend-implementer, phase=<n>, plan=<path>)`. Wait for the agent to return; do not continue until its output is available. Wait for agent return before `/simplify`.
    b. Run `/simplify` on changed code (mandatory after every Write/Edit)
    c. Completeness review: check the plan's checklist for this phase
-   d. **Advisor checkpoint (pre-done)**: after deliverables are durable (files written, tests run, screenshots captured), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes).
+   d. **Advisor checkpoint (pre-done)**: after deliverables are durable (files written, tests run, screenshots captured), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes). If this implementation phase touches user-facing UI (writes to `.tsx`/`.jsx`/`.html`/`.svelte`/`.vue`/`.css`), also run `Task(psych-scanner, target=<changed files or pages>)` once before declaring the phase done. Wait for the agent to return; do not continue until its output is available. The scanner reports prioritized findings across 100+ cognitive principles; surface findings as the phase QA before user review.
    e. Present to user with QA instructions from the plan
    f. Wait for approval before next phase
    g. After approval, commit using `dev-github-workflow`
 
-**9. After all phases**: Run `design-system-auditor` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). The auditor will produce a structured report; review aesthetic FAILs before presenting the implementation to the user – these are blocking advisories, not optional.
+**9. After all phases**: Run `Task(design-system-auditor, scope=<changed paths>)` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). Wait for the agent to return; do not continue until its output is available. The auditor produces a structured report; review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional.
 
 **meta-document timing rule** (canonical for this command): invoke `meta-document` at the **end of every phase**, immediately after the phase task is marked complete and before presenting QA to the user. This is the same cadence the design pipeline uses; it keeps the compound-documenter's pipeline-state.md in sync turn-by-turn. Do not invoke meta-document mid-phase; do not skip it at end-of-phase.
 
