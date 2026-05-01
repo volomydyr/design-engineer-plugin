@@ -165,6 +165,8 @@ multiSelect: false  # User must choose one output format
 
 ## Output Format
 
+Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/craft` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/craft/bias-audit.md` (or a flow-specific name when multiple audits are produced).
+
 Structure findings as:
 
 ```

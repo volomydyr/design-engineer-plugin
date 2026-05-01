@@ -130,6 +130,8 @@ Repeat until the user explicitly approves the business plan.
 
 ## Step 6: Produce the Deliverable
 
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Save the final business plan to `design/foundation/business-plan.md`.
 
 The document should follow the complete structure from [business-plan-template.md](./references/business-plan-template.md).

@@ -149,6 +149,8 @@ Repeat until the user explicitly approves the analysis.
 
 ## Step 7: Produce the Deliverable
 
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Save the final competitive analysis to `design/foundation/competitor-analysis.md`.
 
 The document should follow the complete structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).

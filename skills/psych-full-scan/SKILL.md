@@ -95,6 +95,8 @@ For each of the 10 sections (or selected sections in targeted mode):
 
 ### Step 4: Compile the Findings Report
 
+Before writing the report to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the report to `design/psych/full-scan.md` (or a flow-specific name when multiple scans are produced).
+
 Organize findings into a structured report:
 
 ```

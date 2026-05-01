@@ -107,6 +107,8 @@ Claude Code's default Co-Authored-By trailer is disabled at install via the `att
 
 Called after the user approves a plan phase. Receives context from the plan workflow.
 
+If you write a commit log, PR summary, or workflow-state file to `design/dev/`, ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 ### Steps
 
 1. **Check branch state**: If on `main` or `master`, this should not happen – the plan workflow creates a feature branch at the start. If somehow on main, warn and ask the user before proceeding.

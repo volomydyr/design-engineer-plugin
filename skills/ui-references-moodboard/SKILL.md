@@ -348,6 +348,8 @@ Help the user compile their references into a structured document. For each key 
 
 ## Step 8: Produce the Deliverable
 
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/craft/references` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Save the references document to `design/craft/references/references.md`. Save any collected reference images to the same folder: `design/craft/references/`.
 
 The document should include:

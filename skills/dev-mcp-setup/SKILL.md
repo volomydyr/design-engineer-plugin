@@ -85,6 +85,8 @@ Recommend MCPs based on the user's workflow:
 
 ## Step 3: Provide Setup Guidance
 
+If you write MCP setup notes or a recommendation log to `design/dev/`, ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 For each recommended MCP, explain:
 - What it does in practical terms
 - Where to find installation instructions (link to the official repository)

@@ -126,6 +126,8 @@ multiSelect: false  # User must choose one output format
 
 ## Output Format
 
+Before writing the review deliverable to disk, ensure the parent directory exists: run `mkdir -p design/craft` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the review to `design/craft/ethics-review.md` (or a feature-specific name when multiple reviews are produced).
+
 ```
 ## Ethics Review: [Product/Feature Name]
 

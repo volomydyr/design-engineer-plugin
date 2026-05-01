@@ -128,6 +128,8 @@ These principles require heightened ethical awareness because they directly shap
 
 ## Output Format
 
+Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psych/habit-formation.md` (or a flow-specific name when multiple audits are produced).
+
 ```
 ## Habits and Patterns Audit: [Design Name]
 

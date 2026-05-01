@@ -99,6 +99,8 @@ Before setting up agents, read plugin-local memory if it exists. Verify each fil
 
 ## Step 4: Set Up Agent Files
 
+If you write any setup notes, configuration summary, or agent-customization log to `design/dev/`, ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Copy the agent files from this plugin's `agents/` directory into the user's project. The agents to copy:
 - `context-analyzer.md`
 - `test-writer.md`

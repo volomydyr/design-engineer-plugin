@@ -186,6 +186,8 @@ Based on the validated research findings, help the user update their existing de
 - **Problem statement** – adjust if research revealed different core problems
 - **Parking lot** – move validated ideas in, move disproven ideas out
 
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/research` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the document to `design/research/research-findings.md`.
+
 **Produce a Research Findings document that includes:**
 
 - Executive summary (3-5 key insights)

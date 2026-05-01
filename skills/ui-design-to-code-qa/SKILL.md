@@ -128,6 +128,8 @@ For each issue found, document:
 - **Actual**: what was implemented
 - **Fix**: recommended correction
 
+Before writing the report, ensure the parent directory exists: run `mkdir -p design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Save the report to `design/reviews/visual-review.md`.
 
 ---

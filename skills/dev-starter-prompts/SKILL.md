@@ -94,6 +94,8 @@ multiSelect: false  # User must choose one development tool
 
 ## Step 3: Generate the Prompts
 
+If you save the generated prompts to a file under `design/dev/` (e.g., `design/dev/kickstart-prompts.md`), ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Using the template from [kickstart-template.md](./references/kickstart-template.md) and the methodology from [dev-prep-assistant.md](./references/dev-prep-assistant.md), generate a set of 3-5 focused prompts:
 
 ### Prompt 1: Project Initialization

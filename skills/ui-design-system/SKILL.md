@@ -188,6 +188,8 @@ Use the checklist from [compliance-checklist.md](./references/compliance-checkli
 
 ## Step 5: Produce the Deliverable
 
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Save the design system documentation to `design/dev/design-system.md` containing:
 
 - Architecture diagram (tokens -> aliases -> components)

@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 # init-project-structure.sh
-# Creates the standardized deliverables folder structure for the design-engineer plugin.
+#
+# Lazy folder scaffolding: creates ONLY the structurally-required directories
+# (`.design-engineer-plugin/` for plugin state and memory, `plans/` and
+# `plans/archive/` for implementation plans, `prototype/` for HTML prototypes
+# referenced by hooks). Every other folder under `design/` is created
+# on-demand by the skill that writes its first deliverable into it – each
+# such skill prepends `mkdir -p design/<subdir>` to its Write step.
+#
+# Why: an init that pre-creates 11 stubbed `.gitkeep`-marked folders confuses
+# users on smaller projects (a 1-page landing site doesn't need separate
+# foundation/, research/, planning/, craft/, psych/, reviews/, dev/ trees).
+# Folders now appear only when a skill actually puts something in them.
+#
 # Usage: ./init-project-structure.sh [deliverables_path]
 # Default path: design
 
@@ -8,87 +20,30 @@ set -euo pipefail
 
 DELIVERABLES_PATH="${1:-design}"
 
-echo "=== Scaffolding Design-Engineer Deliverables ==="
-echo "Path: $DELIVERABLES_PATH"
+echo "=== Scaffolding Design-Engineer Project ==="
+echo "Deliverables path (lazy): $DELIVERABLES_PATH (created on-demand by skills)"
 echo ""
 
 # ─────────────────────────────────────────────
-# Create subdirectories
+# Plugin state directory (always required)
 # ─────────────────────────────────────────────
+mkdir -p ".design-engineer-plugin"
+mkdir -p ".design-engineer-plugin/memory"
+echo "[CREATED] .design-engineer-plugin/ -- plugin state and memory"
 
-# foundation/ -- Core product definition deliverables
-# Contains: Problem Statement, Target Audience, Assumptions,
-#           StoryBrand canvas, Business Plan
-mkdir -p "$DELIVERABLES_PATH/foundation"
-touch "$DELIVERABLES_PATH/foundation/.gitkeep"
-echo "[CREATED] foundation/ -- core product definition"
-
-# research/ -- Research findings and competitive analysis
-# Contains: Competitor Analysis, User Interview findings
-mkdir -p "$DELIVERABLES_PATH/research"
-touch "$DELIVERABLES_PATH/research/.gitkeep"
-echo "[CREATED] research/ -- research findings and analysis"
-
-# research/archive/ -- Timestamped old research
-# When research is re-run, old version moves here with a timestamp
-mkdir -p "$DELIVERABLES_PATH/research/archive"
-touch "$DELIVERABLES_PATH/research/archive/.gitkeep"
-echo "[CREATED] research/archive/ -- archived research versions"
-
-# planning/ -- Product planning deliverables
-# Contains: MVP Requirements, Information Architecture
-mkdir -p "$DELIVERABLES_PATH/planning"
-touch "$DELIVERABLES_PATH/planning/.gitkeep"
-echo "[CREATED] planning/ -- MVP requirements, information architecture"
-
-# craft/ -- Design-craft deliverables
-# Contains: Bias audit, journey map, ethics review, behavior map,
-#           design references, Figma workflow notes, image manifests
-mkdir -p "$DELIVERABLES_PATH/craft"
-touch "$DELIVERABLES_PATH/craft/.gitkeep"
-echo "[CREATED] craft/ -- design-craft deliverables"
-
-# craft/references/ -- UI reference images from the user
-mkdir -p "$DELIVERABLES_PATH/craft/references"
-touch "$DELIVERABLES_PATH/craft/references/.gitkeep"
-echo "[CREATED] craft/references/ -- UI reference images"
-
-# craft/story-panels/ -- Story panel images and scripts
-# One subfolder per panel: story-panels/[name]/script.md + panel.png
-mkdir -p "$DELIVERABLES_PATH/craft/story-panels"
-touch "$DELIVERABLES_PATH/craft/story-panels/.gitkeep"
-echo "[CREATED] craft/story-panels/ -- story panel images and scripts"
-
+# ─────────────────────────────────────────────
 # prototype/ at PROJECT ROOT (sibling of design/, not under it)
-# Contains: storyboard.html, prototype.html, landing-page.html, prototype-notes.md
+# Kept eager because hooks reference this path directly. Contains:
+# storyboard.html, prototype.html, landing-page.html, prototype-notes.md
+# ─────────────────────────────────────────────
 mkdir -p "prototype"
-touch "prototype/.gitkeep"
-echo "[CREATED] prototype/ -- HTML prototypes (project root, sibling of design/)"
-
-# psych/ -- Psychology audit results and principle applications
-mkdir -p "$DELIVERABLES_PATH/psych"
-touch "$DELIVERABLES_PATH/psych/.gitkeep"
-echo "[CREATED] psych/ -- psychology audit results"
-
-# reviews/ -- Design reviews and assessments
-# Contains: Visual review, accessibility review, product assessment
-mkdir -p "$DELIVERABLES_PATH/reviews"
-touch "$DELIVERABLES_PATH/reviews/.gitkeep"
-echo "[CREATED] reviews/ -- design reviews and assessments"
-
-# dev/ -- Development preparation deliverables
-# Contains: CLAUDE.md draft, kickstart prompts, agent configurations,
-#           MCP notes, GitHub workflow documentation, status tracking
-mkdir -p "$DELIVERABLES_PATH/dev"
-touch "$DELIVERABLES_PATH/dev/.gitkeep"
-echo "[CREATED] dev/ -- development preparation"
+echo "[CREATED] prototype/ -- HTML prototypes (project root, sibling of $DELIVERABLES_PATH/)"
 
 # ─────────────────────────────────────────────
 # Initialize dependency tracking
 # ─────────────────────────────────────────────
 
 # Dependencies go in .design-engineer-plugin/ (technical, not deliverables)
-mkdir -p ".design-engineer-plugin"
 DEPS_FILE=".design-engineer-plugin/dependencies.yaml"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEFAULT_DEPS="$SCRIPT_DIR/../assets/dependencies-default.yaml"
@@ -123,7 +78,6 @@ fi
 # project-map.md and debug-solutions.md live in .design-engineer-plugin/memory/
 # (plugin-local, NOT in Claude Code's auto-memory dir). MEMORY.md is owned by
 # Claude Code itself (auto-memory) and the plugin does not touch it.
-mkdir -p ".design-engineer-plugin/memory"
 
 PROJECT_MAP_FILE=".design-engineer-plugin/memory/project-map.md"
 if [ -f "$PROJECT_MAP_FILE" ]; then
@@ -136,7 +90,11 @@ else
 Living file tree of the project. Format per entry:
 `path – description (≤10 words) | when to read`
 
-## design/
+Folders under `design/` are created on-demand by the skill that writes its
+first deliverable there. Add entries below as folders appear; remove entries
+if a folder is deleted.
+
+## design/ (lazy – populated as skills run)
 - foundation/ – core product definition deliverables | read at pipeline start
 - research/ – research findings and analysis | read before positioning
 - planning/ – MVP requirements and information architecture | read before design and dev
@@ -183,20 +141,13 @@ echo "[CREATED] plans/archive/ -- completed plans"
 echo ""
 echo "=== Scaffolding Complete ==="
 echo ""
-echo "Structure created:"
-echo "  $DELIVERABLES_PATH/"
-echo "  ├── foundation/          Core product definition"
-echo "  ├── research/            Research findings and analysis"
-echo "  │   └── archive/         Archived research versions"
-echo "  ├── planning/            MVP requirements, information architecture"
-echo "  ├── craft/               Design-craft deliverables"
-echo "  │   ├── references/      UI reference images"
-echo "  │   └── story-panels/    Story panel images and scripts"
-echo "  ├── psych/               Psychology audit results"
-echo "  ├── reviews/             Design reviews and assessments"
-echo "  └── dev/                 Development preparation"
+echo "Structural directories created:"
+echo "  .design-engineer-plugin/   Plugin state, dependency graph, memory"
+echo "  .design-engineer-plugin/memory/   project-map.md, debug-solutions.md"
+echo "  plans/                     Implementation plans"
+echo "  plans/archive/             Completed plans"
+echo "  prototype/                 HTML prototypes"
 echo ""
-echo "  prototype/               HTML prototypes (project root, sibling of $DELIVERABLES_PATH/)"
-echo ""
-echo "  plans/                   Implementation plans"
-echo "  plans/archive/           Completed plans"
+echo "Lazy directories ($DELIVERABLES_PATH/<subdir>): created by skills on first write."
+echo "  Examples: $DELIVERABLES_PATH/foundation/, $DELIVERABLES_PATH/research/, $DELIVERABLES_PATH/planning/,"
+echo "            $DELIVERABLES_PATH/craft/, $DELIVERABLES_PATH/psych/, $DELIVERABLES_PATH/reviews/, $DELIVERABLES_PATH/dev/"

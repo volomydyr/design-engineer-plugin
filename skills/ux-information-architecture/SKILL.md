@@ -196,6 +196,8 @@ Repeat until the user explicitly approves the IA.
 
 ## Step 6: Produce the Deliverable
 
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/planning` (Bash) – or `mkdir -p design/features/[feature-slug]` if writing per-feature. The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+
 Save the final IA document to `design/planning/information-architecture.md`.
 
 The document should follow the complete structure from [ia-deliverable-template.md](./references/ia-deliverable-template.md).
