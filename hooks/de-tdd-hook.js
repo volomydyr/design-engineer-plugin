@@ -29,7 +29,7 @@ const SOURCE_EXTENSIONS = new Set([
 // Directories always exempt from TDD enforcement
 const EXEMPT_DIRS = [
   '/tests/', '/test/', '/spec/', '/__tests__/',
-  '/plans/', '/docs/', '/.design-system/',
+  '/plans/', '/prototype/', '/docs/', '/.design-system/',
   '/.claude/', '/node_modules/', '/.git/',
   '/agents/', '/skills/', '/hooks/', '/commands/'
 ];
