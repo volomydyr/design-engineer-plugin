@@ -275,6 +275,12 @@ Generate static screens showing key states and flows. This is NOT the final prot
 
 **Tell the user explicitly**: "This is a visual storyboard for review – static screens to validate layout and flow. After you approve these, I'll build the interactive prototype."
 
+At the start of this step, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:storyboard" > .design-engineer-plugin/.active-workflow
+```
+
 ### How to generate
 
 1. Generate one screen at a time as a self-contained HTML file
@@ -307,6 +313,12 @@ Create the directory if it does not exist.
 ## Step 6: Interactive prototype (Step B)
 
 Take the approved storyboard and build the real clickable version. This step is mandatory – do not skip it.
+
+At the start of this step, overwrite the active-workflow marker so the process-recall hook surfaces the new sub-flow name:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .design-engineer-plugin/.active-workflow
+```
 
 ### How to generate
 
@@ -369,6 +381,12 @@ Stop iterating when:
 ---
 
 ## Step 8: Save deliverable
+
+After saving the deliverables below, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
 
 Save two files:
 

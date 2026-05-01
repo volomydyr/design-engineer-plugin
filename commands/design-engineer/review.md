@@ -117,6 +117,16 @@ This reference material is what makes the plugin's review better than a generic 
 
 ## Step 4: Execute the review
 
+### Active-workflow marker (broad audits only)
+
+If the planned review will run any of these broad multi-principle skills/agents – `psych-full-scan`, `ux-full-review`, `ux-bias-audit`, or `ux-ethics-review` – mark the active workflow at the start of execution so the process-recall hook can fire context-appropriately:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "review:full-audit" > .design-engineer-plugin/.active-workflow
+```
+
+Narrow single-skill reviews (e.g., just `ui-aesthetic-review`, just `ui-design-to-code-qa`, just `ui-accessibility`) do NOT write this marker – the recall injection would be noise on a focused review.
+
 ### Guided mode
 
 Agents CAN run for analysis. But after an agent completes, parse its output and present findings one at a time with AskUserQuestion interaction. Never show the agent's raw output directly.
@@ -190,6 +200,12 @@ If there are fixes to make:
 7. After all fixes: trigger `meta-document` to record what changed and why
 
 ## Post-review
+
+If a `review:full-audit` marker was set at the start of Step 4 (broad audit branch), clear it now so the process-recall hook stops firing on subsequent casual chat:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
 
 After the review (or after fixes), ALWAYS use AskUserQuestion with specific options. Never end with a plain text question.
 

@@ -77,7 +77,29 @@ For each skill in the current phase:
 2. Present a summary of deliverables created
 3. After each phase: invoke `meta-document`, ask to continue or review
 
+### Active-workflow marker (full pipeline only)
+
+The four phases below run only for the new-product full-pipeline branch (`project_type: new`). At the start of each phase, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately. Replace `<N>` with the phase number (1, 2, 3, or 4):
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase<N>" > .design-engineer-plugin/.active-workflow
+```
+
+When transitioning to the next phase, overwrite the marker with the new phase number using the same command. When the full pipeline hands off (post-pipeline AskUserQuestion below), clear the marker:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
+
+The existing-project abbreviated Feature flow (Step 2 → "If `project_type: existing`") and the F1 minimal-spec branch do NOT write this marker.
+
 ### Phase 1: Discovery (new products only)
+
+At the start of this phase, mark the active workflow:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase1" > .design-engineer-plugin/.active-workflow
+```
 
 Skills in sequence:
 1. `ux-problem-statement` – structured problem definition
@@ -88,6 +110,12 @@ Skills in sequence:
 
 ### Phase 2: Strategy (new products only)
 
+At the start of this phase, mark the active workflow:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase2" > .design-engineer-plugin/.active-workflow
+```
+
 1. `ux-behavior-mapping` – behavior analysis
 2. `ux-storybrand` – messaging framework
 3. `ux-story-panels` – product narrative stories
@@ -95,10 +123,22 @@ Skills in sequence:
 
 ### Phase 3: Planning (both new and existing)
 
+If running the new-product full pipeline, at the start of this phase mark the active workflow (skip this Bash if running the existing-project Feature flow):
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase3" > .design-engineer-plugin/.active-workflow
+```
+
 1. `ux-mvp-requirements` – MVP prioritization
 2. `ux-information-architecture` – IA design
 
 ### Phase 4: Design & validation (both new and existing, optional for features)
+
+If running the new-product full pipeline, at the start of this phase mark the active workflow (skip this Bash if running the existing-project Feature flow):
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase4" > .design-engineer-plugin/.active-workflow
+```
 
 1. `ux-bias-audit` – bias audit
 2. `ux-journey-mapping` – journey mapping
@@ -116,6 +156,12 @@ After completing each phase above (Discovery / Strategy / Planning / Design & va
 Skip the consult on phases where the user explicitly chose to skip optional skills and the produced deliverable is a single trivial document.
 
 ## Post-pipeline
+
+If the new-product full pipeline was running (a `design:full-pipeline-phase*` marker is currently set), clear the active-workflow marker at hand-off so the process-recall hook stops firing on subsequent casual chat:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
 
 After completing the current work:
 

@@ -1,38 +1,49 @@
 #!/usr/bin/env bash
-# Inject a generic metacognitive process-recall nudge on every user prompt.
-# Prompts Claude to self-check whether a process is active (CLAUDE.md, the
-# active skill/command/agent, or what the user established earlier) and to
-# briefly state the active process at the top of its response if one applies.
-# When no process is active, Claude must respond normally without mentioning
-# anything about process. The nudge is fully generic – it never names a
-# specific process, so future processes added to the plugin or stated by
-# users automatically benefit.
+# Inject a metacognitive process-recall nudge on every user prompt – ONLY
+# when a high-process workflow is currently active. The hook is gated on
+# TWO conditions, both required:
 #
-# Suppressed on first-touch installs (no config.yaml yet). Reason: at the
-# very first prompt, the plugin injects the onboarding sequence which Claude
-# would interpret as "the active process" and enumerate at the top of its
-# response – jarring for users who have not yet been introduced to anything.
-# Once the user has finished onboarding (config.yaml exists), the recall
-# nudge resumes on every subsequent prompt as designed.
+#   1. .design-engineer-plugin/config.yaml exists (the project has been
+#      onboarded into the plugin).
+#   2. .design-engineer-plugin/.active-workflow exists (a high-process
+#      command or skill has signalled it is currently running).
+#
+# The .active-workflow marker is written by specific commands (e.g.,
+# /design-engineer:dev during feature implementation) and skills (e.g.,
+# dev-prototyping at the storyboard or interactive-prototype steps) at
+# the start of a structured flow, and cleared at the end of that flow
+# (via the Stop hook cleanup or by the command's own teardown). This
+# scoping prevents the recall injection from firing on unrelated casual
+# chat after onboarding completes – previously, every UserPromptSubmit
+# triggered the recall nudge as soon as config.yaml existed, which was
+# noisy and out of place outside an active workflow.
+#
+# The marker file's first line carries the workflow name (e.g.,
+# `dev:feature-implementation`, `prototype:storyboard`,
+# `design:full-pipeline-phase2`, `review:full-audit`,
+# `moodboard:exploration`). The hook reads that name and substitutes it
+# into the injected text so the model knows which workflow to recall.
 #
 # Logging (added by issue 9): every successful fire appends a line to
 # ~/.claude/cache/de-process-recall.log. Tail this file to debug whether
 # the hook is firing when expected and which workflow is active. Log
 # writes are silent on failure so they never break the hook.
+
+# Gate 1: project must be onboarded.
 if [ ! -f ".design-engineer-plugin/config.yaml" ]; then
   exit 0
 fi
 
-# Resolve active workflow name from the marker file (written by long
-# deterministic workflows – see CLAUDE.md "Process recall mechanism").
-# Falls back to "unknown" so the log line is still useful when the marker
-# is absent or unreadable. Issue 2 owns the gate that decides whether to
-# fire based on this marker; issue 9 just logs whatever the gate lets
-# through.
-WORKFLOW_NAME="unknown"
-if [ -f ".design-engineer-plugin/.active-workflow" ]; then
-  WORKFLOW_NAME="$(head -n 1 ".design-engineer-plugin/.active-workflow" 2>/dev/null | tr -d '\r\n' || echo unknown)"
-  [ -z "$WORKFLOW_NAME" ] && WORKFLOW_NAME="unknown"
+# Gate 2: a high-process workflow must be active.
+if [ ! -f ".design-engineer-plugin/.active-workflow" ]; then
+  exit 0
+fi
+
+# Resolve the active workflow name from the marker. If the marker is
+# present but empty, treat it as no active workflow and exit silently.
+WORKFLOW_NAME="$(head -n 1 ".design-engineer-plugin/.active-workflow" 2>/dev/null | tr -d '\r\n')"
+if [ -z "$WORKFLOW_NAME" ]; then
+  exit 0
 fi
 
 # Logging added by issue 9 – structured single-line entry per fire.
@@ -45,11 +56,6 @@ printf '[%s] FIRED | workflow=%s cwd=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$WO
 # is the humane preamble + compressed discipline rules. Keep it short
 # and explained-to-the-user; do not slip back into bureaucratic phrasing
 # like "PROCESS RECALL CHECK".
-#
-# Issue 2 owns the gate logic above; this hook reads $WORKFLOW_NAME from
-# the .active-workflow marker once issue 2's gate lands. Until then, the
-# variable is unset and the body still renders as a humane preamble plus
-# the rest of the discipline rules.
 export ADDITIONAL_CONTEXT=$(cat <<CTX_EOF
 WORKFLOW = ${WORKFLOW_NAME}
 

@@ -142,6 +142,11 @@
             "type": "command",
             "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-complete.wav",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'rm -f .design-engineer-plugin/.active-workflow 2>/dev/null'",
+            "timeout": 3
           }
         ]
       }

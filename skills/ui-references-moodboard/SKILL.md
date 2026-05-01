@@ -27,6 +27,12 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
+At the start of this step, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "moodboard:exploration" > .design-engineer-plugin/.active-workflow
+```
+
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) collect your references early so everything else is grounded in real examples, 3) explore the product domain, 4) understand the product context, 5) identify key screens, 6) run the WHY checkpoint, 7) organize references into a direction document, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) – before domain exploration. References ground all subsequent decisions in real examples.
 
 2. **Conditional teaching**: Ask the user if they are familiar with design intent and why it matters before collecting references. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
@@ -285,6 +291,12 @@ The document should include:
 - The WHY checkpoint (palette, depth, surfaces, typography, spacing with reasoning)
 - Overall visual direction summary (2–3 sentences describing the target aesthetic)
 - Notes on what NOT to do (anti-patterns and named defaults to avoid)
+
+After the deliverable is saved, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
 
 ---
 

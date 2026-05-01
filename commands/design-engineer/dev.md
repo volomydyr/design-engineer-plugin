@@ -122,10 +122,28 @@ In **Autopilot**: show the plan briefly, then execute.
 | Context management | `dev-status-tracking` |
 | Kick-start prompts | `dev-starter-prompts` |
 
+If the user invoked `/design-engineer:dev setup` (the setup-activities sub-flow), run this Bash command at the start of this section to mark the active workflow so the process-recall hook can fire context-appropriately:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "dev:setup" > .design-engineer-plugin/.active-workflow
+```
+
 In **Guided mode**: run one at a time, present results, ask for feedback.
 In **Autopilot**: run all planned activities, present summary.
 
+After all setup activities for this invocation are complete, clear the marker:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
+
 ### Feature implementation
+
+At the start of feature implementation, run this Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "dev:feature-implementation" > .design-engineer-plugin/.active-workflow
+```
 
 Before writing ANY code, follow these steps in order:
 
@@ -176,6 +194,12 @@ In **Guided mode**: the main model implements step by step. Agents can run for a
 In **Autopilot**: delegate to agents for speed. Run the full cycle, present results at the end.
 
 ## Post-execution
+
+After all phases of feature implementation are complete (including the `design-system-auditor` pass) and before presenting the post-execution options to the user, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
 
 ALWAYS use AskUserQuestion with specific options. Never end with a plain text question.
 
