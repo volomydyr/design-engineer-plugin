@@ -51,7 +51,7 @@ Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md` and follow
 In **Guided mode**: pause after the initial prototype for review, iterate based on feedback.
 In **Autopilot**: build the prototype, present it, ask for feedback.
 
-After the prototype is generated, run `/simplify` to review code quality.
+Note: do NOT run /simplify on prototype HTML. Prototypes are throwaway visual artifacts; code quality is irrelevant in this phase. /simplify applies only during /design-engineer:dev implementation.
 
 ## Step 4: Test
 
