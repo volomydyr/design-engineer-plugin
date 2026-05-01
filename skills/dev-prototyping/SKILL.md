@@ -328,6 +328,12 @@ Save to: `prototype/prototype.html`
 
 This is the core of the prototyping process. Expect many rounds of refinement.
 
+### No background continuation during feedback waits
+
+After presenting an iteration to the user, you MUST WAIT for their next message. Do NOT call `ScheduleWakeup`. Do NOT call `RemoteTrigger`. Do NOT call `CronCreate`. Do NOT enter `/loop` (any variant — auto, dynamic, autonomous). Do NOT spawn a `Task` agent with `run_in_background: true`. Do NOT start a `Bash` command with `run_in_background: true` that fires a wakeup. The user's input window is not a polling target — the conversation is the polling mechanism. The next user message is the signal.
+
+The forbidden tools list for this step: `ScheduleWakeup`, `CronCreate`, `RemoteTrigger`, the `/loop` skill (and any of its variants), any background `Task` or `Bash` invocation that schedules a follow-up. The only allowed action between assistant turns during feedback wait is silence.
+
 Reference [prototyping-workflow.md](./references/prototyping-workflow.md) for iteration methodology.
 
 ### Guide effective feedback

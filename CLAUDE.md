@@ -463,6 +463,21 @@ This is especially important in UI copy – prototypes, components, and any gene
    
    The spacer exists to defeat the panel overlay – no panel, no need for spacer.
 
+## Background continuation rule
+
+When a flow ends with "wait for user feedback before proceeding" — every multi-phase implementation, every prototype iteration, every design-decision approval gate — the assistant MUST NOT initiate any background polling or self-rescheduling. This includes:
+
+- `ScheduleWakeup`, `CronCreate`, `RemoteTrigger`
+- The `/loop` skill and any of its variants (`/loop --dynamic`, `/loop --auto`, autonomous loops)
+- `Task` invocations with `run_in_background: true`
+- `Bash` invocations with `run_in_background: true` (unless the bash command is a known long-running build or test the user explicitly approved)
+
+The signal that allows the next assistant action is the next user message — not a timer, not a filesystem watcher, not a self-reminder.
+
+**Why**: during prototype iteration, the model has fired ScheduleWakeup while the user was typing feedback, causing the assistant to "continue on its own" before the user's input arrived. The user's typing window is not a polling target. Even when the assistant is confident it knows what comes next, the conversation contract is that the user drives the cadence on feedback waits.
+
+**Exception**: legitimate long-running shell processes (e.g., `bun run build`, `npm test --watch`, a webpack dev server) that the user has explicitly asked the assistant to start and that need monitoring. Even then, prefer foreground (`run_in_background: false`) unless the user explicitly approved background monitoring.
+
 ## Image handling
 
 Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/craft/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
