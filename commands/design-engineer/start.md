@@ -114,6 +114,54 @@ d) Show brief environment results in plain language. Only show tech stack and to
 
 e) Explain: "The status line appears below your prompt and shows your model, how much context you have used, and your usage limits."
 
+e.5) **Sound notifications**. First detect whether `~/.claude/de-sound-enabled` exists by running:
+
+```bash
+test -f ~/.claude/de-sound-enabled && echo present || echo absent
+```
+
+End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) before each AskUserQuestion below.
+
+If absent (sounds currently off), ask via AskUserQuestion:
+- question: "Sound notifications are currently off. Enable them?"
+- header: "Sounds"
+- options:
+  - label: "Yes (Recommended)"
+    description: "I'll get a chime when Claude finishes a response and when Claude needs my input — only inside design-engineer plugin projects."
+  - label: "Keep muted"
+    description: "Leave sounds off. Toggle later with /design-engineer:mute-unmute-sound."
+- multiSelect: false
+
+If present (sounds currently on), ask:
+- question: "Sound notifications are currently on. Keep them?"
+- header: "Sounds"
+- options:
+  - label: "Yes (Recommended)", description: "Keep the chime on Stop and Notification."
+  - label: "No, mute them", description: "Remove the global opt-in flag."
+- multiSelect: false
+
+Apply the choice using the `! <command>` paste pattern (per the user's preference — the plugin should not write outside CWD directly):
+
+- On "Yes (Recommended)" with absent flag: tell the user to paste in their next prompt:
+
+  ```
+  ! mkdir -p ~/.claude && touch ~/.claude/de-sound-enabled
+  ```
+
+  Confirm: "Sounds will be on globally once you paste that — only inside plugin projects."
+
+- On "Yes (Recommended)" with present flag: no action needed; confirm "Sounds stay on."
+
+- On "Keep muted" with absent flag: no action needed; confirm "Sounds stay off."
+
+- On "No, mute them" with present flag: tell the user to paste:
+
+  ```
+  ! rm -f ~/.claude/de-sound-enabled
+  ```
+
+  Confirm: "Sounds muted once you paste that. Toggle anytime with /design-engineer:mute-unmute-sound."
+
 f) Ask status line question. Do NOT use the built-in `statusline-setup` agent. Instead copy the script manually:
 
 ```bash
