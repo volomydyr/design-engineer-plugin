@@ -86,9 +86,42 @@ Before any UI code is generated in this command, you MUST output the Design Grou
 **Behavior on missing files** (so you know what's happening before the hook denies a write):
 
 - If `prototype/prototype.html` is **missing**: skip prototype check (the v4.7.0 feature-spec branch deliberately bypasses prototyping). Implement using design references + gallery only.
-- If `design/craft/references/references.md` is **missing**: hook denies UI writes with a clear message. Run `ui-references-moodboard` first to create it, or stop and ask the user where their design references live.
 - If any of the three `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/.../*.md` plugin docs are **missing**: this means the plugin install is corrupt. Surface the error, don't try to proceed without them.
-- If `CLAUDE.md` is **missing** at project root: hard-block. Surface "this project has no CLAUDE.md – run `/design-engineer:dev claude-md` to scaffold it before any UI implementation."
+
+**Project signal detection** (run before the CLAUDE.md and references checks below):
+
+Read `.design-engineer-plugin/config.yaml`. The deterministic branches below depend on `project.context.shipped_ui` (boolean) and `project.context.component_count` (integer). Treat the project as **established** when `shipped_ui: true` OR `component_count > 0`. Otherwise treat it as **greenfield**. If the config does not have these fields yet, fall back to a quick filesystem check: established if `src/components/`, `app/components/`, `components/` (top level), or any equivalent component directory contains 1+ `.tsx`/`.jsx`/`.vue`/`.svelte` files.
+
+**CLAUDE.md missing**:
+
+- **Established project**: silently scaffold via the `dev-claude-md` skill in non-interactive mode. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-claude-md/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). The skill's Step 0.5 detects this command's non-interactive request and runs an inference pass over the codebase instead of the question-driven flow. After the scaffold, surface a one-line confirmation: "Created CLAUDE.md from your existing components — review it later if you want." Do NOT ask the user a question for this.
+- **Greenfield project**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-claude-md/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool). The skill's interactive Step 1+ flow is the right path here.
+
+**`design/craft/references/references.md` missing**:
+
+- **Established project (`shipped_ui: true`)**: ask exactly ONE question with two options. End the preceding chat message with the canonical 3-horizontal-rule spacer, then call AskUserQuestion:
+
+  ```
+  - question: "Use existing components as the visual reference, or provide image references?"
+  - header: "References"
+  - options:
+    - label: "Reuse existing UI (Recommended)"
+      description: "Treat the existing components/pages as the visual baseline. I'll scan them, write a short references.md naming the patterns to preserve (typography, spacing, color tokens, layout primitives), and any UI work will follow them."
+    - label: "Provide image references"
+      description: "Run the moodboard skill — pick references in your browser, I'll capture them at high quality, and we'll establish design intent from those images."
+  - multiSelect: false
+  ```
+
+  - **If user chooses "Reuse existing UI (Recommended)"**:
+    1. Run `mkdir -p design/craft/references` to ensure the destination exists.
+    2. Use Glob to scan `src/components/`, `src/app/`, `app/components/`, or whatever component directory the project actually uses (detect from filesystem).
+    3. Write `design/craft/references/references.md` with three sections: (a) a 1-paragraph design intent inferred from CLAUDE.md and the repo, (b) a "Reuse" section listing the actual component file paths and their roles in the UI, (c) a "Do not introduce" section forbidding new tokens, new typefaces, or new component variants without explicit user request.
+    4. Do not ask further questions about visual direction — the existing components ARE the direction.
+
+  - **If user chooses "Provide image references"**:
+    1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
+
+- **Greenfield project (`shipped_ui: false`)**: hook denies UI writes until references exist. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool).
 
 After the Reads, output this block and fill in EVERY field:
 

@@ -37,6 +37,38 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0.5: Detect non-interactive mode
+
+Some callers need to scaffold CLAUDE.md silently without running the question-driven flow — for example, `/design-engineer:dev` Step 1.6 when an established project is missing CLAUDE.md and the user shouldn't be asked a question for something we can infer.
+
+**Trigger conditions** (BOTH must be true to enter non-interactive mode):
+
+1. The calling command body or context indicates non-interactive scaffolding (the caller explicitly says "scaffold silently" / "non-interactive" / "infer from codebase").
+2. `.design-engineer-plugin/config.yaml` has `project.context.shipped_ui: true` (established project with shipped UI).
+
+If either condition is missing, skip this step entirely and run the normal interactive flow starting at Step 1. The interactive flow remains the default for greenfield projects.
+
+**Non-interactive inference pass**:
+
+1. Read `package.json` (Node/web projects), `pyproject.toml` or `requirements.txt` (Python), `Cargo.toml` (Rust), or whatever manifest the repo actually has — detect from filesystem.
+2. Read `tsconfig.json` if present.
+3. Read any `eslint.config.*` file (any extension: `.js`, `.cjs`, `.mjs`, `.ts`, `.json`, `.yaml`).
+4. Read top-level `Readme*.md` (any case) if present.
+5. Use Glob to find the largest 3 component files (`.tsx`, `.jsx`, `.vue`, `.svelte`) by size and Read them.
+6. From those reads, infer design conventions: rounded-corner pattern, color-token usage from CSS or Tailwind config, spacing scale, naming convention, file-organization pattern (atomic / flat / feature-based).
+7. Write a 1-page `CLAUDE.md` at the project root containing:
+   - Project name (from `package.json` `name` field or repo directory name).
+   - Language and framework summary (1-2 lines).
+   - Design conventions detected (the items from step 6, written as concrete rules).
+   - A "Reuse, don't reinvent" section listing existing components by relative path.
+   - The Component Gallery Contract section (see "Required section: Component Gallery Contract" further below — quote it verbatim).
+8. Surface a single one-line confirmation in chat: "Created CLAUDE.md from your existing components — review it later if you want."
+9. **Skip Step 1 onwards.** The interactive flow does not run in non-interactive mode.
+
+The Source citation requirement at the bottom of this skill still applies — if you push back on inferred conventions or use a named framework, cite the source.
+
+---
+
 ## Step 1: Gather Project Context
 
 ```
