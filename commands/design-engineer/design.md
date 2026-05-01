@@ -35,18 +35,45 @@ Check `project_type` in the config:
 
 This project already exists. Do NOT run the full 4-phase from-scratch pipeline. The product has users, positioning, and an established codebase. Run an abbreviated feature-focused flow:
 
-1. **Understand the feature**: Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
+#### Step 2.1: Spec polish routing (BLOCKING — choose before any work begins)
 
-2. **Create feature folder**: Create `design/features/[feature-slug]/` for all deliverables related to this feature. Example: `design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
+Before drafting any spec or running any skill, ask the user how polished the spec needs to be. This routes between the minimal one-page spec (which goes to F1) and the full feature flow (which continues to Step 2.2 below). End the preceding chat message with the canonical 3-horizontal-rule spacer per CLAUDE.md rule #6, then call AskUserQuestion:
 
-3. **Plan the feature**: Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages. Save all deliverables in the feature folder.
+- question: "How polished does the spec need to be?"
+- header: "Depth"
+- options:
+  - label: "Minimal feature spec (Recommended for established products)"
+    description: "1-page spec — problem in your project's voice, affected pages, key interactions, success criteria. Saves to design/features/<slug>/feature-spec.md. Ship-focused. No new folders, no full pipeline."
+  - label: "Full feature flow"
+    description: "Walk through MVP requirements + information architecture before implementation. Creates design/features/<slug>/ with multiple deliverables. Slower; useful when the feature is ambiguous or affects core navigation."
+- multiSelect: false
 
-4. **Optional depth** (ask the user): Offer these as optional add-ons, not defaults:
-   - Brief problem statement (if the feature is complex and needs structured thinking)
-   - Psychology audit on the planned feature
-   - Figma comparison (if designs exist)
+On "Minimal feature spec" → jump to Step F1 (Minimal feature spec — argument branch below). The user effectively chose the same path as `/design-engineer:design feature-spec`.
 
-5. **Proceed to implementation**: Load `/design-engineer:dev` with the feature plan.
+On "Full feature flow" → continue to Step 2.2 below.
+
+#### Step 2.2: Understand the feature
+
+Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
+
+#### Step 2.3: Create feature folder
+
+Create `design/features/[feature-slug]/` for all deliverables related to this feature. Example: `design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
+
+#### Step 2.4: Plan the feature
+
+Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages. Save all deliverables in the feature folder.
+
+#### Step 2.5: Optional depth (ask the user)
+
+Offer these as optional add-ons, not defaults:
+- Brief problem statement (if the feature is complex and needs structured thinking)
+- Psychology audit on the planned feature
+- Figma comparison (if designs exist)
+
+#### Step 2.6: Proceed to implementation
+
+Load `/design-engineer:dev` with the feature plan.
 
 In Guided mode: ask the user at each step, iterate. Do NOT delegate to agents – the main model does the work interactively.
 In Autopilot: execute the abbreviated flow, present results.
