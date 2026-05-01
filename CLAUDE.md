@@ -493,7 +493,8 @@ Long deterministic workflows are gated by a marker file at `.design-engineer-plu
 **Workflows that write the marker** (long, deterministic, multi-step sequences where step-list recall is high signal):
 - `/design-engineer:dev` feature-implementation flow
 - `/design-engineer:dev` setup
-- `/design-engineer:design` new-product full pipeline
+- `/design-engineer:design` new-product full pipeline (per phase)
+- `/design-engineer:design` existing-project abbreviated feature flow (Step 2.2 through Step 2.7)
 - `/design-engineer:review` broad audits
 - `dev-prototyping` Steps 5–6
 - `ui-references-moodboard`
@@ -504,7 +505,6 @@ Long deterministic workflows are gated by a marker file at `.design-engineer-plu
 - `/design-engineer:document`
 - `/design-engineer:help`
 - Individual UX and psychology skills invoked outside a pipeline
-- The existing-project abbreviated feature flow
 - `/design-engineer:design feature-spec` (the F1 minimal-spec branch)
 
 **Why the split**: process recall is high-signal only on long deterministic sequences. Everywhere else, the visible question-and-answer flow already tells the user where they are; injecting a step list there is noise.

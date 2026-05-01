@@ -231,19 +231,17 @@ multiSelect: true  # User can select multiple key screens
 
 Now that you know the product type (Step 3) and key screens (Step 4), propose curated references that match. Read [curated-references.md](./references/curated-references.md) and filter to the matching product-type category (mobile fintech, web SaaS dashboard, mobile health, etc.). Pick 8–12 references with a one-sentence "watch for" note for each (the curated file already provides these notes).
 
-Then open each reference in the user's Chrome browser, sequentially, with a small delay so tabs don't all blast at once. Use:
+Then open each reference in a Playwright-controlled browser, sequentially in tabs, so the user can flip through them without losing the assistant's running state. Use the bundled Playwright MCP:
 
-```bash
-open -a "Google Chrome" "https://example.com/reference-1"
-sleep 1
-open -a "Google Chrome" "https://example.com/reference-2"
-sleep 1
-# ... repeat for each
+```
+mcp__playwright__browser_tabs { action: "new", url: "https://example.com/reference-1" }
+mcp__playwright__browser_tabs { action: "new", url: "https://example.com/reference-2" }
+# ... repeat for each curated reference (8–12 total)
 ```
 
-(For Linux: `xdg-open` instead. For Windows / WSL: PowerShell `Start-Process` with the URL. Detect OS via `uname -s`.)
+The Playwright browser opens visibly on the user's screen — they can switch to it, scroll, click, and look at each reference exactly as they would in any browser. Keep the tabs open during the whole step so the user can revisit any reference while answering the next question.
 
-Tell the user: "I opened these 8 references in Chrome — switch over and look at each one. Tell me which ones resonate with the design feel you picked in Step 1 (you can pick multiple)."
+Tell the user: "I opened these 8 references in tabs — switch to the Playwright browser window and look at each. Tell me which ones resonate with the design feel you picked in Step 1 (you can pick multiple)."
 
 Then end the preceding chat message with the canonical 3-horizontal-rule spacer (CLAUDE.md rule #6) and call AskUserQuestion (multiSelect: true) listing the 8 references as options. Each option's description is the "watch for" note from the curated file.
 
@@ -256,7 +254,7 @@ After the user picks, ask one more question (with spacer):
   - label: "Yes, I'll share URLs", description: "I'll paste URLs in my next message and you'll add them."
 - multiSelect: false
 
-If "Yes", wait for the user's URLs in plain text. For each URL the user provides, open in Chrome (per the OS-specific command above) and add to the chosen list.
+If "Yes", wait for the user's URLs in plain text. For each URL the user provides, open another Playwright tab (`mcp__playwright__browser_tabs { action: "new", url: "<url>" }`) and add to the chosen list.
 
 **BLOCKING REQUIREMENT**: Wait for the user's full reference selection (curated picks + optional custom URLs) before proceeding to Step 5b.
 

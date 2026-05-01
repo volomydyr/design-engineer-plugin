@@ -54,6 +54,12 @@ On "Full feature flow" → continue to Step 2.2 below.
 
 #### Step 2.2: Understand the feature
 
+At the start of this step, mark the active workflow so the process-recall hook fires through the rest of the abbreviated feature flow (this is "complex work" — multi-step design activity that benefits from step-list recall):
+
+```bash
+mkdir -p .design-engineer-plugin && printf '%s\n' "design:abbreviated-feature-flow" > .design-engineer-plugin/.active-workflow
+```
+
 Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
 
 #### Step 2.3: Create feature folder
@@ -89,7 +95,7 @@ For each selected option:
 
 Persist the selections to `.design-engineer-plugin/config.yaml` under `project.feature_options:` as a list of strings. dev.md will read this list to inform implementation grounding (Step 1.5).
 
-#### Step 2.55: Figma hand-off (conditional)
+#### Step 2.6: Figma hand-off (conditional)
 
 If a Figma project is connected (check `.design-engineer-plugin/config.yaml` for `environment.plugins.figma: true` OR `project.context.off_repo_references` contains `Figma project`), and the user did NOT already include "Figma comparison" in the Step 2.5 optional-depth selections, ask before handing off to dev. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6), then call AskUserQuestion:
 
@@ -108,9 +114,15 @@ On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md
 
 On "Skip" → proceed directly to `/design-engineer:dev`.
 
-If Figma is not connected, skip this step entirely and go to Step 2.6.
+If Figma is not connected, skip this step entirely and go to Step 2.7.
 
-#### Step 2.6: Proceed to implementation
+#### Step 2.7: Proceed to implementation
+
+Before handing off to `/design-engineer:dev`, clear the abbreviated-feature-flow marker so the process-recall hook stops firing on subsequent casual chat (the dev command will write its own `dev:feature-implementation` marker when it begins implementation):
+
+```bash
+rm -f .design-engineer-plugin/.active-workflow
+```
 
 Load `/design-engineer:dev` with the feature plan.
 
