@@ -4,6 +4,18 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.3.2] – 2026-05-03
+
+Added the Claude Pro plan rate-limit FAQ to the README, mirroring the landing page.
+
+### Added
+
+- **FAQ 5: "Will this work on the Claude Pro plan?"** — added with the landing page's exact copy: "Yes, but the plugin is token-heavy. The Pro plan's 5-hour rate limits will hit fast – even one full design pipeline pass can exhaust them. The plugin works best on Max." Important enough to surface in the README given Pro is the default plan a new user lands on.
+
+### Changed
+
+- **Renumbered FAQ 5–16 to 6–17** to make room for the new Q5. The FAQ index inside the README's "Existing project" section (FAQ 3) cross-references the hooks list — updated from "FAQ 8" to "FAQ 9" to match the new numbering.
+
 ## [5.3.1] – 2026-05-03
 
 README copy aligned with the public landing page (`/design-engineer-plugin/`). Only existing sections updated; no new sections added per author preference.

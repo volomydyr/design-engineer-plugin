@@ -1,4 +1,4 @@
-> **v5.3.1** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.3.2** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -97,7 +97,7 @@ Both, and the existing-project path is first-class. `/design-engineer:start` det
   - **Optional-depth multi-select** – inside the full feature flow, before implementation kicks off, you pick which optional audits to run as a multi-select: Brief problem statement, Psychology audit (`psych-decision-fundamentals` + `psych-cognitive-load`), Figma comparison (`ui-figma-guide`), Design-system check (`ui-design-system`). Choices are persisted to your project config and read by `/design-engineer:dev` so the implementation phase reflects them inline.
   - **Conditional Figma hand-off** – if Figma is connected and you didn't already pick "Figma comparison" in the optional-depth step, the flow asks once before handing off to dev whether to pull structured Figma data first.
   - **Proactive defaults in `/design-engineer:dev`** – if your established project is missing CLAUDE.md, the plugin scaffolds it silently from your existing components (no question asked). If `references.md` is missing on a project that already has shipped UI, you get one 2-option question – "Reuse existing UI as the visual reference" or "Provide image references" (which runs the moodboard skill with curated reference previews and sectional Playwright captures). The old 4-option fast-track / full / skip prompt is gone.
-  - **Process recall through the abbreviated feature flow** – Steps 2.2 through 2.7 of the existing-project flow are classified as "complex work", so the active workflow's step list renders at the top of Claude's response while the flow runs (see hooks list in FAQ 8 for the full mechanism).
+  - **Process recall through the abbreviated feature flow** – Steps 2.2 through 2.7 of the existing-project flow are classified as "complex work", so the active workflow's step list renders at the top of Claude's response while the flow runs (see hooks list in FAQ 9 for the full mechanism).
   - `/design-engineer:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
   - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice. Reachable either by typing the literal `feature-spec` argument or by picking "Minimal feature spec" in the spec-polish routing question.
   - You can still run any skill individually (psychology review, accessibility audit, design system setup, etc.) without the full pipeline.
@@ -112,10 +112,17 @@ Yes. The plugin is stack-agnostic. The design, research, and psychology skills w
 During setup, the plugin detects and helps install optional tools that expand its capabilities – Figma for design-to-code workflows, Playwright for browser testing, and Context7 for up-to-date library docs. None are required.
 </details>
 
+<details>
+<summary>5. Will this work on the Claude Pro plan?</summary>
+<br>
+
+Yes, but the plugin is token-heavy. The Pro plan's 5-hour rate limits will hit fast – even one full design pipeline pass can exhaust them. The plugin works best on Max.
+</details>
+
 ### Structure
 
 <details>
-<summary>5. What are the 8 commands and when do I use each one?</summary>
+<summary>6. What are the 8 commands and when do I use each one?</summary>
 <br>
 
 - **`/design-engineer:start`** – always start here. It detects your situation and routes you.
@@ -133,7 +140,7 @@ There's also one small utility command, `/design-engineer:mute-unmute-sound`, th
 </details>
 
 <details>
-<summary>6. What are skills and how are they different from commands?</summary>
+<summary>7. What are skills and how are they different from commands?</summary>
 <br>
 
 **Commands** are the 8 entry points you type (like `/design-engineer:design`).
@@ -144,7 +151,7 @@ You don't need to call skills directly. Commands handle the orchestration. But i
 </details>
 
 <details>
-<summary>7. What are agents and what do they do?</summary>
+<summary>8. What are agents and what do they do?</summary>
 <br>
 
 10 specialized personas that handle specific parts of the workflow:
@@ -164,7 +171,7 @@ Agents activate automatically when needed. You don't call them directly.
 </details>
 
 <details>
-<summary>8. What happens automatically in the background?</summary>
+<summary>9. What happens automatically in the background?</summary>
 <br>
 
 The plugin installs several hooks that work without you doing anything:
@@ -184,7 +191,7 @@ The plugin installs several hooks that work without you doing anything:
 ### Design & knowledge
 
 <details>
-<summary>9. What's the psychology component?</summary>
+<summary>10. What's the psychology component?</summary>
 <br>
 
 14 psychology skills covering 100+ behavioral principles from cognitive science, behavioral economics, and product psychology. Every principle comes with:
@@ -199,7 +206,7 @@ Psychology is built into the review process from the ground up, so it shows up w
 </details>
 
 <details>
-<summary>10. How does the plugin handle Figma?</summary>
+<summary>11. How does the plugin handle Figma?</summary>
 <br>
 
 Two integrations:
@@ -213,7 +220,7 @@ Neither is required. The plugin works without Figma, but the design-to-code work
 </details>
 
 <details>
-<summary>11. What's the knowledge base behind it?</summary>
+<summary>12. What's the knowledge base behind it?</summary>
 <br>
 
 ~16,000 lines of reference material across 90+ files – structured frameworks adapted from the author's [technical articles and practical examples](https://volomydyr.com), along with established sources in psychology, behavioral economics, and design methodology.
@@ -233,7 +240,7 @@ When Claude reviews your work or makes suggestions, it draws from this knowledge
 ### Development & workflow
 
 <details>
-<summary>12. How does the development workflow differ from regular Claude Code?</summary>
+<summary>13. How does the development workflow differ from regular Claude Code?</summary>
 <br>
 
 Five key differences:
@@ -248,7 +255,7 @@ The result: you stay in control of what gets built and when, the plugin's specia
 </details>
 
 <details>
-<summary>13. Does it remember things across sessions?</summary>
+<summary>14. Does it remember things across sessions?</summary>
 <br>
 
 Yes, through Anthropic's documented agent-memory mechanism. The `compound-documenter` agent has `memory: project` set in its frontmatter, which gives it a project-local persistent directory at `.claude/agent-memory/compound-documenter/`. Inside that directory it maintains three files that survive across sessions:
@@ -263,7 +270,7 @@ The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (h
 </details>
 
 <details>
-<summary>14. What's the component gallery and when does it appear?</summary>
+<summary>15. What's the component gallery and when does it appear?</summary>
 <br>
 
 A single-page visual catalog of every component in your project – every variant rendered with real production styles, source-path labels per entry. Two purposes: catch duplicates that AI tends to silently introduce (5 different Button components doing similar things), and give you one viewport where you can see the full design system at a glance.
@@ -276,7 +283,7 @@ The gallery is **transparent infrastructure**: no menu, no permission ask, no "d
 </details>
 
 <details>
-<summary>15. What's the advisor and how does it work?</summary>
+<summary>16. What's the advisor and how does it work?</summary>
 <br>
 
 A dedicated Opus 4.7 sub-agent that other skills consult at strategic checkpoints – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. The strategy: a faster executor model consults a higher-intelligence advisor model at high-leverage moments instead of running everything at maximum capability.
@@ -295,7 +302,7 @@ You don't invoke the advisor directly – it's wired into Plan Mode workflow, al
 </details>
 
 <details>
-<summary>16. What are living documents?</summary>
+<summary>17. What are living documents?</summary>
 <br>
 
 Two layers, separated by concern:
