@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.1.2] – 2026-05-03
+
+Reframed the compact-message rule in CLAUDE.md from auto-trigger to user-asks-only.
+
+### Changed
+
+- **CLAUDE.md "Context Monitoring" section renamed to "Compact-message format (when the user asks for one)".** The old rule told the model to proactively warn the user when it estimated context was at 90%, but Claude Code does not inject context-window usage into the model's turn-by-turn context — the model has no reliable way to estimate its own usage from inside a turn. The auto-trigger never fired consistently in practice. Replaced with a clear user-triggered contract: when the user asks for a compact message (via `/design-engineer:stop` or by typing "compact message" / "summarize for /compact" in chat), generate one grounded in the actual session state from `.design-engineer-plugin/config.yaml` and the compound-documenter memory. Explicit don'ts now flag the failure mode the user reported (generic vague summary with placeholder fields, conversational filler before the message, generation without first reading config + agent memory).
+
 ## [5.1.1] – 2026-05-03
 
 README + CLAUDE.md catch-up after v4.9.0 → v5.1.0. The FAQ had drifted out of sync with the actual plugin behavior.

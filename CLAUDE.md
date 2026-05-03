@@ -612,33 +612,34 @@ Read the mode from `.design-engineer-plugin/config.yaml` at the start of every c
 **Implementation architecture rule:**
 - Implementation must follow the project's existing component architecture. If the project uses atomic design, create separate component files in the appropriate directories (atoms/, molecules/, organisms/, pages/). Never create a monolithic file containing multiple components or views. Read existing components before writing new ones to match patterns, naming, and design token usage.
 
-## Context Monitoring
+## Compact-message format (when the user asks for one)
 
-When running long design sessions (multi-skill, multi-phase), monitor conversation length. If you estimate context usage is approaching 90% (typically after 20+ tool calls in a single session or when the conversation has been running for an extended period with many skill invocations):
+You can NOT reliably detect your own context-window usage from inside a turn — Claude Code does not inject token counts or context-percentage signals into your context, so any auto-trigger based on "I think we're at 90%" is unreliable and was producing inconsistent / no behavior in practice. Do NOT proactively warn the user about context usage. The trigger is **the user explicitly asking** — typing `/design-engineer:stop` (which generates the message via `commands/design-engineer/stop.md` Step 4), or asking in chat for "a compact message", "summarize for /compact", "what should I paste into /compact", etc.
 
-Proactively suggest compacting **with a ready-to-use compact message included in the same response**. Do not wait for the user to agree before generating the message – include it immediately so they can copy-paste it into `/compact` with no extra round-trip.
+When the user asks, generate a single self-contained compact message that preserves everything the next session needs to pick up without re-reading old chat. Do NOT output a generic "you've worked on a lot, here's a vague summary" — that's the failure mode the user has reported. Fill in real session values; never output placeholders like `[project]` or `[list]`.
 
 The compact message must preserve:
-- Current project name, path, and version
-- Which command is running and in which mode
-- Current phase and skill position
-- Key decisions made this session (from the decisions log or conversation)
-- Deliverables completed and any stale dependents
-- What to do next
-- Any unresolved questions or blockers
+- Current project name, absolute path, and plugin version
+- Which `/design-engineer:` command is running and in which mode (guided / autopilot)
+- Current phase and skill position (e.g., "Phase 3 Planning, after `ux-mvp-requirements`, next is `ux-information-architecture`")
+- Key decisions made this session — durable choices that affect downstream deliverables (B2B vs B2C focus, mobile-first vs desktop-first, the specific design feel chosen, etc.)
+- Deliverables completed this session and any stale dependents from `compound-documenter`'s memory
+- What to do next — the literal next action, not "continue the work"
+- Any unresolved questions or blockers the user is waiting on
 
-Format the suggestion like this:
+Format the response like this:
 
-> This session has covered a lot of ground. Context is getting heavy – if you'd like to compact, here's a message you can use with `/compact`:
+> Here's a compact message you can paste into `/compact`:
 >
-> `Keep full context of [project] at [path]. Current state: v[X], running /design-engineer:[command] in [mode] mode. Phase [N] ([name]): completed [skills], next is [skill]. Key decisions: [list]. Deliverables updated: [list]. Stale dependents: [list]. Next step: [action]. [Any blockers or open questions].`
+> `Keep full context of <project name> at <absolute path>. Current state: v<X.Y.Z>, running /design-engineer:<command> in <mode> mode. Phase <N> (<phase name>): completed <skill list>, next is <skill name>. Key decisions: <bullet list of cross-cutting choices>. Deliverables updated: <list>. Stale dependents: <list or "none">. Next step: <literal next action>. <Any blockers or open questions, or "none">.`
 
-Fill in the template with actual values from the current session – never output the template with placeholders.
+The angle-bracket fields above are placeholders for YOU to fill in from the session — they must NOT appear in the output. If a field genuinely doesn't apply (no stale dependents, no blockers), write "none" instead of leaving the bracket.
 
-Important:
-- Do NOT warn earlier than ~90% – premature warnings are distracting
-- This is a SUGGESTION, not a requirement – never tell the user they must compact
-- If the user dismisses the suggestion, do not bring it up again in the same session
+Don'ts:
+- Do NOT proactively suggest compacting based on perceived session length. You can't measure context reliably; the suggestion will be wrong-timed and annoying.
+- Do NOT output the template with placeholders intact (e.g., `[project]`, `<phase name>`).
+- Do NOT include conversational filler ("This session has covered a lot of ground...") before the compact message — the user asked for the compact message, not a preamble.
+- Do NOT generate a compact message before reading `.design-engineer-plugin/config.yaml` and the compound-documenter memory at `.claude/agent-memory/compound-documenter/` for the actual session state. Generic compact messages are useless — the failure mode is producing one without grounding it in current files.
 
 ## Memory Management
 
