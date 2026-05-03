@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.3.0] – 2026-05-03
+
+File hygiene and tidy-up. Stops the plugin from leaving 100+ uncommitted files of mixed importance after a single feature implementation — most of them debug artifacts the user can't tell apart from real deliverables.
+
+### Added
+
+- **CLAUDE.md "File hygiene (durability tiers)" section.** Three tiers: durable deliverable (canonical `design/<subdir>/` paths, prototypes, plans, tests, source code — committed), plugin state (`.design-engineer-plugin/`, mostly committed except the per-session `.active-workflow` marker), and disposable working artifact (`design/.scratch/<purpose>/<YYYY-MM-DD-HHMMSS>/`, git-ignored). Rules: skills and agents that write throwaway files MUST use the scratch dir, not the project root and not under `design/<subdir>/`. Stack-agnostic boundary explicitly named — the plugin's `.gitignore` block only covers paths the plugin guarantees to write.
+- **`init-project-structure.sh` curates `.gitignore`** with a fenced `# === BEGIN design-engineer-plugin ===` / `# === END design-engineer-plugin ===` block. Idempotent — re-running the script doesn't duplicate the block. The block contains only the two stack-agnostic entries the plugin guarantees: `design/.scratch/` (universal scratch dir) and `.design-engineer-plugin/.active-workflow` (per-session state). Framework-specific outputs (Playwright reports, npm caches, Xcode build artifacts, etc.) stay outside the plugin block and are the user's responsibility to add separately.
+- **`init-project-structure.sh` creates `design/.scratch/`** as a structural directory alongside the existing `.design-engineer-plugin/`, `plans/`, `prototype/`. Skills route disposable artifacts there.
+- **`commands/design-engineer/dev.md` Step 9.5 — Tidy-up (BLOCKING before PR creation).** Runs `git status --short` after `design-system-auditor` and surfaces every untracked / modified file for classification per the durability tiers. For each file outside the canonical paths, the model proposes one of three dispositions (move to scratch, add to `.gitignore` block, commit as-is) and waits for the user's confirmation before any move/delete. Skipped silently if the working tree is empty or contains only modified files within tracked canonical paths.
+
+### Why
+
+The user reported 123 uncommitted files for one feature implementation; only ~10% were durable deliverables. Two-thirds were Playwright debug captures dumped to project root (the v5.2.0 path hook now prevents new ones). The remainder were intermediate analysis dumps written to `design/<subdir>/` paths instead of a scratch dir. The plugin had no concept of "throwaway working artifact" — every skill wrote to a permanent location. v5.3.0 introduces the scratch dir, the durability tiers, the `.gitignore` curation, and the end-of-implementation tidy-up gate so the user can run `git add -A` without thinking and only ship what should ship.
+
 ## [5.2.0] – 2026-05-03
 
 Playwright filesystem hygiene. Stops Playwright captures from polluting project roots across long sessions.

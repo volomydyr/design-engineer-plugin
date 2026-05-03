@@ -540,6 +540,27 @@ The signal that allows the next assistant action is the next user message — no
 
 Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/craft/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
 
+## File hygiene (durability tiers)
+
+Every file the plugin creates falls into one of three durability tiers. The tier determines where the file goes and whether it gets committed.
+
+| Tier | Where it lives | Goes in git? | Examples |
+|---|---|---|---|
+| **Durable deliverable** | `design/<canonical-subdir>/` (foundation, research, planning, craft, psych, reviews, dev, features), `prototype/`, `plans/`, `tests/`, project source code | Yes — these ARE the work | `feature-spec.md`, `references.md`, captured reference images, `prototype.html`, plan files, test scripts, the actual feature code |
+| **Plugin state** | `.design-engineer-plugin/` (config, deps graph, memory) | Mostly yes (config + memory). The `.active-workflow` marker is per-session and git-ignored. | `config.yaml`, `dependencies.yaml`, `memory/project-map.md`, `memory/debug-solutions.md` |
+| **Disposable working artifact** | `design/.scratch/<purpose>/<YYYY-MM-DD-HHMMSS>/` | No — git-ignored by `init-project-structure.sh` | Playwright debug captures, intermediate analysis dumps, exploratory comparisons, AI-generated drafts you'll discard, "let me check this URL" outputs |
+
+**Rules for any skill, agent, or hook that writes a file:**
+
+- Durable deliverables go to their canonical `design/<subdir>/` path. Each skill's SKILL.md names the path explicitly.
+- Anything throwaway goes to `design/.scratch/<skill-or-purpose>/<YYYY-MM-DD-HHMMSS>/`. Never write disposable artifacts directly to the project root, directly under `design/`, or into a deliverable subdir.
+- The `init-project-structure.sh` script creates `design/.scratch/` and adds it (plus a few well-known root pollution patterns) to `.gitignore` automatically. The block is fenced with `# === BEGIN design-engineer-plugin ===` and `# === END design-engineer-plugin ===` so the script can re-run idempotently.
+- If you find yourself writing a file outside both the canonical `design/<subdir>/` and `design/.scratch/`, that's a bug — pick a tier and a path.
+
+**Why this matters:** without the tier discipline, a single feature implementation can leave a working tree dominated by debug artifacts (Playwright captures, intermediate analysis dumps, exploratory outputs) that obscure the actual deliverables. The user loses the ability to tell which files are committable vs which are throwaway, and the temptation to "commit everything and move on" pollutes the repository permanently. The tiers + `.gitignore` block + scratch directory let the user run `git add -A` without thinking and only ship what should ship.
+
+**Stack-agnostic boundary:** the plugin's `.gitignore` block (curated by `init-project-structure.sh`) only ignores paths the plugin itself guarantees to write — `design/.scratch/` and `.design-engineer-plugin/.active-workflow`. Framework-specific outputs (test runner reports, build caches, native build artifacts, language ecosystem caches) are the user's responsibility to add to their own `.gitignore` — outside the plugin's fenced block — since they vary by stack. The plugin doesn't presume the user uses Playwright, npm, Next.js, Xcode, Gradle, or any specific tool.
+
 ## Playwright filesystem hygiene
 
 Playwright captures (screenshots, snapshots, traces) MUST land in one of the canonical paths below. Without an explicit `filename` argument, Playwright MCP writes to the project root, which pollutes the working tree across long sessions. The plugin enforces this contract via the `de-playwright-path-hook.js` PreToolUse hook on `mcp__playwright__browser_take_screenshot` — non-conforming `filename` values are denied with a structured help message.

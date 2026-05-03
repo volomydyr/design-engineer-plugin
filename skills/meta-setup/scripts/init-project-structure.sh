@@ -138,6 +138,62 @@ echo ""
 echo "[CREATED] plans/ -- implementation plans"
 echo "[CREATED] plans/archive/ -- completed plans"
 
+# ─────────────────────────────────────────────
+# Curate .gitignore (idempotent — won't duplicate the block on re-run)
+# ─────────────────────────────────────────────
+# Adds a fenced "Design Engineer Plugin" block to the project's .gitignore
+# covering disposable working artifacts the plugin creates during a session.
+# Without this block, a long feature implementation can leave 100+ files in
+# the working tree (Playwright debug captures dumped to root before the
+# de-playwright-path-hook landed in v5.2.0, test-results/, the active-
+# workflow marker, scratch dir). Idempotent via the BEGIN/END fence so
+# re-running this script doesn't duplicate the block.
+
+GITIGNORE_FILE=".gitignore"
+GITIGNORE_BEGIN="# === BEGIN design-engineer-plugin ==="
+GITIGNORE_END="# === END design-engineer-plugin ==="
+
+if [ -f "$GITIGNORE_FILE" ] && grep -qF "$GITIGNORE_BEGIN" "$GITIGNORE_FILE"; then
+  echo ""
+  echo "[EXISTS] .gitignore already has the design-engineer-plugin block -- skipping"
+else
+  # Ensure trailing newline before appending
+  if [ -f "$GITIGNORE_FILE" ] && [ -n "$(tail -c 1 "$GITIGNORE_FILE")" ]; then
+    echo "" >> "$GITIGNORE_FILE"
+  fi
+  cat >> "$GITIGNORE_FILE" <<GITIGNORE
+$GITIGNORE_BEGIN
+# Disposable working artifacts the plugin creates during a session.
+# Stack-agnostic — only includes paths the plugin itself guarantees to
+# write. Framework-specific outputs (test reports, build caches, native
+# build artifacts, etc.) are the user's responsibility to add to their
+# own .gitignore — outside this fenced block — since they vary by stack.
+
+# Universal scratch directory for any throwaway working file (Playwright
+# debug captures, intermediate analysis dumps, exploratory comparisons,
+# anything the model would discard tomorrow). Skills and hooks must put
+# transient artifacts here, NOT under design/<subdir>/.
+$DELIVERABLES_PATH/.scratch/
+
+# Active-workflow marker (process-recall hook gate; per-session state).
+.design-engineer-plugin/.active-workflow
+$GITIGNORE_END
+GITIGNORE
+  if [ -f "$GITIGNORE_FILE" ]; then
+    echo ""
+    echo "[UPDATED] .gitignore -- appended design-engineer-plugin block"
+  else
+    echo ""
+    echo "[CREATED] .gitignore -- with design-engineer-plugin block"
+  fi
+fi
+
+# ─────────────────────────────────────────────
+# Create the universal scratch directory (git-ignored per .gitignore above)
+# ─────────────────────────────────────────────
+mkdir -p "$DELIVERABLES_PATH/.scratch"
+echo "[CREATED] $DELIVERABLES_PATH/.scratch/ -- universal scratch (git-ignored)"
+
 echo ""
 echo "=== Scaffolding Complete ==="
 echo ""
@@ -147,6 +203,9 @@ echo "  .design-engineer-plugin/memory/   project-map.md, debug-solutions.md"
 echo "  plans/                     Implementation plans"
 echo "  plans/archive/             Completed plans"
 echo "  prototype/                 HTML prototypes"
+echo "  $DELIVERABLES_PATH/.scratch/      Universal scratch (git-ignored)"
+echo ""
+echo ".gitignore curated with disposable-artifact patterns."
 echo ""
 echo "Lazy directories ($DELIVERABLES_PATH/<subdir>): created by skills on first write."
 echo "  Examples: $DELIVERABLES_PATH/foundation/, $DELIVERABLES_PATH/research/, $DELIVERABLES_PATH/planning/,"
