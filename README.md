@@ -1,4 +1,4 @@
-> **v5.1.3** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.2.0** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 

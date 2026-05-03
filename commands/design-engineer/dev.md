@@ -233,7 +233,7 @@ Before writing ANY code, follow these steps in order:
 After implementing changes to UI components or pages:
 1. Start the dev server if not running (`npm run dev` or equivalent)
 2. Use Playwright to navigate to the affected page on localhost
-3. Take a screenshot
+3. Take a screenshot. Per CLAUDE.md "Playwright filesystem hygiene", visual-verification captures are throwaway debug artifacts and MUST be saved under `design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>/visual-verification-<page-slug>.png`. Run `mkdir -p design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>` first. Never call `mcp__playwright__browser_take_screenshot` without an explicit `filename` — the `de-playwright-path-hook` denies it.
 4. Analyze: does the result match expectations? Check layout, spacing, color, animation direction, element visibility
 5. If issues found: fix them before presenting to the user
 6. If clean: proceed to present the phase for review

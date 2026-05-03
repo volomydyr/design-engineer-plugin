@@ -4,6 +4,23 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.2.0] – 2026-05-03
+
+Playwright filesystem hygiene. Stops Playwright captures from polluting project roots across long sessions.
+
+### Added
+
+- **`hooks/de-playwright-path-hook.js`** — new PreToolUse hook on `mcp__playwright__browser_take_screenshot`. Inspects `tool_input.filename` and denies the call if the filename is missing, absolute, contains `..`, or doesn't start with one of the canonical prefixes: `design/reviews/`, `design/craft/references/captures/`, `design/.scratch/playwright/`, or `tests/`. Deny message is structured: names the failure, lists the four allowed prefixes with concrete examples for each capture purpose, and suggests the timestamped scratch path for throwaway debug captures. Fail-open on parse / IO errors. Logs each fire to `~/.claude/cache/de-playwright-path.log` for debugging. Registered in `hooks/hooks.json` PreToolUse.
+- **CLAUDE.md "Playwright filesystem hygiene" section** — documents the four canonical paths with a table of capture purpose / path / lifetime. Names the forbidden patterns explicitly (`filename: "screenshot.png"`, unprefixed filenames, absolute paths, parent-traversal). Introduces `design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>/` as the home for throwaway captures (visual verification, "let me check this URL", exploratory analysis, design comparisons) and notes the directory is git-ignored.
+
+### Changed
+
+- **`commands/design-engineer/dev.md` "Visual verification" step** — Step 3 ("Take a screenshot") rewritten to specify the canonical scratch path and to remind the model that the path hook denies unprefixed filenames. Includes the `mkdir -p` precondition.
+
+### Why
+
+Before this release, `mcp__playwright__browser_take_screenshot` calls without an explicit `filename` argument wrote to `process.cwd()` (the project root), accumulating stray `screenshot.png` / `snapshot.png` / `page-1.png` files across review sessions, visual verifications, and ad-hoc analysis. The plugin specified canonical paths for some capture purposes (audit, moodboard) but had no rule for visual verification or exploratory captures, so the model defaulted to no path and Playwright defaulted to root. The hook makes the contract enforceable; the CLAUDE.md section names where everything should go and why.
+
 ## [5.1.3] – 2026-05-03
 
 Tightened the per-phase commit rule in `dev.md` so the implementation flow stops batching commits at the end.

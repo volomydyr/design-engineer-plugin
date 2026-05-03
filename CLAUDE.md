@@ -540,6 +540,21 @@ The signal that allows the next assistant action is the next user message — no
 
 Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/craft/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
 
+## Playwright filesystem hygiene
+
+Playwright captures (screenshots, snapshots, traces) MUST land in one of the canonical paths below. Without an explicit `filename` argument, Playwright MCP writes to the project root, which pollutes the working tree across long sessions. The plugin enforces this contract via the `de-playwright-path-hook.js` PreToolUse hook on `mcp__playwright__browser_take_screenshot` — non-conforming `filename` values are denied with a structured help message.
+
+| Capture purpose | Canonical path | Lifetime |
+|---|---|---|
+| Throwaway / debug (visual verification, "let me check this URL", exploratory analysis, design comparisons) | `design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png` | Disposable. The `.scratch/` directory is git-ignored. Clean up at any time without losing work. |
+| Persistent audit captures (`/design-engineer:review audit` per-page screenshots) | `design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png` | Committed alongside the audit deliverable. |
+| Moodboard reference captures (`ui-references-moodboard` Step 5b) | `design/craft/references/captures/<reference-slug>/<NN>-<section>.png` | Committed alongside the references deliverable. |
+| Playwright test fixtures / visual regression baselines | `tests/<test-name>/<snapshot>.png` | Committed alongside the test scripts. |
+
+Always `mkdir -p` the parent directory before the screenshot call. Forbidden: `filename: "screenshot.png"`, `filename: "page.png"`, any unprefixed filename, any absolute path, any path containing `..`. The hook denies all four.
+
+The default `<YYYY-MM-DD-HHMMSS>` timestamp pattern for scratch captures keeps debug output organized by session — easy to scan, easy to delete a day's worth in one `rm -rf design/.scratch/playwright/2026-05-03-*`. The hook does not enforce the timestamp format inside `design/.scratch/playwright/` (that's user discretion); it only enforces that the prefix matches.
+
 ## Project state injection
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/design-engineer:start` routes correctly even when auto-memory contains rich project context from previous sessions.
