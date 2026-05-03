@@ -24,9 +24,15 @@ if [ ! -f "$CONFIG" ]; then
 HOOK_EOF
 
 elif grep -q "project_type: existing" "$CONFIG" 2>/dev/null; then
-  # Case 2: Config exists with project_type: existing – show capabilities via AskUserQuestion + plugin root
+  # Case 2: Config exists with project_type: existing – minimal markers only.
+  # The full goal-routing AskUserQuestion lives in commands/design-engineer/start.md
+  # Step 0 (re-detect from disk). The hook used to inject the AskUserQuestion text
+  # here too, but that duplicated the command body and drifted out of sync (e.g.
+  # "Set up development" stayed in the hook after start.md was renamed to "Prepare
+  # project for AI coding"). The hook now ONLY emits markers; the command body is
+  # the single source of truth for the question text.
   cat <<HOOK_EOF
-{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"DESIGN_ENGINEER_PLUGIN_ROOT: $PLUGIN_ROOT\n\nDESIGN_ENGINEER_PROJECT_STATE: existing_project\n\nSPACER RULE: immediately before the AskUserQuestion tool call below, emit this exact 3-line spacer block as the last thing in the chat message preceding the call:\n\n───────────────────\n───────────────────\n───────────────────\n\nThe spacer prevents the question panel from overlaying and cutting off your text. No exceptions.\n\nThis project has the Design Engineer Plugin configured as an existing project. When /design-engineer:start runs:\n\n1. Do NOT show returning-pipeline state or resume information.\n2. Present available commands via AskUserQuestion:\n   question=\"What would you like to do?\"\n   header=\"Goal\"\n   options=[{label: \"Review my project\", description: \"Find issues with UX, accessibility, visual quality, or psychology\"}, {label: \"Implement from Figma\", description: \"Turn Figma designs into production code\"}, {label: \"Design a new feature\", description: \"Think through a new feature before building\"}, {label: \"Set up development\", description: \"Configure the AI build pipeline\"}]\n3. After the user answers, load the matching /design-engineer: command directly.\n4. Do NOT mention config files, project types, or detection state.\n5. Do NOT greet the user with the project name or any information from auto-memory. Do not say \"Welcome back\" or reference previous sessions. Just present the AskUserQuestion immediately."}}
+{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"DESIGN_ENGINEER_PLUGIN_ROOT: $PLUGIN_ROOT\n\nDESIGN_ENGINEER_PROJECT_STATE: existing_project"}}
 HOOK_EOF
 
 else
