@@ -4,6 +4,14 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.1.3] – 2026-05-03
+
+Tightened the per-phase commit rule in `dev.md` so the implementation flow stops batching commits at the end.
+
+### Fixed
+
+- **`/design-engineer:dev` Step 8.g was too terse and the model was treating it as a non-blocking suggestion.** The CLAUDE.md "Plan Mode" section step 7.k already specified per-phase commits with full Mode 1 wording, but the runtime command body in `commands/design-engineer/dev.md` Step 8.g said only "After approval, commit using `dev-github-workflow`" — three words past "commit". The model was reading the abbreviated version at the moment it mattered and deferring commits to the end of implementation. Replaced with explicit `BLOCKING REQUIREMENT — commit and push BEFORE starting the next phase` wording: full Mode 1 invocation (Conventional Commits + phase context + plugin attribution footer), explicit prohibition on batching ("Do NOT defer commits to the end of all phases. Do NOT batch multiple phases into a single end-of-implementation commit. Phase boundaries are commit boundaries — one phase, one commit, in the same turn the user approves it"), and a turn-blocking gate ("The next phase does not start until this phase is committed and pushed"). Also added the `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-github-workflow/SKILL.md` instruction with the standard "do NOT use the `Skill` tool" guard. (`commands/design-engineer/dev.md`)
+
 ## [5.1.2] – 2026-05-03
 
 Reframed the compact-message rule in CLAUDE.md from auto-trigger to user-asks-only.
