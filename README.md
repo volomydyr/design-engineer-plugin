@@ -1,4 +1,4 @@
-> **v5.3.0** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.3.1** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -14,7 +14,7 @@
 
 ## Getting started
 
-A plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that walks you through building a product, start to finish. Think of it as a swiss knife for product design. It packs a full methodology into one tool – research, psychology, prototyping, development – but stays easy to pick up. You run one command, it figures out where you are, and opens the right instrument.
+Claude Code writes code; it doesn't think about users, psychology, or design. **Design Engineer** is a plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that walks you through building a product, start to finish. It packs a full methodology into one tool – research, psychology, prototyping, development – but stays easy to use. You run one command, it figures out where you are, and runs the right commands in the right order for you.
 
 **Open Claude Code in your terminal and run these two commands, one at a time:**
 
@@ -38,17 +38,19 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-8 commands, 57 skills, 10 agents, and 3 bundled connectors (Context7 for docs, Figma for Dev Mode design data, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+8 commands, 57 skills, 10 agents, and 3 bundled integrations (Context7 for docs, Figma MCP for Dev Mode connection, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with user approval at every stage) or **autopilot** (autonomous with minimal input).
+
+You only need to remember one slash command – `/design-engineer:start`. It figures out where you are (starting from scratch, picking up where you left off, or working on an existing product) and runs the right commands in the right order for you. The list below is just so you can see what's available.
 
 | Command | What it does |
 |---------|-------------|
-| `/design-engineer:start` | Detects your situation – setup, resume, or capability guide |
-| `/design-engineer:design` | Runs the design workflow – discovery, strategy, planning, validation |
-| `/design-engineer:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
-| `/design-engineer:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
+| `/design-engineer:start` | Detects your project state, no matter if it's an existing product or something you want to build from scratch |
+| `/design-engineer:design` | Runs the design workflow – discovery, strategy, validation |
+| `/design-engineer:prototype` | Generates clickable HTML prototypes from your idea, context docs, references, or existing designs |
+| `/design-engineer:dev` | Step-by-step development process – CLAUDE.md, agent pipeline, context management, TDD, implementation |
 | `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
-| `/design-engineer:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
-| `/design-engineer:stop` | Save progress and pause mid-activity – pick up later with `/design-engineer:start` |
+| `/design-engineer:document` | Stores decisions, learnings, and project state for future |
+| `/design-engineer:stop` | Saves progress, even mid-activity – you can always pick up later |
 | `/design-engineer:help` | Shows all available commands, current project status, and mode |
 
 <br>
@@ -134,7 +136,7 @@ There's also one small utility command, `/design-engineer:mute-unmute-sound`, th
 <summary>6. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 9 entry points you type (like `/design-engineer:design`).
+**Commands** are the 8 entry points you type (like `/design-engineer:design`).
 
 **Skills** are the 57 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 

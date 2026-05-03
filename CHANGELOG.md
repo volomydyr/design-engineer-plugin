@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.3.1] – 2026-05-03
+
+README copy aligned with the public landing page (`/design-engineer-plugin/`). Only existing sections updated; no new sections added per author preference.
+
+### Changed
+
+- **"Getting started" intro paragraph** rewritten to lead with the landing's framing — "Claude Code writes code; it doesn't think about users, psychology, or design. **Design Engineer** is a plugin..." — instead of opening with the abstract "swiss knife" metaphor. Names the gap the plugin closes upfront.
+- **"How it works" paragraph** wording aligned with landing: "3 bundled integrations" (was "connectors"), "Figma MCP for Dev Mode connection" (was "Figma for Dev Mode design data"), "user approval at every stage" (was "approval at every stage"). Added the landing's framing line above the commands table — "You only need to remember one slash command... The list below is just so you can see what's available" — so readers don't feel they have to memorize all eight.
+- **Commands table descriptions** rewritten to match the landing word-for-word: `/design-engineer:start` ("Detects your project state, no matter if it's an existing product or something you want to build from scratch"), `/design-engineer:design` ("…discovery, strategy, validation" — dropped "planning" since it lives inside Strategy), `/design-engineer:prototype` ("…from your idea, context docs, references, or existing designs"), `/design-engineer:dev` ("Step-by-step development process – …"), `/design-engineer:document` ("Stores decisions, learnings, and project state for future"), `/design-engineer:stop` ("Saves progress, even mid-activity – you can always pick up later"). `:review` and `:help` already matched.
+- **FAQ 6 ("What are skills and how are they different from commands?")** corrected — "Commands are the 9 entry points" → "Commands are the 8 entry points". The 9 was a stale count from before v5.1.1 reduced the main commands list.
+
+### Not added
+
+The landing's new FAQ entry "Will this work on the Claude Pro plan?" is intentionally not in the README. Per author preference, only sections that already exist in the README get aligned; the README is not a mirror of the full landing page.
+
 ## [5.3.0] – 2026-05-03
 
 File hygiene and tidy-up. Stops the plugin from leaving 100+ uncommitted files of mixed importance after a single feature implementation — most of them debug artifacts the user can't tell apart from real deliverables.
