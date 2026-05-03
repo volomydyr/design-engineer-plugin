@@ -4,6 +4,23 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.1.0] – 2026-05-03
+
+Tiered design-grounding for UI edits. The design-grounding hook now classifies each UI Edit / MultiEdit / Write into Trivial / Medium / Large based on change size and pattern, and the model receives tier-based instructions for the depth of the Pre-Flight block and whether to call `/simplify`. The user-reported pain — running the full Pre-Flight ritual + 3-agent `/simplify` fan-out for a one-token color swap — is gone. Hook still enforces all per-session gates (prototype Read, references.md exists, design-system.md Read if present) regardless of tier; only the per-edit ritual scales.
+
+### Added
+
+- **Tier classification in `hooks/de-design-grounding-hook.js`.** New helpers `computeChangeSize()`, `isSinglePropertySwap()`, and `classifyTier()` inspect `tool_input` for `Write`, `Edit`, and `MultiEdit`. Reuses the diff-inspection pattern already established in `de-fidelity-hook.js`. Trivial requires ≤5 lines AND a single CSS / style / Tailwind property pattern match; Write is never Trivial; MultiEdit qualifies only when all ≤3 edits are individually trivial.
+- **Project design-system reference is now a required Read when present.** The hook scans for `.design-system/system.md` (written by `ui-design-system` Step 6) and `design/dev/design-system.md` (written by `ui-design-system` Step 5). When either exists, it joins the required-reads list. Stack-agnostic: web, mobile native, desktop — whatever the user wrote in their design-system.md is the source of truth. The hook does NOT add framework-specific files (no `tailwind.config.*`, no `src/lib/design-tokens.ts`).
+- **Tier instructions injected into the deny message.** When the hook denies a UI write for missing reads, it appends a scaling table the model receives once and applies for the rest of the session: Trivial → 1-line `WHY:` only, no agent `/simplify`. Medium → compact 3-field Pre-Flight + single `/simplify`. Large → full 5-field Pre-Flight + `/simplify` (3-agent fan-out runs internally).
+
+### Changed
+
+- **`CLAUDE.md` "Code Quality: /simplify" section rewritten with tier table.** "After every Write/Edit, mandatory" replaced with the per-tier rule. Final-pass `/simplify` before `design-system-auditor` still always runs as Large regardless of last edit size — it audits the cumulative diff. Prototyping exemption unchanged.
+- **`CLAUDE.md` new section "Design Grounding Pre-Flight scaling".** Documents the tier definitions, the per-tier Pre-Flight depth, and the gates that fire regardless of tier (prototype, references.md, design-system.md).
+- **`commands/design-engineer/dev.md` Step 8.b** rewritten to reference the tier table instead of "mandatory after every Write/Edit".
+- **Trivial swaps now skip the 3-doc anti-pattern Read requirement.** The hook's check-3 is gated behind `tier !== 'trivial'`; trivial edits still require the prototype gate (check 1), the references.md gate (check 2), and the design-system gate (check 4) — only the heavy operating-procedure docs are bypassed.
+
 ## [5.0.1] – 2026-05-03
 
 Hotfix on top of v5.0.0 — releases without version bumps don't reach users.

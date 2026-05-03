@@ -319,19 +319,64 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
 
 ## Code Quality: /simplify
 
-After every code-producing step, run `/simplify` to review changed code for reuse, quality, and efficiency. This is mandatory.
+`/simplify` is a bundled Claude Code skill that reviews changed code for reuse, quality, and efficiency. For substantial changes it fans out into three parallel review agents. That fan-out is great for new components and large refactors and noisy for one-line color swaps — so the call is **scaled by change size**, not run after every Write/Edit.
 
-### When to Run
+### Tier-based scaling (mirrors the design-grounding hook's tiers)
 
-- After `backend-implementer` returns
-- After `frontend-implementer` returns
-- Final pass after all code changes (before `design-system-auditor`)
+The design-grounding hook (`hooks/de-design-grounding-hook.js`) classifies each UI Edit / MultiEdit / Write into one of three tiers using `computeChangeSize()` + `isSinglePropertySwap()`. Use the same classification to decide whether to call `/simplify`:
 
-Note: Do NOT run /simplify during prototyping. Prototypes are throwaway visual artifacts – code quality doesn't matter. /simplify only applies during `/design-engineer:dev` implementation.
+| Tier | Trigger | `/simplify` action |
+|---|---|---|
+| **Trivial** | ≤5 lines AND a single CSS / style / Tailwind property or token swap (color, padding, font-size, etc.) | **Skip `/simplify`.** Inline self-review only — confirm the new value uses an existing token and the change does not introduce raw values, then move on. The 3-agent fan-out is overkill for a one-property change. |
+| **Medium** | ≤50 lines (anything that isn't trivial and isn't a new file or large refactor) | Single `/simplify` call. |
+| **Large** | >50 lines OR new file OR new component | Full `/simplify` (which internally orchestrates the 3-agent reuse / quality / efficiency fan-out). |
+
+### When to Run (legacy guidance, kept for the Large tier)
+
+- After `backend-implementer` returns (treat as Large)
+- After `frontend-implementer` returns (treat as Large)
+- Final pass after all code changes, before `design-system-auditor` (treat as Large)
+
+For trivial / medium edits in the per-phase implementation loop, scale per the table above. The Final-pass `/simplify` before `design-system-auditor` always runs as Large regardless of last-edit size — it's auditing the cumulative diff.
+
+### Prototyping exemption (unchanged)
+
+Do NOT run `/simplify` during prototyping. Prototypes are throwaway visual artifacts – code quality doesn't matter. `/simplify` only applies during `/design-engineer:dev` implementation.
 
 ### How
 
-Use the Skill tool to invoke `/simplify`. It runs in the main conversation, not inside sub-agents.
+Invoke `/simplify` as a slash command. It runs in the main conversation; the 3-agent fan-out is internal to the skill and only fires for Large-tier changes (when `/simplify` itself decides the change warrants it). You don't dispatch the agents directly from this plugin.
+
+## Design Grounding Pre-Flight scaling
+
+The design-grounding hook denies UI writes until certain reads happen and a Pre-Flight block is output. The depth of the Pre-Flight block is also tier-scaled:
+
+| Tier | Required Pre-Flight output before the edit |
+|---|---|
+| **Trivial** | One line: `WHY: <reason>`. No Domain Exploration. No Signature Test. No 5-field block. |
+| **Medium** | Compact 3-field Pre-Flight: Intent + WHY + anti-pattern self-check. Skip Domain Exploration + Signature Test. |
+| **Large** | Full 5-field Pre-Flight: Intent / Domain Exploration / WHY / anti-pattern self-check / Signature Test. |
+
+The hook injects this scaling table into its deny message on the first UI write of the session, so the model receives it once and applies it to every subsequent edit. Keep applying it for the rest of the session — do not silently drift back to full Pre-Flight on small swaps.
+
+### What "trivial" means precisely
+
+A swap qualifies as Trivial only if BOTH conditions hold:
+
+1. The change is ≤5 lines (counted as max of old vs new line count for Edit / MultiEdit, or content lines for Write).
+2. The change matches a single CSS / style / Tailwind property pattern — one of: `color`, `background(-color)?`, `fill`, `stroke`, `border-color`, `border`, `padding`, `margin`, `gap`, `width`, `height`, `font-size`, `line-height`, `font-weight`, `border-radius`, `opacity`, `box-shadow`, `outline` (CSS); or their React inline-style camelCase forms; or a single Tailwind utility class swap.
+
+Write (creating a new file) is NEVER Trivial — new files always warrant full grounding. MultiEdit qualifies only when ALL its edits are individually trivial AND there are at most 3 edits.
+
+### What's still required even for Trivial swaps
+
+The hook still enforces the per-session gates regardless of tier:
+
+- `prototype/prototype.html` must be Read if it exists.
+- `design/craft/references/references.md` (or equivalent) must exist on disk.
+- `.design-system/system.md` or `design/dev/design-system.md` must be Read if either exists.
+
+These are about whether the user is in a UI-implementation context at all, not about depth — so they fire once per session regardless of edit size.
 
 ## Component Gallery Contract
 
