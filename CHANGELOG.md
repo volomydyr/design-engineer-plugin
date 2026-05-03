@@ -4,6 +4,18 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.0.1] – 2026-05-03
+
+Hotfix on top of v5.0.0 — releases without version bumps don't reach users.
+
+### Fixed
+
+- **`hooks/de-start-state.sh` Case 2 was injecting stale AskUserQuestion text on every prompt in existing-project directories.** The hook embedded a duplicate of the goal-routing question from `commands/design-engineer/start.md`, including the old "Set up development" / "Configure the AI build pipeline" labels. After v5.0.0 renamed the option to "Prepare project for AI coding", the hook copy stayed on the old wording and the model rendered the stale labels even though the cached `start.md` was correct. Stripped Case 2 down to just `DESIGN_ENGINEER_PLUGIN_ROOT` + `DESIGN_ENGINEER_PROJECT_STATE: existing_project` markers; the command body's Step 0 disk re-detect is now the single source of truth for the routing question. (`hooks/de-start-state.sh`)
+
+### Process
+
+- **Release discipline added to CLAUDE.md.** Every commit pushed to `main` that touches user-facing code (commands, skills, agents, hooks, scripts) MUST bump the patch version in `plugin.json`, `marketplace.json`, and `README.md` and add a CHANGELOG entry. Reason: Claude Code's plugin cache is keyed by `<plugin>/<version>`, so pushing a fix to an unchanged version is invisible to `/plugin install` (it sees "already at X.Y.Z" and skips the fetch). The v5.0.0 → v5.0.1 round-trip exists only because v5.0.0 had a follow-up fix pushed without a version bump.
+
 ## [5.0.0] – 2026-05-01
 
 Existing-project flow overhaul. Bumped to MAJOR (rather than MINOR) because the existing-project shape changes the visible contract: the abbreviated feature flow now asks a spec-polish routing question first, the dev pipeline no longer asks the 4-option fast-track / full / skip prompt, init-project-structure.sh no longer creates 11 stubbed `.gitkeep` folders, and the process-recall hook only fires inside high-process workflows. Behaviorally compatible for users who only ran `/design-engineer:start` on new products, but the existing-project entry path is reshaped enough to warrant a major bump. 15 user-reported issues from main-flow testing plus the removal of `/simplify` from prototyping, plus four follow-ups from the first round of v5 testing. Themes: hook gates so the process-recall nudge fires only inside structured workflows; proactive defaults so the assistant scaffolds CLAUDE.md and asks about references without prompting; lazy folder scaffolding so `init-project-structure.sh` only creates structural directories and skills `mkdir -p` their own; spec-depth routing in design.md (minimal vs full feature flow); optional-depth multi-select for psychology, Figma, and design-system audits; moodboard rewritten around curated Chrome previews and sectional Playwright capture; a hard rule that the assistant must not initiate background work while waiting on user feedback; and `/design-engineer:start` now re-detects state from disk so returning users skip the project-type question, with a guaranteed-visible welcome paragraph and plain-English goal options.

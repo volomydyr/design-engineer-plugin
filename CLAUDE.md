@@ -50,17 +50,30 @@ The only correct phrasing is **"Read `<path>/SKILL.md` and follow its instructio
 
 ## Versioning Requirements
 
-Every change to this plugin MUST include updates to all three files:
+**HARD RULE: every commit pushed to `main` that touches user-facing code MUST bump the version. No exceptions, even for one-line fixes.**
 
-1. **`.claude-plugin/plugin.json`** - Bump version using semver
-2. **`CHANGELOG.md`** - Document changes using Keep a Changelog format
-3. **`README.md`** - Verify/update component counts
+User-facing code: anything under `commands/`, `skills/`, `agents/`, `hooks/`, scripts in `skills/*/scripts/`, `assets/`, or top-level docs (`CLAUDE.md`, `README.md`). Commits that touch only `CHANGELOG.md`, `.gitignore`, or local dev tooling don't need a bump.
 
-### Version Bumping Rules
+**Why**: Claude Code's plugin cache is keyed by `<plugin>/<version>`. When a user runs `/plugin install` and the registry shows "already at X.Y.Z", Claude Code skips the fetch entirely — your fix never reaches them. The only way to force a fresh pull is to make the version different. There is no "force re-fetch" command in `/plugin`; version-bump-and-push is the protocol.
 
-- **MAJOR** (1.0.0 → 2.0.0): Breaking changes, major reorganization
+**The four files that MUST update together** in every release commit:
+
+1. **`.claude-plugin/plugin.json`** — bump `version`
+2. **`.claude-plugin/marketplace.json`** — bump matching `version`
+3. **`README.md`** — bump the `> **vX.Y.Z**` banner on line 1
+4. **`CHANGELOG.md`** — prepend a new dated entry
+
+If any of these four are unchanged in a `main` push that touched user-facing code, the release is broken. Stop and bump before pushing.
+
+### Version bumping rules
+
+- **MAJOR** (1.0.0 → 2.0.0): Breaking changes, major reorganization, removed/renamed commands or skills
 - **MINOR** (1.0.0 → 1.1.0): New skills, agents, or commands
-- **PATCH** (1.0.0 → 1.0.1): Bug fixes, doc updates, minor improvements
+- **PATCH** (1.0.0 → 1.0.1): Bug fixes, doc updates, minor improvements (this is the default — when in doubt, bump patch)
+
+### Skipping the bump is a bug
+
+If you find yourself thinking "this is too small to bump for" — that's the bug. Even fixing a single typo in a command body's chat output requires a patch bump, because the typo lives in the cached version directory and only a new version directory can replace it. The cost of a patch bump is one number; the cost of a stuck cache is hours of user frustration.
 
 ## Directory Structure
 
