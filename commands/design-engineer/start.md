@@ -14,12 +14,23 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 
 ## Routing
 
-Check your context for `DESIGN_ENGINEER_PROJECT_STATE:`.
+**Step 0 (BLOCKING — run before anything else): re-detect state from disk.** The `DESIGN_ENGINEER_PROJECT_STATE` value injected by the start hook can lag behind disk reality (cached old hook version, hook fired before config was created, hook ran in a different cwd, etc.). Trust the disk, not the injected value:
 
-- If `new_to_plugin` → follow the **Onboarding sequence** below in this file. Do not skip any step.
-- If `returning_with_resume` → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — these skills have `disable-model-invocation: true` and must be loaded by Reading the file.
-- If `returning_no_resume` → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
-- If not found → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions; it handles detection as fallback.
+1. Run via Bash: `test -f .design-engineer-plugin/config.yaml && cat .design-engineer-plugin/config.yaml || echo "NO_CONFIG"`.
+2. Branch on what you read:
+   - **`NO_CONFIG`** → user is genuinely new in this directory. Follow the **Onboarding sequence** below in this file. Do not skip any step.
+   - **Config exists with `project_type: new` AND a `resume:` block** → returning user with active pipeline state. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
+   - **Config exists with `project_type: new` but no `resume:` block** → returning user, no active pipeline. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
+   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (mode, last goal, any in-progress feature folder under `design/features/`), then ask via AskUserQuestion (with spacer):
+     - question: "Welcome back. What would you like to do?"
+     - header: "Goal"
+     - options match the Step 2 Question 1 set below (Review my project / Implement from Figma / Design a new feature / Prepare project for AI coding).
+     - multiSelect: false
+     - After the answer, route directly to the matching `/design-engineer:` command. Do NOT re-run the project-type question, do NOT re-scaffold `design/`, do NOT ask about the status line or sound again — those were settled on the original onboarding run.
+
+The `DESIGN_ENGINEER_PROJECT_STATE` injected value is now an HINT only. The disk read above is the source of truth.
+
+Skip the **Onboarding sequence** entirely if the disk read found a config.
 
 **Skill invocation note**: throughout this file, "load the X skill" or "load the meta-setup skill" means Read the file at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` using the Read tool, then follow its instructions inline. NEVER use the `Skill` tool to invoke these skills — they all set `disable-model-invocation: true` in their frontmatter and the Skill tool will reject them.
 
@@ -41,11 +52,11 @@ Follow these steps when `/design-engineer:start` runs and the project state is `
 
 ### Step 1: Brief intro, then ask project type
 
-Output this text first (exactly as written):
+**Required first output: a visible chat message.** Before any tool call, emit this exact paragraph as a normal chat message (not a blockquote, not a code block, not a tool result). It's the user's first signal that the command is working — without it the screen looks blank until the question panel pops up.
 
-> "Design Engineer Plugin – a swiss knife for product design. Research, psychology, prototyping, development – all in one tool. You run one command, it figures out where you are, and opens the right instrument."
+Design Engineer Plugin – a swiss knife for product design. Research, psychology, prototyping, development – all in one tool. You run one command, it figures out where you are, and opens the right instrument.
 
-Then ask via `AskUserQuestion` (with the spacer above the call):
+After that paragraph is emitted as visible text, then end the chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) and call `AskUserQuestion`:
 
 - question: "Welcome to Design Engineer Plugin. What brings you here?"
 - header: "Project type"
@@ -65,7 +76,11 @@ Continue with Steps 2–4 below. Do not skip any.
 
 #### Step 2: Ask goal AND mode in ONE AskUserQuestion call
 
-Both questions appear on the same screen. Spacer above the call.
+**Required first output: a visible chat message acknowledging the user's project-type choice and previewing what's next.** Without this, the user sees only a spacer above the question panel — feels broken. Emit one short paragraph (1–2 sentences) like:
+
+> Got it — picking up on an existing project. Two quick questions and I'll route you to the right tool.
+
+(Adapt the wording to be natural; don't render the blockquote literally — that's just an example.) Then end the chat message with the canonical 3-horizontal-rule spacer and call AskUserQuestion with both questions on the same screen.
 
 Question 1:
 - question: "What would you like to do?"
@@ -74,7 +89,7 @@ Question 1:
   - label: "Review my project", description: "Find issues with UX, accessibility, visual quality, or psychology"
   - label: "Implement from Figma", description: "Turn Figma designs into production code"
   - label: "Design a new feature", description: "Think through a new feature before building – research, strategy, design"
-  - label: "Set up development", description: "Configure the AI build pipeline – CLAUDE.md, agents, testing, GitHub"
+  - label: "Prepare project for AI coding", description: "Generate the rules file (CLAUDE.md), wire up helper agents, and set up testing — useful before you start building features"
 
 Question 2:
 - question: "How do you want to work?"
@@ -190,7 +205,7 @@ Then run the `/design-engineer:` slash command matching the goal selected in Ste
 | Review my project | `/design-engineer:review` |
 | Implement from Figma | `/design-engineer:dev` |
 | Design a new feature | `/design-engineer:design` |
-| Set up development | `/design-engineer:dev` |
+| Prepare project for AI coding | `/design-engineer:dev setup` |
 
 ## Advisor checkpoint contract for the loaded skill
 
