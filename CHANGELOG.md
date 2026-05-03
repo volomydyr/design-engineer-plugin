@@ -4,6 +4,20 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.1.1] – 2026-05-03
+
+README + CLAUDE.md catch-up after v4.9.0 → v5.1.0. The FAQ had drifted out of sync with the actual plugin behavior.
+
+### Changed
+
+- **FAQ 3 (existing project)** expanded with the spec-polish routing question, the optional-depth multi-select, the conditional Figma hand-off, the proactive CLAUDE.md scaffold + reuse-vs-provide references question, and the abbreviated feature flow's process-recall behavior. Old text said `/design-engineer:start` "auto-detects context" and stopped there — readers had no way to anticipate the routing the existing-project path actually does.
+- **FAQ 8 (background hooks)** added two missing entries (process recall, background continuation block) and rewrote the design-intake-validation bullet to reflect tier scaling (trivial / medium / large). Mentioned the prototype TDD exemption.
+- **FAQ 12 (development workflow differences)** went from 3 differences to 5 — added explicit `Task()` agent invocation and tiered grounding overhead. Background-polling block also called out under phased implementation.
+- **Top-level commands table reduced from 9 to 8.** `/design-engineer:mute-unmute-sound` is now a utility, mentioned only at the bottom of FAQ 5 — it's something you toggle once or twice across the lifetime of the plugin, not part of any workflow.
+- **CLAUDE.md "Directory Structure"** comment updated to "8 main commands + mute-unmute-sound utility" instead of "9 commands".
+
+No new FAQ entries (per author preference). The five changes above all live inside existing question bodies.
+
 ## [5.1.0] – 2026-05-03
 
 Tiered design-grounding for UI edits. The design-grounding hook now classifies each UI Edit / MultiEdit / Write into Trivial / Medium / Large based on change size and pattern, and the model receives tier-based instructions for the depth of the Pre-Flight block and whether to call `/simplify`. The user-reported pain — running the full Pre-Flight ritual + 3-agent `/simplify` fan-out for a one-token color swap — is gone. Hook still enforces all per-session gates (prototype Read, references.md exists, design-system.md Read if present) regardless of tier; only the per-edit ritual scales.

@@ -95,7 +95,7 @@ design-engineer-plugin/           ← repo root = plugin root
 │   └── de-prompt-injection-hook.js
 ├── agents/                         # 10 specialized agents
 ├── commands/
-│   └── design-engineer/            # 9 commands (design-engineer: namespace)
+│   └── design-engineer/            # 8 main commands + mute-unmute-sound utility (design-engineer: namespace)
 └── skills/                         # 57 skills (56 with SKILL.md + 1 reference-only)
 ```
 

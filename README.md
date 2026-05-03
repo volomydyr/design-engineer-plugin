@@ -1,4 +1,4 @@
-> **v5.1.0** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.1.1** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-9 commands, 57 skills, 10 agents, and 3 bundled connectors (Context7 for docs, Figma for Dev Mode design data, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
+8 commands, 57 skills, 10 agents, and 3 bundled connectors (Context7 for docs, Figma for Dev Mode design data, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with approval at every stage) or **autopilot** (autonomous with minimal input).
 
 | Command | What it does |
 |---------|-------------|
@@ -49,7 +49,6 @@ This is the only command you need to remember. It figures out your situation –
 | `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
 | `/design-engineer:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
 | `/design-engineer:stop` | Save progress and pause mid-activity – pick up later with `/design-engineer:start` |
-| `/design-engineer:mute-unmute-sound` | Toggle plugin sound notifications on or off without uninstalling |
 | `/design-engineer:help` | Shows all available commands, current project status, and mode |
 
 <br>
@@ -92,8 +91,13 @@ Both, and the existing-project path is first-class. `/design-engineer:start` det
 - **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do.
 - **Existing project** – auto-detects your design system, brand docs, written specs, shipped UI, and component count from the codebase, then asks you about off-repo references (Figma file, Notion docs, Linear tracker, external design-system page like Storybook / Zeroheight). All of that gets stored as project context. From there:
   - The 9 ux-* skills that assume a blank slate (StoryBrand, problem statement, target audience, business plan, competitor analysis, assumptions, story panels, user interviews, behavior mapping) respect what already exists – they ask "use as-is, refine, or re-run from scratch" instead of regenerating.
+  - **Spec polish routing** – when you run `/design-engineer:design` for a new feature, the first question is "Minimal feature spec vs Full feature flow", with explicit descriptions of what each entails. The minimal branch produces a one-page spec that respects your existing brand voice; the full branch walks you through MVP requirements + IA before implementation. No more guessing which depth the plugin will pick.
+  - **Optional-depth multi-select** – inside the full feature flow, before implementation kicks off, you pick which optional audits to run as a multi-select: Brief problem statement, Psychology audit (`psych-decision-fundamentals` + `psych-cognitive-load`), Figma comparison (`ui-figma-guide`), Design-system check (`ui-design-system`). Choices are persisted to your project config and read by `/design-engineer:dev` so the implementation phase reflects them inline.
+  - **Conditional Figma hand-off** – if Figma is connected and you didn't already pick "Figma comparison" in the optional-depth step, the flow asks once before handing off to dev whether to pull structured Figma data first.
+  - **Proactive defaults in `/design-engineer:dev`** – if your established project is missing CLAUDE.md, the plugin scaffolds it silently from your existing components (no question asked). If `references.md` is missing on a project that already has shipped UI, you get one 2-option question – "Reuse existing UI as the visual reference" or "Provide image references" (which runs the moodboard skill with curated reference previews and sectional Playwright captures). The old 4-option fast-track / full / skip prompt is gone.
+  - **Process recall through the abbreviated feature flow** – Steps 2.2 through 2.7 of the existing-project flow are classified as "complex work", so the active workflow's step list renders at the top of Claude's response while the flow runs (see hooks list in FAQ 8 for the full mechanism).
   - `/design-engineer:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
-  - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice.
+  - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice. Reachable either by typing the literal `feature-spec` argument or by picking "Minimal feature spec" in the spec-polish routing question.
   - You can still run any skill individually (psychology review, accessibility audit, design system setup, etc.) without the full pipeline.
 </details>
 
@@ -109,7 +113,7 @@ During setup, the plugin detects and helps install optional tools that expand it
 ### Structure
 
 <details>
-<summary>5. What are the 9 commands and when do I use each one?</summary>
+<summary>5. What are the 8 commands and when do I use each one?</summary>
 <br>
 
 - **`/design-engineer:start`** – always start here. It detects your situation and routes you.
@@ -119,10 +123,11 @@ During setup, the plugin detects and helps install optional tools that expand it
 - **`/design-engineer:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
 - **`/design-engineer:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
 - **`/design-engineer:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/design-engineer:start`.
-- **`/design-engineer:mute-unmute-sound`** – toggle plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence.
 - **`/design-engineer:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
 You only need to remember `/design-engineer:start`. It guides you to everything else.
+
+There's also one small utility command, `/design-engineer:mute-unmute-sound`, that toggles plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence. It's not part of the main 8 because you'll touch it once or twice across the lifetime of the plugin, not as part of any workflow.
 </details>
 
 <details>
@@ -163,11 +168,13 @@ Agents activate automatically when needed. You don't call them directly.
 The plugin installs several hooks that work without you doing anything:
 
 - **Destructive command protection** – catches dangerous commands (`rm -rf`, `git push --force`, `DROP TABLE`) and shows safer alternatives.
-- **Test-first enforcement** – blocks code writes until test scripts exist. Keeps test-driven development honest.
+- **Test-first enforcement** – blocks code writes until test scripts exist. Keeps test-driven development honest. Prototype writes are exempt (prototypes are throwaway visual artifacts).
 - **Requirement fidelity (code)** – after every code write, checks that the implementation matches your approved plan. Catches scope creep, unplanned files, phases implemented out of order, and new components that duplicate existing ones.
 - **Requirement fidelity (plans)** – reviews plan files for requirement drift. If a plan adds features, copy, or scope you didn't ask for, it gets flagged before implementation starts.
 - **Prompt injection defense** – watches for manipulation attempts hidden in external content (web pages, files, tool outputs).
-- **Design intake validation** – blocks screenshot-only Figma work (requires structured design data first) and asks clarifying questions about interactions, animations, and edge cases before coding.
+- **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
+- **Process recall** – inside long deterministic workflows (`/design-engineer:dev` feature implementation and setup, `/design-engineer:design` new-product full pipeline and existing-project abbreviated feature flow, `/design-engineer:review` broad audits, `dev-prototyping` storyboard and interactive steps, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
+- **Background continuation block** – when a flow is waiting on your feedback (every prototype iteration, every implementation phase approval gate), Claude is forbidden from initiating background polling or self-rescheduling (`ScheduleWakeup`, `CronCreate`, `/loop`, background `Task` or `Bash`). Your typing window is not a polling target — your next message is the signal.
 - **Dependency tracking** – when you change a deliverable, flags which other documents might need updating.
 - **Session summary** – when you end a session, generates a summary of what changed and which dependent documents might need review.
 </details>
@@ -227,13 +234,15 @@ When Claude reviews your work or makes suggestions, it draws from this knowledge
 <summary>12. How does the development workflow differ from regular Claude Code?</summary>
 <br>
 
-Three key differences:
+Five key differences:
 
-1. **Test-first** – the plugin enforces TDD. You can't write production code until failing tests exist. A hook enforces this, not just a suggestion.
-2. **Phased implementation** – plans are broken into phases with dependencies. Claude implements one phase at a time, shows you what it did and what to check, and waits for your approval before continuing.
+1. **Test-first** – the plugin enforces TDD. You can't write production code until failing tests exist. A hook enforces this, not just a suggestion. Prototype writes are exempt — prototypes are throwaway artifacts.
+2. **Phased implementation** – plans are broken into phases with dependencies. Claude implements one phase at a time, shows you what it did and what to check, and waits for your approval before continuing. Background polling is forbidden during these waits — Claude won't enter `/loop` or schedule wake-ups while you're typing feedback.
 3. **Fidelity enforcement** – after every code write, the plugin checks that the implementation matches your plan. Unplanned files, scope creep, out-of-order phases, and duplicate components all get flagged automatically.
+4. **Explicit agent invocation** – the implementation phase uses explicit `Task(test-writer)`, `Task(frontend-implementer)`, `Task(backend-implementer)`, `Task(psych-scanner)`, and `Task(design-system-auditor)` calls instead of prose suggestions, so the model doesn't drift back to inlining everything in the main turn. You get the benefit of specialized agents without remembering to ask for them.
+5. **Tiered grounding overhead** – the plugin's design-grounding ritual scales by change size. A one-token color swap classifies as "Trivial" — output one line of WHY, no `/simplify` agent fan-out. A 30-line component refactor classifies as "Medium" — compact 3-field Pre-Flight + single `/simplify`. A new component file or 100-line refactor is "Large" — full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. You don't pay the full ritual cost for small swaps.
 
-The result: you stay in control of what gets built and when, and nothing ships that you haven't reviewed.
+The result: you stay in control of what gets built and when, the plugin's specialized helpers actually run, the cost scales with the work, and nothing ships that you haven't reviewed.
 </details>
 
 <details>
