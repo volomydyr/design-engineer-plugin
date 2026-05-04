@@ -17,6 +17,25 @@ Most AI-generated interfaces look the same because intent lives in prose, but co
 
 The process: establish design intent → explore the product domain → collect references → synthesize into direction.
 
+## What this skill DOES NOT produce
+
+This skill is reference-gathering ONLY. It captures real UIs from real products. It is **not** an image-generation skill. In autopilot mode the model has been observed to conflate this skill with `ux-story-panels` (which produces image-generation prompts) and `ui-images` (which produces image-generation prompts for the project's own hero/avatar/decorative images). That conflation produces hallucinated files like `references-image-prompts.md` containing AI-generation prompts intended to "approximate" the references — which is strictly worse than the references themselves and defeats the entire point.
+
+**Forbidden outputs of this skill** (denied at write time by `de-deliverable-path-hook.js`):
+
+- `references-image-prompts.md` — does not exist; do not invent it.
+- Any `.md` file describing AI-generation prompts for the references. The references ARE the screenshots.
+- Any invocation of `ui-images` from inside this skill. `ui-images` is for the project's own images (hero shot, avatars, etc.), not for "approximating" external references.
+- Any invocation of `ux-story-panels` from inside this skill. Story panels are a separate Phase 2 deliverable; they don't belong inside reference gathering.
+
+**The only files this skill writes:**
+
+- `.design-engineer-plugin/design/exploration/references/references.md` — the synthesis document with design intent, "from app X take quality Y" notes, and what to reuse vs. what to avoid.
+- `.design-engineer-plugin/design/exploration/references/captures/<reference-slug>/<NN>-<section>.png` — viewport-sized Playwright captures of real UIs.
+- `.design-engineer-plugin/design/exploration/references/captures/<reference-slug>/manifest.md` — per-reference manifest (URL, viewport, "watch for" note).
+
+Anything else is a hallucination. Re-read the steps below if unsure.
+
 ## Interaction Method
 
 If `AskUserQuestion` is available, use it for all prompts below.

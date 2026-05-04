@@ -151,6 +151,8 @@ For each panel, define:
 <step number="4" required="true" depends_on="3">
 ### Step 4: Generate Image Prompts
 
+> **Scope guard**: this step generates image prompts for the **6 narrative panels of a customer-experience story** that the user just defined in Step 3. It is NOT a generic "produce image prompts" pattern that other skills can pattern-match onto. If you arrived here from `ui-references-moodboard` or `ui-images` thinking you should produce image prompts for design references or for project images: stop. Those skills have their own output paths and their own rules. Story panels live in `.design-engineer-plugin/design/exploration/story-panels/<panel-name>/` only.
+
 Once all 6 panels are defined, generate image generation prompts for an AI image tool (ChatGPT/DALL-E, Midjourney, etc.).
 
 **Generate a single prompt** that produces all 6 panels as one image in a 2x3 grid. The prompt should specify:

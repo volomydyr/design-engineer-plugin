@@ -4,6 +4,20 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.3] – 2026-05-04
+
+Stops a recurring autopilot hallucination in which `ui-references-moodboard` got conflated with `ux-story-panels` and `ui-images`, producing a phantom `references-image-prompts.md` containing AI-generation prompts intended to "approximate" the design references. The references ARE the screenshots — generating AI approximations of them is strictly worse and defeats the entire point of reference gathering. Reported by user during autopilot testing on a project that pre-dated v5.4.0 (file landed at `design/craft/references-image-prompts.md`).
+
+### Changed
+
+- **`skills/ui-references-moodboard/SKILL.md`** — added an explicit "What this skill DOES NOT produce" section listing forbidden outputs (`references-image-prompts.md`, any AI-generation prompt files for references, any invocation of `ui-images` or `ux-story-panels` from inside this skill). Also enumerates the only three legitimate output paths (`references.md`, captures `*.png`, `manifest.md`). The path-validation hook from v5.5.0 already denies `references-image-prompts.md` at write time on v5.5.x projects; this is the source-level prevention so the model doesn't try in the first place.
+- **`skills/ux-story-panels/SKILL.md` Step 4** — prepended a scope-guard paragraph clarifying that "Generate Image Prompts" is specifically for the 6 narrative panels of a customer-experience story, NOT a generic image-prompt-generation pattern other skills can pattern-match onto. Names the conflation source explicitly so the model recognizes the failure mode.
+- **`skills/ui-images/SKILL.md`** — prepended a scope-guard paragraph clarifying this skill is for the project's own UI images (hero shots, avatars, decorative photos), NOT for "approximating" references gathered by the moodboard skill.
+
+### Why three skills changed for one bug
+
+The hallucination required two skills' outputs to be conflated in the model's context: `ui-images`'s `prompts/<id>.md` shape, and `ux-story-panels`'s "generate image prompts for ChatGPT/DALL-E/Midjourney" verbal pattern. Adding a scope guard at the destination skill (moodboard) only would still leave both source patterns available for re-conflation. The fix needs all three: a forbidden-list in moodboard, plus scope guards in story-panels and ui-images that name the conflation explicitly.
+
 ## [5.5.2] – 2026-05-04
 
 Corrects the v5.5.1 over-fix. After verifying against Anthropic's official docs ([sub-agents](https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields) and [plugins reference](https://code.claude.com/docs/en/plugins-reference#agents)):
