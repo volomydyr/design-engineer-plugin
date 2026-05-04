@@ -1,5 +1,5 @@
 ---
-name: product:tidy
+name: design-engineer:tidy
 description: Wipe disposable working artifacts under .design-engineer-plugin/temporary/. Use before commit, or anytime the working tree feels noisy.
 argument-hint: ""
 ---
@@ -14,7 +14,7 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 
 ## What this command does
 
-The plugin keeps disposable working artifacts (Playwright debug captures, intermediate analysis dumps, exploratory drafts) under `.design-engineer-plugin/temporary/`. That directory is git-ignored and auto-purged at every phase boundary by `/product:document`. This command does the same purge **on demand** — useful before a commit, or anytime the working tree feels noisy.
+The plugin keeps disposable working artifacts (Playwright debug captures, intermediate analysis dumps, exploratory drafts) under `.design-engineer-plugin/temporary/`. That directory is git-ignored and auto-purged at every phase boundary by `/design-engineer:document`. This command does the same purge **on demand** — useful before a commit, or anytime the working tree feels noisy.
 
 The command never touches durable deliverables (`design/`, `prototype/`, `plans/`, `memory/`). It only wipes `temporary/`.
 
@@ -28,7 +28,7 @@ test -f .design-engineer-plugin/config.yaml && echo "OK" || echo "NO_CONFIG"
 
 If the output is `NO_CONFIG`, exit immediately with the message:
 
-> This isn't a design-engineer plugin project. Run `/product:launch` first to set one up.
+> This isn't a design-engineer plugin project. Run `/design-engineer:launch` first to set one up.
 
 ## Step 1: Count and summarize what will be purged
 
@@ -67,7 +67,7 @@ Then `AskUserQuestion`:
 - header: `"Tidy"`
 - options:
   - label: `"Yes (Recommended)"`, description: `"Wipe all files under temporary/. Safe — these are working artifacts, never deliverables."`
-  - label: `"No, leave them"`, description: `"Keep the files for now. Re-run /product:tidy whenever you want."`
+  - label: `"No, leave them"`, description: `"Keep the files for now. Re-run /design-engineer:tidy whenever you want."`
 - multiSelect: false
 
 ## Step 3: Apply the choice
@@ -84,11 +84,11 @@ Then surface to the user:
 
 **On "No, leave them"** — surface:
 
-> Kept `<FILE_COUNT>` files in temporary/. Re-run `/product:tidy` later when ready.
+> Kept `<FILE_COUNT>` files in temporary/. Re-run `/design-engineer:tidy` later when ready.
 
 ## Behavior notes
 
 - This command is safe to run any number of times. Files in `temporary/` are by definition disposable.
-- The auto-purge at phase boundaries (via `/product:document` Step 7) does the same thing without asking. This command is for mid-session manual cleanup.
+- The auto-purge at phase boundaries (via `/design-engineer:document` Step 7) does the same thing without asking. This command is for mid-session manual cleanup.
 - The path-validation hook (`de-deliverable-path-hook.js`) makes it impossible to accidentally write a deliverable to `temporary/` — only working artifacts land there.
-- If the user has work in `temporary/` they want to keep, the correct workflow is to promote it to a canonical path under `.design-engineer-plugin/design/<subdir>/` BEFORE running `/product:tidy`. The path-validation hook will accept the canonical path.
+- If the user has work in `temporary/` they want to keep, the correct workflow is to promote it to a canonical path under `.design-engineer-plugin/design/<subdir>/` BEFORE running `/design-engineer:tidy`. The path-validation hook will accept the canonical path.

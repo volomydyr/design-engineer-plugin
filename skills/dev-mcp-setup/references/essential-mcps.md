@@ -28,7 +28,7 @@ The design-engineer plugin bundles three MCPs and recommends one optional compan
 
 **Purpose**: browser automation – screenshots, navigation, interaction, network/console inspection of running web apps.
 
-**When the AI uses it**: visual verification during dev (`/product:dev` after UI implementation), the audit branch in `/product:review audit` (page-by-page commercial audit), prototype QA.
+**When the AI uses it**: visual verification during dev (`/design-engineer:development` after UI implementation), the audit branch in `/design-engineer:review audit` (page-by-page commercial audit), prototype QA.
 
 **Plugin tool prefix**: `mcp__plugin_design-engineer_playwright__*`
 

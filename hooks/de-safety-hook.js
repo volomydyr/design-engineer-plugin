@@ -14,7 +14,7 @@ const os = require('os');
 const homeDir = os.homedir();
 const LOG_PATH = path.join(homeDir, '.claude', 'cache', 'de-safety.log');
 
-// Only active in projects that have run /product:launch
+// Only active in projects that have run /design-engineer:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin/config.yaml'))) {
   process.exit(0);
 }

@@ -20,7 +20,7 @@
     {
       "id": 3,
       "skill_name": "meta-setup",
-      "prompt": "/product:launch",
+      "prompt": "/design-engineer:launch",
       "expected_output": "Should trigger the full setup flow: environment detection, sequential configuration questions, project scaffolding, config file creation, dependency tracking initialization, and completion summary with recommended next commands.",
       "files": [],
       "type": "functional"
@@ -52,7 +52,7 @@
     {
       "id": 7,
       "skill_name": "meta-document",
-      "prompt": "/product:document",
+      "prompt": "/design-engineer:document",
       "expected_output": "Should ask what to document (current progress, decision, learning, project status, or context refresh), gather context from the conversation, validate YAML frontmatter against compound-schema.yaml, create a documentation entry under .design-engineer-plugin/design/[category]/, update status.md, cross-reference existing docs, and present a decision menu.",
       "files": [],
       "type": "functional"
@@ -68,7 +68,7 @@
     {
       "id": 9,
       "skill_name": "meta-document",
-      "prompt": "/product:documentstatus",
+      "prompt": "/design-engineer:documentstatus",
       "expected_output": "Should read the current status.md file and display project status including completed phases, current phase, deliverables produced, key decisions log, open questions, and next steps. If no status file exists, should warn the user.",
       "files": [],
       "type": "functional"
@@ -76,7 +76,7 @@
     {
       "id": 10,
       "skill_name": "command:de:start",
-      "prompt": "/product:launch",
+      "prompt": "/design-engineer:launch",
       "expected_output": "Should load the meta-setup skill, run environment detection script, report findings (detected MCPs, tools, project state), ask 5-7 sequential configuration questions, run project scaffolding script, create .design-engineer.yaml config file and .dependencies.yaml, and display a setup confirmation summary with next step suggestions based on project state.",
       "files": [],
       "type": "functional"
@@ -84,23 +84,23 @@
     {
       "id": 11,
       "skill_name": "command:de:start",
-      "prompt": "/product:launch -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
-      "expected_output": "Should detect existing project state, ask configuration questions with smart defaults based on the provided context (existing project with docs, team of 3), allow custom deliverables path (product-design), scaffold the folder structure accordingly, and suggest /product:review as the logical next step for existing projects with docs.",
+      "prompt": "/design-engineer:launch -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
+      "expected_output": "Should detect existing project state, ask configuration questions with smart defaults based on the provided context (existing project with docs, team of 3), allow custom deliverables path (product-design), scaffold the folder structure accordingly, and suggest /design-engineer:review as the logical next step for existing projects with docs.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 12,
       "skill_name": "command:de:design",
-      "prompt": "/product:design god-mode",
-      "expected_output": "Should verify /product:launch has been run, activate Autopilot, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
+      "prompt": "/design-engineer:discovery god-mode",
+      "expected_output": "Should verify /design-engineer:launch has been run, activate Autopilot, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 13,
       "skill_name": "command:de:design",
-      "prompt": "/product:design guided -- I'm building a language learning app for deaf children aged 5-12. Their parents are the buyers but the kids are the users.",
+      "prompt": "/design-engineer:discovery guided -- I'm building a language learning app for deaf children aged 5-12. Their parents are the buyers but the kids are the users.",
       "expected_output": "Should activate Guided mode with the provided context, sequence through all phases with step-by-step questions and approval prompts at each skill, handle the dual-audience complexity (children as users, parents as buyers) throughout the pipeline, and allow the user to review and approve each deliverable before moving to the next skill.",
       "files": [],
       "type": "functional"
@@ -108,7 +108,7 @@
     {
       "id": 14,
       "skill_name": "command:de:design",
-      "prompt": "/product:design phase 3",
+      "prompt": "/design-engineer:discovery phase 3",
       "expected_output": "Should check for existing Phase 1 and Phase 2 deliverables, warn about any missing upstream dependencies, then jump directly to Phase 3 (Planning) starting with ux-mvp-requirements followed by ux-information-architecture, run meta-document after completion, and offer to proceed to Phase 4.",
       "files": [],
       "type": "functional"
@@ -116,7 +116,7 @@
     {
       "id": 15,
       "skill_name": "command:de:design",
-      "prompt": "/product:design direct-accesstarget-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
+      "prompt": "/design-engineer:discovery direct-accesstarget-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
       "expected_output": "Should load ux-target-audience skill directly, work through persona development for both potential audiences (accountants and business owners), help the user evaluate which is the primary vs secondary persona, produce a target audience deliverable, and ask if they want to run another research activity.",
       "files": [],
       "type": "functional"
@@ -124,7 +124,7 @@
     {
       "id": 16,
       "skill_name": "command:de:design",
-      "prompt": "/product:design direct-accessfull -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
+      "prompt": "/design-engineer:discovery direct-accessfull -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
       "expected_output": "Should run the full research pipeline in sequence: ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis, ask about ux-user-interviews, ux-business-plan, ux-storybrand. Should run meta-document after completing the full pipeline to document all research findings.",
       "files": [],
       "type": "functional"
@@ -132,7 +132,7 @@
     {
       "id": 17,
       "skill_name": "command:de:design",
-      "prompt": "/product:design direct-accesscompetitive-analysis",
+      "prompt": "/design-engineer:discovery direct-accesscompetitive-analysis",
       "expected_output": "Should load ux-competitor-analysis skill directly, ask about current competitive knowledge, identify direct and indirect competitors through web search and user context, analyze strengths/weaknesses, produce a competitive analysis deliverable, then ask if the user wants to run another research activity.",
       "files": [],
       "type": "functional"
@@ -140,7 +140,7 @@
     {
       "id": 18,
       "skill_name": "command:de:review",
-      "prompt": "/product:review psychmaster -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
+      "prompt": "/design-engineer:review psychmaster -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
       "expected_output": "Should load psych-full-scan, gather context about the onboarding screens, run a broad scan across all 10 sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
       "files": [],
       "type": "functional"
@@ -148,7 +148,7 @@
     {
       "id": 19,
       "skill_name": "command:de:review",
-      "prompt": "/product:review psychsection 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
+      "prompt": "/design-engineer:review psychsection 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
       "expected_output": "Should load psych-engagement-patterns (Section 4, Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
       "files": [],
       "type": "functional"
@@ -156,7 +156,7 @@
     {
       "id": 20,
       "skill_name": "command:de:review",
-      "prompt": "/product:review psychgod-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
+      "prompt": "/design-engineer:review psychgod-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
       "expected_output": "Should run the complete audit across all 13 sections autonomously: master scan first, then all section skills (cognitive basics through time/behavior), compile a comprehensive psychology audit report with executive summary, section-by-section findings, and prioritized recommendations. Should use browser MCP if available to analyze the live URL.",
       "files": [],
       "type": "functional"
@@ -164,7 +164,7 @@
     {
       "id": 21,
       "skill_name": "command:de:dev",
-      "prompt": "/product:dev claude-md -- We have a Next.js 14 app with Supabase backend, Tailwind CSS, and shadcn/ui components. The repo has components in src/components, API routes in src/app/api, and design docs in docs/design/.",
+      "prompt": "/design-engineer:development claude-md -- We have a Next.js 14 app with Supabase backend, Tailwind CSS, and shadcn/ui components. The repo has components in src/components, API routes in src/app/api, and design docs in docs/design/.",
       "expected_output": "Should load dev-claude-md skill, gather project context, ask about available planning documents and existing code, guide the user through defining the source hierarchy, then generate a comprehensive CLAUDE.md with critical document references, tech stack specifications (Next.js 14, Supabase, Tailwind, shadcn/ui), development pipeline rules, and conflict resolution protocol.",
       "files": [],
       "type": "functional"
@@ -172,7 +172,7 @@
     {
       "id": 22,
       "skill_name": "command:de:dev",
-      "prompt": "/product:dev setup -- Full development setup for my new project. I'm using Claude Code in Cursor, building with Remix and Prisma.",
+      "prompt": "/design-engineer:development setup -- Full development setup for my new project. I'm using Claude Code in Cursor, building with Remix and Prisma.",
       "expected_output": "Should run the full development setup sequence: dev-claude-md, dev-starter-prompts, dev-agent-setup, dev-mcp-setup, dev-github-workflow, dev-status-tracking. Each skill should be customized for the Remix + Prisma stack and Cursor IDE environment.",
       "files": [],
       "type": "functional"
@@ -180,7 +180,7 @@
     {
       "id": 23,
       "skill_name": "command:de:dev",
-      "prompt": "/product:dev pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
+      "prompt": "/design-engineer:development pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
       "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, enters Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then run test-writer to create failing Playwright CLI test scripts, verify Red (all fail), then run backend-implementer, /simplify, frontend-implementer, /simplify, verify Green (all pass), final /simplify pass, then design-system-auditor, archive tests to tests/archive/. Should run meta-document to document the session.",
       "files": [],
       "type": "functional"
@@ -188,7 +188,7 @@
     {
       "id": 24,
       "skill_name": "command:de:review",
-      "prompt": "/product:review figma -- I just finished designing the checkout flow for our e-commerce app. There are 4 screens: cart summary, shipping info, payment, and order confirmation. Can you review them?",
+      "prompt": "/design-engineer:review figma -- I just finished designing the checkout flow for our e-commerce app. There are 4 screens: cart summary, shipping info, payment, and order confirmation. Can you review them?",
       "expected_output": "Should ask for Figma frame link or screenshots, load ui-design-to-code-qa for visual quality check, ui-accessibility for accessibility compliance, psych-full-scan for psychology principles scan, compile findings into a structured review report covering all 4 screens, and offer post-review options.",
       "files": [],
       "type": "functional"
@@ -196,7 +196,7 @@
     {
       "id": 25,
       "skill_name": "command:de:review",
-      "prompt": "/product:review accessibility -- Our app needs to meet WCAG 2.1 AA standards before we can sell to government clients. Can you audit the current implementation?",
+      "prompt": "/design-engineer:review accessibility -- Our app needs to meet WCAG 2.1 AA standards before we can sell to government clients. Can you audit the current implementation?",
       "expected_output": "Should load ui-accessibility skill, perform a comprehensive accessibility review checking contrast ratios, touch/tap targets, screen reader support, keyboard navigation, focus management, and WCAG 2.1 AA specific criteria. Should produce an accessibility audit report with pass/fail items and remediation priorities.",
       "files": [],
       "type": "functional"
@@ -204,7 +204,7 @@
     {
       "id": 26,
       "skill_name": "command:de:review",
-      "prompt": "/product:review full -- We're about to launch our event ticketing platform and want a comprehensive review before going live.",
+      "prompt": "/design-engineer:review full -- We're about to launch our event ticketing platform and want a comprehensive review before going live.",
       "expected_output": "Should run all review dimensions: ui-design-to-code-qa, ui-accessibility, psych-full-scan, ux-full-review, ux-ethics-review, ux-communicating-decisions. Should compile all findings into a comprehensive review report and offer post-review options including addressing findings, sharing with stakeholders, and documentation.",
       "files": [],
       "type": "functional"
@@ -212,7 +212,7 @@
     {
       "id": 27,
       "skill_name": "command:de:document",
-      "prompt": "/product:document-- We just finished a 3-hour session working on the information architecture and MVP requirements. Save everything we decided.",
+      "prompt": "/design-engineer:document-- We just finished a 3-hour session working on the information architecture and MVP requirements. Save everything we decided.",
       "expected_output": "Should load meta-document, detect that IA and MVP work was completed, gather context from the conversation, validate YAML frontmatter, create documentation entries for both activities, update status.md with completed items, cross-reference related entries, and present the decision menu.",
       "files": [],
       "type": "functional"
@@ -220,7 +220,7 @@
     {
       "id": 28,
       "skill_name": "command:de:document",
-      "prompt": "/product:documentstatus",
+      "prompt": "/design-engineer:documentstatus",
       "expected_output": "Should load meta-document, read the current status.md, and display a comprehensive project status showing completed phases, current phase, all deliverables produced with file paths, key decisions log, what has not worked, open questions, and next steps.",
       "files": [],
       "type": "functional"
@@ -436,7 +436,7 @@
     {
       "id": 55,
       "skill_name": "ux-bias-audit",
-      "prompt": "/product:review psych-- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
+      "prompt": "/design-engineer:review psych-- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
       "expected_output": "Should apply the bias audit process (Identify, Analyze, Design, Document) to all 3 screens. Identify: check what the brain filters out (possibly too many value props). Analyze: check framing around benefits and familiarity. Design: evaluate friction in permission requests. Document: assess what positive/negative impression is stored. Should flag reactance risk on back-to-back permission requests and produce a structured bias audit with priority actions.",
       "files": [],
       "type": "functional"
@@ -957,7 +957,7 @@
       "id": 120,
       "type": "functional",
       "skill_name": "meta-statusline",
-      "prompt": "I just ran /product:launch for my new project and everything is set up. Can you install the status line so I can see my pipeline progress and usage limits while I work?",
+      "prompt": "I just ran /design-engineer:launch for my new project and everything is set up. Can you install the status line so I can see my pipeline progress and usage limits while I work?",
       "expected_output": "Should read ~/.claude/settings.json to detect current statusLine configuration, report findings, present install/uninstall/status options, copy de-statusline.js from the plugin hooks directory to ~/.claude/hooks/, update settings.json with the statusLine command pointing to the copied script, preserve all other settings, and confirm installation with instructions that the status line will appear on next prompt showing model, project, usage limits, context bar, and pipeline state.",
       "files": []
     },
@@ -2573,7 +2573,7 @@
       "id": 322,
       "type": "error",
       "skill_name": "meta-setup",
-      "prompt": "I ran /product:launch yesterday and it crashed halfway through. Now it says something about the config file. I think .design-engineer.yaml might be messed up.",
+      "prompt": "I ran /design-engineer:launch yesterday and it crashed halfway through. Now it says something about the config file. I think .design-engineer.yaml might be messed up.",
       "expected_output": "Should detect .design-engineer.yaml exists but fail gracefully when parsing malformed YAML. Should inform the user the config file is corrupted, offer to back up the corrupted file and create a fresh one, then restart the setup flow without losing any existing deliverables.",
       "files": []
     },
@@ -2581,7 +2581,7 @@
       "id": 323,
       "type": "error",
       "skill_name": "meta-setup",
-      "prompt": "/product:launch \u2014 I'm on a fresh Mac, just installed Claude Code. Want to set up the design-engineer plugin for a new SaaS project.",
+      "prompt": "/design-engineer:launch \u2014 I'm on a fresh Mac, just installed Claude Code. Want to set up the design-engineer plugin for a new SaaS project.",
       "expected_output": "Should run environment detection and discover Python 3 is not installed. Should warn that Python 3 is missing (needed for dependency tracking hooks), provide install instructions (brew install python3), and continue setup with a note that dependency tracking will not function until Python 3 is installed. Should NOT block the entire setup.",
       "files": []
     },
@@ -2597,7 +2597,7 @@
       "id": 325,
       "type": "error",
       "skill_name": "meta-orchestrator",
-      "prompt": "/product:design guided \u2014 Our deliverables are in docs/product-research/ but the config points to docs/design/ which doesn't exist.",
+      "prompt": "/design-engineer:discovery guided \u2014 Our deliverables are in docs/product-research/ but the config points to docs/design/ which doesn't exist.",
       "expected_output": "Should detect the configured path does not exist, inform user of the mismatch, and offer to update the path in .design-engineer.yaml, create the directory, or scan for existing deliverables. Should NOT proceed against a nonexistent directory.",
       "files": []
     },
@@ -2605,8 +2605,8 @@
       "id": 326,
       "type": "error",
       "skill_name": "meta-document",
-      "prompt": "/product:document \u2014 I just started this project 5 minutes ago and haven't done anything yet.",
-      "expected_output": "Should detect no deliverables, status.md, or project-docs/ exist. Should inform user there is nothing to document yet and suggest running /product:launch then /product:design first. Should NOT create empty documentation files.",
+      "prompt": "/design-engineer:document \u2014 I just started this project 5 minutes ago and haven't done anything yet.",
+      "expected_output": "Should detect no deliverables, status.md, or project-docs/ exist. Should inform user there is nothing to document yet and suggest running /design-engineer:launch then /design-engineer:discovery first. Should NOT create empty documentation files.",
       "files": []
     },
     {
@@ -2637,7 +2637,7 @@
       "id": 330,
       "type": "error",
       "skill_name": "command:de:start",
-      "prompt": "/product:launch \u2014 I'm trying to set up in a read-only directory.",
+      "prompt": "/design-engineer:launch \u2014 I'm trying to set up in a read-only directory.",
       "expected_output": "Should detect write permission error when creating .design-engineer.yaml, inform user that setup requires write access, suggest running in a writable directory. Should NOT leave partial files.",
       "files": []
     },
@@ -2645,40 +2645,40 @@
       "id": 331,
       "type": "error",
       "skill_name": "command:de:design",
-      "prompt": "/product:design god-mode \u2014 Let's build a task management app.",
-      "expected_output": "Should check for .design-engineer.yaml and find it missing. Should inform user that /product:launch must be run first, explain what it does, and instruct to run /product:launch before retrying. Should NOT proceed without configuration.",
+      "prompt": "/design-engineer:discovery god-mode \u2014 Let's build a task management app.",
+      "expected_output": "Should check for .design-engineer.yaml and find it missing. Should inform user that /design-engineer:launch must be run first, explain what it does, and instruct to run /design-engineer:launch before retrying. Should NOT proceed without configuration.",
       "files": []
     },
     {
       "id": 332,
       "type": "error",
       "skill_name": "command:de:dev",
-      "prompt": "/product:dev claude-md \u2014 Generate a CLAUDE.md for this project.",
-      "expected_output": "Should load dev-claude-md and detect no CLAUDE.md exists. Should treat this as normal first-time generation. If .design-engineer.yaml is also missing, warn that /product:launch hasn't been run but still allow CLAUDE.md generation as standalone.",
+      "prompt": "/design-engineer:development claude-md \u2014 Generate a CLAUDE.md for this project.",
+      "expected_output": "Should load dev-claude-md and detect no CLAUDE.md exists. Should treat this as normal first-time generation. If .design-engineer.yaml is also missing, warn that /design-engineer:launch hasn't been run but still allow CLAUDE.md generation as standalone.",
       "files": []
     },
     {
       "id": 333,
       "type": "error",
       "skill_name": "command:de:review",
-      "prompt": "/product:review full \u2014 Run a complete product assessment.",
-      "expected_output": "Should detect no designs, URLs, screenshots, or UI components exist to review. Should ask user to provide context: share a URL, screenshots, describe the product, or run /product:design first. Should NOT attempt to review nothing.",
+      "prompt": "/design-engineer:review full \u2014 Run a complete product assessment.",
+      "expected_output": "Should detect no designs, URLs, screenshots, or UI components exist to review. Should ask user to provide context: share a URL, screenshots, describe the product, or run /design-engineer:discovery first. Should NOT attempt to review nothing.",
       "files": []
     },
     {
       "id": 334,
       "type": "error",
       "skill_name": "command:de:prototype",
-      "prompt": "/product:prototype \u2014 I want to build a prototype but I haven't done any planning. No docs, no designs, nothing.",
-      "expected_output": "Should detect no planning documents exist. Should inform user prototyping works best with context but can proceed with verbal description. Should ask for product description via AskUserQuestion. Should suggest /product:design for better results but NOT block prototyping.",
+      "prompt": "/design-engineer:prototype \u2014 I want to build a prototype but I haven't done any planning. No docs, no designs, nothing.",
+      "expected_output": "Should detect no planning documents exist. Should inform user prototyping works best with context but can proceed with verbal description. Should ask for product description via AskUserQuestion. Should suggest /design-engineer:discovery for better results but NOT block prototyping.",
       "files": []
     },
     {
       "id": 335,
       "type": "error",
       "skill_name": "command:de:document",
-      "prompt": "/product:document \u2014 Just opened a fresh session, haven't done anything yet.",
-      "expected_output": "Should detect nothing to document in current session. Should check for existing project-docs/ from previous sessions. If nothing exists, suggest /product:launch or /product:design first. Should NOT create empty documentation.",
+      "prompt": "/design-engineer:document \u2014 Just opened a fresh session, haven't done anything yet.",
+      "expected_output": "Should detect nothing to document in current session. Should check for existing project-docs/ from previous sessions. If nothing exists, suggest /design-engineer:launch or /design-engineer:discovery first. Should NOT create empty documentation.",
       "files": []
     },
     {
@@ -2686,7 +2686,7 @@
       "type": "error",
       "skill_name": "ui-figma-handoff",
       "prompt": "I need to prepare my Figma designs for developer handoff.",
-      "expected_output": "Should attempt to verify Figma Console MCP and detect it's not connected. Should inform user this skill requires Figma Console MCP, suggest installation via /product:dev mcp, or recommend ui-figma-guide for a manual workflow. Should NOT proceed without the MCP.",
+      "expected_output": "Should attempt to verify Figma Console MCP and detect it's not connected. Should inform user this skill requires Figma Console MCP, suggest installation via /design-engineer:development mcp, or recommend ui-figma-guide for a manual workflow. Should NOT proceed without the MCP.",
       "files": []
     },
     {
@@ -2709,7 +2709,7 @@
       "id": 339,
       "type": "error",
       "skill_name": "dev-mcp-setup",
-      "prompt": "/product:dev mcp \u2014 I want to install the recommended MCP servers on a new dev machine.",
+      "prompt": "/design-engineer:development mcp \u2014 I want to install the recommended MCP servers on a new dev machine.",
       "expected_output": "Should detect npm is not installed. Should inform user that MCP installation requires Node.js v18+ and npm, provide install guidance, list which servers need npm. Should NOT attempt npm commands that will fail.",
       "files": []
     },
@@ -2726,7 +2726,7 @@
       "type": "error",
       "skill_name": "dev-prototyping",
       "prompt": "I want to prototype a dashboard for a logistics company. No planning docs, no codebase, no Figma \u2014 just the idea in my head.",
-      "expected_output": "Should detect no planning context available. Should proceed with verbal description path via AskUserQuestion, asking about purpose, features, users, data types. Should note that /product:design first would produce stronger prototypes but NOT block the user.",
+      "expected_output": "Should detect no planning context available. Should proceed with verbal description path via AskUserQuestion, asking about purpose, features, users, data types. Should note that /design-engineer:discovery first would produce stronger prototypes but NOT block the user.",
       "files": []
     },
     {
@@ -2751,12 +2751,12 @@
       "id": 345,
       "skill_name": "meta-setup-existing",
       "prompt": "I have a B2B SaaS app I built two years ago \u2014 Next.js, established design system, ~50 components, full Notion docs. I want to use the design-engineer plugin to add new features without redoing all the upfront discovery.",
-      "expected_output": "Should NOT trigger the from-scratch pipeline. Should run detect-environment.sh, recognize existing-project markers (design-system folder, shipped UI, hefty README), ask the off-repo augmentation question, persist project.context.* keys to config.yaml, then route to /product:design feature-spec or /product:review for the user's actual goal."
+      "expected_output": "Should NOT trigger the from-scratch pipeline. Should run detect-environment.sh, recognize existing-project markers (design-system folder, shipped UI, hefty README), ask the off-repo augmentation question, persist project.context.* keys to config.yaml, then route to /design-engineer:discovery feature-spec or /design-engineer:review for the user's actual goal."
     },
     {
       "id": 346,
       "skill_name": "meta-setup-welcome",
-      "prompt": "I just installed the plugin and ran /product:launch. I want to see what the plugin can do before committing to a setup.",
+      "prompt": "I just installed the plugin and ran /design-engineer:launch. I want to see what the plugin can do before committing to a setup.",
       "expected_output": "Should display the welcome flow: brief plugin intro ('a swiss knife for product design'), the project-type AskUserQuestion (New product / Existing project), then route based on the answer. Should NOT scaffold anything until the user picks a path."
     },
     {

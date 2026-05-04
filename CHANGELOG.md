@@ -4,6 +4,53 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.0.0] – 2026-05-04
+
+**Breaking change** to the slash-command surface. Reverted the v5.4.0 namespace rename — every `/product:*` command is now `/design-engineer:*`. Two commands also got clearer names. Internal identifiers (plugin name in `plugin.json`, `.design-engineer-plugin/` config dir, hook script names, `DESIGN_ENGINEER_PLUGIN_ROOT` env var) are unchanged.
+
+### Changed
+
+- **Namespace `:product:` → `:design-engineer:`** — restores plugin/command name parity. The plugin is "Design Engineer," published at `volomydyr/design-engineer-plugin`, configured under `.design-engineer-plugin/`, env-var-named `DESIGN_ENGINEER_PLUGIN_ROOT` — the slash commands now match. Implementation: flattened `commands/product/*.md` → `commands/*.md` (Claude Code derives the slash-command namespace from the commands subdirectory; with files directly under `commands/`, the namespace becomes plain `<plugin-name>:`, no doubled-namespace bug).
+- **`/product:design` → `/design-engineer:discovery`** — the command runs Discovery / Strategy / Planning / Design & validation phases, but "design" the noun was ambiguous (visual design? the whole pipeline?). Naming after the first and most distinctive phase (Discovery) is clearer. Also resolves the autocomplete collision that drove the v5.4.0 namespace rename: typing `/design` no longer matches any command name; it only matches the namespace prefix `design-engineer:`, which is the right match anyway.
+- **`/product:dev` → `/design-engineer:development`** — verbose form of `dev`, clearer to non-technical users (designers, PMs). Matches the verbose style of `:discovery`, `:document`, `:prototype`.
+
+### Migration
+
+| Old | New |
+|---|---|
+| `/product:launch` | `/design-engineer:launch` |
+| `/product:design` | `/design-engineer:discovery` |
+| `/product:dev` | `/design-engineer:development` |
+| `/product:prototype` | `/design-engineer:prototype` |
+| `/product:review` | `/design-engineer:review` |
+| `/product:document` | `/design-engineer:document` |
+| `/product:stop` | `/design-engineer:stop` |
+| `/product:tidy` | `/design-engineer:tidy` |
+| `/product:help` | `/design-engineer:help` |
+| `/product:mute-unmute-sound` | `/design-engineer:mute-unmute-sound` |
+
+No backward-compatibility aliases — Claude Code does not support slash-command redirects. Old `/product:*` commands simply won't exist after this release; users typing them will hit "command not found" via autocomplete. Update muscle memory and any project docs that reference the old commands.
+
+### Why a major version bump
+
+Breaking change to the public command surface. Anyone with project docs, READMEs, or onboarding content referencing `/product:*` will need to update. The release-discipline rule in CLAUDE.md ("Versioning Requirements") requires MAJOR for breaking changes.
+
+### Internal identifiers preserved (NOT changed)
+
+- Plugin name in `plugin.json`: still `design-engineer`
+- Marketplace install command: still `/plugin install design-engineer@design-engineer-plugin`
+- Config directory: still `.design-engineer-plugin/`
+- Hook script names: still `de-*.sh` / `de-*.js`
+- Environment variable injected by start-state hook: still `DESIGN_ENGINEER_PLUGIN_ROOT`
+
+### Files changed
+
+- 10 file moves: `commands/product/*.md` → `commands/*.md`, with `design.md` → `discovery.md` and `dev.md` → `development.md` inside the flatten.
+- `commands/product/` directory removed.
+- 254 reference replacements across 45 files (hooks, skills, agents, README, CLAUDE.md, evals, command bodies). Historical CHANGELOG entries left intact as a frozen record.
+- `commands/help.md` — commands table reflects the new names.
+- Version bumps: `plugin.json`, `marketplace.json`, README banner.
+
 ## [5.5.9] – 2026-05-04
 
 Catches the README and the `/product:help` output up to the day's changes (v5.5.0 through v5.5.8). Doc-only release — no code or behavior changes.

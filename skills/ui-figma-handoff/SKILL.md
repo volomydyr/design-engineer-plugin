@@ -265,7 +265,7 @@ After handoff preparation is complete, suggest the logical next step:
 - **Use "Figma Plugin"** to export structured designs to Claude Code for development
 - **Run `ui-design-to-code-qa`** to review the structured designs against the original intent
 - **Run `ui-aesthetic-review`** for a craft critique of the final designs
-- **Proceed to `/product:dev`** to begin the development pipeline
+- **Proceed to `/design-engineer:development`** to begin the development pipeline
 
 ---
 

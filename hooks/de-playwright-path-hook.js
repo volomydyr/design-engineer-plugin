@@ -21,7 +21,7 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-playwright-path.log');
 
-// Only active in projects that have run /product:launch
+// Only active in projects that have run /design-engineer:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.yaml'))) {
   process.exit(0);
 }
@@ -71,7 +71,7 @@ function buildHelpMessage(filename) {
     ALLOWED_PREFIXES.map(p => '  - ' + p).join('\n') +
     '\n\nGuidance:\n' +
     '  - Throwaway debug captures (visual verification, "let me check this URL", comparisons, exploratory analysis): ' +
-    '.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png. The temporary/ directory is git-ignored and auto-purged at every phase boundary by /product:document — clean up at any time without losing work.\n' +
+    '.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png. The temporary/ directory is git-ignored and auto-purged at every phase boundary by /design-engineer:document — clean up at any time without losing work.\n' +
     '  - Persistent audit captures (page-by-page review): .design-engineer-plugin/design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png\n' +
     '  - Moodboard reference captures: .design-engineer-plugin/design/exploration/references/captures/<reference-slug>/<NN>-<section>.png\n' +
     '  - Playwright test fixtures and visual regression baselines: tests/<test-name>/<snapshot>.png\n' +

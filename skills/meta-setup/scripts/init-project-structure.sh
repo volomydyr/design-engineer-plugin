@@ -14,7 +14,7 @@
 #   │   ├── scratch/                   general throwaway
 #   │   ├── playwright/                Playwright debug captures
 #   │   └── intermediate/              prep work and exploratory drafts
-#   ├── config.yaml                    written separately by /product:launch
+#   ├── config.yaml                    written separately by /design-engineer:launch
 #   └── dependencies.yaml              copied from the bundled default template
 #
 # Lazy directories (created on first skill write):
@@ -129,7 +129,7 @@ appear; remove entries if a folder is deleted.
 - intermediate/ – prep work + exploratory drafts | safe to delete anytime
 
 ## Project Root
-- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /product:launch
+- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /design-engineer:launch
 - .design-engineer-plugin/dependencies.yaml – deliverable dependency graph | read by hooks automatically
 - .claude/agent-memory/design-engineer-compound-documenter/ – cross-session pipeline state (Anthropic-managed) | read for resume context
 MAP
@@ -201,8 +201,8 @@ $GITIGNORE_BEGIN
 
 # All disposable working files (Playwright debug captures, intermediate
 # analysis dumps, exploratory drafts, anything the model would discard
-# tomorrow). Auto-purged at phase boundaries by /product:document, or
-# manually by /product:tidy. Never commit anything from temporary/.
+# tomorrow). Auto-purged at phase boundaries by /design-engineer:document, or
+# manually by /design-engineer:tidy. Never commit anything from temporary/.
 .design-engineer-plugin/temporary/
 
 # Per-session active-workflow marker (process-recall hook gate).

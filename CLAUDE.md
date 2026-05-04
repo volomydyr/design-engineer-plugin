@@ -20,7 +20,7 @@ This relies on a single, permission-free mechanism: **the plugin's UserPromptSub
 
 ### Mechanisms NOT to use, and why
 
-- **Bash injection (`` !`...` ``)** — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context, but Claude Code's permission system blocks `!`-prefix patterns at command-load time in Auto mode and any restrictive permission preset, with: `Shell command permission check failed for pattern "!...". Permission for this action has been denied. Reason: Insufficient information about the Bash command to evaluate; action is unverifiable.` v4.8.5 tried this approach and crashed `/product:launch` for users in Auto mode. Do NOT use bash injection in command bodies.
+- **Bash injection (`` !`...` ``)** — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context, but Claude Code's permission system blocks `!`-prefix patterns at command-load time in Auto mode and any restrictive permission preset, with: `Shell command permission check failed for pattern "!...". Permission for this action has been denied. Reason: Insufficient information about the Bash command to evaluate; action is unverifiable.` v4.8.5 tried this approach and crashed `/design-engineer:launch` for users in Auto mode. Do NOT use bash injection in command bodies.
 - **`${CLAUDE_PLUGIN_ROOT}`** — officially documented for `hooks/hooks.json` `command` fields ONLY. Does not auto-expand inside slash command markdown bodies. Hooks may use it; commands may not.
 - **`Skill` tool to invoke plugin skills** — every plugin skill sets `disable-model-invocation: true`, so the Skill tool will reject them with `Skill <name> cannot be used with Skill tool due to disable-model-invocation`. The only correct way to load a skill is `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md and follow its instructions inline`.
 
@@ -217,17 +217,17 @@ Effort and model are independent axes:
 
 ## Command Naming Convention
 
-Commands use `product:` prefix to keep the namespace short, distinct, and free of "design" so typing `/design` in the command picker only surfaces `/product:design`:
+Commands use `product:` prefix to keep the namespace short, distinct, and free of "design" so typing `/design` in the command picker only surfaces `/design-engineer:discovery`:
 
-- `/product:launch` - Universal entry point (new projects, returning projects, existing projects)
-- `/product:design` - Full design workflow orchestrator
-- `/product:prototype` - HTML prototype generation
-- `/product:dev` - Development pipeline
-- `/product:review` - Multi-layer design review (includes psychology audit)
-- `/product:document` - Knowledge documentation and stakeholder communication
-- `/product:stop` - Save progress and pause mid-activity
-- `/product:tidy` - Wipe disposable working artifacts under `.design-engineer-plugin/temporary/`
-- `/product:help` - Shows all available commands, project status, and mode
+- `/design-engineer:launch` - Universal entry point (new projects, returning projects, existing projects)
+- `/design-engineer:discovery` - Full design workflow orchestrator
+- `/design-engineer:prototype` - HTML prototype generation
+- `/design-engineer:development` - Development pipeline
+- `/design-engineer:review` - Multi-layer design review (includes psychology audit)
+- `/design-engineer:document` - Knowledge documentation and stakeholder communication
+- `/design-engineer:stop` - Save progress and pause mid-activity
+- `/design-engineer:tidy` - Wipe disposable working artifacts under `.design-engineer-plugin/temporary/`
+- `/design-engineer:help` - Shows all available commands, project status, and mode
 
 ## Conditional teaching contract
 
@@ -248,7 +248,7 @@ Deliverables created by this plugin are documented in two layers:
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` – read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
 - **Live progress** at `.claude/agent-memory/design-engineer-compound-documenter/` – three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
 
-Run `/product:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
+Run `/design-engineer:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
 **Path note**: deliverable files always live at `design/...` – this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
 
@@ -379,7 +379,7 @@ For trivial / medium edits in the per-phase implementation loop, scale per the t
 
 ### Prototyping exemption (unchanged)
 
-Do NOT run `/simplify` during prototyping. Prototypes are throwaway visual artifacts – code quality doesn't matter. `/simplify` only applies during `/product:dev` implementation.
+Do NOT run `/simplify` during prototyping. Prototypes are throwaway visual artifacts – code quality doesn't matter. `/simplify` only applies during `/design-engineer:development` implementation.
 
 ### How
 
@@ -595,7 +595,7 @@ Everything the plugin produces lives under `.design-engineer-plugin/` (one umbre
 - Durable deliverables go to their canonical path under `.design-engineer-plugin/design/<subdir>/` (or `prototype/`, `plans/`). Every skill's SKILL.md names the exact path. The path-validation hook (`de-deliverable-path-hook.js`) denies non-canonical subdirs and filenames at write time.
 - Anything throwaway goes to `.design-engineer-plugin/temporary/<scratch|playwright|intermediate>/`. Pick the subdir that matches the artifact's purpose (Playwright captures → `playwright/`, design-pipeline drafts → `intermediate/`, anything else → `scratch/`). Never write disposable artifacts to the project root, to a deliverable subdir, or anywhere else.
 - The `init-project-structure.sh` script creates the umbrella + the `temporary/` subdirs and adds them to `.gitignore` automatically. The block is fenced with `# === BEGIN design-engineer-plugin ===` and `# === END design-engineer-plugin ===` so the script can re-run idempotently and replace legacy v5.4.x blocks.
-- `.design-engineer-plugin/temporary/` is **auto-purged at every phase boundary** by `meta-document` Step 7 (which runs whenever `/product:document` fires). The user can also run `/product:tidy` mid-session for the same effect. Don't write things to `temporary/` expecting them to persist across phases.
+- `.design-engineer-plugin/temporary/` is **auto-purged at every phase boundary** by `meta-document` Step 7 (which runs whenever `/design-engineer:document` fires). The user can also run `/design-engineer:tidy` mid-session for the same effect. Don't write things to `temporary/` expecting them to persist across phases.
 - If you need a file outside both the canonical paths and `temporary/`, that's a bug — pick a tier and a path.
 
 **Why this matters:** without the tier discipline, a single feature implementation can leave a working tree dominated by debug artifacts that obscure the actual deliverables. The user loses the ability to tell which files are committable vs. which are throwaway, and the temptation to "commit everything and move on" pollutes the repository permanently. The tiers + `.gitignore` block + auto-purge let the user run `git add -A` without thinking and only ship what should ship.
@@ -609,7 +609,7 @@ Playwright captures (screenshots, snapshots, traces) MUST land in one of the can
 | Capture purpose | Canonical path | Lifetime |
 |---|---|---|
 | Throwaway / debug (visual verification, "let me check this URL", exploratory analysis, design comparisons) | `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png` | Disposable. The `.scratch/` directory is git-ignored. Clean up at any time without losing work. |
-| Persistent audit captures (`/product:review audit` per-page screenshots) | `.design-engineer-plugin/design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png` | Committed alongside the audit deliverable. |
+| Persistent audit captures (`/design-engineer:review audit` per-page screenshots) | `.design-engineer-plugin/design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png` | Committed alongside the audit deliverable. |
 | Moodboard reference captures (`ui-references-moodboard` Step 5b) | `.design-engineer-plugin/design/exploration/references/captures/<reference-slug>/<NN>-<section>.png` | Committed alongside the references deliverable. |
 | Playwright test fixtures / visual regression baselines | `tests/<test-name>/<snapshot>.png` | Committed alongside the test scripts. |
 
@@ -619,28 +619,28 @@ The default `<YYYY-MM-DD-HHMMSS>` timestamp pattern for scratch captures keeps d
 
 ## Project state injection
 
-A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/product:launch` routes correctly even when auto-memory contains rich project context from previous sessions.
+A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/design-engineer:launch` routes correctly even when auto-memory contains rich project context from previous sessions.
 
 ## Process recall mechanism (active-workflow marker contract)
 
 Long deterministic workflows are gated by a marker file at `.design-engineer-plugin/.active-workflow`. The marker stores a single line naming the workflow (for example `dev:feature-implementation`). A `UserPromptSubmit` hook (`hooks/de-process-recall-hook.sh`) checks the marker on every prompt and, when present, injects context that asks the model to render the workflow's full step list at the top of its next response.
 
 **Workflows that write the marker** (long, deterministic, multi-step sequences where step-list recall is high signal):
-- `/product:dev` feature-implementation flow
-- `/product:dev` setup
-- `/product:design` new-product full pipeline (per phase)
-- `/product:design` existing-project abbreviated feature flow (Step 2.2 through Step 2.7)
-- `/product:review` broad audits
+- `/design-engineer:development` feature-implementation flow
+- `/design-engineer:development` setup
+- `/design-engineer:discovery` new-product full pipeline (per phase)
+- `/design-engineer:discovery` existing-project abbreviated feature flow (Step 2.2 through Step 2.7)
+- `/design-engineer:review` broad audits
 - `dev-prototyping` Steps 5–6
 - `ui-references-moodboard`
 
 **Workflows that do NOT write the marker** (short, branching, or already-visible flows where the AskUserQuestion-driven UI is itself the process indicator):
-- `/product:launch`
-- `/product:prototype` Step 7
-- `/product:document`
-- `/product:help`
+- `/design-engineer:launch`
+- `/design-engineer:prototype` Step 7
+- `/design-engineer:document`
+- `/design-engineer:help`
 - Individual UX and psychology skills invoked outside a pipeline
-- `/product:design feature-spec` (the F1 minimal-spec branch)
+- `/design-engineer:discovery feature-spec` (the F1 minimal-spec branch)
 
 **Why the split**: process recall is high-signal only on long deterministic sequences. Everywhere else, the visible question-and-answer flow already tells the user where they are; injecting a step list there is noise.
 
@@ -702,7 +702,7 @@ Required protocol:
 2. **Apply the choice.** If retry, retry exactly once — if it fails again, surface again with the same options minus the retry option.
 3. **Never pretend** the analysis is complete when blocked URLs were silently dropped. Mark them in the sources list.
 
-This rule applies to every Playwright-led step in any skill (competitor analysis Phase 4, references moodboard Step 5b, audit captures during /product:review, prototype QA, anything else). The agent file `agents/ux-researcher.md` and the per-skill SKILL.md files reference back to this contract.
+This rule applies to every Playwright-led step in any skill (competitor analysis Phase 4, references moodboard Step 5b, audit captures during /design-engineer:review, prototype QA, anything else). The agent file `agents/ux-researcher.md` and the per-skill SKILL.md files reference back to this contract.
 
 ### Auth wall fallback (signup / login required to see the product)
 
@@ -777,13 +777,13 @@ These three rules apply to every research-heavy step in every skill (ux-competit
 
 ## Compact-message format (when the user asks for one)
 
-You can NOT reliably detect your own context-window usage from inside a turn — Claude Code does not inject token counts or context-percentage signals into your context, so any auto-trigger based on "I think we're at 90%" is unreliable and was producing inconsistent / no behavior in practice. Do NOT proactively warn the user about context usage. The trigger is **the user explicitly asking** — typing `/product:stop` (which generates the message via `commands/product/stop.md` Step 4), or asking in chat for "a compact message", "summarize for /compact", "what should I paste into /compact", etc.
+You can NOT reliably detect your own context-window usage from inside a turn — Claude Code does not inject token counts or context-percentage signals into your context, so any auto-trigger based on "I think we're at 90%" is unreliable and was producing inconsistent / no behavior in practice. Do NOT proactively warn the user about context usage. The trigger is **the user explicitly asking** — typing `/design-engineer:stop` (which generates the message via `commands/stop.md` Step 4), or asking in chat for "a compact message", "summarize for /compact", "what should I paste into /compact", etc.
 
 When the user asks, generate a single self-contained compact message that preserves everything the next session needs to pick up without re-reading old chat. Do NOT output a generic "you've worked on a lot, here's a vague summary" — that's the failure mode the user has reported. Fill in real session values; never output placeholders like `[project]` or `[list]`.
 
 The compact message must preserve:
 - Current project name, absolute path, and plugin version
-- Which `/product:` command is running and in which mode (guided / autopilot)
+- Which `/design-engineer:` command is running and in which mode (guided / autopilot)
 - Current phase and skill position (e.g., "Phase 3 Planning, after `ux-mvp-requirements`, next is `ux-information-architecture`")
 - Key decisions made this session — durable choices that affect downstream deliverables (B2B vs B2C focus, mobile-first vs desktop-first, the specific design feel chosen, etc.)
 - Deliverables completed this session and any stale dependents from `compound-documenter`'s memory
@@ -794,7 +794,7 @@ Format the response like this:
 
 > Here's a compact message you can paste into `/compact`:
 >
-> `Keep full context of <project name> at <absolute path>. Current state: v<X.Y.Z>, running /product:<command> in <mode> mode. Phase <N> (<phase name>): completed <skill list>, next is <skill name>. Key decisions: <bullet list of cross-cutting choices>. Deliverables updated: <list>. Stale dependents: <list or "none">. Next step: <literal next action>. <Any blockers or open questions, or "none">.`
+> `Keep full context of <project name> at <absolute path>. Current state: v<X.Y.Z>, running /design-engineer:<command> in <mode> mode. Phase <N> (<phase name>): completed <skill list>, next is <skill name>. Key decisions: <bullet list of cross-cutting choices>. Deliverables updated: <list>. Stale dependents: <list or "none">. Next step: <literal next action>. <Any blockers or open questions, or "none">.`
 
 The angle-bracket fields above are placeholders for YOU to fill in from the session — they must NOT appear in the output. If a field genuinely doesn't apply (no stale dependents, no blockers), write "none" instead of leaving the bracket.
 
@@ -875,4 +875,4 @@ These are heuristics. Claude updates the files when it notices the trigger; noth
 | Skill or phase completed | invoke compound-documenter (it updates pipeline-state.md structurally) |
 | Hard bug solved (3+ attempts) | `.design-engineer-plugin/memory/debug-solutions.md` – error + failed attempts + fix |
 | Cross-cutting design decision made | compound-documenter records it in key-decisions.md structurally |
-| Session ending (Stop hook reminder) | run /product:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |
+| Session ending (Stop hook reminder) | run /design-engineer:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |

@@ -8,8 +8,8 @@
 #
 # Sounds play only when BOTH conditions are true:
 #   1. The user has globally opted in via ~/.claude/de-sound-enabled
-#      (toggled by /product:mute-unmute-sound; created during
-#      /product:launch onboarding when the user picks "Yes").
+#      (toggled by /design-engineer:mute-unmute-sound; created during
+#      /design-engineer:launch onboarding when the user picks "Yes").
 #   2. The current working directory is a design-engineer plugin project,
 #      i.e. it contains .design-engineer-plugin/config.yaml.
 #

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Detect project state for /product:launch routing.
+# Detect project state for /design-engineer:launch routing.
 # Outputs exactly one line: STATE=<value>
 #
 # Values:

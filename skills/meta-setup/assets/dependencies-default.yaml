@@ -7,7 +7,7 @@
 #
 # Live progress (current phase, recent deliverables, key decisions, stale dependents)
 # is tracked separately in the compound-documenter agent's memory at
-# .claude/agent-memory/design-engineer-compound-documenter/ – auto-updated by /product:document.
+# .claude/agent-memory/design-engineer-compound-documenter/ – auto-updated by /design-engineer:document.
 #
 # Each deliverable entry carries:
 #   - depends_on: deliverables that must exist or inform this one

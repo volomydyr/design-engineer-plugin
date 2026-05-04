@@ -1,5 +1,5 @@
 ---
-name: product:dev
+name: design-engineer:development
 description: Development pipeline. Setup, implementation, and AI-assisted building. Mode determined by your config.
 argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]"
 ---
@@ -22,11 +22,11 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot), project type, and environment
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
-3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/product:launch` first
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:launch` first
 
 ## Step 1.5: Apply UX/psych depth from feature options
 
-If the user came from `/product:design` (existing-project feature flow), they may have selected optional depth steps in design.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
+If the user came from `/design-engineer:discovery` (existing-project feature flow), they may have selected optional depth steps in design.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
 
 1. Read `.design-engineer-plugin/config.yaml`. Look for `project.feature_options:` (a list of strings).
 2. If the key is missing or the list is empty, skip this step entirely.
@@ -41,7 +41,7 @@ If the user came from `/product:design` (existing-project feature flow), they ma
 
 4. After each option's skill is applied, surface the insights to the user in a short summary (1–3 bullets per option) BEFORE moving to Step 1.55 / Step 2. The point is to inform plan generation, not to gate it — proceed once the user has seen the surfaced findings.
 
-If `project.feature_options` is absent (e.g., user invoked `/product:dev` directly without going through design.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
+If `project.feature_options` is absent (e.g., user invoked `/design-engineer:development` directly without going through design.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
 
 ## Step 1.55: Detect build targets
 
@@ -156,7 +156,7 @@ Based on what you found, present a plan. Only suggest what's relevant:
 - **Kick-start prompts** – helpful for teams, optional for solo
 - **Feature implementation** – if the user's goal was "Implement from Figma" or they have a specific feature to build
 
-If an argument was provided (`/product:dev setup`, `/product:dev pipeline`), skip planning and go directly to that activity.
+If an argument was provided (`/design-engineer:development setup`, `/design-engineer:development pipeline`), skip planning and go directly to that activity.
 
 In **Guided mode**: ask the user to confirm or adjust the plan.
 In **Autopilot**: show the plan briefly, then execute.
@@ -174,7 +174,7 @@ In **Autopilot**: show the plan briefly, then execute.
 | Context management | `dev-status-tracking` |
 | Kick-start prompts | `dev-starter-prompts` |
 
-If the user invoked `/product:dev setup` (the setup-activities sub-flow), run this Bash command at the start of this section to mark the active workflow so the process-recall hook can fire context-appropriately:
+If the user invoked `/design-engineer:development setup` (the setup-activities sub-flow), run this Bash command at the start of this section to mark the active workflow so the process-recall hook can fire context-appropriately:
 
 ```bash
 mkdir -p .design-engineer-plugin && printf '%s\n' "dev:setup" > .design-engineer-plugin/.active-workflow

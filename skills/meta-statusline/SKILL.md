@@ -1,6 +1,6 @@
 ---
 name: meta-statusline
-description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /product:launch."
+description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /design-engineer:launch."
 disable-model-invocation: true
 model: sonnet
 effort: medium
@@ -124,8 +124,8 @@ Status line installed.
 The status line will appear on the next Claude Code prompt.
 Usage limits (5h/7d) will appear after the first background API fetch (~1 minute).
 
-To update after a plugin update: re-run /product:launch and select "Install" from the status-line question.
-To remove: re-run /product:launch and select "Uninstall" from the status-line question (or follow Step 4 below manually).
+To update after a plugin update: re-run /design-engineer:launch and select "Install" from the status-line question.
+To remove: re-run /design-engineer:launch and select "Uninstall" from the status-line question (or follow Step 4 below manually).
 ```
 
 ---

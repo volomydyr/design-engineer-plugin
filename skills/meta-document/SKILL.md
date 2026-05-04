@@ -34,7 +34,7 @@ This is not for pet projects that you start and abandon. This is for actual comp
 - User confirms a solution worked ("that fixed it", "looks good", "approved")
 - End of any complex multi-step task
 
-**OR manual:** `/product:document` command
+**OR manual:** `/design-engineer:document` command
 
 **Document when:**
 
@@ -219,7 +219,7 @@ grep -r "[activity keywords]" ".design-engineer-plugin/design/dev/"
 <step number="7" required="true" depends_on="5">
 ### Step 7: Purge disposable working artifacts (phase boundary)
 
-`/product:document` runs at every phase boundary, so this is the natural moment to clear the temporary/ bucket. Without this, Playwright debug captures, intermediate analysis dumps, and exploratory drafts accumulate across phases and pollute the working tree.
+`/design-engineer:document` runs at every phase boundary, so this is the natural moment to clear the temporary/ bucket. Without this, Playwright debug captures, intermediate analysis dumps, and exploratory drafts accumulate across phases and pollute the working tree.
 
 **Run via Bash:**
 
@@ -233,7 +233,7 @@ bash -c 'find .design-engineer-plugin/temporary -mindepth 1 -delete 2>/dev/null;
 Cleared disposable working files from this phase.
 ```
 
-This step always runs — there is no condition under which the temporary bucket should persist across a phase boundary. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/product:document`. The path-validation hook (`de-deliverable-path-hook.js`) ensures only canonical filenames land at canonical paths.
+This step always runs — there is no condition under which the temporary bucket should persist across a phase boundary. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/design-engineer:document`. The path-validation hook (`de-deliverable-path-hook.js`) ensures only canonical filenames land at canonical paths.
 
 **Do not** purge anywhere else under `.design-engineer-plugin/` — only `temporary/`. The other subdirs (design/, prototype/, plans/, memory/) are durable.
 
@@ -281,7 +281,7 @@ What's next?
 ## Integration Points
 
 **Invoked by:**
-- `/product:document` command (manual invocation)
+- `/design-engineer:document` command (manual invocation)
 - `meta-orchestrator` after each major phase completion (auto-triggered in Autopilot)
 - Any skill can request compound documentation when significant decisions are made
 

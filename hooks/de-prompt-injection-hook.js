@@ -16,7 +16,7 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-prompt-injection.log');
 
-// Only active in projects that have run /product:launch
+// Only active in projects that have run /design-engineer:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin/config.yaml'))) {
   process.exit(0);
 }

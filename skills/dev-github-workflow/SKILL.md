@@ -82,7 +82,7 @@ type(scope): brief description
 [optional body]
 ```
 
-Claude Code's default Co-Authored-By trailer is disabled at install via the `attribution` setting in `~/.claude/settings.json` (set during `/product:launch`), so neither mode includes it.
+Claude Code's default Co-Authored-By trailer is disabled at install via the `attribution` setting in `~/.claude/settings.json` (set during `/design-engineer:launch`), so neither mode includes it.
 
 ### Types
 
