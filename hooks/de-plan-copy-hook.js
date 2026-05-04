@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Design-Engineer Plan Copy Hook (PostToolUse)
-// Auto-copies plan files from ~/.claude/plans/ to the project's plans/ directory.
-// This enables TDD hooks, fidelity hooks, /simplify reminders, and git branch checks
-// which all gate on plans/ having active plan files.
-// Fires on Write. Checks file_path. If in ~/.claude/plans/, copies to ./plans/.
+// Auto-copies plan files from ~/.claude/plans/ (Claude Code's internal scratchpad)
+// to the project's .design-engineer-plugin/plans/ directory. This enables TDD hooks,
+// fidelity hooks, /simplify reminders, and git branch checks which all gate on
+// .design-engineer-plugin/plans/ having active plan files.
+// Fires on Write. Checks file_path. If in ~/.claude/plans/, copies to ./.design-engineer-plugin/plans/.
 // Fail-open: any error results in allowing the output.
 
 'use strict';
@@ -39,14 +40,14 @@ process.stdin.on('end', () => {
       process.exit(0);
     }
 
-    // Copy to project's plans/ directory with timestamped filename
+    // Copy to project's .design-engineer-plugin/plans/ directory with timestamped filename
     const originalName = path.basename(filePath);
     const now = new Date();
     const datestamp = now.getFullYear() + '-' +
       String(now.getMonth() + 1).padStart(2, '0') + '-' +
       String(now.getDate()).padStart(2, '0');
     const fileName = datestamp + '-' + originalName.replace(/^\d{4}-\d{2}-\d{2}-/, '');
-    const projectPlansDir = path.join(process.cwd(), 'plans');
+    const projectPlansDir = path.join(process.cwd(), '.design-engineer-plugin', 'plans');
 
     if (!fs.existsSync(projectPlansDir)) {
       fs.mkdirSync(projectPlansDir, { recursive: true });
@@ -75,7 +76,7 @@ process.stdin.on('end', () => {
     process.stdout.write(JSON.stringify({
       hookSpecificOutput: {
         hookEventName: 'PostToolUse',
-        additionalContext: 'PLAN COPIED: Your plan has been automatically copied to plans/' + fileName + '. ' +
+        additionalContext: 'PLAN COPIED: Your plan has been automatically copied to .design-engineer-plugin/plans/' + fileName + '. ' +
           'TDD hooks, fidelity checks, and /simplify reminders are now active. ' +
           'If you are on main/master, create a feature branch now: git checkout -b feat/' + planSlug
       }

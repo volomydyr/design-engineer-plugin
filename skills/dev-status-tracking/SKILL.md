@@ -39,7 +39,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Set Up the Status File
 
-If the status file is being placed under `design/dev/` (e.g., `design/dev/status.md`), ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+If the status file is being placed under `.design-engineer-plugin/design/dev/` (e.g., `.design-engineer-plugin/design/dev/status.md`), ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
 Create a development status file using the template from [status-tracking-template.md](./references/status-tracking-template.md). This file is separate from CLAUDE.md (separation of concerns) and should contain:
 

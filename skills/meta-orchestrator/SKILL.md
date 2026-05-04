@@ -94,7 +94,7 @@ When invoked, determine the user's situation before running any skills.
 
 ### Step 0: Check Memory and Resume State
 
-**Memory check**: Claude Code auto-loads its auto-memory MEMORY.md at session start – the plugin does not call Read on it. Instead, verify `.design-engineer-plugin/memory/project-map.md` exists (Bash `test -f`) and Read it for project structure if present – use this instead of exploring the filesystem. Cross-cutting decisions and pipeline state live in the compound-documenter agent's memory at `.claude/agent-memory/compound-documenter/`. This complements `.design-engineer-plugin/config.yaml` – agent memory has cross-cutting decisions, the YAML has mechanical resume data.
+**Memory check**: Claude Code auto-loads its auto-memory MEMORY.md at session start – the plugin does not call Read on it. Instead, verify `.design-engineer-plugin/memory/project-map.md` exists (Bash `test -f`) and Read it for project structure if present – use this instead of exploring the filesystem. Cross-cutting decisions and pipeline state live in the compound-documenter agent's memory at `.claude/agent-memory/design-engineer-compound-documenter/`. This complements `.design-engineer-plugin/config.yaml` – agent memory has cross-cutting decisions, the YAML has mechanical resume data.
 
 Then check if `.design-engineer-plugin/config.yaml` contains a `resume:` section. This section is written automatically by the session hook when a previous session ended with work in progress.
 
@@ -113,7 +113,7 @@ How would you like to proceed?
 3. **Review stale deliverables first** – Update [stale_dependents] before continuing
 </ask-user>
 
-3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `.claude/agent-memory/compound-documenter/pipeline-state.md` for full context (written by the compound-documenter agent on prior phase completions).
+3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` for full context (written by the compound-documenter agent on prior phase completions).
 
 4. After resuming, clear the `resume:` section from `.design-engineer-plugin/config.yaml` to avoid stale resume data in the next session.
 
@@ -166,7 +166,7 @@ What is your project status?
 
 If the user selected "Partially done" or "Existing product":
 
-1. Check for an existing pipeline state file at `.claude/agent-memory/compound-documenter/pipeline-state.md`
+1. Check for an existing pipeline state file at `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md`
 2. If found, read it and confirm the current status with the user
 3. If not found, ask the user which deliverables they already have
 4. Determine the correct entry point in the pipeline based on what exists
@@ -174,7 +174,7 @@ If the user selected "Partially done" or "Existing product":
 
 If the user selected "Resume":
 
-1. Read the pipeline state file at `.claude/agent-memory/compound-documenter/pipeline-state.md`
+1. Read the pipeline state file at `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md`
 2. Present the current status: which phases are complete, which skill is next
 3. Ask the user to confirm or adjust before continuing
 
@@ -273,7 +273,7 @@ Each skill in the pipeline builds on the work of previous skills. To maintain co
 
 ## Project State Management
 
-Maintain pipeline state by invoking the `compound-documenter` agent – it owns its memory at `.claude/agent-memory/compound-documenter/` and updates the three structured files there (pipeline-state.md, key-decisions.md, stale-dependents.md). Invoke compound-documenter:
+Maintain pipeline state by invoking the `compound-documenter` agent – it owns its memory at `.claude/agent-memory/design-engineer-compound-documenter/` and updates the three structured files there (pipeline-state.md, key-decisions.md, stale-dependents.md). Invoke compound-documenter:
 
 - After every skill completes (update the skill's status and timestamp)
 - After every `meta-document` run (update phase status and learnings)
@@ -284,8 +284,8 @@ The project state file is the source of truth for pipeline progress. Always read
 ## Memory Updates
 
 In addition to the project state file, update plugin-local memory when:
-- A **cross-cutting decision** is made (business model choice, target market shift, tech stack decision, architectural choice affecting multiple features) → compound-documenter records it in `.claude/agent-memory/compound-documenter/key-decisions.md` structurally
-- A **phase completes** → compound-documenter updates `.claude/agent-memory/compound-documenter/pipeline-state.md` structurally
+- A **cross-cutting decision** is made (business model choice, target market shift, tech stack decision, architectural choice affecting multiple features) → compound-documenter records it in `.claude/agent-memory/design-engineer-compound-documenter/key-decisions.md` structurally
+- A **phase completes** → compound-documenter updates `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` structurally
 - **New deliverables are created** → add entries to `.design-engineer-plugin/memory/project-map.md` (verify exists first; skip if not)
 
 Do NOT call Read on Claude Code's auto-memory `MEMORY.md` – it is auto-loaded by Claude Code at session start. Do NOT duplicate deliverable content or detailed status into memory – that belongs in project files.

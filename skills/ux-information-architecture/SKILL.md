@@ -15,7 +15,7 @@ Before doing the work below, read `.design-engineer-plugin/config.yaml` `project
 
 1. Do NOT regenerate the project's full IA – the product has shipped pages/routes, the navigation is established.
 2. Focus only on what the *specific feature* the user named needs: which existing pages this feature touches, where new pages slot into existing navigation, content hierarchy for THIS feature only.
-3. Output goes to `design/features/[feature-slug]/ia.md`, not the project-level `design/planning/information-architecture.md`.
+3. Output goes to `.design-engineer-plugin/design/features/[feature-slug]/ia.md`, not the project-level `.design-engineer-plugin/design/planning/information-architecture.md`.
 
 If `shipped_ui: false` (greenfield) or the user explicitly wants project-level IA definition, proceed normally below.
 
@@ -196,9 +196,9 @@ Repeat until the user explicitly approves the IA.
 
 ## Step 6: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/planning` (Bash) – or `mkdir -p design/features/[feature-slug]` if writing per-feature. The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/planning` (Bash) – or `mkdir -p .design-engineer-plugin/design/features/[feature-slug]` if writing per-feature. The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the final IA document to `design/planning/information-architecture.md`.
+Save the final IA document to `.design-engineer-plugin/design/planning/information-architecture.md`.
 
 The document should follow the complete structure from [ia-deliverable-template.md](./references/ia-deliverable-template.md).
 

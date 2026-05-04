@@ -152,7 +152,7 @@ When conducting a full social influence audit, check all three levels:
 
 ## Output Format
 
-Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psychology/social-influence.md` (or a flow-specific name when multiple audits are produced).
+Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/psychology` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `.design-engineer-plugin/design/psychology/social-influence.md` (or a flow-specific name when multiple audits are produced).
 
 ```
 ## Social Influence Audit: [Design Name]

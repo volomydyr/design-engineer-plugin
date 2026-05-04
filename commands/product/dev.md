@@ -80,12 +80,12 @@ Before any UI code is generated in this command, you MUST output the Design Grou
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `design/exploration/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
-5. Read `prototype/prototype.html` if it exists – implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+4. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
+5. Read `.design-engineer-plugin/prototype/prototype.html` if it exists – implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
 
 **Behavior on missing files** (so you know what's happening before the hook denies a write):
 
-- If `prototype/prototype.html` is **missing**: skip prototype check (the v4.7.0 feature-spec branch deliberately bypasses prototyping). Implement using design references + gallery only.
+- If `.design-engineer-plugin/prototype/prototype.html` is **missing**: skip prototype check (the v4.7.0 feature-spec branch deliberately bypasses prototyping). Implement using design references + gallery only.
 - If any of the three `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/.../*.md` plugin docs are **missing**: this means the plugin install is corrupt. Surface the error, don't try to proceed without them.
 
 **Project signal detection** (run before the CLAUDE.md and references checks below):
@@ -97,7 +97,7 @@ Read `.design-engineer-plugin/config.yaml`. The deterministic branches below dep
 - **Established project**: silently scaffold via the `dev-claude-md` skill in non-interactive mode. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-claude-md/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). The skill's Step 0.5 detects this command's non-interactive request and runs an inference pass over the codebase instead of the question-driven flow. After the scaffold, surface a one-line confirmation: "Created CLAUDE.md from your existing components — review it later if you want." Do NOT ask the user a question for this.
 - **Greenfield project**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-claude-md/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool). The skill's interactive Step 1+ flow is the right path here.
 
-**`design/exploration/references/references.md` missing**:
+**`.design-engineer-plugin/design/exploration/references/references.md` missing**:
 
 - **Established project (`shipped_ui: true`)**: ask exactly ONE question with two options. End the preceding chat message with the canonical 3-horizontal-rule spacer, then call AskUserQuestion:
 
@@ -113,9 +113,9 @@ Read `.design-engineer-plugin/config.yaml`. The deterministic branches below dep
   ```
 
   - **If user chooses "Reuse existing UI (Recommended)"**:
-    1. Run `mkdir -p design/exploration/references` to ensure the destination exists.
+    1. Run `mkdir -p .design-engineer-plugin/design/exploration/references` to ensure the destination exists.
     2. Use Glob to scan `src/components/`, `src/app/`, `app/components/`, or whatever component directory the project actually uses (detect from filesystem).
-    3. Write `design/exploration/references/references.md` with three sections: (a) a 1-paragraph design intent inferred from CLAUDE.md and the repo, (b) a "Reuse" section listing the actual component file paths and their roles in the UI, (c) a "Do not introduce" section forbidding new tokens, new typefaces, or new component variants without explicit user request.
+    3. Write `.design-engineer-plugin/design/exploration/references/references.md` with three sections: (a) a 1-paragraph design intent inferred from CLAUDE.md and the repo, (b) a "Reuse" section listing the actual component file paths and their roles in the UI, (c) a "Do not introduce" section forbidding new tokens, new typefaces, or new component variants without explicit user request.
     4. Do not ask further questions about visual direction — the existing components ARE the direction.
 
   - **If user chooses "Provide image references"**:
@@ -201,7 +201,7 @@ Before writing ANY code, follow these steps in order:
 
 **1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
-**1a. Read the prototype FIRST if it exists**: If `prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation – your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
+**1a. Read the prototype FIRST if it exists**: If `.design-engineer-plugin/prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation – your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
 
 **2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` – this is the exact format your plan must follow.
 
@@ -209,7 +209,7 @@ Before writing ANY code, follow these steps in order:
 
 **4. Get approval**: Use `ExitPlanMode` for user approval.
 
-**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it doesn't exist. **This step is CRITICAL – without it, TDD hooks and fidelity hooks cannot activate. Do not write any code until the plan is in `plans/`.**
+**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `.design-engineer-plugin/.design-engineer-plugin/plans/` directory if it doesn't exist. **This step is CRITICAL – without it, TDD hooks and fidelity hooks cannot activate. Do not write any code until the plan is in `.design-engineer-plugin/.design-engineer-plugin/plans/`.**
 
 **6. Create feature branch**: If on main/master, run `git checkout -b feat/[plan-slug]`.
 
@@ -226,10 +226,10 @@ Before writing ANY code, follow these steps in order:
 
 **9. After all phases**: Run `Task(design-system-auditor, scope=<changed paths>)` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). Wait for the agent to return; do not continue until its output is available. The auditor produces a structured report; review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional.
 
-**9.5 Tidy-up (BLOCKING — before PR creation)**: review the working tree for stray disposable artifacts that may have leaked outside `design/.scratch/` and the canonical deliverable paths. Run `git status --short` and inspect every untracked / modified file. Classify each per CLAUDE.md "File hygiene (durability tiers)":
+**9.5 Tidy-up (BLOCKING — before PR creation)**: review the working tree for stray disposable artifacts that may have leaked outside `.design-engineer-plugin/temporary/scratch/` and the canonical deliverable paths. Run `git status --short` and inspect every untracked / modified file. Classify each per CLAUDE.md "File hygiene (durability tiers)":
 
 - **Durable deliverable** (committable as-is) → leave it.
-- **Disposable working artifact** in the wrong place (Playwright dump at project root, intermediate analysis dump under `design/<subdir>/`, ad-hoc debug file anywhere outside `design/.scratch/`) → move it to `design/.scratch/<purpose>/<YYYY-MM-DD-HHMMSS>/` so it's git-ignored, OR delete it if it has no debug value.
+- **Disposable working artifact** in the wrong place (Playwright dump at project root, intermediate analysis dump under `design/<subdir>/`, ad-hoc debug file anywhere outside `.design-engineer-plugin/temporary/scratch/`) → move it to `.design-engineer-plugin/temporary/scratch/<purpose>/<YYYY-MM-DD-HHMMSS>/` so it's git-ignored, OR delete it if it has no debug value.
 - **Pattern that should be git-ignored permanently** (test runner outputs, build caches, framework-specific dumps not yet covered by the existing `.gitignore` block) → ask the user whether to add the pattern to `.gitignore`'s `# === BEGIN design-engineer-plugin ===` block.
 
 Surface findings to the user as a short list before any PR creation: "I found N files outside the canonical paths. Here's my proposed disposition for each — confirm or override before I move on." Do NOT silently move or delete files; the user must approve each disposition. Skip this step only if `git status --short` is empty or contains only modified files within tracked canonical paths.
@@ -241,7 +241,7 @@ Surface findings to the user as a short list before any PR creation: "I found N 
 After implementing changes to UI components or pages:
 1. Start the dev server if not running (`npm run dev` or equivalent)
 2. Use Playwright to navigate to the affected page on localhost
-3. Take a screenshot. Per CLAUDE.md "Playwright filesystem hygiene", visual-verification captures are throwaway debug artifacts and MUST be saved under `design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>/visual-verification-<page-slug>.png`. Run `mkdir -p design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>` first. Never call `mcp__playwright__browser_take_screenshot` without an explicit `filename` — the `de-playwright-path-hook` denies it.
+3. Take a screenshot. Per CLAUDE.md "Playwright filesystem hygiene", visual-verification captures are throwaway debug artifacts and MUST be saved under `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/visual-verification-<page-slug>.png`. Run `mkdir -p .design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>` first. Never call `mcp__playwright__browser_take_screenshot` without an explicit `filename` — the `de-playwright-path-hook` denies it.
 4. Analyze: does the result match expectations? Check layout, spacing, color, animation direction, element visibility
 5. If issues found: fix them before presenting to the user
 6. If clean: proceed to present the phase for review

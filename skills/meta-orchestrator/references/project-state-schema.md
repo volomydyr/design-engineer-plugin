@@ -1,6 +1,6 @@
 # Pipeline State Schema (deprecated → see compound-documenter)
 
-> **Deprecated as of v2.6.0.** Pipeline state is no longer tracked in a project-root or `design-docs/` markdown file. It now lives in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/` – Anthropic's documented persistence primitive (`memory: project` frontmatter on the agent).
+> **Deprecated as of v2.6.0.** Pipeline state is no longer tracked in a project-root or `design-docs/` markdown file. It now lives in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` – Anthropic's documented persistence primitive (`memory: project` frontmatter on the agent).
 
 ## Why this changed
 
@@ -8,7 +8,7 @@ The old `design-docs/project-state.md` file was advertised but never actually cr
 
 ## Where pipeline state lives now
 
-`.claude/agent-memory/compound-documenter/` contains three structured files maintained by the agent:
+`.claude/agent-memory/design-engineer-compound-documenter/` contains three structured files maintained by the agent:
 
 - **`pipeline-state.md`** – current phase, last completed skill, next skill, mode, project type, recent deliverables (last 5), open questions. Overwritten on each invocation.
 - **`key-decisions.md`** – append-only log of cross-cutting decisions affecting 2+ downstream deliverables. Older entries are valuable context – never delete.
@@ -18,7 +18,7 @@ For the full schema of each file, see the `compound-documenter` agent definition
 
 ## How meta-orchestrator uses it
 
-At session start (Step 0 of meta-orchestrator), the orchestrator reads `.claude/agent-memory/compound-documenter/pipeline-state.md` if it exists. The file tells the orchestrator the current phase, last completed skill, and next skill – enough to resume where the previous session ended.
+At session start (Step 0 of meta-orchestrator), the orchestrator reads `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` if it exists. The file tells the orchestrator the current phase, last completed skill, and next skill – enough to resume where the previous session ended.
 
 If the file does not exist (first run for a new project), the orchestrator continues with normal startup and, after the first phase completes, invokes compound-documenter to seed the file.
 

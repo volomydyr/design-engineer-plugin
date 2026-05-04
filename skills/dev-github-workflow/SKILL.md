@@ -107,7 +107,7 @@ Claude Code's default Co-Authored-By trailer is disabled at install via the `att
 
 Called after the user approves a plan phase. Receives context from the plan workflow.
 
-If you write a commit log, PR summary, or workflow-state file to `design/dev/`, ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+If you write a commit log, PR summary, or workflow-state file to `.design-engineer-plugin/design/dev/`, ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
 ### Steps
 

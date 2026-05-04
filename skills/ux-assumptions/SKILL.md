@@ -144,9 +144,9 @@ Repeat until the user explicitly approves the assumptions document.
 
 ## Step 7: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the final assumptions document to `design/foundation/assumptions.md`.
+Save the final assumptions document to `.design-engineer-plugin/design/foundation/assumptions.md`.
 
 The document should follow the complete structure from [assumptions-template.md](./references/assumptions-template.md).
 

@@ -7,12 +7,15 @@
 #
 # Live progress (current phase, recent deliverables, key decisions, stale dependents)
 # is tracked separately in the compound-documenter agent's memory at
-# .claude/agent-memory/compound-documenter/ – auto-updated by /de:document.
+# .claude/agent-memory/design-engineer-compound-documenter/ – auto-updated by /product:document.
 #
 # Each deliverable entry carries:
 #   - depends_on: deliverables that must exist or inform this one
 #   - informs:    deliverables that should be reviewed when this one changes
-#   - folder:     subdirectory within the deliverables path
+#   - folder:     bare subdir name (foundation, research, planning, exploration,
+#                 psychology, reviews, dev, features). The full canonical path is
+#                 .design-engineer-plugin/design/<folder>/. The path-validation
+#                 hook (de-deliverable-path-hook.js) reads this map.
 #   - phase:      pipeline phase where this deliverable is primarily created
 #   - skill:      the skill that produces this deliverable
 
@@ -130,7 +133,7 @@ deliverables:
       - journey-map
       - bias-audit
       - mvp-requirements
-    folder: design
+    folder: exploration
     phase: 2
     skill: ux-story-panels
 
@@ -142,7 +145,7 @@ deliverables:
       - journey-map
       - bias-audit
       - mvp-requirements
-    folder: design
+    folder: exploration
     phase: 2
     skill: ux-behavior-mapping
 
@@ -154,7 +157,7 @@ deliverables:
     informs:
       - journey-map
       - bias-audit
-    folder: design
+    folder: psychology
     phase: 2
     skill: ux-motivation-audit
 
@@ -210,7 +213,7 @@ deliverables:
       - journey-map
       - ethics-review
       - product-assessment
-    folder: design
+    folder: exploration
     phase: 4
     skill: ux-bias-audit
 
@@ -224,7 +227,7 @@ deliverables:
       - ethics-review
       - product-assessment
       - figma-workflow
-    folder: design
+    folder: exploration
     phase: 4
     skill: ux-journey-mapping
 
@@ -234,7 +237,7 @@ deliverables:
       - journey-map
     informs:
       - product-assessment
-    folder: design
+    folder: exploration
     phase: 4
     skill: ux-ethics-review
 
@@ -246,7 +249,7 @@ deliverables:
     informs:
       - figma-workflow
       - prototype
-    folder: design
+    folder: exploration
     phase: 4
     skill: ui-references-moodboard
 
@@ -284,7 +287,7 @@ deliverables:
       - figma-handoff
       - claude-md-draft
       - kickstart-prompts
-    folder: design
+    folder: dev
     phase: 4
     skill: ui-figma-guide
 
@@ -295,7 +298,7 @@ deliverables:
       - product-assessment
       - claude-md-draft
       - kickstart-prompts
-    folder: design
+    folder: dev
     phase: 4
     skill: ui-figma-handoff
 
@@ -376,7 +379,7 @@ deliverables:
       - bias-audit
       - journey-map
       - product-assessment
-    folder: psych
+    folder: psychology
     phase: any
     skill: psych-full-scan
 

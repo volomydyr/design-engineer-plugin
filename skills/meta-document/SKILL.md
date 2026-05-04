@@ -17,7 +17,7 @@ After any significant work is completed (a design deliverable, a development pha
 
 This is not for pet projects that you start and abandon. This is for actual complex projects planned to run for years, potentially becoming million-dollar products with multiple teams working on them.
 
-**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/compound-documenter/` – Anthropic's documented persistence primitive for subagents.
+**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `.design-engineer-plugin/design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` – Anthropic's documented persistence primitive for subagents.
 
 ---
 
@@ -131,9 +131,9 @@ Please provide corrected values.
 ```bash
 CATEGORY="[mapped from deliverable_type]"
 FILENAME="[generated-filename].md"
-DOC_PATH="$design/dev/${CATEGORY}/${FILENAME}"
+DOC_PATH="$.design-engineer-plugin/design/dev/${CATEGORY}/${FILENAME}"
 
-mkdir -p "$design/dev/${CATEGORY}"
+mkdir -p "$.design-engineer-plugin/design/dev/${CATEGORY}"
 ```
 
 **File structure:**
@@ -182,7 +182,7 @@ tags: [tags]
 <step number="5" required="true" depends_on="4">
 ### Step 5: Invoke compound-documenter to update agent memory
 
-Live pipeline state is tracked by the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The agent maintains three structured files:
+Live pipeline state is tracked by the `compound-documenter` agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/`. The agent maintains three structured files:
 
 - **pipeline-state.md** – current phase, last completed skill, next skill, recent deliverables
 - **key-decisions.md** – append-only log of cross-cutting decisions affecting 2+ deliverables
@@ -201,7 +201,7 @@ You do not write to `.claude/agent-memory/...` directly from this skill – the 
 **Search existing docs** for related solutions:
 
 ```bash
-grep -r "[activity keywords]" "$design/dev/"
+grep -r "[activity keywords]" ".design-engineer-plugin/design/dev/"
 ```
 
 **If related entry found:**
@@ -213,6 +213,29 @@ grep -r "[activity keywords]" "$design/dev/"
 
 - Mention the pattern in the next compound-documenter invocation so it can be reflected in pipeline-state.md or key-decisions.md as relevant
 - Suggest consolidation if appropriate
+
+</step>
+
+<step number="7" required="true" depends_on="5">
+### Step 7: Purge disposable working artifacts (phase boundary)
+
+`/product:document` runs at every phase boundary, so this is the natural moment to clear the temporary/ bucket. Without this, Playwright debug captures, intermediate analysis dumps, and exploratory drafts accumulate across phases and pollute the working tree.
+
+**Run via Bash:**
+
+```bash
+bash -c 'find .design-engineer-plugin/temporary -mindepth 1 -delete 2>/dev/null; mkdir -p .design-engineer-plugin/temporary/scratch .design-engineer-plugin/temporary/playwright .design-engineer-plugin/temporary/intermediate'
+```
+
+**Surface a one-line confirmation** in the user-facing chat:
+
+```
+Cleared disposable working files from this phase.
+```
+
+This step always runs — there is no condition under which the temporary bucket should persist across a phase boundary. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/product:document`. The path-validation hook (`de-deliverable-path-hook.js`) ensures only canonical filenames land at canonical paths.
+
+**Do not** purge anywhere else under `.design-engineer-plugin/` — only `temporary/`. The other subdirs (design/, prototype/, plans/, memory/) are durable.
 
 </step>
 
@@ -230,8 +253,8 @@ After successful documentation, present:
 Documentation complete.
 
 File created:
-- design/dev/[category]/[filename].md
-- .claude/agent-memory/compound-documenter/ updated by the agent
+- .design-engineer-plugin/design/dev/[category]/[filename].md
+- .claude/agent-memory/design-engineer-compound-documenter/ updated by the agent
 
 What's next?
 1. Continue workflow (recommended)
@@ -277,7 +300,7 @@ This skill implements context engineering best practices documented in [context-
 1. **One activity = one chat** – save deliverables to project knowledge, start fresh for the next activity
 2. **Manual compaction over auto-compaction** – warn the user when approaching token limits so they can manually compact with specific preservation instructions instead of losing context to automatic compression
 3. **Sub-agent token preservation** – heavy work happens in sub-agents with their own token budgets, keeping the main conversation lean
-4. **Agent memory as ground truth** – AI reads `.claude/agent-memory/compound-documenter/pipeline-state.md` at the start of every task to recover full project context. Persistence handled by Anthropic's documented `memory: project` mechanism.
+4. **Agent memory as ground truth** – AI reads `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` at the start of every task to recover full project context. Persistence handled by Anthropic's documented `memory: project` mechanism.
 5. **Separation of concerns** – use small dedicated files instead of one large CLAUDE.md to prevent AI from ignoring parts due to context limits
 
 ---

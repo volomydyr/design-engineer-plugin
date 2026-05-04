@@ -14,9 +14,9 @@ MODE=$(grep "^mode:" "$CONFIG" 2>/dev/null | sed 's/.*mode: *//' | tr -d '"')
 PROJECT_TYPE=$(grep "^project_type:" "$CONFIG" 2>/dev/null | sed 's/.*project_type: *//' | tr -d '"')
 
 # Pipeline state lives in the compound-documenter agent's memory at
-# .claude/agent-memory/compound-documenter/pipeline-state.md (per the documented
+# .claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md (per the documented
 # Anthropic memory: project mechanism). Tell the model to read it back after compaction.
-AGENT_MEMORY=".claude/agent-memory/compound-documenter/pipeline-state.md"
+AGENT_MEMORY=".claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md"
 HAS_AGENT_MEMORY="no"
 if [ -f "$AGENT_MEMORY" ]; then
   HAS_AGENT_MEMORY="yes"

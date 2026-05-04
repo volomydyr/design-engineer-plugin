@@ -125,7 +125,7 @@ Use these evaluation patterns for each principle:
 
 ### Step 4: Produce the Findings Report
 
-Before writing the report to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the report to `design/psychology/visual-perception.md` (or a flow-specific name when multiple audits are produced).
+Before writing the report to disk, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/psychology` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the report to `.design-engineer-plugin/design/psychology/visual-perception.md` (or a flow-specific name when multiple audits are produced).
 
 Structure the output as follows:
 

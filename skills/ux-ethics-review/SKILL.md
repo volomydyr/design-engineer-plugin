@@ -126,7 +126,7 @@ multiSelect: false  # User must choose one output format
 
 ## Output Format
 
-Before writing the review deliverable to disk, ensure the parent directory exists: run `mkdir -p design/exploration` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the review to `design/exploration/ethics-review.md` (or a feature-specific name when multiple reviews are produced).
+Before writing the review deliverable to disk, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/exploration` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the review to `.design-engineer-plugin/design/exploration/ethics-review.md` (or a feature-specific name when multiple reviews are produced).
 
 ```
 ## Ethics Review: [Product/Feature Name]

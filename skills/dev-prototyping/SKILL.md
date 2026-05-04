@@ -23,7 +23,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) create a prototype brief, 6) generate a visual storyboard for review, 7) build the interactive prototype from the approved storyboard, 8) iterate with you, 9) save the deliverable."
+1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) draft a prototype brief in chat (not a file – the brief lives in the conversation only), 6) generate a visual storyboard for review, 7) build the interactive prototype from the approved storyboard, 8) iterate with you, 9) save the deliverable."
 
 2. **Conditional teaching**: Ask the user if they are familiar with single-file HTML prototyping. If yes, give a one-sentence refresher. If no, explain: a self-contained HTML file with all CSS and JS inline that lets you click through real screens and interactions – no build tools, no dependencies, just open in a browser.
 
@@ -42,7 +42,7 @@ Before generating any HTML for storyboard or prototype, you MUST output the Desi
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `design/exploration/references/references.md` exists (or run `ui-references-moodboard` first)
+4. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists (or run `ui-references-moodboard` first)
 
 This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop – they set the visual baseline that downstream development inherits.
 
@@ -155,7 +155,7 @@ Read from the deliverables directory and extract:
 - **Screens, flows, navigation structure** from the Information Architecture document
 - **Feature priorities and acceptance criteria** from MVP Requirements
 - **Psychology insights and bias considerations** from `bias-audit.md` and `journey-map.md` (if they exist)
-- **Bias audit recommendations** from `design/exploration/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
+- **Bias audit recommendations** from `.design-engineer-plugin/design/exploration/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
 
 Present a summary of what was found:
 
@@ -227,6 +227,8 @@ If adjustments are needed, iterate until approved.
 ---
 
 ## Step 4: Prototype brief
+
+**This step is chat-only — DO NOT write a `brief.md` file.** The brief is a synthesis you present to the user in conversation. Step 5's storyboard and Step 7's interactive prototype are the file-producing steps.
 
 Synthesize all gathered context into a prototype brief:
 
@@ -302,7 +304,7 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:storyboard" > .desi
 
 ### File location
 
-Save to: `prototype/storyboard.html`
+Save to: `.design-engineer-plugin/prototype/storyboard.html`
 
 Create the directory if it does not exist.
 
@@ -330,7 +332,7 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .des
 
 ### File location
 
-Save to: `prototype/prototype.html`
+Save to: `.design-engineer-plugin/prototype/prototype.html`
 
 **BLOCKING REQUIREMENT**: Wait for the user to review the interactive prototype before proceeding.
 
@@ -392,11 +394,11 @@ Save two files:
 
 ### 1. Final prototype
 
-Ensure `prototype/prototype.html` is the latest version with all iterations applied.
+Ensure `.design-engineer-plugin/prototype/prototype.html` is the latest version with all iterations applied.
 
 ### 2. Prototype notes
 
-Save `prototype/prototype-notes.md` with:
+Save `.design-engineer-plugin/prototype/prototype-notes.md` with:
 
 ```markdown
 # Prototype notes
@@ -460,7 +462,7 @@ After prototyping, suggest the logical next step based on what exists:
 
 Prototype and component gallery sit at different points in the product lifecycle – do not conflate them:
 
-- **Prototype** is for design exploration *before* implementation. Throwaway HTML, no component-reuse rules, free to inline styles, free to fake interactivity. Lives at `prototype/prototype.html`. Goal: validate the design intent quickly.
+- **Prototype** is for design exploration *before* implementation. Throwaway HTML, no component-reuse rules, free to inline styles, free to fake interactivity. Lives at `.design-engineer-plugin/prototype/prototype.html`. Goal: validate the design intent quickly.
 - **Component gallery** is for shipped components *after* implementation. Real imports from production paths, real production styles, contract-bound (no duplicates, no inline styles, variants via component API only). Path determined by the project's stack via `skills/dev-component-gallery/`. Goal: visual QA + redundancy detection on what's actually in the codebase.
 
 Don't move prototype HTML into the gallery. Don't write gallery entries in prototype style. The two artifacts have opposite rules because they serve opposite purposes.

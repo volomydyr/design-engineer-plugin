@@ -209,7 +209,7 @@ How should I proceed?"
 7. **Maintain pixel-perfect implementation** from designs
 8. **Update development status** when features are complete
 9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
-10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning – write structured plans to the plan file, never as plain text. After approval, save to `plans/` in the project. After completion, move to `plans/archive/`.
+10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning – write structured plans to the plan file, never as plain text. After approval, save to `.design-engineer-plugin/.design-engineer-plugin/plans/` in the project. After completion, move to `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`.
 11. **Run `/simplify` after every code-producing step** – mandatory after backend-implementer, frontend-implementer, and before design-system-auditor. Also after prototype generation.
 12. **Write tests BEFORE implementation** – run test-writer agent to create Playwright CLI test scripts in `tests/` before backend-implementer or frontend-implementer. Verify Red (fail) before implementing, verify Green (pass) after. A TDD hook blocks source code writes when no tests exist.
 ```

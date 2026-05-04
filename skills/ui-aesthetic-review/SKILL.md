@@ -63,7 +63,7 @@ options:
     description: "Read and critique an HTML prototype file from prototype/"
 ```
 
-When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
+When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `.design-engineer-plugin/prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
 
 ---
 
@@ -176,9 +176,9 @@ Group findings by lens:
 
 For each of the 4 named tests, report: **Pass** or **Fail** with specific evidence.
 
-Before writing the report, ensure the parent directory exists: run `mkdir -p design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the report, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the report to `design/reviews/design-critique.md`.
+Save the report to `.design-engineer-plugin/design/reviews/design-critique.md`.
 
 ---
 

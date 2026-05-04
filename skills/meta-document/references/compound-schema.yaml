@@ -152,8 +152,8 @@ optional_fields:
     type: array[string]
     description: "File paths or names of related deliverables"
     examples:
-      - "project-docs/solutions/research/problem-statement-20260115.md"
-      - "project-docs/solutions/design/mvp-requirements-20260120.md"
+      - ".design-engineer-plugin/design/foundation/problem-statement-20260115.md"
+      - ".design-engineer-plugin/design/planning/mvp-requirements-20260120.md"
 
   tools_used:
     type: array[string]
@@ -204,50 +204,88 @@ validation_rules:
   - "decisions should include rationale, not just the choice"
 
 # Category mapping: deliverable_type -> directory
+# Aligned with the canonical taxonomy in skills/meta-setup/assets/dependencies-default.yaml.
+# All deliverable directories live under .design-engineer-plugin/ so the project root stays clean.
 category_mapping:
-  # Research
-  problem_statement: "project-docs/solutions/research/"
-  target_audience: "project-docs/solutions/research/"
-  assumptions_doc: "project-docs/solutions/research/"
-  competitor_analysis: "project-docs/solutions/research/"
-  interview_findings: "project-docs/solutions/research/"
-  research_synthesis: "project-docs/solutions/research/"
+  # Foundation (Phase 1: Discovery)
+  problem_statement: ".design-engineer-plugin/design/foundation/"
+  target_audience: ".design-engineer-plugin/design/foundation/"
+  assumptions_doc: ".design-engineer-plugin/design/foundation/"
+  storybrand_canvas: ".design-engineer-plugin/design/foundation/"
+  business_plan: ".design-engineer-plugin/design/foundation/"
 
-  # Strategy
-  storybrand_canvas: "project-docs/solutions/strategy/"
-  business_plan: "project-docs/solutions/strategy/"
-  story_6p: "project-docs/solutions/strategy/"
-  behavior_map: "project-docs/solutions/strategy/"
-  psych_variation: "project-docs/solutions/strategy/"
+  # Research (external evidence gathering)
+  competitor_analysis: ".design-engineer-plugin/design/research/"
+  interview_findings: ".design-engineer-plugin/design/research/"
+  research_synthesis: ".design-engineer-plugin/design/research/"
 
-  # Design
-  mvp_requirements: "project-docs/solutions/design/"
-  information_architecture: "project-docs/solutions/design/"
-  prototype: "project-docs/solutions/design/"
-  design_system: "project-docs/solutions/design/"
-  visual_design: "project-docs/solutions/design/"
+  # Planning (Phase 2: scope decisions)
+  mvp_requirements: ".design-engineer-plugin/design/planning/"
+  information_architecture: ".design-engineer-plugin/design/planning/"
 
-  # Development
-  development_plan: "project-docs/solutions/development/"
-  code_implementation: "project-docs/solutions/development/"
-  api_design: "project-docs/solutions/development/"
-  test_suite: "project-docs/solutions/development/"
-  deployment_config: "project-docs/solutions/development/"
+  # Exploration (Phase 3: design exploration)
+  bias_audit: ".design-engineer-plugin/design/exploration/"
+  behavior_map: ".design-engineer-plugin/design/exploration/"
+  journey_map: ".design-engineer-plugin/design/exploration/"
+  ethics_review: ".design-engineer-plugin/design/exploration/"
+  story_panels: ".design-engineer-plugin/design/exploration/story-panels/"
+  references_moodboard: ".design-engineer-plugin/design/exploration/references/"
 
-  # Evaluation
-  bias_audit: "project-docs/solutions/evaluation/"
-  journey_map: "project-docs/solutions/evaluation/"
-  accessibility_audit: "project-docs/solutions/evaluation/"
-  ethics_review: "project-docs/solutions/evaluation/"
-  product_assessment: "project-docs/solutions/evaluation/"
-  visual_review: "project-docs/solutions/evaluation/"
-  psychology_audit: "project-docs/solutions/evaluation/"
+  # Psychology (psych-* audits)
+  psych_full_scan: ".design-engineer-plugin/design/psychology/"
+  psych_pricing: ".design-engineer-plugin/design/psychology/"
+  psych_visual_perception: ".design-engineer-plugin/design/psychology/"
+  psych_time_perception: ".design-engineer-plugin/design/psychology/"
+  psych_emotional_retention: ".design-engineer-plugin/design/psychology/"
+  psych_social_influence: ".design-engineer-plugin/design/psychology/"
+  psych_cognitive_load: ".design-engineer-plugin/design/psychology/"
+  psych_cognitive_biases: ".design-engineer-plugin/design/psychology/"
+  psych_decision_fundamentals: ".design-engineer-plugin/design/psychology/"
+  psych_decision_persuasion: ".design-engineer-plugin/design/psychology/"
+  psych_delight_design: ".design-engineer-plugin/design/psychology/"
+  psych_engagement_patterns: ".design-engineer-plugin/design/psychology/"
+  psych_habit_formation: ".design-engineer-plugin/design/psychology/"
+  psych_simplification: ".design-engineer-plugin/design/psychology/"
 
-  # Meta
-  status_update: "project-docs/solutions/meta/"
-  decision_log: "project-docs/solutions/meta/"
-  context_recovery: "project-docs/solutions/meta/"
-  lessons_learned: "project-docs/solutions/meta/"
+  # Reviews (post-implementation review deliverables)
+  aesthetic_review: ".design-engineer-plugin/design/reviews/"
+  design_to_code_qa: ".design-engineer-plugin/design/reviews/"
+  full_review: ".design-engineer-plugin/design/reviews/"
+  audit: ".design-engineer-plugin/design/reviews/"
+  accessibility_audit: ".design-engineer-plugin/design/reviews/"
+  product_assessment: ".design-engineer-plugin/design/reviews/"
+  visual_review: ".design-engineer-plugin/design/reviews/"
+
+  # Dev (development preparation deliverables)
+  claude_md_draft: ".design-engineer-plugin/design/dev/"
+  agent_setup: ".design-engineer-plugin/design/dev/"
+  mcp_setup: ".design-engineer-plugin/design/dev/"
+  github_workflow: ".design-engineer-plugin/design/dev/"
+  starter_prompts: ".design-engineer-plugin/design/dev/"
+  design_system: ".design-engineer-plugin/design/dev/"
+  status_tracking: ".design-engineer-plugin/design/dev/"
+
+  # Features (per-feature specs)
+  feature_spec: ".design-engineer-plugin/design/features/"
+
+  # Prototypes
+  prototype: ".design-engineer-plugin/prototype/"
+  landing_page: ".design-engineer-plugin/prototype/"
+  storyboard: ".design-engineer-plugin/prototype/"
+
+  # Plans (implementation plans)
+  implementation_plan: ".design-engineer-plugin/plans/"
+
+  # Memory (managed by compound-documenter agent via Anthropic's memory: project mechanism)
+  pipeline_state: ".claude/agent-memory/design-engineer-compound-documenter/"
+  key_decisions: ".claude/agent-memory/design-engineer-compound-documenter/"
+  stale_dependents: ".claude/agent-memory/design-engineer-compound-documenter/"
+
+  # Meta (cross-cutting documentation)
+  status_update: ".claude/agent-memory/design-engineer-compound-documenter/"
+  decision_log: ".claude/agent-memory/design-engineer-compound-documenter/"
+  context_recovery: ".claude/agent-memory/design-engineer-compound-documenter/"
+  lessons_learned: ".design-engineer-plugin/design/dev/"
 
 # Example valid frontmatter:
 # ---
@@ -260,7 +298,7 @@ category_mapping:
 # severity: high
 # tags: [problem-definition, user-needs, foundation]
 # related_deliverables:
-#   - "project-docs/solutions/research/target-audience-20260116.md"
+#   - ".design-engineer-plugin/design/foundation/target-audience-20260116.md"
 # tools_used: [claude-projects]
 # decisions:
 #   - "Focused on three core problems instead of five -- narrower scope enables faster validation"

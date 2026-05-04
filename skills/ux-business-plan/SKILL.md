@@ -130,20 +130,20 @@ Repeat until the user explicitly approves the business plan.
 
 ## Step 6: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the final business plan to `design/foundation/business-plan.md`.
+Save the final business plan to `.design-engineer-plugin/design/foundation/business-plan.md`.
 
 The document should follow the complete structure from [business-plan-template.md](./references/business-plan-template.md).
 
-After completing the business plan, check if any new assumptions surfaced. If so, Read `design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from business plan on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+After completing the business plan, check if any new assumptions surfaced. If so, Read `.design-engineer-plugin/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from business plan on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 
 ---
 
 ## Content Integrity
 
 1. **No fabrication**: Only include content the user explicitly provided or that was read from an existing deliverable file. If you see a gap – a missing revenue assumption, an unaddressed cost category, a market segment nobody mentioned – ask via AskUserQuestion. Never fill gaps silently. Never invent statistics, features, or personas. Never attribute content to a deliverable you haven't Read.
-2. **When referencing the assumptions document, you MUST Read the actual file `design/foundation/assumptions.md` first.** Do not quote assumptions from memory.
+2. **When referencing the assumptions document, you MUST Read the actual file `.design-engineer-plugin/design/foundation/assumptions.md` first.** Do not quote assumptions from memory.
 3. **Read before reference**: When referencing any previous deliverable in your output, you MUST Read the file first. Do not quote from memory – read the actual file and use its actual content.
 
 ## Anti-slop Writing

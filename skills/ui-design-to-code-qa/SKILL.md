@@ -43,7 +43,7 @@ options:
     description: "Audit an HTML prototype file for UX and visual quality"
 ```
 
-When "Review HTML prototype" is selected, read the HTML file at the path the user provides (default: `prototype/prototype.html`). Run the UX non-negotiables check (Step 3) and an adapted visual audit that focuses on spacing, typography, hierarchy, and interactive states rather than design system token compliance (since prototypes use inline tokens, not a formal design system).
+When "Review HTML prototype" is selected, read the HTML file at the path the user provides (default: `.design-engineer-plugin/prototype/prototype.html`). Run the UX non-negotiables check (Step 3) and an adapted visual audit that focuses on spacing, typography, hierarchy, and interactive states rather than design system token compliance (since prototypes use inline tokens, not a formal design system).
 
 ---
 
@@ -128,9 +128,9 @@ For each issue found, document:
 - **Actual**: what was implemented
 - **Fix**: recommended correction
 
-Before writing the report, ensure the parent directory exists: run `mkdir -p design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the report, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the report to `design/reviews/visual-review.md`.
+Save the report to `.design-engineer-plugin/design/reviews/visual-review.md`.
 
 ---
 

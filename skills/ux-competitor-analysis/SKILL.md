@@ -149,13 +149,13 @@ Repeat until the user explicitly approves the analysis.
 
 ## Step 7: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/research` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the final competitive analysis to `design/foundation/competitor-analysis.md`.
+Save the final competitive analysis to `.design-engineer-plugin/design/research/competitor-analysis.md`. Competitor analysis is research (gathering external evidence about adjacent products) — that's why it lives in `research/`, not `foundation/`. The dependency graph at `skills/meta-setup/assets/dependencies-default.yaml` is the source of truth for canonical paths.
 
 The document should follow the complete structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).
 
-After completing the competitor analysis, check if any new assumptions surfaced during the research. If so, Read `design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from competitor analysis on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+After completing the competitor analysis, check if any new assumptions surfaced during the research. If so, Read `.design-engineer-plugin/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from competitor analysis on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 
 ---
 

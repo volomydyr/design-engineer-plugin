@@ -261,7 +261,7 @@ If the user picks "I'll list URLs / paths", collect them via a follow-up. If the
 
 For each page (capped per the user's cap):
 
-1. **Capture**: navigate via Playwright → take a screenshot → snapshot the DOM/structure. Save the screenshot to `design/reviews/[YYYY-MM-DD]-audit/[page-slug]/screenshot.png`.
+1. **Capture**: navigate via Playwright → take a screenshot → snapshot the DOM/structure. Save the screenshot to `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audit/[page-slug]/screenshot.png`.
 2. **Run AI agents** in this order, gathering findings into one in-memory bundle per page:
    - `psych-scanner` (cognitive load, decision fatigue, dark patterns, motivation) – see `agents/psych-scanner.md`
    - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) – see `skills/ui-aesthetic-review/`
@@ -269,7 +269,7 @@ For each page (capped per the user's cap):
    - `ux-motivation-audit` (screen-level psychology) – see `skills/ux-motivation-audit/`
 3. **Present AI findings** to the designer for THIS page (compact: top 5–7 findings grouped by severity).
 4. **Capture designer feedback** via AskUserQuestion: question="Your professional feedback on this page?" options: `[{label: "I'll write notes", description: "Open-ended notes I'll type now"}, {label: "Agrees with AI on all points", description: "AI findings match my read"}, {label: "Disagree with one or more findings", description: "I'll explain which and why"}, {label: "Skip / no feedback", description: "Move on"}]`. If "I'll write notes" or "Disagree", collect the prose via natural-language follow-up.
-5. **Write the per-page deliverable** to `design/reviews/[YYYY-MM-DD]-audit/[page-slug]/audit.md`:
+5. **Write the per-page deliverable** to `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audit/[page-slug]/audit.md`:
 
 ```markdown
 # [Page name] – Audit
@@ -303,7 +303,7 @@ For each page (capped per the user's cap):
 
 ### A1.4: Synthesize the redesign brief
 
-After all pages: write `design/reviews/[YYYY-MM-DD]-audit/SUMMARY.md`:
+After all pages: write `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audit/SUMMARY.md`:
 
 - Cross-page patterns (e.g., "same hardcoded color used on 8 of 14 pages")
 - Top redesign priorities ranked by combined AI + designer signal

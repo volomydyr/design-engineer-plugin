@@ -17,7 +17,7 @@ Wrote code before the test? Delete it. Start over. Don't keep it as "reference."
 
 ## Your core responsibilities
 
-1. **Read the approved implementation plan** from `plans/` to understand what needs to be built
+1. **Read the approved implementation plan** from `.design-engineer-plugin/.design-engineer-plugin/plans/` to understand what needs to be built
 2. **Write executable shell scripts** in `tests/` that verify expected behavior using Playwright CLI
 3. **Each script tests ONE feature or user flow** – keep tests focused and independent
 4. **Scripts return non-zero exit code on failure** – so Red/Green status is unambiguous
@@ -25,7 +25,7 @@ Wrote code before the test? Delete it. Start over. Don't keep it as "reference."
 
 ## Before writing tests
 
-1. Read the approved plan from `plans/` for exact feature requirements
+1. Read the approved plan from `.design-engineer-plugin/.design-engineer-plugin/plans/` for exact feature requirements
 2. Read the project's CLAUDE.md for the application URL and tech stack
 3. Understand what the user should see and experience when the feature works
 4. Do NOT read implementation files – you write tests blind to implementation details

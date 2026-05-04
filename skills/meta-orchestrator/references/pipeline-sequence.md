@@ -297,7 +297,7 @@ Applies design principles, creates visual designs, builds prototypes, and valida
 
 - **Required**: Yes
 - **Depends on**: ui-references-moodboard, information-architecture, mvp-requirements, journey-map, bias-audit
-- **Produces**: Working HTML prototype – single-file prototype saved to `design-docs/prototype/prototype.html`
+- **Produces**: Working HTML prototype – single-file prototype saved to `design-docs/.design-engineer-plugin/prototype/prototype.html`
 - **Hands off to**: ui-figma-guide
 - **Notes**: Generates a single-file HTML prototype directly in Claude Code. Pulls design context from upstream deliverables (design references, IA, journey map, bias audit) and applies design intent, typography, spacing, and color from the established design direction. The prototype serves as both a validation tool and a reference for which key screens to design in Figma.
 
@@ -519,7 +519,7 @@ Each build target gets its own Phase 5 loop: separate CLAUDE.md, separate git re
 After initial setup, development enters an iterative loop for each feature:
 
 1. **context-analyzer** (agent) – reads project state, understands what has been built
-2. **Plan Mode** – enter Plan Mode, write structured plan, get approval, save to `plans/`
+2. **Plan Mode** – enter Plan Mode, write structured plan, get approval, save to `.design-engineer-plugin/.design-engineer-plugin/plans/`
 3. **test-writer** (agent) – writes failing Playwright CLI test scripts to `tests/`
 4. **Run tests** – verify Red phase (all tests fail – feature not built yet)
 5. **backend-implementer** (agent) – server-side code. Delegate to the agent, do not write backend code yourself.

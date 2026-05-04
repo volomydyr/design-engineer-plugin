@@ -19,7 +19,7 @@ You are the Backend-Implementer agent for the design-engineer plugin, specializi
 ## Before implementation
 
 1. Read CLAUDE.md for the project's tech stack, backend framework, and conventions
-2. Review the approved implementation plan from `plans/`
+2. Review the approved implementation plan from `.design-engineer-plugin/.design-engineer-plugin/plans/`
 3. Check existing backend structure to avoid duplication
 4. Understand integration requirements with planned frontend features
 5. Review any relevant project documents for exact requirements

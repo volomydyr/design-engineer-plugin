@@ -108,7 +108,7 @@ The most critical section of any CLAUDE.md. Guide the user through establishing 
 
 ## Step 3: Generate the CLAUDE.md
 
-If you are writing a draft to `design/dev/` (rather than directly to the project root `CLAUDE.md`), ensure the parent directory exists first: run `mkdir -p design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+If you are writing a draft to `.design-engineer-plugin/design/dev/` (rather than directly to the project root `CLAUDE.md`), ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
 Using the template from [claude-md-template.md](./references/claude-md-template.md), generate a CLAUDE.md customized to the user's project. The file should cover:
 

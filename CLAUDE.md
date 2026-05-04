@@ -95,7 +95,7 @@ design-engineer-plugin/           ← repo root = plugin root
 │   └── de-prompt-injection-hook.js
 ├── agents/                         # 10 specialized agents
 ├── commands/
-│   └── product/                    # 8 main commands + mute-unmute-sound utility (product: namespace)
+│   └── product/                    # 9 main commands + mute-unmute-sound utility (product: namespace)
 └── skills/                         # 57 skills (56 with SKILL.md + 1 reference-only)
 ```
 
@@ -201,6 +201,7 @@ Commands use `product:` prefix to keep the namespace short, distinct, and free o
 - `/product:review` - Multi-layer design review (includes psychology audit)
 - `/product:document` - Knowledge documentation and stakeholder communication
 - `/product:stop` - Save progress and pause mid-activity
+- `/product:tidy` - Wipe disposable working artifacts under `.design-engineer-plugin/temporary/`
 - `/product:help` - Shows all available commands, project status, and mode
 
 ## Living Documents
@@ -208,7 +209,7 @@ Commands use `product:` prefix to keep the namespace short, distinct, and free o
 Deliverables created by this plugin are documented in two layers:
 
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` – read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
-- **Live progress** at `.claude/agent-memory/compound-documenter/` – three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
+- **Live progress** at `.claude/agent-memory/design-engineer-compound-documenter/` – three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
 
 Run `/product:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
@@ -274,18 +275,18 @@ Every phase MUST have `**Depends on**`, `**Checklist**`, and `**QA**` fields. De
 
 ### Project-local storage
 
-After plan approval, copy the approved plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `plans/` directory if it does not exist.
+After plan approval, copy the approved plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `.design-engineer-plugin/.design-engineer-plugin/plans/` directory if it does not exist.
 
 ### Archival
 
-When implementation is complete, move the plan from `plans/` to `plans/archive/`. Create the `plans/archive/` directory if it does not exist.
+When implementation is complete, move the plan from `.design-engineer-plugin/.design-engineer-plugin/plans/` to `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`. Create the `.design-engineer-plugin/.design-engineer-plugin/plans/archive/` directory if it does not exist.
 
 ### Workflow
 
 1. `EnterPlanMode` – write a structured plan to the plan file
 2. **Advisor checkpoint (early-task):** before `ExitPlanMode` on any plan with more than one phase or non-trivial scope, invoke the `advisor` skill (`skills/advisor/`) with: the user's request, key constraints discovered, the proposed phase breakdown, anything you're uncertain about. Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This is the docs' "before substantive work" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)).
 3. `ExitPlanMode` – present the plan for user approval
-4. After approval, copy to `plans/[YYYY-MM-DD]-[descriptive-name].md`
+4. After approval, copy to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[descriptive-name].md`
 5. If a git repo exists and the current branch is `main` or `master`, create a feature branch: `git checkout -b feat/[plan-name-slug]`
 6. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
 7. **For each phase in dependency order:**
@@ -306,7 +307,7 @@ When implementation is complete, move the plan from `plans/` to `plans/archive/`
    i. If the user has feedback, address it (may take multiple rounds of feedback)
    j. Only proceed to the next phase after explicit user approval
    k. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer – Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
-8. After all phases complete, move the plan to `plans/archive/`
+8. After all phases complete, move the plan to `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`
 9. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 
 ### Implementation rules
@@ -372,9 +373,9 @@ Write (creating a new file) is NEVER Trivial — new files always warrant full g
 
 The hook still enforces the per-session gates regardless of tier:
 
-- `prototype/prototype.html` must be Read if it exists.
-- `design/exploration/references/references.md` (or equivalent) must exist on disk.
-- `.design-system/system.md` or `design/dev/design-system.md` must be Read if either exists.
+- `.design-engineer-plugin/prototype/prototype.html` must be Read if it exists.
+- `.design-engineer-plugin/design/exploration/references/references.md` (or equivalent) must exist on disk.
+- `.design-system/system.md` or `.design-engineer-plugin/design/dev/design-system.md` must be Read if either exists.
 
 These are about whether the user is in a UI-implementation context at all, not about depth — so they fire once per session regardless of edit size.
 
@@ -426,12 +427,12 @@ All code-producing steps follow Test-Driven Development using Playwright CLI. A 
 ### Test Storage
 
 - Active test scripts: `tests/*.sh` (executable shell scripts using Playwright CLI)
-- Archived tests: `tests/archive/` (moved after feature completion, like `plans/archive/`)
+- Archived tests: `tests/archive/` (moved after feature completion, like `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`)
 
 ### When TDD Applies
 
 - After plan approval, before backend-implementer and frontend-implementer
-- The hook only activates during implementation (when `plans/` has active plan files)
+- The hook only activates during implementation (when `.design-engineer-plugin/.design-engineer-plugin/plans/` has active plan files)
 - Note: TDD does NOT apply during prototyping. Prototypes are throwaway visual artifacts.
 
 ### Testing Anti-Patterns
@@ -538,28 +539,31 @@ The signal that allows the next assistant action is the next user message — no
 
 ## Image handling
 
-Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `design/exploration/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
+Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `.design-engineer-plugin/design/exploration/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
 
 ## File hygiene (durability tiers)
 
-Every file the plugin creates falls into one of three durability tiers. The tier determines where the file goes and whether it gets committed.
+Everything the plugin produces lives under `.design-engineer-plugin/` (one umbrella, clear mental model). The project root holds only the actual product codebase. Every plugin-produced file falls into one of five tiers; the tier determines where the file lives and whether it ships in git.
 
 | Tier | Where it lives | Goes in git? | Examples |
 |---|---|---|---|
-| **Durable deliverable** | `design/<canonical-subdir>/` (foundation, research, planning, craft, psych, reviews, dev, features), `prototype/`, `plans/`, `tests/`, project source code | Yes — these ARE the work | `feature-spec.md`, `references.md`, captured reference images, `prototype.html`, plan files, test scripts, the actual feature code |
-| **Plugin state** | `.design-engineer-plugin/` (config, deps graph, memory) | Mostly yes (config + memory). The `.active-workflow` marker is per-session and git-ignored. | `config.yaml`, `dependencies.yaml`, `memory/project-map.md`, `memory/debug-solutions.md` |
-| **Disposable working artifact** | `design/.scratch/<purpose>/<YYYY-MM-DD-HHMMSS>/` | No — git-ignored by `init-project-structure.sh` | Playwright debug captures, intermediate analysis dumps, exploratory comparisons, AI-generated drafts you'll discard, "let me check this URL" outputs |
+| **Durable deliverable** | `.design-engineer-plugin/design/<subdir>/` (foundation, research, planning, exploration, psychology, reviews, dev, features), `.design-engineer-plugin/prototype/`, `.design-engineer-plugin/plans/`, `tests/` (project source code stays at the project root) | Yes — these ARE the work | `problem-statement.md`, `references.md`, captured reference images, `prototype.html`, plan files, test scripts |
+| **Plugin runtime state** | `.design-engineer-plugin/{config.yaml, dependencies.yaml}` and `.design-engineer-plugin/memory/` | Yes | config, dependency graph, project-map.md, debug-solutions.md |
+| **Disposable working artifact** | `.design-engineer-plugin/temporary/<scratch\|playwright\|intermediate>/...` | No — gitignored | Playwright debug captures, intermediate analysis dumps, exploratory drafts, "let me check this URL" outputs |
+| **Per-session marker** | `.design-engineer-plugin/.active-workflow` | No — gitignored | per-turn workflow marker for the process-recall hook |
+| **Agent memory (Anthropic-managed)** | `.claude/agent-memory/design-engineer-compound-documenter/` | Yes | pipeline-state.md, key-decisions.md, stale-dependents.md (auto-managed by `memory: project` mechanism) |
 
 **Rules for any skill, agent, or hook that writes a file:**
 
-- Durable deliverables go to their canonical `design/<subdir>/` path. Each skill's SKILL.md names the path explicitly.
-- Anything throwaway goes to `design/.scratch/<skill-or-purpose>/<YYYY-MM-DD-HHMMSS>/`. Never write disposable artifacts directly to the project root, directly under `design/`, or into a deliverable subdir.
-- The `init-project-structure.sh` script creates `design/.scratch/` and adds it (plus a few well-known root pollution patterns) to `.gitignore` automatically. The block is fenced with `# === BEGIN design-engineer-plugin ===` and `# === END design-engineer-plugin ===` so the script can re-run idempotently.
-- If you find yourself writing a file outside both the canonical `design/<subdir>/` and `design/.scratch/`, that's a bug — pick a tier and a path.
+- Durable deliverables go to their canonical path under `.design-engineer-plugin/design/<subdir>/` (or `prototype/`, `plans/`). Every skill's SKILL.md names the exact path. The path-validation hook (`de-deliverable-path-hook.js`) denies non-canonical subdirs and filenames at write time.
+- Anything throwaway goes to `.design-engineer-plugin/temporary/<scratch|playwright|intermediate>/`. Pick the subdir that matches the artifact's purpose (Playwright captures → `playwright/`, design-pipeline drafts → `intermediate/`, anything else → `scratch/`). Never write disposable artifacts to the project root, to a deliverable subdir, or anywhere else.
+- The `init-project-structure.sh` script creates the umbrella + the `temporary/` subdirs and adds them to `.gitignore` automatically. The block is fenced with `# === BEGIN design-engineer-plugin ===` and `# === END design-engineer-plugin ===` so the script can re-run idempotently and replace legacy v5.4.x blocks.
+- `.design-engineer-plugin/temporary/` is **auto-purged at every phase boundary** by `meta-document` Step 7 (which runs whenever `/product:document` fires). The user can also run `/product:tidy` mid-session for the same effect. Don't write things to `temporary/` expecting them to persist across phases.
+- If you need a file outside both the canonical paths and `temporary/`, that's a bug — pick a tier and a path.
 
-**Why this matters:** without the tier discipline, a single feature implementation can leave a working tree dominated by debug artifacts (Playwright captures, intermediate analysis dumps, exploratory outputs) that obscure the actual deliverables. The user loses the ability to tell which files are committable vs which are throwaway, and the temptation to "commit everything and move on" pollutes the repository permanently. The tiers + `.gitignore` block + scratch directory let the user run `git add -A` without thinking and only ship what should ship.
+**Why this matters:** without the tier discipline, a single feature implementation can leave a working tree dominated by debug artifacts that obscure the actual deliverables. The user loses the ability to tell which files are committable vs. which are throwaway, and the temptation to "commit everything and move on" pollutes the repository permanently. The tiers + `.gitignore` block + auto-purge let the user run `git add -A` without thinking and only ship what should ship.
 
-**Stack-agnostic boundary:** the plugin's `.gitignore` block (curated by `init-project-structure.sh`) only ignores paths the plugin itself guarantees to write — `design/.scratch/` and `.design-engineer-plugin/.active-workflow`. Framework-specific outputs (test runner reports, build caches, native build artifacts, language ecosystem caches) are the user's responsibility to add to their own `.gitignore` — outside the plugin's fenced block — since they vary by stack. The plugin doesn't presume the user uses Playwright, npm, Next.js, Xcode, Gradle, or any specific tool.
+**Stack-agnostic boundary:** the plugin's `.gitignore` block only ignores paths the plugin itself guarantees to write — `.design-engineer-plugin/temporary/` and `.design-engineer-plugin/.active-workflow`. Framework-specific outputs (test runner reports, build caches, native build artifacts, language ecosystem caches) are the user's responsibility to add to their own `.gitignore` outside the plugin's fenced block — since they vary by stack. The plugin doesn't presume Playwright, npm, Next.js, Xcode, Gradle, or any specific tool.
 
 ## Playwright filesystem hygiene
 
@@ -567,14 +571,14 @@ Playwright captures (screenshots, snapshots, traces) MUST land in one of the can
 
 | Capture purpose | Canonical path | Lifetime |
 |---|---|---|
-| Throwaway / debug (visual verification, "let me check this URL", exploratory analysis, design comparisons) | `design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png` | Disposable. The `.scratch/` directory is git-ignored. Clean up at any time without losing work. |
-| Persistent audit captures (`/product:review audit` per-page screenshots) | `design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png` | Committed alongside the audit deliverable. |
-| Moodboard reference captures (`ui-references-moodboard` Step 5b) | `design/exploration/references/captures/<reference-slug>/<NN>-<section>.png` | Committed alongside the references deliverable. |
+| Throwaway / debug (visual verification, "let me check this URL", exploratory analysis, design comparisons) | `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png` | Disposable. The `.scratch/` directory is git-ignored. Clean up at any time without losing work. |
+| Persistent audit captures (`/product:review audit` per-page screenshots) | `.design-engineer-plugin/design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png` | Committed alongside the audit deliverable. |
+| Moodboard reference captures (`ui-references-moodboard` Step 5b) | `.design-engineer-plugin/design/exploration/references/captures/<reference-slug>/<NN>-<section>.png` | Committed alongside the references deliverable. |
 | Playwright test fixtures / visual regression baselines | `tests/<test-name>/<snapshot>.png` | Committed alongside the test scripts. |
 
 Always `mkdir -p` the parent directory before the screenshot call. Forbidden: `filename: "screenshot.png"`, `filename: "page.png"`, any unprefixed filename, any absolute path, any path containing `..`. The hook denies all four.
 
-The default `<YYYY-MM-DD-HHMMSS>` timestamp pattern for scratch captures keeps debug output organized by session — easy to scan, easy to delete a day's worth in one `rm -rf design/.scratch/playwright/2026-05-03-*`. The hook does not enforce the timestamp format inside `design/.scratch/playwright/` (that's user discretion); it only enforces that the prefix matches.
+The default `<YYYY-MM-DD-HHMMSS>` timestamp pattern for scratch captures keeps debug output organized by session — easy to scan, easy to delete a day's worth in one `rm -rf .design-engineer-plugin/temporary/playwright/2026-05-03-*`. The hook does not enforce the timestamp format inside `.design-engineer-plugin/temporary/playwright/` (that's user discretion); it only enforces that the prefix matches.
 
 ## Project state injection
 
@@ -643,7 +647,7 @@ Read the mode from `.design-engineer-plugin/config.yaml` at the start of every c
 - In Autopilot: agents run and their complete output is presented as a structured summary.
 
 **Plan copy rule (CRITICAL):**
-- After ExitPlanMode approval, IMMEDIATELY copy the plan to `plans/[YYYY-MM-DD]-[name].md`. Without this step: TDD hooks cannot activate (they check `plans/` for active plans), fidelity hooks cannot check scope drift, and git branch matching cannot work. If the plan only exists in `~/.claude/plans/`, none of the safety mechanisms activate. Do not write any code until the plan is in `plans/`.
+- After ExitPlanMode approval, IMMEDIATELY copy the plan to `plans/[YYYY-MM-DD]-[name].md`. Without this step: TDD hooks cannot activate (they check `.design-engineer-plugin/.design-engineer-plugin/plans/` for active plans), fidelity hooks cannot check scope drift, and git branch matching cannot work. If the plan only exists in `~/.claude/.design-engineer-plugin/plans/`, none of the safety mechanisms activate. Do not write any code until the plan is in `.design-engineer-plugin/.design-engineer-plugin/plans/`.
 
 **Implementation architecture rule:**
 - Implementation must follow the project's existing component architecture. If the project uses atomic design, create separate component files in the appropriate directories (atoms/, molecules/, organisms/, pages/). Never create a monolithic file containing multiple components or views. Read existing components before writing new ones to match patterns, naming, and design token usage.
@@ -675,7 +679,7 @@ Don'ts:
 - Do NOT proactively suggest compacting based on perceived session length. You can't measure context reliably; the suggestion will be wrong-timed and annoying.
 - Do NOT output the template with placeholders intact (e.g., `[project]`, `<phase name>`).
 - Do NOT include conversational filler ("This session has covered a lot of ground...") before the compact message — the user asked for the compact message, not a preamble.
-- Do NOT generate a compact message before reading `.design-engineer-plugin/config.yaml` and the compound-documenter memory at `.claude/agent-memory/compound-documenter/` for the actual session state. Generic compact messages are useless — the failure mode is producing one without grounding it in current files.
+- Do NOT generate a compact message before reading `.design-engineer-plugin/config.yaml` and the compound-documenter memory at `.claude/agent-memory/design-engineer-compound-documenter/` for the actual session state. Generic compact messages are useless — the failure mode is producing one without grounding it in current files.
 
 ## Memory Management
 
@@ -686,7 +690,7 @@ The plugin uses two memory layers:
 
 **Defensive read pattern** (belt and suspenders): before calling Read on any plugin memory file, check existence first. Use `Bash test -f .design-engineer-plugin/memory/project-map.md` or `Glob` to verify the file is there. If absent, skip silently – fresh project, nothing to read. Never call Read on `~/.claude/projects/.../memory/MEMORY.md`.
 
-**Note on enforcement**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` is the structurally enforced layer for pipeline state – see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
+**Note on enforcement**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally forces the write. Treat the rules below as guidance, not contracts. If you skip a memory update, the next session may lose that context. The compound-documenter agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` is the structurally enforced layer for pipeline state – see the agent's frontmatter (`memory: project`) for that documented Anthropic mechanism.
 
 ### Project Map (`.design-engineer-plugin/memory/project-map.md`)
 

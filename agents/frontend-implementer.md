@@ -26,7 +26,7 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 2. Audit existing design system files to understand available tokens, aliases, and components
 3. Audit existing components directory to catalog all reusable UI elements
 4. Audit existing views/screens to understand established patterns
-5. Review the approved implementation plan from `plans/`
+5. Review the approved implementation plan from `.design-engineer-plugin/.design-engineer-plugin/plans/`
 6. **Read the design references and grounding files** (see "Design grounding pre-flight" below). The PreToolUse hook hard-blocks Write/Edit on UI files until these are Read.
 
 ### Optional pre-reads (read if present, skip silently if absent)
@@ -34,7 +34,7 @@ All UI text uses sentence case. No title case in headings, buttons, labels, tabs
 7. **If Figma plugin is connected, get design data via `get_design_context`** – never use screenshots alone. This returns structured code, metadata, and a screenshot together. If Figma is not connected, ask the user to share specs (screenshots + structured info on interactions, states, animations) before implementing.
 8. **Ask clarifying questions** via AskUserQuestion about anything the static designs don't show – interactions, animations, state changes, component reuse, responsive behavior, edge cases. Static mockups are always ambiguous about these things; do not guess.
 9. **Read the component gallery before adding new components.** If a gallery file exists for the project (path in `.design-engineer-plugin/config.yaml` under `gallery.path`, or scaffolded by `dev-component-gallery` on first run), Read it and review existing entries. This is the duplicate-detection step – if the component you're about to create looks visually identical to an existing one, stop and propose extending the existing component instead of creating a new variant.
-10. **Read the prototype** at `prototype/prototype.html` if it exists – your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation. **Fallback when prototype absent**: if no prototype.html exists (e.g., the user is in the v4.7.0 feature-spec branch which bypasses prototyping), proceed using the design references and gallery only. Do not block on the missing prototype.
+10. **Read the prototype** at `.design-engineer-plugin/prototype/prototype.html` if it exists – your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation. **Fallback when prototype absent**: if no prototype.html exists (e.g., the user is in the v4.7.0 feature-spec branch which bypasses prototyping), proceed using the design references and gallery only. Do not block on the missing prototype.
 
 ## Design grounding Pre-Flight (BLOCKING)
 
@@ -43,8 +43,8 @@ Before writing any UI code, you MUST output the Design Grounding block below. Th
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `design/exploration/references/references.md` exists in the project (or run `ui-references-moodboard` first)
-5. Read `prototype/prototype.html` if it exists – your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+4. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists in the project (or run `ui-references-moodboard` first)
+5. Read `.design-engineer-plugin/prototype/prototype.html` if it exists – your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
 
 This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing.
 
@@ -148,7 +148,7 @@ If you cannot fill all 5 with concrete components (not "the overall feel"), the 
 - **Use existing icons**: Check the project's asset catalog before requesting new icons
 - **Follow Figma exactly**: No approximations or creative interpretations; pixel-perfect implementation is required
 - **Semantic naming**: Follow the established Design Tokens to Semantic Aliases pattern throughout
-- **Prototype as visual baseline**: If `prototype/prototype.html` exists in the project, you MUST Read it first and treat it as the visual baseline. Your implementation must match its layout, spacing, typography, and color choices. Do not creatively deviate. The prototype was approved by the user during the prototyping phase; the dev phase implements it, not reinvents it. The `de-design-grounding-hook` enforces this by denying UI Writes if the prototype exists but was not Read this session.
+- **Prototype as visual baseline**: If `.design-engineer-plugin/prototype/prototype.html` exists in the project, you MUST Read it first and treat it as the visual baseline. Your implementation must match its layout, spacing, typography, and color choices. Do not creatively deviate. The prototype was approved by the user during the prototyping phase; the dev phase implements it, not reinvents it. The `de-design-grounding-hook` enforces this by denying UI Writes if the prototype exists but was not Read this session.
 
 ## Success criteria
 

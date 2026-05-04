@@ -255,9 +255,9 @@ multiSelect: false  # User must choose one output format
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.
 
-Before writing the assessment, ensure the parent directory exists: run `mkdir -p design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the assessment, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the assessment to `design/reviews/product-assessment.md`.
+Save the assessment to `.design-engineer-plugin/design/reviews/product-assessment.md`.
 
 ## Output Format
 

@@ -26,7 +26,7 @@ When you finish an activity (e.g., defining a problem statement, completing a bi
 
 1. Complete one activity per conversation
 2. Deliverables are saved as files in the project directory (Claude Code can write files directly)
-3. When the activity is done, update the status file (`.claude/agent-memory/compound-documenter/pipeline-state.md`) with what was completed
+3. When the activity is done, update the status file (`.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md`) with what was completed
 4. Start a fresh conversation for the next task
 5. AI reads project files and status at the start of the new conversation
 
@@ -142,7 +142,7 @@ The solution: keep a status file for AI to read at the start of every task.
 
 ### Setting up the status file
 
-Create a markdown file in the root of your project and call it `.claude/agent-memory/compound-documenter/pipeline-state.md`. The name is not critical – what matters is that your AI tool knows where to find it and when to update it.
+Create a markdown file in the root of your project and call it `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md`. The name is not critical – what matters is that your AI tool knows where to find it and when to update it.
 
 **For Claude Code:** Explain the status file as part of your workflow in the CLAUDE.md file. Tell the AI to read it at the start of every conversation and update it after every significant action.
 
@@ -214,7 +214,7 @@ Use smaller, dedicated files instead of one large configuration file. When all p
 ```
 project-root/
   CLAUDE.md                           # Global rules and workflow instructions (keep lean)
-  .claude/agent-memory/compound-documenter/pipeline-state.md                           # Project status (updated after every phase)
+  .claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md                           # Project status (updated after every phase)
   project-docs/
     deliverables/                     # Final versions of design deliverables
       problem-statement.md
@@ -237,7 +237,7 @@ project-root/
 ### Why separation matters
 
 - **CLAUDE.md** should contain only workflow rules and tool configuration – not project status or deliverable content
-- **.claude/agent-memory/compound-documenter/pipeline-state.md** gives AI a quick snapshot of where the project stands without reading every deliverable
+- **.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md** gives AI a quick snapshot of where the project stands without reading every deliverable
 - **deliverables/** contains the actual work products at full fidelity
 - **solutions/** contains compound documentation about HOW the work was done
 - **context/** contains living documents that change throughout the project
@@ -249,7 +249,7 @@ Each file is small enough that AI can read it fully without context truncation. 
 When documents reference each other, use file paths:
 
 - In deliverables: "This builds on the Problem Statement (see `project-docs/deliverables/problem-statement.md`)"
-- In .claude/agent-memory/compound-documenter/pipeline-state.md: list file paths for every deliverable
+- In .claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md: list file paths for every deliverable
 - In compound entries: reference related deliverables in the `related_deliverables` YAML field
 
 This creates a navigable web of context that AI can traverse as needed, reading only the files relevant to the current task.
@@ -262,7 +262,7 @@ When returning to a project after a break (new session, different day, team hand
 
 ### Recovery sequence
 
-1. **Read .claude/agent-memory/compound-documenter/pipeline-state.md** – understand what phase the project is in, what was last completed, what is next
+1. **Read .claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md** – understand what phase the project is in, what was last completed, what is next
 2. **Read the latest compound entry** – understand the most recent work in detail
 3. **Read relevant deliverables** – only the deliverables needed for the current task
 4. **Check open questions** – see if any blockers have been resolved
@@ -272,7 +272,7 @@ When returning to a project after a break (new session, different day, team hand
 
 If compaction has already occurred (you notice AI has forgotten details):
 
-1. Ask AI to read .claude/agent-memory/compound-documenter/pipeline-state.md
+1. Ask AI to read .claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md
 2. Ask AI to read the specific deliverable it seems to have forgotten
 3. Restate any constraints or decisions that were lost
 4. Continue from where you left off
@@ -281,7 +281,7 @@ If compaction has already occurred (you notice AI has forgotten details):
 
 When another team member or a different AI tool picks up the project:
 
-1. Ensure .claude/agent-memory/compound-documenter/pipeline-state.md is fully up to date
+1. Ensure .claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md is fully up to date
 2. Ensure all deliverables are saved as files (not just in conversation history)
 3. Ensure the latest compound entry documents current state and next steps
 4. The new session reads these files and has full project context without needing the original conversation

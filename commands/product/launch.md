@@ -21,7 +21,7 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
    - **`NO_CONFIG`** → user is genuinely new in this directory. Follow the **Onboarding sequence** below in this file. Do not skip any step.
    - **Config exists with `project_type: new` AND a `resume:` block** → returning user with active pipeline state. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
    - **Config exists with `project_type: new` but no `resume:` block** → returning user, no active pipeline. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
-   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (mode, last goal, any in-progress feature folder under `design/features/`), then ask via AskUserQuestion (with spacer):
+   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (mode, last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then ask via AskUserQuestion (with spacer):
      - question: "Welcome back. What would you like to do?"
      - header: "Goal"
      - options match the Step 2 Question 1 set below (Review my project / Implement from Figma / Design a new feature / Prepare project for AI coding).

@@ -27,7 +27,7 @@ const UI_EXTENSIONS = new Set([
 // Paths always exempt (plugin internals, tests, plans, dependencies)
 const EXEMPT_PATHS = [
   '/tests/', '/test/', '/spec/', '/__tests__/',
-  '/plans/', '/docs/', '/node_modules/', '/.git/',
+  '/.design-engineer-plugin/plans/', '/docs/', '/node_modules/', '/.git/',
   '/agents/', '/skills/', '/hooks/', '/commands/',
   '/.claude/', '/.design-system/',
   '/prototype/'  // editing the prototype itself is allowed
@@ -41,16 +41,17 @@ const REQUIRED_READ_BASENAMES = [
   'design-intent-guide.md'     // ui-references-moodboard/references/design-intent-guide.md
 ];
 
-// Possible references.md locations (the project may have either layout)
+// Possible references.md locations (canonical post-v5.5.0 path under the
+// .design-engineer-plugin/ umbrella; we keep two candidates because
+// ui-references-moodboard sometimes writes under references/captures/ and
+// sometimes flat).
 const REFERENCES_MD_CANDIDATES = [
-  'design/exploration/references/references.md',
-  'design/exploration/references.md',
-  'design/references/references.md',
-  'design/references.md'
+  '.design-engineer-plugin/design/exploration/references/references.md',
+  '.design-engineer-plugin/design/exploration/references.md'
 ];
 
 // Design-system reference file locations. Both are written by the
-// `ui-design-system` skill (Step 5: design/dev/design-system.md;
+// `ui-design-system` skill (Step 5: .design-engineer-plugin/design/dev/design-system.md;
 // Step 6: .design-system/system.md). When either exists, the project
 // has its own documented design system and that file becomes a
 // required Read alongside the three plugin-internal docs. Stack-
@@ -59,13 +60,13 @@ const REFERENCES_MD_CANDIDATES = [
 // user put in their design-system.md is the source of truth.
 const DESIGN_SYSTEM_CANDIDATES = [
   '.design-system/system.md',
-  'design/dev/design-system.md'
+  '.design-engineer-plugin/design/dev/design-system.md'
 ];
 
 // prototype.html lives at project root in prototype/. The init script
 // (init-project-structure.sh) creates it there as a sibling of design/.
 const PROTOTYPE_HTML_CANDIDATES = [
-  'prototype/prototype.html'
+  '.design-engineer-plugin/prototype/prototype.html'
 ];
 
 // Regex patterns that match a single CSS / style / Tailwind property
@@ -280,7 +281,7 @@ function main() {
       // Skip plugin internals and exempt paths
       if (isExemptPath(filePath)) return process.exit(0);
 
-      // Only enforce during active implementation (plan exists in plans/)
+      // Only enforce during active implementation (plan exists in .design-engineer-plugin/plans/)
       if (!hasActivePlan()) {
         appendLog('SKIP', 'No active plan – allowing: ' + filePath);
         return process.exit(0);
@@ -314,7 +315,7 @@ function main() {
           'Before writing UI, establish design intent: who is this user (a specific person, not "users"), ' +
           'what verb must they perform (the actual action), how should it feel ' +
           '(warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app – ' +
-          'NEVER "clean and modern"). Save this to design/exploration/references/references.md ' +
+          'NEVER "clean and modern"). Save this to .design-engineer-plugin/design/exploration/references/references.md ' +
           'or run the ui-references-moodboard skill first.'
         );
         return process.exit(0);

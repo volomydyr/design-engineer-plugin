@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Design-Engineer TDD Hook (PreToolUse)
 // Enforces test-first development: blocks source code writes when no test
-// scripts exist in tests/ during active implementation (plan exists in plans/).
+// scripts exist in tests/ during active implementation (plan exists in .design-engineer-plugin/plans/).
 // Fail-open: any error results in allowing the command.
 
 'use strict';
@@ -29,7 +29,11 @@ const SOURCE_EXTENSIONS = new Set([
 // Directories always exempt from TDD enforcement
 const EXEMPT_DIRS = [
   '/tests/', '/test/', '/spec/', '/__tests__/',
-  '/plans/', '/prototype/', '/docs/', '/.design-system/',
+  '/.design-engineer-plugin/plans/',
+  '/.design-engineer-plugin/prototype/',
+  '/.design-engineer-plugin/temporary/',
+  '/.design-engineer-plugin/design/',
+  '/docs/', '/.design-system/',
   '/.claude/', '/node_modules/', '/.git/',
   '/agents/', '/skills/', '/hooks/', '/commands/'
 ];
@@ -45,7 +49,7 @@ function appendLog(level, message) {
 
 function hasActivePlan() {
   try {
-    const plansDir = path.join(process.cwd(), 'plans');
+    const plansDir = path.join(process.cwd(), '.design-engineer-plugin', 'plans');
     if (!fs.existsSync(plansDir)) return false;
     const files = fs.readdirSync(plansDir);
     return files.some(f => f.endsWith('.md') && !f.startsWith('.'));

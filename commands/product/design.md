@@ -43,9 +43,9 @@ Before drafting any spec or running any skill, ask the user how polished the spe
 - header: "Depth"
 - options:
   - label: "Minimal feature spec (Recommended for established products)"
-    description: "1-page spec — problem in your project's voice, affected pages, key interactions, success criteria. Saves to design/features/<slug>/feature-spec.md. Ship-focused. No new folders, no full pipeline."
+    description: "1-page spec — problem in your project's voice, affected pages, key interactions, success criteria. Saves to .design-engineer-plugin/design/features/<slug>/feature-spec.md. Ship-focused. No new folders, no full pipeline."
   - label: "Full feature flow"
-    description: "Walk through MVP requirements + information architecture before implementation. Creates design/features/<slug>/ with multiple deliverables. Slower; useful when the feature is ambiguous or affects core navigation."
+    description: "Walk through MVP requirements + information architecture before implementation. Creates .design-engineer-plugin/design/features/<slug>/ with multiple deliverables. Slower; useful when the feature is ambiguous or affects core navigation."
 - multiSelect: false
 
 On "Minimal feature spec" → jump to Step F1 (Minimal feature spec — argument branch below). The user effectively chose the same path as `/product:design feature-spec`.
@@ -64,7 +64,7 @@ Ask what the user wants to build. Use AskUserQuestion to clarify: what problem d
 
 #### Step 2.3: Create feature folder
 
-Create `design/features/[feature-slug]/` for all deliverables related to this feature. Example: `design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
+Create `.design-engineer-plugin/design/features/[feature-slug]/` for all deliverables related to this feature. Example: `.design-engineer-plugin/design/features/private-islands/`. This prevents naming collisions when multiple features are designed over time.
 
 #### Step 2.4: Plan the feature
 
@@ -279,11 +279,11 @@ Ask via natural-language prompt or AskUserQuestion: "Describe the feature – wh
 
 Read whatever brand voice / design-system context is available:
 
-1. If `design/foundation/storybrand.md` exists, read it for the brand voice.
+1. If `.design-engineer-plugin/design/foundation/storybrand.md` exists, read it for the brand voice.
 2. Else if `existing_brand_docs` points at a local file, read that.
 3. Else if `off_repo_references` names an external source, mention you can't read it but ask the user for 1–2 sentences capturing the brand voice in their own words.
 
-Generate the spec at `design/features/[feature-slug]/feature-spec.md` (the `design/features/[slug]/` convention is established in design.md's Feature flow section). The spec is short – under one page:
+Generate the spec at `.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md` (the `.design-engineer-plugin/design/features/[slug]/` convention is established in design.md's Feature flow section). The spec is short – under one page:
 
 ```markdown
 # [Feature name] – Spec
@@ -309,7 +309,7 @@ Generate the spec at `design/features/[feature-slug]/feature-spec.md` (the `desi
 
 ### F1.3.5: Advisor checkpoint (pre-handoff)
 
-After the spec is drafted at `design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: the drafted spec, brand voice context (from `design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This mirrors the per-phase advisor checkpoint in the main pipeline – the feature-spec is substantive enough that a pre-handoff strategic check pays off.
+After the spec is drafted at `.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: the drafted spec, brand voice context (from `.design-engineer-plugin/design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This mirrors the per-phase advisor checkpoint in the main pipeline – the feature-spec is substantive enough that a pre-handoff strategic check pays off.
 
 ### F1.4: Hand off
 

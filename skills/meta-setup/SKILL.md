@@ -154,7 +154,7 @@ prototype/               # HTML prototypes at project root, sibling of design/
 ├── dependencies.yaml    # Dependency graph tracking all deliverables
 └── memory/              # Plugin-local memory (project-map, debug-solutions)
 
-plans/
+.design-engineer-plugin/plans/
 └── archive/             # Completed implementation plans
 ```
 
@@ -195,7 +195,7 @@ The plugin uses two memory layers:
 - **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) – owned and managed by Claude Code itself. Auto-loads first 200 lines every session. The plugin does NOT touch this file. Do not call Read on it; do not write skeletons to it.
 - **Plugin-local memory** (`.design-engineer-plugin/memory/`) – owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded automatically by `init-project-structure.sh` (the script Step 4 already ran), so by the time you reach this point the skeletons exist. No further action required during setup.
 
-**Note**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
+**Note**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
 
 **For new projects (Path B, "New product idea"):**
 

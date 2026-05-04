@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Design-Engineer Requirement Fidelity Hook (PostToolUse)
 // Injects a fidelity reminder into Claude's context after source code writes
-// during active implementation (when a plan exists in plans/).
+// during active implementation (when a plan exists in .design-engineer-plugin/plans/).
 // Also checks phase ordering – warns if writing files from a later phase
 // before earlier phases are complete.
 // Skips: plan files (prompt hook handles), tests, config, docs, plugin files.
@@ -32,7 +32,11 @@ const SOURCE_EXTENSIONS = new Set([
 // Paths that are always exempt from fidelity checks
 const EXEMPT_PATHS = [
   '/tests/', '/test/', '/spec/', '/__tests__/',
-  '/plans/', '/docs/', '/node_modules/', '/.git/',
+  '/.design-engineer-plugin/plans/',
+  '/.design-engineer-plugin/prototype/',
+  '/.design-engineer-plugin/temporary/',
+  '/.design-engineer-plugin/design/',
+  '/docs/', '/node_modules/', '/.git/',
   '/agents/', '/skills/', '/hooks/', '/commands/',
   '/.claude/', '/.design-system/'
 ];
@@ -48,7 +52,7 @@ function appendLog(level, message) {
 
 function getActivePlanPath() {
   try {
-    const plansDir = path.join(process.cwd(), 'plans');
+    const plansDir = path.join(process.cwd(), '.design-engineer-plugin', 'plans');
     if (!fs.existsSync(plansDir)) return null;
     const files = fs.readdirSync(plansDir)
       .filter(f => f.endsWith('.md') && !f.startsWith('.'))
@@ -215,7 +219,7 @@ function main() {
 
       // Plan file drift review – trigger background agent for independent review
       const fileName = path.basename(filePath);
-      if (filePath.includes('/plans/') && filePath.endsWith('.md')) {
+      if (filePath.includes('/.design-engineer-plugin/plans/') && filePath.endsWith('.md')) {
         try {
           const content = fs.readFileSync(filePath, 'utf8');
           const driftPatterns = [

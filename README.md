@@ -1,4 +1,4 @@
-> **v5.4.0** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.5.0** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-8 commands, 57 skills, 10 agents, and 3 bundled integrations (Context7 for docs, Figma MCP for Dev Mode connection, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with user approval at every stage) or **autopilot** (autonomous with minimal input).
+9 commands, 57 skills, 10 agents, and 3 bundled integrations (Context7 for docs, Figma MCP for Dev Mode connection, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with user approval at every stage) or **autopilot** (autonomous with minimal input).
 
 You only need to remember one slash command – `/product:launch`. It figures out where you are (starting from scratch, picking up where you left off, or working on an existing product) and runs the right commands in the right order for you. The list below is just so you can see what's available.
 
@@ -51,6 +51,7 @@ You only need to remember one slash command – `/product:launch`. It figures ou
 | `/product:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
 | `/product:document` | Stores decisions, learnings, and project state for future |
 | `/product:stop` | Saves progress, even mid-activity – you can always pick up later |
+| `/product:tidy` | Wipes disposable working artifacts (Playwright captures, intermediate drafts, scratch files) before commit |
 | `/product:help` | Shows all available commands, current project status, and mode |
 
 <br>
@@ -122,7 +123,7 @@ Yes, but the plugin is token-heavy. The Pro plan's 5-hour rate limits will hit f
 ### Structure
 
 <details>
-<summary>6. What are the 8 commands and when do I use each one?</summary>
+<summary>6. What are the 9 commands and when do I use each one?</summary>
 <br>
 
 - **`/product:launch`** – always start here. It detects your situation and routes you.
@@ -130,20 +131,21 @@ Yes, but the plugin is token-heavy. The Pro plan's 5-hour rate limits will hit f
 - **`/product:prototype`** – when you want a clickable HTML prototype from an idea or existing designs.
 - **`/product:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
 - **`/product:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
-- **`/product:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
+- **`/product:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders. Also auto-purges disposable working artifacts at every phase boundary.
 - **`/product:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/product:launch`.
+- **`/product:tidy`** – wipes disposable working artifacts under `.design-engineer-plugin/temporary/` (Playwright captures, intermediate drafts, scratch files). Use before commit, or anytime the working tree feels noisy. `/product:document` does the same purge automatically at every phase boundary; this is the manual mid-session version.
 - **`/product:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
 You only need to remember `/product:launch`. It guides you to everything else.
 
-There's also one small utility command, `/product:mute-unmute-sound`, that toggles plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence. It's not part of the main 8 because you'll touch it once or twice across the lifetime of the plugin, not as part of any workflow.
+There's also one small utility command, `/product:mute-unmute-sound`, that toggles plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence. It's not part of the main 9 because you'll touch it once or twice across the lifetime of the plugin, not as part of any workflow.
 </details>
 
 <details>
 <summary>7. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 8 entry points you type (like `/product:design`).
+**Commands** are the 9 entry points you type (like `/product:design`).
 
 **Skills** are the 57 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 
@@ -181,7 +183,7 @@ The plugin installs several hooks that work without you doing anything:
 - **Requirement fidelity (code)** – after every code write, checks that the implementation matches your approved plan. Catches scope creep, unplanned files, phases implemented out of order, and new components that duplicate existing ones.
 - **Requirement fidelity (plans)** – reviews plan files for requirement drift. If a plan adds features, copy, or scope you didn't ask for, it gets flagged before implementation starts.
 - **Prompt injection defense** – watches for manipulation attempts hidden in external content (web pages, files, tool outputs).
-- **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
+- **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `.design-engineer-plugin/design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
 - **Process recall** – inside long deterministic workflows (`/product:dev` feature implementation and setup, `/product:design` new-product full pipeline and existing-project abbreviated feature flow, `/product:review` broad audits, `dev-prototyping` storyboard and interactive steps, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
 - **Background continuation block** – when a flow is waiting on your feedback (every prototype iteration, every implementation phase approval gate), Claude is forbidden from initiating background polling or self-rescheduling (`ScheduleWakeup`, `CronCreate`, `/loop`, background `Task` or `Bash`). Your typing window is not a polling target — your next message is the signal.
 - **Dependency tracking** – when you change a deliverable, flags which other documents might need updating.
@@ -258,7 +260,7 @@ The result: you stay in control of what gets built and when, the plugin's specia
 <summary>14. Does it remember things across sessions?</summary>
 <br>
 
-Yes, through Anthropic's documented agent-memory mechanism. The `compound-documenter` agent has `memory: project` set in its frontmatter, which gives it a project-local persistent directory at `.claude/agent-memory/compound-documenter/`. Inside that directory it maintains three files that survive across sessions:
+Yes, through Anthropic's documented agent-memory mechanism. The `compound-documenter` agent has `memory: project` set in its frontmatter, which gives it a project-local persistent directory at `.claude/agent-memory/design-engineer-compound-documenter/`. Inside that directory it maintains three files that survive across sessions:
 
 - **`pipeline-state.md`** – which phase you're in, what you've completed, what's next, mode, project type, recent deliverables
 - **`key-decisions.md`** – append-only log of cross-cutting choices (like "B2B focus" or "mobile-first") that affect multiple deliverables downstream
@@ -308,7 +310,7 @@ You don't invoke the advisor directly – it's wired into Plan Mode workflow, al
 Two layers, separated by concern:
 
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml`. This file is read-only documentation that maps every deliverable to its upstream and downstream relationships. When you revise your problem statement, you can read the graph to see that your target audience, assumptions, and competitor analysis all depend on it – and decide which to refresh.
-- **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent – it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
+- **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent – it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
 
 So when you change an upstream document, the workflow is: edit the document → run `/product:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
 

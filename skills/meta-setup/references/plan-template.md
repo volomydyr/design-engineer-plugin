@@ -76,7 +76,7 @@ Never write "leverage existing components" – be specific about every component
 Follow these rules after the plan is approved. They are not optional.
 
 ### Plan storage
-After approval, the plan is automatically copied to `plans/` by a hook. Verify the file exists in `plans/` before writing any code. If it's not there, copy it manually.
+After approval, the plan is automatically copied to `.design-engineer-plugin/.design-engineer-plugin/plans/` by a hook. Verify the file exists in `.design-engineer-plugin/.design-engineer-plugin/plans/` before writing any code. If it's not there, copy it manually.
 
 ### Feature branch
 If on main or master, create a feature branch before writing code: `git checkout -b feat/[plan-slug]`.

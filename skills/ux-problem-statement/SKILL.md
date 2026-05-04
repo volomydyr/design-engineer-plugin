@@ -148,9 +148,9 @@ Repeat until the user explicitly approves the problem statement.
 
 ## Step 6: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/foundation` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the final problem statement document to `design/foundation/problem-statement.md`.
+Save the final problem statement document to `.design-engineer-plugin/design/foundation/problem-statement.md`.
 
 The document should follow the complete structure from [problem-statement-template.md](./references/problem-statement-template.md), including:
 

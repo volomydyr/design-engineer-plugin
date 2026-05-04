@@ -256,7 +256,7 @@ multiSelect: false  # User answers prompt validation questions
 <step number="7" required="true" depends_on="6">
 ### Step 7: Produce the Behavior Map Document
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/exploration` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the document to `design/exploration/behavior-map.md`.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/exploration` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the document to `.design-engineer-plugin/design/exploration/behavior-map.md`.
 
 Compile the analysis into a structured Behavior Map document:
 
@@ -305,7 +305,7 @@ Compile the analysis into a structured Behavior Map document:
 
 **Final output:** Present the completed Behavior Map and ask the user to review it.
 
-After completing the behavior map, check if any new assumptions surfaced. If so, Read `design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from behavior mapping on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
+After completing the behavior map, check if any new assumptions surfaced. If so, Read `.design-engineer-plugin/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from behavior mapping on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 </step>
 
 </critical_sequence>

@@ -4,6 +4,66 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.0] – 2026-05-04
+
+Major structural consolidation and a sweep of model-improvisation bugs surfaced during user testing of v5.4.0. Everything the plugin produces (except actual product code and Anthropic-managed agent memory) now lives under `.design-engineer-plugin/`. Hard path enforcement at the hook layer prevents the model from improvising non-canonical folders or filenames. Three independent priming sources for hallucinated outputs were rooted out.
+
+Plugin install command unchanged (still `/plugin install design-engineer@design-engineer-plugin`).
+
+### Changed — folder structure
+
+- `design/` → `.design-engineer-plugin/design/`
+- `prototype/` → `.design-engineer-plugin/prototype/`
+- `plans/` → `.design-engineer-plugin/plans/`
+- `design/.scratch/` → `.design-engineer-plugin/temporary/scratch/`
+- New disposable buckets: `.design-engineer-plugin/temporary/{scratch, playwright, intermediate}/` (all gitignored)
+- `init-project-structure.sh` rewritten to scaffold the new umbrella, with idempotent `.gitignore` block management (auto-replaces legacy v5.4.x block)
+- `.gitignore` block tightened to two entries: `.design-engineer-plugin/temporary/` and `.design-engineer-plugin/.active-workflow`. Stack-agnostic — only paths the plugin guarantees to write.
+
+### Changed — `compound-documenter` agent memory path
+
+- 30+ doc references corrected from `.claude/agent-memory/compound-documenter/` to `.claude/agent-memory/design-engineer-compound-documenter/`. Reason: Claude Code's `memory: project` mechanism auto-namespaces the agent's directory by `<plugin>-<agent>`. The plugin source was telling the agent to manually write to the unprefixed path, creating two parallel directories (only one of which was Anthropic-managed). Now the source matches what Claude Code actually creates.
+
+### Added — path + filename validation hook
+
+- New PreToolUse hook `de-deliverable-path-hook.js` registered on Write/Edit/MultiEdit. Denies writes to non-canonical subdirs under `.design-engineer-plugin/design/` (e.g., `strategy/`) and non-canonical filenames (e.g., `business-case.md` instead of `business-plan.md`). Pass-through for `.design-engineer-plugin/temporary/` (escape hatch for working drafts) and for product code outside the umbrella. Allow-list sourced from `dependencies-default.yaml` plus a curated extension list. Flow-suffixed variants like `bias-audit-checkout.md` are allowed when `bias-audit.md` is canonical. macOS `/tmp` symlink handled correctly via realpath.
+
+### Added — `/product:tidy` command
+
+- Manual purge of `.design-engineer-plugin/temporary/` with a confirmation prompt. Use before commit, or anytime the working tree feels noisy.
+
+### Added — auto-purge at phase boundaries
+
+- `meta-document` skill (which fires at every phase boundary via `/product:document`) now runs Step 7: wipes `.design-engineer-plugin/temporary/` and recreates the empty subdirs. Surfaces a one-line confirmation. Working drafts in `temporary/` are unconditionally cleared at each phase — promote work to canonical paths before running `/product:document`.
+
+### Fixed — hallucinated `strategy/` folder
+
+- `skills/meta-document/references/compound-schema.yaml` `category_mapping` rewritten. The legacy block listed `"project-docs/solutions/strategy/"` as the destination for storybrand, business-plan, behavior-map, story-panels, psych-variation — directly contradicting every Phase 2 skill's actual save instruction. The category_mapping is what the model read as ground truth during meta-document, so it was creating `design/strategy/` and dumping deliverables there instead of routing them to `foundation/` and `exploration/`. Schema now uses the canonical taxonomy with `.design-engineer-plugin/design/<subdir>/` paths.
+
+### Fixed — hallucinated `brief.md`
+
+- `skills/dev-prototyping/SKILL.md` Step 0 announcement changed from "5) create a prototype brief" to "5) draft a prototype brief in chat (not a file – the brief lives in the conversation only)". Step 4 prepended with explicit non-file note: "**This step is chat-only — DO NOT write a `brief.md` file.**". The prototype brief was always meant to be presented in chat (Step 4 displays it for user approval), but the Step 0 verb "create" primed the model to write a file with that name.
+
+### Fixed — `competitor-analysis` skill ↔ dependency-graph mismatch
+
+- `skills/ux-competitor-analysis/SKILL.md` was instructing writes to `design/foundation/competitor-analysis.md` while the dependency graph listed `folder: research`. Skill now writes to `.design-engineer-plugin/design/research/competitor-analysis.md` (graph wins). Competitor analysis is research — gathering external evidence about adjacent products — so research/ is the correct semantic bucket.
+
+### Fixed — dependency graph stale folder names
+
+- `skills/meta-setup/assets/dependencies-default.yaml` had multiple entries with `folder: design` (legacy from before craft/ was introduced) and one with `folder: psych` (legacy from before v5.4.0 renamed to psychology). Remapped: story-panels, behavior-map, bias-audit, journey-map, ethics-review, design-references → `exploration`. psych-variation, master-audit → `psychology`. figma-workflow, figma-handoff → `dev`. The path-validation hook reads this file as its allow-list source.
+
+### Changed — hook EXEMPT_DIRS / ALLOWED_PREFIXES + active-plan paths
+
+- `de-tdd-hook.js`: `EXEMPT_DIRS` now includes `.design-engineer-plugin/{plans,prototype,temporary,design}/`. `hasActivePlan()` reads from `.design-engineer-plugin/plans/`.
+- `de-fidelity-hook.js`: `EXEMPT_PATHS` updated; `getActivePlanPath()` reads from `.design-engineer-plugin/plans/`.
+- `de-plan-copy-hook.js`: comment header restored (source `~/.claude/plans/`, destination `.design-engineer-plugin/plans/`); `projectPlansDir` now correctly `.design-engineer-plugin/plans/`.
+- `de-design-grounding-hook.js`: `REFERENCES_MD_CANDIDATES` stripped of legacy bare paths; only canonical umbrella paths remain.
+- `de-playwright-path-hook.js`: deny-message text mentions auto-purge; `ALLOWED_PREFIXES` already correct.
+
+### Migration
+
+For existing v5.4.x projects: `mv design .design-engineer-plugin/design && mv prototype .design-engineer-plugin/prototype && mv plans .design-engineer-plugin/plans`. Existing `compound-documenter` agent memory at `.claude/agent-memory/compound-documenter/` should be moved to the prefixed path: `mv .claude/agent-memory/compound-documenter .claude/agent-memory/design-engineer-compound-documenter`.
+
 ## [5.4.0] – 2026-05-04
 
 Three coordinated user-surface renames driven by a fresh end-to-end install of v5.3.3. Plugin install command stays unchanged (`/plugin install design-engineer@design-engineer-plugin`); only the slash-command surface and two `design/` subfolder names changed.
