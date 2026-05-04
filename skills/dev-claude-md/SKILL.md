@@ -28,6 +28,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) gather your project context – what documents, tech stack, and code you have, 2) define the source hierarchy for AI decision-making, 3) generate a customized CLAUDE.md file, 4) explain how to maintain it over time." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with what CLAUDE.md is and how it shapes AI behavior in their project. If yes, give a one-sentence refresher. If no, explain it in simple terms: it's a markdown file at the root of your project that Claude Code reads automatically – think of it as persistent instructions that shape how AI behaves throughout your entire codebase.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 

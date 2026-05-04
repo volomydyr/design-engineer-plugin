@@ -27,6 +27,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check which MCPs you already have installed, 2) recommend MCPs based on your workflow needs, 3) provide setup guidance for each one, 4) configure CLAUDE.md references so AI uses them consistently." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with what MCPs are and how they extend AI capabilities. If yes, give a one-sentence refresher. If no, explain it in simple terms: MCPs are integrations between AI and other applications – they let AI read Figma designs, fetch current documentation, run browser tests, and more, instead of being limited to just generating code.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 

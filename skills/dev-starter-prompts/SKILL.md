@@ -28,6 +28,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check which planning documents you have ready, 2) determine which AI coding tool you'll use, 3) generate 3–5 focused kick-start prompts customized to your project, 4) review and customize them with you." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with kick-start prompts and how they work. If yes, give a one-sentence refresher. If no, explain it in simple terms: these are the first messages you send to your AI coding tool to set up the project – high-level instructions that point to your context documents, not deep technical commands.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 

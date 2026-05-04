@@ -4,6 +4,19 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.4] – 2026-05-04
+
+Stops the model from short-circuiting "Conditional teaching" steps mid-pipeline. User reported: after running several skills successfully, the model started saying things like "I'll skip the explainer (you're a designer; you know competitor analysis)" instead of asking the question and giving the one-sentence refresher. The user wanted the refresher anyway — even on activities they know — and the model was deciding paternalistically on their behalf that it wasn't needed.
+
+### Changed
+
+- All 25 skills with the Step 0 "Conditional teaching" pattern (every `ux-*`, `ui-*`, `dev-*` skill that opens with a familiarity question) now have an inline blockquote rule: **ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Names the failure mode explicitly ("I'll skip the explainer (you're a designer)" is forbidden) so the model recognizes the pattern. Files patched: ux-story-panels, ux-bias-audit, ux-problem-statement, dev-github-workflow, ui-references-moodboard, dev-claude-md, ux-competitor-analysis, ux-motivation-audit, dev-status-tracking, ux-target-audience, dev-starter-prompts, ux-storybrand, ux-mvp-requirements, ux-behavior-mapping, ui-landing-page, ux-ethics-review, dev-mcp-setup, dev-agent-setup, ux-business-plan, ui-design-system, ux-full-review, dev-prototyping, ux-assumptions, ux-information-architecture, ux-journey-mapping.
+- New top-level **`Conditional teaching contract`** section in CLAUDE.md, codifying the rule as a hard contract: the user (not the model) decides what's redundant. The default is always ASK + REFRESHER. If the user wants no refreshers, they can mid-session ask to disable them — but the model never preempts that decision.
+
+### Why this matters
+
+Across long pipeline sessions, users are fatigued and context-switched. A one-sentence refresher costs almost nothing and primes them for the questions that follow. The model's instinct to "skip what they already know" is exactly the polite-sounding shortcut that degrades the experience over time. Hard rule beats soft norm.
+
 ## [5.5.3] – 2026-05-04
 
 Stops a recurring autopilot hallucination in which `ui-references-moodboard` got conflated with `ux-story-panels` and `ui-images`, producing a phantom `references-image-prompts.md` containing AI-generation prompts intended to "approximate" the design references. The references ARE the screenshots — generating AI approximations of them is strictly worse and defeats the entire point of reference gathering. Reported by user during autopilot testing on a project that pre-dated v5.4.0 (file landed at `design/craft/references-image-prompts.md`).

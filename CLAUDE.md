@@ -229,6 +229,18 @@ Commands use `product:` prefix to keep the namespace short, distinct, and free o
 - `/product:tidy` - Wipe disposable working artifacts under `.design-engineer-plugin/temporary/`
 - `/product:help` - Shows all available commands, project status, and mode
 
+## Conditional teaching contract
+
+Every skill that opens with a Step 0 / Step 1 "Conditional teaching" instruction (25 skills, listed in `skills/*/SKILL.md`) follows this contract:
+
+1. **ALWAYS ask** whether the user is familiar with the activity. Never assume from earlier conversation. Even if the user already introduced themselves as a designer / PM / engineer, even if they ran 5 prior skills successfully, you still ASK.
+2. **ALWAYS give the one-sentence refresher** when the user says yes. The refresher is REQUIRED — the model does not get to decide "this is redundant" on the user's behalf. Phrases like "I'll skip the explainer (you're a designer)", "you already know this", or "skipping the refresher since you've done this before" are forbidden — they're paternalistic shortcuts that strip a memory aid the user explicitly wants.
+3. **The user, not the model, decides what's redundant.** If the user genuinely doesn't want refreshers, they can tell you mid-session and you can ask "should I skip refreshers for the rest of this session?" — but the default is always to give them.
+
+**Why this is a hard rule**: across long pipeline sessions, the user is fatigued and context-switched. A one-sentence refresher costs almost nothing and primes the user for the questions that follow. Skipping it because "they already know" is exactly the kind of polite-sounding shortcut that degrades the experience over time. The pattern was added in v5.5.4 after a user reported the model started skipping refreshers mid-pipeline ("I'll skip the explainer — you're a designer; you know competitor analysis") even though they wanted the refresh.
+
+The rule applies regardless of mode (guided OR autopilot). Every Step 0 "Conditional teaching" instruction in skills includes a `> Required: ALWAYS ask...` blockquote that the model must obey.
+
 ## Living Documents
 
 Deliverables created by this plugin are documented in two layers:

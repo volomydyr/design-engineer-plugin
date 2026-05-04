@@ -44,6 +44,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) determine the scope and starting point, 2) understand the context of your product and user, 3) identify the 5–8 key moments in the journey, 4) compose the journey map, 5) review improvement tactics, 6) generate improvement ideas, 7) apply the 'In Real Life' test, 8) produce the final deliverable." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with journey mapping and why distilling experiences to 5–8 key moments matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present the journey map step by step – each moment individually, discuss, then next. Do not dump the entire journey map table at once.
 

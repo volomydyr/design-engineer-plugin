@@ -63,6 +63,8 @@ Warn about Reactance – users pushing back against perceived manipulation. If n
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you want to work on, 2) run the Identify analysis on your screen or flow, 3) run the Analyze step to evaluate how users construct meaning, 4) run the Design step to evaluate how users take action, 5) run the Document step to evaluate what experience users store, 6) present findings and recommendations." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with the bias audit process and System 1/System 2 thinking. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product. Use the "Core Concept" section above as a starting point, but make it conversational and product-specific.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present each lens (Identify, Analyze, Design, Document) one at a time. After each lens, discuss with the user, get their input, then move to the next. Do not dump the entire bias audit at once.
 

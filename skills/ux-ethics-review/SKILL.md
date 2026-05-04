@@ -36,6 +36,8 @@ Second-order effects matter: when you solve one problem, you can create another 
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you want to review, 2) run the three ethical tests (Regret Test, Manipulation Matrix, Black Mirror Test), 3) check the three Humane Design Principles, 4) evaluate second-order effects, 5) apply the 'In Real Life' test, 6) present findings and recommendations." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with ethical design review and the difference between ethical and humane design. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product. Use the "Core Concept" section above as a starting point, but make it conversational and product-specific.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 

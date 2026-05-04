@@ -28,6 +28,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess your project type, 2) explain the proven agent pipeline pattern, 3) read memory for project context, 4) set up the agent files customized to your project, 5) configure the pipeline in your CLAUDE.md, 6) explain how iteration works." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with the agent pipeline concept – sub-agents running in separate chats with separate token limits. If yes, give a one-sentence refresher. If no, explain it in simple terms: agents are specialized AI workers that handle heavy tasks (analyzing code, implementing features, auditing quality) in their own conversations, so your main conversation stays light and responsive.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 

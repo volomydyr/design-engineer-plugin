@@ -26,6 +26,8 @@ license: MIT
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand the context of the screen or flow you want to analyze, 2) teach the Motivation Framework concept, 3) identify key reaction points, 4) assign Motivation variations to each point, 5) calculate the running Motivation Level, 6) identify improvement opportunities, 7) produce the Motivation Analysis document." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with the Motivation Framework and Experience Value. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product. Use the "Purpose" section above as a starting point, but make it conversational and product-specific.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 

@@ -26,6 +26,8 @@ If not, present each question as a numbered list and wait for a reply before pro
 1. **Announce your execution plan**: "Here's what I'm going to do: 1) read your StoryBrand deliverable to extract the narrative, 2) choose a copy framework, 3) walk through each of the 9 landing page sections with you, 4) generate the page section by section, 5) assemble into a single HTML file, 6) iterate with you, 7) save the deliverable."
 
 2. **Conditional teaching**: Ask the user if they are familiar with landing page structure and conversion principles. If yes, brief refresher. If no, explain: a landing page is a single-purpose page designed to convert visitors into users. It follows a specific section order (hero → social proof → problem → solution → how it works → testimonials → pricing → FAQ → final CTA) because this order matches how people make decisions.
+   > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
+
 
 3. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss copy and layout with the user, get their input, then move to the next. Never dump the entire landing page at once.
 
