@@ -295,6 +295,11 @@ For each URL:
 
 3. **Wait for load + animation settle**: `mcp__playwright__browser_wait_for { time: 3 }` (3 seconds. If a more specific signal exists — e.g., a known visible word — also wait for `text: "<known word>"`).
 
+3a. **Bot-block check**: take a quick `mcp__playwright__browser_snapshot` and inspect the result. If the page is a Cloudflare challenge ("Just a moment…"), a captcha, "Verify you are human", an Access Denied page, or otherwise clearly NOT the requested reference UI, **stop and ask the user via AskUserQuestion**:
+   - question: `"Hit a bot-block on <URL>. Want to help me get past it?"`
+   - options: `"I'll open it in my browser and screenshot it for you"`, `"I'll turn off the blocker and you retry"`, `"Skip this reference"`
+   Apply the choice. Never silently fall back to a low-quality WebFetch read or skip the reference quietly — references are the whole point of this skill, and the user can almost always unblock the site in 10 seconds.
+
 4. **Scroll to top**: `mcp__playwright__browser_evaluate { function: "() => window.scrollTo(0, 0)" }`
 
 5. **Capture viewport-sized hero** (NOT fullPage): `mcp__playwright__browser_take_screenshot { fullPage: false, filename: ".design-engineer-plugin/design/exploration/references/captures/<reference-slug>/01-hero.png" }`. Ensure the parent dir exists first: `mkdir -p .design-engineer-plugin/design/exploration/references/captures/<reference-slug>`.

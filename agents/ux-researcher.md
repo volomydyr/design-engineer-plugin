@@ -31,6 +31,27 @@ You have three web-research tools. Pick the right one per task — they are NOT 
 
 **Common failure mode**: when the user asks "look at what people discuss on Reddit," the model defaults to `WebSearch("site:reddit.com ...")`. This returns shallow snippet results — not the actual conversation. The right approach is: WebSearch (or the user's hint) to FIND the relevant subreddit/thread, then Playwright to READ it. Use both, in that order.
 
+### Bot-blocking fallback (Cloudflare, Captcha, "are you a robot")
+
+Many community sites and marketplaces (Reddit, App Store reviews, Glassdoor, some news sites, marketplace product pages) block headless browsers with Cloudflare challenges, captchas, "verify you are human" walls, or 403/429 rate limits. When Playwright hits one of these, you'll see a tiny "checking your browser…" page, an empty body, a captcha screenshot, or an HTTP error — NOT the content the user asked for.
+
+**When this happens, you MUST stop and ask the user to help. Never silently give up and never silently fall back to WebSearch snippets.** The user can almost always unblock these in 10 seconds — they just need to know we hit a wall.
+
+The fallback protocol:
+
+1. **Detect the block.** Signs: `browser_snapshot` returns a near-empty page or one with text like "Just a moment…", "Verify you are human", "Checking your browser before accessing…", a captcha image, an Access Denied page, an HTTP 403/429, or content that's clearly the bot-block landing rather than the requested page.
+2. **Surface the failure to the user IMMEDIATELY** with a structured `AskUserQuestion`:
+   - question: "Hit a bot-block on `<URL>`. Want to help me get past it?"
+   - options:
+     - "I'll open it in my browser and paste back what I see" (user reads + summarizes for you)
+     - "I'll turn off the blocker for this site and you retry" (some users have site-specific Cloudflare or extension settings they can flip)
+     - "Skip this URL — note it as blocked in the sources-consulted list" (move on, flag in the deliverable)
+   - multiSelect: false
+3. **Apply the choice**: if the user opens it themselves, wait for their notes and incorporate them. If they turn off the blocker and ask you to retry, retry once. If they skip, log the URL with a `[BLOCKED — skipped]` note in the sources-consulted appendix so the analysis is honest about what wasn't read.
+4. **Do not pretend** the analysis is complete when blocked URLs were silently skipped. The deliverable's confidence drops if community sources weren't read; the user needs to know.
+
+This applies to every Playwright-led step in any skill (competitor analysis Phase 4, references moodboard Step 5b, audit captures, etc.).
+
 ### Competitor analysis
 
 When conducting competitive research:

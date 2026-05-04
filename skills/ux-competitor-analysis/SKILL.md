@@ -154,6 +154,23 @@ Cover these dimensions per competitor (deliverable structure from [competitor-an
 
 If Playwright is not connected (the user's setup is missing the bundled MCP), fall back to: WebFetch for any URL the user provides, ask the user to manually browse community threads and paste the relevant excerpts back. Never silently skip community research because Playwright is missing — say so explicitly so the user can fix the setup.
 
+### Bot-block fallback (Cloudflare, captcha, "are you a robot")
+
+Many sites we want to read (Reddit threads, App Store reviews, marketplace pages, some news/content sites) block headless browsers with Cloudflare challenges, captchas, or 403/429 rate limits. When Playwright hits one of these, the snapshot returns "Just a moment…", an empty body, a captcha image, or an Access Denied page — NOT the actual content.
+
+**You MUST stop and ask the user to help. Never silently skip a blocked URL and never silently fall back to WebSearch snippets to fake the read.** The user can almost always unblock the site in 10 seconds (open it in their own browser and paste back what they see, or flip a site-specific blocker setting).
+
+Protocol:
+1. **Detect the block.** Signs: empty snapshot, text like "Just a moment…" / "Verify you are human" / "Checking your browser…" / "Access Denied", a captcha image, HTTP 403 or 429, or content that is clearly the block landing rather than the requested page.
+2. **Surface immediately** via AskUserQuestion (with spacer):
+   - question: `"Hit a bot-block on <URL>. Want to help me get past it?"`
+   - options:
+     - `"I'll open it in my browser and paste back what I see"` — user reads + summarizes
+     - `"I'll turn off the blocker and you retry"` — user flips a setting; you retry once
+     - `"Skip this URL — note it as blocked"` — move on, flag in the sources-consulted list
+3. **Apply the choice.** If the user provides notes, fold them in. If they retry, retry once. If they skip, log `[BLOCKED — skipped]` next to that URL in the sources-consulted appendix so the deliverable is honest about coverage gaps.
+4. **Never pretend** the research is complete when blocked URLs were silently dropped. The deliverable's confidence is lower if community sources weren't read — the user needs to know what's covered and what isn't.
+
 **Important:** AI research alone is not enough. Always encourage the user to click through competitor sites and apps themselves, write down impressions, and share those notes. The combination of AI research and manual review produces the most reliable results.
 
 ---

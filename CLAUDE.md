@@ -678,6 +678,32 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 
 Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 
+### Bot-block fallback (Playwright fails to load the requested page)
+
+Many sites we need to read (Reddit threads, App Store reviews, marketplace product pages, some news/content/SaaS sites) block headless browsers with Cloudflare challenges, captchas, "verify you are human" walls, or 403/429 rate limits. When Playwright hits one of these, the snapshot returns near-empty content, a "Just a moment…" page, an Access Denied page, or a captcha image — NOT the requested content.
+
+**The model MUST stop and ask the user to help.** Never silently skip a blocked URL. Never silently fall back to WebSearch snippets to fake the read. Never quietly drop the URL and continue with whatever was reachable. The user can almost always unblock the site in ~10 seconds (open it in their own browser and paste back what they see, or flip a site-specific blocker / Cloudflare bypass setting), so the cost of asking is trivial and the cost of silent failure is a degraded analysis the user doesn't know is degraded.
+
+Detection signs (any one is enough to trigger the fallback):
+- `browser_snapshot` returns a near-empty page or a page with text like "Just a moment…", "Verify you are human", "Checking your browser before accessing…", "Access Denied", "Too Many Requests"
+- A captcha image is the dominant content
+- HTTP 403 or 429 from `browser_navigate`
+- The rendered content is clearly NOT the requested page (e.g., a generic error page or a login wall when the URL was supposed to be public)
+
+Required protocol:
+1. **Surface immediately** via `AskUserQuestion` (with the canonical 3-line spacer per output rule #6):
+   - question: `"Hit a bot-block on <URL>. Want to help me get past it?"`
+   - header: `"Bot-block"`
+   - options:
+     - `"I'll open it in my browser and paste back what I see"` — user reads + summarizes; you fold their notes in
+     - `"I'll turn off the blocker and you retry"` — user flips a site-specific Cloudflare / extension setting; you retry once
+     - `"Skip this URL — note it as blocked"` — log `[BLOCKED — skipped]` next to the URL in the deliverable's sources-consulted appendix; move on with reduced confidence
+   - multiSelect: false
+2. **Apply the choice.** If retry, retry exactly once — if it fails again, surface again with the same options minus the retry option.
+3. **Never pretend** the analysis is complete when blocked URLs were silently dropped. Mark them in the sources list.
+
+This rule applies to every Playwright-led step in any skill (competitor analysis Phase 4, references moodboard Step 5b, audit captures during /product:review, prototype QA, anything else). The agent file `agents/ux-researcher.md` and the per-skill SKILL.md files reference back to this contract.
+
 ### Guided-mode contract for research-heavy steps
 
 When a step does external research (competitor analysis, user interviews, references gathering, market scanning, anything that involves browsing or fetching URLs), guided mode imposes three additional rules on top of the general execution philosophy:

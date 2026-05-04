@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.7] – 2026-05-04
+
+Stops the model from silently giving up when Playwright hits a bot-block (Cloudflare challenge, captcha, "verify you are human", 403/429). The user reported that the model was treating these as "site not accessible" and skipping the URL — even though most users can unblock in ~10 seconds by opening the page in their own browser or flipping a site-specific setting.
+
+### Added
+
+- **`CLAUDE.md` "Bot-block fallback" rule** — new top-level subsection under the command-execution philosophy. Codifies the protocol: detect the block (lists 4 detection signs), surface immediately via AskUserQuestion with three options (user opens it themselves and pastes back, user flips blocker and asks for retry, user skips with a flag in the sources list), retry at most once. Forbids silent fallback to WebSearch snippets or silent skip. Applies to every Playwright-led step plugin-wide.
+- **`agents/ux-researcher.md`** — added a "Bot-blocking fallback" subsection at the end of the Tool routing block with the same protocol.
+- **`skills/ux-competitor-analysis/SKILL.md`** Step 4 — appended a "Bot-block fallback" subsection with concrete AskUserQuestion structure.
+- **`skills/ui-references-moodboard/SKILL.md`** Step 5b — inserted a Step 3a "Bot-block check" between navigate and capture: take a snapshot, inspect for block signs, ask the user before continuing.
+
+### Why this matters
+
+The bundled Playwright MCP fails on a non-trivial fraction of community/marketplace pages because they explicitly block headless browsers. The previous behavior — silently skip the URL and continue — produced analyses with hidden coverage gaps (model didn't know it didn't know). The user almost always has the means to unblock; we just need to ask.
+
 ## [5.5.6] – 2026-05-04
 
 Three coordinated fixes to research-heavy guided-mode steps. User reported that competitor analysis was acting like autopilot even when guided mode was selected: the model ran all phases of research silently, surfaced terse one-line "highlights" that needed the saved file to be understood, made changes (appended A12–A15 to assumptions.md) without asking, and didn't share any of the URLs it consulted so the user could verify or contribute their own observations.
