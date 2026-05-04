@@ -1,4 +1,4 @@
-> **v5.5.8** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.5.9** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -186,8 +186,58 @@ The plugin installs several hooks that work without you doing anything:
 - **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `.design-engineer-plugin/design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
 - **Process recall** – inside long deterministic workflows (`/product:dev` feature implementation and setup, `/product:design` new-product full pipeline and existing-project abbreviated feature flow, `/product:review` broad audits, `dev-prototyping` storyboard and interactive steps, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
 - **Background continuation block** – when a flow is waiting on your feedback (every prototype iteration, every implementation phase approval gate), Claude is forbidden from initiating background polling or self-rescheduling (`ScheduleWakeup`, `CronCreate`, `/loop`, background `Task` or `Bash`). Your typing window is not a polling target — your next message is the signal.
+- **Deliverable path validation** – every Write/Edit under `.design-engineer-plugin/design/<subdir>/`, `prototype/`, or `plans/` is checked against a canonical allow-list before it lands. Non-canonical subdirs (e.g., a hallucinated `strategy/` folder) and non-canonical filenames (e.g., `business-case.md` instead of the canonical `business-plan.md`) get denied with a structured message naming the right path. `.design-engineer-plugin/temporary/` is the unconditional escape hatch for working drafts; product code outside the umbrella is pass-through.
+- **Bot-block + auth-wall fallbacks** – when Playwright hits a Cloudflare challenge, captcha, "verify you are human" wall, or a signup/login gate, Claude stops and asks you for help via AskUserQuestion (you can paste back what you see, flip a blocker setting, provide test credentials, opt in to temp-email throwaway-account signup, or skip with a flag in the deliverable's sources-consulted list). Never silently falls back to shallow WebSearch snippets and never silently drops a blocked URL.
 - **Dependency tracking** – when you change a deliverable, flags which other documents might need updating.
 - **Session summary** – when you end a session, generates a summary of what changed and which dependent documents might need review.
+</details>
+
+<details>
+<summary>9.1. Where does everything the plugin creates get stored?</summary>
+<br>
+
+Everything the plugin produces lives under a single umbrella folder: `.design-engineer-plugin/`. The project root holds only your actual product code.
+
+```
+.design-engineer-plugin/
+├── design/
+│   ├── foundation/    problem statement, target audience, assumptions, storybrand, business plan
+│   ├── research/      competitor analysis, user interviews
+│   ├── planning/      MVP requirements, information architecture
+│   ├── exploration/   bias audit, behavior map, journey map, ethics review, story panels, references
+│   ├── psychology/    psych-* outputs
+│   ├── reviews/       aesthetic review, design-to-code QA, audits
+│   ├── dev/           CLAUDE.md draft, agent setup, MCP setup, status tracking
+│   └── features/      per-feature spec dirs
+├── prototype/         storyboard.html, prototype.html, landing-page.html
+├── plans/             implementation plans (active + archive)
+├── memory/            project-map.md, debug-solutions.md
+├── temporary/         disposable working files (gitignored, auto-purged at phase boundaries)
+├── config.yaml        plugin state
+└── dependencies.yaml  static dependency graph
+
+.claude/agent-memory/design-engineer-compound-documenter/
+                       cross-session pipeline state (Anthropic-managed via memory: project)
+```
+
+Two folders are gitignored:
+- `.design-engineer-plugin/temporary/` — Playwright debug captures, intermediate analysis dumps, exploratory drafts. Auto-purged at every phase boundary by `/product:document`. Manual purge: `/product:tidy`.
+- `.design-engineer-plugin/.active-workflow` — per-session marker for the process-recall hook.
+
+Everything else commits with the repo. If you upgraded from v5.4.x and have files at old paths (`design/`, `prototype/`, `plans/` at the project root), see the migration note in CHANGELOG v5.5.0 — it's a 3-line `mv` sequence.
+</details>
+
+<details>
+<summary>9.2. What if a competitor's site blocks the browser or requires sign-up?</summary>
+<br>
+
+Common during competitor analysis. Two related fallbacks, both opt-in per competitor (consent doesn't transfer between sites):
+
+- **Bot-block fallback** (Cloudflare, captcha, "verify you are human", 403/429) — Claude detects the block via `browser_snapshot`, then surfaces an `AskUserQuestion` with three options: you open the URL in your own browser and paste back what you see, you flip a blocker setting and ask Claude to retry, or you skip the URL and Claude flags it as `[BLOCKED — skipped]` in the deliverable's sources-consulted list. Never silently falls back to shallow WebSearch snippets.
+
+- **Auth-wall fallback** (signup/login required to see the actual product) — Claude detects when `browser_navigate` redirects to `/login` or `/signup`, then surfaces four options: provide existing test credentials, sign up yourself and share a session, opt in to a temp-email throwaway-account signup (Claude walks Playwright through it using `mail.tm` / `mailinator` / similar — with the ToS implications named in the question), or skip with `[AUTH-WALLED — gated UI not analyzed]` in the deliverable. Per-competitor consent — never blanket. The plugin does not auto-sign-up without explicit per-competitor opt-in.
+
+Either way, the deliverable is honest about coverage gaps when URLs were blocked or skipped — a `Sources consulted` appendix lists every URL Claude visited (and what was extracted), with `[BLOCKED]` / `[AUTH-WALLED]` flags where relevant.
 </details>
 
 ### Design & knowledge

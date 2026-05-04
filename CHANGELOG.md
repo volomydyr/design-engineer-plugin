@@ -4,6 +4,25 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.9] – 2026-05-04
+
+Catches the README and the `/product:help` output up to the day's changes (v5.5.0 through v5.5.8). Doc-only release — no code or behavior changes.
+
+### Changed — README
+
+- **FAQ 9 ("What happens automatically?")** — added two new bullets covering the deliverable-path-validation hook (v5.5.0) and the bot-block + auth-wall fallbacks (v5.5.7, v5.5.8).
+- **New FAQ 9.1 — "Where does everything the plugin creates get stored?"** — describes the `.design-engineer-plugin/` umbrella structure with the full subfolder breakdown, the two gitignored paths (`temporary/` + `.active-workflow`), and a pointer to the v5.5.0 migration note for v5.4.x upgraders.
+- **New FAQ 9.2 — "What if a competitor's site blocks the browser or requires sign-up?"** — explains the bot-block and auth-wall fallback protocols at the user-facing level (the AskUserQuestion options surfaced to the user when Playwright hits a wall). Includes the `[BLOCKED]` / `[AUTH-WALLED]` flag convention for the sources-consulted appendix.
+
+### Changed — `/product:help` output (`commands/product/help.md`)
+
+- Added the `/product:tidy` command to the commands table (introduced in v5.5.0, was missing from help).
+- Updated `/product:document` description to mention the auto-purge of disposable working files.
+- Skill count: 54 → 57.
+- Agent count: 9 → 10 (added "cross-session memory" to the agent description).
+- Safety-hooks bullet rewritten to include path validation, bot-block / auth-wall fallbacks alongside scope-creep / TDD / plan-check.
+- New "Where files live" section describing the umbrella folder layout in one paragraph.
+
 ## [5.5.8] – 2026-05-04
 
 Adds the auth-wall fallback protocol — parallel to v5.5.7's bot-block fallback but for signup/login walls (the most common reason Playwright can't see a competitor's actual product UI). Includes a documented temp-email signup path the user opts into per competitor, with explicit ToS / ethics framing.

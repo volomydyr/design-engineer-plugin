@@ -21,8 +21,9 @@ A plugin for Claude Code that walks you through building a product, start to fin
 | `/product:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
 | `/product:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
 | `/product:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
-| `/product:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
+| `/product:document` | Saves decisions, learnings, and project state. Auto-purges disposable working files at every phase boundary. Helps communicate with stakeholders |
 | `/product:stop` | Save progress and pause mid-activity – pick up later with `/product:launch` |
+| `/product:tidy` | Manual purge of disposable working files under `.design-engineer-plugin/temporary/` (Playwright debug captures, intermediate drafts, scratch). Use before commit, or anytime the working tree feels noisy |
 | `/product:help` | This help screen |
 
 You only need to remember `/product:launch`. It guides you to everything else.
@@ -36,10 +37,14 @@ Most commands work in two ways:
 
 ### What makes it different
 
-- **54 skills** that teach how to think about problems, users, and psychology before writing code
-- **9 specialized agents** for research, implementation, testing, and design system compliance
+- **57 skills** that teach how to think about problems, users, and psychology before writing code
+- **10 specialized agents** for research, implementation, testing, design system compliance, and cross-session memory
 - **100+ psychology principles** the AI draws from when reviewing your work
-- **Safety hooks** that prevent scope creep, enforce test-first development, and check every code write against your approved plan
+- **Safety hooks** that prevent scope creep, enforce test-first development, validate that deliverables land at canonical paths (denying hallucinated subdirs and filenames), surface bot-block / auth-wall fallbacks for browser research instead of silently failing, and check every code write against your approved plan
+
+### Where files live
+
+Everything the plugin produces lives under `.design-engineer-plugin/` — one umbrella, clear mental model. Subdirs: `design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/`, `prototype/`, `plans/`, `memory/`, `temporary/` (gitignored, auto-purged at phase boundaries). The project root holds only your actual product code.
 
 ### Your project
 
