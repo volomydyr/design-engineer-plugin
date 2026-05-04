@@ -4,6 +4,30 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.2] – 2026-05-04
+
+Corrects the v5.5.1 over-fix. After verifying against Anthropic's official docs ([sub-agents](https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields) and [plugins reference](https://code.claude.com/docs/en/plugins-reference#agents)):
+
+**Officially supported on plugin agents:** `name`, `description`, `model` (aliases AND full version IDs like `claude-opus-4-7`), `effort` (low/medium/high/xhigh/max), `maxTurns`, `tools`, `disallowedTools`, `skills`, `memory`, `background`, `isolation`.
+
+**Silently ignored on plugin agents** (security): `hooks`, `mcpServers`, `permissionMode`.
+
+**Skills-only fields** (invalid on agents): `disable-model-invocation`.
+
+### Fixed
+
+- Restored `model: claude-opus-4-7` on opus-tier agents (was `model: opus` after v5.5.1's misdiagnosis). Both forms work, but the version pin matches the v4.3.1+ design intent of avoiding alias drift.
+- Restored `effort:` field on all agents (was removed in v5.5.1). Officially supported per docs; the v5.5.1 removal was a wrong diagnosis.
+- Kept `disable-model-invocation: true` removed from `agents/advisor.md` — that's the one genuinely invalid field for agents (it's skills-only). This was the only correct part of v5.5.1.
+
+### Changed
+
+- `CLAUDE.md` "Model Configuration" section rewritten to match the docs: both aliases and full model IDs are valid for `model:`. `effort:` is supported on agents AND skills. `disable-model-invocation:` is skills-only. Added link references to the canonical Anthropic doc pages so future edits can verify against the authoritative source.
+
+### Note on the actual `/agents` panel issue
+
+The original symptom (plugin agents missing from `/agents`) had no source-level cause. v5.5.1 fixed nothing about that — the source frontmatter was always docs-valid (except `disable-model-invocation` on advisor.md, which would only have affected that one agent's loading, not the entire plugin's). The actual cause was likely Claude Code session/install state. After installing v5.5.2 (or any recent version) and restarting Claude Code, the plugin agents should appear correctly in `/agents` under the `design-engineer:` namespace.
+
 ## [5.5.1] – 2026-05-04
 
 Critical fix: every plugin-defined agent (advisor, backend-implementer, compound-documenter, context-analyzer, deliverable-writer, design-system-auditor, frontend-implementer, psych-scanner, test-writer, ux-researcher) was failing silent registration with Claude Code's agent registry. Symptom: `/agents` panel showed only `code-simplifier:code-simplifier` under Plugin agents; calling `Task(design-engineer:ux-researcher)` returned "Agent type not found". User couldn't run any plugin agent.

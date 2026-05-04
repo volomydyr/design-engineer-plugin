@@ -139,34 +139,29 @@ When adding or modifying skills:
 - [ ] CHANGELOG.md updated
 - [ ] README.md component counts verified
 - [ ] All JSON files valid (`python3 -m json.tool`)
-- [ ] `effort:` present on all skills (NOT on agents – see "Model Configuration" below)
-- [ ] Agent frontmatter uses model alias (`opus` / `sonnet`), not specific version pin
+- [ ] `effort:` present on all skills and agents
+- [ ] Agent frontmatter does NOT include `disable-model-invocation:` (skills-only field)
 
 ## Model Configuration
 
-Every agent and skill MUST have an explicit `model:` field in its frontmatter, but the allowed values differ by file type.
+Every agent and skill MUST have an explicit `model:` field in its frontmatter.
 
-### Agents — model aliases only
+### Allowed `model:` values (per [Anthropic sub-agent docs](https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields))
 
-Claude Code's plugin agent registry validates the `model:` field against a known set of aliases and silently drops agents that don't match. **Specific model version pins like `claude-opus-4-7` cause the agent to fail registration entirely** — the agent is invisible in `/agents`, and any `Task(<agent-name>)` call returns "Agent type not found." This was the cause of the v5.5.0 → v5.5.1 fix.
+Both aliases and full model IDs are officially supported:
+- **Aliases**: `opus`, `sonnet`, `haiku`, `inherit`
+- **Full model ID**: e.g., `claude-opus-4-7`, `claude-sonnet-4-6`
 
-Allowed values for agents:
-- **`model: opus`** – deep reasoning, creative output, complex implementation
-- **`model: sonnet`** – mechanical tasks, structured workflows, formatting
-- **No `effort:` field on agents.** Anthropic's plugin agent schema doesn't recognize `effort:` and may reject agents that include it. Effort tuning is an Anthropic SDK feature, not a plugin agent feature.
-- **No `disable-model-invocation: true` on agents.** That field belongs to skills, not agents.
-- **No `inherit`** unless the agent is genuinely model-agnostic.
-- **No `haiku`** – not used in this plugin.
+### Assignment Principles
 
-### Skills — version pins allowed
+- **`model: claude-opus-4-7`** – default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation. Pinned explicitly to the version (not the `opus` alias) so the plugin's quality expectations are unambiguous. When Anthropic releases a newer Opus, refresh this pin in a single PATCH bump rather than relying on alias drift.
+- **`model: sonnet`** – alias kept for mechanical tasks (file reading, template generation, setup wizards, documentation formatting). Sonnet is updated less frequently and less variably; the alias is fine here.
+- **No `model: inherit`** – plugin should be explicit about quality expectations.
+- **No `model: haiku`** – not used in this plugin.
 
-Skills are loaded by commands via `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md` (see "Skill loading from commands" at the top of this file), not registered with Claude Code's agent system. So skill frontmatter is freer:
-- **`model: claude-opus-4-7`** – default for skills requiring deep reasoning. Pinned explicitly to the version so the plugin's quality expectations are unambiguous. When Anthropic releases a newer Opus, refresh this pin in a single PATCH bump rather than relying on alias drift.
-- **`model: sonnet`** – mechanical tasks (file reading, template generation, setup wizards, documentation formatting).
-- **`disable-model-invocation: true`** – required on every skill so the Skill tool rejects programmatic invocation. Skills are only valid via Read.
-- **`effort: <level>`** – plugin-internal extension to document depth. Anthropic ignores unknown frontmatter keys, so this is harmless on skills (which Anthropic doesn't validate the same way as agents).
+### Skill frontmatter
 
-### Skill frontmatter template
+Skills include `model:` and `effort:` after `disable-model-invocation`:
 
 ```yaml
 ---
@@ -175,39 +170,50 @@ description: "..."
 disable-model-invocation: true
 model: claude-opus-4-7
 effort: high
-license: MIT
 ---
 ```
 
-### Agent frontmatter template
+### Agent frontmatter
+
+Plugin agents support these frontmatter fields (per [plugins reference](https://code.claude.com/docs/en/plugins-reference#agents)): `name`, `description`, `model`, `effort`, `maxTurns`, `tools`, `disallowedTools`, `skills`, `memory`, `background`, `isolation`. The fields `hooks`, `mcpServers`, and `permissionMode` are silently ignored on plugin-shipped agents (security restriction).
+
+**`disable-model-invocation: true` is a SKILLS-only field** — including it on an agent is invalid. The v5.5.1 fix removed it from `agents/advisor.md` (the only agent that mistakenly had it). Other agents already lacked it.
 
 ```yaml
 ---
 name: agent-name
 description: "..."
-model: opus
+model: claude-opus-4-7
+effort: high
 ---
 ```
 
-### Skill effort levels
+For agents that need cross-session memory (like `compound-documenter`), add `memory: project`.
 
-`effort:` is a plugin-internal extension on skills only. Allowed values:
-- **`effort: xhigh`** – broad multi-principle scans, comprehensive reviews, pipeline orchestration. Top-tier on Opus 4.7. Persists across sessions.
-- **`effort: high`** – default for most skills. Synthesis, nuanced judgment, multi-perspective analysis, creative output.
-- **`effort: medium`** – structured workflows: setup wizards, template generation, documentation formatting.
-- **`effort: max`** – NOT recommended for defaults. Diminishing returns risk; session-only.
+### Effort configuration
+
+Both agents and skills MUST have an explicit `effort:` field in its frontmatter, placed after `model:`. Officially supported on plugin agents per the docs.
+
+#### Assignment principles
+
+- **`effort: xhigh`** – the most complex tasks: broad multi-principle scans, comprehensive reviews, ethical reasoning, pipeline orchestration. New recommended top-tier on Opus 4.7 per Anthropic docs ("Best results for most coding and agentic tasks. Recommended default on Opus 4.7"). Persists across sessions.
+- **`effort: high`** – default for most skills and agents. Tasks requiring synthesis, nuanced judgment, multi-perspective analysis, or creative output.
+- **`effort: medium`** – structured workflows where the model follows established steps: setup wizards, template generation, documentation formatting.
 - **`effort: low`** – not used in this plugin.
+- **`effort: max`** – exists but **NOT recommended** for plugin defaults. Per Anthropic: "may show diminishing returns and is prone to overthinking. Test before adopting broadly". Also session-only (does not persist). Use only if a specific component demonstrably benefits from it during testing.
 
-Effort and model are independent on skills:
-- `model: claude-opus-4-7` + `effort: xhigh` – broadest scans and reviews (psych-full-scan, ux-full-review, ux-bias-audit, ux-ethics-review, meta-orchestrator)
+Effort and model are independent axes:
+- `model: claude-opus-4-7` + `effort: xhigh` – broadest scans and reviews (psych-full-scan, ux-full-review, ux-bias-audit, ux-ethics-review, meta-orchestrator, advisor)
 - `model: claude-opus-4-7` + `effort: high` – deep analysis, creative output, complex implementation
 - `model: sonnet` + `effort: high` – sonnet tasks needing thorough reasoning (documentation, testing)
 - `model: sonnet` + `effort: medium` – structured sonnet tasks (setup, templates, status tracking)
 
 ### When adding new agents/skills
 
-- **For new skills**: default to `model: claude-opus-4-7` + `effort: high` + `disable-model-invocation: true`. Downgrade to `sonnet` / `medium` for clearly mechanical tasks.
-- **For new agents**: default to `model: opus`. No `effort:`, no `disable-model-invocation:`. If the task is clearly mechanical, use `model: sonnet`.
+- Default to `model: claude-opus-4-7` unless the task is clearly mechanical
+- Default to `effort: high` – downgrade to `medium` only for clearly mechanical tasks, upgrade to `xhigh` for broad multi-principle scans
+- Document the rationale if choosing `sonnet` or `medium` for a new component
+- Never include `disable-model-invocation:` on an agent (skills only)
 
 ## Command Naming Convention
 
