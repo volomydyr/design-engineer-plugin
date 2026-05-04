@@ -704,6 +704,54 @@ Required protocol:
 
 This rule applies to every Playwright-led step in any skill (competitor analysis Phase 4, references moodboard Step 5b, audit captures during /product:review, prototype QA, anything else). The agent file `agents/ux-researcher.md` and the per-skill SKILL.md files reference back to this contract.
 
+### Auth wall fallback (signup / login required to see the product)
+
+A separate failure mode from bot-blocks: many products gate their actual UI behind a login or signup wall. Marketing pages and landing pages are public; the dashboard, the editor, the actual product is not. Visiting `app.competitor.com/dashboard` or clicking "Open app" on the marketing site lands you on `/login` or `/signup`. Without an account, the model can't see the UI it was sent to evaluate.
+
+**The model MUST ask the user how to proceed per gated competitor. Never silently give up; never silently fabricate "based on the marketing page" UI claims; never auto-sign-up without explicit user consent.** Automated signup using disposable identity has real ToS, ethical, and legal implications that the plugin author should not unilaterally absorb on behalf of every user — the user owns the decision per competitor.
+
+Detection signs:
+- `browser_navigate` redirects to `/login`, `/signup`, `/sign-in`, `/auth`, `/account/create`, or any URL with that semantic
+- The page renders a centered email/password form when the URL was supposed to be the product
+- A "Sign up to continue" or "Create an account" CTA is the dominant content
+- A modal / overlay blocks the page demanding email + password
+
+Required protocol — when an auth wall is detected, surface this `AskUserQuestion` (with the canonical 3-line spacer):
+
+- question: `"<Competitor> requires an account to see the actual product. How should I get past it?"`
+- header: `"Auth wall"`
+- options:
+  - `"I have a test account — I'll paste credentials"` — Recommended when available. User pastes email + password (treat as session-scoped, never persist to any file). You log in via Playwright and proceed. **Best path** because it's a real account on the user's terms.
+  - `"I'll sign up myself and share session cookies / a logged-in URL"` — User opens the product in their own browser, signs up normally, then either pastes their session cookies or describes what they see. Lower friction than credentials, no persistent secrets.
+  - `"Use a temp-email service to create a throwaway account"` — User explicitly approves automated signup. See "Temp-email signup protocol" below. Note ToS implications inline in the question description.
+  - `"Skip this competitor's gated UI — analyze marketing + community signals only"` — Log `[AUTH-WALLED — gated UI not analyzed]` in the sources-consulted appendix. Continue with reduced confidence on UX quality / feature inventory; flag this gap explicitly in the deliverable.
+- multiSelect: false
+
+The auth-wall question's option descriptions should include the trade-off note for option 3:
+
+> Note for "Use a temp-email service": this creates an account at the competitor's product using a disposable email. Some products forbid this in ToS, some block known disposable-email domains, and some require phone or payment that this can't bypass. Use only when the competitor's UI is essential to the analysis AND a real account isn't an option AND the user has confirmed they're comfortable with the trade-off.
+
+#### Temp-email signup protocol (only when option 3 is selected)
+
+If the user chose option 3, the model walks Playwright through signup using a public temp-email service. The protocol:
+
+1. **Confirm scope per competitor**, never blanket. The user approving option 3 once doesn't mean approving it for every gated competitor in the analysis. Re-ask per competitor.
+2. **Pick a temp-email service**. Reputable options (in order of "less likely to be blocked by competitor signup"): `mail.tm`, `mailinator.com` (public inbox), `temp-mail.io`, `emailondeck.com`. Some competitor signups domain-ban known disposable domains; if signup rejects the email, surface that to the user and ask whether to try a different service or fall back to option 1/2/4.
+3. **Generate a random username** at the temp-email service, e.g., `de-research-<6-random-chars>@<service-domain>`.
+4. **Sign up** at the competitor: fill the email, generate a random password (16+ chars, mixed), submit.
+5. **Retrieve verification email**: navigate to the temp-email inbox, find the most recent message from the competitor, extract the verification link, follow it.
+6. **Land on the dashboard** and resume the research (screenshots, UI tour, etc.).
+7. **Log in the sources-consulted appendix**: `<competitor URL> — accessed via temp-email signup (mail.tm <username>) on <date>; throwaway account, no persistent data shared`. Transparency.
+8. **Stop and ask** if any signup step blocks (phone verification, payment, captcha, "this email looks suspicious"): the user decides whether to retry with a different service, switch to option 1/2, or fall back to option 4.
+
+Forbidden during temp-email signup:
+- Persisting the temp-email username/password to any file (chat-only, session-scoped).
+- Using the user's real personal info (real name, real email, real phone) for signup. The point is throwaway identity.
+- Performing any action beyond what's necessary to view the public product surface (no clicking "Buy", no submitting forms with the competitor's customers' data, no scraping at scale).
+- Re-using the same temp-email account across multiple competitors (each competitor → fresh signup).
+
+This protocol is documented as user-consented, per-competitor automation. The plugin does not perform it autonomously.
+
 ### Guided-mode contract for research-heavy steps
 
 When a step does external research (competitor analysis, user interviews, references gathering, market scanning, anything that involves browsing or fetching URLs), guided mode imposes three additional rules on top of the general execution philosophy:

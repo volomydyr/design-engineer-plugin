@@ -52,6 +52,12 @@ The fallback protocol:
 
 This applies to every Playwright-led step in any skill (competitor analysis Phase 4, references moodboard Step 5b, audit captures, etc.).
 
+### Auth-wall fallback (signup/login required to see the actual product)
+
+A separate failure mode: marketing pages are public, but the actual product UI lives behind a login. When `browser_navigate` redirects to `/login` or `/signup`, or the page renders an email/password form when you expected the dashboard, you've hit an auth wall.
+
+**Never silently give up. Never fabricate UI claims based on the marketing page. Never auto-sign-up without explicit user consent.** See the canonical "Auth wall fallback" section in CLAUDE.md for the full protocol — four options surfaced via AskUserQuestion (user provides test credentials, user signs up themselves and shares session, user explicitly approves temp-email throwaway-account signup with ToS warning, or skip with `[AUTH-WALLED]` flag in sources). Apply per competitor — consent doesn't transfer between competitors.
+
 ### Competitor analysis
 
 When conducting competitive research:

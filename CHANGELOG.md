@@ -4,6 +4,25 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.8] – 2026-05-04
+
+Adds the auth-wall fallback protocol — parallel to v5.5.7's bot-block fallback but for signup/login walls (the most common reason Playwright can't see a competitor's actual product UI). Includes a documented temp-email signup path the user opts into per competitor, with explicit ToS / ethics framing.
+
+### Added
+
+- **`CLAUDE.md` "Auth wall fallback" rule** — new top-level subsection. Detection signs (redirect to `/login`, `/signup`, etc.; centered email/password form; "sign up to continue" CTA dominates). Surfaces an `AskUserQuestion` with four options:
+  1. User provides existing test credentials (best path)
+  2. User signs up themselves and shares session
+  3. **User explicitly opts in to temp-email throwaway-account signup** (mail.tm / mailinator / temp-mail.io / emailondeck), with ToS-implications note in the option description
+  4. Skip with `[AUTH-WALLED — gated UI not analyzed]` flag in the sources-consulted appendix
+- **`CLAUDE.md` "Temp-email signup protocol"** — fires only when option 3 is selected. Documents per-competitor consent (re-ask each time, never blanket), throwaway identity rules (no real personal info), forbidden actions (no purchases, no account reuse across competitors, no persisting credentials to disk), and how to handle signup failures (phone verification, payment gate, captcha → fall back to ask).
+- **`agents/ux-researcher.md`** — added "Auth-wall fallback" subsection at the end of Tool routing, referencing the canonical CLAUDE.md protocol.
+- **`skills/ux-competitor-analysis/SKILL.md`** Phase 4b.2 (Product UI) — explicit auth-wall sub-rule reminding the model to never fabricate UX claims from the marketing page when behind an auth wall, and to follow the canonical four-option fallback.
+
+### Why this matters (and why this is opt-in, not automatic)
+
+Marketing pages are public; products are not. Without addressing auth walls, "competitor UX evaluation" silently degrades into "marketing page reading," which is misleading. The temp-email signup path covers the case where the user genuinely wants to see the gated UI but doesn't have a real account — but automated signup at scale has ToS, ethical, and (in some jurisdictions) legal implications. The plugin author should not unilaterally opt every user into that. The protocol is per-competitor consent, with the trade-offs visible in the question itself, so the user owns the decision.
+
 ## [5.5.7] – 2026-05-04
 
 Stops the model from silently giving up when Playwright hits a bot-block (Cloudflare challenge, captcha, "verify you are human", 403/429). The user reported that the model was treating these as "site not accessible" and skipping the URL — even though most users can unblock in ~10 seconds by opening the page in their own browser or flipping a site-specific setting.

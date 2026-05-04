@@ -140,6 +140,7 @@ Steps:
 For each competitor (the user's known list + the new ones discovered in Phase 4a):
 1. **Marketing page** — `WebFetch` is fine here (one-shot read of structured copy). Capture pricing, value prop, target user.
 2. **Product UI** — `mcp__playwright__browser_navigate` + `browser_take_screenshot` to capture key screens for visual reference. UI quality is a research dimension.
+   - **Auth wall**: most products gate the actual UI behind login/signup. When Playwright redirects to `/login` or `/signup`, you have NOT seen the product — you have seen the auth wall. Never fabricate UX claims based on the marketing page alone. Surface an `AskUserQuestion` per the canonical "Auth wall fallback" protocol in CLAUDE.md: user provides test credentials, user signs up themselves and shares session, user explicitly approves temp-email throwaway-account signup (with ToS warning), or skip with `[AUTH-WALLED]` flag. Re-ask per competitor — consent doesn't transfer.
 3. **App Store / Play Store reviews** — Playwright (the listings are paginated; WebFetch misses most reviews).
 4. **Strategic gaps** — synthesize what's missing across competitors that this product could address.
 
