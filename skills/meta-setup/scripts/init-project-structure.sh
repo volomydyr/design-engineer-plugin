@@ -10,7 +10,7 @@
 #
 # Why: an init that pre-creates 11 stubbed `.gitkeep`-marked folders confuses
 # users on smaller projects (a 1-page landing site doesn't need separate
-# foundation/, research/, planning/, craft/, psych/, reviews/, dev/ trees).
+# foundation/, research/, planning/, exploration/, psychology/, reviews/, dev/ trees).
 # Folders now appear only when a skill actually puts something in them.
 #
 # Usage: ./init-project-structure.sh [deliverables_path]
@@ -98,8 +98,8 @@ if a folder is deleted.
 - foundation/ – core product definition deliverables | read at pipeline start
 - research/ – research findings and analysis | read before positioning
 - planning/ – MVP requirements and information architecture | read before design and dev
-- craft/ – bias audit, journey, references, story panels, image manifests | read before prototyping
-- psych/ – psychology audit results | read during design review
+- exploration/ – bias audit, journey, references, story panels, image manifests | read before prototyping
+- psychology/ – psychology audit results | read during design review
 - reviews/ – design reviews and assessments | read for quality history
 - dev/ – development preparation | read before dev phase
 
@@ -107,7 +107,7 @@ if a folder is deleted.
 - HTML prototypes (storyboard, prototype, landing page) | read before dev
 
 ## Project Root
-- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /design-engineer:start
+- .design-engineer-plugin/config.yaml – plugin config and resume state | read by /product:launch
 - .design-engineer-plugin/dependencies.yaml – deliverable dependency graph | read by hooks automatically
 MAP
   echo ""
@@ -209,4 +209,4 @@ echo ".gitignore curated with disposable-artifact patterns."
 echo ""
 echo "Lazy directories ($DELIVERABLES_PATH/<subdir>): created by skills on first write."
 echo "  Examples: $DELIVERABLES_PATH/foundation/, $DELIVERABLES_PATH/research/, $DELIVERABLES_PATH/planning/,"
-echo "            $DELIVERABLES_PATH/craft/, $DELIVERABLES_PATH/psych/, $DELIVERABLES_PATH/reviews/, $DELIVERABLES_PATH/dev/"
+echo "            $DELIVERABLES_PATH/exploration/, $DELIVERABLES_PATH/psychology/, $DELIVERABLES_PATH/reviews/, $DELIVERABLES_PATH/dev/"

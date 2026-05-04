@@ -109,7 +109,7 @@ Which recommendations would you like to:
 
 ## Output Format
 
-Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psych/cognitive-biases.md` (or a flow-specific name when multiple audits are produced).
+Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psychology/cognitive-biases.md` (or a flow-specific name when multiple audits are produced).
 
 ```
 ## Cognitive Bias Audit: [Design Name]

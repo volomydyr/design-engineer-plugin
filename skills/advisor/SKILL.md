@@ -40,7 +40,7 @@ From the docs (verbatim):
 
 Also from the docs' "When to use it" section, the advisor is "a weaker fit for single-turn Q&A (nothing to plan), pure pass-through model pickers where your users already choose their own cost and quality tradeoff, or workloads where every turn genuinely requires the advisor model's full capability."
 
-Concretely for this plugin: skip the advisor on simple `/design-engineer:dev` patches that are one-edit-and-done, on `/design-engineer:document` runs that just rewrite a single deliverable, and on routine status checks. Use it on multi-phase plans, before final hand-off, when the task has gotten weird.
+Concretely for this plugin: skip the advisor on simple `/product:dev` patches that are one-edit-and-done, on `/product:document` runs that just rewrite a single deliverable, and on routine status checks. Use it on multi-phase plans, before final hand-off, when the task has gotten weird.
 
 ## How to invoke
 
@@ -92,11 +92,11 @@ The plugin's pipeline naturally clusters calls at transitions (between phases, b
 Per the v4.5.0 active-integration design, the following workflows already include advisor checkpoints – you don't need to remember to call it manually:
 
 - **`CLAUDE.md` Plan Mode workflow** – before `ExitPlanMode` on non-trivial plans (early-task consult); before declaring a phase complete (pre-done consult).
-- **`/design-engineer:start`** – after environment detection, before committing to an interpretation of the project.
-- **`/design-engineer:dev`** – before presenting a phase's deliverable to the user.
-- **`/design-engineer:design`** – before final design deliverable hand-off.
-- **`/design-engineer:review`** – before producing the final review report.
-- **`/design-engineer:document`** – before document finalize.
+- **`/product:launch`** – after environment detection, before committing to an interpretation of the project.
+- **`/product:dev`** – before presenting a phase's deliverable to the user.
+- **`/product:design`** – before final design deliverable hand-off.
+- **`/product:review`** – before producing the final review report.
+- **`/product:document`** – before document finalize.
 - **`skills/dev-github-workflow`** Mode 1 – before commit on plan-driven changes that diverged from plan.
 - **`skills/meta-orchestrator`** – at major phase transitions and the user-approval checkpoint.
 

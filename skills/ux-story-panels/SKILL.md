@@ -211,9 +211,9 @@ Ask the user to share the generated image back.
 
 Once the final image is approved:
 
-1. **Store the panel files** in a dedicated subfolder per story panel. Before writing, ensure the parent directory exists: run `mkdir -p design/craft/story-panels/[panel-name]` (Bash, with the panel name substituted). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
-   - Script: `design/craft/story-panels/[panel-name]/script.md`
-   - Image: `design/craft/story-panels/[panel-name]/panel.png`
+1. **Store the panel files** in a dedicated subfolder per story panel. Before writing, ensure the parent directory exists: run `mkdir -p design/exploration/story-panels/[panel-name]` (Bash, with the panel name substituted). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+   - Script: `design/exploration/story-panels/[panel-name]/script.md`
+   - Image: `design/exploration/story-panels/[panel-name]/panel.png`
 2. **Update `.design-engineer-plugin/memory/project-map.md`** with the new files (verify exists first; skip if not)
 
 Then guide the user to extract actionable insights:

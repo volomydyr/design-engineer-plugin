@@ -49,7 +49,7 @@ Read `design/foundation/storybrand.md` to extract the 7-part narrative:
 
 If the StoryBrand deliverable does not exist, warn the user and suggest running the `ux-storybrand` skill first. If they want to proceed without it, gather the narrative through questions instead.
 
-Also read: `design/foundation/business-plan.md` (for pricing info, if applicable) and `design/craft/references.md` (for design tokens).
+Also read: `design/foundation/business-plan.md` (for pricing info, if applicable) and `design/exploration/references.md` (for design tokens).
 
 Present what was extracted:
 
@@ -192,7 +192,7 @@ Assemble all approved sections into a single HTML file with all CSS in `<style>`
 1. Apply design tokens from references.md – same visual direction as the product prototype
 2. Use CSS custom properties for all tokens in `:root {}`
 3. Follow the mobile optimization rules from [landing-page-structure.md](./references/landing-page-structure.md): full-width CTAs, 48px tap targets, 16px min font
-4. **Image-slot rule (HARD)**: each section that needs an image (hero, social proof / press logos, testimonial avatars, product shots, feature illustrations) MUST go through the `ui-images` skill BEFORE writing the `<img>` tag. The skill decides per-image generate-vs-stock, writes prompts or search queries, and places the file in `design/craft/images/`. Do not emit gradient placeholders, emoji-stamped SVGs, or random Pexels grabs. Do not skip the skill on the assumption that "the user will replace it later" – they won't, and the slop ships.
+4. **Image-slot rule (HARD)**: each section that needs an image (hero, social proof / press logos, testimonial avatars, product shots, feature illustrations) MUST go through the `ui-images` skill BEFORE writing the `<img>` tag. The skill decides per-image generate-vs-stock, writes prompts or search queries, and places the file in `design/exploration/images/`. Do not emit gradient placeholders, emoji-stamped SVGs, or random Pexels grabs. Do not skip the skill on the assumption that "the user will replace it later" – they won't, and the slop ships.
 5. Before presenting, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review for design anti-patterns
 6. Read [anti-slop-writing.md](../shared-references/anti-slop-writing.md) and verify all copy passes the anti-slop check
 
@@ -243,7 +243,7 @@ After the landing page is complete, suggest:
 
 - **If product prototype also needed**: return to `dev-prototyping`
 - **If Figma designs needed**: suggest `ui-figma-guide`
-- **If ready for development**: suggest `/design-engineer:dev`
+- **If ready for development**: suggest `/product:dev`
 
 ---
 

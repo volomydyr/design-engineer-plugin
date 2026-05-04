@@ -103,7 +103,7 @@ Which emotional design improvements would you like to:
 
 ## Output Format
 
-Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psych/delight-design.md` (or a flow-specific name when multiple audits are produced).
+Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psychology/delight-design.md` (or a flow-specific name when multiple audits are produced).
 
 ```
 ## Emotional Design Audit: [Design Name]

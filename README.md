@@ -1,4 +1,4 @@
-> **v5.3.3** – see the [changelog](CHANGELOG.md) for what's new.
+> **v5.4.0** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -6,7 +6,7 @@
 
 🇺🇦  Плагін для Claude Code, заснований на технічних статтях і практичних прикладах з [volomydyr.com](https://volomydyr.com). Це як швейцарський ніж для дизайн-інженерів: ідеація, дослідження, психологія, прототипування та розробка – усе в одному зручному й легкому у використанні інструменті.
 
-Пишете команду `/design-engineer:start`, плагін розуміє, на якому ви етапі – чи починаєте з нуля, чи продовжуєте створення продукту, чи хочете скористатися ним для існуючого комерційного проекту. Детальну інструкцію та повний опис можна знайти нижче англійською.
+Пишете команду `/product:launch`, плагін розуміє, на якому ви етапі – чи починаєте з нуля, чи продовжуєте створення продукту, чи хочете скористатися ним для існуючого комерційного проекту. Детальну інструкцію та повний опис можна знайти нижче англійською.
 
 [Звʼязатися з автором (LinkedIn)](https://www.linkedin.com/in/merlenkov/) · [Телеграм спільнота про АІ та Дизайн (1,200+ учасників)](https://t.me/+RzzmoFVG5awzYjIy)
 
@@ -29,7 +29,7 @@ Claude Code writes code; it doesn't think about users, psychology, or design. **
 That's it. The plugin is available in every Claude Code session from now on. **Start a new session in your project directory and type:**
 
 ```
-/design-engineer:start
+/product:launch
 ```
 
 This is the only command you need to remember. It figures out your situation – new product, returning project, or existing codebase – and takes you where you need to go. The plugin also checks for recommended tools during setup and helps install anything that's missing.
@@ -40,18 +40,18 @@ This is the only command you need to remember. It figures out your situation –
 
 8 commands, 57 skills, 10 agents, and 3 bundled integrations (Context7 for docs, Figma MCP for Dev Mode connection, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with user approval at every stage) or **autopilot** (autonomous with minimal input).
 
-You only need to remember one slash command – `/design-engineer:start`. It figures out where you are (starting from scratch, picking up where you left off, or working on an existing product) and runs the right commands in the right order for you. The list below is just so you can see what's available.
+You only need to remember one slash command – `/product:launch`. It figures out where you are (starting from scratch, picking up where you left off, or working on an existing product) and runs the right commands in the right order for you. The list below is just so you can see what's available.
 
 | Command | What it does |
 |---------|-------------|
-| `/design-engineer:start` | Detects your project state, no matter if it's an existing product or something you want to build from scratch |
-| `/design-engineer:design` | Runs the design workflow – discovery, strategy, validation |
-| `/design-engineer:prototype` | Generates clickable HTML prototypes from your idea, context docs, references, or existing designs |
-| `/design-engineer:dev` | Step-by-step development process – CLAUDE.md, agent pipeline, context management, TDD, implementation |
-| `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
-| `/design-engineer:document` | Stores decisions, learnings, and project state for future |
-| `/design-engineer:stop` | Saves progress, even mid-activity – you can always pick up later |
-| `/design-engineer:help` | Shows all available commands, current project status, and mode |
+| `/product:launch` | Detects your project state, no matter if it's an existing product or something you want to build from scratch |
+| `/product:design` | Runs the design workflow – discovery, strategy, validation |
+| `/product:prototype` | Generates clickable HTML prototypes from your idea, context docs, references, or existing designs |
+| `/product:dev` | Step-by-step development process – CLAUDE.md, agent pipeline, context management, TDD, implementation |
+| `/product:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
+| `/product:document` | Stores decisions, learnings, and project state for future |
+| `/product:stop` | Saves progress, even mid-activity – you can always pick up later |
+| `/product:help` | Shows all available commands, current project status, and mode |
 
 <br>
 
@@ -87,19 +87,19 @@ If you're an engineer who wants to build better products but doesn't have a desi
 <summary>3. Can I use this for an existing project or only new products?</summary>
 <br>
 
-Both, and the existing-project path is first-class. `/design-engineer:start` detects your situation:
+Both, and the existing-project path is first-class. `/product:launch` detects your situation:
 
 - **New product** – walks you through the full pipeline from problem definition to code.
 - **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do.
 - **Existing project** – auto-detects your design system, brand docs, written specs, shipped UI, and component count from the codebase, then asks you about off-repo references (Figma file, Notion docs, Linear tracker, external design-system page like Storybook / Zeroheight). All of that gets stored as project context. From there:
   - The 9 ux-* skills that assume a blank slate (StoryBrand, problem statement, target audience, business plan, competitor analysis, assumptions, story panels, user interviews, behavior mapping) respect what already exists – they ask "use as-is, refine, or re-run from scratch" instead of regenerating.
-  - **Spec polish routing** – when you run `/design-engineer:design` for a new feature, the first question is "Minimal feature spec vs Full feature flow", with explicit descriptions of what each entails. The minimal branch produces a one-page spec that respects your existing brand voice; the full branch walks you through MVP requirements + IA before implementation. No more guessing which depth the plugin will pick.
-  - **Optional-depth multi-select** – inside the full feature flow, before implementation kicks off, you pick which optional audits to run as a multi-select: Brief problem statement, Psychology audit (`psych-decision-fundamentals` + `psych-cognitive-load`), Figma comparison (`ui-figma-guide`), Design-system check (`ui-design-system`). Choices are persisted to your project config and read by `/design-engineer:dev` so the implementation phase reflects them inline.
+  - **Spec polish routing** – when you run `/product:design` for a new feature, the first question is "Minimal feature spec vs Full feature flow", with explicit descriptions of what each entails. The minimal branch produces a one-page spec that respects your existing brand voice; the full branch walks you through MVP requirements + IA before implementation. No more guessing which depth the plugin will pick.
+  - **Optional-depth multi-select** – inside the full feature flow, before implementation kicks off, you pick which optional audits to run as a multi-select: Brief problem statement, Psychology audit (`psych-decision-fundamentals` + `psych-cognitive-load`), Figma comparison (`ui-figma-guide`), Design-system check (`ui-design-system`). Choices are persisted to your project config and read by `/product:dev` so the implementation phase reflects them inline.
   - **Conditional Figma hand-off** – if Figma is connected and you didn't already pick "Figma comparison" in the optional-depth step, the flow asks once before handing off to dev whether to pull structured Figma data first.
-  - **Proactive defaults in `/design-engineer:dev`** – if your established project is missing CLAUDE.md, the plugin scaffolds it silently from your existing components (no question asked). If `references.md` is missing on a project that already has shipped UI, you get one 2-option question – "Reuse existing UI as the visual reference" or "Provide image references" (which runs the moodboard skill with curated reference previews and sectional Playwright captures). The old 4-option fast-track / full / skip prompt is gone.
+  - **Proactive defaults in `/product:dev`** – if your established project is missing CLAUDE.md, the plugin scaffolds it silently from your existing components (no question asked). If `references.md` is missing on a project that already has shipped UI, you get one 2-option question – "Reuse existing UI as the visual reference" or "Provide image references" (which runs the moodboard skill with curated reference previews and sectional Playwright captures). The old 4-option fast-track / full / skip prompt is gone.
   - **Process recall through the abbreviated feature flow** – Steps 2.2 through 2.7 of the existing-project flow are classified as "complex work", so the active workflow's step list renders at the top of Claude's response while the flow runs (see hooks list in FAQ 9 for the full mechanism).
-  - `/design-engineer:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
-  - `/design-engineer:design feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice. Reachable either by typing the literal `feature-spec` argument or by picking "Minimal feature spec" in the spec-polish routing question.
+  - `/product:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
+  - `/product:design feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice. Reachable either by typing the literal `feature-spec` argument or by picking "Minimal feature spec" in the spec-polish routing question.
   - You can still run any skill individually (psychology review, accessibility audit, design system setup, etc.) without the full pipeline.
 </details>
 
@@ -125,25 +125,25 @@ Yes, but the plugin is token-heavy. The Pro plan's 5-hour rate limits will hit f
 <summary>6. What are the 8 commands and when do I use each one?</summary>
 <br>
 
-- **`/design-engineer:start`** – always start here. It detects your situation and routes you.
-- **`/design-engineer:design`** – when you need to work through the design process: research, strategy, planning, validation.
-- **`/design-engineer:prototype`** – when you want a clickable HTML prototype from an idea or existing designs.
-- **`/design-engineer:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
-- **`/design-engineer:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
-- **`/design-engineer:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
-- **`/design-engineer:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/design-engineer:start`.
-- **`/design-engineer:help`** – shows all available commands, your current project status, and mode. Works anywhere.
+- **`/product:launch`** – always start here. It detects your situation and routes you.
+- **`/product:design`** – when you need to work through the design process: research, strategy, planning, validation.
+- **`/product:prototype`** – when you want a clickable HTML prototype from an idea or existing designs.
+- **`/product:dev`** – when you're ready to build: CLAUDE.md generation, agent pipeline setup, context management, test-first development, AI-assisted implementation.
+- **`/product:review`** – when you want to review what you've built: visual quality, accessibility, psychology, design system compliance, ethics.
+- **`/product:document`** – when you need to save decisions, capture learnings, or communicate with stakeholders.
+- **`/product:stop`** – when you want to pause mid-activity and save your progress. Pick up later with `/product:launch`.
+- **`/product:help`** – shows all available commands, your current project status, and mode. Works anywhere.
 
-You only need to remember `/design-engineer:start`. It guides you to everything else.
+You only need to remember `/product:launch`. It guides you to everything else.
 
-There's also one small utility command, `/design-engineer:mute-unmute-sound`, that toggles plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence. It's not part of the main 8 because you'll touch it once or twice across the lifetime of the plugin, not as part of any workflow.
+There's also one small utility command, `/product:mute-unmute-sound`, that toggles plugin sound notifications on or off without uninstalling. Useful for meetings, libraries, or anywhere you want temporary silence. It's not part of the main 8 because you'll touch it once or twice across the lifetime of the plugin, not as part of any workflow.
 </details>
 
 <details>
 <summary>7. What are skills and how are they different from commands?</summary>
 <br>
 
-**Commands** are the 8 entry points you type (like `/design-engineer:design`).
+**Commands** are the 8 entry points you type (like `/product:design`).
 
 **Skills** are the 57 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 
@@ -182,7 +182,7 @@ The plugin installs several hooks that work without you doing anything:
 - **Requirement fidelity (plans)** – reviews plan files for requirement drift. If a plan adds features, copy, or scope you didn't ask for, it gets flagged before implementation starts.
 - **Prompt injection defense** – watches for manipulation attempts hidden in external content (web pages, files, tool outputs).
 - **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
-- **Process recall** – inside long deterministic workflows (`/design-engineer:dev` feature implementation and setup, `/design-engineer:design` new-product full pipeline and existing-project abbreviated feature flow, `/design-engineer:review` broad audits, `dev-prototyping` storyboard and interactive steps, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
+- **Process recall** – inside long deterministic workflows (`/product:dev` feature implementation and setup, `/product:design` new-product full pipeline and existing-project abbreviated feature flow, `/product:review` broad audits, `dev-prototyping` storyboard and interactive steps, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
 - **Background continuation block** – when a flow is waiting on your feedback (every prototype iteration, every implementation phase approval gate), Claude is forbidden from initiating background polling or self-rescheduling (`ScheduleWakeup`, `CronCreate`, `/loop`, background `Task` or `Bash`). Your typing window is not a polling target — your next message is the signal.
 - **Dependency tracking** – when you change a deliverable, flags which other documents might need updating.
 - **Session summary** – when you end a session, generates a summary of what changed and which dependent documents might need review.
@@ -200,7 +200,7 @@ The plugin installs several hooks that work without you doing anything:
 - Good and bad examples
 - Edge cases and constraints
 
-For example, `/design-engineer:review` can scan your product against principles like loss aversion, cognitive load, social proof, the peak-end rule, habit formation, pricing psychology, and dozens more.
+For example, `/product:review` can scan your product against principles like loss aversion, cognitive load, social proof, the peak-end rule, habit formation, pricing psychology, and dozens more.
 
 Psychology is built into the review process from the ground up, so it shows up where it matters – during design decisions, not as a separate step.
 </details>
@@ -264,7 +264,7 @@ Yes, through Anthropic's documented agent-memory mechanism. The `compound-docume
 - **`key-decisions.md`** – append-only log of cross-cutting choices (like "B2B focus" or "mobile-first") that affect multiple deliverables downstream
 - **`stale-dependents.md`** – downstream deliverables that may need refreshing because an upstream changed
 
-When you start a new session, run `/design-engineer:document` to invoke the compound-documenter agent – it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
+When you start a new session, run `/product:document` to invoke the compound-documenter agent – it reads its existing memory, gathers context, and updates the files. The next session reads them and picks up where you left off. The agent-memory directory is project-local and version-controllable, so your team can share state across machines via git.
 
 The plugin also seeds a `project-map.md` (file tree) and `debug-solutions.md` (hard-won fixes) at `.design-engineer-plugin/memory/` in your project for cross-session continuity beyond the design pipeline. These are project-local files (no auto-memory paths involved).
 </details>
@@ -298,7 +298,7 @@ The advisor fires automatically at the moments the docs identify as most valuabl
 
 The advisor returns short numbered course corrections (under 100 words, enumerated steps), and the calling skill applies the advice or uses the docs' "reconcile" pattern when the advice conflicts with empirical evidence ("I found X, you suggest Y, which constraint breaks the tie?").
 
-You don't invoke the advisor directly – it's wired into Plan Mode workflow, all five `/design-engineer:*` commands, the dev-github-workflow Mode 1 commit flow, and the meta-orchestrator's major phase transitions.
+You don't invoke the advisor directly – it's wired into Plan Mode workflow, all five `/product:*` commands, the dev-github-workflow Mode 1 commit flow, and the meta-orchestrator's major phase transitions.
 </details>
 
 <details>
@@ -310,7 +310,7 @@ Two layers, separated by concern:
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml`. This file is read-only documentation that maps every deliverable to its upstream and downstream relationships. When you revise your problem statement, you can read the graph to see that your target audience, assumptions, and competitor analysis all depend on it – and decide which to refresh.
 - **Live progress** in the `compound-documenter` agent's project-local memory at `.claude/agent-memory/compound-documenter/`. The `stale-dependents.md` file there is auto-computed by the agent – it cross-references the static graph against recent edits to surface which downstream deliverables may need a refresh.
 
-So when you change an upstream document, the workflow is: edit the document → run `/design-engineer:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
+So when you change an upstream document, the workflow is: edit the document → run `/product:document` → compound-documenter computes which downstream deliverables are now stale and writes them to `stale-dependents.md`. You read the file (or ask Claude to) and decide what to refresh.
 
 This is honest about what the plugin does and what you do. The plugin documents the relationships and surfaces stale candidates; you decide what's worth refreshing.
 </details>

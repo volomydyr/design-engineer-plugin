@@ -276,15 +276,15 @@ For each URL:
 
 4. **Scroll to top**: `mcp__playwright__browser_evaluate { function: "() => window.scrollTo(0, 0)" }`
 
-5. **Capture viewport-sized hero** (NOT fullPage): `mcp__playwright__browser_take_screenshot { fullPage: false, filename: "design/craft/references/captures/<reference-slug>/01-hero.png" }`. Ensure the parent dir exists first: `mkdir -p design/craft/references/captures/<reference-slug>`.
+5. **Capture viewport-sized hero** (NOT fullPage): `mcp__playwright__browser_take_screenshot { fullPage: false, filename: "design/exploration/references/captures/<reference-slug>/01-hero.png" }`. Ensure the parent dir exists first: `mkdir -p design/exploration/references/captures/<reference-slug>`.
 
 6. **Loop sections** until bottom or up to 5 sections:
    - `mcp__playwright__browser_evaluate { function: "() => window.scrollBy(0, 700)" }`
    - `mcp__playwright__browser_wait_for { time: 1 }`
-   - `mcp__playwright__browser_take_screenshot { fullPage: false, filename: "design/craft/references/captures/<reference-slug>/02-section.png" }` (incrementing the prefix per section: 02, 03, 04, 05).
+   - `mcp__playwright__browser_take_screenshot { fullPage: false, filename: "design/exploration/references/captures/<reference-slug>/02-section.png" }` (incrementing the prefix per section: 02, 03, 04, 05).
    - Stop when the page bottom is reached: detect via `() => window.innerHeight + window.scrollY >= document.body.scrollHeight - 50`.
 
-7. **Save manifest** at `design/craft/references/captures/<reference-slug>/manifest.md`:
+7. **Save manifest** at `design/exploration/references/captures/<reference-slug>/manifest.md`:
 
    ```markdown
    # <Reference name>
@@ -346,9 +346,9 @@ Help the user compile their references into a structured document. For each key 
 
 ## Step 8: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/craft/references` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/exploration/references` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the references document to `design/craft/references/references.md`. Save any collected reference images to the same folder: `design/craft/references/`.
+Save the references document to `design/exploration/references/references.md`. Save any collected reference images to the same folder: `design/exploration/references/`.
 
 The document should include:
 

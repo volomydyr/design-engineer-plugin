@@ -30,7 +30,7 @@ Read `.design-engineer-plugin/config.yaml`. If `gallery.path` is already set (fr
 
 Use existing detection infrastructure:
 
-- The environment summary already produced by `skills/meta-setup/scripts/detect-environment.sh` (run during `/design-engineer:start`).
+- The environment summary already produced by `skills/meta-setup/scripts/detect-environment.sh` (run during `/product:launch`).
 - Targeted file presence checks for stack markers:
   - `package.json` – read framework name + version (next, vue, svelte, astro, vite + react/vue, etc.)
   - `Package.swift` – Swift / SwiftUI
@@ -113,7 +113,7 @@ When invoked with a component create or modify, the skill:
 
 - **During design exploration / prototyping.** That's the prototype lifecycle (`skills/dev-prototyping/`). Prototypes are throwaway – they don't go in the gallery; gallery entries don't appear as prototypes.
 - **On non-component changes.** Style-only refactors, business-logic changes, infrastructure code – none of these affect the gallery.
-- **Without a project structure.** If `.design-engineer-plugin/config.yaml` doesn't exist, route the user to `/design-engineer:start` first.
+- **Without a project structure.** If `.design-engineer-plugin/config.yaml` doesn't exist, route the user to `/product:launch` first.
 
 ## Enforcement summary
 

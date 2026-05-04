@@ -95,7 +95,7 @@ For each of the 10 sections (or selected sections in targeted mode):
 
 ### Step 4: Compile the Findings Report
 
-Before writing the report to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the report to `design/psych/full-scan.md` (or a flow-specific name when multiple scans are produced).
+Before writing the report to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the report to `design/psychology/full-scan.md` (or a flow-specific name when multiple scans are produced).
 
 Organize findings into a structured report:
 
@@ -211,7 +211,7 @@ When routing to a section skill, pass along:
 ## Cross-References
 
 - **This skill feeds into**: All 13 section-specific psychology skills (see [section-routing-guide.md](./references/section-routing-guide.md))
-- **Invoked by**: `/design-engineer:review` (psychology option)
+- **Invoked by**: `/product:review` (psychology option)
 - **Uses agent**: `psych-scanner` for broad scan processing
 - **Pairs with**: `ux-full-review` for comprehensive product review, `ui-design-to-code-qa` for implementation-level checks
 

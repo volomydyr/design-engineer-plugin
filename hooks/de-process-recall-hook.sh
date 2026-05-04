@@ -9,7 +9,7 @@
 #      command or skill has signalled it is currently running).
 #
 # The .active-workflow marker is written by specific commands (e.g.,
-# /design-engineer:dev during feature implementation) and skills (e.g.,
+# /product:dev during feature implementation) and skills (e.g.,
 # dev-prototyping at the storyboard or interactive-prototype steps) at
 # the start of a structured flow, and cleared at the end of that flow
 # (via the Stop hook cleanup or by the command's own teardown). This

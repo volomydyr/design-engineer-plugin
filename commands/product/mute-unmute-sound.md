@@ -1,5 +1,5 @@
 ---
-name: design-engineer:mute-unmute-sound
+name: product:mute-unmute-sound
 description: Toggle plugin sound notifications on or off without uninstalling. First call mutes, second call unmutes.
 argument-hint: ""
 ---
@@ -21,10 +21,10 @@ State is persistent across Claude Code sessions and restarts.
 1. Check whether `~/.claude/de-sound-enabled` exists.
 2. **If it does NOT exist** (sounds currently off): create it.
    - Run: `mkdir -p ~/.claude && touch ~/.claude/de-sound-enabled`
-   - Confirm to the user: "Sounds enabled globally. They'll play when Claude finishes a response or needs your input, in any plugin project. Run `/design-engineer:mute-unmute-sound` again to mute."
+   - Confirm to the user: "Sounds enabled globally. They'll play when Claude finishes a response or needs your input, in any plugin project. Run `/product:mute-unmute-sound` again to mute."
 3. **If it DOES exist** (sounds currently on): remove it.
    - Run: `rm ~/.claude/de-sound-enabled`
-   - Confirm to the user: "Sounds muted globally. Toggle anytime with `/design-engineer:mute-unmute-sound`."
+   - Confirm to the user: "Sounds muted globally. Toggle anytime with `/product:mute-unmute-sound`."
 
 ## Notes
 

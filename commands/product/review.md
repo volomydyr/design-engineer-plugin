@@ -1,5 +1,5 @@
 ---
-name: design-engineer:review
+name: product:review
 description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or as a summary in Autopilot. Argument `audit` runs a multi-page commercial audit with designer-feedback capture per page.
 argument-hint: "[specific area to review | audit]"
 ---
@@ -308,8 +308,8 @@ After all pages: write `design/reviews/[YYYY-MM-DD]-audit/SUMMARY.md`:
 - Cross-page patterns (e.g., "same hardcoded color used on 8 of 14 pages")
 - Top redesign priorities ranked by combined AI + designer signal
 - Per-page links back to the individual audit files
-- Recommended next step (route to `/design-engineer:dev` with this brief, or to `/design-engineer:design feature-spec` for specific feature redesigns)
+- Recommended next step (route to `/product:dev` with this brief, or to `/product:design feature-spec` for specific feature redesigns)
 
 ### A1.5: Hand off
 
-Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement priority fixes", description: "Route to /design-engineer:dev with the brief"}, {label: "Spec specific feature redesigns", description: "Route to /design-engineer:design feature-spec for selected pages"}, {label: "Document and stop", description: "Brief is saved; pick up later"}]`.
+Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement priority fixes", description: "Route to /product:dev with the brief"}, {label: "Spec specific feature redesigns", description: "Route to /product:design feature-spec for selected pages"}, {label: "Document and stop", description: "Brief is saved; pick up later"}]`.

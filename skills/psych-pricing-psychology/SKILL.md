@@ -115,7 +115,7 @@ If any answer raises concern, flag it explicitly in your recommendation.
 
 ## Output Format
 
-Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psych/pricing-psychology.md` (or a flow-specific name when multiple audits are produced).
+Before writing the audit deliverable to disk, ensure the parent directory exists: run `mkdir -p design/psych` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the audit to `design/psychology/pricing-psychology.md` (or a flow-specific name when multiple audits are produced).
 
 ```
 ## Behavioral Economics Audit: [Design Name]

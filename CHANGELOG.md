@@ -4,6 +4,30 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.4.0] – 2026-05-04
+
+Three coordinated user-surface renames driven by a fresh end-to-end install of v5.3.3. Plugin install command stays unchanged (`/plugin install design-engineer@design-engineer-plugin`); only the slash-command surface and two `design/` subfolder names changed.
+
+### Changed — Slash-command namespace
+
+- `/design-engineer:*` renamed to `/product:*` across every command, skill, agent, hook, and doc that wasn't a frozen historical artifact (plans/, plans/archive/, prior CHANGELOG entries kept as-is). Reason: typing `/design` in Claude Code's command picker fuzzy-matched all 8 plugin commands because the namespace itself contained "design", burying `/product:design` (formerly `/design-engineer:design`) under the others. The fix had to be at the namespace level — renaming individual commands wouldn't have helped.
+
+### Changed — Entry-point command
+
+- `start` renamed to `launch`. The command is a universal entry point that runs onboarding for new projects, resumes returning ones, and shows a capability guide for existing projects, so calling it `start` actively misled users about the second and third paths. `launch` is verb-neutral across all three states.
+- `commands/design-engineer/start.md` → `commands/product/launch.md` (folder rename in step 1, file rename in step 2).
+- Description text updated: "Universal entry point. Launches the plugin for any project state — new, in-progress, or already shipped."
+
+### Changed — `design/` subfolder cleanup
+
+- `design/craft/` renamed to `design/exploration/`. "craft" was opaque — readers couldn't tell what went in it. "exploration" matches the actual contents (references, journey mapping, story panels, bias audit, AI-generated images) and is common design-team vocabulary.
+- `design/psych/` renamed to `design/psychology/`. The abbreviation forced non-experts to decode it; the full word is unambiguous.
+- All path references updated: hook allow-lists (`de-design-grounding-hook.js`, `de-playwright-path-hook.js`), skill instructions (every `ux-*` and `psych-*` skill that writes deliverables, plus `ui-references-moodboard`, `ui-images`, `ui-figma-guide`), `commands/product/dev.md`, `agents/frontend-implementer.md`, `CLAUDE.md` File-hygiene table, `evals/evals.json` (also fixed an unrelated stale folder list there), and the project-map.md heredoc + final summary echo in `init-project-structure.sh`.
+
+### Migration
+
+For the small number of existing projects already populated under `design/craft/` or `design/psych/`: `mv design/craft design/exploration && mv design/psych design/psychology`. Slash-command renames take effect after the new version is installed; update any project READMEs or shell history that referenced `/design-engineer:*`.
+
 ## [5.3.3] – 2026-05-04
 
 Reworded the Context7 line in the environment-detection output and related skill copy. "Up-to-date technical docs" was confusing on empty projects — it sounded like the plugin had detected technical documents inside the project, when it actually means Claude can fetch external library/framework documentation via Context7. Now reads "Library docs lookup – I can fetch up-to-date docs for libraries and frameworks (e.g., React, Tailwind, Stripe)".

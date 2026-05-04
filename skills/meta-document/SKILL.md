@@ -34,7 +34,7 @@ This is not for pet projects that you start and abandon. This is for actual comp
 - User confirms a solution worked ("that fixed it", "looks good", "approved")
 - End of any complex multi-step task
 
-**OR manual:** `/design-engineer:document` command
+**OR manual:** `/product:document` command
 
 **Document when:**
 
@@ -258,7 +258,7 @@ What's next?
 ## Integration Points
 
 **Invoked by:**
-- `/design-engineer:document` command (manual invocation)
+- `/product:document` command (manual invocation)
 - `meta-orchestrator` after each major phase completion (auto-triggered in Autopilot)
 - Any skill can request compound documentation when significant decisions are made
 

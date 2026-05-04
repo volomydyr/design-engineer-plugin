@@ -1,5 +1,5 @@
 ---
-name: design-engineer:help
+name: product:help
 description: Show all Design Engineer Plugin commands, current project status, and mode.
 argument-hint: ""
 ---
@@ -16,16 +16,16 @@ A plugin for Claude Code that walks you through building a product, start to fin
 
 | Command | What it does |
 |---------|-------------|
-| `/design-engineer:start` | Detects your situation – setup, resume, or capability guide |
-| `/design-engineer:design` | Runs the design workflow – discovery, strategy, planning, validation |
-| `/design-engineer:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
-| `/design-engineer:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
-| `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
-| `/design-engineer:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
-| `/design-engineer:stop` | Save progress and pause mid-activity – pick up later with `/design-engineer:start` |
-| `/design-engineer:help` | This help screen |
+| `/product:launch` | Detects your situation – setup, resume, or capability guide |
+| `/product:design` | Runs the design workflow – discovery, strategy, planning, validation |
+| `/product:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
+| `/product:dev` | Development workflow – CLAUDE.md, agent pipeline, context management, TDD, implementation |
+| `/product:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
+| `/product:document` | Saves decisions, learnings, and project state. Helps communicate with stakeholders |
+| `/product:stop` | Save progress and pause mid-activity – pick up later with `/product:launch` |
+| `/product:help` | This help screen |
 
-You only need to remember `/design-engineer:start`. It guides you to everything else.
+You only need to remember `/product:launch`. It guides you to everything else.
 
 ### Modes
 
@@ -51,4 +51,4 @@ Mode: {Guided mode / Autopilot}
 Goal: {if set}
 ```
 
-If no config exists, show: "This project hasn't been set up yet. Run `/design-engineer:start` to get started."
+If no config exists, show: "This project hasn't been set up yet. Run `/product:launch` to get started."

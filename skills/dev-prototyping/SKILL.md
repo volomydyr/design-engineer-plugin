@@ -11,7 +11,7 @@ license: MIT
 
 Generate interactive single-file HTML prototypes directly in Claude Code. Two-step approach: first a visual storyboard for layout/flow review, then a clickable interactive prototype. Works for new products (after planning docs exist), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs.
 
-**Important**: No git, no /simplify, no TDD during prototyping. The prototype exists for visual feedback and as a reference for real implementation. Git init, branches, commits, tests, and code quality checks start at `/design-engineer:dev`. Prototype HTML can be messy – nobody cares about code quality in a throwaway artifact.
+**Important**: No git, no /simplify, no TDD during prototyping. The prototype exists for visual feedback and as a reference for real implementation. Git init, branches, commits, tests, and code quality checks start at `/product:dev`. Prototype HTML can be messy – nobody cares about code quality in a throwaway artifact.
 
 ## Interaction Method
 
@@ -42,7 +42,7 @@ Before generating any HTML for storyboard or prototype, you MUST output the Desi
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `design/craft/references/references.md` exists (or run `ui-references-moodboard` first)
+4. Confirmed `design/exploration/references/references.md` exists (or run `ui-references-moodboard` first)
 
 This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop – they set the visual baseline that downstream development inherits.
 
@@ -155,7 +155,7 @@ Read from the deliverables directory and extract:
 - **Screens, flows, navigation structure** from the Information Architecture document
 - **Feature priorities and acceptance criteria** from MVP Requirements
 - **Psychology insights and bias considerations** from `bias-audit.md` and `journey-map.md` (if they exist)
-- **Bias audit recommendations** from `design/craft/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
+- **Bias audit recommendations** from `design/exploration/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
 
 Present a summary of what was found:
 
@@ -443,7 +443,7 @@ After prototyping, suggest the logical next step based on what exists:
 - **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype
 - **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
 - **If designs exist but need review**: suggest `ui-aesthetic-review` or `ui-design-to-code-qa` to evaluate the prototype against design intent
-- **If the prototype needs production implementation**: suggest the development pipeline via `/design-engineer:dev`
+- **If the prototype needs production implementation**: suggest the development pipeline via `/product:dev`
 
 ---
 

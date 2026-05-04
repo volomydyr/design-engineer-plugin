@@ -1,10 +1,10 @@
 ---
-name: design-engineer:start
-description: Universal entry point. New projects get setup, returning projects resume where they left off, existing projects get a capability guide.
+name: product:launch
+description: Universal entry point. Launches the plugin for any project state — new, in-progress, or already shipped.
 argument-hint: ""
 ---
 
-# Design Engineer – Start
+# Design Engineer – Launch
 
 <context> #$ARGUMENTS </context>
 
@@ -26,7 +26,7 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
      - header: "Goal"
      - options match the Step 2 Question 1 set below (Review my project / Implement from Figma / Design a new feature / Prepare project for AI coding).
      - multiSelect: false
-     - After the answer, route directly to the matching `/design-engineer:` command. Do NOT re-run the project-type question, do NOT re-scaffold `design/`, do NOT ask about the status line or sound again — those were settled on the original onboarding run.
+     - After the answer, route directly to the matching `/product:` command. Do NOT re-run the project-type question, do NOT re-scaffold `design/`, do NOT ask about the status line or sound again — those were settled on the original onboarding run.
 
 The `DESIGN_ENGINEER_PROJECT_STATE` injected value is now an HINT only. The disk read above is the source of truth.
 
@@ -48,7 +48,7 @@ The spacer prevents the question panel from overlaying and cutting off your text
 
 ## Onboarding sequence (DESIGN_ENGINEER_PROJECT_STATE = new_to_plugin)
 
-Follow these steps when `/design-engineer:start` runs and the project state is `new_to_plugin`. Do not skip any step.
+Follow these steps when `/product:launch` runs and the project state is `new_to_plugin`. Do not skip any step.
 
 ### Step 1: Brief intro, then ask project type
 
@@ -144,7 +144,7 @@ If absent (sounds currently off), ask via AskUserQuestion:
   - label: "Yes (Recommended)"
     description: "I'll get a chime when Claude finishes a response and when Claude needs my input — only inside design-engineer plugin projects."
   - label: "Keep muted"
-    description: "Leave sounds off. Toggle later with /design-engineer:mute-unmute-sound."
+    description: "Leave sounds off. Toggle later with /product:mute-unmute-sound."
 - multiSelect: false
 
 If present (sounds currently on), ask:
@@ -175,7 +175,7 @@ Apply the choice using the `! <command>` paste pattern (per the user's preferenc
   ! rm -f ~/.claude/de-sound-enabled
   ```
 
-  Confirm: "Sounds muted once you paste that. Toggle anytime with /design-engineer:mute-unmute-sound."
+  Confirm: "Sounds muted once you paste that. Toggle anytime with /product:mute-unmute-sound."
 
 f) Ask status line question. Do NOT use the built-in `statusline-setup` agent, and do NOT write to `~/.claude/settings.json` or copy files to `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and ask them to run it themselves in their next prompt.
 
@@ -192,23 +192,23 @@ Then `AskUserQuestion` (spacer above):
 - header: "Status line"
 - options:
   - label: "I'll paste the command above", description: "I'll run the install command in my next prompt"
-  - label: "Skip", description: "Re-run /design-engineer:start later if I change my mind"
+  - label: "Skip", description: "Re-run /product:launch later if I change my mind"
 
 #### Step 4: Hand off to the goal-matching command
 
-Say "You're all set. Let's get started." then show: "Tip: Run `/design-engineer:help` anytime to see all available commands and capabilities."
+Say "You're all set. Let's get started." then show: "Tip: Run `/product:help` anytime to see all available commands and capabilities."
 
-Then run the `/design-engineer:` slash command matching the goal selected in Step 2 (these are commands, not skills — invoke them as slash commands):
+Then run the `/product:` slash command matching the goal selected in Step 2 (these are commands, not skills — invoke them as slash commands):
 
 | Goal selected | Command to load |
 | --- | --- |
-| Review my project | `/design-engineer:review` |
-| Implement from Figma | `/design-engineer:dev` |
-| Design a new feature | `/design-engineer:design` |
-| Prepare project for AI coding | `/design-engineer:dev setup` |
+| Review my project | `/product:review` |
+| Implement from Figma | `/product:dev` |
+| Design a new feature | `/product:design` |
+| Prepare project for AI coding | `/product:dev setup` |
 
 ## Advisor checkpoint contract for the loaded skill
 
 After environment detection completes (tech stack identified, tools enumerated, project type inferred) but **before** committing to a recommended onboarding path or kickoff plan, the loaded skill (`meta-setup-welcome` or `meta-setup`) MUST consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions with: detection results, inferred project type, the path it's about to recommend, and "I'm about to commit to this interpretation of the project – any course correction before I show it to the user?" Apply the advice or use the reconcile pattern. (As elsewhere in this plugin, advisor is loaded via Read, not the `Skill` tool.)
 
-This is the docs' "before committing to an interpretation" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)). Onboarding is irreversibly directional – wrong project-type inference cascades through every later phase. Skip only when the user invoked `/design-engineer:start` with explicit arguments that make interpretation unambiguous.
+This is the docs' "before committing to an interpretation" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)). Onboarding is irreversibly directional – wrong project-type inference cascades through every later phase. Skip only when the user invoked `/product:launch` with explicit arguments that make interpretation unambiguous.

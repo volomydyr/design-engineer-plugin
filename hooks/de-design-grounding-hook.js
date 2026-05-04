@@ -13,7 +13,7 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-design-grounding.log');
 
-// Only active in projects that have run /design-engineer:start
+// Only active in projects that have run /product:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.yaml'))) {
   process.exit(0);
 }
@@ -43,8 +43,8 @@ const REQUIRED_READ_BASENAMES = [
 
 // Possible references.md locations (the project may have either layout)
 const REFERENCES_MD_CANDIDATES = [
-  'design/craft/references/references.md',
-  'design/craft/references.md',
+  'design/exploration/references/references.md',
+  'design/exploration/references.md',
   'design/references/references.md',
   'design/references.md'
 ];
@@ -314,7 +314,7 @@ function main() {
           'Before writing UI, establish design intent: who is this user (a specific person, not "users"), ' +
           'what verb must they perform (the actual action), how should it feel ' +
           '(warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app – ' +
-          'NEVER "clean and modern"). Save this to design/craft/references/references.md ' +
+          'NEVER "clean and modern"). Save this to design/exploration/references/references.md ' +
           'or run the ui-references-moodboard skill first.'
         );
         return process.exit(0);

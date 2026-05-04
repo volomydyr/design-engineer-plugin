@@ -1,6 +1,6 @@
 ---
 name: meta-orchestrator
-description: "Controls the full design pipeline across discovery, strategy, planning, and validation phases. Manages autonomous, guided, and direct access modes while tracking project state. Use when running the end-to-end design workflow via /design-engineer:design."
+description: "Controls the full design pipeline across discovery, strategy, planning, and validation phases. Manages autonomous, guided, and direct access modes while tracking project state. Use when running the end-to-end design workflow via /product:design."
 disable-model-invocation: true
 model: claude-opus-4-7
 effort: xhigh
@@ -74,7 +74,7 @@ The user jumps to any specific skill by name. When invoked in Direct mode:
 3. Execute the requested skill
 4. On completion, suggest related skills that would logically follow
 
-Additionally, `/design-engineer:prototype` provides a standalone entry point for prototyping outside the pipeline, without needing to invoke the full orchestrator.
+Additionally, `/product:prototype` provides a standalone entry point for prototyping outside the pipeline, without needing to invoke the full orchestrator.
 
 ## Advisor checkpoints
 

@@ -1,5 +1,5 @@
 ---
-name: design-engineer:design
+name: product:design
 description: Design workflow. For new products, runs the full pipeline. For existing projects, runs an abbreviated feature-focused flow. Argument `feature-spec` produces a truly minimal spec for established products with existing brand / design system.
 argument-hint: "[phase N | skill-name | feature-spec]"
 ---
@@ -24,7 +24,7 @@ If `$ARGUMENTS` is `feature-spec`, jump to **Step F1: Minimal feature spec** bel
 
 1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot) and project type
 2. Check for existing deliverables in `design/`
-3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:start` first
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/product:launch` first
 4. Scan the project: what tech stack, what components exist, what design patterns are used
 
 ## Step 2: Route based on project type
@@ -48,7 +48,7 @@ Before drafting any spec or running any skill, ask the user how polished the spe
     description: "Walk through MVP requirements + information architecture before implementation. Creates design/features/<slug>/ with multiple deliverables. Slower; useful when the feature is ambiguous or affects core navigation."
 - multiSelect: false
 
-On "Minimal feature spec" → jump to Step F1 (Minimal feature spec — argument branch below). The user effectively chose the same path as `/design-engineer:design feature-spec`.
+On "Minimal feature spec" → jump to Step F1 (Minimal feature spec — argument branch below). The user effectively chose the same path as `/product:design feature-spec`.
 
 On "Full feature flow" → continue to Step 2.2 below.
 
@@ -110,21 +110,21 @@ options:
     description: "Implement without Figma designs (rely on the spec + existing components)."
 ```
 
-On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true` and the Skill tool will reject them). Pass the affected pages from the spec / IA as the scope. After Figma data is captured, then hand off to `/design-engineer:dev`.
+On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true` and the Skill tool will reject them). Pass the affected pages from the spec / IA as the scope. After Figma data is captured, then hand off to `/product:dev`.
 
-On "Skip" → proceed directly to `/design-engineer:dev`.
+On "Skip" → proceed directly to `/product:dev`.
 
 If Figma is not connected, skip this step entirely and go to Step 2.7.
 
 #### Step 2.7: Proceed to implementation
 
-Before handing off to `/design-engineer:dev`, clear the abbreviated-feature-flow marker so the process-recall hook stops firing on subsequent casual chat (the dev command will write its own `dev:feature-implementation` marker when it begins implementation):
+Before handing off to `/product:dev`, clear the abbreviated-feature-flow marker so the process-recall hook stops firing on subsequent casual chat (the dev command will write its own `dev:feature-implementation` marker when it begins implementation):
 
 ```bash
 rm -f .design-engineer-plugin/.active-workflow
 ```
 
-Load `/design-engineer:dev` with the feature plan.
+Load `/product:dev` with the feature plan.
 
 In Guided mode: ask the user at each step, iterate. Do NOT delegate to agents – the main model does the work interactively.
 In Autopilot: execute the abbreviated flow, present results.
@@ -262,7 +262,7 @@ options:
 
 ## Step F1: Minimal feature spec (`feature-spec` argument)
 
-This branch is for adding a feature to an established product that already has a design language and existing documentation. The plugin must NOT push StoryBrand, business-plan thinking, or full Phase 1+2 / Phase 3 work for these tasks. The output is a single short spec the user (and `/design-engineer:dev`) can act on.
+This branch is for adding a feature to an established product that already has a design language and existing documentation. The plugin must NOT push StoryBrand, business-plan thinking, or full Phase 1+2 / Phase 3 work for these tasks. The output is a single short spec the user (and `/product:dev`) can act on.
 
 ### F1.1: Verify project context
 
@@ -313,6 +313,6 @@ After the spec is drafted at `design/features/[feature-slug]/feature-spec.md` an
 
 ### F1.4: Hand off
 
-Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement this feature", description: "Route to /design-engineer:dev with the spec"}, {label: "Refine the spec further", description: "Iterate before development"}, {label: "Save and stop", description: "Spec is on disk; pick up later"}]`.
+Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement this feature", description: "Route to /product:dev with the spec"}, {label: "Refine the spec further", description: "Iterate before development"}, {label: "Save and stop", description: "Spec is on disk; pick up later"}]`.
 
-If "Implement", route to `/design-engineer:dev` and pass the spec path so the dev command can read it and create an implementation plan respecting it.
+If "Implement", route to `/product:dev` and pass the spec path so the dev command can read it and create an implementation plan respecting it.

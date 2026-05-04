@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Inject onboarding or returning-project context for /design-engineer:start.
+# Inject onboarding or returning-project context for /product:launch.
 # ALWAYS injects DESIGN_ENGINEER_PLUGIN_ROOT for reference file resolution.
 # Three cases:
 #   1. No config → inject minimal markers (plugin root + new_to_plugin state).
-#      The full onboarding sequence lives in commands/design-engineer/start.md
-#      so it loads only when the user invokes /design-engineer:start, not on
+#      The full onboarding sequence lives in commands/product/launch.md
+#      so it loads only when the user invokes /product:launch, not on
 #      every prompt in unrelated repos.
 #   2. Config with project_type: existing → inject existing-project context + plugin root
 #   3. Config with project_type: new → inject plugin root only
@@ -16,7 +16,7 @@ PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
 CONFIG=".design-engineer-plugin/config.yaml"
 
 if [ ! -f "$CONFIG" ]; then
-  # Case 1: No config – minimal markers only. The /design-engineer:start
+  # Case 1: No config – minimal markers only. The /product:launch
   # command body picks up DESIGN_ENGINEER_PROJECT_STATE and runs the full
   # onboarding flow when invoked.
   cat <<HOOK_EOF
@@ -25,7 +25,7 @@ HOOK_EOF
 
 elif grep -q "project_type: existing" "$CONFIG" 2>/dev/null; then
   # Case 2: Config exists with project_type: existing – minimal markers only.
-  # The full goal-routing AskUserQuestion lives in commands/design-engineer/start.md
+  # The full goal-routing AskUserQuestion lives in commands/product/launch.md
   # Step 0 (re-detect from disk). The hook used to inject the AskUserQuestion text
   # here too, but that duplicated the command body and drifted out of sync (e.g.
   # "Set up development" stayed in the hook after start.md was renamed to "Prepare
@@ -38,7 +38,7 @@ HOOK_EOF
 else
   # Case 3: Config exists with project_type: new – inject plugin root + resume state
   # The state distinguishes "returning user with active pipeline state" vs
-  # "returning user without resume state" so /design-engineer:start can route to the right
+  # "returning user without resume state" so /product:launch can route to the right
   # path in meta-setup. Detection logic mirrors skills/meta-setup/scripts/detect-state.sh.
   if grep -q "^resume:" "$CONFIG" 2>/dev/null; then
     STATE="returning_with_resume"

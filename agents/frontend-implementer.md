@@ -43,7 +43,7 @@ Before writing any UI code, you MUST output the Design Grounding block below. Th
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `design/craft/references/references.md` exists in the project (or run `ui-references-moodboard` first)
+4. Confirmed `design/exploration/references/references.md` exists in the project (or run `ui-references-moodboard` first)
 5. Read `prototype/prototype.html` if it exists – your implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
 
 This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing.

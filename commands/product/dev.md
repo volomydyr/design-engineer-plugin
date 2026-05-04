@@ -1,5 +1,5 @@
 ---
-name: design-engineer:dev
+name: product:dev
 description: Development pipeline. Setup, implementation, and AI-assisted building. Mode determined by your config.
 argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]"
 ---
@@ -22,11 +22,11 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot), project type, and environment
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
-3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:start` first
+3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/product:launch` first
 
 ## Step 1.5: Apply UX/psych depth from feature options
 
-If the user came from `/design-engineer:design` (existing-project feature flow), they may have selected optional depth steps in design.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
+If the user came from `/product:design` (existing-project feature flow), they may have selected optional depth steps in design.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
 
 1. Read `.design-engineer-plugin/config.yaml`. Look for `project.feature_options:` (a list of strings).
 2. If the key is missing or the list is empty, skip this step entirely.
@@ -41,7 +41,7 @@ If the user came from `/design-engineer:design` (existing-project feature flow),
 
 4. After each option's skill is applied, surface the insights to the user in a short summary (1–3 bullets per option) BEFORE moving to Step 1.55 / Step 2. The point is to inform plan generation, not to gate it — proceed once the user has seen the surfaced findings.
 
-If `project.feature_options` is absent (e.g., user invoked `/design-engineer:dev` directly without going through design.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
+If `project.feature_options` is absent (e.g., user invoked `/product:dev` directly without going through design.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
 
 ## Step 1.55: Detect build targets
 
@@ -80,7 +80,7 @@ Before any UI code is generated in this command, you MUST output the Design Grou
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `design/craft/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
+4. Confirmed `design/exploration/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
 5. Read `prototype/prototype.html` if it exists – implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
 
 **Behavior on missing files** (so you know what's happening before the hook denies a write):
@@ -97,7 +97,7 @@ Read `.design-engineer-plugin/config.yaml`. The deterministic branches below dep
 - **Established project**: silently scaffold via the `dev-claude-md` skill in non-interactive mode. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-claude-md/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). The skill's Step 0.5 detects this command's non-interactive request and runs an inference pass over the codebase instead of the question-driven flow. After the scaffold, surface a one-line confirmation: "Created CLAUDE.md from your existing components — review it later if you want." Do NOT ask the user a question for this.
 - **Greenfield project**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-claude-md/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool). The skill's interactive Step 1+ flow is the right path here.
 
-**`design/craft/references/references.md` missing**:
+**`design/exploration/references/references.md` missing**:
 
 - **Established project (`shipped_ui: true`)**: ask exactly ONE question with two options. End the preceding chat message with the canonical 3-horizontal-rule spacer, then call AskUserQuestion:
 
@@ -113,9 +113,9 @@ Read `.design-engineer-plugin/config.yaml`. The deterministic branches below dep
   ```
 
   - **If user chooses "Reuse existing UI (Recommended)"**:
-    1. Run `mkdir -p design/craft/references` to ensure the destination exists.
+    1. Run `mkdir -p design/exploration/references` to ensure the destination exists.
     2. Use Glob to scan `src/components/`, `src/app/`, `app/components/`, or whatever component directory the project actually uses (detect from filesystem).
-    3. Write `design/craft/references/references.md` with three sections: (a) a 1-paragraph design intent inferred from CLAUDE.md and the repo, (b) a "Reuse" section listing the actual component file paths and their roles in the UI, (c) a "Do not introduce" section forbidding new tokens, new typefaces, or new component variants without explicit user request.
+    3. Write `design/exploration/references/references.md` with three sections: (a) a 1-paragraph design intent inferred from CLAUDE.md and the repo, (b) a "Reuse" section listing the actual component file paths and their roles in the UI, (c) a "Do not introduce" section forbidding new tokens, new typefaces, or new component variants without explicit user request.
     4. Do not ask further questions about visual direction — the existing components ARE the direction.
 
   - **If user chooses "Provide image references"**:
@@ -156,7 +156,7 @@ Based on what you found, present a plan. Only suggest what's relevant:
 - **Kick-start prompts** – helpful for teams, optional for solo
 - **Feature implementation** – if the user's goal was "Implement from Figma" or they have a specific feature to build
 
-If an argument was provided (`/design-engineer:dev setup`, `/design-engineer:dev pipeline`), skip planning and go directly to that activity.
+If an argument was provided (`/product:dev setup`, `/product:dev pipeline`), skip planning and go directly to that activity.
 
 In **Guided mode**: ask the user to confirm or adjust the plan.
 In **Autopilot**: show the plan briefly, then execute.
@@ -174,7 +174,7 @@ In **Autopilot**: show the plan briefly, then execute.
 | Context management | `dev-status-tracking` |
 | Kick-start prompts | `dev-starter-prompts` |
 
-If the user invoked `/design-engineer:dev setup` (the setup-activities sub-flow), run this Bash command at the start of this section to mark the active workflow so the process-recall hook can fire context-appropriately:
+If the user invoked `/product:dev setup` (the setup-activities sub-flow), run this Bash command at the start of this section to mark the active workflow so the process-recall hook can fire context-appropriately:
 
 ```bash
 mkdir -p .design-engineer-plugin && printf '%s\n' "dev:setup" > .design-engineer-plugin/.active-workflow

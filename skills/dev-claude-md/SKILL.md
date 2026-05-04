@@ -39,7 +39,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0.5: Detect non-interactive mode
 
-Some callers need to scaffold CLAUDE.md silently without running the question-driven flow — for example, `/design-engineer:dev` Step 1.6 when an established project is missing CLAUDE.md and the user shouldn't be asked a question for something we can infer.
+Some callers need to scaffold CLAUDE.md silently without running the question-driven flow — for example, `/product:dev` Step 1.6 when an established project is missing CLAUDE.md and the user shouldn't be asked a question for something we can infer.
 
 **Trigger conditions** (BOTH must be true to enter non-interactive mode):
 
@@ -185,7 +185,7 @@ Before generating any text for the deliverable, read [anti-slop-writing.md](../s
 
 The generated CLAUDE.md MUST include a top-level **Component Gallery Contract** section that survives in the user's project. The section contains the universal contract text from `skills/dev-component-gallery/references/gallery-contract.md` – quote it verbatim – plus this short prose around it:
 
-> The project maintains a single-page component gallery for visual quality assurance and duplicate detection. After creating or modifying any component, update the gallery in the same change. Run the `dev-component-gallery` skill via `/design-engineer:dev` to scaffold or update. Never duplicate components in the gallery; never inline styles. Enforcement runs in `frontend-implementer` (sync after every component change) and `design-system-auditor` (audit at FAIL severity) – there is no hook-level enforcement.
+> The project maintains a single-page component gallery for visual quality assurance and duplicate detection. After creating or modifying any component, update the gallery in the same change. Run the `dev-component-gallery` skill via `/product:dev` to scaffold or update. Never duplicate components in the gallery; never inline styles. Enforcement runs in `frontend-implementer` (sync after every component change) and `design-system-auditor` (audit at FAIL severity) – there is no hook-level enforcement.
 
 If a component gallery already exists in the project, also include the gallery's path (read from `.design-engineer-plugin/config.yaml` under `gallery.path`) so the rule references the actual file location. If no gallery exists yet, the section still goes in – the contract applies the moment the gallery is scaffolded.
 

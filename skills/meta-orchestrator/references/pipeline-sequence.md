@@ -5,7 +5,7 @@ Complete skill sequence for the design pipeline managed by `meta-orchestrator`. 
 ## Pipeline Overview
 
 ```
-                     /design-engineer:design
+                     /product:design
                         |
                  meta-orchestrator
                         |
@@ -111,7 +111,7 @@ Before starting the first activity, present the user with a map of the journey:
 > **Phase 4 – Design & validation** (8+ activities): Psychology audits, design references, prototyping, Figma workflow, additional psychology skills, comprehensive review.
 > **Phase 5 – Development**: Set up the project, implement phase by phase with testing and quality checks.
 >
-> You can stop at any point – your progress is saved automatically. Run `/design-engineer:start` to resume where you left off. Run `/design-engineer:stop` if you want to save mid-activity progress.
+> You can stop at any point – your progress is saved automatically. Run `/product:launch` to resume where you left off. Run `/product:stop` if you want to save mid-activity progress.
 
 Use AskUserQuestion to confirm the user is ready to begin.
 
@@ -327,7 +327,7 @@ options:
 allowMultiSelect: false
 ```
 
-If "I need more time": save state, suggest compaction with compact-template.md, and make it easy to resume. The user will start a new session and run `/design-engineer:start` to pick up at "designs ready for psychology review."
+If "I need more time": save state, suggest compaction with compact-template.md, and make it easy to resume. The user will start a new session and run `/product:launch` to pick up at "designs ready for psychology review."
 
 ### Skill 4.7: ui-figma-handoff (OPTIONAL)
 
@@ -557,8 +557,8 @@ After dev-status-tracking and the final meta-document, present a personalized, d
 2. **Highlight key decisions** – the choices that shaped the product (from MEMORY.md key decisions or deliverables)
 3. **Show what's possible next** – dynamic, based on what was built and what the plugin can still help with:
    - Iterate on user feedback
-   - Add new features via `/design-engineer:design` (existing project flow)
-   - Run design reviews or psychology audits via `/design-engineer:review`
+   - Add new features via `/product:design` (existing project flow)
+   - Run design reviews or psychology audits via `/product:review`
    - Build additional build targets (if any remain)
    - Run specific psychology skills on real screens
    - Refine Figma designs and sync code

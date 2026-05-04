@@ -40,9 +40,9 @@ Invoke this skill when:
 
 List every image the current artefact needs. Read upstream design context first:
 
-- `design/craft/references/references.md` (if exists) – visual style direction
+- `design/exploration/references/references.md` (if exists) – visual style direction
 - `design/foundation/` – brand voice, target audience
-- `design/craft/story-panels/` (if exists) – character/scene references
+- `design/exploration/story-panels/` (if exists) – character/scene references
 - The current artefact (prototype HTML, landing page sections, IA doc) – every screen/section that has an image slot
 
 Produce a table:
@@ -54,7 +54,7 @@ Produce a table:
 | 3 | Feature card icon | 1:1 | 200×200 | 3 instances, custom illustration style |
 | ... | ... | ... | ... | ... |
 
-Save initial draft to `design/craft/images/manifest.md`. Create the folder if it doesn't exist.
+Save initial draft to `design/exploration/images/manifest.md`. Create the folder if it doesn't exist.
 
 ## Step 2: Decide per image – generate or stock
 
@@ -89,7 +89,7 @@ For each row marked `stock`:
    - Take a screenshot of the search results page (top 5–10 results)
    - Visually rank the results: which ones match the design intent best? Score each on (a) subject relevance, (b) composition, (c) lighting/quality, (d) match with references.md palette.
    - Present the top 3 to the user via AskUserQuestion (with image option labels).
-   - Save the chosen image URL or download to `design/craft/images/stock/[image-id]-[short-desc].jpg`.
+   - Save the chosen image URL or download to `design/exploration/images/stock/[image-id]-[short-desc].jpg`.
 
 3. **If Playwright is NOT available**: list the search query and 3–5 candidate URLs from a manual visit; ask the user to pick. Save URL to manifest.
 
@@ -128,16 +128,16 @@ For each row marked `generate`:
    - **Aspect ratio / dimensions**: per the manifest
    - **Negative prompt** (if generator supports): what to avoid (e.g., "no emoji, no flag avatars, no glassmorphism")
 
-4. **Save each prompt** to `design/craft/images/prompts/[image-id]-[short-desc].md`. One file per image. The user can copy-paste the file content into their generator.
+4. **Save each prompt** to `design/exploration/images/prompts/[image-id]-[short-desc].md`. One file per image. The user can copy-paste the file content into their generator.
 
-5. **Tell the user where to put the generated output**: `design/craft/images/generated/[image-id]-[short-desc].png` (or .webp/.jpg). Naming convention matches the prompt file.
+5. **Tell the user where to put the generated output**: `design/exploration/images/generated/[image-id]-[short-desc].png` (or .webp/.jpg). Naming convention matches the prompt file.
 
 ## Step 5: Save manifest, lay out folders
 
-Final state of `design/craft/images/`:
+Final state of `design/exploration/images/`:
 
 ```
-design/craft/images/
+design/exploration/images/
 ├── manifest.md          # Table from Step 1, updated with decisions and final filenames
 ├── prompts/             # One .md per generated image, ready to paste into generator
 ├── generated/           # User drops AI-generated outputs here

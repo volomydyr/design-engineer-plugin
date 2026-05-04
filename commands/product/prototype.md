@@ -1,5 +1,5 @@
 ---
-name: design-engineer:prototype
+name: product:prototype
 description: HTML prototype generation. Create clickable prototypes from planning docs, existing designs, or just an idea.
 argument-hint: "[new | feature | redesign]"
 ---
@@ -51,7 +51,7 @@ Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md` and follow
 In **Guided mode**: pause after the initial prototype for review, iterate based on feedback.
 In **Autopilot**: build the prototype, present it, ask for feedback.
 
-Note: do NOT run /simplify on prototype HTML. Prototypes are throwaway visual artifacts; code quality is irrelevant in this phase. /simplify applies only during /design-engineer:dev implementation.
+Note: do NOT run /simplify on prototype HTML. Prototypes are throwaway visual artifacts; code quality is irrelevant in this phase. /simplify applies only during /product:dev implementation.
 
 ## Step 4: Test
 

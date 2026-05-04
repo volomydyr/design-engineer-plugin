@@ -1,5 +1,5 @@
 ---
-name: design-engineer:document
+name: product:document
 description: Document decisions, learnings, project state, and stakeholder communication for cross-session continuity.
 argument-hint: "[status | stakeholder]"
 ---

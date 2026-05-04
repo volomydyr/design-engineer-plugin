@@ -2,7 +2,7 @@
 // Design-Engineer Playwright-Path Hook (PreToolUse on mcp__playwright__browser_take_screenshot)
 // Stops Playwright screenshots from polluting the project root by enforcing
 // that every `filename` argument starts with one of the canonical paths
-// the plugin documents (design/reviews/, design/craft/references/captures/,
+// the plugin documents (design/reviews/, design/exploration/references/captures/,
 // design/.scratch/playwright/, or tests/).
 //
 // Without this hook, Playwright MCP defaults to writing to process.cwd()
@@ -21,14 +21,14 @@ const os = require('os');
 
 const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-playwright-path.log');
 
-// Only active in projects that have run /design-engineer:start
+// Only active in projects that have run /product:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.yaml'))) {
   process.exit(0);
 }
 
 // Canonical paths where Playwright artifacts may be written.
 // - design/reviews/ — page-by-page audit captures (review.md Step A1)
-// - design/craft/references/captures/ — moodboard reference captures
+// - design/exploration/references/captures/ — moodboard reference captures
 //   (ui-references-moodboard Step 5b)
 // - design/.scratch/playwright/ — throwaway debug captures (visual
 //   verification, exploratory analysis, comparisons, anything you'd
@@ -37,7 +37,7 @@ if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.y
 //   baselines that live alongside the test scripts
 const ALLOWED_PREFIXES = [
   'design/reviews/',
-  'design/craft/references/captures/',
+  'design/exploration/references/captures/',
   'design/.scratch/playwright/',
   'tests/'
 ];
@@ -73,7 +73,7 @@ function buildHelpMessage(filename) {
     '  - Throwaway debug captures (visual verification, "let me check this URL", comparisons, exploratory analysis): ' +
     'design/.scratch/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png. The .scratch/ directory is git-ignored — clean up at any time without losing work.\n' +
     '  - Persistent audit captures (page-by-page review): design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png\n' +
-    '  - Moodboard reference captures: design/craft/references/captures/<reference-slug>/<NN>-<section>.png\n' +
+    '  - Moodboard reference captures: design/exploration/references/captures/<reference-slug>/<NN>-<section>.png\n' +
     '  - Playwright test fixtures and visual regression baselines: tests/<test-name>/<snapshot>.png\n' +
     '\nEnsure the parent directory exists first via `mkdir -p`. Re-run the screenshot call with the corrected `filename`.'
   );

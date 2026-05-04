@@ -255,9 +255,9 @@ header: "In Real Life Test"
 
 ## Step 8: Produce the Deliverable
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/craft` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/exploration` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Save the final journey map and improvement plan to `design/craft/customer-journey-map.md`.
+Save the final journey map and improvement plan to `design/exploration/customer-journey-map.md`.
 
 The document should include:
 

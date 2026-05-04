@@ -256,7 +256,7 @@ multiSelect: false  # User answers prompt validation questions
 <step number="7" required="true" depends_on="6">
 ### Step 7: Produce the Behavior Map Document
 
-Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/craft` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the document to `design/craft/behavior-map.md`.
+Before writing the deliverable, ensure the parent directory exists: run `mkdir -p design/exploration` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the document to `design/exploration/behavior-map.md`.
 
 Compile the analysis into a structured Behavior Map document:
 

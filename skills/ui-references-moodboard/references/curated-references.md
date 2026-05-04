@@ -94,6 +94,6 @@ The pattern: each app has a specific quality worth studying. **Do not copy layou
 2. Read the "Study" notes – those are the principles, not the visual to copy.
 3. Pick 2–3 apps that match your product's intent (warm vs cold, dense vs spacious, etc.).
 4. Open the actual apps. Look at them. Take notes on specific elements that work.
-5. Add your selections to `design/craft/references/references.md` with the SAME format ("from [app], take [specific quality]").
+5. Add your selections to `design/exploration/references/references.md` with the SAME format ("from [app], take [specific quality]").
 
 These references are anchors against AI defaults. The plugin's anti-patterns catalog tells you what NOT to do; this file tells you what excellent design looks like in your domain. Use both.
