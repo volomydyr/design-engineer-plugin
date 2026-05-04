@@ -4,6 +4,25 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.1] – 2026-05-04
+
+Critical fix: every plugin-defined agent (advisor, backend-implementer, compound-documenter, context-analyzer, deliverable-writer, design-system-auditor, frontend-implementer, psych-scanner, test-writer, ux-researcher) was failing silent registration with Claude Code's agent registry. Symptom: `/agents` panel showed only `code-simplifier:code-simplifier` under Plugin agents; calling `Task(design-engineer:ux-researcher)` returned "Agent type not found". User couldn't run any plugin agent.
+
+### Fixed
+
+- **Agent `model:` field** — every agent had `model: claude-opus-4-7` (specific version pin from v4.3.1's "alias drift" decision). Claude Code's plugin agent registry only accepts model aliases (`opus`, `sonnet`, `haiku`, `inherit`) and silently rejects agents with unrecognized values. Changed to `model: opus` / `model: sonnet` across all 10 agents.
+- **Agent `effort:` field** — Anthropic's plugin agent schema doesn't recognize `effort:` and may reject agents that include it. Removed from all 10 agents. (Effort tuning stays on skills, which are loaded via Read and don't go through the agent registry.)
+- **`agents/advisor.md`** — also had `disable-model-invocation: true`, which is a skill-frontmatter field, not an agent field. Removed.
+
+### Changed
+
+- **`CLAUDE.md` "Model Configuration" section** — rewrote with explicit agent-vs-skill split: agents must use model aliases and skip `effort:` / `disable-model-invocation:`; skills can keep specific version pins (`claude-opus-4-7`) and `effort:` / `disable-model-invocation:` because they're loaded by commands via Read, not registered with Claude Code's agent system.
+- Pre-commit checklist updated: `effort:` is now required only on skills (not agents); agents must use model aliases.
+
+### Why this matters
+
+The v4.3.1 version-pin decision was deliberate ("Pinned explicitly to the version so the plugin's quality expectations are unambiguous") but broke agent registration in any current Claude Code version that validates the field. The bug was invisible in normal use — agents simply didn't exist from Claude Code's perspective — and the model fell back to `general-purpose` whenever it tried to delegate, producing degraded output without any user-visible error until the user specifically inspected `/agents`. Skills keep the version pin because they're not registered.
+
 ## [5.5.0] – 2026-05-04
 
 Major structural consolidation and a sweep of model-improvisation bugs surfaced during user testing of v5.4.0. Everything the plugin produces (except actual product code and Anthropic-managed agent memory) now lives under `.design-engineer-plugin/`. Hard path enforcement at the hook layer prevents the model from improvising non-canonical folders or filenames. Three independent priming sources for hallucinated outputs were rooted out.

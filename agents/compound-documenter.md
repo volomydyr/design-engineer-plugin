@@ -2,7 +2,6 @@
 name: compound-documenter
 description: "Maintains the project's living context across sessions by writing structured progress files into the compound-documenter's project-local agent memory. Records pipeline state, key decisions, and stale dependents. Use after every phase completion or significant decision."
 model: sonnet
-effort: high
 memory: project
 ---
 
