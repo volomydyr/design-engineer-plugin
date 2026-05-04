@@ -678,6 +678,18 @@ PLAN → EXECUTE → PRESENT → FEEDBACK
 
 Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 
+### Guided-mode contract for research-heavy steps
+
+When a step does external research (competitor analysis, user interviews, references gathering, market scanning, anything that involves browsing or fetching URLs), guided mode imposes three additional rules on top of the general execution philosophy:
+
+1. **Each research phase is a separate turn ending in `AskUserQuestion`.** No "I did Phase 4a, then 4b, then 4c, then drafted the deliverable, here are highlights" mega-turns. The user wants to react between phases — what communities, what threads, which competitors deserve deeper review.
+
+2. **Highlights in chat are descriptive, not labels.** Every bullet is a complete claim with the evidence and the implication for THIS product, not a one-line tag. Pretend the user will NEVER open the saved file — every important takeaway must be fully understandable from the chat message alone. Wrong: `"GIA certification is the trust currency of the industry — added as A15"`. Right: a 2–3 sentence paragraph that states the claim, names the evidence (with source URL when applicable), says why it matters for this product, and references the artifact ID it became.
+
+3. **Every research deliverable ends with a "Sources consulted" appendix listing every URL visited.** And the chat message that announces the deliverable inlines that same list (not just hides it in the file). Format: flat bulleted list grouped by phase, one URL per line, with a 5–10 word note on what was extracted. The user wants to be able to scan the list and re-verify findings or read threads themselves — their pattern-matching on community discussions is usually stronger than the model's. The chat message after a research deliverable always includes an explicit invitation: "Want to do your own pass on any of these threads? Drop your notes back here and I'll fold them in."
+
+These three rules apply to every research-heavy step in every skill (ux-competitor-analysis, ux-user-interviews, ui-references-moodboard, etc.) when running in guided mode. Autopilot can compress all three into a final summary, but guided mode never can.
+
 **Agent usage rule:**
 - Agents are a core feature of the plugin. They run normally in both modes.
 - In Guided mode: after an agent completes, the main model parses the agent's output and presents it step by step with AskUserQuestion interaction between each finding or deliverable section. Never show the agent's raw output directly to the user. Never dump all findings at once.

@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.6] – 2026-05-04
+
+Three coordinated fixes to research-heavy guided-mode steps. User reported that competitor analysis was acting like autopilot even when guided mode was selected: the model ran all phases of research silently, surfaced terse one-line "highlights" that needed the saved file to be understood, made changes (appended A12–A15 to assumptions.md) without asking, and didn't share any of the URLs it consulted so the user could verify or contribute their own observations.
+
+### Changed
+
+- **`skills/ux-competitor-analysis/SKILL.md`** Step 4: added a "Pacing rule for guided mode" preamble forbidding mega-turns. Each research phase (4a Step 1, 4a Step 2, 4a Step 3, each per-competitor 4b dive) is a SEPARATE turn ending in AskUserQuestion. The user gets to react between phases.
+- **`skills/ux-competitor-analysis/SKILL.md`** Step 5 (Draft): now requires a "Sources consulted" appendix in the deliverable AND inlined in the chat message. Highlights wording rule added with a wrong/right example: highlights must be 2–3 sentence paragraphs (claim + evidence + implication for this product + artifact ID), NOT one-line labels.
+- **`skills/ux-competitor-analysis/SKILL.md`** Step 7 (Save): post-save chat output requirements codified: descriptive recap (no label highlights), full sources list inlined, explicit invitation for the user to add their own observations on the threads, AskUserQuestion for next step. Forbids "fait accompli" turns.
+- **`CLAUDE.md`**: new "Guided-mode contract for research-heavy steps" subsection under "Command execution philosophy", generalizing all three rules so they apply to every research-heavy skill (ux-user-interviews, ui-references-moodboard, etc.) — not just competitor analysis. Three rules: each phase ends in a question; highlights are descriptive paragraphs not labels; sources-consulted appendix is required (in the file AND inlined in chat).
+
+### Why this matters
+
+Guided mode's value proposition is the user staying in the loop with the option to redirect at every step. When the model batches research into one mega-turn and surfaces label-only highlights, that value disappears — the user is reduced to either trusting the analysis blindly or opening the saved file to understand the bullets. The user's pattern-matching on community discussions is usually stronger than the model's; the sources-consulted list lets them contribute that strength on top of the model's draft.
+
 ## [5.5.5] – 2026-05-04
 
 Routes web research to the right tool. User reported: when explicitly asked to "look at what people discuss on Reddit" during competitor analysis, the model defaulted to `WebSearch("site:reddit.com ...")` — returning shallow Google snippets instead of actually browsing the threads. The bundled Playwright MCP exists for exactly this kind of read-the-rendered-page work, but the agent + skill instructions were primed toward WebSearch/WebFetch.

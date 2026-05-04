@@ -110,6 +110,15 @@ Ask in small batches (2-3 at a time). Wait for answers before continuing.
 
 Run the research in TWO phases. Use the right tool per phase — they are not interchangeable.
 
+### Pacing rule for guided mode (READ FIRST)
+
+This step is where the model historically does too much work behind the scenes and surfaces only short bullet highlights at the end. That is NOT guided mode. In guided mode:
+
+- **Each phase below is a SEPARATE turn**, not one batch. Phase 4a Step 1 (identify communities) is one turn that ends with `AskUserQuestion`. Phase 4a Step 2 (WebSearch to find threads) is the next turn. Phase 4a Step 3 (Playwright to read them) is the next. Each per-competitor deep dive in Phase 4b is its own turn.
+- **Wait for explicit user response** between phases. Never run Phase 4a all the way through and then run Phase 4b without an `AskUserQuestion` checkpoint.
+- **Surface ALL the URLs you visited or plan to visit** at every checkpoint, not just at the end. The user is going to want to look at these themselves and form their own opinion — that's the whole point of guided mode.
+- **No "I did the research, here are the highlights" turns.** That pattern is forbidden in guided mode (it's only acceptable in autopilot). Every research turn ends with a question, not a fait accompli.
+
 ### Phase 4a: Community/forum sweep (Playwright-led, NOT WebSearch-only)
 
 Before doing per-competitor deep dives, sweep the communities your target audience actually talks in. This finds competitors users mention organically (not just the ones you know about) and surfaces unfiltered pain points the marketing pages won't tell you.
@@ -153,12 +162,25 @@ If Playwright is not connected (the user's setup is missing the bundled MCP), fa
 
 Based on all gathered information, draft the analysis document following the structure in [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).
 
-Present the draft and ask for feedback. Ensure:
+### Required sections in the draft
 
+1. The standard analysis sections per the framework (positioning, per-competitor breakdown, gaps, recommended differentiation).
+2. **A "Sources consulted" appendix at the end of the deliverable.** A flat bulleted list of every URL the model visited, grouped by phase: Community threads (Phase 4a), Marketing pages (Phase 4b.1), App store / review pages (Phase 4b.3), Other. One URL per line, with a 5–10 word note describing what was extracted from it. The user will use this to re-verify findings or do their own deeper review on the threads they care about.
+
+### Presenting the draft to the user (guided mode)
+
+Present the draft IN CHAT — render the headlines, key bullets, and the sources-consulted list inline so the user can read it without opening the file. Do NOT save the file yet at this step. Saving comes in Step 7.
+
+**Highlights wording rule**: when summarizing findings as bullets, every bullet must be **a complete claim with the supporting evidence**, not a label. Wrong: `"GIA certification is the trust currency of the industry — added as A15"`. Right: `"GIA certification is the trust currency of the high-end jewelry industry — every jeweler-facing competitor surfaces it prominently on product pages and in seller bios; jewelers in r/jewelers tie 'GIA-certified' directly to perceived legitimacy. Surfacing GIA status on share pages would close the trust gap competitors monetize. Captured as new assumption A15 in assumptions.md."` Each bullet has: the claim, the evidence (with source citation if external), the implication for THIS product, and any artifact ID it became.
+
+Ensure the draft itself satisfies:
 - Both direct and indirect competitors are covered
-- Comparison is based on observable facts, not assumptions
-- Gaps and opportunities are specific and actionable
+- Comparison is based on observable facts, not assumptions (and assumptions are flagged as such)
+- Gaps and opportunities are specific and actionable (a paragraph each, not a one-line label)
 - The user's differentiation strategy is clearly articulated
+- The Sources-consulted appendix is complete (every URL the model visited)
+
+Then `AskUserQuestion` for next-step approval (Step 6 — Iterate, OR proceed to save).
 
 ---
 
@@ -181,7 +203,16 @@ Before writing the deliverable, ensure the parent directory exists: run `mkdir -
 
 Save the final competitive analysis to `.design-engineer-plugin/design/research/competitor-analysis.md`. Competitor analysis is research (gathering external evidence about adjacent products) — that's why it lives in `research/`, not `foundation/`. The dependency graph at `skills/meta-setup/assets/dependencies-default.yaml` is the source of truth for canonical paths.
 
-The document should follow the complete structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).
+The document MUST follow the complete structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md) AND end with a "Sources consulted" appendix containing every URL the model visited during Phase 4 (community threads, marketing pages, app store / review pages, anything else). Format: flat bulleted list grouped by phase, one URL per line, with a 5–10 word note on what was extracted from it. The user uses this to re-verify findings, do their own deeper review on threads they care about, and contribute their own observations on top of the model's analysis.
+
+### Required post-save chat output (guided mode)
+
+After saving, the chat message MUST include:
+
+1. **A descriptive recap, not labels**. Each highlight is a complete claim + evidence + implication for THIS product, NOT a one-line label that needs the file open to be understood. Wrong: `"GIA certification is the trust currency of the industry — added as A15"`. Right: a 2–3 sentence paragraph that states the claim, names the evidence, says why it matters for this product, and references the artifact ID. Pretend the user will not open the file — every important takeaway must be readable in chat.
+2. **The full sources-consulted list**, inline in chat (not just in the file). Same flat-bullet format, with notes per URL. The user wants to be able to scan the list and pick threads to read themselves.
+3. **An explicit invitation to add their own observations**, e.g.: "Want to do your own pass on any of these threads? Most users have stronger pattern-matching than the model on community discussions. Drop your notes back here and I'll fold them in." The model treats the analysis as a draft until the user has had a chance to add their own observations on top.
+4. **AskUserQuestion** for next step (continue to next skill, refine specific competitors, fold in user's own findings, etc.). Never declare "done" with a fait accompli message — guided mode always ends a turn with a question.
 
 After completing the competitor analysis, check if any new assumptions surfaced during the research. If so, Read `.design-engineer-plugin/design/foundation/assumptions.md` and append the new assumptions with a note: 'Added from competitor analysis on [date].' The assumptions document is a living deliverable that accumulates insights across the pipeline.
 
