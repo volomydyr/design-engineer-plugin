@@ -71,7 +71,7 @@ Recommend MCPs based on the user's workflow:
 
 ### Essential (install these first)
 
-**Context7 plugin** – Helps AI get up-to-date technical documentation. Without it, AI uses training data that may reference outdated APIs or deprecated patterns. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this plugin on its own otherwise.
+**Context7 plugin** – Helps AI fetch up-to-date documentation for libraries, frameworks, SDKs, CLIs, and cloud services (React, Next.js, Tailwind, Stripe, etc.). Without it, AI uses training data that may reference outdated APIs or deprecated patterns. This is about external library docs, not your project's own README. Specify in your CLAUDE.md or prompts that AI should use Context7, because it will not call this plugin on its own otherwise.
 
 **Figma plugin** – Gives AI access to design data from Figma Dev Mode – code, not screenshots. The plugin adapts code to your tech stack automatically and supports bidirectional workflows (design→code and code→design import). Use it gradually (smaller elements at a time) for best results.
 

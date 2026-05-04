@@ -4,6 +4,18 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.3.3] – 2026-05-04
+
+Reworded the Context7 line in the environment-detection output and related skill copy. "Up-to-date technical docs" was confusing on empty projects — it sounded like the plugin had detected technical documents inside the project, when it actually means Claude can fetch external library/framework documentation via Context7. Now reads "Library docs lookup – I can fetch up-to-date docs for libraries and frameworks (e.g., React, Tailwind, Stripe)".
+
+### Changed
+
+- `skills/meta-setup/scripts/detect-environment.sh` – Context7 status line now says "up-to-date library and framework docs lookup" instead of "up-to-date technical documentation".
+- `skills/meta-setup/SKILL.md` – the user-facing example bullet and the "Documentation access" internal explainer both clarify this is about external library docs, not the project's own README.
+- `skills/dev-mcp-setup/SKILL.md` – Context7 entry in Essential MCPs lists concrete examples (React, Next.js, Tailwind, Stripe) and notes the external-vs-internal-docs distinction.
+- `skills/dev-mcp-setup/references/essential-mcps.md` – Context7 Purpose line updated for the same clarification.
+- `skills/meta-setup/SKILL.md` – the post-onboarding "You're all set" summary's trailing Tip no longer suggests `/design-engineer:start` (the command the user just finished) as the way to check progress. It now mirrors `start.md`'s wording: "Tip: Run /design-engineer:help anytime to see all available commands and capabilities." Avoids a self-referential loop right at the moment the user is supposed to move on to `/design-engineer:design` or another goal command.
+
 ## [5.3.2] – 2026-05-03
 
 Added the Claude Pro plan rate-limit FAQ to the README, mirroring the landing page.

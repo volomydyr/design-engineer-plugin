@@ -46,7 +46,7 @@ fi
 
 # Context7 -- bundled, no prereq
 PLUGINS_FOUND+=("Context7")
-echo "[BUNDLED] Context7 -- up-to-date technical documentation (auto-starts with the plugin)"
+echo "[BUNDLED] Context7 -- up-to-date library and framework docs lookup (auto-starts with the plugin)"
 
 # Figma -- bundled, prereq is Figma desktop with Dev Mode enabled
 PLUGINS_FOUND+=("Figma")

@@ -90,7 +90,7 @@ Present the results in plain language – no plugin names, no technical identifi
 Here's what I found in your setup:
 
 ✓ Figma connected – I can read your designs and work with them directly
-✓ Documentation tools ready – I have access to up-to-date technical docs
+✓ Library docs lookup – I can fetch up-to-date docs for libraries and frameworks (e.g., React, Tailwind, Stripe)
 ✗ Browser testing not set up yet – needed later for testing, can add anytime
 ```
 
@@ -98,7 +98,7 @@ Only list what's relevant. Adapt the wording to what was actually detected. Use 
 
 **Internal knowledge for explaining tools to users** (use when explaining status to users – never show these labels or technical names directly):
 
-- **Documentation access** (Context7 MCP, bundled): Gives AI access to up-to-date technical documentation so it does not rely on outdated training data. Bundled – auto-starts when the plugin is enabled. Nothing for the user to install.
+- **Library docs lookup** (Context7 MCP, bundled): Gives AI access to up-to-date documentation for libraries, frameworks, SDKs, CLIs, and cloud services (React, Next.js, Tailwind, Stripe, etc.) so it does not rely on outdated training data. This is about external library docs, not the project's own README or internal docs. Bundled – auto-starts when the plugin is enabled. Nothing for the user to install.
 - **Design tool connection** (Figma MCP, bundled): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Bundled – auto-starts. The user just needs to open Figma desktop with Dev Mode enabled to use it.
 - **Browser testing** (Playwright MCP, bundled): Enables browser-based testing and lets AI browse live URLs for visual review. Bundled – auto-starts. Requires Node.js v18+ on the user's machine so npx can fetch the Playwright package on first use.
 - **Figma actions** (Figma Console MCP, OPTIONAL companion): Can perform actions in Figma directly – create components, apply tokens and styles from prompts. More powerful than the read-only Figma connection but trickier to set up. Not bundled; an optional install for power users only.
@@ -331,7 +331,7 @@ Status line: {installed / skipped}
 Sound notifications: {installed / skipped}
 
 Next step: Run /design-engineer:design to start designing your product.
-Tip: Run /design-engineer:start anytime to check progress or see what's available.
+Tip: Run /design-engineer:help anytime to see all available commands and capabilities.
 ```
 
 ---

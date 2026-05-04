@@ -6,7 +6,7 @@ The design-engineer plugin bundles three MCPs and recommends one optional compan
 
 ### Context7 (HTTP, https://mcp.context7.com/mcp)
 
-**Purpose**: up-to-date technical documentation lookup. Resolves library names to package IDs and queries authoritative docs.
+**Purpose**: up-to-date documentation lookup for libraries, frameworks, SDKs, CLIs, and cloud services. Resolves library names to package IDs and queries authoritative docs. External library docs only – not the project's own README or internal docs.
 
 **When the AI uses it**: any time it needs current syntax, API shape, or migration guidance for a framework, library, SDK, CLI tool, or cloud service – even well-known ones like React, Next.js, Tailwind, Django. Bundled because the plugin's stack-agnostic skills (e.g., `dev-component-gallery`) rely on it to adapt to the project's framework without a hardcoded stack table.
 
