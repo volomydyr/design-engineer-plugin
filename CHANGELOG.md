@@ -4,6 +4,25 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.5.5] – 2026-05-04
+
+Routes web research to the right tool. User reported: when explicitly asked to "look at what people discuss on Reddit" during competitor analysis, the model defaulted to `WebSearch("site:reddit.com ...")` — returning shallow Google snippets instead of actually browsing the threads. The bundled Playwright MCP exists for exactly this kind of read-the-rendered-page work, but the agent + skill instructions were primed toward WebSearch/WebFetch.
+
+User also noted that Reddit-style community sweeps are valuable enough to be a first-class step in competitor analysis, not just an aside. Promoted accordingly.
+
+### Changed
+
+- **`agents/ux-researcher.md`** — added a "Tool routing for research" table at the top of the agent body. Maps each research task type to the right tool: WebSearch (URL discovery), WebFetch (one-shot reads of structured pages), Playwright (community/forum/dynamic content + screenshot capture). Names the common failure mode explicitly: "when the user asks 'look at Reddit', the model defaults to WebSearch — that's wrong. Use WebSearch to FIND threads, then Playwright to READ them."
+- **`agents/ux-researcher.md`** "Source user feedback" step rewritten to point at the routing table instead of saying "Use WebSearch and WebFetch" generically.
+- **`skills/ux-competitor-analysis/SKILL.md` Step 4** restructured into two phases:
+  - **Phase 4a — Community/forum sweep (Playwright-led)**: a documented step that finds 2–4 communities, uses WebSearch only for thread discovery, then uses Playwright to actually read the discussions in depth. Surfaces unfiltered competitors users mention organically (not just the ones you know about).
+  - **Phase 4b — Per-competitor deep dive**: WebFetch for marketing pages, Playwright for UI capture + paginated review pages.
+- Both files include a fallback note: if Playwright isn't available (bundled MCP not connected), say so explicitly to the user so they can fix the setup — never silently skip community research.
+
+### Why this matters
+
+WebSearch returns one-line indexed snippets. Reading a Reddit thread end-to-end means seeing the OP context, the top comments with vote counts, the back-and-forth in replies, and links to related threads. Snippets miss all of that. The plugin bundles Playwright precisely so the model has a real browser; the routing fix makes sure the model actually uses it.
+
 ## [5.5.4] – 2026-05-04
 
 Stops the model from short-circuiting "Conditional teaching" steps mid-pipeline. User reported: after running several skills successfully, the model started saying things like "I'll skip the explainer (you're a designer; you know competitor analysis)" instead of asking the question and giving the one-sentence refresher. The user wanted the refresher anyway — even on activities they know — and the model was deciding paternalistically on their behalf that it wasn't needed.

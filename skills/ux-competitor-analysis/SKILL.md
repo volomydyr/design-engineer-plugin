@@ -108,16 +108,42 @@ Ask in small batches (2-3 at a time). Wait for answers before continuing.
 
 ## Step 4: Conduct Deep Research
 
-If web search capabilities are available, use them to research each competitor. Follow the structured research prompt template from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md).
+Run the research in TWO phases. Use the right tool per phase — they are not interchangeable.
 
-For each competitor, research:
+### Phase 4a: Community/forum sweep (Playwright-led, NOT WebSearch-only)
+
+Before doing per-competitor deep dives, sweep the communities your target audience actually talks in. This finds competitors users mention organically (not just the ones you know about) and surfaces unfiltered pain points the marketing pages won't tell you.
+
+**Tool routing — read this first to avoid the most common failure mode:**
+- **WebSearch** is for URL discovery only. Use queries like `site:reddit.com r/<community> <competitor or category>` or `site:reddit.com "<competitor>" review` to FIND relevant threads.
+- **Playwright** (`mcp__playwright__browser_navigate` + `browser_snapshot`) is what you actually use to READ those threads. Snippet results from WebSearch are NOT enough — you need to scroll through the actual discussion, follow links between threads, and read replies in context.
+- **WebFetch** is fine for one-shot reads of marketing/blog/article pages but NOT for Reddit/HN/community pages. Those are dynamic and paginated; fetch returns a flat snapshot that misses most of the discussion.
+- **Default**: when the user says "look at Reddit" or "check what people discuss," reach for Playwright first, not WebSearch. WebSearch only to find the URL.
+
+Steps:
+1. **Identify 2–4 communities** where the target audience hangs out (subreddits, Hacker News, Product Hunt, niche Discord/Slack archives, app-specific forums). Confirm with the user before browsing.
+2. **WebSearch to find threads**: run 3–5 targeted `site:<community>.com` queries to discover threads where users discuss this category, alternatives to specific competitors, or recurring pain points.
+3. **Playwright to read them**: navigate to each promising thread, scroll through, read the top-N comments. Capture: which competitors users mention spontaneously, which features they praise, which they complain about, what triggers them to switch.
+4. **Surface findings to the user**: list the discovered competitors (compare against the user's known list), the most-cited pain points, the most-cited praises. This becomes the seed for Phase 4b.
+
+### Phase 4b: Per-competitor deep dive
+
+For each competitor (the user's known list + the new ones discovered in Phase 4a):
+1. **Marketing page** — `WebFetch` is fine here (one-shot read of structured copy). Capture pricing, value prop, target user.
+2. **Product UI** — `mcp__playwright__browser_navigate` + `browser_take_screenshot` to capture key screens for visual reference. UI quality is a research dimension.
+3. **App Store / Play Store reviews** — Playwright (the listings are paginated; WebFetch misses most reviews).
+4. **Strategic gaps** — synthesize what's missing across competitors that this product could address.
+
+Cover these dimensions per competitor (deliverable structure from [competitor-analysis-framework.md](./references/competitor-analysis-framework.md)):
 1. Business model and pricing strategy
 2. User experience evaluation
 3. Feature comparison
-4. User feedback from app store reviews, Reddit, and forums
+4. User feedback from app store reviews, Reddit, and forums (sourced via Phase 4a)
 5. Strategic opportunities and gaps
 
-If web search is not available, work with the user's knowledge and any documents they can provide. Ask the user to manually check competitor websites and apps, then share their observations.
+### When the tools aren't available
+
+If Playwright is not connected (the user's setup is missing the bundled MCP), fall back to: WebFetch for any URL the user provides, ask the user to manually browse community threads and paste the relevant excerpts back. Never silently skip community research because Playwright is missing — say so explicitly so the user can fix the setup.
 
 **Important:** AI research alone is not enough. Always encourage the user to click through competitor sites and apps themselves, write down impressions, and share those notes. The combination of AI research and manual review produces the most reliable results.
 
