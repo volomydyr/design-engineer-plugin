@@ -70,6 +70,13 @@ Create `.design-engineer-plugin/design/features/[feature-slug]/` for all deliver
 
 Go directly to `ux-mvp-requirements` – define scope, priorities, and what to reuse from the existing codebase. Then `ux-information-architecture` – define page structure, navigation, and how the feature integrates with existing pages. Save all deliverables in the feature folder.
 
+**After both skills complete**, run a compact recap before Step 2.5:
+
+1. Glob `.design-engineer-plugin/design/features/<slug>/*.md` and Read every file.
+2. Print the recap with the same structure as the Phase Recap protocol below (Deliverables produced / Key decisions / Open threads / What's next), scoped to this feature folder.
+3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow inline (do NOT use the `Skill` tool).
+4. Then proceed to Step 2.5. The optional-depth question IS the AskUserQuestion gate — no separate one needed here.
+
 #### Step 2.5: Optional depth (multi-select)
 
 Before proceeding to implementation, ask the user which optional depth steps they want. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) before the AskUserQuestion call.
@@ -147,13 +154,13 @@ For each skill in the current phase:
 3. Run the skill YOURSELF – read reference material from the skill, ask the user 7–10 strategic questions, iterate back and forth until satisfied
 4. Present the deliverable for review
 5. Wait for feedback before moving to the next skill
-6. After each phase: summarize what was created, invoke `meta-document` to save progress, ask to continue
+6. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document`, runs the advisor consult, and gates the transition with `AskUserQuestion`.
 
 ### Autopilot
 
 1. Run all skills in the current phase (delegate to agents for speed)
 2. Present a summary of deliverables created
-3. After each phase: invoke `meta-document`, ask to continue or review
+3. After each phase: run the **Phase Recap protocol** (defined below). The recap is printed in chat AND persisted via `meta-document` even in autopilot — the user still wants to see what was produced before the next phase fires.
 
 ### Active-workflow marker (full pipeline only)
 
@@ -186,6 +193,8 @@ Skills in sequence:
 4. `ux-competitor-analysis` – competitive landscape analysis
 5. `ux-user-interviews` – interview design and analysis *(optional – ask user)*
 
+**At the end of Phase 1**, run the **Phase Recap protocol** (defined below). Do not write the Phase 2 active-workflow marker until the user answers the recap's AskUserQuestion gate.
+
 ### Phase 2: Strategy (new products only)
 
 At the start of this phase, mark the active workflow:
@@ -199,6 +208,8 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase2" 
 3. `ux-story-panels` – product narrative stories
 4. `ux-business-plan` – revenue model and market sizing
 
+**At the end of Phase 2**, run the **Phase Recap protocol** (defined below). Do not write the Phase 3 active-workflow marker until the user answers the recap's AskUserQuestion gate.
+
 ### Phase 3: Planning (both new and existing)
 
 If running the new-product full pipeline, at the start of this phase mark the active workflow (skip this Bash if running the existing-project Feature flow):
@@ -209,6 +220,8 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase3" 
 
 1. `ux-mvp-requirements` – MVP prioritization
 2. `ux-information-architecture` – IA design
+
+**At the end of Phase 3**, run the **Phase Recap protocol** (defined below). Do not write the Phase 4 active-workflow marker (or hand off to development for the existing-project flow) until the user answers the recap's AskUserQuestion gate.
 
 ### Phase 4: Design & validation (both new and existing, optional for features)
 
@@ -228,11 +241,76 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase4" 
 8. `ux-motivation-audit` – screen-level psychology analysis
 9. `ux-full-review` – product assessment *(optional)*
 
-## Per-phase advisor checkpoint
+**At the end of Phase 4**, run the **Phase Recap protocol** (defined below). The full pipeline ends here; the recap's AskUserQuestion gate routes the user to development hand-off, review, or pause via the Post-pipeline section that follows.
 
-After completing each phase above (Discovery / Strategy / Planning / Design & validation), before transitioning to the next phase or hand-off, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase name, deliverables produced, key decisions made, anything that surprised you. Apply the advice or use the reconcile pattern. This implements the docs' "before declaring done" call after deliverables are durable – it's the higher-leverage moment in this command, since each phase produces multiple decisions that downstream phases build on.
+## Phase Recap protocol (BLOCKING — runs at end of every phase)
 
-Skip the consult on phases where the user explicitly chose to skip optional skills and the produced deliverable is a single trivial document.
+After completing all skills in a phase, BEFORE writing the active-workflow marker for the next phase, run this exact sequence. The user must see a recap of what just happened — without it, they're left wondering "did anything actually finish?" and the deliverables disappear into folders nobody re-opens.
+
+### 1. Glob every deliverable produced this phase
+
+Run a Glob for the phase's canonical paths:
+
+- **Phase 1 (Discovery)**: `.design-engineer-plugin/design/foundation/*.md` and `.design-engineer-plugin/design/research/*.md`
+- **Phase 2 (Strategy)**: `.design-engineer-plugin/design/foundation/storybrand.md`, `.design-engineer-plugin/design/foundation/business-plan.md`, `.design-engineer-plugin/design/exploration/behavior-map.md`, `.design-engineer-plugin/design/exploration/story-panels/*.md` (if any)
+- **Phase 3 (Planning)**: `.design-engineer-plugin/design/planning/*.md`
+- **Phase 4 (Design & validation)**: `.design-engineer-plugin/design/exploration/bias-audit.md`, `.design-engineer-plugin/design/exploration/customer-journey-map.md`, `.design-engineer-plugin/design/exploration/ethics-review.md`, `.design-engineer-plugin/design/exploration/references.md`, `.design-engineer-plugin/design/dev/design-system.md`, `.design-engineer-plugin/prototype/prototype.html`, `.design-engineer-plugin/design/reviews/*.md`
+
+### 2. Read every file the Glob returned
+
+In full. Not from memory. The recap quotes from these files; if a file isn't Read, the quote is fabricated, which violates Content Integrity.
+
+### 3. Print the recap in chat
+
+Use this exact structure (no AI-slop preamble, no "let me summarize"):
+
+> ## Phase <N>: <phase name> — recap
+>
+> **Deliverables produced** (each with a 1–2 sentence takeaway pulled from the file, not summarized from memory):
+> - `<relative path>` — <takeaway grounded in an exact phrase from the file>
+> - …
+>
+> **Key decisions this phase** (decisions downstream phases will build on — not every line, just the cross-cutting ones):
+> - <decision> — from `<file>`, quoting "<exact phrase>"
+> - …
+>
+> **Open threads / risks** (anything unresolved, anything flagged for later, anything the user said "we'll come back to this"):
+> - <thread + which deliverable surfaced it>
+> - …
+>
+> **What's next**: Phase <N+1> (<next phase name>) covers <list of skills, comma separated>.
+
+If a section has nothing to say, write "none." Do NOT pad with filler.
+
+### 4. Invoke meta-document inline
+
+Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`. This flushes the recap into the structurally enforced agent-memory layer (`~/.claude/agent-memory/design-engineer-compound-documenter/{pipeline-state.md, key-decisions.md, stale-dependents.md}`). Without this step the recap exists only in chat and is lost on `/compact`.
+
+### 5. Advisor checkpoint (pre-done strategic consult)
+
+Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills disable model invocation). Pass: phase name, the recap from Step 3, key decisions, anything that surprised you. Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence in the deliverables. This implements the docs' "before declaring done" call after deliverables are durable.
+
+Skip Step 5 only when the user explicitly chose to skip every optional skill in this phase AND the produced deliverable is a single trivial document.
+
+### 6. AskUserQuestion (BLOCKING — user drives the transition)
+
+End the preceding chat message with the canonical 3-horizontal-rule spacer per CLAUDE.md rule #6, then call AskUserQuestion:
+
+- question: "Phase <N> is complete. What now?"
+- header: "Phase <N> done"
+- options:
+  - "Continue to Phase <N+1>" — description: "Move forward with <next phase name>: <skill list>."
+  - "Revise this phase first" — description: "Pick a deliverable from this phase to update before moving on."
+  - "Pause and save" — description: "Save state and stop here; pick up next time with /design-engineer:launch."
+- multiSelect: false
+
+### 7. Apply the user's choice
+
+- "Continue" → write the next phase's active-workflow marker, proceed.
+- "Revise" → ask which deliverable, re-run that skill, then re-run the Phase Recap protocol.
+- "Pause" → clear the active-workflow marker, hand off to `/design-engineer:stop`.
+
+NEVER auto-proceed past Step 6 without an explicit user answer. The recap is the user's signal that work happened; skipping the AskUserQuestion gate breaks the contract this protocol exists to enforce.
 
 ## Post-pipeline
 
@@ -306,6 +384,28 @@ Generate the spec at `.design-engineer-plugin/design/features/[feature-slug]/fea
 ```
 
 **No phases. No StoryBrand framing (it's already in the existing brand). No business plan rewrite. No full IA regeneration.** If you find yourself wanting to add any of those, stop – that's the standard Feature flow, not feature-spec.
+
+### F1.3.4: Spec recap (in chat)
+
+After saving the spec, print a compact recap in chat — same structure as the Phase Recap protocol but scoped to this single feature spec:
+
+> ## Feature spec — recap
+>
+> **Spec saved at**: `.design-engineer-plugin/design/features/<slug>/feature-spec.md`
+>
+> **Problem (in project's voice)**: <quote the Problem section verbatim>
+>
+> **Affected pages**: <list>
+>
+> **Key interactions**: <list>
+>
+> **Success criteria**: <list>
+>
+> **Out of scope**: <list>
+>
+> **What's next**: implementation via `/design-engineer:development`, or further refinement.
+
+This is a chat-only recap — no `meta-document` invocation here because feature-spec is a single-document flow and the spec file itself IS the persistence layer.
 
 ### F1.3.5: Advisor checkpoint (pre-handoff)
 

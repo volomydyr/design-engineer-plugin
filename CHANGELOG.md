@@ -4,6 +4,22 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.2.0] – 2026-05-05
+
+Phase boundaries in `/design-engineer:discovery` now print a structured recap in chat AND persist via `meta-document` AND gate the transition with `AskUserQuestion` — fixing the silent-handoff problem where the user would finish Phase 1 and Phase 2 without ever seeing what was produced or what was decided. The recap requirement was always in the docs ("after each phase: invoke meta-document, ask to continue") but lived as advisory prose the model frequently skipped. v6.2.0 turns it into a structured protocol with Glob+Read enforcement, exact output schema, and a blocking AskUserQuestion gate.
+
+### Changed
+
+- **`commands/discovery.md`**: new `Phase Recap protocol` section (BLOCKING, runs at end of every phase). Seven steps: (1) Glob the phase's canonical deliverable paths, (2) Read every file the Glob returned, (3) print a structured recap in chat with deliverables / key decisions / open threads / what's next — each entry quoting from the actual files, not from memory, (4) invoke `meta-document` inline to flush pipeline-state.md / key-decisions.md / stale-dependents.md into agent memory, (5) advisor checkpoint (pre-done strategic consult — replaces the old standalone "Per-phase advisor checkpoint" section, which was prose without enforcement), (6) `AskUserQuestion` gate with three options: continue / revise / pause, (7) apply the user's choice and never auto-proceed.
+- **`commands/discovery.md`** Phase 1 / 2 / 3 / 4 sections: each ends with an explicit "run the Phase Recap protocol" trigger line. Phase 4's trigger routes the user into the existing Post-pipeline AskUserQuestion via the recap's "what's next" option.
+- **`commands/discovery.md`** abbreviated feature flow (Step 2.4): adds a compact recap after `ux-mvp-requirements` + `ux-information-architecture` complete, before Step 2.5's optional-depth question. Same Glob + Read + recap structure as the full pipeline, scoped to the feature folder.
+- **`commands/discovery.md`** F1 minimal-spec branch: new Step F1.3.4 prints a chat-only spec recap before the F1.3.5 advisor checkpoint. Quotes the spec's Problem section verbatim. No `meta-document` invocation here — feature-spec is a single-document flow and the spec file IS the persistence layer.
+- **`commands/discovery.md`** Step 3 (Guided / Autopilot mode subsections): the bullet that said "After each phase: invoke meta-document, ask to continue" now points at the new Phase Recap protocol so the loose advisory prose can't drift from the structured protocol.
+
+### Why a minor version bump
+
+New structured behavior on top of `/design-engineer:discovery`. The slash command surface is unchanged. Existing in-flight discovery sessions get the recap on the next phase boundary — no migration needed.
+
 ## [6.1.0] – 2026-05-05
 
 The headline issue this release attacks: **prototypes were ignoring the discovery and planning deliverables and producing generic AI-slop UI**. The fix is structural — the design-grounding hook now denies HTML writes until every existing project deliverable has been Read, and the prototype Pre-Flight requires explicit citations from each upstream document. Two smaller wins ride along: the confusing two-step storyboard-then-interactive flow is gone, and Anthropic's official `frontend-design` skill is now bundled and invoked from the prototype / moodboard / landing-page skills for a sharper "bold aesthetic direction" prompt.
