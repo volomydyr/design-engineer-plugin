@@ -186,6 +186,29 @@ At the start of this phase, mark the active workflow:
 mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase1" > .design-engineer-plugin/.active-workflow
 ```
 
+**Print the Pipeline overview (BLOCKING — runs once at the start of Phase 1).** Before announcing the first skill, show the user the full map of what's ahead so they know the shape of the journey. Use this exact structure:
+
+> ## Pipeline overview
+>
+> ▸ Phase 1: Discovery (starting now)
+>   ○ Problem statement
+>   ○ Target audience
+>   ○ Assumptions
+>   ○ Competitor analysis
+>   ○ User interviews (optional)
+>
+> Phase 2: Strategy — 4 skills (behavior mapping, StoryBrand, story panels, business plan)
+>
+> Phase 3: Planning — 2 skills (MVP requirements, information architecture)
+>
+> Phase 4: Design & validation — 9 skills (bias audit, journey mapping, ethics review, references & moodboard, design system, prototyping, Figma guide, motivation audit, product assessment)
+>
+> Hand-off to /design-engineer:development
+>
+> At the end of every phase you'll see a recap with what was produced, key decisions, and a Continue / Revise / Pause gate. You can pause anytime with /design-engineer:stop and resume later.
+
+This overview replaces vague "we'll go through some phases" framing — the user gets the full mental model up front and the per-phase recaps then anchor against it.
+
 Skills in sequence:
 1. `ux-problem-statement` – structured problem definition
 2. `ux-target-audience` – persona development
@@ -262,8 +285,30 @@ In full. Not from memory. The recap quotes from these files; if a file isn't Rea
 
 ### 3. Print the recap in chat
 
-Use this exact structure (no AI-slop preamble, no "let me summarize"):
+Use this exact structure (no AI-slop preamble, no "let me summarize"). The recap leads with a **Pipeline progress** block so the user always knows where they are in the larger flow before reading the per-phase detail. This block applies only to the new-product full-pipeline branch — skip it for the abbreviated feature flow and the F1 minimal-spec branch (those flows have no phases to track).
 
+#### Canonical pipeline (for the Pipeline progress block)
+
+The full pipeline always runs in this order. Use this exact list — do NOT improvise. Skill names should be shown as user-readable labels (e.g. "Problem statement", not `ux-problem-statement`).
+
+- **Phase 1: Discovery** — Problem statement / Target audience / Assumptions / Competitor analysis / User interviews (optional)
+- **Phase 2: Strategy** — Behavior mapping / StoryBrand / Story panels / Business plan
+- **Phase 3: Planning** — MVP requirements / Information architecture
+- **Phase 4: Design & validation** — Bias audit / Journey mapping / Ethics review (optional) / References & moodboard / Design system / Prototyping / Figma guide / Motivation audit / Product assessment (optional)
+
+After Phase 4 the pipeline ends and the user is offered hand-off to `/design-engineer:development`.
+
+#### Recap output schema
+
+> ## Pipeline progress
+>
+> _For each phase in order:_
+> - **Completed phases** (every phase BEFORE the just-finished one): show `✓ Phase <N>: <name>` and indent the full skill list under it with `✓` for each skill that ran and `⊘` for each optional skill the user skipped. The user wants to see everything they've already accomplished.
+> - **Just-finished phase** (the phase this recap is for): show `▸ Phase <N>: <name> (just finished — recap below)` and the full skill list with `✓` / `⊘` markers — same depth as completed phases.
+> - **Next phase** (the immediate next one): show `→ Phase <N+1>: <name> (up next)` and the full skill list with `○` markers (planned, not started). This is the only upcoming phase that gets step details — the user wants to know what's about to happen.
+> - **Subsequent phases** (every phase AFTER the next one): show only `Phase <N+2>: <name>` and a one-line summary of the phase's role (e.g. "9 skills covering bias audit, references, design system, prototyping, Figma, motivation audit"). Do NOT expand step details for these — the user said overloading them defeats the purpose.
+> - **After Phase 4**: show `Hand-off to /design-engineer:development` instead of a phase entry.
+>
 > ## Phase <N>: <phase name> — recap
 >
 > **Deliverables produced** (each with a 1–2 sentence takeaway pulled from the file, not summarized from memory):
@@ -281,6 +326,36 @@ Use this exact structure (no AI-slop preamble, no "let me summarize"):
 > **What's next**: Phase <N+1> (<next phase name>) covers <list of skills, comma separated>.
 
 If a section has nothing to say, write "none." Do NOT pad with filler.
+
+#### Worked example (after finishing Phase 2)
+
+> ## Pipeline progress
+>
+> ✓ Phase 1: Discovery
+>   ✓ Problem statement
+>   ✓ Target audience
+>   ✓ Assumptions
+>   ✓ Competitor analysis
+>   ⊘ User interviews (skipped — optional)
+>
+> ▸ Phase 2: Strategy (just finished — recap below)
+>   ✓ Behavior mapping
+>   ✓ StoryBrand
+>   ✓ Story panels
+>   ✓ Business plan
+>
+> → Phase 3: Planning (up next)
+>   ○ MVP requirements
+>   ○ Information architecture
+>
+> Phase 4: Design & validation — 9 skills covering bias audit, references, design system, prototyping, Figma, motivation audit
+>
+> Hand-off to /design-engineer:development
+>
+> ## Phase 2: Strategy — recap
+>
+> **Deliverables produced**:
+> - …
 
 ### 4. Invoke meta-document inline
 

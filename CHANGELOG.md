@@ -4,6 +4,26 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.3.0] – 2026-05-05
+
+User reported feeling lost mid-pipeline — "where am I, how much is left, what's next?" — even after v6.2.0 introduced phase recaps. The recaps showed what just happened but not the larger map. v6.3.0 adds a **Pipeline overview** at the start of Phase 1 and a **Pipeline progress** block at the top of every phase recap, so the user always has the situational map alongside the per-phase detail.
+
+### Added
+
+- **`commands/discovery.md`** Phase 1 — new "Pipeline overview" announcement printed once at the start of Phase 1. Shows the full map: Phase 1 expanded with skills, Phases 2–4 collapsed to one-line summaries with skill counts, and hand-off to `/design-engineer:development` at the end. Tells the user up front what's ahead so they have the mental model before the first skill runs.
+- **`commands/discovery.md`** Phase Recap protocol Step 3 — new "Pipeline progress" block at the TOP of every recap, before deliverables / decisions. Format:
+  - **Completed phases** (every phase before the just-finished one): full skill list with `✓` / `⊘` markers (skipped optionals shown).
+  - **Just-finished phase**: full skill list with `✓` / `⊘` markers + "(just finished — recap below)".
+  - **Next phase**: full skill list with `○` markers + "(up next)". This is the only upcoming phase that gets step details.
+  - **Subsequent phases**: phase name + one-line role summary, no step details. Avoids overload.
+  - **After Phase 4**: replaced with "Hand-off to /design-engineer:development".
+
+The block applies only to the new-product full-pipeline branch — the abbreviated feature flow and F1 minimal-spec branch don't have phases to track.
+
+### Why a minor version bump
+
+Adds a structured behavior on top of the v6.2.0 recap protocol. Slash command surface unchanged. Existing in-flight discovery sessions get the new pipeline progress block on the next phase boundary.
+
 ## [6.2.0] – 2026-05-05
 
 Phase boundaries in `/design-engineer:discovery` now print a structured recap in chat AND persist via `meta-document` AND gate the transition with `AskUserQuestion` — fixing the silent-handoff problem where the user would finish Phase 1 and Phase 2 without ever seeing what was produced or what was decided. The recap requirement was always in the docs ("after each phase: invoke meta-document, ask to continue") but lived as advisory prose the model frequently skipped. v6.2.0 turns it into a structured protocol with Glob+Read enforcement, exact output schema, and a blocking AskUserQuestion gate.
