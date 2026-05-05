@@ -4,6 +4,33 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.5.0] – 2026-05-05
+
+User reported that the development phase wasn't actually running any agents — and that during the whole pipeline (discovery + dev), agents almost never fire. Investigation traced the cause to two prose loopholes in the command bodies that the model was reading as permission to skip agent dispatches:
+
+1. `commands/development.md` lines 253–254 said "In Guided mode: agents can run for analysis but present their output step by step. In Autopilot: delegate to agents for speed." The "can run" softener let the model rationalise doing the work itself in guided mode. "Delegate to agents for speed" suggested agents were a speed optimisation, not a correctness requirement.
+2. `commands/discovery.md` Step 3 was even more explicit: "In Guided mode, the main model does ALL user-facing work. Do NOT delegate to autonomous agents (ux-researcher, psych-scanner, etc.). Agents cannot pause for user input – they defeat the purpose of Guided mode." This is the EXACT opposite of what should happen — agents are specialised tools (ux-researcher knows how to handle bot-blocks and auth walls; psych-scanner encodes 100+ cognitive principles; design-system-auditor enforces the gallery contract); skipping them in guided mode strips the architecture for no benefit.
+
+The user's framing: "agents must be run fully. even in the guided mode. otherwise what's the purpose of having them at all."
+
+### Changed
+
+- **`commands/development.md`** mode-difference section: rewritten. New contract — **every `Task(<agent>, ...)` line in the steps runs in BOTH modes, every time. Mode only controls how OUTPUT is presented to the user, not whether agents fire.** Guided mode parses agent output and presents it step by step with `AskUserQuestion` between findings. Autopilot presents the complete output as a structured summary. The number of agent dispatches is identical in both modes.
+- **`commands/development.md`** Step 7 (TDD): `test-writer` dispatch now marked REQUIRED in both modes — writing tests inline yourself is forbidden because the agent encodes the TDD anti-pattern catalog.
+- **`commands/development.md`** Step 8a (per-phase implementation): `frontend-implementer` / `backend-implementer` dispatch now REQUIRED in both modes — implementing the phase inline is forbidden because the implementers encode the Gallery Contract, design-token compliance, and pixel-perfect Figma fidelity rules.
+- **`commands/development.md`** Step 8d (advisor / psych-scanner): `psych-scanner` dispatch on UI-touching phases now REQUIRED in both modes — manual psychology review is not a substitute for the 100+ cognitive principles the agent encodes.
+- **`commands/development.md`** Step 9 (post-phase audit): `design-system-auditor` dispatch now REQUIRED in both modes — inline aesthetic review is forbidden because the auditor encodes FAIL-severity gallery contract + 14-pattern anti-slop catalog + 4-lens critique.
+- **`commands/discovery.md`** Step 3 guided-mode rule: rewritten. "Do NOT delegate to autonomous agents" reversed — replaced with explicit "agents always run fully in both modes; mode controls presentation cadence, not whether agents fire." Three discovery agents listed (`ux-researcher`, `deliverable-writer`, `compound-documenter`) with their roles. Guided mode now dispatches each agent and parses the output for incremental presentation; autopilot presents complete output as summary.
+- **`commands/discovery.md`** abbreviated feature flow Step 2.7 mode line: same fix — "Do NOT delegate to agents" replaced with the new "agents always run; mode is presentation only" framing.
+
+### Why a minor version bump
+
+Behavior change to the main pipeline commands. Slash command surface unchanged. Existing in-flight sessions get the new contract on the next command turn — no migration needed beyond cache wipe + reinstall.
+
+### Note on enforcement
+
+This release is the prose-discipline fix (option 2 in the architectural memo). It's the cheap fix; if testing shows the model still skips agents after the rewrite, the next step is hook enforcement (option 1) — same playbook as the v6.1.0 deliverable-following hook. Watch for "did the auditor / scanner / implementer actually run?" during the next dev session and report back.
+
 ## [6.4.0] – 2026-05-05
 
 User reported that the prototyping step was treating MVP requirements as if they were specific feature designs and just generating from them, skipping the design-discussion phase entirely. MVP requirements are intentionally high-level — "schedule a session" doesn't say whether it's a calendar grid, a natural-language input, preset slots, or a continuous availability bar. Without a per-screen dialogue, the model picks defaults and the prototype becomes "weird AI slop."

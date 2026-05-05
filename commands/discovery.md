@@ -133,8 +133,11 @@ rm -f .design-engineer-plugin/.active-workflow
 
 Load `/design-engineer:development` with the feature plan.
 
-In Guided mode: ask the user at each step, iterate. Do NOT delegate to agents – the main model does the work interactively.
-In Autopilot: execute the abbreviated flow, present results.
+**Agents always run fully — in both modes.** The mode controls presentation cadence, not whether the agents fire. The abbreviated feature flow uses `ux-researcher` (for any research work the feature requires) and `deliverable-writer` (to produce structured deliverables from skill outputs). Both run regardless of mode.
+
+In Guided mode: each agent runs to completion; afterwards the main model parses the agent's output and presents it to the user step by step with `AskUserQuestion` between findings. Never dump raw agent output. Never skip a `Task(<agent>, ...)` dispatch in favor of doing the work inline — the agents exist for a reason.
+
+In Autopilot: each agent runs to completion; the main model presents the complete output as a structured summary, then proceeds.
 
 ### If `project_type: new` → Full pipeline
 
@@ -144,23 +147,33 @@ If existing deliverables are found, present current state and recommend where to
 
 ## Step 3: Execute based on mode
 
-### Guided mode
+### Agents in this command (always run, in both modes)
 
-In Guided mode, the main model does ALL user-facing work. Do NOT delegate to autonomous agents (ux-researcher, psych-scanner, etc.). Agents cannot pause for user input – they defeat the purpose of Guided mode.
+Three agents are dispatched during the discovery pipeline:
+
+- **`ux-researcher`** — handles research-heavy work inside `ux-competitor-analysis`, `ux-user-interviews`, and any other skill that involves browsing / fetching / synthesising external sources. Dispatched via `Task(ux-researcher, ...)` from inside those skills.
+- **`deliverable-writer`** — produces the structured deliverable file (problem-statement.md, target-audience.md, etc.) from the conversation transcript. Dispatched at the end of every skill that writes a `.md` deliverable.
+- **`compound-documenter`** — invoked by `meta-document` during the Phase Recap protocol to flush state into agent memory. The structurally enforced layer (`memory: project`) lives here.
+
+**These agents always run fully, regardless of mode.** Mode only changes how their output is presented to the user. Skipping `Task(<agent>, ...)` in favor of doing the work inline is forbidden — these agents encode specialised behavior the main model should not duplicate.
+
+### Guided mode
 
 For each skill in the current phase:
 1. Announce what's next and why it matters
 2. Ask if the user wants to proceed, skip, or adjust
-3. Run the skill YOURSELF – read reference material from the skill, ask the user 7–10 strategic questions, iterate back and forth until satisfied
-4. Present the deliverable for review
-5. Wait for feedback before moving to the next skill
-6. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document`, runs the advisor consult, and gates the transition with `AskUserQuestion`.
+3. Run the skill body interactively — ask the user 7–10 strategic questions, iterate back and forth until the substantive direction is clear
+4. **Dispatch the skill's required agents** (e.g. `Task(ux-researcher, ...)` for competitor analysis or user interviews; `Task(deliverable-writer, ...)` to produce the final structured deliverable). Wait for each agent to return.
+5. Parse the agent's output. Present it to the user step by step with `AskUserQuestion` between findings or sections — never dump raw agent output.
+6. Wait for the user's feedback on each presented section before moving on.
+7. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document` (which dispatches `compound-documenter`), runs the advisor consult, and gates the transition with `AskUserQuestion`.
 
 ### Autopilot
 
-1. Run all skills in the current phase (delegate to agents for speed)
-2. Present a summary of deliverables created
-3. After each phase: run the **Phase Recap protocol** (defined below). The recap is printed in chat AND persisted via `meta-document` even in autopilot — the user still wants to see what was produced before the next phase fires.
+1. Announce the phase plan briefly
+2. Run each skill end-to-end: dispatch the skill's required agents, wait for each to return
+3. Present each agent's complete output as a structured summary
+4. After each phase: run the **Phase Recap protocol** (defined below). The recap is printed in chat AND persisted via `meta-document` even in autopilot — the user still wants to see what was produced before the next phase fires.
 
 ### Active-workflow marker (full pipeline only)
 
