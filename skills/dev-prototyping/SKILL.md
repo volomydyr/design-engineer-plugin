@@ -23,7 +23,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) draft a prototype brief in chat (not a file – the brief lives in the conversation only), 6) build the interactive prototype screen by screen, presenting each one for your feedback before moving on, 7) iterate with you, 8) save the deliverable."
+1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) draft a prototype brief in chat (not a file – the brief lives in the conversation only), 6) build the interactive prototype screen by screen — and for EACH screen, before generating any HTML, walk you through 3–5 open design decisions (input pattern, layout, interactions, copy direction, etc.) with 2–4 specific options per decision so you pick what fits. The MVP requirements are intentionally high-level; the implementation choices are yours, not mine. 7) iterate with you, 8) save the deliverable plus a decisions log."
 
 2. **Conditional teaching**: Ask the user if they are familiar with single-file HTML prototyping. If yes, give a one-sentence refresher. If no, explain: a self-contained HTML file with all CSS and JS inline that lets you click through real screens and interactions – no build tools, no dependencies, just open in a browser.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -325,13 +325,102 @@ If adjustments are needed, iterate on the brief until approved.
 
 ## Step 5: Generate the interactive prototype
 
-Build the prototype as a single self-contained HTML file. No two-step storyboard-then-interactive split — direct from the approved brief to the clickable prototype, generated screen by screen with the user reviewing each one before you move to the next.
+Build the prototype as a single self-contained HTML file. No two-step storyboard-then-interactive split — direct from the approved brief to the clickable prototype, generated screen by screen.
+
+**The hard rule of this step**: MVP requirements are HIGH-LEVEL. They name what the user can do, not how the screen executes it. "Allow the user to schedule a session" is the requirement; "calendar grid vs natural-language input vs preset time slots vs continuous availability bar" is the implementation choice. The model does NOT get to silently pick implementation choices on the user's behalf — for every screen, every consequential open decision must be surfaced as 2–4 named options with trade-offs, and the user picks. This is the design-discussion phase the prototype lives or dies on.
 
 At the start of this step, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
 
 ```bash
 mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .design-engineer-plugin/.active-workflow
 ```
+
+### Per-screen design dialogue (BLOCKING — runs BEFORE generating any HTML for the screen)
+
+For EVERY screen in the IA, run this sequence before writing or editing the HTML for that screen. No exceptions. The prototype is built one screen at a time, and each screen gets its own dialogue cycle.
+
+#### Step 5.1 — Surface upstream context
+
+Quote, in chat, what the existing deliverables say about THIS screen. No paraphrasing — exact phrases.
+
+> ### Screen N: <name from IA>
+>
+> **From `information-architecture.md`** ("<exact section / line>"):
+> - Position in the flow: <exact phrase>
+> - Navigation in / out: <exact phrase>
+>
+> **From `mvp-requirements.md`** ("<exact must-have>"):
+> - The high-level requirement(s) this screen serves: <quote>
+>
+> **From `references.md`** (the design intent / palette / typography / flavor that applies to this screen): <quote>
+>
+> **From `bias-audit.md`** (any UI moves that affect this screen): <quote, if any>
+
+If the upstream deliverables don't say anything about this screen, STOP — the prototype cannot proceed without grounding. Use AskUserQuestion to ask the user whether to (a) update `information-architecture.md` first to add this screen, (b) provide the missing input directly in chat, or (c) skip this screen for now.
+
+#### Step 5.2 — List 3–5 open implementation decisions for this screen
+
+The MVP requirement says WHAT the user does on this screen. The implementation decisions are HOW. Identify 3–5 of the most consequential open decisions for THIS screen (do not exceed 5; over-elaboration is its own failure mode). Pick from these decision categories — these are the categories where defaults silently win:
+
+- **Input pattern** — how the user provides data (form fields / smart input / preset chooser / direct manipulation / voice / drag-drop / sliders)
+- **Layout pattern** — how the screen is organised (single column / split view / hub-and-spoke / stacked cards / sticky panel + scrolling content / overlapping zones / asymmetric grid)
+- **Primary interaction pattern** — how the main action is invoked (full-screen flow / modal / drawer / inline expand / new page / wizard / single-tap)
+- **Information density** — how much the user sees at once (rich/dense / minimal/spaced / progressive disclosure)
+- **Hierarchy move** — what dominates the screen (the action / the data / the navigation / the system status)
+- **Copy direction** — how copy speaks (literal/instructional / conversational / branded-and-specific / terse-utility)
+- **State handling** — how loading / error / empty states are surfaced (full-screen / inline / toast / skeleton / no state — assume always populated)
+- **Navigation affordance** — how the user knows where they can go next (visible always / on hover / on focus / contextual cue / ambient hint)
+
+Pick the 3–5 decisions that, if defaulted, would most damage the screen's distinctiveness given the chosen aesthetic flavor (Step 0.5). For a screen with a brutalist flavor, layout pattern and density matter more than copy direction. For an editorial flavor, hierarchy and copy direction dominate. Adjust the decision list per screen — do NOT mechanically pick the same 5 for every screen.
+
+#### Step 5.3 — For each open decision, ask the user via AskUserQuestion
+
+For each of the 3–5 decisions, run an AskUserQuestion with 2–4 named options. Each option's description must be a one-sentence trade-off summary, not a label. Reference concrete products / patterns when useful.
+
+Format (canonical 3-line spacer per CLAUDE.md rule #6 before each call):
+
+```
+question: "Decision N of M for <screen name> — <decision category>: <plain-language framing of the choice>"
+header: "<screen>: <decision>"
+options:
+  - label: "<option 1 short label>"
+    description: "<concrete pattern + 1-sentence trade-off — e.g. 'Calendar grid like Notion's date picker. Best when most users pick a specific day. Heavier on the screen.'>"
+  - label: "<option 2 short label>"
+    description: "<...>"
+  - label: "<option 3 short label, optional>"
+    description: "<...>"
+  - label: "Other (I'll describe in chat)"
+    description: "None of the above fits — I have a specific direction in mind."
+multiSelect: false
+```
+
+Include "Other (I'll describe in chat)" as the LAST option on EVERY decision question — the user must always have an escape hatch. Never present 4 options without an Other.
+
+Wait for the user's answer on each decision before asking the next. Do NOT batch multiple decisions into one AskUserQuestion. Do NOT skip ahead and start generating HTML before all decisions for this screen are answered. The dialogue is the work; the HTML is the artifact of the dialogue.
+
+#### Step 5.4 — Persist the decisions to the decisions log
+
+After all decisions for this screen are answered, append to `.design-engineer-plugin/prototype/decisions.md` (create the file with a header on first screen). Format:
+
+```markdown
+## Screen N: <screen name>
+
+Source: `information-architecture.md` (Screen N), `mvp-requirements.md` (<requirement>)
+
+- **<decision category>**: chose <option> over <alternatives>. Reason: <user's reasoning, or "user preference / no reason given" if none stated>.
+- **<decision category>**: chose <option> over <alternatives>. Reason: <...>.
+- ...
+```
+
+This file is a durable deliverable, committed alongside `prototype.html`. It exists so a future session (or a new collaborator) can understand WHY the prototype looks the way it does — the decisions log is the "minutes" of the design dialogue.
+
+#### Step 5.5 — Generate the screen HTML with the user's decisions baked in
+
+Only now write the HTML for this screen. Apply the user's decisions exactly as chosen — do NOT silently substitute a different pattern, do NOT add extra decisions you didn't ask about. The Source Anchors block (Step 5 step 9 below) must reference the decisions.md entries for this screen, not the model's own framing.
+
+If during generation you discover a sub-decision the dialogue didn't cover (e.g. "the user picked 'preset chooser' but we didn't decide whether the chooser is horizontal or vertical"), STOP and ask the user before proceeding. Never silently default sub-decisions either.
+
+---
 
 ### How to generate
 
@@ -347,20 +436,23 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .des
 6. Add interactivity from the start: functional navigation between screens, buttons that do things, forms that respond, state transitions. The prototype is clickable on the first present, not a static mockup that becomes interactive later.
 7. Cover all key user flows from the brief – every screen, every navigation path. Handle main states: default, active, hover, selected. Skip loading/error/empty states unless specifically requested.
 8. Generate one screen at a time. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the 14+ listed anti-patterns? Pay special attention to "Mobile mockup floating in desktop frame" if the target is Responsive or Desktop web, and to the hard-banned typefaces (Inter / SF Pro / Roboto / Lato / Montserrat) and token names (`--gray-N`, `--surface-N`, `--primary`). If you find any, fix before presenting.
-9. **Per-screen Source Anchors (BLOCKING)**: when presenting each screen to the user, the chat message MUST include a "Source Anchors" block showing which deliverables informed which decisions on this screen. Format:
+9. **Per-screen Source Anchors (BLOCKING)**: when presenting each screen to the user, the chat message MUST include a "Source Anchors" block showing which deliverables AND which user-chosen design decisions informed this screen. Format:
 
    ```
    Screen: <screen name from IA>
    Source Anchors:
-   - Layout: from <deliverable> ("<exact quote>")
-   - Copy: from <deliverable> ("<exact quote>") or [user-provided in chat]
+   - Layout: from decisions.md (chose "<option>" over "<alternatives>") + references.md ("<exact quote>")
+   - Input pattern: from decisions.md (chose "<option>" over "<alternatives>")
+   - Primary interaction: from decisions.md (chose "<option>")
+   - Copy direction: from decisions.md (chose "<option>") + storybrand.md ("<exact voice quote>")
    - Palette: from references.md ("<exact color description>")
    - Typography: from references.md ("<exact typeface>")
    - Bias / psychology applied: from bias-audit.md ("<exact recommendation>") and how this screen implements it
    - IA position: from information-architecture.md (Screen <N> of <total>, navigation context)
+   - MVP requirement served: from mvp-requirements.md ("<exact requirement>")
    ```
 
-   If a screen has no anchor for a section, that section is forbidden — STOP and ASK the user before generating a layout / copy / token choice that has no upstream basis. The prototype is an EXECUTION of the deliverables, not a parallel creation.
+   Every line must trace to either a deliverable file or a `decisions.md` entry created by the per-screen design dialogue (Step 5.1–5.5). If a screen has no anchor for a section, that section is forbidden — STOP and ASK the user before generating a layout / copy / token choice that has no upstream basis. The prototype is an EXECUTION of the deliverables and the user's design decisions, not a parallel creation.
 
 10. Present each screen to the user, one at a time, with the Source Anchors block above the rendered HTML. Discuss, get feedback, iterate on that screen before moving to the next.
 
@@ -418,7 +510,7 @@ Stop iterating when:
 
 ---
 
-## Step 7: Save deliverable
+## Step 7: Save deliverables
 
 After saving the deliverables below, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
 
@@ -426,13 +518,17 @@ After saving the deliverables below, clear the active-workflow marker so the pro
 rm -f .design-engineer-plugin/.active-workflow
 ```
 
-Save two files:
+Save three files:
 
 ### 1. Final prototype
 
 Ensure `.design-engineer-plugin/prototype/prototype.html` is the latest version with all iterations applied.
 
-### 2. Prototype notes
+### 2. Decisions log
+
+Ensure `.design-engineer-plugin/prototype/decisions.md` reflects every per-screen design decision the user made during the dialogue (Step 5.1–5.5). This file should already exist from the per-screen dialogue protocol — Step 7 is just confirming it's complete. If a screen's decisions are missing, that's a bug — go back and fill them in before saving.
+
+### 3. Prototype notes
 
 Save `.design-engineer-plugin/prototype/prototype-notes.md` with:
 

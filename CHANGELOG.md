@@ -4,6 +4,28 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.4.0] – 2026-05-05
+
+User reported that the prototyping step was treating MVP requirements as if they were specific feature designs and just generating from them, skipping the design-discussion phase entirely. MVP requirements are intentionally high-level — "schedule a session" doesn't say whether it's a calendar grid, a natural-language input, preset slots, or a continuous availability bar. Without a per-screen dialogue, the model picks defaults and the prototype becomes "weird AI slop."
+
+v6.4.0 adds a structured per-screen design dialogue to `dev-prototyping` Step 5. Before any HTML is written for a screen, the model surfaces the upstream context, identifies 3–5 of the most consequential open implementation decisions for that screen, and runs an `AskUserQuestion` per decision with 2–4 named options + trade-offs. The user picks; their choices are persisted to a new `decisions.md` deliverable so the prototype can be understood later as the artifact of a real design conversation, not a one-shot generation.
+
+### Added
+
+- **`skills/dev-prototyping/SKILL.md`** Step 5 — new "Per-screen design dialogue" sub-protocol (5.1 → 5.5) that runs BEFORE generating any HTML for each screen:
+  - **5.1 Surface upstream context**: quote (verbatim) what `information-architecture.md`, `mvp-requirements.md`, `references.md`, and `bias-audit.md` say about THIS screen.
+  - **5.2 List 3–5 open implementation decisions**: pick from the 8 decision categories (input pattern / layout pattern / primary interaction / information density / hierarchy move / copy direction / state handling / navigation affordance) the 3–5 decisions where defaults would do the most damage to this specific screen given the chosen aesthetic flavor. Cap at 5 — over-elaboration is its own failure mode.
+  - **5.3 AskUserQuestion per decision**: 2–4 named options each, with a one-sentence trade-off in the description. Reference concrete patterns / products. "Other (I'll describe in chat)" is REQUIRED as the last option on every decision question. No batching multiple decisions into one question. No skipping ahead to HTML before all decisions are answered.
+  - **5.4 Persist decisions**: append to `.design-engineer-plugin/prototype/decisions.md` (a new deliverable file). Format: per-screen section with the user's pick + alternatives + reasoning. The file is the design-dialogue minutes.
+  - **5.5 Generate the screen with decisions baked in**: write HTML only after all decisions for THIS screen are answered. Sub-decisions discovered during generation that weren't covered must be surfaced via AskUserQuestion before proceeding — never silently defaulted either.
+- **`skills/dev-prototyping/SKILL.md`** Step 5 item 9 (per-screen Source Anchors): the chat output now references the `decisions.md` entries alongside the deliverable quotes, so the user sees both "this is from the IA" and "this is the option you chose during dialogue."
+- **`skills/dev-prototyping/SKILL.md`** Step 7 (Save deliverables): now saves three files instead of two — `prototype.html`, the new `decisions.md`, and `prototype-notes.md`. If a screen's decisions are missing from `decisions.md` at save time, that's flagged as a bug to fix before saving.
+- **`skills/dev-prototyping/SKILL.md`** Step 0 announcement: updated to set the user's expectation that the prototype is a design dialogue, not a generation. "The MVP requirements are intentionally high-level; the implementation choices are yours, not mine."
+
+### Why a minor version bump
+
+Adds a structured behavior on top of `dev-prototyping`. Slash command surface unchanged. Existing in-flight prototype sessions get the new dialogue on the next screen generated.
+
 ## [6.3.0] – 2026-05-05
 
 User reported feeling lost mid-pipeline — "where am I, how much is left, what's next?" — even after v6.2.0 introduced phase recaps. The recaps showed what just happened but not the larger map. v6.3.0 adds a **Pipeline overview** at the start of Phase 1 and a **Pipeline progress** block at the top of every phase recap, so the user always has the situational map alongside the per-phase detail.
