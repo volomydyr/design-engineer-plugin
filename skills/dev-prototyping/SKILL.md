@@ -1,6 +1,6 @@
 ---
 name: dev-prototyping
-description: "Generates a single-file HTML prototype directly in Claude Code. Two-step approach: visual storyboard first, then interactive prototype. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs."
+description: "Generates a single-file HTML prototype directly in Claude Code. One-pass approach: gather context, agree on a brief, generate the interactive prototype, iterate. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs."
 disable-model-invocation: true
 model: claude-opus-4-7
 effort: high
@@ -9,7 +9,7 @@ license: MIT
 
 # Dev Prototyping
 
-Generate interactive single-file HTML prototypes directly in Claude Code. Two-step approach: first a visual storyboard for layout/flow review, then a clickable interactive prototype. Works for new products (after planning docs exist), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs.
+Generate interactive single-file HTML prototypes directly in Claude Code. One-pass approach: a clickable HTML prototype, generated screen by screen, iterated with the user. Works for new products (after planning docs exist), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs.
 
 **Important**: No git, no /simplify, no TDD during prototyping. The prototype exists for visual feedback and as a reference for real implementation. Git init, branches, commits, tests, and code quality checks start at `/design-engineer:development`. Prototype HTML can be messy – nobody cares about code quality in a throwaway artifact.
 
@@ -23,7 +23,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) draft a prototype brief in chat (not a file – the brief lives in the conversation only), 6) generate a visual storyboard for review, 7) build the interactive prototype from the approved storyboard, 8) iterate with you, 9) save the deliverable."
+1. **Announce your execution plan**: Before doing anything, state what you will do: "Here's what I'm going to do: 1) ask what you want to prototype (product, landing page, or both), 2) ask the target platform (mobile app, responsive web, desktop web, or both), 3) gather context from your planning docs, 4) list every screen from your IA document for your approval, 5) draft a prototype brief in chat (not a file – the brief lives in the conversation only), 6) build the interactive prototype screen by screen, presenting each one for your feedback before moving on, 7) iterate with you, 8) save the deliverable."
 
 2. **Conditional teaching**: Ask the user if they are familiar with single-file HTML prototyping. If yes, give a one-sentence refresher. If no, explain: a self-contained HTML file with all CSS and JS inline that lets you click through real screens and interactions – no build tools, no dependencies, just open in a browser.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -39,12 +39,13 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0.5: Design Grounding Pre-Flight (BLOCKING)
 
-Before generating any HTML for storyboard or prototype, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) will hard-deny your Write/Edit calls on any `.html` file until you have:
+Before generating any HTML for the prototype, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) will hard-deny your Write/Edit calls on any `.html` file until you have:
 
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
-4. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists (or run `ui-references-moodboard` first)
+4. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/frontend-design/SKILL.md` (Anthropic's bundled frontend-design skill — pick a BOLD aesthetic direction)
+5. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists (or run `ui-references-moodboard` first)
 
 This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop – they set the visual baseline that downstream development inherits.
 
@@ -54,6 +55,8 @@ After the Reads, output this block and fill in EVERY field:
 - **Who is this human**: [a specific person, not "users". Where they are, what's on their mind right now]
 - **What verb must they accomplish**: [the actual action, not "use the app"]
 - **How should this feel**: [warm like a notebook / cold like a terminal / dense like a trading floor / calm like a reading app / precise like a surgical instrument / playful like a creative tool – NEVER "clean and modern"]
+- **Bold aesthetic flavor (frontend-design)**: [pick ONE extreme — brutally minimal / maximalist chaos / retro-futuristic / organic-natural / luxury-refined / playful-toy-like / editorial-magazine / brutalist-raw / art-deco-geometric / soft-pastel / industrial-utilitarian / something specific from the references. Bold maximalism and refined minimalism both work — the key is intentionality, not intensity. NEVER "clean and modern".]
+- **Differentiation (the unforgettable thing)**: [the one specific element a tester would describe to a friend — a typography choice, a layout move, a signature interaction, a color decision. If you can't name it, you haven't decided.]
 
 ### Domain Exploration
 - **Domain words (5+)**: [vocabulary from this product's world]
@@ -95,6 +98,28 @@ List 5 specific places where the design intent manifests:
 5. ...
 
 If you cannot fill all 5 with concrete components, the signature does not exist – STOP and rework before any Write.
+
+### Deliverable Anchors (BLOCKING)
+
+Every Pre-Flight field above must trace back to a real deliverable from the discovery and planning phases. The whole point of running `/design-engineer:discovery` first is so the prototype reflects what was decided. If the prototype generates from scratch, the discovery output was thrown away.
+
+Fill in EVERY anchor below. If the field has no upstream deliverable, STOP and ask the user before generating — never guess. Cite the source file and the specific line / section the field came from.
+
+- **Who is this human**: ← from `.design-engineer-plugin/design/foundation/problem-statement.md` and/or `target-audience.md`. Quote the relevant sentence.
+- **What verb must they accomplish**: ← from `problem-statement.md` (the user's actual goal) and/or `mvp-requirements.md` (the priority feature this prototype demonstrates).
+- **How should this feel**: ← from `.design-engineer-plugin/design/exploration/references.md` (Design Feel section). Use the EXACT feeling words from references.md, not paraphrased.
+- **Bold aesthetic flavor**: ← from `references.md` Design Direction synthesis (the direction document built in `ui-references-moodboard` Step 7). If references.md doesn't name a flavor, ASK the user before picking one.
+- **Differentiation**: ← from `references.md` Signature element + the Domain Exploration outputs.
+- **Palette WHY**: ← from `references.md` Color World (5+ colors from the product's domain). Use those colors. Do NOT invent a palette.
+- **Typography WHY**: ← from `references.md` Typography section. Do NOT default to Inter / SF Pro / Roboto / Lato / Montserrat unless `references.md` names one with stated reasoning.
+- **Token names WHY**: ← from `references.md` token suggestions, OR derived from the Domain words in references.md. Names like `--ink`, `--scrub-teal` not `--gray-700`.
+- **Screens covered**: ← from `.design-engineer-plugin/design/planning/information-architecture.md`. The prototype's screen list MUST be the IA's screen list. Do not add screens the IA doesn't have. Do not skip screens the IA marks as primary.
+- **Priority features**: ← from `.design-engineer-plugin/design/planning/mvp-requirements.md` (must-have features only — not nice-to-haves, not creative additions).
+- **Bias / psychology to apply**: ← from `.design-engineer-plugin/design/exploration/bias-audit.md` (priority actions section) and `.design-engineer-plugin/design/psychology/*.md` if present. List 3+ specific UI moves the prototype must implement.
+
+If any of these deliverables exist but you have not yet Read them, the design-grounding hook will deny your HTML write. The hook checks every existing `.md` file under `.design-engineer-plugin/design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/` and requires it to have been Read this session.
+
+If a deliverable does NOT exist (e.g. the user is in autopilot and skipped bias-audit), that field is "n/a — not produced upstream" — but you MUST surface that gap to the user via AskUserQuestion before generating, asking whether to (a) run the missing skill first, (b) ask the user to provide that input directly in chat, or (c) proceed without it and accept the reduced quality.
 
 ---
 
@@ -143,32 +168,57 @@ options:
 multiSelect: false
 ```
 
-This answer carries forward into the Step 4 prototype brief and governs how Step 5 generates layouts. The answer is binding – the storyboard MUST reflect the chosen platform without exception. See the Step 5 hard rule for what each choice means in practice.
+This answer carries forward into the Step 4 prototype brief and governs how Step 5 generates layouts. The answer is binding – the prototype MUST reflect the chosen platform without exception. See the Step 5 hard rule for what each choice means in practice.
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
 ---
 
-## Step 2: Gather context
+## Step 2: Gather context (READ every existing deliverable)
 
-Read from the deliverables directory and extract:
+This step is the structural fix for "the prototype doesn't follow the deliverables." Run a Glob first to enumerate every `.md` file under `.design-engineer-plugin/design/`. Then Read EVERY one of them — not just the headline ones — before drafting the brief. The design-grounding hook will deny HTML writes later if any of these reads are missing.
 
-- **Design feel, palette, depth, typography, spacing** from `references.md` (if it exists from `ui-references-moodboard`)
-- **Screens, flows, navigation structure** from the Information Architecture document
-- **Feature priorities and acceptance criteria** from MVP Requirements
-- **Psychology insights and bias considerations** from `bias-audit.md` and `journey-map.md` (if they exist)
-- **Bias audit recommendations** from `.design-engineer-plugin/design/exploration/bias-audit.md` (if it exists). Extract the priority actions and UI recommendations. Apply them when generating prototype screens – these are concrete design improvements that should be visible in the prototype.
+Run:
 
-Present a summary of what was found:
+```
+Glob: .design-engineer-plugin/design/**/*.md
+```
 
-> **Context extracted from planning docs:**
-> - Design feel: [extracted]
-> - Key screens: [list]
-> - Priority features: [list]
-> - Navigation model: [extracted]
-> - Psychology considerations: [extracted or "none found"]
+For every path the Glob returns, call `Read`. The full set typically includes (each one is conditional on it existing in the project):
 
-If critical documents are missing (MVP Requirements or IA), warn the user and suggest running those skills first – but do not block progress.
+- `design/foundation/problem-statement.md` — who the human is, what they're trying to do
+- `design/foundation/target-audience.md` — segments, personas
+- `design/foundation/storybrand.md` — narrative voice, copy direction
+- `design/foundation/business-plan.md` — constraints, monetization signals that affect IA
+- `design/foundation/assumptions.md` — what's been validated vs. what's still hypothesis
+- `design/research/competitor-analysis.md` — patterns to inherit, patterns to avoid
+- `design/research/research-findings.md` — user evidence
+- `design/planning/information-architecture.md` — the screen inventory the prototype MUST implement
+- `design/planning/mvp-requirements.md` — the priority features the prototype MUST cover
+- `design/exploration/references.md` — design intent, palette, typography, signature, named defaults
+- `design/exploration/bias-audit.md` — UI moves the prototype must apply
+- `design/exploration/customer-journey-map.md` — emotional arc to reflect in the design
+- `design/exploration/behavior-map.md` — interaction patterns to support
+- `design/exploration/ethics-review.md` — patterns to avoid
+- `design/psychology/*.md` — any psychology scan outputs
+- `design/dev/design-system.md` — tokens, semantic colors, components if the project has them
+
+Read each one in full. Do NOT skim. Do NOT summarize from memory. The hook will check the transcript for actual `Read` calls.
+
+After reading, present a structured summary that quotes from the deliverables (not paraphrases):
+
+> **Anchored summary from deliverables:**
+> - **Who** (from problem-statement.md): "<exact quote>"
+> - **Goal** (from problem-statement.md / mvp-requirements.md): "<exact quote>"
+> - **Design feel** (from references.md): "<exact words from references>"
+> - **Bold aesthetic flavor** (from references.md, if present): "<flavor>" or "not stated upstream — needs to be picked"
+> - **Palette** (from references.md): [color list]
+> - **Typography** (from references.md): [typeface]
+> - **Screens** (from information-architecture.md): [exact ordered list]
+> - **Priority features** (from mvp-requirements.md): [must-haves only]
+> - **Bias / psychology recommendations** (from bias-audit.md and psychology/*.md): [specific UI moves]
+
+If a deliverable is missing entirely (e.g. the user skipped `ui-references-moodboard` and there is no `references.md`), STOP — the prototype will look generic without it. Use AskUserQuestion to ask the user whether to (a) run the missing skill now, (b) provide the input directly in chat as a substitute, or (c) proceed without it and accept the quality drop. Never silently fabricate a substitute.
 
 If the user selected "Figma designs" as context, explain prerequisites (Figma Desktop open, plugin connected) and ask for a link to specific frames. Fall back to screenshots or manual description if Figma plugin is unavailable.
 
@@ -230,7 +280,7 @@ If adjustments are needed, iterate until approved.
 
 ## Step 4: Prototype brief
 
-**This step is chat-only — DO NOT write a `brief.md` file.** The brief is a synthesis you present to the user in conversation. Step 5's storyboard and Step 7's interactive prototype are the file-producing steps.
+**This step is chat-only — DO NOT write a `brief.md` file.** The brief is a synthesis you present to the user in conversation. Step 5 (interactive prototype) is the only file-producing step in this flow.
 
 Synthesize all gathered context into a prototype brief:
 
@@ -256,7 +306,7 @@ Present the brief to the user:
 question: "Does this brief look correct?"
 header: "Brief review"
 options:
-  - label: "Looks good – start the storyboard"
+  - label: "Looks good – start building the prototype"
     description: "Proceed with this brief as-is"
   - label: "Needs adjustments"
     description: "I will tell you what to change"
@@ -273,52 +323,11 @@ If adjustments are needed, iterate on the brief until approved.
 
 ---
 
-## Step 5: Visual storyboard (Step A)
+## Step 5: Generate the interactive prototype
 
-Generate static screens showing key states and flows. This is NOT the final prototype – it is a storyboard for reviewing layout, structure, and flow before building the interactive version.
-
-**Tell the user explicitly**: "This is a visual storyboard for review – static screens to validate layout and flow. After you approve these, I'll build the interactive prototype."
+Build the prototype as a single self-contained HTML file. No two-step storyboard-then-interactive split — direct from the approved brief to the clickable prototype, generated screen by screen with the user reviewing each one before you move to the next.
 
 At the start of this step, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:storyboard" > .design-engineer-plugin/.active-workflow
-```
-
-### How to generate
-
-1. Generate one screen at a time as a self-contained HTML file
-2. Apply design tokens from the context gathered in Step 2 – not generic Bootstrap-like styling
-3. Use CSS custom properties for all design tokens (colors, spacing, typography, radii, shadows) in `:root {}`
-4. **Target-platform layout rule (HARD)**: read the Target platform field from the Step 4 brief and apply it without exception:
-   - **Mobile app**: design at mobile viewport (375–414px). The HTML body itself fills the viewport at mobile widths. Do NOT wrap the UI in a desktop-shaped container.
-   - **Responsive web**: layouts MUST fill the viewport at every breakpoint. NEVER wrap content in a centered phone-shaped container, NEVER apply `max-width: 414px` / `375px` / similar mobile-frame constraints to the page body, NEVER add a "fake-iphone" CSS chrome around the UI. Use grid/flex layouts that breathe across desktop, tablet, mobile.
-   - **Desktop web**: full-bleed desktop layout (≥1024px primary viewport). No mobile adaptation required. Same prohibition as Responsive web on mobile-frame wrappers.
-   - **Both mobile and web**: generate TWO separate sets of screens – one mobile-viewport set AND one full-width responsive set. NEVER mix them in one layout (no "mobile-mockup-floating-in-desktop-canvas" pattern). Save them to separate filenames if needed.
-5. **Image-slot rule**: BEFORE generating any `<img src="...">` tag, gradient placeholder, emoji-stamped SVG, or random Pexels/Unsplash link, invoke the `ui-images` skill. The skill builds an image manifest, decides per-image whether to generate or stock-fetch, produces strong search queries or detailed AI-generation prompts, and lays out destination folders. This is mandatory whenever the screen has a hero, illustration, photo background, product mockup, avatar, or any other image slot. Do not skip – this is what prevents the gray-gradient + emoji slop default.
-6. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the listed anti-patterns? Pay special attention to "Mobile mockup floating in desktop frame" if the target is Responsive or Desktop web. If yes, fix before presenting.
-7. Present each screen to the user, one at a time
-8. Discuss, get feedback, iterate on that screen before moving to the next
-
-### Quality standard
-
-"Functional first, beautiful later" means pixel-perfect Figma-level polish comes later – NOT that the prototype gets a pass on looking like AI slop. The prototype should still look good using references, design tokens, and anti-pattern checks.
-
-### File location
-
-Save to: `.design-engineer-plugin/prototype/storyboard.html`
-
-Create the directory if it does not exist.
-
-**BLOCKING REQUIREMENT**: Wait for the user's approval of all storyboard screens before proceeding to Step 6.
-
----
-
-## Step 6: Interactive prototype (Step B)
-
-Take the approved storyboard and build the real clickable version. This step is mandatory – do not skip it.
-
-At the start of this step, overwrite the active-workflow marker so the process-recall hook surfaces the new sub-flow name:
 
 ```bash
 mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .design-engineer-plugin/.active-workflow
@@ -327,20 +336,45 @@ mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .des
 ### How to generate
 
 1. Write a single HTML file with all CSS in `<style>` and all JS in `<script>`. No external dependencies.
-2. Use the approved storyboard screens as the visual foundation – layout and flow are already settled.
-3. Add interactivity: functional navigation between screens, buttons that do things, forms that respond, state transitions.
-4. Cover all key user flows from the brief – every screen, every navigation path.
-5. Handle main states: default, active, hover, selected. Skip loading/error/empty states unless specifically requested.
+2. Apply design tokens from the context gathered in Step 2 – not generic Bootstrap-like styling. Use CSS custom properties for all design tokens (colors, spacing, typography, radii, shadows) in `:root {}`. Token names must evoke the product's world (`--ink`, `--parchment`, `--scrub-teal`) – never generic (`--gray-700`, `--surface-2`, `--primary`).
+3. **Apply the bold aesthetic flavor** named in the Step 0.5 Pre-Flight Intent block. The flavor is binding — every typography, color, motion, layout decision should be a precise execution of that direction. Bold maximalism AND refined minimalism both pass; "safe and inoffensive" doesn't.
+4. **Target-platform layout rule (HARD)**: read the Target platform field from the Step 4 brief and apply it without exception:
+   - **Mobile app**: design at mobile viewport (375–414px). The HTML body itself fills the viewport at mobile widths. Do NOT wrap the UI in a desktop-shaped container.
+   - **Responsive web**: layouts MUST fill the viewport at every breakpoint. NEVER wrap content in a centered phone-shaped container, NEVER apply `max-width: 414px` / `375px` / similar mobile-frame constraints to the page body, NEVER add a "fake-iphone" CSS chrome around the UI. Use grid/flex layouts that breathe across desktop, tablet, mobile.
+   - **Desktop web**: full-bleed desktop layout (≥1024px primary viewport). No mobile adaptation required. Same prohibition as Responsive web on mobile-frame wrappers.
+   - **Both mobile and web**: generate TWO separate sets of screens – one mobile-viewport set AND one full-width responsive set. NEVER mix them in one layout (no "mobile-mockup-floating-in-desktop-canvas" pattern). Save them to separate filenames if needed.
+5. **Image-slot rule**: BEFORE generating any `<img src="...">` tag, gradient placeholder, emoji-stamped SVG, or random Pexels/Unsplash link, invoke the `ui-images` skill. The skill builds an image manifest, decides per-image whether to generate or stock-fetch, produces strong search queries or detailed AI-generation prompts, and lays out destination folders. This is mandatory whenever the screen has a hero, illustration, photo background, product mockup, avatar, or any other image slot. Do not skip – this is what prevents the gray-gradient + emoji slop default.
+6. Add interactivity from the start: functional navigation between screens, buttons that do things, forms that respond, state transitions. The prototype is clickable on the first present, not a static mockup that becomes interactive later.
+7. Cover all key user flows from the brief – every screen, every navigation path. Handle main states: default, active, hover, selected. Skip loading/error/empty states unless specifically requested.
+8. Generate one screen at a time. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the 14+ listed anti-patterns? Pay special attention to "Mobile mockup floating in desktop frame" if the target is Responsive or Desktop web, and to the hard-banned typefaces (Inter / SF Pro / Roboto / Lato / Montserrat) and token names (`--gray-N`, `--surface-N`, `--primary`). If you find any, fix before presenting.
+9. **Per-screen Source Anchors (BLOCKING)**: when presenting each screen to the user, the chat message MUST include a "Source Anchors" block showing which deliverables informed which decisions on this screen. Format:
+
+   ```
+   Screen: <screen name from IA>
+   Source Anchors:
+   - Layout: from <deliverable> ("<exact quote>")
+   - Copy: from <deliverable> ("<exact quote>") or [user-provided in chat]
+   - Palette: from references.md ("<exact color description>")
+   - Typography: from references.md ("<exact typeface>")
+   - Bias / psychology applied: from bias-audit.md ("<exact recommendation>") and how this screen implements it
+   - IA position: from information-architecture.md (Screen <N> of <total>, navigation context)
+   ```
+
+   If a screen has no anchor for a section, that section is forbidden — STOP and ASK the user before generating a layout / copy / token choice that has no upstream basis. The prototype is an EXECUTION of the deliverables, not a parallel creation.
+
+10. Present each screen to the user, one at a time, with the Source Anchors block above the rendered HTML. Discuss, get feedback, iterate on that screen before moving to the next.
 
 ### File location
 
 Save to: `.design-engineer-plugin/prototype/prototype.html`
 
-**BLOCKING REQUIREMENT**: Wait for the user to review the interactive prototype before proceeding.
+Create the directory if it does not exist. The prototype is a single file — there is no separate `storyboard.html` file (that two-step flow was removed in v6.1.0 because it produced confusing intermediate output without improving the final prototype).
+
+**BLOCKING REQUIREMENT**: Wait for the user to review and approve each screen before generating the next.
 
 ---
 
-## Step 7: Iterate with user
+## Step 6: Iterate with user
 
 This is the core of the prototyping process. Expect many rounds of refinement.
 
@@ -384,7 +418,7 @@ Stop iterating when:
 
 ---
 
-## Step 8: Save deliverable
+## Step 7: Save deliverable
 
 After saving the deliverables below, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
 

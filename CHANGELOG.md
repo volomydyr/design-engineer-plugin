@@ -4,6 +4,39 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.1.0] – 2026-05-05
+
+The headline issue this release attacks: **prototypes were ignoring the discovery and planning deliverables and producing generic AI-slop UI**. The fix is structural — the design-grounding hook now denies HTML writes until every existing project deliverable has been Read, and the prototype Pre-Flight requires explicit citations from each upstream document. Two smaller wins ride along: the confusing two-step storyboard-then-interactive flow is gone, and Anthropic's official `frontend-design` skill is now bundled and invoked from the prototype / moodboard / landing-page skills for a sharper "bold aesthetic direction" prompt.
+
+### Changed — prototypes follow the deliverables, enforced
+
+- **`hooks/de-design-grounding-hook.js`**: any HTML write during prototyping or implementation now requires every existing `.md` file under `.design-engineer-plugin/design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/` to have been Read this session. The list is built dynamically from what's on disk — projects that haven't run discovery have nothing to read; projects deep in the pipeline have a long list. This applies to ALL tiers (trivial / medium / large) — even a one-line color tweak on the prototype must be grounded in the upstream docs. Before this gate, the model could (and did) generate UI from scratch ignoring `problem-statement.md`, `information-architecture.md`, `mvp-requirements.md`, and `references.md`. Now the hook denies the write until they're actually Read.
+- **`skills/dev-prototyping/SKILL.md` Step 0.5 — Deliverable Anchors**: every Pre-Flight field (Who, Verb, Feel, Flavor, Differentiation, Palette, Typography, Token names, Screens, Priority features, Bias / psychology) must cite the source deliverable + an exact quote. If a deliverable is missing entirely, the model must STOP and ask the user how to proceed (run the missing skill, provide the input directly, or accept the quality drop) — never silently fabricate a substitute.
+- **`skills/dev-prototyping/SKILL.md` Step 2 — Gather context**: now requires a `Glob: .design-engineer-plugin/design/**/*.md` followed by Read on every returned path. The "anchored summary from deliverables" output quotes from the deliverables (no paraphrasing), naming the source file for each field. Replaces the previous "Read what feels relevant" framing that the model treated as advisory.
+- **`skills/dev-prototyping/SKILL.md` Step 5 — per-screen Source Anchors**: every generated screen must include a Source Anchors block above the rendered HTML, mapping Layout / Copy / Palette / Typography / Bias / IA position to specific deliverable quotes. Sections without an anchor are forbidden — STOP and ASK before generating.
+
+### Changed — storyboard step removed
+
+- **`skills/dev-prototyping/SKILL.md`**: the two-step "visual storyboard then interactive prototype" flow is gone. Direct from approved brief → interactive prototype, generated screen by screen. The `prototype:storyboard` active-workflow marker and the `storyboard.html` output file are removed. Step 0 plan announcement updated to 8 items (was 9). The target-platform layout rule, image-slot rule, and anti-patterns self-check that lived in the old Step 5 (storyboard) are now folded into the new Step 5 (interactive prototype).
+
+### Added — bundled Anthropic `frontend-design` skill
+
+- **`skills/frontend-design/SKILL.md`**: bundled verbatim from Anthropic's official `frontend-design` plugin (Apache 2.0 — see `LICENSE.txt` in the same folder). The skill prompts for a **bold aesthetic flavor** (brutally minimal / maximalist chaos / editorial-magazine / brutalist-raw / luxury-refined / retro-futuristic / playful-toy-like / industrial-utilitarian / organic-natural / etc.) — a named direction stronger than feeling words alone. Frontmatter adapted to plugin standards: `disable-model-invocation: true`, `model: claude-opus-4-7`, `effort: high`. Original Anthropic content is unchanged; attribution preserved in the SKILL.md body and the bundled `LICENSE.txt`.
+- **`hooks/de-design-grounding-hook.js`**: `frontend-design/SKILL.md` is a 4th required Read alongside `anti-patterns.md`, `anti-slop-writing.md`, `design-intent-guide.md`. The hook denies HTML writes if it hasn't been Read this session.
+- **`skills/dev-prototyping/SKILL.md` Step 0.5**: Pre-Flight Intent block has new `Bold aesthetic flavor` and `Differentiation` fields populated from the bundled skill's prompt.
+- **`skills/ui-references-moodboard/SKILL.md` Step 1**: after the design-feel question, a new bold-aesthetic-flavor `AskUserQuestion` (10 named options + "other") commits the user to a direction. The chosen flavor is persisted in `references.md` under a "Bold aesthetic flavor" section and becomes a binding constraint for downstream prototyping and landing-page work.
+- **`skills/ui-landing-page/SKILL.md` new Step 0.5**: same design-grounding gate as the prototype skill, including the `frontend-design` Read and the deliverables-Read requirement. Pre-Flight block in chat must cite the bold aesthetic flavor from `references.md` before any HTML write.
+
+### Why a minor version bump
+
+New skill bundled (`skills/frontend-design/`), no public-surface breaking changes. The storyboard removal is internal — `storyboard.html` was a transient working artifact, not a tracked deliverable, and the user-facing slash command (`/design-engineer:prototype`) is unchanged.
+
+### Migration
+
+- Any project with an in-flight prototype session: nothing to do. The next time you run `/design-engineer:prototype`, the new flow takes over (no storyboard step, full deliverable-anchoring, frontend-design Read). Prototype work-in-progress at `.design-engineer-plugin/prototype/prototype.html` is preserved.
+- Old `.design-engineer-plugin/prototype/storyboard.html` files from v6.0.x sessions are now orphaned. Safe to delete; the new flow does not regenerate them.
+- Projects that already have a `references.md` without a "Bold aesthetic flavor" field: the moodboard skill will prompt for the flavor on next invocation. The prototype skill will surface a gap warning and ask whether to amend `references.md` first or pick a flavor inline.
+
 ## [6.0.0] – 2026-05-04
 
 **Breaking change** to the slash-command surface. Reverted the v5.4.0 namespace rename — every `/product:*` command is now `/design-engineer:*`. Two commands also got clearer names. Internal identifiers (plugin name in `plugin.json`, `.design-engineer-plugin/` config dir, hook script names, `DESIGN_ENGINEER_PLUGIN_ROOT` env var) are unchanged.

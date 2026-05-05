@@ -81,6 +81,8 @@ The moment you stop asking "why this?" is the moment defaults take over. For the
 
 ## Step 1: Establish Design Intent
 
+Before answering the three intent questions below, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/frontend-design/SKILL.md` (Anthropic's bundled frontend-design skill). It frames the bold-aesthetic-direction prompt that complements the "feeling words" question. The flavor names it offers — brutally minimal, maximalist chaos, retro-futuristic, organic-natural, luxury-refined, playful-toy-like, editorial-magazine, brutalist-raw, art-deco-geometric, soft-pastel, industrial-utilitarian — extend the "feeling words" vocabulary into named aesthetic directions a designer can actually execute. This Read is also enforced by the design-grounding hook, so doing it here pays forward.
+
 Before collecting any references, answer these three questions. If the user cannot answer with specifics, help them get there. Do not guess. Do not default.
 
 **Who is this human?** Not "users." The actual person – where they are when they open this, what is on their mind, what they did 5 minutes ago.
@@ -165,6 +167,42 @@ options:
 ```
 multiSelect: false  # User must choose one design feel
 ```
+
+**BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to the bold-aesthetic-flavor question below.
+
+After the user picks a feel, ask them to commit to a **bold aesthetic flavor** — a named direction beyond the feeling word. Use the canonical 3-line spacer per CLAUDE.md rule 6 before the AskUserQuestion call.
+
+```
+question: "Pick a bold aesthetic flavor for this product. Bold maximalism and refined minimalism both work — the goal is intentionality, not intensity. Which direction fits?"
+header: "Aesthetic flavor"
+options:
+  - label: "Brutally minimal"
+    description: "Stripped to essentials. Hard edges. No decoration. The product IS the content."
+  - label: "Maximalist chaos"
+    description: "Dense, layered, expressive. Multiple typefaces, overlapping elements, controlled-but-loud."
+  - label: "Editorial / magazine"
+    description: "Long-form layout language. Pull quotes, marginalia, asymmetric grids, art-directed compositions."
+  - label: "Brutalist / raw"
+    description: "Exposed structure. Default browser styles riffed on. Stark, unpolished, intentional roughness."
+  - label: "Luxury / refined"
+    description: "Generous whitespace. Subtle motion. Considered typography. Quiet confidence over loud claims."
+  - label: "Retro-futuristic"
+    description: "Period-specific aesthetic (90s web, 80s synthwave, 60s sci-fi, etc.). Pick the era explicitly."
+  - label: "Playful / toy-like"
+    description: "Soft shapes, candy colors, joyful motion. Personality forward, polish in service of charm."
+  - label: "Industrial / utilitarian"
+    description: "Machinery aesthetic. Monospace, gridded data, technical readouts. Precision over warmth."
+  - label: "Organic / natural"
+    description: "Hand-feel, paper-feel, irregular shapes, earth-tone palettes, materially honest surfaces."
+  - label: "Other (I'll describe in chat)"
+    description: "None of the above fits — I have a specific direction in mind."
+```
+
+```
+multiSelect: false
+```
+
+The chosen flavor MUST appear in the final `references.md` under a "Bold aesthetic flavor" section, alongside the design feel. Downstream skills (`dev-prototyping`, `ui-landing-page`) read this field as a binding constraint — every prototype / landing page screen must be a precise execution of the flavor.
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
@@ -379,6 +417,7 @@ Save the references document to `.design-engineer-plugin/design/exploration/refe
 The document should include:
 
 - Design intent (the three questions answered)
+- **Bold aesthetic flavor** (the named direction picked in Step 1, e.g. "Editorial / magazine" or "Brutally minimal") — this is a binding constraint for downstream prototyping and landing-page skills
 - Domain exploration outputs (domain, color world, signature, named defaults)
 - Product type and context
 - List of key screens with visual direction for each

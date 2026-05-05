@@ -37,6 +37,29 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
+## Step 0.5: Design grounding (BLOCKING)
+
+Before generating any HTML, the design-grounding hook will deny `.html` writes until you have:
+
+1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
+2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
+3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
+4. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/frontend-design/SKILL.md` (Anthropic's bundled frontend-design skill — bold aesthetic direction)
+5. Confirmed `.design-engineer-plugin/design/exploration/references.md` exists, AND READ IT
+6. Read every existing deliverable under `.design-engineer-plugin/design/{foundation,research,planning,exploration,psychology,reviews,dev}/*.md` (Glob first, then Read each one)
+
+The bundled `frontend-design` Read forces you to commit to the **bold aesthetic flavor** picked in `ui-references-moodboard` Step 1. Re-read the flavor field in `references.md` and apply it as a binding constraint to every section: typography, color, motion, layout. The landing page is an EXECUTION of the flavor, not a parallel creation.
+
+After the Reads, output a compact Pre-Flight block in chat:
+
+- **Bold aesthetic flavor (from references.md)**: <flavor name + 1-sentence interpretation>
+- **Palette (from references.md)**: <colors>
+- **Typography (from references.md)**: <typeface>
+- **Storybrand narrative (from storybrand.md)**: <hero + problem + plan + CTA in 1 line each>
+- **Anti-pattern self-check**: PASS / how I'm avoiding cream+orange, Inter/SF Pro defaults, gradient text, glassmorphism, mobile-mockup-in-desktop-frame.
+
+---
+
 ## Step 1: Read StoryBrand deliverable
 
 Read `.design-engineer-plugin/design/foundation/storybrand.md` to extract the 7-part narrative:

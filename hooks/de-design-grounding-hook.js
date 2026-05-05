@@ -35,10 +35,40 @@ const EXEMPT_PATHS = [
 
 // Required design knowledge files (basename match in transcript Reads).
 // Use file basenames so we are robust to absolute vs relative path forms.
+// `frontend-design.md` resolves to skills/frontend-design/SKILL.md — the bundled
+// Anthropic skill we read for the bold-aesthetic-direction prompt. Basename
+// match treats it as `SKILL.md`, so we use a unique marker keyed off the path.
 const REQUIRED_READ_BASENAMES = [
   'anti-patterns.md',          // ui-aesthetic-review/references/anti-patterns.md
   'anti-slop-writing.md',      // shared-references/anti-slop-writing.md
   'design-intent-guide.md'     // ui-references-moodboard/references/design-intent-guide.md
+];
+
+// Path-based required reads (where basename alone would collide — e.g. SKILL.md).
+// Match by full path suffix. The frontend-design skill is the bundled Anthropic
+// skill; reading it forces the model to commit to a bold aesthetic flavor before
+// generating UI.
+const REQUIRED_READ_PATH_SUFFIXES = [
+  'skills/frontend-design/SKILL.md'
+];
+
+// Deliverable directories under .design-engineer-plugin/design/ that hold
+// upstream pipeline outputs (problem statement, IA, MVP, references, bias audit,
+// psychology, etc.). When these files exist on disk, they become required reads
+// before any UI write — this is what forces the prototype to actually follow the
+// discovery and planning phases instead of generating from scratch. Built
+// dynamically: if `mvp-requirements.md` doesn't exist in this project, it isn't
+// required. Stack-agnostic, project-scope-agnostic: only enforces what the user
+// has actually produced.
+const DELIVERABLE_DIRS = [
+  '.design-engineer-plugin/design/foundation',
+  '.design-engineer-plugin/design/research',
+  '.design-engineer-plugin/design/planning',
+  '.design-engineer-plugin/design/exploration',
+  '.design-engineer-plugin/design/psychology',
+  '.design-engineer-plugin/design/reviews',
+  '.design-engineer-plugin/design/dev',
+  '.design-engineer-plugin/design/features'
 ];
 
 // Possible references.md locations (canonical post-v5.5.0 path under the
@@ -128,6 +158,39 @@ function findDesignSystemFile() {
     if (fs.existsSync(path.join(process.cwd(), rel))) return rel;
   }
   return null;
+}
+
+/**
+ * Walk DELIVERABLE_DIRS and return every .md file that exists. These become
+ * required reads before any UI write — the prototype / implementation must
+ * actually consult the upstream deliverables, not just exist alongside them.
+ * Returns an array of project-relative paths.
+ */
+function findExistingDeliverables() {
+  const found = [];
+  for (const dir of DELIVERABLE_DIRS) {
+    const abs = path.join(process.cwd(), dir);
+    if (!fs.existsSync(abs)) continue;
+    try {
+      for (const entry of fs.readdirSync(abs)) {
+        if (!entry.endsWith('.md')) continue;
+        if (entry.startsWith('.')) continue;
+        found.push(path.join(dir, entry).replace(/\\/g, '/'));
+      }
+    } catch (_) { /* skip unreadable dirs */ }
+  }
+  return found;
+}
+
+/**
+ * True iff one of the path-suffix required reads has been Read this session.
+ * Matches transcript file_path entries that END WITH the configured suffix.
+ */
+function hasReadPathSuffix(reads, suffix) {
+  for (const read of reads) {
+    if (read.endsWith(suffix)) return true;
+  }
+  return false;
 }
 
 /**
@@ -330,24 +393,62 @@ function main() {
       // depth of the change).
       if (tier !== 'trivial') {
         const missing = REQUIRED_READ_BASENAMES.filter(b => !reads.has(b));
-        if (missing.length > 0) {
+        const missingPathSuffixes = REQUIRED_READ_PATH_SUFFIXES.filter(
+          suffix => !hasReadPathSuffix(reads, suffix)
+        );
+        if (missing.length > 0 || missingPathSuffixes.length > 0) {
           const fullPaths = missing.map(b => {
             if (b === 'anti-patterns.md') return path.join(pluginRoot, 'skills/ui-aesthetic-review/references/anti-patterns.md');
             if (b === 'anti-slop-writing.md') return path.join(pluginRoot, 'skills/shared-references/anti-slop-writing.md');
             if (b === 'design-intent-guide.md') return path.join(pluginRoot, 'skills/ui-references-moodboard/references/design-intent-guide.md');
             return b;
           });
-          appendLog('DENIED', 'Missing Reads (tier=' + tier + '): ' + missing.join(',') + ' for: ' + filePath);
+          const pathSuffixFullPaths = missingPathSuffixes.map(suffix => path.join(pluginRoot, suffix));
+          const allMissing = [...missing, ...missingPathSuffixes];
+          const allPaths = [...fullPaths, ...pathSuffixFullPaths];
+          appendLog('DENIED', 'Missing Reads (tier=' + tier + '): ' + allMissing.join(',') + ' for: ' + filePath);
           deny(
-            'Required design knowledge not yet Read this session: ' + missing.join(', ') + '. ' +
+            'Required design knowledge not yet Read this session: ' + allMissing.join(', ') + '. ' +
             'Read these files BEFORE any UI Write – they contain the operating procedure for crafted output ' +
-            '(WHY Checkpoint, AI Slop Test, named tests, anti-pattern catalog). ' +
+            '(WHY Checkpoint, AI Slop Test, named tests, anti-pattern catalog, bold aesthetic direction). ' +
             'Files to Read:\n' +
-            fullPaths.map(p => '  - ' + p).join('\n') +
+            allPaths.map(p => '  - ' + p).join('\n') +
             TIER_INSTRUCTIONS
           );
           return process.exit(0);
         }
+      }
+
+      // Check 3.5: every existing project deliverable under
+      // .design-engineer-plugin/design/{foundation,research,planning,exploration,
+      // psychology,reviews,dev,features}/*.md must be Read this session before
+      // any UI write. This applies to ALL tiers — even a trivial color swap on a
+      // prototype must be grounded in the upstream deliverables. The list is
+      // built dynamically from what exists on disk; a project that hasn't run
+      // discovery has zero entries and skips this check entirely.
+      //
+      // This is the structural fix for "the prototype doesn't follow the
+      // deliverables it was supposed to be informed by." Before this gate, the
+      // model could (and did) generate UI from scratch ignoring problem-
+      // statement.md, information-architecture.md, mvp-requirements.md, and
+      // references.md, even though Step 2 of dev-prototyping told it to read
+      // them. Now the hook denies the write until they're actually Read.
+      const deliverables = findExistingDeliverables();
+      const missingDeliverables = deliverables.filter(d => {
+        const base = path.basename(d);
+        return !reads.has(base) && !reads.has(d);
+      });
+      if (missingDeliverables.length > 0) {
+        appendLog('DENIED', 'Missing deliverable Reads (tier=' + tier + '): ' + missingDeliverables.length + ' for: ' + filePath);
+        deny(
+          'Project deliverables exist but have not been Read this session: ' + missingDeliverables.length + ' file(s). ' +
+          'The prototype / implementation MUST follow the discovery and planning outputs — that is the entire point of those phases. ' +
+          'Read every existing deliverable BEFORE writing UI. ' +
+          'For each Pre-Flight field and each generated screen, cite which deliverable it came from (e.g. ' +
+          '"Who is this human: <quote> (from problem-statement.md)"). Files to Read:\n' +
+          missingDeliverables.map(p => '  - ' + path.join(process.cwd(), p)).join('\n')
+        );
+        return process.exit(0);
       }
 
       // Check 4: project's own design-system reference must be Read if it

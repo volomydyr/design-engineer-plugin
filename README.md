@@ -1,4 +1,4 @@
-> **v6.0.0** – see the [changelog](CHANGELOG.md) for what's new.
+> **v6.1.0** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -184,7 +184,7 @@ The plugin installs several hooks that work without you doing anything:
 - **Requirement fidelity (plans)** – reviews plan files for requirement drift. If a plan adds features, copy, or scope you didn't ask for, it gets flagged before implementation starts.
 - **Prompt injection defense** – watches for manipulation attempts hidden in external content (web pages, files, tool outputs).
 - **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `.design-engineer-plugin/design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
-- **Process recall** – inside long deterministic workflows (`/design-engineer:development` feature implementation and setup, `/design-engineer:discovery` new-product full pipeline and existing-project abbreviated feature flow, `/design-engineer:review` broad audits, `dev-prototyping` storyboard and interactive steps, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
+- **Process recall** – inside long deterministic workflows (`/design-engineer:development` feature implementation and setup, `/design-engineer:discovery` new-product full pipeline and existing-project abbreviated feature flow, `/design-engineer:review` broad audits, `dev-prototyping` interactive prototype generation, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
 - **Background continuation block** – when a flow is waiting on your feedback (every prototype iteration, every implementation phase approval gate), Claude is forbidden from initiating background polling or self-rescheduling (`ScheduleWakeup`, `CronCreate`, `/loop`, background `Task` or `Bash`). Your typing window is not a polling target — your next message is the signal.
 - **Deliverable path validation** – every Write/Edit under `.design-engineer-plugin/design/<subdir>/`, `prototype/`, or `plans/` is checked against a canonical allow-list before it lands. Non-canonical subdirs (e.g., a hallucinated `strategy/` folder) and non-canonical filenames (e.g., `business-case.md` instead of the canonical `business-plan.md`) get denied with a structured message naming the right path. `.design-engineer-plugin/temporary/` is the unconditional escape hatch for working drafts; product code outside the umbrella is pass-through.
 - **Bot-block + auth-wall fallbacks** – when Playwright hits a Cloudflare challenge, captcha, "verify you are human" wall, or a signup/login gate, Claude stops and asks you for help via AskUserQuestion (you can paste back what you see, flip a blocker setting, provide test credentials, opt in to temp-email throwaway-account signup, or skip with a flag in the deliverable's sources-consulted list). Never silently falls back to shallow WebSearch snippets and never silently drops a blocked URL.
@@ -209,7 +209,7 @@ Everything the plugin produces lives under a single umbrella folder: `.design-en
 │   ├── reviews/       aesthetic review, design-to-code QA, audits
 │   ├── dev/           CLAUDE.md draft, agent setup, MCP setup, status tracking
 │   └── features/      per-feature spec dirs
-├── prototype/         storyboard.html, prototype.html, landing-page.html
+├── prototype/         prototype.html, landing-page.html
 ├── plans/             implementation plans (active + archive)
 ├── memory/            project-map.md, debug-solutions.md
 ├── temporary/         disposable working files (gitignored, auto-purged at phase boundaries)

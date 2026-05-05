@@ -10,7 +10,7 @@
 #
 # The .active-workflow marker is written by specific commands (e.g.,
 # /design-engineer:development during feature implementation) and skills (e.g.,
-# dev-prototyping at the storyboard or interactive-prototype steps) at
+# dev-prototyping at the interactive-prototype step) at
 # the start of a structured flow, and cleared at the end of that flow
 # (via the Stop hook cleanup or by the command's own teardown). This
 # scoping prevents the recall injection from firing on unrelated casual
@@ -19,7 +19,7 @@
 # noisy and out of place outside an active workflow.
 #
 # The marker file's first line carries the workflow name (e.g.,
-# `dev:feature-implementation`, `prototype:storyboard`,
+# `dev:feature-implementation`, `prototype:interactive`,
 # `design:full-pipeline-phase2`, `review:full-audit`,
 # `moodboard:exploration`). The hook reads that name and substitutes it
 # into the injected text so the model knows which workflow to recall.
