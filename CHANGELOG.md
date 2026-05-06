@@ -4,6 +4,30 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.7.1] – 2026-05-06
+
+User reported the `test-writer` agent "takes years to finish" during dev runs. Investigation traced this to five structural reasons in `agents/test-writer.md`, all agent-config tuning levers — not algorithmic problems. This release applies all five at once. Expected speedup: roughly 3–5× (target: 30–60 seconds for a 2-phase, 3–5 test plan, where v6.7.0 was taking minutes).
+
+### Changed
+
+- **`agents/test-writer.md` frontmatter — model `claude-opus-4-7` → `sonnet`, effort `high` → `medium`.** Test writing is structured plan-to-script transformation, not creative work — sonnet + medium handles it well per CLAUDE.md's "structured workflows where the model follows established steps" criteria. Documented departure from the Opus default in the agent body / this changelog so future maintainers understand the rationale.
+- **Added `tools` allowlist `["Read", "Write", "Bash", "Glob", "AskUserQuestion"]`.** Removes WebSearch / WebFetch / Edit / MultiEdit / MCP tools / Task. Keeps the agent on the canonical task (read plan → write scripts → run them → return) and prevents it from re-reading upstream deliverables or implementation files (the latter is explicitly forbidden but lacks structural enforcement without an allowlist).
+- **Added `maxTurns: 8`.** Hard ceiling on agent wander time. Read plan + CLAUDE.md (2 turns) → write all tests (3–4 turns) → run them all once (1 turn) → return. Eight turns is generous; in practice should finish in 5–6.
+- **Body trimmed from 145 lines to ~70.** Dropped: Red flags table, Good tests table, When stuck matrix, Critical rules enumeration, Verify GREEN section, Writing effective tests subsections. Kept: Iron Law one-liner, plan-reading checklist, bash script template (verbatim), Red verification (now batched), output spec. Dropped sections were reference material, not operational — the operational guards (Iron Law, plan-only-reads, cleanup pattern, exit codes) all stay.
+- **Red verification rewritten to batch.** Was: "write each test, run it, watch it fail, rewrite if errors" (N Bash round-trips for N tests). Now: "write all tests in one go, run them all once with a single Bash invocation reading per-script exit codes." One round-trip instead of N.
+
+### Why a PATCH bump
+
+Agent config tuning. No behavior change to the public surface. Test scripts produced are identical in structure (same template, same `trap cleanup EXIT`, same exit codes). The only thing that changes is how fast the agent gets there.
+
+### Verification
+
+- Body length under target (79 lines including frontmatter, ~70 of content)
+- Frontmatter sanity: `model: sonnet`, `effort: medium`, `tools` list of 5, `maxTurns: 8`
+- Bash test-script template kept verbatim from v6.7.0
+- Iron Law one-liner kept verbatim
+- "NEVER read implementation files" rule kept
+
 ## [6.7.0] – 2026-05-06
 
 User shared a mid-development screenshot showing the model had completed Phase 2 of a feature implementation with multiple invented UI elements that nobody asked for — heart icons, "TRUSTED SELLER" badges, "Free shipping from Antwerp" copy, "Authenticity guarantee, money-back guarantee, 24-hour cancellation" trust cards, "Antwerp · 18 yrs" separator-dot formatting, newsletter opt-in checkbox, "Details" expandable popovers — none in the MVP F-list, all marketplace-pattern features the model copied from "match 1stDibs visually" framing. The model only self-audited the drift after the user manually noticed and asked. Without the user catching it, Phase 3 would have doubled down on the same pattern.
