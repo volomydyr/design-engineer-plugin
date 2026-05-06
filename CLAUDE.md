@@ -48,6 +48,72 @@ The only correct phrasing is **"Read `<path>/SKILL.md` and follow its instructio
 
 `${CLAUDE_PLUGIN_ROOT}` IS officially documented for `hooks/hooks.json` `command` fields. Hooks may use it directly (and do, throughout `hooks/hooks.json`). This convention applies only to slash command bodies and skill markdown — not to hooks.
 
+## Cost modes (light vs full)
+
+Two-mode cost selector introduced in v6.8.0. Persisted in `.design-engineer-plugin/config.yaml` as `cost_mode: light | full` (default `full` to preserve existing behavior for projects that pre-date v6.8.0).
+
+### Modes
+
+- **Full**: ship-state defaults — Opus for judgement-heavy components (advisor, design-system-auditor, psych-scanner, ux-bias-audit, ux-ethics-review, ux-full-review, meta-orchestrator, etc.), Sonnet elsewhere. Higher quality, higher token cost.
+- **Light**: every plugin AI component runs on `model: sonnet`, `effort: medium`. No Opus anywhere. ~40% lower per-token cost vs Full. Some quality drop on judgement-heavy work — accepted tradeoff for users on tight usage budgets.
+
+### Mechanism
+
+Per [Claude Code docs](https://code.claude.com/docs/en/skills#frontmatter-reference), `model: inherit` is supported only on skills (not agents); `effort: inherit` does not exist. There is no documented runtime override for either field. Therefore mode-switching requires **physically rewriting the frontmatter** in the plugin cache files when the user picks a mode.
+
+The mechanism:
+
+1. **Manifest** (`assets/cost-modes.json`): declares both `full` and `light` model+effort values per component (10 agents + 57 skills = 67 entries). Single source of truth, version-controlled.
+2. **Apply script** (`scripts/apply-cost-mode.sh`): reads `cost_mode` from project config, walks plugin files, regex-replaces the `model:` and `effort:` lines per the manifest. Idempotent (re-running on the same mode is a no-op).
+3. **Triggers**:
+   - `/design-engineer:launch` Step 1.5 asks the cost-mode question on first-run setup, persists, runs the script.
+   - `/design-engineer:launch` Step 0 silently re-applies on every launch when `cost_mode: light` is set (catches plugin updates that wipe the cache back to ship-state).
+   - `/design-engineer:cost-mode <light|full>` lets the user switch mid-project.
+
+### Manifest update rule (HARD)
+
+Any change to an agent's or skill's frontmatter `model:` or `effort:` MUST come with a matching update to `assets/cost-modes.json`. Otherwise:
+- The "full" mode in the manifest will write the manifest's stale value over the new frontmatter, undoing the change.
+- Light mode is automatic — the apply rule is uniform (any opus → sonnet, any non-medium effort → medium) — so light entries don't need manual updates if you're following the same rule.
+
+Pre-commit check: when `git diff` shows `model:` or `effort:` changes in `agents/` or `skills/*/SKILL.md`, verify `assets/cost-modes.json` has matching changes. If not, regenerate the manifest:
+
+```bash
+python3 <<'PY'
+import os, re, json
+manifest = {'agents': {}, 'skills': {}}
+def parse(path):
+    with open(path) as f: c = f.read()
+    m = re.search(r'^model:\s*(.+?)\s*$', c, flags=re.M)
+    e = re.search(r'^effort:\s*(.+?)\s*$', c, flags=re.M)
+    return (m.group(1) if m else None, e.group(1) if e else None)
+def light(model, effort):
+    return ('sonnet' if model and 'opus' in model else model,
+            'medium' if effort and effort != 'medium' else effort)
+for entry in sorted(os.listdir('agents')):
+    if not entry.endswith('.md'): continue
+    m, e = parse(f'agents/{entry}')
+    if not m or not e: continue
+    lm, le = light(m, e)
+    manifest['agents'][f'agents/{entry}'] = {'full': {'model': m, 'effort': e}, 'light': {'model': lm, 'effort': le}}
+for skill in sorted(os.listdir('skills')):
+    p = f'skills/{skill}/SKILL.md'
+    if not os.path.isfile(p): continue
+    m, e = parse(p)
+    if not m or not e: continue
+    lm, le = light(m, e)
+    manifest['skills'][p] = {'full': {'model': m, 'effort': e}, 'light': {'model': lm, 'effort': le}}
+json.dump(manifest, open('assets/cost-modes.json', 'w'), indent=2)
+print('regenerated')
+PY
+```
+
+### What NOT to do
+
+- Do NOT manually edit frontmatter in the plugin cache (`~/.claude/plugins/cache/...`) — those edits get overwritten by the next `/design-engineer:launch` if `cost_mode: light` is set, OR by the next plugin update.
+- Do NOT add new agents or skills without adding their entries to `assets/cost-modes.json`. The manifest is exhaustive — missing entries mean the script silently skips them in light mode.
+- Do NOT rename the `cost_mode` config field. It's persisted across plugin updates; renames break user projects.
+
 ## Versioning Requirements
 
 **HARD RULE: every commit pushed to `main` that touches user-facing code MUST bump the version. No exceptions, even for one-line fixes.**

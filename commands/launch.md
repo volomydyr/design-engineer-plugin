@@ -30,6 +30,16 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 
 The `DESIGN_ENGINEER_PROJECT_STATE` injected value is now an HINT only. The disk read above is the source of truth.
 
+**Cost-mode silent re-apply (when config exists)**: if the config you just read has `cost_mode: light`, the plugin cache may have been wiped by an update and the frontmatter is back at Full defaults. Run via Bash (silently — no chat output for this):
+
+```bash
+if [ -f .design-engineer-plugin/config.yaml ] && grep -qE '^cost_mode:[[:space:]]*light' .design-engineer-plugin/config.yaml; then
+  CLAUDE_PLUGIN_ROOT="${DESIGN_ENGINEER_PLUGIN_ROOT}" bash "${DESIGN_ENGINEER_PLUGIN_ROOT}/scripts/apply-cost-mode.sh"
+fi
+```
+
+This catches the post-update case and keeps the user's chosen mode applied without any chat noise.
+
 Skip the **Onboarding sequence** entirely if the disk read found a config.
 
 **Skill invocation note**: throughout this file, "load the X skill" or "load the meta-setup skill" means Read the file at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` using the Read tool, then follow its instructions inline. NEVER use the `Skill` tool to invoke these skills — they all set `disable-model-invocation: true` in their frontmatter and the Skill tool will reject them.
@@ -64,7 +74,43 @@ After that paragraph is emitted as visible text, then end the chat message with 
   - label: "New product", description: "Starting from scratch – I have an idea or a problem I want to solve"
   - label: "Existing project", description: "I already have a product, codebase, or designs – I want to improve, review, or add features"
 
-After receiving the answer, follow the matching path.
+After receiving the answer, continue to Step 1.5 — DO NOT branch to a path yet.
+
+### Step 1.5: Ask cost mode (BLOCKING)
+
+This question runs once at first-run setup. It applies regardless of which path the user is on (new product OR existing project) — the cost mode is project-wide.
+
+End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) and call `AskUserQuestion`:
+
+- question: "Pick a default running mode for this project."
+- header: "Plugin mode"
+- options:
+  - label: "Light", description: "Faster, lower token cost. All AI components run on Sonnet at medium effort. No Opus anywhere. Recommended if you have a usage limit you can hit, or you're running long sessions."
+  - label: "Full", description: "Higher quality. Opus for judgement-heavy work; Sonnet elsewhere. Higher token cost per session. Recommended if usage isn't a constraint."
+- multiSelect: false
+
+After receiving the answer, persist the choice to the project config and apply the rewrite. Run via Bash (do NOT skip these — without the rewrite, the user's choice has no effect):
+
+```bash
+mkdir -p .design-engineer-plugin
+CONFIG=".design-engineer-plugin/config.yaml"
+MODE="<answer>"  # "light" or "full" — substitute the user's pick
+
+# Initialize config or update cost_mode field idempotently
+if [ -f "$CONFIG" ]; then
+  if grep -qE '^cost_mode:' "$CONFIG"; then
+    sed -i.tmp -E "s/^cost_mode:.*/cost_mode: $MODE/" "$CONFIG" && rm "$CONFIG.tmp"
+  else
+    printf '\ncost_mode: %s\n' "$MODE" >> "$CONFIG"
+  fi
+else
+  printf 'cost_mode: %s\n' "$MODE" > "$CONFIG"
+fi
+
+CLAUDE_PLUGIN_ROOT="${DESIGN_ENGINEER_PLUGIN_ROOT}" bash "${DESIGN_ENGINEER_PLUGIN_ROOT}/scripts/apply-cost-mode.sh"
+```
+
+Then continue to the matching path below (Path A or Path B based on the Step 1 answer).
 
 ### Path A – "New product"
 

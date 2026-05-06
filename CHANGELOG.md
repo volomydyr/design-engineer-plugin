@@ -4,6 +4,50 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.8.0] – 2026-05-06
+
+Pro plan users (~45 messages per 5h, shared with claude.ai per Anthropic docs) reported running out of their entire 5h quota before finishing the Discovery phase. The plugin currently ships 43 components at `claude-opus-4-7 + high`, 6 at `opus + xhigh`, 16 at `sonnet + medium`, 2 at `sonnet + high`. Per Anthropic's pricing docs, Sonnet costs ~60% of Opus per token; effort `medium` is documented as "moderate token savings" vs `high`. Combined, these levers represent the dominant cost-control surface.
+
+v6.8.0 adds a **two-mode cost selector** (`light | full`) so users can match the plugin's compute cost to their plan budget. Asked at `/design-engineer:launch` first-run setup; switchable mid-project via the new `/design-engineer:cost-mode` command.
+
+### Verified architecture (probe findings)
+
+- **Probe (model-inheritance support)** — verified via Claude Code docs: `model: inherit` is supported on skills only (not on agents). `effort: inherit` does NOT exist for either skills or agents. There is no documented runtime override for either field. Therefore a true two-mode toggle requires **physically rewriting the frontmatter** in plugin cache files when the user picks a mode. v6.8.0 implements this via a manifest-driven Python rewrite from a Bash entry point.
+
+### Added
+
+- **`assets/cost-modes.json`** (new). Manifest declaring `full` and `light` model+effort values per component. 67 entries (10 agents + 57 skills). Single source of truth for mode definitions. Auto-generated from the current ship state via a one-time grep audit.
+- **`scripts/apply-cost-mode.sh`** (new). Bash entry point + inline Python rewriter. Reads `cost_mode` from project config, walks every entry in the manifest, regex-replaces the `model:` and `effort:` lines per the chosen mode. Idempotent (re-running on the same mode is a no-op). Fail-open on errors. Logs to `~/.claude/cache/de-cost-mode.log`.
+- **`commands/cost-mode.md`** (new). Slash command `/design-engineer:cost-mode <light|full>`. Validates argument (asks via AskUserQuestion if missing/invalid), updates `.design-engineer-plugin/config.yaml`, runs the apply script, confirms in chat. Mode is project-scoped — different projects can have different modes.
+
+### Changed
+
+- **`commands/launch.md` Step 1.5 (new)**: between the project-type question and the path branching, asks the cost-mode question (Light vs Full). Persists to project config and runs the apply script before continuing. Applies to both new-product and existing-project paths.
+- **`commands/launch.md` Step 0**: when the disk-read finds an existing config with `cost_mode: light`, silently runs the apply script before continuing. Catches the post-plugin-update case where the cache is back at Full defaults but the user's chosen mode is Light.
+- **`CLAUDE.md`** new "Cost modes" section: documents the two modes, the rewrite mechanism, the manifest as source of truth, and the hard rule that any frontmatter `model:`/`effort:` change must be matched in the manifest. Includes a regenerator snippet for manifest updates.
+
+### Mode definitions
+
+- **Full** (default for projects without `cost_mode` set): ship-state defaults — Opus for judgement-heavy components (advisor, design-system-auditor, psych-scanner, ux-bias-audit, ux-ethics-review, ux-full-review, meta-orchestrator, etc.), Sonnet elsewhere. Higher quality, higher token cost.
+- **Light**: every plugin AI component runs on `model: sonnet`, `effort: medium`. No Opus anywhere. Per the user's spec — uniform downgrade with no exceptions for "judgement" agents. Accepts the quality dip in exchange for ~40% lower per-token cost (per Anthropic pricing).
+
+### Why a minor version bump
+
+New behavior on the public surface (one new slash command, one new question in `/design-engineer:launch`). No breaking changes — projects that pre-date v6.8.0 default to `cost_mode: full` (current behavior preserved). Existing in-flight sessions continue without interruption.
+
+### Migration
+
+- Existing projects: no action needed. The launch command's Step 0 silent-reapply only fires if `cost_mode: light` is set, which won't be true for projects that pre-date v6.8.0. They keep behaving as in v6.7.x.
+- New projects: pick a mode at first-run setup. Switchable anytime via `/design-engineer:cost-mode`.
+- After plugin updates: the cache is re-extracted in Full state. On the next `/design-engineer:launch` in a project with `cost_mode: light`, Step 0 silently re-applies. No user action needed.
+
+### Smoke tests run before ship
+
+- Apply script round-trip: `agents/advisor.md` opus+xhigh → light → sonnet+medium → full → opus+xhigh. ✓
+- Idempotency: re-running on same mode produces 0 file updates. ✓
+- 51 of 67 files actually rewritten on light apply (16 already at sonnet+medium were no-ops). ✓
+- Bash + Python syntax-check on the apply script. ✓
+
 ## [6.7.1] – 2026-05-06
 
 User reported the `test-writer` agent "takes years to finish" during dev runs. Investigation traced this to five structural reasons in `agents/test-writer.md`, all agent-config tuning levers — not algorithmic problems. This release applies all five at once. Expected speedup: roughly 3–5× (target: 30–60 seconds for a 2-phase, 3–5 test plan, where v6.7.0 was taking minutes).
