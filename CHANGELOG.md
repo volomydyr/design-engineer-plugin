@@ -4,6 +4,60 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.6.0] – 2026-05-06
+
+User reported two structural problems with `/design-engineer:development` that prose discipline (v6.5.0) had failed to fix:
+
+1. Agents almost never run. The command body specifies five required `Task(<agent>, ...)` dispatches but the model treated them as advisory — "maybe one or two of 12 steps" actually fired during a dev session.
+2. AI-slop feature speculation before any MVP discussion. Even after v6.1.0 forced upstream `.md` deliverables to be Read, the model jumped from "I read the deliverables" to "I'll implement [some feature]" with its own interpretation, producing weird AI slop instead of the user's actual taste.
+
+v6.6.0 adds two new hooks that enforce both gates structurally — same playbook as the v6.1.0 deliverable-following hook. Two empirical probes were run against the live Claude Code harness before this release to verify the architecture is supported by the runtime, not just by the docs.
+
+### Verified architecture (probe findings)
+
+- **Probe 1 — Agent transcript schema**: Tool name in transcript JSONL is `Agent` (NOT `Task`); `subagent_type` is in the entry's `input` field as a string. Stop hooks can `transcript_path`-scan reliably for required dispatches. Confirmed by reading the live session's transcript directly. Hook code uses `name === "Agent"` with `input.subagent_type` lookup.
+- **Probe 2 — PreToolUse deny on plan-mode tools**: `permissionDecision: "deny"` from a PreToolUse hook on `ExitPlanMode` actually blocks the call (not advisory). Verified via isolated `claude -p` subprocess. Critical correction: `EnterPlanMode` is NOT a callable tool — plan mode is a permission-mode flag set by the harness, and only `ExitPlanMode` exists as a hookable tool. Architecture revised accordingly: UserPromptSubmit injection is the primary nudge, PreToolUse on `ExitPlanMode` is the backstop.
+
+### Added — pre-plan MVP dialogue gate
+
+- **`hooks/de-pre-plan-dialogue-hook.js`** (new). Single hook, two entry points distinguished by `hook_event_name` from stdin:
+  - **UserPromptSubmit**: when `.design-engineer-plugin/.active-workflow` reads `dev:feature-implementation` AND `.design-engineer-plugin/development/decisions.md` is missing, injects the dialogue protocol prompt as `additionalContext`. This nudges the model on every prompt during the dev pipeline until the dialogue is complete.
+  - **PreToolUse(ExitPlanMode)**: under the same conditions, returns `permissionDecision: "deny"` with explanatory `permissionDecisionReason`. The model literally cannot exit plan mode without the dialogue file existing.
+  - Includes an mtime-vs-session-start freshness check so a `decisions.md` from a previous dev session doesn't bypass the gate.
+  - Fail-open on errors (matches existing hook patterns).
+  - Logs to `~/.claude/cache/de-pre-plan-dialogue.log`.
+- **`hooks/hooks.json`**: registers the new hook on `UserPromptSubmit` (no matcher) and `PreToolUse` (matcher `ExitPlanMode`).
+- **`commands/development.md` Step 1b** — Pre-plan MVP dialogue (BLOCKING). Five sub-steps mirroring the proven v6.4.0 per-screen prototype dialogue: (1b.1) Surface upstream context with verbatim quotes from `mvp-requirements.md`, `information-architecture.md`, `references.md`, `bias-audit.md`, and the prototype if present; (1b.2) List 3–5 of the most consequential open implementation decisions from 8 dev-relevant categories (component reuse / data flow / error handling / copy direction / accessibility surface / performance budget / test strategy / deployment surface); (1b.3) AskUserQuestion per decision with 2–4 options + trade-offs and "Other (I'll describe in chat)" always last; (1b.4) Persist picks to `.design-engineer-plugin/development/decisions.md` (new directory under the umbrella); (1b.5) Only then proceed to plan mode.
+- **`commands/development.md`** Step 0 announcement updated so the user knows up front that the dev pipeline is a design dialogue, not a one-shot generation. "The MVP requirements are intentionally high-level — the implementation choices are yours, not mine."
+
+### Added — agent-completion enforcement
+
+- **`hooks/de-pipeline-completion-hook.js`** (new). Stop event hook. During `dev:feature-implementation`, scans `transcript_path` JSONL for `tool_use` entries with `name: "Agent"` and groups by `input.subagent_type`. Required dispatch matrix:
+  - `test-writer` ≥1 (always required during dev pipeline — TDD applies to every feature)
+  - `frontend-implementer` + `backend-implementer` combined ≥ phase count from the active plan file (one implementer per phase)
+  - `psych-scanner` ≥1 if any UI files (`.tsx`/`.jsx`/`.html`/`.svelte`/`.vue`/`.css`) were Edit/Write/MultiEdit'd this session
+  - `design-system-auditor` ≥1 (post-phase final audit)
+  - On any missing dispatch: returns `decision: "block"` with structured `additionalContext` listing what's missing and what to run. The model is forced to dispatch the missing agent before the session can finish.
+  - Includes `stop_hook_active` loop guard so the hook doesn't infinite-loop on its own continuation.
+  - Logs every Agent dispatch seen at scan time so future schema drift is visible in the log.
+  - Fail-open on errors.
+  - Logs to `~/.claude/cache/de-pipeline-completion.log`.
+- **`hooks/hooks.json`**: extends the existing Stop array with the new hook entry. Existing entries (`session_dep_summary.py`, `de-play-sound.sh`, marker-clear command) preserved.
+
+### Changed — dev:feature-implementation marker contract
+
+The active-workflow marker `dev:feature-implementation` now triggers TWO new hooks beyond the existing process-recall: the pre-plan dialogue gate (UserPromptSubmit + PreToolUse on ExitPlanMode) and the agent-completion enforcement (Stop). Other workflow markers (`prototype:interactive`, `review:full-audit`, `moodboard:exploration`, `design:full-pipeline-phase*`) are unaffected — both new hooks gate strictly on the dev marker.
+
+### Why a minor version bump
+
+Two new hook files, two new hook registrations, one new command-body section, one new deliverable directory. No breaking changes to the slash command surface or existing deliverable paths. Existing in-flight dev sessions get the new behavior on the next `/design-engineer:development` invocation.
+
+### Migration
+
+- New deliverable: `.design-engineer-plugin/development/decisions.md` will be written by the dialogue protocol on next dev session. Commit alongside the plan.
+- Existing dev sessions that previously skipped agents will now hit a Stop block listing missing dispatches. Dispatch the agents per the message and the session will resume cleanly.
+- No changes to existing deliverables, tests, or plan files.
+
 ## [6.5.0] – 2026-05-05
 
 User reported that the development phase wasn't actually running any agents — and that during the whole pipeline (discovery + dev), agents almost never fire. Investigation traced the cause to two prose loopholes in the command bodies that the model was reading as permission to skip agent dispatches:

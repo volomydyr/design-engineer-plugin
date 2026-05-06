@@ -197,11 +197,92 @@ At the start of feature implementation, run this Bash command to mark the active
 mkdir -p .design-engineer-plugin && printf '%s\n' "dev:feature-implementation" > .design-engineer-plugin/.active-workflow
 ```
 
+Announce this plan to the user before doing anything: "Here's what I'm going to do: 1) read the existing project patterns, 1a) read the prototype if one exists, 1b) walk you through 3–5 implementation decisions for this feature with options to choose from (the MVP requirements are intentionally high-level — the implementation choices are yours, not mine), 2) read the plan template, 3) enter Plan Mode and draft the plan with your decisions baked in, 4) get your approval, 5) copy the plan to plans/, 6) create a feature branch, 7) write failing tests via the test-writer agent, 8) implement phase by phase via the frontend/backend-implementer agents, then run psych-scanner on UI phases and design-system-auditor at the end. All agent dispatches are required — I will not implement inline."
+
 Before writing ANY code, follow these steps in order:
 
 **1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
 **1a. Read the prototype FIRST if it exists**: If `.design-engineer-plugin/prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation – your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
+
+**1b. Pre-plan MVP dialogue (BLOCKING — REQUIRED before plan mode)**: MVP requirements are intentionally HIGH-LEVEL — they name what the user can do, not how the screen executes it. Without a per-decision dialogue, you will pick implementation defaults from your own interpretation and produce AI-slop UI that ignores the user's specific taste. The pre-plan dialogue is the design-discussion phase the dev pipeline lives or dies on.
+
+The `de-pre-plan-dialogue-hook` enforces this: it injects a reminder on every UserPromptSubmit during `dev:feature-implementation` until `.design-engineer-plugin/development/decisions.md` exists, AND denies the `ExitPlanMode` tool call until that file exists. Trying to draft a plan without doing the dialogue first wastes work.
+
+Run this sequence BEFORE Step 2:
+
+**1b.1 Surface upstream context** — Quote, in chat, what the existing deliverables say about this feature. No paraphrasing — exact phrases.
+
+> ### MVP requirement(s) in scope: <list>
+>
+> **From `mvp-requirements.md`** ("<exact section / line>"):
+> - <quote>
+>
+> **From `information-architecture.md`** (the screens this feature touches):
+> - <quote with screen names + nav context>
+>
+> **From `references.md`** (design intent, palette, typography, flavor):
+> - <quote>
+>
+> **From `bias-audit.md`** (UI moves the implementation must apply, if any):
+> - <quote>
+>
+> **From the prototype** (if `.design-engineer-plugin/prototype/prototype.html` exists):
+> - <observed pattern, layout decisions already locked in>
+
+If a deliverable doesn't exist or doesn't address this feature, STOP. Use `AskUserQuestion` to ask the user whether to (a) update the missing deliverable first, (b) provide the missing input directly in chat, or (c) proceed without it and accept the quality drop. Never silently fabricate.
+
+**1b.2 List 3–5 of the most consequential open implementation decisions** for THIS feature. Pick from these categories — these are where defaults silently win:
+
+- **Component reuse strategy** — extend an existing atom/molecule with new props, or create a new component
+- **Data flow & state management** — local component state / lifted state / context / store / server-cache
+- **Error handling pattern** — inline form errors / toast notifications / full-screen error states / silent retry
+- **Copy direction** — literal/instructional / branded-and-specific / terse-utility / conversational (must match `storybrand.md` voice if present)
+- **Accessibility surface area** — keyboard-only / screen-reader / reduced-motion / contrast — which states get explicit testing
+- **Performance budget** — what's the acceptable initial render time, first paint cost, bundle delta
+- **Test strategy** — happy-path only / + key edge cases / + accessibility + visual regression / + load
+- **Deployment surface** — feature-flagged behind a kill-switch / fully shipped / behind login / public
+
+Cap at 5 decisions. Over-elaboration is its own failure mode. Pick the 3–5 that, if defaulted, would most damage the implementation given the chosen aesthetic flavor (from `references.md`) and the upstream constraints. Adjust the decision list per feature — do NOT mechanically pick the same 5 every time.
+
+**1b.3 For EACH decision, run an AskUserQuestion** with 2–4 named options. Each option's description must be a one-sentence trade-off summary referencing concrete patterns when useful. Format (canonical 3-line spacer per CLAUDE.md rule #6 before each call):
+
+```
+question: "Decision N of M for <feature>: <decision category>: <plain-language framing>"
+header: "<feature>: <decision>"
+options:
+  - label: "<option 1 short label>"
+    description: "<concrete pattern + 1-sentence trade-off>"
+  - label: "<option 2 short label>"
+    description: "<...>"
+  - label: "<option 3 short label, optional>"
+    description: "<...>"
+  - label: "Other (I'll describe in chat)"
+    description: "None of the above fits — I have a specific direction in mind."
+multiSelect: false
+```
+
+Include "Other (I'll describe in chat)" as the LAST option on EVERY decision question. The user must always have an escape hatch. Wait for the user's answer on each decision before asking the next. Do NOT batch multiple decisions into one AskUserQuestion. Do NOT skip ahead and start drafting the plan before all decisions are answered.
+
+**1b.4 Persist the decisions** to `.design-engineer-plugin/development/decisions.md` (create the directory if it doesn't exist). Format:
+
+```markdown
+# Implementation decisions — <feature name>
+
+Source: `mvp-requirements.md` (<requirement quote>), `information-architecture.md` (<screens>)
+
+## <Decision category 1>
+Chose **<option>** over <alternatives>. Reason: <user's reasoning, or "user preference / no reason given" if none stated>.
+
+## <Decision category 2>
+Chose **<option>** over <alternatives>. Reason: <…>.
+
+…
+```
+
+This file is a durable deliverable, committed alongside the plan. It exists so a future session (or a new collaborator) can understand WHY the implementation looks the way it does — the decisions log is the "minutes" of the design dialogue.
+
+**1b.5 ONLY THEN proceed to Step 2.** The `ExitPlanMode` tool will remain denied until `.design-engineer-plugin/development/decisions.md` exists.
 
 **2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` – this is the exact format your plan must follow.
 

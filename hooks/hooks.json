@@ -19,6 +19,15 @@
             "timeout": 3
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-pre-plan-dialogue-hook.js",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -68,6 +77,16 @@
           {
             "type": "command",
             "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-playwright-path-hook.js",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-pre-plan-dialogue-hook.js",
             "timeout": 5
           }
         ]
@@ -153,6 +172,11 @@
     "Stop": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-pipeline-completion-hook.js",
+            "timeout": 8
+          },
           {
             "type": "command",
             "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/session_dep_summary.py",
