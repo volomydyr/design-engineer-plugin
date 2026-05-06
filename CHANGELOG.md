@@ -4,6 +4,35 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.7.0] – 2026-05-06
+
+User shared a mid-development screenshot showing the model had completed Phase 2 of a feature implementation with multiple invented UI elements that nobody asked for — heart icons, "TRUSTED SELLER" badges, "Free shipping from Antwerp" copy, "Authenticity guarantee, money-back guarantee, 24-hour cancellation" trust cards, "Antwerp · 18 yrs" separator-dot formatting, newsletter opt-in checkbox, "Details" expandable popovers — none in the MVP F-list, all marketplace-pattern features the model copied from "match 1stDibs visually" framing. The model only self-audited the drift after the user manually noticed and asked. Without the user catching it, Phase 3 would have doubled down on the same pattern.
+
+This is the requirement-fidelity drift problem: even with the v6.6.0 pre-plan dialogue gate (which captures HOW to implement the agreed scope), the model can still ADD scope mid-implementation. The existing `de-fidelity-hook.js` injects a generic "REQUIREMENT FIDELITY: review what you wrote" reminder which the model self-passes silently. v6.7.0 makes the audit structurally visible.
+
+### Added
+
+- **`hooks/de-drift-audit-hook.js`** (new). PostToolUse hook on `Agent` matcher. Fires immediately after every `frontend-implementer` / `backend-implementer` Agent dispatch during `dev:feature-implementation`. Injects an `additionalContext` block requiring the main model to output a structured "Drift audit" in chat BEFORE any further work — before `/simplify`, before `psych-scanner`, before presenting the phase to the user.
+  - The audit must trace every user-facing element (button, link, image, headline, label, placeholder, CTA, badge, icon, chip, modal title, error message, empty state, tooltip, footer text) to a specific source line in `decisions.md`, `mvp-requirements.md`, `information-architecture.md`, `references.md`, or `storybrand.md` — OR admit the element as drift.
+  - Drift items default to "remove now"; only borderline cases warrant `AskUserQuestion`.
+  - Hook reads upstream source files from disk and lists them in the audit prompt by path so the model knows exactly which files to cross-check.
+  - Gates strictly on `dev:feature-implementation` marker — fires nowhere else.
+  - Fail-open on errors.
+  - Logs to `~/.claude/cache/de-drift-audit.log`.
+- **`hooks/hooks.json`**: registers the new hook under `PostToolUse` matcher `Agent`.
+- **`commands/development.md` Step 8a.1**: documents the drift audit as a BLOCKING step between the implementer's return and `/simplify`. The model knows the audit is coming.
+
+### Why a minor version bump
+
+New hook, new behavior. No breaking changes. Existing in-flight dev sessions get the audit on the next implementer dispatch.
+
+### Why this is needed alongside the existing `de-fidelity-hook.js`
+
+The existing hook fires on Write/Edit/MultiEdit and injects a generic "review what you wrote" reminder. The model treats it as advisory and passes the audit silently. The v6.7.0 hook is different in three ways:
+1. **Fires on Agent return**, so it sees the implementer's consolidated output (one audit per phase, not per file).
+2. **Names specific source files** the model must cross-check against (decisions.md, MVP, IA, references, storybrand) — the previous reminder was generic.
+3. **Requires structured output in chat**: the audit is visible to the user, who can spot drift the model missed. Visibility is the structural fix; internal self-audit isn't enforceable.
+
 ## [6.6.0] – 2026-05-06
 
 User reported two structural problems with `/design-engineer:development` that prose discipline (v6.5.0) had failed to fix:
