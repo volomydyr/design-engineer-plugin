@@ -4,6 +4,21 @@ All notable changes to the design-engineer plugin will be documented in this fil
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.8.1] – 2026-05-06
+
+User flagged that the cost-mode question's "Full" option description was inaccurate. v6.8.0 said "Opus for judgement-heavy work; Sonnet elsewhere" — but the manifest count shows Opus is actually the default in Full mode (49 of 67 components, ~73%), and Sonnet is the exception (the 18 lighter-weight transforms). The framing was backwards.
+
+### Fixed
+
+- **`commands/launch.md` Step 1.5 and `commands/cost-mode.md` Step 1**: Full description corrected to accurately describe the model distribution. Was: "Opus for judgement-heavy work; Sonnet elsewhere." Now: "Most components run on Opus at high effort; some lighter-weight transforms (setup wizards, documentation, structured outputs) run on Sonnet." Both call sites updated to identical wording.
+- **`commands/launch.md` Step 1.5**: minor copy tightening on Light description ("usage limit you can hit, or you're running long sessions" → "usage limit or run long sessions") to match the existing cost-mode.md wording. Both call sites now identical.
+- **`commands/cost-mode.md` Step 4 confirmation**: updated the Full mode description to match the new framing.
+- **`CLAUDE.md` Cost modes section**: Full mode definition updated with the accurate count (49/67 on Opus) and an explicit list of the 18 Sonnet components for reference.
+
+### Why a PATCH bump
+
+Documentation accuracy fix on user-facing copy. No behavior change. Manifest unchanged.
+
 ## [6.8.0] – 2026-05-06
 
 Pro plan users (~45 messages per 5h, shared with claude.ai per Anthropic docs) reported running out of their entire 5h quota before finishing the Discovery phase. The plugin currently ships 43 components at `claude-opus-4-7 + high`, 6 at `opus + xhigh`, 16 at `sonnet + medium`, 2 at `sonnet + high`. Per Anthropic's pricing docs, Sonnet costs ~60% of Opus per token; effort `medium` is documented as "moderate token savings" vs `high`. Combined, these levers represent the dominant cost-control surface.

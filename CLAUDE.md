@@ -54,8 +54,8 @@ Two-mode cost selector introduced in v6.8.0. Persisted in `.design-engineer-plug
 
 ### Modes
 
-- **Full**: ship-state defaults — Opus for judgement-heavy components (advisor, design-system-auditor, psych-scanner, ux-bias-audit, ux-ethics-review, ux-full-review, meta-orchestrator, etc.), Sonnet elsewhere. Higher quality, higher token cost.
-- **Light**: every plugin AI component runs on `model: sonnet`, `effort: medium`. No Opus anywhere. ~40% lower per-token cost vs Full. Some quality drop on judgement-heavy work — accepted tradeoff for users on tight usage budgets.
+- **Full**: ship-state defaults — 49 of 67 components (~73%) run on Opus at high or xhigh effort; the remaining 18 (lighter-weight transforms — setup wizards, documentation, structured outputs like compound-documenter, deliverable-writer, context-analyzer, dev-claude-md, dev-github-workflow, dev-mcp-setup, dev-starter-prompts, dev-status-tracking, meta-document, meta-statusline, ui-figma-guide, ui-figma-handoff, ui-references-moodboard, ux-assumptions, ux-communicating-decisions, ux-mvp-requirements) run on Sonnet. Higher quality, higher token cost.
+- **Light**: every plugin AI component runs on `model: sonnet`, `effort: medium`. No Opus anywhere. ~40% lower per-token cost vs Full. Some quality drop on the components that would run on Opus in Full mode — accepted tradeoff for users on tight usage budgets.
 
 ### Mechanism
 

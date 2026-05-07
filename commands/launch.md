@@ -85,8 +85,8 @@ End the preceding chat message with the canonical 3-horizontal-rule spacer (per 
 - question: "Pick a default running mode for this project."
 - header: "Plugin mode"
 - options:
-  - label: "Light", description: "Faster, lower token cost. All AI components run on Sonnet at medium effort. No Opus anywhere. Recommended if you have a usage limit you can hit, or you're running long sessions."
-  - label: "Full", description: "Higher quality. Opus for judgement-heavy work; Sonnet elsewhere. Higher token cost per session. Recommended if usage isn't a constraint."
+  - label: "Light", description: "Faster, lower token cost. All AI components run on Sonnet at medium effort. No Opus anywhere. Recommended if you have a usage limit or run long sessions."
+  - label: "Full", description: "Higher quality. Most components run on Opus at high effort; some lighter-weight transforms (setup wizards, documentation, structured outputs) run on Sonnet. Higher token cost per session. Recommended when usage isn't a constraint."
 - multiSelect: false
 
 After receiving the answer, persist the choice to the project config and apply the rewrite. Run via Bash (do NOT skip these — without the rewrite, the user's choice has no effect):

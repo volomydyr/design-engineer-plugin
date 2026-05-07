@@ -25,7 +25,7 @@ options:
   - label: "Light"
     description: "Faster, lower token cost. All AI components run on Sonnet at medium effort. No Opus anywhere. Recommended if you have a usage limit or run long sessions."
   - label: "Full"
-    description: "Higher quality. Opus for judgement-heavy work; Sonnet elsewhere. Higher token cost per session. Recommended if usage isn't a constraint."
+    description: "Higher quality. Most components run on Opus at high effort; some lighter-weight transforms (setup wizards, documentation, structured outputs) run on Sonnet. Higher token cost per session. Recommended when usage isn't a constraint."
 multiSelect: false
 ```
 
@@ -70,7 +70,7 @@ Output one chat message confirming the switch:
 
 > Switched to <MODE> mode. <one-sentence description>:
 > - **Light**: All plugin AI components now run on Sonnet at medium effort. No Opus. Expect ~40% lower token cost per session vs Full mode.
-> - **Full**: Plugin restored to its ship-state defaults — Opus for judgement-heavy components (advisor, design-system-auditor, psych-scanner, the Phase-4 audit skills, etc.), Sonnet elsewhere. Higher quality, higher cost.
+> - **Full**: Plugin restored to its ship-state defaults — most components on Opus at high effort (~73% of all 67 agents and skills), with some lighter-weight transforms (setup wizards, documentation, structured outputs) on Sonnet. Higher quality, higher cost.
 
 If the user is mid-session and a sub-agent is currently running, mention that the change applies to the next dispatch — the in-flight agent is not affected.
 
