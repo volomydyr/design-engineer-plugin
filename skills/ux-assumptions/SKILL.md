@@ -41,7 +41,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand your current state with assumptions, 2) share my initial read on your assumptions and hypotheses, 3) ask 7–10 strategic questions to surface assumptions, 4) draft the assumptions document with categories and risk levels, 5) prioritize with a value-risk matrix, 6) iterate until you approve it, 7) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand your current state with assumptions, 2) share my initial read on your assumptions and hypotheses, 3) ask only the questions I can't infer from what you've shared, 4) draft the assumptions document with categories and risk levels, 5) prioritize with a value-risk matrix, 6) iterate until you approve it, 7) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with what assumptions and hypotheses are in product development and why they matter. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -91,16 +91,16 @@ Be explicit that these are starting points for discussion, not conclusions. If y
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
+Ask only what you can't infer from Step 1 and any existing documents. Don't ask for what the user already gave you or what you can reasonably draw from context. When you do have gaps, batch the questions (no more than 4 at a time) rather than asking one by one. Draw from these key concepts only for the gaps that matter:
 
 - Two hypothesis formulas: "I believe [assumption], and I can find out by [method]" and "I will achieve [result] if [user group] gets [value] by using [functionality]"
 - Lean UX guiding prompts (User: "My early users are...", Product: "These problems can be solved with...", Business: "I will get most of my users through...")
 - Value-risk prioritization (Jeff Gothelf)
 - Parking lot for ideas that do not solve the core problem
 
-Ask in small batches (2-3 at a time). Wait for answers before continuing.
+Ask in small batches (no more than 4 at a time). Wait for answers before continuing.
 
-**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. There is no minimum question count – once you have enough to draft a grounded deliverable, move on.
 
 ---
 

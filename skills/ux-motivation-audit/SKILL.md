@@ -2,8 +2,8 @@
 name: ux-motivation-audit
 description: "Applies the Motivation Framework to evaluate Experience Value across each step of a user experience. Tracks the user's \"Motivation Level\" health bar of motivation vs. friction. Use when performing screen-level analysis of user experience quality."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 

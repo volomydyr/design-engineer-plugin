@@ -1,6 +1,6 @@
 ---
 name: advisor
-description: "Strategic checkpoint primitive – invoke at high-leverage moments to consult the Opus 4.7 advisor agent for a short course correction. Use early in a task (before substantive work), before declaring done, when stuck, or when changing approach. Quotes Anthropic's advisor-tool docs verbatim for timing and treatment."
+description: "Optional strategic checkpoint – consult the advisor agent at high-leverage moments for a short course correction. Use early in a task (before substantive work), before declaring done, when stuck, or when changing approach. Quotes Anthropic's advisor-tool docs verbatim for timing and treatment."
 disable-model-invocation: true
 model: sonnet
 effort: medium
@@ -9,7 +9,7 @@ license: MIT
 
 # Advisor Skill
 
-This skill is the plugin-native implementation of [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy). The literal [`advisor_20260301` server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) is an Anthropic API beta; Claude Code plugins don't control request shape, so we ship the strategy via a dedicated Opus 4.7 sub-agent that other skills consult at known checkpoints.
+This skill is the plugin-native implementation of [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy). The literal [`advisor_20260301` server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) is an Anthropic API beta; Claude Code plugins don't control request shape, so we ship the strategy via a dedicated advisor sub-agent that skills and commands can consult, optionally, at high-leverage moments.
 
 ## What it is
 
@@ -17,7 +17,7 @@ From the docs (verbatim):
 
 > "The advisor tool lets a faster, lower-cost executor model consult a higher-intelligence advisor model mid-generation for strategic guidance. The advisor reads the full conversation, produces a plan or course correction (typically 400 to 700 text tokens, 1,400 to 1,800 tokens total including thinking), and the executor continues with the task."
 
-In our plugin, the calling skill briefs the advisor agent (Opus 4.7 xhigh) with the relevant context, the agent returns a short numbered plan, the caller applies or reconciles.
+In our plugin, the calling skill briefs the advisor agent with the relevant context, the agent returns a short numbered plan, the caller applies or reconciles.
 
 ## When to call advisor
 
@@ -87,20 +87,15 @@ From the docs:
 
 The plugin's pipeline naturally clusters calls at transitions (between phases, before commit, before final hand-off) – this is the shape the docs measured. Avoid calling advisor every step or after every tool result; that erases the cost advantage and produces noisier advice.
 
-## Where the plugin already wires this in (pre-installed checkpoints)
+## Where the advisor is most worth a consult
 
-Per the v4.5.0 active-integration design, the following workflows already include advisor checkpoints – you don't need to remember to call it manually:
+The advisor is optional, not pre-wired into every workflow. It earns its cost when clustered at real transitions. The highest-leverage moments in this plugin:
 
-- **`CLAUDE.md` Plan Mode workflow** – before `ExitPlanMode` on non-trivial plans (early-task consult); before declaring a phase complete (pre-done consult).
-- **`/design-engineer:launch`** – after environment detection, before committing to an interpretation of the project.
-- **`/design-engineer:development`** – before presenting a phase's deliverable to the user.
-- **`/design-engineer:discovery`** – before final design deliverable hand-off.
-- **`/design-engineer:review`** – before producing the final review report.
-- **`/design-engineer:document`** – before document finalize.
-- **`skills/dev-github-workflow`** Mode 1 – before commit on plan-driven changes that diverged from plan.
-- **`skills/meta-orchestrator`** – at major phase transitions and the user-approval checkpoint.
+- **Plan Mode** – before `ExitPlanMode` on a non-trivial multi-phase plan (an early-task consult, before the approach crystallizes).
+- **`/design-engineer:discovery`** – before a final design deliverable hand-off, and at the user-approval gate between design and development.
+- **`/design-engineer:review`** – before producing a final review report on a substantial audit.
 
-If you're writing a new skill or command and it has a "before substantive work" or "before declaring done" moment, add the advisor checkpoint there too – that's the docs' recommendation and it's how this plugin scales the strategy.
+If you're writing a skill or command and it has a genuinely high-stakes "before substantive work" or "before declaring done" moment, consider a consult there too. Do not add one to every step – the advisor adds most of its value on the first call, and scattering it erases the cost advantage.
 
 ## Source
 

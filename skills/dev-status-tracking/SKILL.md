@@ -2,8 +2,8 @@
 name: dev-status-tracking
 description: Teaches and implements context management for long-running development projects. Use when context loss becomes a problem or when setting up status tracking for AI-assisted workflows.
 disable-model-invocation: true
-model: sonnet
-effort: medium
+model: haiku
+effort: low
 license: MIT
 ---
 

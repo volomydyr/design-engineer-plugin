@@ -2,8 +2,8 @@
 name: ux-user-interviews
 description: "Designs, prepares, and analyzes user interviews and surveys using empathy questions and Replacing X techniques. Guides dual-analysis methodology combining human and AI insights. Use when validating assumptions, understanding user behavior, or gathering qualitative data."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -58,7 +58,7 @@ Before writing any questions, understand what the user needs to learn.
 1. Read existing project context (problem statement, user persona, assumptions/hypotheses if available)
 2. Share your brief initial thoughts about which research method fits best based on what you already know about the project. Draw on the user's context, existing documents, and your understanding of the domain. Be honest about trade-offs – the goal is to give the user starting material for their own thinking, not to follow a rigid template.
 
-**Then ask 7-10 context-based strategic questions using AskUserQuestion.** Adapt your questions to what you already know about the project from the context read above and any existing documents. Make sure your questions cover these key concepts:
+**Then ask only what you can't infer, using AskUserQuestion.** Don't ask for what the user already gave you or what you can reasonably draw from the context read above and any existing documents. When you do have gaps, batch the questions (no more than 4 at a time) rather than asking one by one. Draw from these key concepts only for the gaps that matter:
 
 - Surveys: use closed questions, Google Forms, ~100 respondents, improve each round
 - Past-not-future rule: do not ask about the future, ask about the past

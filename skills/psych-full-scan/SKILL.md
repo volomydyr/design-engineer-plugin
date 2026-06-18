@@ -2,8 +2,8 @@
 name: psych-full-scan
 description: "Runs a broad psychology audit across 100+ UX principles. Scans designs for opportunities and violations, then routes to section-specific deep dives. Use when reviewing a design holistically for psychology compliance. Do NOT use for deep-dive into a specific psychology section; see the section-specific psych skills instead."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: xhigh
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -210,7 +210,7 @@ When routing to a section skill, pass along:
 
 ## Cross-References
 
-- **This skill feeds into**: All 13 section-specific psychology skills (see [section-routing-guide.md](./references/section-routing-guide.md))
+- **This skill feeds into**: All 11 section-specific psychology skills (see [section-routing-guide.md](./references/section-routing-guide.md))
 - **Invoked by**: `/design-engineer:review` (psychology option)
 - **Uses agent**: `psych-scanner` for broad scan processing
 - **Pairs with**: `ux-full-review` for comprehensive product review, `ui-design-to-code-qa` for implementation-level checks

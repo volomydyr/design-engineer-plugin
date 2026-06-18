@@ -2,8 +2,8 @@
 name: ux-problem-statement
 description: Creates a problem statement defining what problem exists, who feels it most, and how the product will help. Use when starting a new product, pivoting direction, or when the team lacks clarity on what they are solving.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -44,7 +44,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you have so far, 2) share my initial read on the problem, 3) ask 7–10 strategic questions to sharpen the problem, 4) draft the problem statement together, 5) iterate until you approve it." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you have so far, 2) share my initial read on the problem, 3) ask only the questions I can't infer to sharpen the problem, 4) draft the problem statement together, 5) iterate until you approve it." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with what a problem statement is and why it matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -96,7 +96,7 @@ Be honest and direct. If the problem seems narrow or broad, say so. If you see p
 
 ## Step 3: Ask Strategic Questions
 
-**Ask 7–10 strategic questions. Do NOT generate the deliverable after fewer than 7 questions.** The forcing questions below are mandatory when the user's context is thin – do not skip them. Adapt to what you already know from Step 1. Cover these key concepts:
+**Ask only what you can't infer from Step 1 and any existing documents.** Don't ask for what the user already gave you or what you can reasonably draw from context. There is no minimum question count. The forcing questions below are the ones worth pushing on when the user's context is thin – use them for the real gaps, skip them when the answer is already clear. Cover these key concepts:
 
 - What problem exists right now that is not being solved well?
 - Who feels this pain the most?
@@ -116,9 +116,9 @@ These cut through vague thinking. Adapt them to the user's context – don't ask
 
 When the user already has a clear problem statement draft, skip the forcing questions and go straight to refinement. Use them when the user's context is thin or their thinking is vague.
 
-Ask questions one at a time or in small batches (2-3). Wait for answers before continuing.
+Ask questions in small batches (no more than 4 at a time). Wait for answers before continuing.
 
-**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. There is no minimum question count – once you have enough to draft a grounded deliverable, move on.
 
 ---
 

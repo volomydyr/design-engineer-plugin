@@ -73,19 +73,20 @@ Each build target gets its own development setup: tech stack, repo/folder, CLAUD
 
 **BLOCKING REQUIREMENT**: If multiple targets detected, wait for the user's choice before proceeding.
 
-## Step 1.6: Design Grounding Pre-Flight (BLOCKING)
+## Step 1.6: Design grounding pre-flight
 
-Before any UI code is generated in this command, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) hard-denies Write/Edit/MultiEdit on UI files (.tsx .jsx .html .svelte .vue .css .scss) until you have:
+Before any UI code is generated in this command, ground yourself and output the Design Grounding block below. This is written method, not optional: UI work that skips it drifts into AI-slop defaults that ignore the user's taste. Before writing or editing any UI file (.tsx .jsx .html .svelte .vue .css .scss), you MUST have:
 
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
 3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md`
 4. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists in the project (run `ui-references-moodboard` first if missing)
 5. Read `.design-engineer-plugin/prototype/prototype.html` if it exists – implementation MUST match its layout, spacing, typography, and color choices. No creative deviation.
+6. If per-screen `.spec.md` files exist for this feature, read them now – build to them, no improvisation. Look under `.design-engineer-plugin/design/features/<feature-slug>/screens/<screen-slug>.spec.md` (and `.design-engineer-plugin/design/specs/<surface-slug>.spec.md` for standalone surfaces). Each spec's per-component ```yaml blocks (token refs, reused-component refs by path, states, responsive, a11y) and EARS acceptance criteria are BINDING – the implementation reuses exactly those components and tokens and satisfies every acceptance criterion. Where a spec exists for a screen you're about to build, it overrides any improvised choice.
 
-**Behavior on missing files** (so you know what's happening before the hook denies a write):
+**Behavior on missing files**:
 
-- If `.design-engineer-plugin/prototype/prototype.html` is **missing**: skip prototype check (the v4.7.0 feature-spec branch deliberately bypasses prototyping). Implement using design references + gallery only.
+- If `.design-engineer-plugin/prototype/prototype.html` is **missing**: skip prototype check (the feature-spec branch deliberately bypasses prototyping). Implement using design references + gallery only.
 - If any of the three `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/.../*.md` plugin docs are **missing**: this means the plugin install is corrupt. Surface the error, don't try to proceed without them.
 
 **Project signal detection** (run before the CLAUDE.md and references checks below):
@@ -121,7 +122,7 @@ Read `.design-engineer-plugin/config.yaml`. The deterministic branches below dep
   - **If user chooses "Provide image references"**:
     1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
-- **Greenfield project (`shipped_ui: false`)**: hook denies UI writes until references exist. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool).
+- **Greenfield project (`shipped_ui: false`)**: do not write UI until references exist. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool).
 
 After the Reads, output this block and fill in EVERY field:
 
@@ -142,7 +143,7 @@ After the Reads, output this block and fill in EVERY field:
 ### Signature Test
 List 5 specific places where design intent manifests. If fewer than 5 concrete components – STOP and rework.
 
-For the full inlined block content (with prompts and examples), see `agents/frontend-implementer.md` Design Grounding Pre-Flight section.
+For the full guidance behind each field (with prompts and examples), see `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/references/design-intent-guide.md` and `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`.
 
 ## Step 2: Plan
 
@@ -174,40 +175,24 @@ In **Autopilot**: show the plan briefly, then execute.
 | Context management | `dev-status-tracking` |
 | Kick-start prompts | `dev-starter-prompts` |
 
-If the user invoked `/design-engineer:development setup` (the setup-activities sub-flow), run this Bash command at the start of this section to mark the active workflow so the process-recall hook can fire context-appropriately:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "dev:setup" > .design-engineer-plugin/.active-workflow
-```
-
 In **Guided mode**: run one at a time, present results, ask for feedback.
 In **Autopilot**: run all planned activities, present summary.
 
-After all setup activities for this invocation are complete, clear the marker:
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
-
 ### Feature implementation
 
-At the start of feature implementation, run this Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "dev:feature-implementation" > .design-engineer-plugin/.active-workflow
-```
-
-Announce this plan to the user before doing anything: "Here's what I'm going to do: 1) read the existing project patterns, 1a) read the prototype if one exists, 1b) walk you through 3–5 implementation decisions for this feature with options to choose from (the MVP requirements are intentionally high-level — the implementation choices are yours, not mine), 2) read the plan template, 3) enter Plan Mode and draft the plan with your decisions baked in, 4) get your approval, 5) copy the plan to plans/, 6) create a feature branch, 7) write failing tests via the test-writer agent, 8) implement phase by phase via the frontend/backend-implementer agents, then run psych-scanner on UI phases and design-system-auditor at the end. All agent dispatches are required — I will not implement inline."
+Announce this plan to the user before doing anything: "Here's what I'm going to do: 1) read the existing project patterns, 1a) read the prototype if one exists, 1b) walk you through 3–5 implementation decisions for this feature with options to choose from (the MVP requirements are intentionally high-level — the implementation choices are yours, not mine), 2) read the plan template, 3) enter Plan Mode and draft the plan with your decisions baked in, 4) get your approval, 5) copy the plan to plans/, 6) create a feature branch, 7) write the implementation plan's tests, 8) implement phase by phase, then run design-system-auditor at the end."
 
 Before writing ANY code, follow these steps in order:
 
 **1. Read existing patterns**: Scan the project's component architecture (atoms/, molecules/, organisms/, pages/). Understand design tokens, naming conventions, file structure. Read relevant skill reference files for design knowledge.
 
-**1a. Read the prototype FIRST if it exists**: If `.design-engineer-plugin/prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation – your code must match its layout, spacing, typography, and color choices. No creative deviation. The `de-design-grounding-hook` denies UI Writes if the prototype exists but was not Read this session.
+**1.0 Read the per-screen design specs (BINDING build input)**: If `.spec.md` files exist for this feature (under `.design-engineer-plugin/design/features/<feature-slug>/screens/<screen-slug>.spec.md`, or `.design-engineer-plugin/design/specs/<surface-slug>.spec.md` for standalone surfaces), Read each one before drafting the plan. For every screen with a spec, extract from its per-component ```yaml blocks the exact list of required components (reused by path vs net-new), the interactions and states, the responsive and a11y requirements, and the EARS acceptance criteria. These are the build inputs the plan must satisfy verbatim – reuse the referenced components, bind to the referenced tokens, do not reinvent. Carry the extracted component/interaction list into the pre-plan dialogue (Step 1b.1) and the plan itself; the spec, where it exists for a screen, is the source of truth that overrides any improvised default. If no `.spec.md` exists for a screen, proceed with the rest of this section unchanged.
 
-**1b. Pre-plan MVP dialogue (BLOCKING — REQUIRED before plan mode)**: MVP requirements are intentionally HIGH-LEVEL — they name what the user can do, not how the screen executes it. Without a per-decision dialogue, you will pick implementation defaults from your own interpretation and produce AI-slop UI that ignores the user's specific taste. The pre-plan dialogue is the design-discussion phase the dev pipeline lives or dies on.
+**1a. Read the prototype FIRST if it exists**: If `.design-engineer-plugin/prototype/prototype.html` exists, Read it before anything else. It is the visual baseline for the implementation – your code must match its layout, spacing, typography, and color choices. No creative deviation. Do not write UI if the prototype exists but was not Read this session.
 
-The `de-pre-plan-dialogue-hook` enforces this: it injects a reminder on every UserPromptSubmit during `dev:feature-implementation` until `.design-engineer-plugin/development/decisions.md` exists, AND denies the `ExitPlanMode` tool call until that file exists. Trying to draft a plan without doing the dialogue first wastes work.
+**1b. Pre-plan MVP dialogue (REQUIRED before plan mode)**: MVP requirements are intentionally HIGH-LEVEL — they name what the user can do, not how the screen executes it. Without a per-decision dialogue, you will pick implementation defaults from your own interpretation and produce AI-slop UI that ignores the user's specific taste. The pre-plan dialogue is the design-discussion phase the dev pipeline lives or dies on.
+
+Do the dialogue first and persist its outcome to `.design-engineer-plugin/development/decisions.md` before drafting any plan. Do not call `ExitPlanMode` until that file exists. Drafting a plan without doing the dialogue first wastes work.
 
 Run this sequence BEFORE Step 2:
 
@@ -226,6 +211,11 @@ Run this sequence BEFORE Step 2:
 >
 > **From `bias-audit.md`** (UI moves the implementation must apply, if any):
 > - <quote>
+>
+> **From the per-screen design spec** (if a `<screen-slug>.spec.md` exists for a screen this feature touches) – BINDING:
+> - <required components: reused-by-path vs net-new, quoted from the spec's `reuse` / component ```yaml blocks>
+> - <required interactions + states, quoted from the spec>
+> - <EARS acceptance criteria the build must satisfy, quoted verbatim>
 >
 > **From the prototype** (if `.design-engineer-plugin/prototype/prototype.html` exists):
 > - <observed pattern, layout decisions already locked in>
@@ -290,26 +280,42 @@ This file is a durable deliverable, committed alongside the plan. It exists so a
 
 **4. Get approval**: Use `ExitPlanMode` for user approval.
 
-**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `.design-engineer-plugin/.design-engineer-plugin/plans/` directory if it doesn't exist. **This step is CRITICAL – without it, TDD hooks and fidelity hooks cannot activate. Do not write any code until the plan is in `.design-engineer-plugin/.design-engineer-plugin/plans/`.**
+**5. Copy the plan**: IMMEDIATELY after approval, copy the plan to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[descriptive-name].md`. Create the `.design-engineer-plugin/plans/` directory if it doesn't exist. The plan is the durable record of what was approved; keep it on disk before writing any code so implementation can be checked against it.
 
 **6. Create feature branch**: If on main/master, run `git checkout -b feat/[plan-slug]`.
 
-**7. TDD (REQUIRED — agent dispatch is mandatory, no manual substitute)**: Before writing production code, run `Task(test-writer, plan_path=<path>)`. The agent reads the plan and writes failing Playwright CLI test scripts in `tests/`. Wait for the agent to return; do not continue until its output is available. Writing tests inline yourself instead of dispatching `test-writer` is forbidden — the agent encodes the TDD anti-pattern catalog the main model would otherwise silently violate. Then run the scripts to verify the Red phase (fails because feature is missing).
+**7. Tests first**: Before writing production code, write the plan's tests as failing Playwright CLI test scripts in `tests/`, then run them to verify the Red phase (they fail because the feature is missing). Write them inline by default. Dispatch `Task(test-writer, plan_path=<path>)` only when the test surface is large enough to flood the main context or when it can run in parallel with other work. Avoid the common test anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests written after the implementation.
+
+**7.5 Suggest a `/goal` for the build (suggest-and-wait, only when a verifiable end state exists)**: At the point UI implementation begins – right before the first phase writes code – check whether this build has a verifiable end state: a per-screen `.spec.md` exists for the feature, OR you are recreating a Figma design, OR recreating a web frontend verified via Playwright, OR the user gave strict Playwright-verifiable rules. If none of those hold, skip this step and go to Step 8.
+
+`/goal` is a Claude Code built-in (CC v2.1.139+) that sets a completion condition and keeps taking turns until it holds – its headline use is implementing a design doc until all acceptance criteria are met. It is **user-invoked only**: the plugin SUGGESTS a ready-to-paste `/goal` and STOPS for the user; it NEVER invokes `/goal` itself.
+
+1. **Availability gate**: `/goal` requires Claude Code v2.1.139+. If you cannot confirm the running version supports it, or the user has indicated `/goal` is unavailable, skip this step silently and proceed to Step 8 normally.
+2. **Compose the completion condition from the spec's EARS acceptance criteria.** When a `.spec.md` exists, pull every screen's EARS acceptance criteria verbatim and join them into the goal condition; append the standing build invariants: verified via at least 3 Playwright iterations, zero hardcoded values (tokens only), and only reused components (no reinvented ones). When no spec exists but a Figma/Playwright end state does, phrase the condition as "the built UI matches <the Figma design / the reference frontend> as confirmed by Playwright, with zero hardcoded values and only reused components."
+3. **Present the ready-to-paste command and STOP.** Show the user the exact line to paste, e.g.:
+
+   > Optional: paste this into Claude Code to have it keep iterating until the spec is satisfied (you run it, I never do):
+   >
+   > `/goal Implement <feature> until all acceptance criteria hold: <EARS criteria joined>; verified via ≥3 Playwright iterations, zero hardcoded values, only reused components.`
+   >
+   > Or just say "go" and I'll proceed with the normal phase-by-phase flow without `/goal`.
+
+4. **Wait for the user.** Do NOT invoke `/goal` yourself under any circumstance. If the user pastes it, the goal loop drives the build; if they say "go" or decline, proceed to Step 8 normally. Either way the per-phase flow below still applies.
 
 **8. Implement phase by phase**: Follow the plan's phases in order. For each phase:
-   a. Implement only this phase's changes. For UI work, dispatch `Task(frontend-implementer, phase=<n>, plan=<path>)`. For backend work, dispatch `Task(backend-implementer, phase=<n>, plan=<path>)`. **The agent dispatch is REQUIRED in both modes — implementing the phase inline yourself instead of dispatching the implementer is forbidden. The implementer encodes the Gallery Contract, the design-token compliance rules, the pixel-perfect Figma fidelity rules; reproducing that work in the main model is unreliable.** Wait for the agent to return; do not continue until its output is available.
+   a. Implement only this phase's changes. Do this inline by default. Dispatch a subagent (`Task(frontend-implementer, phase=<n>, plan=<path>)` for UI work, `Task(backend-implementer, phase=<n>, plan=<path>)` for backend work) only when the phase is large enough to flood the main context or when independent phases can genuinely run in parallel. Whether you implement inline or via an implementer, the same grounding applies: keep every component in the component gallery (imported from its production source, no inline styles), use design tokens rather than raw values, and match Figma designs pixel-for-pixel when they exist. When you dispatch, wait for the agent to return before continuing.
 
-   **a.1 Drift audit (BLOCKING — runs immediately after the implementer returns)**: a PostToolUse hook (`de-drift-audit-hook.js`) injects a "Drift audit REQUIRED" instruction every time `frontend-implementer` or `backend-implementer` returns during `dev:feature-implementation`. You MUST output the structured "Drift audit" block in chat before any further work — before `/simplify`, before `psych-scanner`, before presenting the phase. The block traces every user-facing element (button, link, image, headline, label, placeholder, CTA, badge, icon, chip, modal title, error message, empty state, tooltip) to a specific source line in `decisions.md`, `mvp-requirements.md`, `information-architecture.md`, `references.md`, or `storybrand.md` — OR admits the element as drift. Drift items default to "remove now"; only borderline cases warrant `AskUserQuestion`. This catches the dev-pipeline failure mode where the model invents marketplace-pattern features (heart icons, "TRUSTED SELLER" badges, shipping/returns copy, newsletter opt-ins, etc.) that nobody asked for. Without the visible audit, drift compounds across phases and "match the visual reference" silently overrides the spec.
+   **a.1 Drift audit (runs immediately after the phase's code is written)**: output the structured "Drift audit" block in chat before any further work — before `/simplify`, before presenting the phase. The block traces every user-facing element (button, link, image, headline, label, placeholder, CTA, badge, icon, chip, modal title, error message, empty state, tooltip) to a specific source line in `decisions.md`, `mvp-requirements.md`, `information-architecture.md`, `references.md`, or `storybrand.md` — OR admits the element as drift. Drift items default to "remove now"; only borderline cases warrant `AskUserQuestion`. This catches the dev-pipeline failure mode where the model invents marketplace-pattern features (heart icons, "trusted seller" badges, shipping/returns copy, newsletter opt-ins, etc.) that nobody asked for. Without the visible audit, drift compounds across phases and "match the visual reference" silently overrides the spec.
 
    Continue with `/simplify` only after the drift audit is output and any drift items have been addressed.
    b. Run `/simplify` on changed code, scaled to the change size (per CLAUDE.md "Code Quality: /simplify" tier table). Trivial single-property swaps: skip `/simplify`, inline self-review only. Medium changes (≤50 lines): single `/simplify` call. Large changes (>50 lines or new file): full `/simplify` (3-agent fan-out runs internally).
    c. Completeness review: check the plan's checklist for this phase
-   d. **Advisor checkpoint (pre-done)**: after deliverables are durable (files written, tests run, screenshots captured), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes). If this implementation phase touches user-facing UI (writes to `.tsx`/`.jsx`/`.html`/`.svelte`/`.vue`/`.css`), also run `Task(psych-scanner, target=<changed files or pages>)` once before declaring the phase done. **REQUIRED in both modes — there is no manual psychology-scan substitute; the scanner encodes 100+ cognitive principles the main model cannot reliably apply.** Wait for the agent to return; do not continue until its output is available. The scanner reports prioritized findings; surface them as the phase QA before user review.
+   d. **Optional advisor consult (pre-done)**: on a non-trivial phase, after deliverables are durable (files written, tests run, screenshots captured), you may consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: phase summary, what was implemented, test/screenshot results, anything that surprised you. Apply the advice. If it conflicts with primary-source evidence (a file says X, a test result shows Y), do a single reconcile call. Skip on trivially-scoped phases (one-line edits, type-only changes). For a psychology pass on the UI of this phase, run `/design-engineer:review`.
    e. Present to user with QA instructions from the plan
    f. Wait for approval before next phase
    g. **BLOCKING REQUIREMENT — commit and push BEFORE starting the next phase.** After the user approves this phase, commit its changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer — Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer). Do NOT defer commits to the end of all phases. Do NOT batch multiple phases into a single end-of-implementation commit. Phase boundaries are commit boundaries — one phase, one commit, in the same turn the user approves it. The next phase does not start until this phase is committed and pushed. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-github-workflow/SKILL.md` and follow its Mode 1 instructions inline (do NOT use the `Skill` tool — plugin skills disable model invocation).
 
-**9. After all phases (REQUIRED in both modes)**: Run `Task(design-system-auditor, scope=<changed paths>)` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). **The auditor dispatch is mandatory — running an inline aesthetic review yourself is forbidden. The auditor encodes the FAIL-severity gallery contract, design-token compliance rules, and the 14-pattern anti-slop catalog.** Wait for the agent to return; do not continue until its output is available. Review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional.
+**9. After all phases**: Run `Task(design-system-auditor, scope=<changed paths>)` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). This audit warrants a dedicated agent — it encodes the FAIL-severity gallery contract, design-token compliance rules, and the anti-slop catalog, and runs the heaviest reasoning in the pipeline. Wait for the agent to return; do not continue until its output is available. Review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional.
 
 **9.5 Tidy-up (BLOCKING — before PR creation)**: review the working tree for stray disposable artifacts that may have leaked outside `.design-engineer-plugin/temporary/scratch/` and the canonical deliverable paths. Run `git status --short` and inspect every untracked / modified file. Classify each per CLAUDE.md "File hygiene (durability tiers)":
 
@@ -335,23 +341,17 @@ Skip this step for data-only, type-only, or configuration changes.
 
 ### Mode differences
 
-**Agents always run fully — in both modes, every time.** The only thing mode changes is how their OUTPUT is presented to the user, not whether they fire. If an agent dispatch line says `Task(<agent>, ...)`, it MUST run. Substituting manual work for an agent dispatch is forbidden in either mode — there is no point shipping these agents (test-writer, frontend-implementer, backend-implementer, psych-scanner, design-system-auditor, advisor, ux-researcher, deliverable-writer, compound-documenter) if the model just does their work itself.
+**When to dispatch a subagent**: do the work inline by default. Dispatch a subagent (`Task(<agent>, ...)`) only when the work would flood the main context or when independent work can genuinely run in parallel. The `design-system-auditor` pass is the one step that always warrants its own agent — its critique is heavy and specialized. For everything else, inline is the default and a dispatch is a deliberate choice, not a requirement.
 
-**Why agents always run, even in guided mode**: agents are specialised tools — `frontend-implementer` enforces the Gallery Contract and pixel-perfect Figma fidelity rules; `psych-scanner` knows 100+ cognitive principles; `design-system-auditor` runs the FAIL-severity 4-lens critique. The main model can't and shouldn't replicate that work inline. Skipping agents because "guided mode means do it yourself" defeats the entire architecture.
+Mode does not change whether work happens; it changes how results are presented:
 
-In **Guided mode**: every `Task(<agent>, ...)` line in the steps above runs. After each agent returns, the main model parses the agent's output and presents it to the user step by step with `AskUserQuestion` between findings / sections. Never dump raw agent output. Never skip the dispatch and do the work manually.
+In **Guided mode**: present results to the user step by step with `AskUserQuestion` between findings / sections. When a subagent ran, parse its output rather than dumping it raw.
 
-In **Autopilot**: every `Task(<agent>, ...)` line runs. After each agent returns, the main model presents the agent's complete output as a structured summary, then proceeds to the next step without waiting for user approval (the user already opted out of per-step review by choosing autopilot).
-
-The number of `Task(...)` calls is the same in both modes. The presentation cadence is the only thing that differs.
+In **Autopilot**: present results as a structured summary, then proceed to the next step without waiting for user approval (the user already opted out of per-step review by choosing autopilot).
 
 ## Post-execution
 
-After all phases of feature implementation are complete (including the `design-system-auditor` pass) and before presenting the post-execution options to the user, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
+After all phases of feature implementation are complete (including the `design-system-auditor` pass), present the post-execution options to the user.
 
 ALWAYS use AskUserQuestion with specific options. Never end with a plain text question.
 
@@ -371,3 +371,15 @@ options:
 ```
 
 For new products (project_type: new), auto-invoke meta-document after implementation cycles before presenting options.
+
+### Completion marker (project_type: new only)
+
+This Post-execution point is where the from-scratch pipeline finishes its last step. When the build that just completed was the from-scratch product build – i.e. `.design-engineer-plugin/config.yaml` has `project_type: new` AND no `resume:` block remains (no further pipeline step is queued) – write a completion marker so the next launch routes the now-shipped product into the iterate flow instead of the from-scratch returning path.
+
+1. Read `.design-engineer-plugin/config.yaml`.
+2. Proceed only if it has `project_type: new`. If `project_type: existing`, skip this entirely – existing projects are already in the iterate flow and never carry a from-scratch completion marker.
+3. If the config already contains a top-level line `status: complete`, do nothing (idempotent – do not duplicate it).
+4. Otherwise append (or set) a single top-level line `status: complete` in `.design-engineer-plugin/config.yaml`. Keep it top-level (sibling of `project_type:` / `resume:`), so launch reads it as the `returning_complete` signal. Do not remove or rewrite any other field; this is additive.
+5. Note the completion in the documentation flush: when you auto-invoke meta-document above, include "from-scratch pipeline complete – product shipped, marked complete in config" in the context you pass to compound-documenter, so the pipeline-state reflects the shipped state.
+
+This is fail-safe: if the marker is absent (e.g. the build was interrupted before reaching Post-execution), launch behaves exactly as it does today. The marker only ever flips a fully-finished from-scratch product into the iterate flow on its next launch.

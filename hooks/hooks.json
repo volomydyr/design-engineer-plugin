@@ -1,5 +1,5 @@
 {
-  "description": "Design-engineer plugin hooks for deliverable tracking, dependency management, safety, TDD enforcement, prompt injection defense, requirement fidelity, project state injection, and Figma design intake",
+  "description": "Design-engineer plugin hooks for project state injection, deliverable dependency tracking, Playwright filesystem hygiene, Figma design intake, and session notifications",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -10,83 +10,15 @@
             "timeout": 3
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-process-recall-hook.sh",
-            "timeout": 3
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-pre-plan-dialogue-hook.js",
-            "timeout": 5
-          }
-        ]
       }
     ],
     "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-safety-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-tdd-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-design-grounding-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-deliverable-path-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
       {
         "matcher": "mcp__playwright__browser_take_screenshot",
         "hooks": [
           {
             "type": "command",
             "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-playwright-path-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "ExitPlanMode",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-pre-plan-dialogue-hook.js",
             "timeout": 5
           }
         ]
@@ -126,46 +58,6 @@
           }
         ],
         "matcher": "Write|Edit|MultiEdit"
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-fidelity-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-plan-copy-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Read|WebFetch|Bash|Grep|Task",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-prompt-injection-hook.js",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Agent",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-drift-audit-hook.js",
-            "timeout": 5
-          }
-        ]
       }
     ],
     "PostCompact": [
@@ -184,11 +76,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/de-pipeline-completion-hook.js",
-            "timeout": 8
-          },
-          {
-            "type": "command",
             "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/session_dep_summary.py",
             "timeout": 10
           },
@@ -196,11 +83,6 @@
             "type": "command",
             "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/de-play-sound.sh ${CLAUDE_PLUGIN_ROOT}/assets/sounds/de-complete.wav",
             "timeout": 5
-          },
-          {
-            "type": "command",
-            "command": "bash -c 'rm -f .design-engineer-plugin/.active-workflow 2>/dev/null'",
-            "timeout": 3
           }
         ]
       }

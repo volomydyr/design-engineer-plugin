@@ -2,7 +2,7 @@
 
 Transform raw Figma design files (flat frames, no components/styles/tokens) into fully structured design files with design systems, tokens, variables, styles, components, and pixel-identical rebuilt screens.
 
-This guide uses both **"Figma Plugin"** and **"Figma Console MCP"** where available.
+This guide runs on the bundled **"Figma Plugin"** MCP. Every write operation goes through `use_figma`, the JS executor that drives the full Figma Plugin API.
 
 ---
 
@@ -22,22 +22,15 @@ Phase 7: QUALITY PASS  → Screen-by-screen deep comparison, fix every differenc
 
 ### Tool Strategy
 
-Both Figma MCPs can be used. "Figma Console MCP" is preferred for variables, linting, and batch operations. "Figma Plugin"'s `use_figma` works as a fallback for any write operation.
+This skill uses the bundled "Figma Plugin" MCP. `use_figma` is the executor for every write operation – variables, styles, components, instances, annotations.
 
-| Tool | MCP | Use for | Notes |
-|---|---|---|---|
-| `get_design_context` | Official | Reading designs for code generation | Primary design-to-code tool |
-| `get_screenshot` | Official | Screenshots of cloud state | Good for documentation |
-| `use_figma` | Official | JS execution (fallback for write ops) | 50K char limit, works on closed files |
-| `figma_execute` | Console | JS execution (primary for write ops) | 30s timeout, requires file open |
-| `figma_batch_create_variables` | Console | Bulk variable creation (hex colors + floats) | 10-50x faster than individual calls. Cannot handle RGBA. |
-| `figma_batch_update_variables` | Console | Bulk variable value updates | Same performance advantage as batch create. |
-| `figma_setup_design_tokens` | Console | Atomic token system creation | Collection + modes + variables in one call |
-| `figma_lint_design` | Console | Design quality and accessibility audit | WCAG, contrast, touch targets |
-| `figma_check_design_parity` | Console | Compare Figma vs code implementation | Returns parity score + actionable fixes |
-| `figma_capture_screenshot` | Console | Screenshots of local state | Current edits, not cloud-synced state |
+| Tool | Use for | Notes |
+|---|---|---|
+| `get_design_context` | Reading designs for code generation | Primary design-to-code tool |
+| `get_screenshot` | Screenshots of cloud state | Good for documentation |
+| `use_figma` | JS execution for all write ops | 50K char limit, works on closed files; needs the target file open to write |
 
-If "Figma Console MCP" is not available, use "Figma Plugin"'s `use_figma` for operations that don't have dedicated tools. Variables must be created via Plugin API JS – slower but functional.
+Variables are created via the Plugin API in `use_figma` (`createVariable()` + `setValueForMode()`), batched into single executions for speed. Linting and design-parity are not dedicated tools here: use the `fullAudit` helper (Phase 7) for the in-skill quality pass and `ui-design-to-code-qa` for a separate parity review.
 
 ### Key Decisions (Ask User Before Starting)
 
@@ -66,7 +59,7 @@ Scan ALL screens systematically and catalog:
 
 ### How to Extract
 
-Use `figma_execute` with the `extractTokens` helper from [figma-console-helpers.md](./figma-console-helpers.md).
+Use `use_figma` with the `extractTokens` helper from [figma-console-helpers.md](./figma-console-helpers.md).
 
 **Critical**: Ignore hidden nodes (`visible === false`). Do not extract tokens from hidden layers – they are often junk or forgotten layers.
 
@@ -95,9 +88,8 @@ Get user confirmation before proceeding to Phase 2.
 
 ### Creation Strategy
 
-1. **Solid Hex/Floats**: Use `figma_batch_create_variables` for maximum speed.
-2. **RGBA/Alpha**: Use `figma_execute` with `createVariable()` + `setValueForMode()` (batch tool fails on RGBA).
-3. **Aliases**: Use `setValueForMode(modeId, { type: 'VARIABLE_ALIAS', id: primitiveVar.id })`.
+1. **Solid Hex/Floats and RGBA/Alpha**: Use `use_figma` with `createVariable()` + `setValueForMode()`. Batch many creations into one `use_figma` execution for speed.
+2. **Aliases**: Use `setValueForMode(modeId, { type: 'VARIABLE_ALIAS', id: primitiveVar.id })`.
 
 ### Naming Convention Standards
 
@@ -196,7 +188,7 @@ For EACH component:
 ### Non-Negotiable Rules
 
 1. **One screen at a time.** Do not multitask screens.
-2. **API verification.** Use `figma_execute` to read properties. Screenshots are for spot-checks only.
+2. **API verification.** Use `use_figma` to read properties. Screenshots are for spot-checks only.
 3. **Zero raw values.** Every fill, stroke, radius, and spacing must be bound to a variable or style.
 4. **Componentization rule.** If an element appears 2+ times across screens, it MUST be a component.
 5. **Audit function.** Do not declare "done" until the `fullAudit` helper returns 0 issues.
@@ -205,7 +197,7 @@ For EACH component:
 
 For each rebuilt screen:
 
-1. Run `fullAudit` via `figma_execute`
+1. Run `fullAudit` via `use_figma`
 2. Review all reported issues
 3. Fix each issue (bind variables, apply styles, swap to components)
 4. Re-run audit
@@ -267,7 +259,7 @@ node.fills = fills;
 
 **Symptom**: `node.paddingTop = 16` works in execution but reverts because a bound variable takes precedence.
 
-**Solution**: Always bind the CORRECT variable instead of setting raw values. Use `figma_execute` to look up the right variable ID from the collection first.
+**Solution**: Always bind the CORRECT variable instead of setting raw values. Use `use_figma` to look up the right variable ID from the collection first.
 
 ### B6: Context Compaction Corrupts Variable ID Mappings
 
@@ -283,31 +275,25 @@ for (const varId of collection.variableIds) {
 }
 ```
 
-### B7: Batch Tool Cannot Handle RGBA
-
-**Symptom**: `figma_batch_create_variables` rejects colors with alpha channels.
-
-**Solution**: Use batch tool for solid hex colors and floats only. Use `figma_execute` with `createVariable()` + `setValueForMode()` for RGBA colors.
-
-### B8: COMPONENT_SET Bounds Do Not Auto-Resize
+### B7: COMPONENT_SET Bounds Do Not Auto-Resize
 
 **Symptom**: After adding a new variant child, it is visually clipped.
 
 **Solution**: Manually resize the set bounds after adding children. Calculate the bounding box of all children and add padding.
 
-### B9: Normalizing Icon Components Breaks All Instances
+### B8: Normalizing Icon Components Breaks All Instances
 
 **Symptom**: Changing icon component defaults cascades to all instances, breaking per-context overrides.
 
 **Solution**: Before normalizing: catalog all instances and their current overrides. After normalizing: restore every override.
 
-### B10: Absolute-Positioned Elements in Auto-Layout
+### B9: Absolute-Positioned Elements in Auto-Layout
 
 **Symptom**: Overlay elements get stacked by auto-layout instead of floating freely.
 
 **Solution**: Set `layoutPositioning = 'ABSOLUTE'` with explicit x, y coordinates.
 
-### B11: Missing Colors in the Design System
+### B10: Missing Colors in the Design System
 
 **Symptom**: Original design uses a color not in the extracted palette.
 

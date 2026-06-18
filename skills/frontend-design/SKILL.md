@@ -2,8 +2,8 @@
 name: frontend-design
 description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: Apache-2.0
 attribution: Bundled from Anthropic's official frontend-design plugin (claude-plugins-official). Apache License 2.0 — see LICENSE.txt in this folder.
 ---

@@ -1,7 +1,7 @@
 ---
 name: ux-researcher
 description: "Conducts UX research activities including competitor analysis, user interview preparation, assumption mapping, survey design, and research synthesis. Use during research-heavy skills or when validating design decisions with evidence."
-model: claude-opus-4-7
+model: sonnet
 effort: high
 ---
 

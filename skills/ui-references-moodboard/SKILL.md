@@ -21,7 +21,7 @@ The process: establish design intent → explore the product domain → collect 
 
 This skill is reference-gathering ONLY. It captures real UIs from real products. It is **not** an image-generation skill. In autopilot mode the model has been observed to conflate this skill with `ux-story-panels` (which produces image-generation prompts) and `ui-images` (which produces image-generation prompts for the project's own hero/avatar/decorative images). That conflation produces hallucinated files like `references-image-prompts.md` containing AI-generation prompts intended to "approximate" the references — which is strictly worse than the references themselves and defeats the entire point.
 
-**Forbidden outputs of this skill** (denied at write time by `de-deliverable-path-hook.js`):
+**Forbidden outputs of this skill** (never write any of these):
 
 - `references-image-prompts.md` — does not exist; do not invent it.
 - Any `.md` file describing AI-generation prompts for the references. The references ARE the screenshots.
@@ -45,12 +45,6 @@ If not, present each question as a numbered list and wait for a reply before pro
 ---
 
 ## Step 0: Before starting
-
-At the start of this step, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "moodboard:exploration" > .design-engineer-plugin/.active-workflow
-```
 
 1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) establish design intent (who, what, feel), 2) explore the product domain, 3) understand the product context, 4) identify key screens, 5a) propose curated references and open them in Chrome for you to pick, 5b) capture sectional high-quality screenshots of your picks via Playwright, 6) extract design principles from each, 7) run the WHY checkpoint, 8) organize references into a direction document, 9) produce the final deliverable." This is a commitment device – harder to skip steps you just announced. Each step is a separate interaction with AskUserQuestion at each transition. Do not skip steps or compress multiple steps into one. **Important**: If the user has references ready, collect them right after Step 1 (design intent) – before domain exploration. References ground all subsequent decisions in real examples.
 
@@ -81,7 +75,7 @@ The moment you stop asking "why this?" is the moment defaults take over. For the
 
 ## Step 1: Establish Design Intent
 
-Before answering the three intent questions below, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/frontend-design/SKILL.md` (Anthropic's bundled frontend-design skill). It frames the bold-aesthetic-direction prompt that complements the "feeling words" question. The flavor names it offers — brutally minimal, maximalist chaos, retro-futuristic, organic-natural, luxury-refined, playful-toy-like, editorial-magazine, brutalist-raw, art-deco-geometric, soft-pastel, industrial-utilitarian — extend the "feeling words" vocabulary into named aesthetic directions a designer can actually execute. This Read is also enforced by the design-grounding hook, so doing it here pays forward.
+Before answering the three intent questions below, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/frontend-design/SKILL.md` (Anthropic's bundled frontend-design skill). It frames the bold-aesthetic-direction prompt that complements the "feeling words" question. The flavor names it offers — brutally minimal, maximalist chaos, retro-futuristic, organic-natural, luxury-refined, playful-toy-like, editorial-magazine, brutalist-raw, art-deco-geometric, soft-pastel, industrial-utilitarian — extend the "feeling words" vocabulary into named aesthetic directions a designer can actually execute. Always do this Read before establishing intent, so the bold-aesthetic vocabulary is grounded in the bundled skill rather than invented.
 
 Before collecting any references, answer these three questions. If the user cannot answer with specifics, help them get there. Do not guess. Do not default.
 
@@ -321,45 +315,7 @@ If "Yes", wait for the user's URLs in plain text. For each URL the user provides
 
 ## Step 5b: Sectional Playwright capture
 
-For each chosen URL, capture sectional screenshots using Playwright. Sections beat full-page captures because (a) the model can read each one in detail, (b) the file size is reasonable, (c) we can wait per-section for animation settle.
-
-For each URL:
-
-1. **Resize the viewport** to match the product type from Step 3:
-   - Web/Desktop: `mcp__playwright__browser_resize { width: 1440, height: 900 }`
-   - Mobile (iOS/Android): `mcp__playwright__browser_resize { width: 414, height: 896 }`
-
-2. **Navigate**: `mcp__playwright__browser_navigate { url: "<chosen-url>" }`
-
-3. **Wait for load + animation settle**: `mcp__playwright__browser_wait_for { time: 3 }` (3 seconds. If a more specific signal exists — e.g., a known visible word — also wait for `text: "<known word>"`).
-
-3a. **Bot-block check**: take a quick `mcp__playwright__browser_snapshot` and inspect the result. If the page is a Cloudflare challenge ("Just a moment…"), a captcha, "Verify you are human", an Access Denied page, or otherwise clearly NOT the requested reference UI, **stop and ask the user via AskUserQuestion**:
-   - question: `"Hit a bot-block on <URL>. Want to help me get past it?"`
-   - options: `"I'll open it in my browser and screenshot it for you"`, `"I'll turn off the blocker and you retry"`, `"Skip this reference"`
-   Apply the choice. Never silently fall back to a low-quality WebFetch read or skip the reference quietly — references are the whole point of this skill, and the user can almost always unblock the site in 10 seconds.
-
-4. **Scroll to top**: `mcp__playwright__browser_evaluate { function: "() => window.scrollTo(0, 0)" }`
-
-5. **Capture viewport-sized hero** (NOT fullPage): `mcp__playwright__browser_take_screenshot { fullPage: false, filename: ".design-engineer-plugin/design/exploration/references/captures/<reference-slug>/01-hero.png" }`. Ensure the parent dir exists first: `mkdir -p .design-engineer-plugin/design/exploration/references/captures/<reference-slug>`.
-
-6. **Loop sections** until bottom or up to 5 sections:
-   - `mcp__playwright__browser_evaluate { function: "() => window.scrollBy(0, 700)" }`
-   - `mcp__playwright__browser_wait_for { time: 1 }`
-   - `mcp__playwright__browser_take_screenshot { fullPage: false, filename: ".design-engineer-plugin/design/exploration/references/captures/<reference-slug>/02-section.png" }` (incrementing the prefix per section: 02, 03, 04, 05).
-   - Stop when the page bottom is reached: detect via `() => window.innerHeight + window.scrollY >= document.body.scrollHeight - 50`.
-
-7. **Save manifest** at `.design-engineer-plugin/design/exploration/references/captures/<reference-slug>/manifest.md`:
-
-   ```markdown
-   # <Reference name>
-   - URL: <url>
-   - Viewport: <width>×<height>
-   - Captured: <ISO timestamp>
-   - Sections: 01-hero.png, 02-section.png, ...
-   - Watch for: <"watch for" note from curated-references.md>
-   ```
-
-**Quality note on DPR**: Playwright MCP captures at the OS viewport resolution. To get hi-DPR images, the resize command at Step 1 should use a doubled width (e.g., `2880×1800` for desktop or `828×1792` for mobile) — the captured PNG will be at native pixel density. If the captures still look low-resolution after this, document the limitation in the manifest; the sectional + waited approach is still strictly better than the current full-page approach.
+For each chosen URL (curated picks + user-added URLs), capture sectional screenshots using the bundled Playwright MCP, following the per-URL recipe in [capture-recipe.md](./references/capture-recipe.md): resize the viewport to the product type, navigate, wait for animation settle, run the bot-block check, then capture a viewport-sized hero plus up to 5 scrolled sections and save a manifest per reference.
 
 **BLOCKING REQUIREMENT**: After all references are captured, present a brief summary to the user (count of references captured, total sections) before proceeding to Step 5 (analysis).
 
@@ -426,12 +382,6 @@ The document should include:
 - Overall visual direction summary (2–3 sentences describing the target aesthetic)
 - Notes on what NOT to do (anti-patterns and named defaults to avoid)
 
-After the deliverable is saved, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
-
 ---
 
 ## Content Integrity
@@ -457,9 +407,12 @@ This skill enforces User > Docs > AI at every step:
 
 After references are collected, suggest running `ui-figma-guide` to design the key screens in Figma using these references as visual direction. After implementation, suggest `ui-aesthetic-review` to verify the build reflects the stated intent.
 
+This deliverable (`.design-engineer-plugin/design/exploration/references/references.md`) is also the intent source for per-screen design specs. The `design-spec` skill points each spec's `intent_reference` back into this file – the design feel, the bold aesthetic flavor, and the "from app X take quality Y" notes – so the spec's intent traces to the direction agreed here.
+
 ---
 
 ## Resource Files
 
 - [reference-gathering-guide.md](./references/reference-gathering-guide.md) – Approach to collecting and organizing design references using Mobbin and other tools
 - [design-intent-guide.md](./references/design-intent-guide.md) – Full design intent framework: Where Defaults Hide, Intent-First, Domain Exploration, WHY Checkpoint
+- [capture-recipe.md](./references/capture-recipe.md) – Per-URL Playwright sectional capture recipe: viewport sizing, bot-block check, hero + scrolled sections, manifest

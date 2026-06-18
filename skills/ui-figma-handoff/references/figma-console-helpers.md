@@ -1,6 +1,6 @@
-# Figma Console MCP Helper Functions
+# Figma helper functions
 
-Code snippets for common Figma Console MCP operations. These are designed to run via `figma_execute` and handle the quirks of the Figma Plugin API.
+Code snippets for common structuring operations. These are designed to run via `use_figma` (the bundled Figma MCP's JS executor) and handle the quirks of the Figma Plugin API.
 
 ---
 

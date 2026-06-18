@@ -20,27 +20,60 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 2. Branch on what you read:
    - **`NO_CONFIG`** → user is genuinely new in this directory. Follow the **Onboarding sequence** below in this file. Do not skip any step.
    - **Config exists with `project_type: new` AND a `resume:` block** → returning user with active pipeline state. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
-   - **Config exists with `project_type: new` but no `resume:` block** → returning user, no active pipeline. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
-   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (mode, last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then ask via AskUserQuestion (with spacer):
-     - question: "Welcome back. What would you like to do?"
-     - header: "Goal"
-     - options match the Step 2 Question 1 set below (Review my project / Implement from Figma / Design a new feature / Prepare project for AI coding).
-     - multiSelect: false
-     - After the answer, route directly to the matching `/design-engineer:` command. Do NOT re-run the project-type question, do NOT re-scaffold `design/`, do NOT ask about the status line or sound again — those were settled on the original onboarding run.
+   - **Config exists with `project_type: new`, no `resume:` block, AND a `status: complete` line** → the plugin-built product has shipped its from-scratch pipeline and is now in iteration. Treat this as state `returning_complete`: route into the **Iterate flow** below (NOT the from-scratch returning path above). Acknowledge in one sentence what shipped (e.g. the product name / last goal from config), then enter the Iterate flow.
+   - **Config exists with `project_type: new` but no `resume:` block** → returning user, no active pipeline (from-scratch pipeline still in progress). Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
+   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (mode, last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then enter the **Iterate flow** below.
 
 The `DESIGN_ENGINEER_PROJECT_STATE` injected value is now an HINT only. The disk read above is the source of truth.
 
-**Cost-mode silent re-apply (when config exists)**: if the config you just read has `cost_mode: light`, the plugin cache may have been wiped by an update and the frontmatter is back at Full defaults. Run via Bash (silently — no chat output for this):
-
-```bash
-if [ -f .design-engineer-plugin/config.yaml ] && grep -qE '^cost_mode:[[:space:]]*light' .design-engineer-plugin/config.yaml; then
-  CLAUDE_PLUGIN_ROOT="${DESIGN_ENGINEER_PLUGIN_ROOT}" bash "${DESIGN_ENGINEER_PLUGIN_ROOT}/scripts/apply-cost-mode.sh"
-fi
-```
-
-This catches the post-update case and keeps the user's chosen mode applied without any chat noise.
-
 Skip the **Onboarding sequence** entirely if the disk read found a config.
+
+## The iterate flow
+
+Both an existing project (`project_type: existing`) and a shipped plugin-built product (`project_type: new` + `status: complete`, state `returning_complete`) land here. This is a fast, task-driven flow for working on a product that already exists. It does NOT march the from-scratch discovery pipeline.
+
+**Core interaction model: clarify-then-dispatch.** A task front-door is a conversational entry. Picking one (or sending free-form text) makes you ASK THE USER FOR DETAIL in natural language first. Only AFTER you understand what they want do you dispatch the right plugin pieces (per the task→dispatch map below). A front-door NEVER auto-spawns agents or workflows on selection. Lean in process, powerful in capability: even a one-line free-form request should reach for the most capable fitting tool (a skill, a workflow, an agent, the spec-driven layer, or a `/goal`), but never a forced pipeline.
+
+### Step I1: nudge, then offer the front-doors
+
+**Required first output: a visible chat message** (not a blockquote, not a code block, not a tool result). Emit this as normal chat text so the screen is not blank before the question panel:
+
+Tell me what you want to work on, or pick a starting point.
+
+Then end the chat message with the canonical 3-horizontal-rule spacer and call `AskUserQuestion`:
+
+- question: "What do you want to work on?"
+- header: "Starting point"
+- options:
+  - label: "Act on feedback", description: "I have feedback to turn into changes – a video walkthrough, notes, messages, or a transcript"
+  - label: "Redesign a design", description: "Rework an existing screen, page, or flow so it looks and works better"
+  - label: "Explore a concept", description: "Try directions for a new idea before committing to one"
+  - label: "Audit a design", description: "Review a design for UX, accessibility, visual quality, or psychology issues"
+- multiSelect: false
+
+The built-in free-form "Other" path is always available: the user can ignore the options and just type what they have in mind. Treat that free-form text exactly as a task to clarify-then-dispatch.
+
+### Step I2: clarify, read context, then dispatch
+
+When a front-door is picked OR free-form text arrives:
+
+1. **Ask for the specifics** in natural language. What design, what exactly should change, what does "better" mean here, what do they already have (a feedback video, a reference site, a Figma file). Keep it conversational – one or two focused questions, not a form.
+2. **Read the project context already in `config.yaml`** under `project.context`: `existing_design_system`, `shipped_ui`, `component_count`, `off_repo_references`. Use it to ground the dispatch (reuse-heavy when a design system and shipped UI exist; bind to real tokens and components, do not reinvent).
+3. **Dispatch per the task→dispatch map below**, matched to what the user actually described – the most capable tool that fits, not the heaviest by default.
+
+There is NO discovery Step 2.1 spec-polish gate and NO forced discovery 2.2–2.7 pipeline in this flow.
+
+## Task→dispatch map (single source of truth)
+
+This is the ONE authoritative routing map for the iterate flow. The Step 4 hand-off table and `skills/meta-setup/SKILL.md` Path B reference this section – do not restate it elsewhere.
+
+- **Act on feedback** → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/feedback-to-todos/SKILL.md` and follow its instructions inline (it ingests the video, notes, messages, or transcript into one grounded checklist), then feed items one at a time into the free-form scoped-edit loop below. Do NOT use the `Skill` tool.
+- **Redesign a design** → audit what exists first (Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` for the real tokens and component paths, plus grep the files), then `design-spec` for consequential UI only (graduated, never a blanket gate), then `frontend-implementer` to build, then `design-system-auditor` to verify, then Playwright to confirm in the browser, then optionally compose a `/goal` (suggest-and-wait). All skills load via Read + follow inline, never the `Skill` tool.
+- **Explore a concept** → a lighter inline pass plus `/design-engineer:prototype` for quick concepts; escalate to the Opus/xhigh design-exploration workflow ONLY for substantive concepts. Ask the user which (quick vs substantive) during the clarify step.
+- **Audit a design** → a single-design inline audit by default; escalate to the `/design-engineer:review audit` workflow ONLY if, after clarifying, the user actually has many pages. Never auto-spawn the full multi-page sweep.
+- **Free-form scoped edit (the workhorse – ~57% of real work)** → restate the exact element, file, and property FIRST (the guardrail where the real friction lives), then locate → edit → Playwright-verify → scoped PR. Reach for the spec-driven layer, a workflow, or an agent when the change genuinely warrants it.
+
+Every front-door ends up feeding the same scoped-edit loop. Dispatch is decided AFTER the clarify step, matched to what the user described.
 
 **Skill invocation note**: throughout this file, "load the X skill" or "load the meta-setup skill" means Read the file at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` using the Read tool, then follow its instructions inline. NEVER use the `Skill` tool to invoke these skills — they all set `disable-model-invocation: true` in their frontmatter and the Skill tool will reject them.
 
@@ -74,43 +107,7 @@ After that paragraph is emitted as visible text, then end the chat message with 
   - label: "New product", description: "Starting from scratch – I have an idea or a problem I want to solve"
   - label: "Existing project", description: "I already have a product, codebase, or designs – I want to improve, review, or add features"
 
-After receiving the answer, continue to Step 1.5 — DO NOT branch to a path yet.
-
-### Step 1.5: Ask cost mode (BLOCKING)
-
-This question runs once at first-run setup. It applies regardless of which path the user is on (new product OR existing project) — the cost mode is project-wide.
-
-End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) and call `AskUserQuestion`:
-
-- question: "Pick a default running mode for this project."
-- header: "Plugin mode"
-- options:
-  - label: "Light", description: "Faster, lower token cost. All AI components run on Sonnet at medium effort. No Opus anywhere. Recommended if you have a usage limit or run long sessions."
-  - label: "Full", description: "Higher quality. Most components run on Opus at high effort; some lighter-weight transforms (setup wizards, documentation, structured outputs) run on Sonnet. Higher token cost per session. Recommended when usage isn't a constraint."
-- multiSelect: false
-
-After receiving the answer, persist the choice to the project config and apply the rewrite. Run via Bash (do NOT skip these — without the rewrite, the user's choice has no effect):
-
-```bash
-mkdir -p .design-engineer-plugin
-CONFIG=".design-engineer-plugin/config.yaml"
-MODE="<answer>"  # "light" or "full" — substitute the user's pick
-
-# Initialize config or update cost_mode field idempotently
-if [ -f "$CONFIG" ]; then
-  if grep -qE '^cost_mode:' "$CONFIG"; then
-    sed -i.tmp -E "s/^cost_mode:.*/cost_mode: $MODE/" "$CONFIG" && rm "$CONFIG.tmp"
-  else
-    printf '\ncost_mode: %s\n' "$MODE" >> "$CONFIG"
-  fi
-else
-  printf 'cost_mode: %s\n' "$MODE" > "$CONFIG"
-fi
-
-CLAUDE_PLUGIN_ROOT="${DESIGN_ENGINEER_PLUGIN_ROOT}" bash "${DESIGN_ENGINEER_PLUGIN_ROOT}/scripts/apply-cost-mode.sh"
-```
-
-Then continue to the matching path below (Path A or Path B based on the Step 1 answer).
+After receiving the answer, continue to the matching path below (Path A or Path B based on the Step 1 answer).
 
 ### Path A – "New product"
 
@@ -124,18 +121,18 @@ Continue with Steps 2–4 below. Do not skip any.
 
 **Required first output: a visible chat message acknowledging the user's project-type choice and previewing what's next.** Without this, the user sees only a spacer above the question panel — feels broken. Emit one short paragraph (1–2 sentences) like:
 
-> Got it — picking up on an existing project. Two quick questions and I'll route you to the right tool.
+> Got it – picking up on an existing project. Tell me what you want to work on, or pick a starting point.
 
 (Adapt the wording to be natural; don't render the blockquote literally — that's just an example.) Then end the chat message with the canonical 3-horizontal-rule spacer and call AskUserQuestion with both questions on the same screen.
 
-Question 1:
-- question: "What would you like to do?"
-- header: "Goal"
+Question 1 (these are the iterate-flow front-doors; the built-in free-form "Other" path is always available – the user can ignore the options and just type what they want):
+- question: "What do you want to work on?"
+- header: "Starting point"
 - options:
-  - label: "Review my project", description: "Find issues with UX, accessibility, visual quality, or psychology"
-  - label: "Implement from Figma", description: "Turn Figma designs into production code"
-  - label: "Design a new feature", description: "Think through a new feature before building – research, strategy, design"
-  - label: "Prepare project for AI coding", description: "Generate the rules file (CLAUDE.md), wire up helper agents, and set up testing — useful before you start building features"
+  - label: "Act on feedback", description: "Turn feedback into changes – a video walkthrough, notes, messages, or a transcript"
+  - label: "Redesign a design", description: "Rework an existing screen, page, or flow so it looks and works better"
+  - label: "Explore a concept", description: "Try directions for a new idea before committing to one"
+  - label: "Audit a design", description: "Review a design for UX, accessibility, visual quality, or psychology issues"
 
 Question 2:
 - question: "How do you want to work?"
@@ -240,21 +237,12 @@ Then `AskUserQuestion` (spacer above):
   - label: "I'll paste the command above", description: "I'll run the install command in my next prompt"
   - label: "Skip", description: "Re-run /design-engineer:launch later if I change my mind"
 
-#### Step 4: Hand off to the goal-matching command
+#### Step 4: Clarify, then dispatch the chosen front-door
 
 Say "You're all set. Let's get started." then show: "Tip: Run `/design-engineer:help` anytime to see all available commands and capabilities."
 
-Then run the `/design-engineer:` slash command matching the goal selected in Step 2 (these are commands, not skills — invoke them as slash commands):
+The front-door the user picked in Step 2 (or any free-form text they typed via "Other") is a conversational entry, not a dispatch trigger. Now follow the **iterate flow** above starting at **Step I2: clarify, read context, then dispatch** – ask for the specifics, read `project.context` from the config you just wrote, then dispatch per the **Task→dispatch map** (the single source of truth above). Do NOT auto-spawn an agent or workflow on the front-door selection alone.
 
-| Goal selected | Command to load |
-| --- | --- |
-| Review my project | `/design-engineer:review` |
-| Implement from Figma | `/design-engineer:development` |
-| Design a new feature | `/design-engineer:discovery` |
-| Prepare project for AI coding | `/design-engineer:development setup` |
+## Optional advisor consult for the loaded skill
 
-## Advisor checkpoint contract for the loaded skill
-
-After environment detection completes (tech stack identified, tools enumerated, project type inferred) but **before** committing to a recommended onboarding path or kickoff plan, the loaded skill (`meta-setup-welcome` or `meta-setup`) MUST consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions with: detection results, inferred project type, the path it's about to recommend, and "I'm about to commit to this interpretation of the project – any course correction before I show it to the user?" Apply the advice or use the reconcile pattern. (As elsewhere in this plugin, advisor is loaded via Read, not the `Skill` tool.)
-
-This is the docs' "before committing to an interpretation" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)). Onboarding is irreversibly directional – wrong project-type inference cascades through every later phase. Skip only when the user invoked `/design-engineer:launch` with explicit arguments that make interpretation unambiguous.
+After environment detection completes (tech stack identified, tools enumerated, project type inferred) but before committing to a recommended onboarding path, the loaded skill (`meta-setup`) MAY consult the advisor when the project-type inference is genuinely ambiguous. It is optional, not a required checkpoint. When it would help, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions with: detection results, inferred project type, the path it's about to recommend, and "any course correction before I show this to the user?" Apply the advice or use the reconcile pattern. (As elsewhere in this plugin, advisor is loaded via Read, not the `Skill` tool.) Skip it when detection is unambiguous or the user invoked `/design-engineer:launch` with explicit arguments.

@@ -41,11 +41,11 @@ Without auto-layouts, AI will generate static, non-responsive implementations th
 
 ## Components, Tokens, and Design Systems in Figma
 
-There are two approaches depending on your tools:
+There are two approaches depending on how much structure you want:
 
-### With "Figma Console MCP" (recommended)
+### Automated structuring with the bundled "Figma Plugin"
 
-If you have "Figma Console MCP" installed, you can automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes instead of days and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
+Using the bundled "Figma Plugin", you can automate the creation of components, design tokens, variables, and styles directly in Figma – write operations run through its `use_figma` executor. This takes minutes instead of days and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations. No separate install is needed.
 
 After designing your key screens, run the `ui-figma-handoff` skill to:
 1. Extract all unique tokens from your raw designs (colors, typography, spacing, radius, effects)
@@ -56,9 +56,9 @@ After designing your key screens, run the `ui-figma-handoff` skill to:
 
 This approach gives developers a properly structured Figma file while keeping the design system in sync between Figma and code.
 
-### Without "Figma Console MCP" (minimal approach)
+### Minimal approach (skip Figma structuring)
 
-If you do not have "Figma Console MCP", the minimal approach still works well:
+If you'd rather keep Figma loose and build the design system in code, the minimal approach still works well:
 
 - There is no need to name layers properly – Figma has an AI feature that does this automatically.
 - Do not manually create components, color tokens, or a separate design system in Figma. That manual work takes hours and provides diminishing returns in an AI-assisted workflow.
@@ -107,7 +107,7 @@ This cycle means you design incrementally, driven by actual implementation needs
 
 Keep Figma organization minimal:
 
-- **Single-page file** – all screens on one page, no complex page structure (unless structuring with "Figma Console MCP", which creates organized pages automatically)
+- **Single-page file** – all screens on one page, no complex page structure (unless you run `ui-figma-handoff`, which creates organized pages automatically through the bundled "Figma Plugin")
 - **Logical frame ordering** – arrange frames in a way that reflects user flow
 - **Consistent frame sizing** – use the same device frame dimensions across all screens
 - **Clear screen labels** – name frames descriptively so AI can reference them (e.g., "Home - Dashboard", "Onboarding - Step 1")

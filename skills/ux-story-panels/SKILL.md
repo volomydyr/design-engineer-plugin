@@ -2,12 +2,14 @@
 name: ux-story-panels
 description: "Guides creation of Story Panels – comic-style visual product stories with 6 panels that build customer empathy. Produces image generation prompts for each panel, reviews generated images, and iterates until the story is right. Use when starting a new product or documenting an existing product's user experience."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
 # ux-story-panels Skill
+
+> **Opt-in depth.** This skill is off the default discovery spine. The default flow runs problem statement, target audience, MVP requirements, information architecture, prototype, then development. Run story panels only when the user adds depth, either by asking for it directly or by picking it from the optional depth menu.
 
 ## Existing-project skip-check
 

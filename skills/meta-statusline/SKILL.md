@@ -2,8 +2,8 @@
 name: meta-statusline
 description: "Installs, uninstalls, or checks the design-engineer status line. Copies the statusline script to ~/.claude/hooks/ and configures settings.json. Use when running /design-engineer:launch."
 disable-model-invocation: true
-model: sonnet
-effort: medium
+model: haiku
+effort: low
 license: MIT
 compatibility: "Requires Node.js v18+ and write access to ~/.claude/hooks/"
 ---

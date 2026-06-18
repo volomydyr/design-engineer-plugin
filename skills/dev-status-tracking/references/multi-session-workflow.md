@@ -35,7 +35,7 @@ Every new session should begin with AI:
 2. Following the complete global rules – not ignoring any parts
 3. Reviewing all available project documents
 4. Sharing brief initial thoughts about the current step's deliverable
-5. Asking 7-10 strategic questions for the specific step
+5. Asking only the questions it can't infer for the specific step, batched (no more than 4 at a time)
 
 At the end of each completed step, AI provides a brief prompt for the next session that includes these instructions.
 
@@ -78,7 +78,7 @@ All documents should follow these standards:
 
 AI follows this process in every session:
 1. Share brief initial thoughts about the current step's deliverable (based on project knowledge)
-2. Ask 7-10 strategic questions to understand the user's perspective
+2. Ask only what you can't infer to understand the user's perspective, batched (no more than 4 at a time)
 3. Work through problems together based on the answers
 4. Create documentation only after understanding the task well enough
 5. Refine the deliverable based on user feedback
@@ -107,5 +107,5 @@ The workflow applies to any AI tool with session-based interactions. The mechani
 1. **Trying to do everything in one session** – you will hit the token limit and lose critical context
 2. **Forgetting to save deliverables** – the next session will not have access to your completed work
 3. **Trusting AI claims without verification** – always ask for specific quotes and verify them
-4. **Letting AI skip the question phase** – the 7-10 strategic questions prevent assumptions and ensure alignment
+4. **Letting AI skip the question phase** – the questions that can't be inferred prevent assumptions and ensure alignment
 5. **Moving to the next step without explicit completion** – incomplete deliverables become shaky foundations for everything that follows

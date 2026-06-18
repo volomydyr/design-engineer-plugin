@@ -2,12 +2,14 @@
 name: ux-competitor-analysis
 description: Conducts structured competitive analysis identifying direct and indirect competitors, strengths, weaknesses, and market positioning. Use when you need to understand the competitive landscape before making product or business decisions.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
 # Competitor Analysis
+
+> **Opt-in depth.** This skill is off the default discovery spine. The default flow runs problem statement, target audience, MVP requirements, information architecture, prototype, then development. Run competitor analysis only when the user adds depth, either by asking for it directly or by picking it from the optional depth menu.
 
 ## Existing-project skip-check
 
@@ -39,7 +41,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you already know about competitors, 2) share my initial read on the competitive landscape, 3) ask 7–10 strategic questions, 4) conduct deep research on each competitor, 5) draft the competitive analysis, 6) iterate until you approve it, 7) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) understand what you already know about competitors, 2) share my initial read on the competitive landscape, 3) ask only the questions I can't infer, 4) conduct deep research on each competitor, 5) draft the competitive analysis, 6) iterate until you approve it, 7) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with competitive analysis and why it matters in product development. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -93,16 +95,16 @@ Flag what is speculation versus what is based on shared context. If you already 
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
+Ask only what you can't infer from Step 1 and any existing documents. Don't ask for what the user already gave you or what you can reasonably draw from context. When you do have gaps, batch the questions (no more than 4 at a time) rather than asking one by one. Draw from these key concepts only for the gaps that matter:
 
 - Do not skip indirect competitors
 - Use AI research prompts (Perplexity/Liner) but do not just ask AI to "do a competitor analysis"
 - Always click through competitor sites/apps yourself (manual review)
 - Look at community feedback, paywall strategies, user complaints
 
-Ask in small batches (2-3 at a time). Wait for answers before continuing.
+Ask in small batches (no more than 4 at a time). Wait for answers before continuing.
 
-**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. There is no minimum question count – once you have enough to draft a grounded deliverable, move on.
 
 ---
 

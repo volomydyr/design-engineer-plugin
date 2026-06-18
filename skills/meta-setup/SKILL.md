@@ -2,8 +2,8 @@
 name: meta-setup
 description: "Smart entry point for the design-engineer plugin. Detects project state and routes to the right flow: new projects get full setup, returning projects resume where they left off, existing projects get a capability guide. Use as the first command for any project."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 compatibility: "Requires Node.js v18+, Python 3, and Bash"
 ---
@@ -22,8 +22,10 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 Read `.design-engineer-plugin/config.yaml`. Check the `project_type` field:
 
-- If `project_type: existing` → this is an existing project, NOT a returning pipeline project. The hook injects context for this case. Follow the hook's instructions (show capabilities via AskUserQuestion). Do NOT show pipeline state or resume information.
-- If `project_type: new` → this is a returning pipeline project. Continue with Path A below.
+- If `project_type: existing` → this is an existing project, NOT a returning pipeline project. The hook injects context for this case (it carries the onboarding sequence and capability prompts). Follow the hook's instructions, then run the existing-project setup in Path B below. Do NOT show pipeline state or resume information.
+- If `project_type: new` AND a `status: complete` line is present → the plugin-built product has shipped (state `returning_complete`). Do NOT show pipeline-resume information; route into the iterate flow via Path B below (the shipped product is now in iteration, not the from-scratch pipeline).
+- If `project_type: new` (no `status: complete`) → this is a returning pipeline project. Continue with Path A below.
+- If no config exists → first-time setup. For a new product idea, run Path A's new-project setup (Steps 2–5). For an existing project, follow the hook's onboarding sequence, then run Path B below.
 
 Do not mention config files, detection state, or project types to the user. No jargon.
 
@@ -78,6 +80,19 @@ If "Start": suggest running `/design-engineer:discovery`.
 If "Browse": show the full capability list inline (see below), then suggest relevant `/design-engineer:` commands.
 If "Reconfigure": proceed to Step 2.
 
+### Path B: Existing Project Setup (the iterate flow)
+
+For an existing project (no plugin setup yet, reached via the hook's onboarding sequence) and for a shipped plugin-built product (`returning_complete`), set the project up lightly so the user can start working, then enter the iterate flow. Do not march them through the full new-product flow.
+
+1. Run `detect-environment.sh` from this skill's scripts directory and show the results in plain language (Step 2 covers the exact wording – ✓ for available tools described by what they enable, ✗ for missing ones; offer help if an essential tool is missing).
+2. Write `.design-engineer-plugin/config.yaml` exactly as in Step 5, but with `type: "existing"` instead of `type: "new"`. (Skip for `returning_complete` – the config already exists; do not overwrite it.)
+3. Scaffold the `design/` structure with `init-project-structure.sh` (Step 4). (Skip for `returning_complete` – already scaffolded.)
+4. Show a brief summary of what was set up.
+5. Ask the status-line question (Step 5's status-line block) and apply the choice. (Skip for `returning_complete` – settled on the original onboarding run.)
+6. **Enter the iterate flow with clarify-then-dispatch.** A task front-door is a conversational entry – picking one (or sending free-form text) makes you ASK THE USER FOR DETAIL in natural language first, read the project context already in `config.yaml` (`project.context`: `existing_design_system`, `shipped_ui`, `component_count`, `off_repo_references`), and only THEN dispatch the right plugin pieces. A front-door never auto-spawns agents or workflows on selection. Dispatch per the **Task→dispatch map** in `commands/launch.md` (the single source of truth) – `act on feedback`, `redesign a design`, `explore a concept`, `audit a design`, and the free-form scoped-edit loop are all defined there. Do NOT restate the map here.
+
+Each dispatched command reads mode from `.design-engineer-plugin/config.yaml` and follows the PLAN → EXECUTE → PRESENT → FEEDBACK workflow.
+
 ---
 
 ## Step 2: Detect Environment
@@ -101,11 +116,11 @@ Only list what's relevant. Adapt the wording to what was actually detected. Use 
 - **Library docs lookup** (Context7 MCP, bundled): Gives AI access to up-to-date documentation for libraries, frameworks, SDKs, CLIs, and cloud services (React, Next.js, Tailwind, Stripe, etc.) so it does not rely on outdated training data. This is about external library docs, not the project's own README or internal docs. Bundled – auto-starts when the plugin is enabled. Nothing for the user to install.
 - **Design tool connection** (Figma MCP, bundled): Provides structured design data from Figma – not screenshots, but code-ready design information adapted to the project's tech stack. Supports both design→code and code→design workflows. Bundled – auto-starts. The user just needs to open Figma desktop with Dev Mode enabled to use it.
 - **Browser testing** (Playwright MCP, bundled): Enables browser-based testing and lets AI browse live URLs for visual review. Bundled – auto-starts. Requires Node.js v18+ on the user's machine so npx can fetch the Playwright package on first use.
-- **Figma actions** (Figma Console MCP, OPTIONAL companion): Can perform actions in Figma directly – create components, apply tokens and styles from prompts. More powerful than the read-only Figma connection but trickier to set up. Not bundled; an optional install for power users only.
+- **Figma write actions** (bundled Figma MCP): The same bundled Figma connection also writes into Figma – creating components, applying tokens and styles, structuring files for handoff – through its `use_figma` executor. No separate Figma write tool is needed; the advanced `ui-figma-handoff` workflow runs entirely on the bundled MCP.
 
 **Three MCPs are bundled with this plugin** (Context7, Figma, Playwright) – they auto-start with the plugin and don't need separate installation. Status messaging should reflect "bundled, here's whether the prerequisite (Figma desktop / Node) is in place" rather than "you need to install this".
 
-**If a prerequisite is missing** (Node.js for Playwright, or the user wants Figma Console as an extra), proactively offer to help: explain what it enables in plain language and guide the user through setup. Don't offer to install Figma or Playwright themselves – those are bundled.
+**If a prerequisite is missing** (Node.js for Playwright, or Figma desktop for the Figma connection), proactively offer to help: explain what it enables in plain language and guide the user through setup. Don't offer to install Figma or Playwright themselves – those are bundled.
 
 If any existing configuration conflicts are detected, explain the conflict in plain terms and ask whether to keep the current setup or use the recommended one. Never overwrite existing configuration without asking.
 
@@ -173,15 +188,12 @@ Generate `.design-engineer-plugin/config.yaml` in the project root:
 project:
   type: "new"
   mode: "{answer_mode}"
-  deliverables_path: "design/"
 
 environment:
   plugins:
     context7: {true/false}
     figma: {true/false}
     playwright: {true/false}
-  mcps:
-    figma_console: {true/false}
 
 dependencies:
   tracking_file: ".design-engineer-plugin/dependencies.yaml"
@@ -241,7 +253,7 @@ options:
 
 If "Yes" or "Reinstall":
 
-Do NOT write to `~/.claude/settings.json` or copy files into `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and have them run it in their next prompt.
+Do NOT write to `~/.claude/settings.json` or copy files into `~/.claude/hooks/` yourself – Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and have them run it in their next prompt.
 
 1. If a status line is already configured (Reinstall branch), inform the user: "A status line is already configured. The command below will overwrite the `statusLine` entry. The previous script file is not deleted."
 2. Output exactly this block to the chat (substitute the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):

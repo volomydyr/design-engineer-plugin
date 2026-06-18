@@ -48,72 +48,6 @@ The only correct phrasing is **"Read `<path>/SKILL.md` and follow its instructio
 
 `${CLAUDE_PLUGIN_ROOT}` IS officially documented for `hooks/hooks.json` `command` fields. Hooks may use it directly (and do, throughout `hooks/hooks.json`). This convention applies only to slash command bodies and skill markdown — not to hooks.
 
-## Cost modes (light vs full)
-
-Two-mode cost selector introduced in v6.8.0. Persisted in `.design-engineer-plugin/config.yaml` as `cost_mode: light | full` (default `full` to preserve existing behavior for projects that pre-date v6.8.0).
-
-### Modes
-
-- **Full**: ship-state defaults — 49 of 67 components (~73%) run on Opus at high or xhigh effort; the remaining 18 (lighter-weight transforms — setup wizards, documentation, structured outputs like compound-documenter, deliverable-writer, context-analyzer, dev-claude-md, dev-github-workflow, dev-mcp-setup, dev-starter-prompts, dev-status-tracking, meta-document, meta-statusline, ui-figma-guide, ui-figma-handoff, ui-references-moodboard, ux-assumptions, ux-communicating-decisions, ux-mvp-requirements) run on Sonnet. Higher quality, higher token cost.
-- **Light**: every plugin AI component runs on `model: sonnet`, `effort: medium`. No Opus anywhere. ~40% lower per-token cost vs Full. Some quality drop on the components that would run on Opus in Full mode — accepted tradeoff for users on tight usage budgets.
-
-### Mechanism
-
-Per [Claude Code docs](https://code.claude.com/docs/en/skills#frontmatter-reference), `model: inherit` is supported only on skills (not agents); `effort: inherit` does not exist. There is no documented runtime override for either field. Therefore mode-switching requires **physically rewriting the frontmatter** in the plugin cache files when the user picks a mode.
-
-The mechanism:
-
-1. **Manifest** (`assets/cost-modes.json`): declares both `full` and `light` model+effort values per component (10 agents + 57 skills = 67 entries). Single source of truth, version-controlled.
-2. **Apply script** (`scripts/apply-cost-mode.sh`): reads `cost_mode` from project config, walks plugin files, regex-replaces the `model:` and `effort:` lines per the manifest. Idempotent (re-running on the same mode is a no-op).
-3. **Triggers**:
-   - `/design-engineer:launch` Step 1.5 asks the cost-mode question on first-run setup, persists, runs the script.
-   - `/design-engineer:launch` Step 0 silently re-applies on every launch when `cost_mode: light` is set (catches plugin updates that wipe the cache back to ship-state).
-   - `/design-engineer:cost-mode <light|full>` lets the user switch mid-project.
-
-### Manifest update rule (HARD)
-
-Any change to an agent's or skill's frontmatter `model:` or `effort:` MUST come with a matching update to `assets/cost-modes.json`. Otherwise:
-- The "full" mode in the manifest will write the manifest's stale value over the new frontmatter, undoing the change.
-- Light mode is automatic — the apply rule is uniform (any opus → sonnet, any non-medium effort → medium) — so light entries don't need manual updates if you're following the same rule.
-
-Pre-commit check: when `git diff` shows `model:` or `effort:` changes in `agents/` or `skills/*/SKILL.md`, verify `assets/cost-modes.json` has matching changes. If not, regenerate the manifest:
-
-```bash
-python3 <<'PY'
-import os, re, json
-manifest = {'agents': {}, 'skills': {}}
-def parse(path):
-    with open(path) as f: c = f.read()
-    m = re.search(r'^model:\s*(.+?)\s*$', c, flags=re.M)
-    e = re.search(r'^effort:\s*(.+?)\s*$', c, flags=re.M)
-    return (m.group(1) if m else None, e.group(1) if e else None)
-def light(model, effort):
-    return ('sonnet' if model and 'opus' in model else model,
-            'medium' if effort and effort != 'medium' else effort)
-for entry in sorted(os.listdir('agents')):
-    if not entry.endswith('.md'): continue
-    m, e = parse(f'agents/{entry}')
-    if not m or not e: continue
-    lm, le = light(m, e)
-    manifest['agents'][f'agents/{entry}'] = {'full': {'model': m, 'effort': e}, 'light': {'model': lm, 'effort': le}}
-for skill in sorted(os.listdir('skills')):
-    p = f'skills/{skill}/SKILL.md'
-    if not os.path.isfile(p): continue
-    m, e = parse(p)
-    if not m or not e: continue
-    lm, le = light(m, e)
-    manifest['skills'][p] = {'full': {'model': m, 'effort': e}, 'light': {'model': lm, 'effort': le}}
-json.dump(manifest, open('assets/cost-modes.json', 'w'), indent=2)
-print('regenerated')
-PY
-```
-
-### What NOT to do
-
-- Do NOT manually edit frontmatter in the plugin cache (`~/.claude/plugins/cache/...`) — those edits get overwritten by the next `/design-engineer:launch` if `cost_mode: light` is set, OR by the next plugin update.
-- Do NOT add new agents or skills without adding their entries to `assets/cost-modes.json`. The manifest is exhaustive — missing entries mean the script silently skips them in light mode.
-- Do NOT rename the `cost_mode` config field. It's persisted across plugin updates; renames break user projects.
-
 ## Versioning Requirements
 
 **HARD RULE: every commit pushed to `main` that touches user-facing code MUST bump the version. No exceptions, even for one-line fixes.**
@@ -152,17 +86,16 @@ design-engineer-plugin/           ← repo root = plugin root
 ├── CHANGELOG.md
 ├── hooks/
 │   ├── hooks.json
-│   ├── check_deliverable_deps.py
-│   ├── session_dep_summary.py
+│   ├── de-start-state.sh
 │   ├── de-statusline.js
-│   ├── de-safety-hook.js
-│   ├── de-tdd-hook.js
-│   ├── de-fidelity-hook.js
-│   └── de-prompt-injection-hook.js
-├── agents/                         # 10 specialized agents
-├── commands/
-│   └── product/                    # 9 main commands + mute-unmute-sound utility (product: namespace)
-└── skills/                         # 57 skills (56 with SKILL.md + 1 reference-only)
+│   ├── de-playwright-path-hook.js
+│   ├── de-postcompact-hook.sh
+│   ├── de-play-sound.sh
+│   ├── check_deliverable_deps.py
+│   └── session_dep_summary.py
+├── agents/                         # 8 specialized agents
+├── commands/                       # 9 main commands + mute-unmute-sound utility
+└── skills/                         # 53 skills
 ```
 
 ## Skill Compliance Checklist
@@ -174,7 +107,7 @@ When adding or modifying skills:
 - [ ] `name:` present and matches directory name
 - [ ] `description:` present, describes what it does AND when to use it
 - [ ] `disable-model-invocation: true` present on ALL skills
-- [ ] `model:` present – `opus` (default) or `sonnet` (mechanical tasks only)
+- [ ] `model:` present – `sonnet` (default), `haiku` (mechanical tasks), or `opus` (design-system-auditor only)
 - [ ] `license: MIT` present on ALL skills
 - [ ] `compatibility:` present when skill has external dependencies (MCP servers, Node.js, Python, Bash)
 
@@ -208,24 +141,42 @@ When adding or modifying skills:
 - [ ] `effort:` present on all skills and agents
 - [ ] Agent frontmatter does NOT include `disable-model-invocation:` (skills-only field)
 
-## Model Configuration
+## Model and effort configuration
 
-Every agent and skill MUST have an explicit `model:` field in its frontmatter.
+### The verified mechanics (read this first)
 
-### Allowed `model:` values (per [Anthropic sub-agent docs](https://code.claude.com/docs/en/sub-agents#supported-frontmatter-fields))
+A skill's `model:`/`effort:` frontmatter is **inert when the skill is loaded inline** – which is how all 53 plugin skills load. Every plugin skill sets `disable-model-invocation: true` and is loaded by reading its SKILL.md and following the instructions inline, so it runs at the **main session's** model and effort, not at whatever its own frontmatter declares. Frontmatter only takes effect when a skill is invoked through the Skill tool (disabled here) or for **agents** dispatched via Task.
 
-Both aliases and full model IDs are officially supported:
-- **Aliases**: `opus`, `sonnet`, `haiku`, `inherit`
-- **Full model ID**: e.g., `claude-opus-4-7`, `claude-sonnet-4-6`
+Two consequences:
 
-### Assignment Principles
+1. **The only runtime levers are the 8 agents' frontmatter and the user's session setting.** The plugin cannot change the session model or effort from inside a command or skill – no documented mechanism exists. So the agent frontmatter carries the real per-agent policy, and the inline planning phases (MVP, information architecture, Plan Mode, design exploration) run at whatever the user's session is set to.
+2. **Skill frontmatter stays for compliance, not runtime.** Keep an explicit `model:` and `effort:` on every skill so the schema stays valid and a future Skill-tool path works, but do not rely on it to change behavior. It is cosmetic at runtime today.
 
-- **`model: claude-opus-4-7`** – default for tasks requiring deep reasoning, creative output, nuanced analysis, or complex implementation. Pinned explicitly to the version (not the `opus` alias) so the plugin's quality expectations are unambiguous. When Anthropic releases a newer Opus, refresh this pin in a single PATCH bump rather than relying on alias drift.
-- **`model: sonnet`** – alias kept for mechanical tasks (file reading, template generation, setup wizards, documentation formatting). Sonnet is updated less frequently and less variably; the alias is fine here.
-- **No `model: inherit`** – plugin should be explicit about quality expectations.
-- **No `model: haiku`** – not used in this plugin.
+**Recommendation surfaced to the user:** because the plugin cannot set the session, the docs and setup flow recommend running a **strong session model at high effort during the inline planning phases** (MVP, information architecture, Plan Mode). That is where premium reasoning pays off and where the plugin has no other lever. Lean implementation against a good plan or spec is fine on a smaller model.
 
-### Skill frontmatter
+### The agent policy (the real lever)
+
+One policy applies across the 8 agents. There is no cost-mode machinery and no per-mode rewriting – the values live directly in each agent's frontmatter.
+
+| `model:` / `effort:` | Agent | Why |
+|---|---|---|
+| `opus` / `high` | `design-system-auditor` | The one Opus agent. Aesthetic critique plus the spec-conformance pass – the place Opus earns its premium |
+| `sonnet` / `high` | `ux-researcher`, `psych-scanner` | Research synthesis and psychology critique warrant higher effort, but not Opus |
+| `sonnet` / `medium` | `frontend-implementer`, `backend-implementer`, `advisor`, `test-writer`, `compound-documenter` | Lean execution against good specs and plans; structured transforms |
+
+Rationale (official docs): "Sonnet + prompt caching is the practical default… Opus should be reserved for requests that justify the premium"; Haiku is for mechanical work. Premium reasoning is concentrated on planning (the design-exploration and spec-authoring workflows run Opus at xhigh – see Workflows) and on final quality (`design-system-auditor`), rather than spread across every step.
+
+### Skill frontmatter values
+
+Skills keep `model: sonnet` / `effort: medium` (or `haiku` / `low` for clearly mechanical plumbing: setup wizards, status and doc formatting, simple routing). These are inert at inline-load time but kept for compliance and Skill-tool-future. Use **aliases**, not pinned model IDs.
+
+### Allowed values
+
+Use **aliases**, not pinned model IDs:
+- `model:` – `sonnet`, `haiku`, or `opus`. No `claude-opus-4-7`-style pins (they drift and need manual refresh), and no `model: inherit` (the plugin is explicit about quality expectations).
+- `effort:` – `low`, `medium`, `high`, or (on the design-exploration and spec-authoring workflow agents only) `xhigh`. `max` is not used: it is session-only and prone to overthinking.
+
+### Skill frontmatter shape
 
 Skills include `model:` and `effort:` after `disable-model-invocation`:
 
@@ -234,8 +185,8 @@ Skills include `model:` and `effort:` after `disable-model-invocation`:
 name: skill-name
 description: "..."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 ---
 ```
 
@@ -249,37 +200,73 @@ Plugin agents support these frontmatter fields (per [plugins reference](https://
 ---
 name: agent-name
 description: "..."
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 ---
 ```
 
 For agents that need cross-session memory (like `compound-documenter`), add `memory: project`.
 
-### Effort configuration
-
-Both agents and skills MUST have an explicit `effort:` field in its frontmatter, placed after `model:`. Officially supported on plugin agents per the docs.
-
-#### Assignment principles
-
-- **`effort: xhigh`** – the most complex tasks: broad multi-principle scans, comprehensive reviews, ethical reasoning, pipeline orchestration. New recommended top-tier on Opus 4.7 per Anthropic docs ("Best results for most coding and agentic tasks. Recommended default on Opus 4.7"). Persists across sessions.
-- **`effort: high`** – default for most skills and agents. Tasks requiring synthesis, nuanced judgment, multi-perspective analysis, or creative output.
-- **`effort: medium`** – structured workflows where the model follows established steps: setup wizards, template generation, documentation formatting.
-- **`effort: low`** – not used in this plugin.
-- **`effort: max`** – exists but **NOT recommended** for plugin defaults. Per Anthropic: "may show diminishing returns and is prone to overthinking. Test before adopting broadly". Also session-only (does not persist). Use only if a specific component demonstrably benefits from it during testing.
-
-Effort and model are independent axes:
-- `model: claude-opus-4-7` + `effort: xhigh` – broadest scans and reviews (psych-full-scan, ux-full-review, ux-bias-audit, ux-ethics-review, meta-orchestrator, advisor)
-- `model: claude-opus-4-7` + `effort: high` – deep analysis, creative output, complex implementation
-- `model: sonnet` + `effort: high` – sonnet tasks needing thorough reasoning (documentation, testing)
-- `model: sonnet` + `effort: medium` – structured sonnet tasks (setup, templates, status tracking)
-
 ### When adding new agents/skills
 
-- Default to `model: claude-opus-4-7` unless the task is clearly mechanical
-- Default to `effort: high` – downgrade to `medium` only for clearly mechanical tasks, upgrade to `xhigh` for broad multi-principle scans
-- Document the rationale if choosing `sonnet` or `medium` for a new component
-- Never include `disable-model-invocation:` on an agent (skills only)
+- New skills: default to `model: sonnet`, `effort: medium` (`haiku` / `low` for clearly mechanical work). Remember the values are inert at inline-load time – they are for compliance, not runtime.
+- New agents: place them in the policy table above. Default to `sonnet` / `medium`; reserve `sonnet` / `high` for research or critique that warrants it, and `opus` / `high` for `design-system-auditor` only. Adding a second Opus agent requires a deliberate decision, not a default.
+- `xhigh` is used only by the design-exploration and spec-authoring workflow agents. Never use `max`, pinned model IDs, or `model: inherit`.
+- Never include `disable-model-invocation:` on an agent (skills only).
+
+## Workflows
+
+Claude Code's **workflows** feature dispatches many subagents in the background (16 concurrent, 1000 total per run; resumable; no mid-run user input) and verifies their findings against each other. The plugin uses it only for the few high-value moments that genuinely need more agents than one conversation can coordinate – not everywhere.
+
+Each wiring follows the same contract:
+
+1. **Natural-language opt-in in the command body** ("use a workflow to: …") – the model offers the workflow at that step rather than the plugin hardcoding a dispatch.
+2. **Availability gate** – workflows need Claude Code v2.1.154+ on a paid plan. The command checks availability before offering.
+3. **Single-pass inline fallback** – when workflows are unavailable or declined, the same work runs once inline. Nothing breaks when workflows are off.
+
+The five wirings:
+
+| Wiring | Where | Fan-out | Agents |
+|---|---|---|---|
+| **Design exploration** | `commands/discovery.md`, new-product prototype step | One agent per concept direction, then judge and synthesize | **Opus / xhigh** (premium planning) |
+| **Spec authoring** | `commands/discovery.md`, feature flow after the IA recap | One agent per screen, authoring `.spec.md` files | **Opus / xhigh** (premium planning) |
+| **Competitor analysis** | `commands/discovery.md`, "add depth" step | One agent per competitor (or delegate to the bundled `/deep-research`) | Default tier |
+| **Per-page audit** | `commands/review.md` audit step | One agent per page, results synthesized; designer-feedback capture stays after the run | Default tier |
+
+The design-exploration and spec-authoring workflows are the **premium-planning investment**: this is where the plugin concentrates Opus and xhigh, consistent with the model policy (premium reasoning on planning, lean execution after). The workflow agents are the only place `xhigh` is used.
+
+## Spec-driven design
+
+A **design spec** is the positive replacement for the deleted design-grounding, drift, and fidelity deny-hooks: it prevents reinvention up front instead of policing it after. It is the "really good plan" that makes lean implementation work.
+
+**Shape.** One `.spec.md` per screen or surface: short prose intent and rationale, plus per-component fenced `yaml` blocks holding the structured, reference-only spec (token references, existing-component references by path, states, variants, responsive behavior, accessibility, and EARS acceptance criteria). The YAML does the load-bearing work; the prose carries the "why."
+
+**Authoring → consumption → verification.**
+- **Authored** by the `design-spec` skill as a premium-planning step in discovery (workflow-eligible – the spec-authoring workflow). The skill reads `ui-design-system`'s `design-system.md` (real tokens, aliases, component paths) and `ui-references-moodboard`'s `references.md` (intent) **first**, so a spec references only names that already exist. A spec that names a nonexistent token is worse than no spec.
+- **Consumed** by `frontend-implementer`: where a spec exists it is a binding pre-read, the component reuse table is pre-filled from each spec's reuse block, and the implementer builds to the spec verbatim.
+- **Verified** by `design-system-auditor`: a spec-conformance pass checks built components against the spec's YAML and acceptance criteria (FAIL on mismatch), flags dangling token or component references as high-severity, and treats any component no spec mentions as informational, not a failure.
+
+**Graduated strictness.** Specs are required for consequential UI (net-new components, primary or reused surfaces of a feature) and optional for trivial one-off elements. The spec is never a blocking gate, and the auditor does not fail unspecced trivia – this keeps the friction the deleted hooks created from coming back.
+
+**Storage.** Feature-scoped at `.design-engineer-plugin/design/features/<feature-slug>/screens/<screen-slug>.spec.md`; standalone specs at `.design-engineer-plugin/design/specs/<surface-slug>.spec.md`.
+
+### /goal at verifiable build moments
+
+`/goal` is a real Claude Code built-in (v2.1.139+): it sets a completion condition and loops turns until the condition holds, ideal for implementing a design doc until every acceptance criterion is met. It is **user-invoked only** – the plugin SUGGESTS a ready-to-paste `/goal` and STOPS for the user; it never tries to invoke `/goal` itself.
+
+At UI-build moments with a verifiable end state (a `.spec.md` exists, recreating a Figma design, recreating a web frontend via Playwright, or strict Playwright-verified rules), `commands/development.md`, `agents/frontend-implementer.md`, and `skills/design-spec/` compose a `/goal` whose completion condition is the spec's EARS acceptance criteria plus the standing invariants (at least three Playwright iterations of real user flows, zero hardcoded values, only reused or extended components), present it, and wait for the user to paste it or say "go" to proceed without it. Gated on CC v2.1.139+; if `/goal` is unavailable or the user declines, the flow proceeds normally. This is not a global rule – it lives only in those specific steps and the skill.
+
+## The iterate flow (task-driven work on an existing product)
+
+A product that already exists – a commercial codebase the plugin didn't build, or a plugin-built product that has shipped and is now in iteration – opens the **iterate flow** rather than the from-scratch pipeline. The flow is fast and task-driven, and it is the existing-project path: no new mode, picker, or state name was added for it. Detection stays as-is – `.design-engineer-plugin/config.yaml` presence is the auto-detected plugin signature, `project_type` (a one-time first-run choice) plus `resume:` plus the compound-documenter `pipeline-state.md` track which step.
+
+**Where it lives.** The flow and its routing map are authored once in `commands/launch.md` (the `## The iterate flow` section and the `## Task→dispatch map (single source of truth)` section). `commands/launch.md` Step 4 (first-run hand-off) and `skills/meta-setup/SKILL.md` Path B **reference** that map rather than restating it – this is deliberate, to keep the routing from drifting into multiple copies. When the dispatch map changes, change it in `launch.md` only.
+
+**Clarify-then-dispatch (the core interaction model).** A starting point ("act on feedback", "redesign a design", "explore a concept", "audit a design") is a conversational entry, not a dispatch trigger. Selecting one makes the model **ask the user for detail** in natural language first; only after it understands the task does it read `project.context` from the config and dispatch the right pieces (a skill, a workflow, an agent, the spec layer, or `/goal`, or a combination). A starting point never auto-spawns an agent or a workflow on selection. The same applies to a free-form prompt: clarify what's needed, then dispatch the most capable fitting tool. Lean in process, powerful in capability – even a one-line request reaches for the right tool, but no forced pipeline.
+
+**The scoped-edit loop** is the workhorse (most iterate-flow work is a scoped edit to something that already exists): restate the exact element, file, and property → locate → edit in place → verify in the browser via Playwright → open a scoped PR, reaching for the spec-driven layer, a workflow, or an agent when the change genuinely warrants it.
+
+**Completion marker + routing.** When the from-scratch pipeline finishes its last step, `commands/development.md` writes a top-level `status: complete` line into `.design-engineer-plugin/config.yaml` (additive, idempotent, gated on `project_type: new`; `meta-document` mirrors the fact into the compound-documenter pipeline state but does not author the marker). Detection then routes a `project_type: new` project carrying `status: complete` to a new state, `returning_complete`, which opens the iterate flow instead of the from-scratch returning path. The branch is mirrored in the three places detection is duplicated today: `skills/meta-setup/scripts/detect-state.sh`, `hooks/de-start-state.sh`, and `commands/launch.md` Step 0. It is additive and fail-safe – absence of `status: complete` yields the prior behavior, and `project_type: existing` projects never reach it.
 
 ## Command Naming Convention
 
@@ -314,9 +301,9 @@ Deliverables created by this plugin are documented in two layers:
 - **Static dependency graph** at `.design-engineer-plugin/dependencies.yaml` – read-only documentation showing which deliverables inform which downstream ones. The plugin does not mutate this file; users read it to know what's connected.
 - **Live progress** at `.claude/agent-memory/design-engineer-compound-documenter/` – three structured files (pipeline-state.md, key-decisions.md, stale-dependents.md) maintained by the compound-documenter agent via Anthropic's documented `memory: project` mechanism. The agent computes stale-dependents by cross-referencing the static graph against recent edits.
 
-Run `/design-engineer:document` after each phase or significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
+Run `/design-engineer:document` at milestones or after a significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
-**Path note**: deliverable files always live at `design/...` – this is fixed in the current implementation. The `deliverables_path` field in `.design-engineer-plugin/config.yaml` is a reserved marker for future use; nothing in the code currently reads it.
+**Path note**: deliverable files always live at `design/...` – this is fixed in the current implementation.
 
 ## Plan Mode
 
@@ -378,21 +365,20 @@ Every phase MUST have `**Depends on**`, `**Checklist**`, and `**QA**` fields. De
 
 ### Project-local storage
 
-After plan approval, copy the approved plan to `plans/[YYYY-MM-DD]-[descriptive-name].md` in the project root. Create the `.design-engineer-plugin/.design-engineer-plugin/plans/` directory if it does not exist.
+After plan approval, copy the approved plan to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[descriptive-name].md`. Create the `.design-engineer-plugin/plans/` directory if it does not exist.
 
 ### Archival
 
-When implementation is complete, move the plan from `.design-engineer-plugin/.design-engineer-plugin/plans/` to `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`. Create the `.design-engineer-plugin/.design-engineer-plugin/plans/archive/` directory if it does not exist.
+When implementation is complete, move the plan from `.design-engineer-plugin/plans/` to `.design-engineer-plugin/plans/archive/`. Create the `.design-engineer-plugin/plans/archive/` directory if it does not exist.
 
 ### Workflow
 
 1. `EnterPlanMode` – write a structured plan to the plan file
-2. **Advisor checkpoint (early-task):** before `ExitPlanMode` on any plan with more than one phase or non-trivial scope, invoke the `advisor` skill (`skills/advisor/`) with: the user's request, key constraints discovered, the proposed phase breakdown, anything you're uncertain about. Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This is the docs' "before substantive work" call ([advisor docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)).
-3. `ExitPlanMode` – present the plan for user approval
-4. After approval, copy to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[descriptive-name].md`
-5. If a git repo exists and the current branch is `main` or `master`, create a feature branch: `git checkout -b feat/[plan-name-slug]`
-6. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
-7. **For each phase in dependency order:**
+2. `ExitPlanMode` – present the plan for user approval
+3. After approval, copy to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[descriptive-name].md`
+4. If a git repo exists and the current branch is `main` or `master`, create a feature branch: `git checkout -b feat/[plan-name-slug]`
+5. Create a task for each phase (`TaskCreate`) with `blockedBy` dependencies matching the plan
+6. **For each phase in dependency order:**
    a. Mark the phase task `in_progress` (`TaskUpdate`)
    b. Implement only this phase's changes – never touch files from later phases
    c. Run `/simplify` on changed code
@@ -403,15 +389,14 @@ When implementation is complete, move the plan from `.design-engineer-plugin/.de
       - For each file edited, verify no important content was removed that wasn't part of the planned change
       - If anything was missed, done differently, or accidentally removed – fix it now
       - Check off each completed item in the plan file
-   e. **Advisor checkpoint (pre-done):** after deliverables are durable (files written, tests run), invoke the `advisor` skill with: what was implemented, test results, anything that surprised you. Apply or reconcile.
-   f. Mark the phase task `complete` (`TaskUpdate`)
-   g. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
-   h. **WAIT** – do not proceed until the user responds
-   i. If the user has feedback, address it (may take multiple rounds of feedback)
-   j. Only proceed to the next phase after explicit user approval
-   k. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer – Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
-8. After all phases complete, move the plan to `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`
-9. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
+   e. Mark the phase task `complete` (`TaskUpdate`)
+   f. Present to the user: what was done (brief), QA instructions from the plan, and "Review this phase and share feedback. I'll proceed to Phase N+1 after your approval."
+   g. **WAIT** – do not proceed until the user responds
+   h. If the user has feedback, address it (may take multiple rounds of feedback)
+   i. Only proceed to the next phase after explicit user approval
+   j. After user approves, commit this phase's changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer – Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer)
+7. After all phases complete, move the plan to `.design-engineer-plugin/plans/archive/`
+8. If on a feature branch, create a PR via `gh pr create` and ask the user whether to merge
 
 ### Implementation rules
 
@@ -419,15 +404,15 @@ When implementation is complete, move the plan from `.design-engineer-plugin/.de
 - **Every phase must have QA instructions.** If the phase is simple, the QA can be brief ("check the button color changed"). If complex, be specific ("open the settings page, verify the new panel appears, try toggling it on/off, check that the state persists on page reload").
 - **Dependencies determine order.** Always implement sequentially for user review, even if phases are independent.
 - **Feedback is iterative.** The user may have multiple rounds of feedback on a single phase. Address all feedback before moving on.
-- **Advisor consult before declaring done.** After deliverables are durable, invoke the `advisor` skill for a pre-done strategic check. Skip on trivial single-edit tasks (the advisor docs flag short reactive tasks as low-value advisor calls); use it on multi-phase plans and any task where the next action affects what the user sees as "done."
+- **Advisor is optional.** The `advisor` skill is available for a strategic second opinion when a plan is large or the path forward is genuinely uncertain, but it is not a required checkpoint. Use it when it would help; skip it otherwise.
 
 ## Code Quality: /simplify
 
 `/simplify` is a bundled Claude Code skill that reviews changed code for reuse, quality, and efficiency. For substantial changes it fans out into three parallel review agents. That fan-out is great for new components and large refactors and noisy for one-line color swaps — so the call is **scaled by change size**, not run after every Write/Edit.
 
-### Tier-based scaling (mirrors the design-grounding hook's tiers)
+### Tier-based scaling (by change size)
 
-The design-grounding hook (`hooks/de-design-grounding-hook.js`) classifies each UI Edit / MultiEdit / Write into one of three tiers using `computeChangeSize()` + `isSinglePropertySwap()`. Use the same classification to decide whether to call `/simplify`:
+Classify each code change into one of three tiers by size alone, and use that to decide whether to call `/simplify`:
 
 | Tier | Trigger | `/simplify` action |
 |---|---|---|
@@ -451,37 +436,6 @@ Do NOT run `/simplify` during prototyping. Prototypes are throwaway visual artif
 
 Invoke `/simplify` as a slash command. It runs in the main conversation; the 3-agent fan-out is internal to the skill and only fires for Large-tier changes (when `/simplify` itself decides the change warrants it). You don't dispatch the agents directly from this plugin.
 
-## Design Grounding Pre-Flight scaling
-
-The design-grounding hook denies UI writes until certain reads happen and a Pre-Flight block is output. The depth of the Pre-Flight block is also tier-scaled:
-
-| Tier | Required Pre-Flight output before the edit |
-|---|---|
-| **Trivial** | One line: `WHY: <reason>`. No Domain Exploration. No Signature Test. No 5-field block. |
-| **Medium** | Compact 3-field Pre-Flight: Intent + WHY + anti-pattern self-check. Skip Domain Exploration + Signature Test. |
-| **Large** | Full 5-field Pre-Flight: Intent / Domain Exploration / WHY / anti-pattern self-check / Signature Test. |
-
-The hook injects this scaling table into its deny message on the first UI write of the session, so the model receives it once and applies it to every subsequent edit. Keep applying it for the rest of the session — do not silently drift back to full Pre-Flight on small swaps.
-
-### What "trivial" means precisely
-
-A swap qualifies as Trivial only if BOTH conditions hold:
-
-1. The change is ≤5 lines (counted as max of old vs new line count for Edit / MultiEdit, or content lines for Write).
-2. The change matches a single CSS / style / Tailwind property pattern — one of: `color`, `background(-color)?`, `fill`, `stroke`, `border-color`, `border`, `padding`, `margin`, `gap`, `width`, `height`, `font-size`, `line-height`, `font-weight`, `border-radius`, `opacity`, `box-shadow`, `outline` (CSS); or their React inline-style camelCase forms; or a single Tailwind utility class swap.
-
-Write (creating a new file) is NEVER Trivial — new files always warrant full grounding. MultiEdit qualifies only when ALL its edits are individually trivial AND there are at most 3 edits.
-
-### What's still required even for Trivial swaps
-
-The hook still enforces the per-session gates regardless of tier:
-
-- `.design-engineer-plugin/prototype/prototype.html` must be Read if it exists.
-- `.design-engineer-plugin/design/exploration/references/references.md` (or equivalent) must exist on disk.
-- `.design-system/system.md` or `.design-engineer-plugin/design/dev/design-system.md` must be Read if either exists.
-
-These are about whether the user is in a UI-implementation context at all, not about depth — so they fire once per session regardless of edit size.
-
 ## Component Gallery Contract
 
 The plugin maintains a **single-page component gallery** in every project where UI work happens – a visual catalog of every component, all variants visible at once, real production styles, source-path labels per entry. Two purposes: (a) duplicate detection (Claude tends to create five new versions of an existing component – the gallery makes redundancy visually obvious), and (b) visual quality assurance (one viewport, all components, real styles – closer to a design canvas than a docs site).
@@ -502,76 +456,6 @@ Every gallery file the skill scaffolds carries this contract at the top in langu
 - **`skills/dev-prototyping/SKILL.md`** – cross-references the lifecycle (prototype = design exploration before implementation; gallery = shipped components after).
 
 There is no PreToolUse or Stop hook for the gallery contract. Enforcement is the agents' responsibility.
-
-## TDD with Playwright CLI
-
-All code-producing steps follow Test-Driven Development using Playwright CLI. A PreToolUse hook enforces this – source code writes are blocked when no test scripts exist in `tests/`.
-
-### The Iron Law
-
-**No production code without a failing test first.** Wrote code before the test? Delete it. Don't keep as "reference." Don't adapt it. Delete means delete. Implement fresh from tests.
-
-### TDD Cycle
-
-1. **Red**: `test-writer` agent creates failing test scripts in `tests/`
-2. Run test scripts → verify they fail **correctly** (fails because feature is missing, not because of typos or script errors)
-3. **Green**: Implement the feature (backend-implementer, frontend-implementer)
-4. Run test scripts → verify they pass, all other tests still pass, output is clean
-5. **Refactor**: `/simplify` cleans up the code
-
-### Red Flags – Stop and Start Over
-
-- Code written before test
-- Test passes immediately on first run
-- Test written after implementation
-- Keeping pre-test code as "reference"
-- Rationalizing "just this once"
-
-### Test Storage
-
-- Active test scripts: `tests/*.sh` (executable shell scripts using Playwright CLI)
-- Archived tests: `tests/archive/` (moved after feature completion, like `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`)
-
-### When TDD Applies
-
-- After plan approval, before backend-implementer and frontend-implementer
-- The hook only activates during implementation (when `.design-engineer-plugin/.design-engineer-plugin/plans/` has active plan files)
-- Note: TDD does NOT apply during prototyping. Prototypes are throwaway visual artifacts.
-
-### Testing Anti-Patterns
-
-See `skills/dev-agent-setup/references/testing-anti-patterns.md` for the 5 common anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests as afterthought.
-
-## Requirement Fidelity
-
-Two PostToolUse hooks enforce that plans and implementation match user requirements exactly:
-
-- **Command hook** (`de-fidelity-hook.js`) – injects a fidelity reminder after source code writes during active implementation
-- **Prompt hook** (Haiku) – reviews plan files for requirement drift after every write
-
-### What Constitutes Drift
-
-- Features or functionality not explicitly requested by the user
-- Modified copy, text, or naming from what the user specified
-- "Bonus" features, creative additions, or unsolicited improvements
-- Scope expansion beyond what was stated
-
-### What Is NOT Drift
-
-- Implementation details (file structure, variable names, technical approach)
-- Reasonable error handling for stated requirements
-- Standard patterns required by the framework/language
-
-### The Rule
-
-If a feature, behavior, or piece of copy was not explicitly requested by the user, it must not appear in plans or implementation. The ONLY way to introduce something new is to ask the user first using AskUserQuestion.
-
-### Scope vs. execution
-
-Requirement fidelity is strict on SCOPE but flexible on EXECUTION:
-- **Strict on scope**: Never add features, screens, or requirements the user didn't ask for. This stays absolute.
-- **Flexible on execution**: Within the approved scope, smart implementation decisions are welcome – better component patterns, cleaner API shapes, optimized interaction flows. Surface these as questions via AskUserQuestion: "I noticed X could work better if we Y – want me to include that?"
-- The model should challenge and suggest, but always through AskUserQuestion – never silently add or silently ignore opportunities.
 
 ## Output formatting
 
@@ -646,19 +530,18 @@ Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/
 
 ## File hygiene (durability tiers)
 
-Everything the plugin produces lives under `.design-engineer-plugin/` (one umbrella, clear mental model). The project root holds only the actual product codebase. Every plugin-produced file falls into one of five tiers; the tier determines where the file lives and whether it ships in git.
+Everything the plugin produces lives under `.design-engineer-plugin/` (one umbrella, clear mental model). The project root holds only the actual product codebase. Every plugin-produced file falls into one of four tiers; the tier determines where the file lives and whether it ships in git.
 
 | Tier | Where it lives | Goes in git? | Examples |
 |---|---|---|---|
-| **Durable deliverable** | `.design-engineer-plugin/design/<subdir>/` (foundation, research, planning, exploration, psychology, reviews, dev, features), `.design-engineer-plugin/prototype/`, `.design-engineer-plugin/plans/`, `tests/` (project source code stays at the project root) | Yes — these ARE the work | `problem-statement.md`, `references.md`, captured reference images, `prototype.html`, plan files, test scripts |
+| **Durable deliverable** | `.design-engineer-plugin/design/<subdir>/` (foundation, research, planning, exploration, psychology, reviews, dev, features, specs), feature-scoped specs at `design/features/<slug>/screens/`, `.design-engineer-plugin/prototype/`, `.design-engineer-plugin/plans/`, `tests/` (project source code stays at the project root) | Yes — these ARE the work | `problem-statement.md`, `references.md`, captured reference images, `<screen-slug>.spec.md`, `prototype.html`, plan files, test scripts |
 | **Plugin runtime state** | `.design-engineer-plugin/{config.yaml, dependencies.yaml}` and `.design-engineer-plugin/memory/` | Yes | config, dependency graph, project-map.md, debug-solutions.md |
 | **Disposable working artifact** | `.design-engineer-plugin/temporary/<scratch\|playwright\|intermediate>/...` | No — gitignored | Playwright debug captures, intermediate analysis dumps, exploratory drafts, "let me check this URL" outputs |
-| **Per-session marker** | `.design-engineer-plugin/.active-workflow` | No — gitignored | per-turn workflow marker for the process-recall hook |
 | **Agent memory (Anthropic-managed)** | `.claude/agent-memory/design-engineer-compound-documenter/` | Yes | pipeline-state.md, key-decisions.md, stale-dependents.md (auto-managed by `memory: project` mechanism) |
 
 **Rules for any skill, agent, or hook that writes a file:**
 
-- Durable deliverables go to their canonical path under `.design-engineer-plugin/design/<subdir>/` (or `prototype/`, `plans/`). Every skill's SKILL.md names the exact path. The path-validation hook (`de-deliverable-path-hook.js`) denies non-canonical subdirs and filenames at write time.
+- Durable deliverables go to their canonical path under `.design-engineer-plugin/design/<subdir>/` (or `prototype/`, `plans/`). Every skill's SKILL.md names the exact path. Write deliverables only to those canonical subdirs and filenames; never invent a new subdir or filename for a deliverable.
 - Anything throwaway goes to `.design-engineer-plugin/temporary/<scratch|playwright|intermediate>/`. Pick the subdir that matches the artifact's purpose (Playwright captures → `playwright/`, design-pipeline drafts → `intermediate/`, anything else → `scratch/`). Never write disposable artifacts to the project root, to a deliverable subdir, or anywhere else.
 - The `init-project-structure.sh` script creates the umbrella + the `temporary/` subdirs and adds them to `.gitignore` automatically. The block is fenced with `# === BEGIN design-engineer-plugin ===` and `# === END design-engineer-plugin ===` so the script can re-run idempotently and replace legacy v5.4.x blocks.
 - `.design-engineer-plugin/temporary/` is **auto-purged at every phase boundary** by `meta-document` Step 7 (which runs whenever `/design-engineer:document` fires). The user can also run `/design-engineer:tidy` mid-session for the same effect. Don't write things to `temporary/` expecting them to persist across phases.
@@ -666,7 +549,7 @@ Everything the plugin produces lives under `.design-engineer-plugin/` (one umbre
 
 **Why this matters:** without the tier discipline, a single feature implementation can leave a working tree dominated by debug artifacts that obscure the actual deliverables. The user loses the ability to tell which files are committable vs. which are throwaway, and the temptation to "commit everything and move on" pollutes the repository permanently. The tiers + `.gitignore` block + auto-purge let the user run `git add -A` without thinking and only ship what should ship.
 
-**Stack-agnostic boundary:** the plugin's `.gitignore` block only ignores paths the plugin itself guarantees to write — `.design-engineer-plugin/temporary/` and `.design-engineer-plugin/.active-workflow`. Framework-specific outputs (test runner reports, build caches, native build artifacts, language ecosystem caches) are the user's responsibility to add to their own `.gitignore` outside the plugin's fenced block — since they vary by stack. The plugin doesn't presume Playwright, npm, Next.js, Xcode, Gradle, or any specific tool.
+**Stack-agnostic boundary:** the plugin's `.gitignore` block only ignores paths the plugin itself guarantees to write — `.design-engineer-plugin/temporary/`. Framework-specific outputs (test runner reports, build caches, native build artifacts, language ecosystem caches) are the user's responsibility to add to their own `.gitignore` outside the plugin's fenced block — since they vary by stack. The plugin doesn't presume Playwright, npm, Next.js, Xcode, Gradle, or any specific tool.
 
 ## Playwright filesystem hygiene
 
@@ -686,33 +569,6 @@ The default `<YYYY-MM-DD-HHMMSS>` timestamp pattern for scratch captures keeps d
 ## Project state injection
 
 A `UserPromptSubmit` command hook runs on every message and checks for `.design-engineer-plugin/config.yaml` in the project root. If the config file is absent, it injects `DESIGN_ENGINEER_PROJECT_STATE: new_to_plugin` as context before the model processes anything. This ensures `/design-engineer:launch` routes correctly even when auto-memory contains rich project context from previous sessions.
-
-## Process recall mechanism (active-workflow marker contract)
-
-Long deterministic workflows are gated by a marker file at `.design-engineer-plugin/.active-workflow`. The marker stores a single line naming the workflow (for example `dev:feature-implementation`). A `UserPromptSubmit` hook (`hooks/de-process-recall-hook.sh`) checks the marker on every prompt and, when present, injects context that asks the model to render the workflow's full step list at the top of its next response.
-
-**Workflows that write the marker** (long, deterministic, multi-step sequences where step-list recall is high signal):
-- `/design-engineer:development` feature-implementation flow
-- `/design-engineer:development` setup
-- `/design-engineer:discovery` new-product full pipeline (per phase)
-- `/design-engineer:discovery` existing-project abbreviated feature flow (Step 2.2 through Step 2.7)
-- `/design-engineer:review` broad audits
-- `dev-prototyping` Steps 5–6
-- `ui-references-moodboard`
-
-**Workflows that do NOT write the marker** (short, branching, or already-visible flows where the AskUserQuestion-driven UI is itself the process indicator):
-- `/design-engineer:launch`
-- `/design-engineer:prototype` Step 7
-- `/design-engineer:document`
-- `/design-engineer:help`
-- Individual UX and psychology skills invoked outside a pipeline
-- `/design-engineer:discovery feature-spec` (the F1 minimal-spec branch)
-
-**Why the split**: process recall is high-signal only on long deterministic sequences. Everywhere else, the visible question-and-answer flow already tells the user where they are; injecting a step list there is noise.
-
-**User-visible contract**: when the marker is present, Claude renders a humane preamble plus the workflow's numbered step list at the top of its next response, with `← current` on the active step. When the marker is absent, Claude responds normally and never mentions process.
-
-**Debugging**: run `tail -f ~/.claude/cache/de-process-recall.log` to verify the hook fires when expected. Each fire appends a single line of the form `[ISO_TIMESTAMP] FIRED | workflow=<name> cwd=<path>`.
 
 ## Command execution philosophy
 
@@ -831,12 +687,12 @@ When a step does external research (competitor analysis, user interviews, refere
 These three rules apply to every research-heavy step in every skill (ux-competitor-analysis, ux-user-interviews, ui-references-moodboard, etc.) when running in guided mode. Autopilot can compress all three into a final summary, but guided mode never can.
 
 **Agent usage rule:**
-- Agents are a core feature of the plugin. They run normally in both modes.
-- In Guided mode: after an agent completes, the main model parses the agent's output and presents it step by step with AskUserQuestion interaction between each finding or deliverable section. Never show the agent's raw output directly to the user. Never dump all findings at once.
+- Agents are available in both modes. Dispatch one when the work would genuinely flood the main context or fan out across many parallel reads; for quick, iterative work, doing it inline is fine.
+- In Guided mode: after an agent completes, the main model summarizes its output and presents it step by step with AskUserQuestion interaction between findings or deliverable sections, rather than dumping all findings at once.
 - In Autopilot: agents run and their complete output is presented as a structured summary.
 
-**Plan copy rule (CRITICAL):**
-- After ExitPlanMode approval, IMMEDIATELY copy the plan to `plans/[YYYY-MM-DD]-[name].md`. Without this step: TDD hooks cannot activate (they check `.design-engineer-plugin/.design-engineer-plugin/plans/` for active plans), fidelity hooks cannot check scope drift, and git branch matching cannot work. If the plan only exists in `~/.claude/.design-engineer-plugin/plans/`, none of the safety mechanisms activate. Do not write any code until the plan is in `.design-engineer-plugin/.design-engineer-plugin/plans/`.
+**Plan copy rule:**
+- After ExitPlanMode approval, copy the plan to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[name].md`. This is what git branch matching and archival key off, and it keeps the approved plan with the project rather than only in `~/.claude/`.
 
 **Implementation architecture rule:**
 - Implementation must follow the project's existing component architecture. If the project uses atomic design, create separate component files in the appropriate directories (atoms/, molecules/, organisms/, pages/). Never create a monolithic file containing multiple components or views. Read existing components before writing new ones to match patterns, naming, and design token usage.
@@ -898,7 +754,7 @@ path – description (≤10 words) | when to read
 **Read project-map.md BEFORE:**
 - Any filesystem exploration or file search
 - Creating implementation plans (Plan Mode)
-- Running context-analyzer or any agent that needs project structure
+- Running any agent that needs project structure
 
 This replaces ad-hoc exploration. If project-map.md exists, use it instead of globbing or grepping for structure.
 

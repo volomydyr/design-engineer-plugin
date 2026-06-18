@@ -13,9 +13,9 @@
 #   - depends_on: deliverables that must exist or inform this one
 #   - informs:    deliverables that should be reviewed when this one changes
 #   - folder:     bare subdir name (foundation, research, planning, exploration,
-#                 psychology, reviews, dev, features). The full canonical path is
-#                 .design-engineer-plugin/design/<folder>/. The path-validation
-#                 hook (de-deliverable-path-hook.js) reads this map.
+#                 psychology, reviews, dev, features, feedback). The full canonical path is
+#                 .design-engineer-plugin/design/<folder>/. Write each deliverable
+#                 to its canonical path with its canonical filename.
 #   - phase:      pipeline phase where this deliverable is primarily created
 #   - skill:      the skill that produces this deliverable
 
@@ -197,6 +197,34 @@ deliverables:
     folder: planning
     phase: 3
     skill: ux-information-architecture
+
+  # ═══════════════════════════════════════════
+  # PHASE 3.5: SPEC-DRIVEN DESIGN (post-IA, pre-prototype)
+  # ═══════════════════════════════════════════
+
+  design-spec:
+    depends_on:
+      - information-architecture
+      - mvp-requirements
+      - design-references
+    informs:
+      - frontend-implementer
+      - design-system-auditor
+    folder: features
+    phase: 3.5
+    skill: design-spec
+
+  # ═══════════════════════════════════════════
+  # ITERATE FLOW (existing / shipped products)
+  # ═══════════════════════════════════════════
+
+  feedback-todos:
+    depends_on: []
+    informs:
+      - frontend-implementer
+    folder: feedback
+    phase: iterate
+    skill: feedback-to-todos
 
   # ═══════════════════════════════════════════
   # PHASE 4: DESIGN & VALIDATION

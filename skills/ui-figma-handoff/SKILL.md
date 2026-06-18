@@ -5,7 +5,7 @@ disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT
-compatibility: "Requires Figma MCP (plugin:figma:figma). Figma Console MCP recommended for advanced operations (variables, linting, batch ops)."
+compatibility: "Requires the bundled Figma MCP (plugin:figma:figma), which provides use_figma for write operations (variables, tokens, components, annotations)."
 ---
 
 # Figma Design Structuring and Dev Handoff
@@ -14,14 +14,13 @@ Automate the transformation of raw Figma designs into properly structured design
 
 ## Prerequisites
 
-This skill is the **advanced Figma workflow** in the plugin. It uses two MCPs together:
+This skill is the **advanced Figma workflow** in the plugin. It runs on the bundled Figma MCP:
 
-- **"Figma Plugin"** (`plugin:figma:figma`) – bundled with this plugin (no install needed). Used for reading designs (`get_design_context`, `get_screenshot`), JS execution (`use_figma`), design system rules.
-- **"Figma Console MCP"** (`figma-console`) – **NOT bundled**. A separate community project. Used for variables/tokens (`figma_batch_create_variables`, `figma_setup_design_tokens`), linting (`figma_lint_design`), parity checking (`figma_check_design_parity`), batch operations, and dedicated node tools.
+- **"Figma Plugin"** (`plugin:figma:figma`) – bundled with this plugin (no install needed). Used for reading designs (`get_design_context`, `get_screenshot`), JS execution via `use_figma` (the executor that drives every write operation in this skill: variables, tokens, components, styles, annotations, dev status), and design system rules.
 
-If you don't have the Figma Console MCP installed yet, install it from its repository (search GitHub for "figma-console MCP" or visit https://github.com/southleft/figma-console-mcp). Once installed, the bundled Figma Plugin and the Console MCP run side-by-side.
+Every write operation in this skill runs through `use_figma`, which executes JavaScript against the full Figma Plugin API. The helper functions in [figma-console-helpers.md](./references/figma-console-helpers.md) are written to run inside that executor.
 
-**Tool-availability check**: at the start of Step 1, attempt a `figma_get_status` call. If it fails with a "tool not found" error, the Console MCP isn't installed – pause, surface the install pointer above, and ask the user to confirm install before continuing. Most write operations also work via "Figma Plugin"'s `use_figma` JS executor as a fallback, but the workflow is faster and more reliable with the Console MCP. See [figma-mcp-routing.md](../ui-figma-guide/references/figma-mcp-routing.md) for the decision guide.
+**Tool-availability check**: at the start of Step 1, attempt a bundled-MCP read call (`get_metadata`). If it fails with a "tool not found" error, the Figma MCP isn't connected – pause and direct the user to set up the Figma MCP first (see `dev-mcp-setup`). See [figma-mcp-routing.md](../ui-figma-guide/references/figma-mcp-routing.md) for the routing guide.
 
 ## Interaction Method
 
@@ -56,9 +55,9 @@ Store the selection – it determines which steps are relevant below.
 
 Before proceeding, confirm:
 
-1. **At least one Figma MCP is available.** Test "Figma Plugin" with `get_metadata` or "Figma Console MCP" with `figma_execute`. If neither is available, stop and direct the user to set up a Figma MCP first (see `dev-mcp-setup`).
+1. **The bundled Figma MCP is available.** Test "Figma Plugin" with `get_metadata`. If it is not available, stop and direct the user to set up the Figma MCP first (see `dev-mcp-setup`).
 
-2. **Figma Desktop app is open** with the target file loaded (required for "Figma Console MCP"; "Figma Plugin" works with closed files too).
+2. **Figma Desktop app is open** with the target file loaded. "Figma Plugin" can also read closed files, but write operations via `use_figma` need the target file open.
 
 3. **Which page(s) contain the designs to process.** Ask the user:
 
@@ -108,7 +107,7 @@ Scan all target screens and extract every unique design token:
 - **Border radius**: Unique corner radius values
 - **Effects**: Shadows and blurs
 
-Use the `extractTokens` helper via `figma_execute`. Present the extracted inventory to the user for confirmation before proceeding.
+Use the `extractTokens` helper via `use_figma`. Present the extracted inventory to the user for confirmation before proceeding.
 
 ### Phase 2: Create Variables
 
@@ -117,7 +116,7 @@ Create two variable collections:
 - **Primitives**: Raw values (colors, spacing scales, radius scales)
 - **Semantic**: Purpose-based aliases pointing to Primitives (e.g., `bg/primary` → `blue/500`)
 
-Use `figma_batch_create_variables` for solid hex colors and floats (10-50x faster). Use `figma_execute` for RGBA colors (batch tool cannot handle alpha channels).
+Create variables via `use_figma` using `createVariable()` + `setValueForMode()` for both solid hex colors and RGBA colors. Batch the calls in a single `use_figma` execution to keep it fast.
 
 ### Phase 3: Create Styles
 
@@ -273,26 +272,21 @@ After handoff preparation is complete, suggest the logical next step:
 
 - [figma-structuring-guide.md](./references/figma-structuring-guide.md) – 7-phase methodology for converting raw Figma designs to structured design files
 - [figma-handoff-guide.md](./references/figma-handoff-guide.md) – Process for preparing Figma designs for developer handoff
-- [figma-console-helpers.md](./references/figma-console-helpers.md) – Code snippets for Figma Console MCP operations
+- [figma-console-helpers.md](./references/figma-console-helpers.md) – Code snippets that run via `use_figma` for token extraction, variable creation, mixed text styles, and the full audit
 
 ## Common Issues
 
-### "Figma Console MCP" not connected
-If `figma_execute` calls fail or return connection errors:
-1. Verify "Figma Console MCP" is running – check your MCP server status
+### Figma MCP not connected
+If `use_figma` calls fail or return connection errors:
+1. Verify the bundled Figma MCP ("Figma Plugin") is running – check your MCP server status
 2. Confirm the Figma desktop app is open with the target file active
 3. Check `.mcp.json` or `settings.json` for correct MCP server configuration
-4. Try `figma_reconnect` to re-establish the connection
 
-### Batch operations timeout
-If batch variable or component operations time out:
-1. Reduce batch size – split large batches (100+ items) into smaller groups
+### `use_figma` execution times out
+If a large variable or component operation times out:
+1. Split the work into smaller `use_figma` executions (100+ items per call can stall)
 2. Check that the Figma file is not excessively large (1000+ layers can slow operations)
 3. Verify your network connection is stable – MCP calls require consistent connectivity
 
-### Only "Figma Plugin" available (no "Figma Console MCP")
-If only "Figma Plugin" is connected:
-1. Use `use_figma` (JS executor) for write operations – it supports the full Plugin API
-2. Variables must be created via JS instead of `figma_batch_create_variables` – slower but works
-3. Linting and parity checking are not available – use `ui-design-to-code-qa` as an alternative
-4. Node manipulation works via JS but without input validation of dedicated tools
+### Linting and parity checks
+The bundled Figma MCP does not ship dedicated lint or design-parity tools. Use the `fullAudit` helper (run via `use_figma`) for the in-skill quality pass, and run `ui-design-to-code-qa` for a separate design-to-code parity review.

@@ -15,15 +15,6 @@ echo "--- Plugin & MCP Detection ---"
 
 PLUGINS_FOUND=()
 PLUGINS_MISSING=()
-MCPS_FOUND=()
-MCPS_MISSING=()
-
-# Helper: search across all MCP/settings config files
-CONFIG_FILES=(~/.claude/settings.json ~/.claude/settings.local.json .mcp.json .claude/settings.json .claude/settings.local.json)
-
-config_contains() {
-  grep -rql -iE "$1" "${CONFIG_FILES[@]}" 2>/dev/null
-}
 
 # Read enabledPlugins from ~/.claude/settings.json
 ENABLED_PLUGINS=""
@@ -61,14 +52,9 @@ else
   echo "[BUNDLED, prereq missing] Playwright -- browser testing. Install Node.js v18+ to enable. The MCP fetches @playwright/mcp via npx on first use."
 fi
 
-# Figma Console MCP (standalone, OPTIONAL companion – not bundled)
-if config_contains "figma.console|figma-console|southleft"; then
-  MCPS_FOUND+=("Figma Console")
-  echo "[FOUND] Figma Console MCP -- perform actions in Figma directly (optional companion, already installed)"
-else
-  MCPS_MISSING+=("Figma Console")
-  echo "[OPTIONAL] Figma Console MCP -- perform actions in Figma directly (NOT bundled; install separately if you want write access to Figma)"
-fi
+# The bundled Figma MCP handles both reading and writing (variables, tokens,
+# components, styles, annotations) via its use_figma executor, so no separate
+# Figma write MCP is detected or advertised as a dependency here.
 
 echo ""
 
@@ -220,8 +206,6 @@ echo ""
 echo "--- Summary ---"
 echo "Plugins found:  ${PLUGINS_FOUND[*]:-none}"
 echo "Plugins missing: ${PLUGINS_MISSING[*]:-none}"
-echo "MCPs found:     ${MCPS_FOUND[*]:-none}"
-echo "MCPs missing:   ${MCPS_MISSING[*]:-none}"
 echo "Git:            $([ -d '.git' ] && echo 'yes' || echo 'no')"
 echo "CLAUDE.md:      $([ -f 'CLAUDE.md' ] && echo 'yes' || echo 'no')"
 echo "Config:         $([ -f '.design-engineer-plugin/config.yaml' ] && echo 'yes' || echo 'no')"

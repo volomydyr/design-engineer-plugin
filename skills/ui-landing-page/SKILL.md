@@ -2,8 +2,8 @@
 name: ui-landing-page
 description: "Generates a single-file HTML landing page with conversion-optimized structure and copy. Reads StoryBrand deliverable as the copy foundation. Use when the user needs a marketing landing page for their product."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -37,9 +37,9 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 0.5: Design grounding (BLOCKING)
+## Step 0.5: Design grounding
 
-Before generating any HTML, the design-grounding hook will deny `.html` writes until you have:
+This is written method, not optional. Before generating any HTML, ground yourself — do every Read below first, and do not start the page until they are done:
 
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`

@@ -2,8 +2,8 @@
 name: dev-prototyping
 description: "Generates a single-file HTML prototype directly in Claude Code. One-pass approach: gather context, agree on a brief, generate the interactive prototype, iterate. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -39,7 +39,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0.5: Design Grounding Pre-Flight (BLOCKING)
 
-Before generating any HTML for the prototype, you MUST output the Design Grounding block below. The `de-design-grounding-hook` (PreToolUse) will hard-deny your Write/Edit calls on any `.html` file until you have:
+Before generating any HTML for the prototype, you MUST read the source material below and then output the Design Grounding block. This is a written discipline you enforce on yourself – do NOT start writing any `.html` file until you have:
 
 1. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/references/anti-patterns.md`
 2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/shared-references/anti-slop-writing.md`
@@ -47,7 +47,7 @@ Before generating any HTML for the prototype, you MUST output the Design Groundi
 4. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/frontend-design/SKILL.md` (Anthropic's bundled frontend-design skill — pick a BOLD aesthetic direction)
 5. Confirmed `.design-engineer-plugin/design/exploration/references/references.md` exists (or run `ui-references-moodboard` first)
 
-This is not advisory. The hook returns `permissionDecision: deny` if any prerequisite is missing. Prototypes are throwaway artifacts visually but they must NOT look like AI slop – they set the visual baseline that downstream development inherits.
+Treat these reads and the block below as a hard self-gate, not advice. Prototypes are throwaway artifacts visually but they must NOT look like AI slop – they set the visual baseline that downstream development inherits. If you skip the reads or leave a field blank, stop and complete them before writing HTML.
 
 After the Reads, output this block and fill in EVERY field:
 
@@ -117,7 +117,7 @@ Fill in EVERY anchor below. If the field has no upstream deliverable, STOP and a
 - **Priority features**: ← from `.design-engineer-plugin/design/planning/mvp-requirements.md` (must-have features only — not nice-to-haves, not creative additions).
 - **Bias / psychology to apply**: ← from `.design-engineer-plugin/design/exploration/bias-audit.md` (priority actions section) and `.design-engineer-plugin/design/psychology/*.md` if present. List 3+ specific UI moves the prototype must implement.
 
-If any of these deliverables exist but you have not yet Read them, the design-grounding hook will deny your HTML write. The hook checks every existing `.md` file under `.design-engineer-plugin/design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/` and requires it to have been Read this session.
+If any of these deliverables exist but you have not yet Read them, STOP – read them first. Before writing any HTML, walk every existing `.md` file under `.design-engineer-plugin/design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/` and Read it this session. The prototype must trace to what was decided upstream; generating from an unread deliverable throws that decision away.
 
 If a deliverable does NOT exist (e.g. the user is in autopilot and skipped bias-audit), that field is "n/a — not produced upstream" — but you MUST surface that gap to the user via AskUserQuestion before generating, asking whether to (a) run the missing skill first, (b) ask the user to provide that input directly in chat, or (c) proceed without it and accept the reduced quality.
 
@@ -176,7 +176,7 @@ This answer carries forward into the Step 4 prototype brief and governs how Step
 
 ## Step 2: Gather context (READ every existing deliverable)
 
-This step is the structural fix for "the prototype doesn't follow the deliverables." Run a Glob first to enumerate every `.md` file under `.design-engineer-plugin/design/`. Then Read EVERY one of them — not just the headline ones — before drafting the brief. The design-grounding hook will deny HTML writes later if any of these reads are missing.
+This step is the structural fix for "the prototype doesn't follow the deliverables." Run a Glob first to enumerate every `.md` file under `.design-engineer-plugin/design/`. Then Read EVERY one of them — not just the headline ones — before drafting the brief. This read pass is mandatory: an unread deliverable cannot anchor the prototype, so skipping it produces generic output that ignores what was decided.
 
 Run:
 
@@ -203,7 +203,7 @@ For every path the Glob returns, call `Read`. The full set typically includes (e
 - `design/psychology/*.md` — any psychology scan outputs
 - `design/dev/design-system.md` — tokens, semantic colors, components if the project has them
 
-Read each one in full. Do NOT skim. Do NOT summarize from memory. The hook will check the transcript for actual `Read` calls.
+Read each one in full. Do NOT skim. Do NOT summarize from memory. Quoting a deliverable you have not actually Read this session is a grounding failure – read the file first, every time.
 
 After reading, present a structured summary that quotes from the deliverables (not paraphrases):
 
@@ -328,12 +328,6 @@ If adjustments are needed, iterate on the brief until approved.
 Build the prototype as a single self-contained HTML file. No two-step storyboard-then-interactive split — direct from the approved brief to the clickable prototype, generated screen by screen.
 
 **The hard rule of this step**: MVP requirements are HIGH-LEVEL. They name what the user can do, not how the screen executes it. "Allow the user to schedule a session" is the requirement; "calendar grid vs natural-language input vs preset time slots vs continuous availability bar" is the implementation choice. The model does NOT get to silently pick implementation choices on the user's behalf — for every screen, every consequential open decision must be surfaced as 2–4 named options with trade-offs, and the user picks. This is the design-discussion phase the prototype lives or dies on.
-
-At the start of this step, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "prototype:interactive" > .design-engineer-plugin/.active-workflow
-```
 
 ### Per-screen design dialogue (BLOCKING — runs BEFORE generating any HTML for the screen)
 
@@ -512,12 +506,6 @@ Stop iterating when:
 
 ## Step 7: Save deliverables
 
-After saving the deliverables below, clear the active-workflow marker so the process-recall hook stops firing on subsequent casual chat:
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
-
 Save three files:
 
 ### 1. Final prototype
@@ -575,7 +563,7 @@ After prototyping, suggest the logical next step based on what exists:
 
 - **If landing page was requested** (Step 1): run the `ui-landing-page` skill now
 - **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype
-- **If Figma designs exist and Figma Console MCP is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
+- **If Figma designs exist**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff (runs on the bundled Figma plugin)
 - **If designs exist but need review**: suggest `ui-aesthetic-review` or `ui-design-to-code-qa` to evaluate the prototype against design intent
 - **If the prototype needs production implementation**: suggest the development pipeline via `/design-engineer:development`
 

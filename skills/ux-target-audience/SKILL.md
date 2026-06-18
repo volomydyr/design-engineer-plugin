@@ -2,8 +2,8 @@
 name: ux-target-audience
 description: Develops detailed user personas with demographics, motivations, pain points, and behavioral patterns. Use when defining or refining who your product is for, after the problem statement is established.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -43,7 +43,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess what you already know about your target users, 2) share my initial read on the audience, 3) ask 7–10 strategic questions to build the persona, 4) draft the persona document together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess what you already know about your target users, 2) share my initial read on the audience, 3) ask only the questions I can't infer to build the persona, 4) draft the persona document together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with what a user persona is and why it matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -93,16 +93,16 @@ Be honest about what is speculation versus what is grounded in shared data. If y
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project from Step 1 and any existing documents. Make sure your questions cover these key concepts:
+Ask only what you can't infer from Step 1 and any existing documents. Don't ask for what the user already gave you or what you can reasonably draw from context. When you do have gaps, batch the questions (no more than 4 at a time) rather than asking one by one. Draw from these key concepts only for the gaps that matter:
 
 - Proto-persona: best guess of who the user is
 - 4 categories: background, behaviors, pain points, goals
 - 3 empathy questions (Hope/Pain/Barrier): "If you had a magic wand...", "What is your biggest challenge...", "Last time you tried to solve this..."
 - 3 reasons ideas fail: users not motivated enough, product too complex, no trigger to act
 
-Ask questions in small batches (2-3 at a time). Wait for answers before continuing.
+Ask questions in small batches (no more than 4 at a time). Wait for answers before continuing.
 
-**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. There is no minimum question count – once you have enough to draft a grounded deliverable, move on.
 
 ---
 

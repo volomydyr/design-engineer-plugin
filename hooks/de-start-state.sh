@@ -40,7 +40,13 @@ else
   # The state distinguishes "returning user with active pipeline state" vs
   # "returning user without resume state" so /design-engineer:launch can route to the right
   # path in meta-setup. Detection logic mirrors skills/meta-setup/scripts/detect-state.sh.
-  if grep -q "^resume:" "$CONFIG" 2>/dev/null; then
+  # Completion branch (additive, fail-safe): a plugin-built project whose from-scratch
+  # pipeline finished writes "status: complete". Route it into the iterate flow via
+  # returning_complete instead of the returning_* paths. Absence of "status: complete"
+  # falls through to the resume check unchanged.
+  if grep -q "^status: complete" "$CONFIG" 2>/dev/null; then
+    STATE="returning_complete"
+  elif grep -q "^resume:" "$CONFIG" 2>/dev/null; then
     STATE="returning_with_resume"
   else
     STATE="returning_no_resume"

@@ -2,8 +2,8 @@
 name: ux-bias-audit
 description: "Applies a systematic bias audit process (Identify, Analyze, Design, Document) to audit or design user experiences. Use when reviewing existing products, designing new screens, or improving conversion flows. Do NOT use for full psychology compliance scanning; see psych-full-scan instead."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: xhigh
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -219,8 +219,7 @@ Before generating any text for the deliverable, read [anti-slop-writing.md](../s
 - **ux-ethics-review**: Ethical boundary checks complement bias audit analysis
 - **ux-communicating-decisions**: Bias audit vocabulary helps justify design decisions to stakeholders
 - **psych-cognitive-load**: Hick's Law, Cognitive Load, Progressive Disclosure overlap with Identify and Design
-- **psych-decision-fundamentals**: Loss Aversion, Anchoring, Confirmation Bias overlap with Analyze
-- **psych-decision-persuasion**: Scarcity, Social Proof overlap with Design nudges
+- **psych-decision-fundamentals**: Loss Aversion, Anchoring, Confirmation Bias overlap with Analyze; Scarcity and Social Proof overlap with Design nudges
 
 
 ---

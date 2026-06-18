@@ -2,8 +2,8 @@
 name: ui-design-system
 description: Guides creation of a code-first design system using atomic design patterns. Use when setting up design tokens, auditing design system compliance, or refactoring hardcoded styles into reusable tokens.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -249,6 +249,8 @@ Before generating any text for the deliverable, read [anti-slop-writing.md](../s
 ## What Comes Next
 
 After the design system is established, suggest running `ui-design-to-code-qa` to check implemented UI against design intent, or `dev-agent-setup` to implement features using the design system.
+
+The token, semantic-alias, and component names in this deliverable (`.design-engineer-plugin/design/dev/design-system.md`) are the source that per-screen design specs bind to. The `design-spec` skill reads this file first and references only names that appear here, so the spec never points at a token or component that does not exist.
 
 ---
 

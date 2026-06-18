@@ -2,8 +2,8 @@
 name: dev-agent-setup
 description: Sets up a specialized agent pipeline for AI-assisted development with context analysis, planning, implementation, and auditing phases. Use when configuring agent-driven development workflows for a new project.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -77,19 +77,18 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 5. Plan includes: summary, architectural decisions, files to create/modify, components to reuse vs. create, step-by-step approach, success criteria
 6. **Stop and wait** – user must approve before any implementation begins
 
-### Phase 3: TDD + Implementation (Only After Approval)
-7. **Test Writer** creates failing test scripts in `tests/` using Playwright CLI
-8. Run test scripts → verify Red (all tests fail – feature not built yet)
-9. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
-10. Run `/simplify` – review backend changes for reuse, quality, and efficiency
-11. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
-12. Run `/simplify` – review frontend changes for reuse, quality, and efficiency
-13. Run test scripts → verify Green (all tests pass)
+### Phase 3: Implementation (Only After Approval)
+7. **Optional – TDD:** if the user opts into test-first for this feature, the **Test Writer** creates failing test scripts in `tests/` using Playwright CLI, then run them to verify Red (all tests fail – feature not built yet). TDD is a method the user chooses, not a mandatory gate – skip this when the user isn't testing-first.
+8. **Backend Implementer** verifies and implements the data layer (always runs, even if "no changes needed")
+9. Run `/simplify` – review backend changes for reuse, quality, and efficiency
+10. **Frontend Implementer** creates pixel-perfect UI matching designs with zero creative interpretation
+11. Run `/simplify` – review frontend changes for reuse, quality, and efficiency
+12. If TDD was used: run test scripts → verify Green (all tests pass)
 
 ### Phase 4: Quality Audit
-14. Run `/simplify` – final pass reviewing all code changes together
-15. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
-16. Output: violation report + fixes applied
+13. Run `/simplify` – final pass reviewing all code changes together
+14. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
+15. Output: violation report + fixes applied
 
 ---
 
@@ -104,7 +103,6 @@ Before setting up agents, read plugin-local memory if it exists. Verify each fil
 If you write any setup notes, configuration summary, or agent-customization log to `.design-engineer-plugin/design/dev/`, ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
 Copy the agent files from this plugin's `agents/` directory into the user's project. The agents to copy:
-- `context-analyzer.md`
 - `test-writer.md`
 - `backend-implementer.md`
 - `frontend-implementer.md`
@@ -121,10 +119,10 @@ See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work toge
 Add the pipeline sequence and agent descriptions to the project's CLAUDE.md file so the main conversation knows when and how to invoke each agent:
 
 ```
-MANDATORY PIPELINE (Follow Exactly):
+DEVELOPMENT PIPELINE:
 
 PHASE 1: RESEARCH & ANALYSIS
-1. context-analyzer -> Understand patterns, raise questions
+1. Read the deliverables (MVP requirements, IA, designs) and project structure -> understand patterns, raise questions
 2. Fetch up-to-date documentation for decisions
 3. Ask user for designs + resolve questions
 4. Process responses, make informed decisions
@@ -133,22 +131,21 @@ PHASE 2: PLANNING (WAIT FOR APPROVAL)
 5. Enter Plan Mode -> Write structured plan -> ExitPlanMode for approval
 6. Wait for user approval -> Do NOT proceed without it
 
-PHASE 3: TDD + IMPLEMENTATION (Only After Approval)
-7. test-writer -> Write failing test scripts
-8. Run tests -> Verify Red (all fail)
-9. backend-implementer -> Verify/refine data layer (ALWAYS run)
-10. /simplify -> Review backend changes
-11. frontend-implementer -> Implement UI (after designs + approval)
-12. /simplify -> Review frontend changes
-13. Run tests -> Verify Green (all pass)
+PHASE 3: IMPLEMENTATION (Only After Approval)
+7. Optional TDD: test-writer -> Write failing test scripts -> verify Red (all fail). Use when the user opts into test-first; skip otherwise.
+8. backend-implementer -> Verify/refine data layer (ALWAYS run)
+9. /simplify -> Review backend changes
+10. frontend-implementer -> Implement UI (after designs + approval)
+11. /simplify -> Review frontend changes
+12. If TDD was used: run tests -> verify Green (all pass)
 
 PHASE 4: QUALITY AUDIT
-14. /simplify -> Final pass on all code changes
-15. design-system-auditor -> Verify compliance
+13. /simplify -> Final pass on all code changes
+14. design-system-auditor -> Verify compliance
 
 PHASE 5: WRAP UP
-16. Archive tests -> Move tests/ to tests/archive/
-17. Integration testing -> Test full user flow
+15. If TDD was used: archive tests -> Move tests/ to tests/archive/
+16. Integration testing -> Test full user flow
 ```
 
 ---
@@ -157,7 +154,7 @@ PHASE 5: WRAP UP
 
 ### Feature-by-Feature Development
 
-**Critical: build one feature at a time.** Do not attempt to build the entire MVP in a single pipeline run. The context-analyzer reads all deliverables (MVP requirements, IA, designs) and identifies what to build next. Each feature goes through the full pipeline cycle (context analysis → plan → tests → backend → frontend → audit → compound). After each cycle, `meta-document` saves progress so the next session can resume.
+**Critical: build one feature at a time.** Do not attempt to build the entire MVP in a single pipeline run. At the start of each feature, read all deliverables (MVP requirements, IA, designs) and the project structure to identify what to build next. Each feature goes through the full pipeline cycle (analysis → plan → backend → frontend → audit → compound, with test-first inserted before implementation when the user opts into TDD). After each cycle, `meta-document` saves progress so the next session can resume.
 
 ### Preserving Debug Solutions
 
@@ -190,8 +187,7 @@ A good practice is to ask AI to update documents and settings when the project h
 - Making architectural decisions without checking documentation
 - Guessing or assuming instead of asking for clarification
 - Skipping `/simplify` after implementation steps
-- Skipping test-writer before implementation
-- Implementing code without running tests first (Red phase)
+- When the user opted into TDD: implementing code before writing the failing test (Red phase) for that feature
 
 ---
 

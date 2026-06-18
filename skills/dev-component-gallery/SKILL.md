@@ -2,8 +2,8 @@
 name: dev-component-gallery
 description: "Stack-agnostic component gallery scaffolder and updater. Creates a single-page visual catalog of every component in the project (all variants, source-labelled, real production styles). Adapts to the project's framework via context7 MCP – never carries a hardcoded stack table. Used by frontend-implementer to keep the gallery in sync after every component change; audited by design-system-auditor."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 

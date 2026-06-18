@@ -29,13 +29,12 @@ Keep a development status file that AI reads at the start of every task. Unlike 
 
 Sub-agents run in separate "chats" with separate token limits. Heavy work (context analysis, implementation, auditing) happens in sub-agent conversations, and only the results come back to the main conversation.
 
-**Why this helps:** Your main conversation stays lean. Instead of burning 50,000 tokens analyzing the codebase, the context-analyzer agent does that work separately and returns a summary. The main conversation only consumes tokens for the summary, not the full analysis.
+**Why this helps:** Your main conversation stays lean. When a piece of work would burn tens of thousands of tokens (say, analyzing a large codebase or implementing across many files), dispatching it to a sub-agent keeps that cost out of the main conversation, which only consumes tokens for the returned summary. Dispatch when the work would flood the main context; iterate inline otherwise.
 
-**The four-agent pattern:**
-1. Context analyzer – analyzes project state (separate tokens)
-2. Backend implementer – implements data layer (separate tokens)
-3. Frontend implementer – implements UI (separate tokens)
-4. Design system auditor – checks quality (separate tokens)
+**The implementation agents:**
+1. Backend implementer – implements data layer (separate tokens)
+2. Frontend implementer – implements UI (separate tokens)
+3. Design system auditor – checks quality (separate tokens)
 
 Each agent has its own ~200,000 token budget, effectively multiplying your available context.
 
@@ -113,7 +112,7 @@ IDEs like Cursor have a Timeline feature – a local history of file changes sep
 1. Add a warning to the status file about the deprecated approach
 2. Add a warning to CLAUDE.md if it is a project-wide concern
 3. Tell AI explicitly which approach to use instead
-4. Consider adding it to the context-analyzer agent's checklist
+4. Consider adding it to the project's context-analysis checklist in CLAUDE.md
 
 ### Scenario: Conversation Hit Token Limit
 

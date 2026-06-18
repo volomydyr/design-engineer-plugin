@@ -117,19 +117,9 @@ This reference material is what makes the plugin's review better than a generic 
 
 ## Step 4: Execute the review
 
-### Active-workflow marker (broad audits only)
-
-If the planned review will run any of these broad multi-principle skills/agents – `psych-full-scan`, `ux-full-review`, `ux-bias-audit`, or `ux-ethics-review` – mark the active workflow at the start of execution so the process-recall hook can fire context-appropriately:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "review:full-audit" > .design-engineer-plugin/.active-workflow
-```
-
-Narrow single-skill reviews (e.g., just `ui-aesthetic-review`, just `ui-design-to-code-qa`, just `ui-accessibility`) do NOT write this marker – the recall injection would be noise on a focused review.
-
 ### Guided mode
 
-Agents CAN run for analysis. But after an agent completes, parse its output and present findings one at a time with AskUserQuestion interaction. Never show the agent's raw output directly.
+Agents CAN run for analysis. But after an agent completes, parse its output and present findings one at a time with AskUserQuestion interaction.
 
 1. Read the relevant code yourself or run the appropriate agent
 2. Announce: "I found N findings. Here's finding 1 of N..."
@@ -182,9 +172,9 @@ Agents CAN run for analysis. But after an agent completes, parse its output and 
 2. Present complete results as a structured summary grouped by severity
 3. Ask what to fix or explore further
 
-## Step 4.5: Pre-presentation advisor checkpoint
+## Step 4.5: Optional advisor consult
 
-Before presenting the final findings (Guided: before the summary table; Autopilot: before the structured summary), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: review areas covered, top findings by severity, anything that surprised you in the analysis, and "I'm about to present these findings as the review output – any course correction?" Apply the advice or use the reconcile pattern. This catches mis-prioritization (rare critical finding lost in noise) and missed angles before the user sees the report. Skip on tiny single-area reviews where the finding count is one or two.
+Before presenting the final findings, an advisor consult is available when the review is broad and the prioritization is genuinely uncertain (many findings across several areas, a rare critical one at risk of being lost in noise). It is optional, not a required checkpoint. When it would help, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: review areas covered, top findings by severity, anything that surprised you, and "any course correction before I present these?" Apply the advice or use the reconcile pattern. Skip it on focused reviews.
 
 ## Step 5: Fix execution (after review)
 
@@ -200,12 +190,6 @@ If there are fixes to make:
 7. After all fixes: trigger `meta-document` to record what changed and why
 
 ## Post-review
-
-If a `review:full-audit` marker was set at the start of Step 4 (broad audit branch), clear it now so the process-recall hook stops firing on subsequent casual chat:
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
 
 After the review (or after fixes), ALWAYS use AskUserQuestion with specific options. Never end with a plain text question.
 
@@ -259,7 +243,15 @@ If the user picks "I'll list URLs / paths", collect them via a follow-up. If the
 
 ### A1.3: Per-page loop
 
-For each page (capped per the user's cap):
+The per-page audit work – capturing each page and running the AI agents on it – is independent across pages and can be a workflow candidate. Before starting, decide how to run the per-page AI passes:
+
+**Per-page audit – workflow candidate.** When the page set is large (the user picked a higher cap, e.g. up to 15 / 30 / no cap), offer to fan it out: "I can audit these pages as a workflow – one agent per page, run in parallel, with results synthesized into one bundle – or audit them inline one at a time. Use a workflow to run the per-page audits?"
+
+- **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the inline single-pass loop below – nothing breaks.
+- **If the user opts in and workflows are available**: dispatch one agent per page (capped per the user's cap), each performing the Capture + Run-AI-agents steps (1–2 below) for its page and returning its findings bundle. When the workflow returns, synthesize the per-page bundles. **The designer-feedback capture (step 4 below) does NOT run inside the workflow** – workflows take no mid-run input – so it happens AFTER the workflow run, page by page, in the main conversation (see "After the AI passes" below).
+- **Inline fallback (always available, single pass)**: run steps 1–5 below as a loop, one page at a time, in the main conversation.
+
+For each page (capped per the user's cap), the AI passes are:
 
 1. **Capture**: navigate via Playwright → take a screenshot → snapshot the DOM/structure. Save the screenshot to `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audit/[page-slug]/screenshot.png`.
 2. **Run AI agents** in this order, gathering findings into one in-memory bundle per page:
@@ -267,6 +259,9 @@ For each page (capped per the user's cap):
    - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) – see `skills/ui-aesthetic-review/`
    - `design-system-auditor` (token usage, hardcoded styles, monolithic views, gallery audit if applicable) – see `agents/design-system-auditor.md`
    - `ux-motivation-audit` (screen-level psychology) – see `skills/ux-motivation-audit/`
+
+**After the AI passes** (inline per page, or page by page once the workflow returns – the designer-feedback capture is always a main-conversation step because workflows take no mid-run input):
+
 3. **Present AI findings** to the designer for THIS page (compact: top 5–7 findings grouped by severity).
 4. **Capture designer feedback** via AskUserQuestion: question="Your professional feedback on this page?" options: `[{label: "I'll write notes", description: "Open-ended notes I'll type now"}, {label: "Agrees with AI on all points", description: "AI findings match my read"}, {label: "Disagree with one or more findings", description: "I'll explain which and why"}, {label: "Skip / no feedback", description: "Move on"}]`. If "I'll write notes" or "Disagree", collect the prose via natural-language follow-up.
 5. **Write the per-page deliverable** to `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audit/[page-slug]/audit.md`:
@@ -300,6 +295,8 @@ For each page (capped per the user's cap):
 
 [synthesis: which AI findings to act on, which to defer per designer's input, what the designer flagged that AI missed]
 ```
+
+6. **Optional – generate a per-page design spec from the audit findings.** When a page's combined recommendation points to a redesign worth building (net-new components, a reworked primary surface), you can turn the audit findings into a grounded per-screen design spec the implementer can build to. Offer it per page: "Want a design spec for this page's redesign, built from these findings?" On yes, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`), feeding the page's combined recommendation, screenshot, and the project's real tokens/components as input. Store the spec at `.design-engineer-plugin/design/specs/<page-slug>.spec.md`. Skip for pages with only minor or token-level fixes – graduated strictness, no blanket mandate.
 
 ### A1.4: Synthesize the redesign brief
 

@@ -2,12 +2,14 @@
 name: ux-business-plan
 description: Develops a business plan covering revenue model, market size, go-to-market strategy, and financial projections. Use when defining how a product will make money, estimating market potential, or planning finances before building.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
 # Business Plan
+
+> **Opt-in depth.** This skill is off the default discovery spine. The default flow runs problem statement, target audience, MVP requirements, information architecture, prototype, then development. Run the business plan only when the user adds depth, either by asking for it directly or by picking it from the optional depth menu.
 
 ## Existing-project skip-check
 
@@ -36,7 +38,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess how far along you are with business planning, 2) share my initial read on the business model, 3) ask 7–10 strategic questions covering revenue model, market size, go-to-market, and financials, 4) draft the business plan together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess how far along you are with business planning, 2) share my initial read on the business model, 3) ask only the questions I can't infer about revenue model, market size, go-to-market, and financials, 4) draft the business plan together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with business planning for products and why it matters early. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -84,7 +86,7 @@ Before asking questions, share your brief initial thoughts about the business pl
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project. Make sure your questions cover these key concepts:
+Ask only what you can't infer from what you already know about the project and any existing documents. Don't ask for what the user already gave you or what you can reasonably draw from context. When you do have gaps, batch the questions (no more than 4 at a time) rather than asking one by one. Draw from these key concepts only for the gaps that matter:
 
 - 5 business model types: freemium, subscription, e-commerce, advertising, marketplace
 - Market research: TAM/SAM/SOM estimation
@@ -92,9 +94,9 @@ Ask 7-10 context-based strategic questions. Adapt your questions to what you alr
 - Financial planning: revenue forecasting, cost structure
 - AI verification discipline: "the main goal of every AI assistant is to answer you even when it doesn't know"
 
-Ask in small batches (2-3 at a time). Wait for answers before continuing.
+Ask in small batches (no more than 4 at a time). Wait for answers before continuing.
 
-**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. There is no minimum question count – once you have enough to draft a grounded deliverable, move on.
 
 ---
 

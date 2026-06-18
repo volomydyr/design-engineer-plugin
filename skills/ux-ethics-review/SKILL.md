@@ -2,8 +2,8 @@
 name: ux-ethics-review
 description: "Applies ethical design review using the Regret Test, Manipulation Matrix, Black Mirror Test, and Humane Design Principles. Use when auditing products for ethical concerns, reviewing dark patterns, or building humane products. Do NOT use for comprehensive product assessment; see ux-full-review instead."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: xhigh
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -179,8 +179,8 @@ Before generating any text for the deliverable, read [anti-slop-writing.md](../s
 - **ux-bias-audit**: Design step nudges need ethical review
 - **ux-communicating-decisions**: Ethics arguments help justify decisions
 - **ux-journey-mapping**: Journey improvements should pass ethical tests
-- **psych-decision-persuasion**: Scarcity, Social Proof, and Framing carry ethical risk
-- **psych-habit-formation**: Reactance and Commitment patterns need ethical checks
+- **psych-decision-fundamentals**: Scarcity, Social Proof, and Framing carry ethical risk
+- **psych-pricing-psychology**: Reactance and Commitment patterns need ethical checks
 
 
 ---

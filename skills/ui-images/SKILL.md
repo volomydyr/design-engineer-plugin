@@ -2,8 +2,8 @@
 name: ui-images
 description: "Decides per-image whether to generate (hero, marketing, brand-specific) or stock-fetch (avatars, list rows, decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders. Use when working with images, photos, illustrations, hero shots, avatars, or any visual asset in a prototype, landing page, or generated HTML – before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 compatibility:
   optional:

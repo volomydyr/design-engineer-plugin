@@ -5,7 +5,7 @@
       "id": 1,
       "skill_name": "meta-setup",
       "prompt": "I just installed the design-engineer plugin and I want to set it up for my new SaaS project. It's a project management tool for freelance designers called DesignFlow. I'm working solo, using Figma and Claude Code in the terminal.",
-      "expected_output": "Should run environment detection script, ask 5-7 configuration questions sequentially (project state, mode preference, team size, design tool integration, deliverables path, dev environment, experience level), scaffold the project folder structure with foundation/research/planning/exploration/psychology/reviews/dev subdirectories, create .design-engineer.yaml config file, initialize .dependencies.yaml, and display a setup summary with next steps.",
+      "expected_output": "Should run environment detection script, ask the configuration questions sequentially (project state, mode preference, team size, design tool integration, dev environment, experience level), scaffold the project folder structure with foundation/research/planning/exploration/psychology/reviews/dev subdirectories, create the config file, initialize dependency tracking, and display a setup summary with next steps.",
       "files": [],
       "type": "functional"
     },
@@ -45,7 +45,7 @@
       "id": 6,
       "skill_name": "meta-orchestrator",
       "prompt": "I need to jump directly to the information architecture skill. We already have our MVP requirements finalized and I want to build the navigation structure for our health tracking app.",
-      "expected_output": "Should activate Direct access mode, verify that ux-mvp-requirements deliverable exists as an upstream dependency, warn if missing, then load ux-information-architecture directly. After completion, should suggest related next skills like ux-journey-mapping or ux-bias-audit.",
+      "expected_output": "Should jump directly to the requested skill, verify that ux-mvp-requirements deliverable exists as an upstream dependency, warn if missing, then load ux-information-architecture directly. After completion, should suggest related next skills like ux-journey-mapping or ux-bias-audit.",
       "files": [],
       "type": "functional"
     },
@@ -77,23 +77,23 @@
       "id": 10,
       "skill_name": "command:de:start",
       "prompt": "/design-engineer:launch",
-      "expected_output": "Should load the meta-setup skill, run environment detection script, report findings (detected MCPs, tools, project state), ask 5-7 sequential configuration questions, run project scaffolding script, create .design-engineer.yaml config file and .dependencies.yaml, and display a setup confirmation summary with next step suggestions based on project state.",
+      "expected_output": "Should load the meta-setup skill, run environment detection script, report findings (detected MCPs, tools, project state), ask the configuration questions sequentially, run project scaffolding script, create the config file and initialize dependency tracking, and display a setup confirmation summary with next step suggestions based on project state.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 11,
       "skill_name": "command:de:start",
-      "prompt": "/design-engineer:launch -- I'm setting up for an existing React Native app that already has some design docs in a folder called 'product-design'. We're a team of 3.",
-      "expected_output": "Should detect existing project state, ask configuration questions with smart defaults based on the provided context (existing project with docs, team of 3), allow custom deliverables path (product-design), scaffold the folder structure accordingly, and suggest /design-engineer:review as the logical next step for existing projects with docs.",
+      "prompt": "/design-engineer:launch -- I'm setting up for an existing React Native app that already has some design docs. We're a team of 3.",
+      "expected_output": "Should detect existing project state, ask configuration questions with smart defaults based on the provided context (existing project with docs, team of 3), scaffold the folder structure accordingly, and suggest /design-engineer:review as the logical next step for existing projects with docs.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 12,
       "skill_name": "command:de:design",
-      "prompt": "/design-engineer:discovery god-mode",
-      "expected_output": "Should verify /design-engineer:launch has been run, activate Autopilot, check for existing deliverables, then run the full 4-phase design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
+      "prompt": "/design-engineer:discovery",
+      "expected_output": "Should verify /design-engineer:launch has been run, read the configured mode, and in autopilot run the full design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
       "files": [],
       "type": "functional"
     },
@@ -116,48 +116,48 @@
     {
       "id": 15,
       "skill_name": "command:de:design",
-      "prompt": "/design-engineer:discovery direct-accesstarget-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
-      "expected_output": "Should load ux-target-audience skill directly, work through persona development for both potential audiences (accountants and business owners), help the user evaluate which is the primary vs secondary persona, produce a target audience deliverable, and ask if they want to run another research activity.",
+      "prompt": "/design-engineer:discovery target-audience -- Our product is a B2B invoicing tool. We think our main users are accountants at small firms but we're not sure if we should also target the business owners directly.",
+      "expected_output": "Should jump directly to the ux-target-audience skill, work through persona development for both potential audiences (accountants and business owners), help the user evaluate which is the primary vs secondary persona, produce a target audience deliverable, and ask if they want to run another research activity.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 16,
       "skill_name": "command:de:design",
-      "prompt": "/design-engineer:discovery direct-accessfull -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
-      "expected_output": "Should run the full research pipeline in sequence: ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis, ask about ux-user-interviews, ux-business-plan, ux-storybrand. Should run meta-document after completing the full pipeline to document all research findings.",
+      "prompt": "/design-engineer:discovery phase 1 -- I have a new idea for a pet sitting marketplace. No research done yet, starting from zero.",
+      "expected_output": "Should jump to Phase 1 (Discovery) and run the research sequence: ux-problem-statement, ux-target-audience, ux-assumptions, ux-competitor-analysis, and ask about ux-user-interviews. Should run meta-document after completing the phase to document all research findings, then offer to proceed to Phase 2.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 17,
       "skill_name": "command:de:design",
-      "prompt": "/design-engineer:discovery direct-accesscompetitive-analysis",
-      "expected_output": "Should load ux-competitor-analysis skill directly, ask about current competitive knowledge, identify direct and indirect competitors through web search and user context, analyze strengths/weaknesses, produce a competitive analysis deliverable, then ask if the user wants to run another research activity.",
+      "prompt": "/design-engineer:discovery competitor-analysis",
+      "expected_output": "Should jump directly to the ux-competitor-analysis skill, ask about current competitive knowledge, identify direct and indirect competitors through web search and user context, analyze strengths/weaknesses, produce a competitive analysis deliverable, then ask if the user wants to run another research activity.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 18,
       "skill_name": "command:de:review",
-      "prompt": "/design-engineer:review psychmaster -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
-      "expected_output": "Should load psych-full-scan, gather context about the onboarding screens, run a broad scan across all 10 sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
+      "prompt": "/design-engineer:review psychology scan -- I have these onboarding screens for my meditation app. The first screen asks users to pick 5 goals from a list of 20, and the second screen asks them to set a daily reminder time.",
+      "expected_output": "Should load psych-full-scan, gather context about the onboarding screens, run a broad scan across all sections, identify issues like Hick's Law violation (too many choices), decision fatigue, and cognitive overload on the goal selection screen. Should produce a findings report with section scores, high/medium/low priority findings, and recommend specific section deep-dives.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 19,
       "skill_name": "command:de:review",
-      "prompt": "/design-engineer:review psychsection 4 -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
-      "expected_output": "Should load psych-engagement-patterns (Section 4, Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
+      "prompt": "/design-engineer:review engagement patterns -- Our fitness app has a streak system but users are dropping off after 2 weeks. We need to understand why motivation fades and how to fix the engagement loop.",
+      "expected_output": "Should load psych-engagement-patterns (Laws 31-40), analyze the streak system against principles like Variable Reward, Goal Gradient Effect, Zeigarnik Effect, and Investment Loops, identify why motivation fades (likely missing variable rewards, no goal gradient feedback, weak investment loops), and provide specific design recommendations.",
       "files": [],
       "type": "functional"
     },
     {
       "id": 20,
       "skill_name": "command:de:review",
-      "prompt": "/design-engineer:review psychgod-mode -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
-      "expected_output": "Should run the complete audit across all 13 sections autonomously: master scan first, then all section skills (cognitive basics through time/behavior), compile a comprehensive psychology audit report with executive summary, section-by-section findings, and prioritized recommendations. Should use browser MCP if available to analyze the live URL.",
+      "prompt": "/design-engineer:review -- Run the full psychology audit on our food delivery app. Here's the URL: https://staging.tastybites.com",
+      "expected_output": "Should run the complete audit across all 10 sections autonomously: master scan first, then all section skills (cognitive basics through time/behavior), compile a comprehensive psychology audit report with executive summary, section-by-section findings, and prioritized recommendations. Should use browser MCP if available to analyze the live URL.",
       "files": [],
       "type": "functional"
     },
@@ -181,7 +181,7 @@
       "id": 23,
       "skill_name": "command:de:dev",
       "prompt": "/design-engineer:development pipeline -- Implement the user profile settings page. It should include name, email, avatar upload, notification preferences, and account deletion.",
-      "expected_output": "Should verify CLAUDE.md is current, then execute the agent pipeline: context-analyzer analyzes the codebase, enters Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then run test-writer to create failing Playwright CLI test scripts, verify Red (all fail), then run backend-implementer, /simplify, frontend-implementer, /simplify, verify Green (all pass), final /simplify pass, then design-system-auditor, archive tests to tests/archive/. Should run meta-document to document the session.",
+      "expected_output": "Should verify CLAUDE.md is current, then run the pipeline: read the existing project patterns inline, walk the user through the pre-plan implementation decisions, enter Plan Mode to create a structured implementation plan for the profile settings page, wait for user approval, then write failing Playwright CLI test scripts (inline, or via test-writer for a large surface), verify Red (all fail), implement phase by phase (inline, or via backend-implementer / frontend-implementer for large phases) with /simplify after each phase scaled to change size, verify Green (all pass), final /simplify pass, then run design-system-auditor, archive tests to tests/archive/. Should run meta-document to document the session.",
       "files": [],
       "type": "functional"
     },
@@ -436,7 +436,7 @@
     {
       "id": 55,
       "skill_name": "ux-bias-audit",
-      "prompt": "/design-engineer:review psych-- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
+      "prompt": "/design-engineer:review -- I have these 3 onboarding screens for my food delivery app, can you check if there are any psychology principles I'm violating or missing? The first screen has a big hero image and 4 value props, the second asks for location access, and the third asks for notification permission.",
       "expected_output": "Should apply the bias audit process (Identify, Analyze, Design, Document) to all 3 screens. Identify: check what the brain filters out (possibly too many value props). Analyze: check framing around benefits and familiarity. Design: evaluate friction in permission requests. Document: assess what positive/negative impression is stored. Should flag reactance risk on back-to-back permission requests and produce a structured bias audit with priority actions.",
       "files": [],
       "type": "functional"
@@ -587,7 +587,7 @@
     },
     {
       "id": 74,
-      "skill_name": "psych-decision-persuasion",
+      "skill_name": "psych-decision-fundamentals",
       "prompt": "We want to add social proof and scarcity signals to our course enrollment page. 'Only 5 spots left' and '2,847 students enrolled.' How do we do this without crossing into dark patterns?",
       "expected_output": "Should analyze Laws 26-30: Social Proof (student count is legitimate if real), Scarcity Effect ('5 spots left' is ethical only if real scarcity, manipulative if artificial), Authority Bias (instructor credentials), Framing Effect (how the enrollment value is presented). Should clearly delineate the ethical boundary for each tactic and provide specific implementation guidance that stays honest.",
       "files": [],
@@ -595,7 +595,7 @@
     },
     {
       "id": 75,
-      "skill_name": "psych-decision-persuasion",
+      "skill_name": "psych-decision-fundamentals",
       "prompt": "Our trial-to-paid conversion is low. Users love the product during the trial but hesitate at the payment screen. What advanced decision-making principles could help?",
       "expected_output": "Should apply Framing Effect (reframe price as daily cost or value gained), Social Proof (show how many converted and their success), Authority Bias (expert endorsements), Anchoring (anchor against competitor pricing or cost of not having the product). Should discuss Availability Heuristic (making trial benefits vivid at decision point). Should provide specific conversion optimization recommendations with ethical guardrails.",
       "files": [],
@@ -635,7 +635,7 @@
     },
     {
       "id": 80,
-      "skill_name": "psych-emotional-retention",
+      "skill_name": "psych-delight-design",
       "prompt": "We have a free trial that expires after 14 days. Users who don't convert often come back weeks later asking if they can try again. How do I use the Endowment Effect and Fresh Start Effect to improve trial-to-paid conversion?",
       "expected_output": "Should apply Endowment Effect (make users feel ownership of their data/customizations during trial), Fresh Start Effect (time conversion prompts with natural fresh starts like Monday, month start), Spacing Effect (spread conversion reminders appropriately), and Feedforward (preview what they'll lose). Should provide specific trial design recommendations that leverage ownership psychology ethically.",
       "files": [],
@@ -643,7 +643,7 @@
     },
     {
       "id": 81,
-      "skill_name": "psych-emotional-retention",
+      "skill_name": "psych-delight-design",
       "prompt": "Our educational platform needs better content retention. Students watch videos but forget the material within a week. How can emotional design principles help with learning retention?",
       "expected_output": "Should apply Storytelling Effect (embed concepts in narratives), Spacing Effect (distribute learning over time rather than cramming), Fresh Start Effect (leverage natural restart points for review), and Feedforward (preview what's coming next to build anticipation). Should provide specific recommendations for improving content retention through emotional design.",
       "files": [],
@@ -683,7 +683,7 @@
     },
     {
       "id": 86,
-      "skill_name": "psych-habit-formation",
+      "skill_name": "psych-pricing-psychology",
       "prompt": "We want to build a habit loop for our language learning app. Users should practice daily for 10 minutes. How do I use commitment and consistency, reciprocity, and temptation bundling to make this happen?",
       "expected_output": "Should apply Laws 66-70: Commitment and Consistency (start with small public commitments that escalate), Reciprocity (give valuable free content to create obligation), Temptation Bundling (pair practice with enjoyable activities), Pseudo-Set Framing (create completion sets that motivate progress). Should discuss building genuine habits vs creating dependency, with specific design recommendations for the 10-minute daily practice goal.",
       "files": [],
@@ -691,7 +691,7 @@
     },
     {
       "id": 87,
-      "skill_name": "psych-habit-formation",
+      "skill_name": "psych-pricing-psychology",
       "prompt": "Our nonprofit donation platform wants to increase recurring donations. Most donors give once and never return. How can behavioral economics principles help without being manipulative?",
       "expected_output": "Should apply Commitment and Consistency (small initial commitment leads to larger ones), Reciprocity (show impact of donations to create grateful reciprocity), Noble Edge Effect (highlight the organization's genuine mission), and Pseudo-Set Framing (create giving milestones). Should be especially careful about ethical boundaries with nonprofit donations and provide transparent, non-manipulative design recommendations.",
       "files": [],
@@ -901,7 +901,7 @@
       "id": 113,
       "skill_name": "dev-mcp-setup",
       "prompt": "I already have Context7 and Figma MCP set up. Should I add Figma Console MCP too? What's the difference and when would I need it?",
-      "expected_output": "Should explain the difference between Figma MCP (reads design data for development) and Figma Console MCP (can perform actions in Figma -- create components, apply tokens, modify designs), recommend when each is appropriate, assess whether the user's workflow needs Console MCP, and provide setup guidance if they decide to add it.",
+      "expected_output": "Should explain that the bundled official Figma MCP handles both reading design data (get_design_context, get_screenshot) and writing into Figma (creating components, applying tokens, modifying designs) through its use_figma executor, so it covers the full Figma workflow on its own. Should clarify that a separate community Figma Console MCP is optional and not required \u2013 it only adds niche conveniences like dedicated linting, design-code parity scoring, Slides, or FigJam, and is worth adding only if the user specifically wants those dedicated tools. Should NOT tell the user they need a separate MCP for components or tokens.",
       "files": [],
       "type": "functional"
     },
@@ -925,7 +925,7 @@
       "id": 116,
       "skill_name": "dev-agent-setup",
       "prompt": "I want to set up the 4-agent pipeline for my development workflow. I'm building a Vue.js app with a Python FastAPI backend. Walk me through configuring each agent.",
-      "expected_output": "Should set up the 4-agent pipeline + Plan Mode (context-analyzer, Plan Mode for planning, test-writer for TDD, backend-implementer, frontend-implementer, plus design-system-auditor), customize each agent's configuration for the Vue.js + FastAPI stack, explain how sub-agents preserve main conversation token budget, establish the execution sequence with test-writer before implementation and /simplify after each implementation step, and produce agent pipeline configuration files.",
+      "expected_output": "Should set up the agent pipeline + Plan Mode (inline context analysis first, Plan Mode for planning, test-writer for TDD, backend-implementer, frontend-implementer, plus design-system-auditor), customize each agent's configuration for the Vue.js + FastAPI stack, explain how sub-agents preserve main conversation token budget, establish the execution sequence with test-writer before implementation and /simplify after each implementation step, and produce agent pipeline configuration files.",
       "files": [],
       "type": "functional"
     },
@@ -990,7 +990,7 @@
       "type": "functional",
       "skill_name": "ui-figma-handoff",
       "prompt": "I have a bunch of Figma frames I designed \u2014 they're basically flat layers, no components, no variables, just raw shapes and text. I need to turn these into a proper component library with design tokens before my devs start building next week.",
-      "expected_output": "Should select the Structure raw designs path, verify Figma Console MCP is connected, confirm Figma Desktop is open with the target file, ask which pages to process and about theme modes, then execute the 7-phase structuring methodology: Audit, Create Variables, Create Styles, Create Components, Build Design System Page, Rebuild Screens, Quality Pass. Present handoff summary with counts of components, variables, styles, and screens rebuilt.",
+      "expected_output": "Should select the Structure raw designs path, verify the bundled Figma MCP is connected (get_metadata), confirm Figma Desktop is open with the target file, ask which pages to process and about theme modes, then execute the 7-phase structuring methodology via the bundled MCP's use_figma executor: Audit, Create Variables, Create Styles, Create Components, Build Design System Page, Rebuild Screens, Quality Pass. Present handoff summary with counts of components, variables, styles, and screens rebuilt. Should NOT require a separate Figma Console MCP.",
       "files": []
     },
     {
@@ -998,7 +998,7 @@
       "type": "functional",
       "skill_name": "ui-figma-handoff",
       "prompt": "Our Figma file already has components and a basic token system. What I need is to get it ready for devs \u2014 add dev status badges, write annotations on the frames explaining interactions, organize everything into proper sections so engineers know where to start.",
-      "expected_output": "Should select the Existing structured file path (skip structuring, handoff prep only), verify Figma Console MCP is connected, then execute dev handoff preparation: Organize into Sections, Add Canvas Headers, Set Native Annotations, Set Component Descriptions, Mark Dev Status as READY_FOR_DEV, Add Visual Connectors, Apply Naming Conventions. Run the handoff checklist and present a summary.",
+      "expected_output": "Should select the Existing structured file path (skip structuring, handoff prep only), verify the bundled Figma MCP is connected (get_metadata), then execute dev handoff preparation via use_figma: Organize into Sections, Add Canvas Headers, Set Native Annotations, Set Component Descriptions, Mark Dev Status as READY_FOR_DEV, Add Visual Connectors, Apply Naming Conventions. Run the handoff checklist and present a summary. Should NOT require a separate Figma Console MCP.",
       "files": []
     },
     {
@@ -1466,51 +1466,19 @@
       "files": []
     },
     {
-      "id": 184,
-      "type": "trigger_negative",
-      "skill_name": "psych-decision-fundamentals",
-      "prompt": "We want to add urgency indicators to our booking page \u2014 'Only 3 rooms left' and a countdown timer. How do we do this without it feeling manipulative?",
-      "expected_output": "Should NOT trigger psych-decision-fundamentals. Scarcity tactics are advanced persuasion. Should route to psych-decision-persuasion instead.",
-      "files": []
-    },
-    {
-      "id": 185,
-      "type": "trigger_negative",
-      "skill_name": "psych-decision-fundamentals",
-      "prompt": "Our landing page needs better social proof. We have 10,000 customers but we're not showing testimonials or trust badges anywhere.",
-      "expected_output": "Should NOT trigger psych-decision-fundamentals. Social proof and authority bias are advanced persuasion. Should route to psych-decision-persuasion instead.",
-      "files": []
-    },
-    {
       "id": 186,
       "type": "trigger_positive",
-      "skill_name": "psych-decision-persuasion",
+      "skill_name": "psych-decision-fundamentals",
       "prompt": "We need to review our checkout page for ethical persuasion. We're using scarcity messages, customer count badges, and expert endorsements.",
-      "expected_output": "Should trigger psych-decision-persuasion. Scarcity, social proof, and authority bias are Laws 26-30.",
+      "expected_output": "Should trigger psych-decision-fundamentals. Scarcity, social proof, and authority bias are Laws 26-30.",
       "files": []
     },
     {
       "id": 187,
       "type": "trigger_positive",
-      "skill_name": "psych-decision-persuasion",
+      "skill_name": "psych-decision-fundamentals",
       "prompt": "Our competitor frames their pricing as '$1/day' while we show '$30/month'. How should we reframe our pricing presentation?",
-      "expected_output": "Should trigger psych-decision-persuasion. Framing Effect is a core principle of this skill.",
-      "files": []
-    },
-    {
-      "id": 188,
-      "type": "trigger_negative",
-      "skill_name": "psych-decision-persuasion",
-      "prompt": "Users keep selecting the wrong plan because the default is set to the cheapest tier. We want to change the default to mid-tier.",
-      "expected_output": "Should NOT trigger psych-decision-persuasion. Default bias is core decision-making fundamentals. Should route to psych-decision-fundamentals instead.",
-      "files": []
-    },
-    {
-      "id": 189,
-      "type": "trigger_negative",
-      "skill_name": "psych-decision-persuasion",
-      "prompt": "Our checkout flow asks users to make 8 separate decisions and conversion drops at each step. How do we reduce the number of choices?",
-      "expected_output": "Should NOT trigger psych-decision-persuasion. Accumulated decisions is decision fatigue. Should route to psych-decision-fundamentals instead.",
+      "expected_output": "Should trigger psych-decision-fundamentals. Framing Effect is a core principle of this skill.",
       "files": []
     },
     {
@@ -1562,51 +1530,19 @@
       "files": []
     },
     {
-      "id": 196,
-      "type": "trigger_negative",
-      "skill_name": "psych-delight-design",
-      "prompt": "Users who finish our free trial rarely convert to paid. They seem to value the product during the trial but lose interest when it's time to pay.",
-      "expected_output": "Should NOT trigger psych-delight-design. Trial-to-paid conversion involves endowment effect. Should route to psych-emotional-retention instead.",
-      "files": []
-    },
-    {
-      "id": 197,
-      "type": "trigger_negative",
-      "skill_name": "psych-delight-design",
-      "prompt": "We send re-engagement emails but they all get ignored. How do we time our win-back campaigns to catch users when they're most motivated to return?",
-      "expected_output": "Should NOT trigger psych-delight-design. Re-engagement timing is about sustained emotional connection. Should route to psych-emotional-retention instead.",
-      "files": []
-    },
-    {
       "id": 198,
       "type": "trigger_positive",
-      "skill_name": "psych-emotional-retention",
+      "skill_name": "psych-delight-design",
       "prompt": "We give users a fully loaded workspace during the trial, but after 14 days they don't convert. How do we make losing the trial feel like losing something real?",
-      "expected_output": "Should trigger psych-emotional-retention. Creating ownership attachment during trials (Endowment Effect) is core to this skill.",
+      "expected_output": "Should trigger psych-delight-design. Creating ownership attachment during trials (Endowment Effect) is core to this skill.",
       "files": []
     },
     {
       "id": 199,
       "type": "trigger_positive",
-      "skill_name": "psych-emotional-retention",
+      "skill_name": "psych-delight-design",
       "prompt": "Our onboarding teaches 12 features in one session but users only remember 2-3 a week later. How should we structure learning so it sticks?",
-      "expected_output": "Should trigger psych-emotional-retention. Spacing Effect and Storytelling Effect are Laws 48-49.",
-      "files": []
-    },
-    {
-      "id": 200,
-      "type": "trigger_negative",
-      "skill_name": "psych-emotional-retention",
-      "prompt": "When users complete a purchase, the confirmation page is just a plain receipt. We want to make that final moment feel special and memorable.",
-      "expected_output": "Should NOT trigger psych-emotional-retention. Making a single moment memorable is Peak-End Rule territory. Should route to psych-delight-design instead.",
-      "files": []
-    },
-    {
-      "id": 201,
-      "type": "trigger_negative",
-      "skill_name": "psych-emotional-retention",
-      "prompt": "Our checkout has a 30-second processing step and users just see a blank loading screen. How can we add personality to the wait?",
-      "expected_output": "Should NOT trigger psych-emotional-retention. In-moment loading state design is Labor Illusion. Should route to psych-delight-design instead.",
+      "expected_output": "Should trigger psych-delight-design. Spacing Effect and Storytelling Effect are Laws 48-49.",
       "files": []
     },
     {
@@ -1658,51 +1594,19 @@
       "files": []
     },
     {
-      "id": 208,
-      "type": "trigger_negative",
-      "skill_name": "psych-pricing-psychology",
-      "prompt": "We want users to complete their profile step by step \u2014 start with a name, then a photo, then preferences. How do we make each small step rewarding?",
-      "expected_output": "Should NOT trigger psych-pricing-psychology. Gradual commitment ladders are about commitment and consistency. Should route to psych-habit-formation instead.",
-      "files": []
-    },
-    {
-      "id": 209,
-      "type": "trigger_negative",
-      "skill_name": "psych-pricing-psychology",
-      "prompt": "Our freemium users get value from the free tier but never feel motivated to upgrade. How do we create a natural progression toward paid?",
-      "expected_output": "Should NOT trigger psych-pricing-psychology. Building upgrade motivation through reciprocity is habit formation. Should route to psych-habit-formation instead.",
-      "files": []
-    },
-    {
       "id": 210,
       "type": "trigger_positive",
-      "skill_name": "psych-habit-formation",
+      "skill_name": "psych-pricing-psychology",
       "prompt": "We built a journaling app but users write once and never return. How do we design a commitment loop that turns occasional journaling into a daily habit?",
-      "expected_output": "Should trigger psych-habit-formation. Building daily habits through commitment and consistency.",
+      "expected_output": "Should trigger psych-pricing-psychology. Building daily habits through commitment and consistency.",
       "files": []
     },
     {
       "id": 211,
       "type": "trigger_positive",
-      "skill_name": "psych-habit-formation",
+      "skill_name": "psych-pricing-psychology",
       "prompt": "Our KYC verification flow has a 40% drop-off. Users find it boring. Is there a way to bundle it with something pleasant so they complete it?",
-      "expected_output": "Should trigger psych-habit-formation. Temptation Bundling (Law 68) is designed for this.",
-      "files": []
-    },
-    {
-      "id": 212,
-      "type": "trigger_negative",
-      "skill_name": "psych-habit-formation",
-      "prompt": "Our pricing page shows $299/month but our competitor shows '$10/day'. Users perceive our product as more expensive even though it's cheaper.",
-      "expected_output": "Should NOT trigger psych-habit-formation. Price framing is behavioral economics. Should route to psych-pricing-psychology instead.",
-      "files": []
-    },
-    {
-      "id": 213,
-      "type": "trigger_negative",
-      "skill_name": "psych-habit-formation",
-      "prompt": "We need to figure out whether to offer monthly or annual subscription, and how to present the savings to make annual obvious.",
-      "expected_output": "Should NOT trigger psych-habit-formation. Subscription pricing structure is Hyperbolic Discounting. Should route to psych-pricing-psychology instead.",
+      "expected_output": "Should trigger psych-pricing-psychology. Temptation Bundling (Law 68) is designed for this.",
       "files": []
     },
     {
@@ -1790,7 +1694,7 @@
       "type": "trigger_negative",
       "skill_name": "psych-time-perception",
       "prompt": "We want to build a streak system where users log in daily and get rewarded for consistency. How do we design the commitment ladder?",
-      "expected_output": "Should NOT trigger psych-time-perception. Streak systems are about commitment and consistency. Should route to psych-habit-formation instead.",
+      "expected_output": "Should NOT trigger psych-time-perception. Streak systems are about commitment and consistency. Should route to psych-pricing-psychology instead.",
       "files": []
     },
     {
@@ -1798,7 +1702,7 @@
       "type": "trigger_negative",
       "skill_name": "psych-time-perception",
       "prompt": "Users complete onboarding but don't develop a recurring usage pattern. We need to design triggers that create internal motivation over time.",
-      "expected_output": "Should NOT trigger psych-time-perception. Trigger progression and recurring engagement is habit formation. Should route to psych-habit-formation instead.",
+      "expected_output": "Should NOT trigger psych-time-perception. Trigger progression and recurring engagement is habit formation. Should route to psych-pricing-psychology instead.",
       "files": []
     },
     {
@@ -2594,14 +2498,6 @@
       "files": []
     },
     {
-      "id": 325,
-      "type": "error",
-      "skill_name": "meta-orchestrator",
-      "prompt": "/design-engineer:discovery guided \u2014 Our deliverables are in docs/product-research/ but the config points to docs/design/ which doesn't exist.",
-      "expected_output": "Should detect the configured path does not exist, inform user of the mismatch, and offer to update the path in .design-engineer.yaml, create the directory, or scan for existing deliverables. Should NOT proceed against a nonexistent directory.",
-      "files": []
-    },
-    {
       "id": 326,
       "type": "error",
       "skill_name": "meta-document",
@@ -2645,8 +2541,8 @@
       "id": 331,
       "type": "error",
       "skill_name": "command:de:design",
-      "prompt": "/design-engineer:discovery god-mode \u2014 Let's build a task management app.",
-      "expected_output": "Should check for .design-engineer.yaml and find it missing. Should inform user that /design-engineer:launch must be run first, explain what it does, and instruct to run /design-engineer:launch before retrying. Should NOT proceed without configuration.",
+      "prompt": "/design-engineer:discovery -- Let's build a task management app.",
+      "expected_output": "Should check for the config and find it missing. Should inform user that /design-engineer:launch must be run first, explain what it does, and instruct to run /design-engineer:launch before retrying. Should NOT proceed without configuration.",
       "files": []
     },
     {
@@ -2686,7 +2582,7 @@
       "type": "error",
       "skill_name": "ui-figma-handoff",
       "prompt": "I need to prepare my Figma designs for developer handoff.",
-      "expected_output": "Should attempt to verify Figma Console MCP and detect it's not connected. Should inform user this skill requires Figma Console MCP, suggest installation via /design-engineer:development mcp, or recommend ui-figma-guide for a manual workflow. Should NOT proceed without the MCP.",
+      "expected_output": "Should attempt to verify the bundled Figma MCP via get_metadata. If it is not connected, should inform the user the Figma MCP isn't reachable, point them to dev-mcp-setup, and offer ui-figma-guide for a manual workflow. Should NOT proceed without the bundled Figma MCP, and should NOT claim a separate Figma Console MCP is required.",
       "files": []
     },
     {
@@ -2743,19 +2639,19 @@
     },
     {
       "id": 344,
-      "skill_name": "meta-setup-configure",
-      "prompt": "I want to change my plugin mode from guided to autopilot for this project, and also update the deliverables path because I prefer 'docs/' instead of 'design/'.",
-      "expected_output": "Should read .design-engineer-plugin/config.yaml, ask via AskUserQuestion which fields to update (mode, deliverables_path, team size, etc.), validate the new values, write back preserving other fields, confirm in plain language without exposing config-file paths."
+      "skill_name": "meta-setup",
+      "prompt": "I want to change my plugin mode from guided to autopilot for this project.",
+      "expected_output": "Should detect the existing config, run the reconfigure flow, ask via AskUserQuestion which setting to update (mode, etc.), validate the new value, write back preserving other fields, confirm in plain language without exposing config-file paths."
     },
     {
       "id": 345,
-      "skill_name": "meta-setup-existing",
+      "skill_name": "meta-setup",
       "prompt": "I have a B2B SaaS app I built two years ago \u2014 Next.js, established design system, ~50 components, full Notion docs. I want to use the design-engineer plugin to add new features without redoing all the upfront discovery.",
       "expected_output": "Should NOT trigger the from-scratch pipeline. Should run detect-environment.sh, recognize existing-project markers (design-system folder, shipped UI, hefty README), ask the off-repo augmentation question, persist project.context.* keys to config.yaml, then route to /design-engineer:discovery feature-spec or /design-engineer:review for the user's actual goal."
     },
     {
       "id": 346,
-      "skill_name": "meta-setup-welcome",
+      "skill_name": "meta-setup",
       "prompt": "I just installed the plugin and ran /design-engineer:launch. I want to see what the plugin can do before committing to a setup.",
       "expected_output": "Should display the welcome flow: brief plugin intro ('a swiss knife for product design'), the project-type AskUserQuestion (New product / Existing project), then route based on the answer. Should NOT scaffold anything until the user picks a path."
     },

@@ -10,14 +10,11 @@ Maps each book section to its corresponding skill, defines routing thresholds, a
 |---------|------|------------|------------|
 | 1. Fundamentals of Cognitive Interaction | 1-10 | `psych-cognitive-load` | Mental load, choices, memory capacity, visual hierarchy, proximity, discoverability |
 | 2. Visual Perception and Attention Focus | 11-20 | `psych-visual-perception` | Selective attention, banner blindness, contrast, visual anchors, similarity, serial position |
-| 3a. Psychology of Decision-Making (Core) | 21-25 | `psych-decision-fundamentals` | Loss aversion, decision fatigue, anchoring bias, confirmation bias, default bias |
-| 3b. Psychology of Decision-Making (Advanced) | 26-30 | `psych-decision-persuasion` | Scarcity, social proof, authority bias, framing, availability heuristic |
+| 3. Psychology of Decision-Making | 21-30 | `psych-decision-fundamentals` | Loss aversion, decision fatigue, anchoring bias, confirmation bias, default bias, scarcity, social proof, authority bias, framing, availability heuristic |
 | 4. Engagement and Motivation | 31-40 | `psych-engagement-patterns` | Flow state, variable reward, goal gradient, curiosity gap, aha moment, investment loops, triggers, Zeigarnik effect, feedback loops |
-| 5a. Emotional Design (Core) | 41-45 | `psych-delight-design` | Peak-end rule, delighters, sensory appeal, labor illusion, IKEA effect |
-| 5b. Emotional Design (Advanced) | 46-50 | `psych-emotional-retention` | Endowment effect, fresh start effect, storytelling effect, spacing effect, feedforward |
+| 5. Emotional Design | 41-50 | `psych-delight-design` | Peak-end rule, delighters, sensory appeal, labor illusion, IKEA effect, endowment effect, fresh start effect, storytelling effect, spacing effect, feedforward |
 | 6. Efficiency Principles | 51-60 | `psych-simplification` | Tesler's law, signifiers, skeuomorphism, Occam's razor, method of loci, exit points, law of the instrument, second-order effects, Weber's law, unit bias |
-| 7a. Behavioral Economics (Core) | 61-65 | `psych-pricing-psychology` | Decoy effect, sunk cost effect, hyperbolic discounting, cashless effect, Pareto principle |
-| 7b. Behavioral Economics (Habits) | 66-70 | `psych-habit-formation` | Commitment and consistency, reciprocity, temptation bundling, pseudo-set framing, noble edge effect |
+| 7. Behavioral Economics | 61-70 | `psych-pricing-psychology` | Decoy effect, sunk cost effect, hyperbolic discounting, cashless effect, Pareto principle, commitment and consistency, reciprocity, temptation bundling, pseudo-set framing, noble edge effect |
 | 8. Social Influence | 71-80 | `psych-social-influence` | Bandwagon effect, false consensus, group attractiveness, Hawthorne effect, observer-expectancy, spotlight effect, Streisand effect, Barnum-Forer effect, reactance, self-serving bias |
 | 9. Cognitive Biases and Self-Perception | 81-90 | `psych-cognitive-biases` | Curse of knowledge, Dunning-Kruger, planning fallacy, cognitive dissonance, hindsight bias, backfire effect, survey bias, expectations bias, negativity bias, empathy gap |
 | 10. Time and Behavior Management | 91-100 | `psych-time-perception` | Parkinson's law, chronoception, singularity effect, halo effect, spark effect, familiarity bias, juxtaposition, survivorship bias, attentional bias, shaping |
@@ -61,8 +58,8 @@ Findings in one section often indicate issues in related sections. Use these rel
 - Onboarding issues typically span both sections
 - If 2+ findings across these sections, recommend reviewing both
 
-### Cluster: Trust & Social (Sections 3b + 8)
-- Social proof (Section 3b) and social influence (Section 8) both affect trust
+### Cluster: Trust & Social (Sections 3 + 8)
+- Social proof (Section 3, Laws 26-30) and social influence (Section 8) both affect trust
 - If trust-related findings appear, check both sections
 
 ### Cluster: Consistency & Expectations (Sections 6 + 9 + 10)
@@ -136,15 +133,12 @@ When running all sections autonomously (Autopilot), execute in this order for op
 1. `psych-cognitive-load` (Section 1) – foundational layer, findings inform all others
 2. `psych-visual-perception` (Section 2) – visual layer analysis
 3. `psych-simplification` (Section 6) – interaction mechanics
-4. `psych-decision-fundamentals` (Section 3a) – core decision patterns
-5. `psych-decision-persuasion` (Section 3b) – advanced decision patterns
-6. `psych-engagement-patterns` (Section 4) – engagement layer
-7. `psych-delight-design` (Section 5a) – emotional foundations
-8. `psych-emotional-retention` (Section 5b) – advanced emotional patterns
-9. `psych-pricing-psychology` (Section 7a) – economic patterns
-10. `psych-habit-formation` (Section 7b) – habit patterns
-11. `psych-social-influence` (Section 8) – social layer
-12. `psych-cognitive-biases` (Section 9) – bias identification
-13. `psych-time-perception` (Section 10) – time and behavior polish
+4. `psych-decision-fundamentals` (Section 3) – decision and persuasion patterns
+5. `psych-engagement-patterns` (Section 4) – engagement layer
+6. `psych-delight-design` (Section 5) – emotional foundations and advanced patterns
+7. `psych-pricing-psychology` (Section 7) – economic and habit patterns
+8. `psych-social-influence` (Section 8) – social layer
+9. `psych-cognitive-biases` (Section 9) – bias identification
+10. `psych-time-perception` (Section 10) – time and behavior polish
 
 This order ensures foundational findings (cognitive load, visual hierarchy, efficiency) are established before evaluating higher-level patterns (engagement, emotion, social influence) that depend on the foundations being sound.

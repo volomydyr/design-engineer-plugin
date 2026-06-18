@@ -25,7 +25,7 @@ Controls the interaction pattern across all skills in the plugin.
 
 | Option | Behavior |
 |--------|----------|
-| **Guided mode** | AI shares brief suggestions from multiple perspectives first. Then asks 7-10 questions using AskUserQuestion. Then iterates back-and-forth until the user approves the deliverable. Every skill pauses for user review before finalizing. |
+| **Guided mode** | AI shares brief suggestions from multiple perspectives first. Then asks only what it can't infer from prior deliverables and the conversation, batched (up to 4 per AskUserQuestion call). Then iterates back-and-forth until the user approves the deliverable. Every skill pauses for user review before finalizing. |
 | **Autopilot** | AI runs the full pipeline autonomously with minimal user input. Pauses only at major phase checkpoints (end of Phase 1, end of Phase 2, etc.) and the User Approval Checkpoint between Phase 4 and Phase 5. |
 | **Both / decide later** | The orchestrator asks which mode to use each time a command is invoked. Individual skills can be invoked in either mode. |
 
@@ -159,6 +159,5 @@ The following tools are detected during setup and affect skill behavior:
 | **WebFetch** | Skills can fetch live URLs for analysis | User shares content through copy-paste |
 | **Agent tool** | Complex skills can delegate parallel subtasks to sub-agents | Skills run sequentially within a single context |
 | **Context7 plugin** | Technical documentation is fetched in real-time during development skills | AI relies on training data (may be outdated) |
-| **Figma plugin** | Design data is read directly from Figma | User shares screenshots or design specs manually |
-| **Figma Console MCP** | AI can create components and apply tokens in Figma | Design actions are done manually by the user |
+| **Figma plugin** | Design data is read directly from Figma, and AI can create components, apply tokens, and structure files via `use_figma` | User shares screenshots or design specs manually |
 | **Playwright plugin** | Browser-based testing and live URL review available | Testing is done manually; visual review uses screenshots |

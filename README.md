@@ -1,4 +1,4 @@
-> **v6.8.1** – see the [changelog](CHANGELOG.md) for what's new.
+> **v7.0.0** – see the [changelog](CHANGELOG.md) for what's new.
 
 <img src="logo.svg" width="200" alt="Design Engineer" />
 
@@ -38,7 +38,7 @@ This is the only command you need to remember. It figures out your situation –
 
 ## How it works
 
-9 commands, 57 skills, 10 agents, and 3 bundled integrations (Context7 for docs, Figma MCP for Dev Mode connection, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with user approval at every stage) or **autopilot** (autonomous with minimal input).
+9 commands, 53 skills, 8 agents, and 3 bundled integrations (Context7 for docs, Figma MCP for Dev Mode connection, Playwright for browser testing). Most commands work in two ways – **guided mode** (step-by-step with user approval at every stage) or **autopilot** (autonomous with minimal input).
 
 You only need to remember one slash command – `/design-engineer:launch`. It figures out where you are (starting from scratch, picking up where you left off, or working on an existing product) and runs the right commands in the right order for you. The list below is just so you can see what's available.
 
@@ -66,11 +66,14 @@ You only need to remember one slash command – `/design-engineer:launch`. It fi
 
 Claude Code is a general-purpose AI coding tool. It can write code, answer questions, and run commands.
 
-This plugin adds **a product design methodology on top of it** – 57 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
+This plugin adds **a product design methodology on top of it** – 53 skills that teach you how to think about problems, users, psychology, and design before you write a single line of code. It also adds:
 
-- **Safety hooks** that prevent common AI mistakes (scope creep, skipping tests, ignoring your requirements)
-- **Specialized agents** that handle specific parts of the workflow
+- **Method, not hooks** – grounding, anti-drift, and test-first discipline are written into the skills and agents that own them, so the plugin guides the work without deny-hooks fighting the tool. Claude Code's auto-mode already covers destructive-command and prompt-injection safety.
+- **Spec-driven design** – before implementation, a structured design spec pins down every component grounded in your real tokens and existing components, so the build reuses what exists instead of reinventing it, and matches what was agreed. The implementer builds to the spec and the design-system auditor verifies against it.
+- **Specialized agents** that handle specific parts of the workflow, with premium reasoning concentrated on planning and final quality rather than spread across every step
 - **A knowledge base** of 100+ psychology principles, design frameworks, and animation references that Claude draws from when reviewing your work
+- **Power-user depth when it earns its cost** – the few high-value moments that need many agents (deep design exploration, per-screen spec authoring, competitor analysis, per-page audits) can fan out through Claude Code's workflows feature, with a single-pass inline fallback when workflows are off. At verifiable build moments the plugin also hands you a ready-to-paste `/goal` so Claude loops until your acceptance criteria hold
+- **A task-driven iterate flow for products that already exist** – whether it's a commercial codebase the plugin didn't build or a plugin-built product that has shipped, you can just say what you want to work on, or pick a starting point: act on feedback, redesign a design, explore a concept, or audit a design. Each starting point is a conversation, not a button that fires off machinery. The plugin asks what you actually need, reads your project context, then reaches for the right pieces (a skill, a workflow, an agent, a spec, or `/goal`) matched to the task. Most real work is a scoped edit to something that already exists, so the flow leads with a free-form prompt and a reliable scoped-edit loop: restate the exact element and file, change it, verify in the browser, open a focused PR
 
 Think of Claude Code as the engine and this plugin as the driver who knows the route.
 </details>
@@ -90,15 +93,14 @@ If you're an engineer who wants to build better products but doesn't have a desi
 
 Both, and the existing-project path is first-class. `/design-engineer:launch` detects your situation:
 
-- **New product** – walks you through the full pipeline from problem definition to code.
+- **New product** – walks you through the full pipeline from problem definition to code. Once that pipeline finishes and the product ships, future sessions on it open the iterate flow below instead of looping back to the start.
 - **Returning project** – shows where you left off and lets you resume, jump to a different phase, or browse everything the plugin can do.
-- **Existing project** – auto-detects your design system, brand docs, written specs, shipped UI, and component count from the codebase, then asks you about off-repo references (Figma file, Notion docs, Linear tracker, external design-system page like Storybook / Zeroheight). All of that gets stored as project context. From there:
+- **Existing project** – auto-detects your design system, brand docs, written specs, shipped UI, and component count from the codebase, then asks you about off-repo references (Figma file, Notion docs, Linear tracker, external design-system page like Storybook / Zeroheight). All of that gets stored as project context. From there you land in the **iterate flow**: a fast, task-driven way to work on a product that already exists. It leads with one line – "tell me what you want to work on, or pick a starting point" – and four starting points: act on feedback, redesign a design, explore a concept, audit a design. Each starting point is a conversation, not a trigger: the plugin asks what you actually need, reads your stored project context, then dispatches the right pieces matched to the task (clarify first, dispatch after). Most work here is a scoped edit to something that already exists, so a free-form prompt plus a reliable scoped-edit loop is the workhorse, with skills, workflows, agents, the spec layer, and `/goal` brought in when the change warrants them. From there:
   - The 9 ux-* skills that assume a blank slate (StoryBrand, problem statement, target audience, business plan, competitor analysis, assumptions, story panels, user interviews, behavior mapping) respect what already exists – they ask "use as-is, refine, or re-run from scratch" instead of regenerating.
   - **Spec polish routing** – when you run `/design-engineer:discovery` for a new feature, the first question is "Minimal feature spec vs Full feature flow", with explicit descriptions of what each entails. The minimal branch produces a one-page spec that respects your existing brand voice; the full branch walks you through MVP requirements + IA before implementation. No more guessing which depth the plugin will pick.
   - **Optional-depth multi-select** – inside the full feature flow, before implementation kicks off, you pick which optional audits to run as a multi-select: Brief problem statement, Psychology audit (`psych-decision-fundamentals` + `psych-cognitive-load`), Figma comparison (`ui-figma-guide`), Design-system check (`ui-design-system`). Choices are persisted to your project config and read by `/design-engineer:development` so the implementation phase reflects them inline.
   - **Conditional Figma hand-off** – if Figma is connected and you didn't already pick "Figma comparison" in the optional-depth step, the flow asks once before handing off to dev whether to pull structured Figma data first.
   - **Proactive defaults in `/design-engineer:development`** – if your established project is missing CLAUDE.md, the plugin scaffolds it silently from your existing components (no question asked). If `references.md` is missing on a project that already has shipped UI, you get one 2-option question – "Reuse existing UI as the visual reference" or "Provide image references" (which runs the moodboard skill with curated reference previews and sectional Playwright captures). The old 4-option fast-track / full / skip prompt is gone.
-  - **Process recall through the abbreviated feature flow** – Steps 2.2 through 2.7 of the existing-project flow are classified as "complex work", so the active workflow's step list renders at the top of Claude's response while the flow runs (see hooks list in FAQ 9 for the full mechanism).
   - `/design-engineer:review audit` runs a page-by-page audit of a deployed app (Playwright captures each page, four review agents run, you add your professional feedback alongside the AI findings, deliverables saved per page).
   - `/design-engineer:discovery feature-spec` produces a truly minimal spec for adding one feature to an established product – no StoryBrand, no business-plan rewrite, just respects the existing brand voice. Reachable either by typing the literal `feature-spec` argument or by picking "Minimal feature spec" in the spec-polish routing question.
   - You can still run any skill individually (psychology review, accessibility audit, design system setup, etc.) without the full pipeline.
@@ -147,7 +149,7 @@ There's also one small utility command, `/design-engineer:mute-unmute-sound`, th
 
 **Commands** are the 9 entry points you type (like `/design-engineer:discovery`).
 
-**Skills** are the 57 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
+**Skills** are the 53 specialized workflows that commands orchestrate behind the scenes. Each skill does exactly one thing – write a problem statement, audit cognitive load, create a design system, run a bias review.
 
 You don't need to call skills directly. Commands handle the orchestration. But if you want to run a specific skill on its own, you can (e.g., `/ux-problem-statement` or `/psych-cognitive-load`).
 </details>
@@ -156,40 +158,35 @@ You don't need to call skills directly. Commands handle the orchestration. But i
 <summary>8. What are agents and what do they do?</summary>
 <br>
 
-10 specialized personas that handle specific parts of the workflow:
+8 specialized personas that handle specific parts of the workflow:
 
-- **context-analyzer** – reads your project and figures out what to build next
 - **ux-researcher** – runs research activities
-- **deliverable-writer** – writes structured documents
 - **psych-scanner** – checks your designs against 100+ psychology principles
 - **design-system-auditor** – checks your code against design system rules and audits the component gallery
 - **backend-implementer** – builds backend features
 - **frontend-implementer** – builds frontend with pixel-perfect design matching, keeps the component gallery in sync
-- **test-writer** – writes failing tests before any implementation starts
+- **test-writer** – writes failing tests before implementation, available when you want test-first discipline
 - **compound-documenter** – records decisions and maintains context across sessions
-- **advisor** – an Opus 4.7 reviewer model that other skills consult at strategic checkpoints (before substantive work, before declaring done, when stuck) – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively
+- **advisor** – an optional reviewer that skills can consult at strategic checkpoints (before substantive work, before declaring done, when stuck) – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively
 
-Agents activate automatically when needed. You don't call them directly.
+Agents are dispatched when the work would flood the main context; for quick, iterative work the model does it inline. You don't call them directly.
 </details>
 
 <details>
 <summary>9. What happens automatically in the background?</summary>
 <br>
 
-The plugin installs several hooks that work without you doing anything:
+The plugin installs a handful of advisory and mechanical hooks that work without you doing anything. They never hard-block your work – grounding, anti-drift, and test-first discipline are written into the skills and agents instead, and destructive-command and prompt-injection safety are handled by Claude Code's auto-mode.
 
-- **Destructive command protection** – catches dangerous commands (`rm -rf`, `git push --force`, `DROP TABLE`) and shows safer alternatives.
-- **Test-first enforcement** – blocks code writes until test scripts exist. Keeps test-driven development honest. Prototype writes are exempt (prototypes are throwaway visual artifacts).
-- **Requirement fidelity (code)** – after every code write, checks that the implementation matches your approved plan. Catches scope creep, unplanned files, phases implemented out of order, and new components that duplicate existing ones.
-- **Requirement fidelity (plans)** – reviews plan files for requirement drift. If a plan adds features, copy, or scope you didn't ask for, it gets flagged before implementation starts.
-- **Prompt injection defense** – watches for manipulation attempts hidden in external content (web pages, files, tool outputs).
-- **Design intake validation (tier-scaled)** – blocks screenshot-only Figma work (requires structured design data first), asks clarifying questions about interactions and animations before coding, and gates UI writes until you've Read the required design knowledge (anti-patterns catalog, anti-slop writing rules, design-intent guide, and your project's own `.design-system/system.md` / `.design-engineer-plugin/design/dev/design-system.md` if present). The gate **scales by change size**: trivial single-property swaps (≤5 lines, one CSS / Tailwind property change) skip the heavy ritual; medium changes get a compact 3-field Pre-Flight + a single `/simplify`; large changes (>50 lines or new component) get the full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. So a one-token color swap doesn't pay the cost of a new component build.
-- **Process recall** – inside long deterministic workflows (`/design-engineer:development` feature implementation and setup, `/design-engineer:discovery` new-product full pipeline and existing-project abbreviated feature flow, `/design-engineer:review` broad audits, `dev-prototyping` interactive prototype generation, and `ui-references-moodboard`), Claude renders the workflow's full step list at the top of its next response with the current step marked. Outside those workflows the hook is silent so it doesn't pollute casual chat. Each fire is logged at `~/.claude/cache/de-process-recall.log` for debugging.
-- **Background continuation block** – when a flow is waiting on your feedback (every prototype iteration, every implementation phase approval gate), Claude is forbidden from initiating background polling or self-rescheduling (`ScheduleWakeup`, `CronCreate`, `/loop`, background `Task` or `Bash`). Your typing window is not a polling target — your next message is the signal.
-- **Deliverable path validation** – every Write/Edit under `.design-engineer-plugin/design/<subdir>/`, `prototype/`, or `plans/` is checked against a canonical allow-list before it lands. Non-canonical subdirs (e.g., a hallucinated `strategy/` folder) and non-canonical filenames (e.g., `business-case.md` instead of the canonical `business-plan.md`) get denied with a structured message naming the right path. `.design-engineer-plugin/temporary/` is the unconditional escape hatch for working drafts; product code outside the umbrella is pass-through.
-- **Bot-block + auth-wall fallbacks** – when Playwright hits a Cloudflare challenge, captcha, "verify you are human" wall, or a signup/login gate, Claude stops and asks you for help via AskUserQuestion (you can paste back what you see, flip a blocker setting, provide test credentials, opt in to temp-email throwaway-account signup, or skip with a flag in the deliverable's sources-consulted list). Never silently falls back to shallow WebSearch snippets and never silently drops a blocked URL.
+- **Project-state injection** – on every message, tells Claude which project you're in and whether the plugin has been set up yet, so `/design-engineer:launch` always routes correctly.
+- **Design intake (Figma)** – when a Figma screenshot is about to be used, nudges Claude to pull structured design data first, then asks clarifying questions about interactions and animations the static mockup can't show before any code gets written.
+- **Playwright path hygiene** – keeps Playwright captures (screenshots, snapshots, traces) inside the plugin's canonical folders instead of cluttering your project root.
 - **Dependency tracking** – when you change a deliverable, flags which other documents might need updating.
 - **Session summary** – when you end a session, generates a summary of what changed and which dependent documents might need review.
+- **Post-compact recovery** – after a context compaction, re-injects the project state so the session keeps its bearings.
+- **Sound notifications** – a chime when a session completes or needs your attention (toggle with `/design-engineer:mute-unmute-sound`).
+
+Two behaviors are enforced as method rather than hooks. **Bot-block and auth-wall fallbacks**: when Playwright hits a Cloudflare challenge, captcha, "verify you are human" wall, or a signup/login gate, Claude stops and asks you for help via AskUserQuestion (you can paste back what you see, flip a blocker setting, provide test credentials, opt in to temp-email throwaway-account signup, or skip with a flag in the deliverable's sources-consulted list) instead of silently dropping the URL. **Background continuation block**: when a flow is waiting on your feedback, Claude won't initiate background polling or self-rescheduling – your next message is the signal.
 </details>
 
 <details>
@@ -220,9 +217,8 @@ Everything the plugin produces lives under a single umbrella folder: `.design-en
                        cross-session pipeline state (Anthropic-managed via memory: project)
 ```
 
-Two folders are gitignored:
+One folder is gitignored:
 - `.design-engineer-plugin/temporary/` — Playwright debug captures, intermediate analysis dumps, exploratory drafts. Auto-purged at every phase boundary by `/design-engineer:document`. Manual purge: `/design-engineer:tidy`.
-- `.design-engineer-plugin/.active-workflow` — per-session marker for the process-recall hook.
 
 Everything else commits with the repo. If you upgraded from v5.4.x and have files at old paths (`design/`, `prototype/`, `plans/` at the project root), see the migration note in CHANGELOG v5.5.0 — it's a 3-line `mv` sequence.
 </details>
@@ -246,7 +242,7 @@ Either way, the deliverable is honest about coverage gaps when URLs were blocked
 <summary>10. What's the psychology component?</summary>
 <br>
 
-14 psychology skills covering 100+ behavioral principles from cognitive science, behavioral economics, and product psychology. Every principle comes with:
+11 psychology skills covering 100+ behavioral principles from cognitive science, behavioral economics, and product psychology. Every principle comes with:
 
 - Specific design applications
 - Good and bad examples
@@ -261,21 +257,23 @@ Psychology is built into the review process from the ground up, so it shows up w
 <summary>11. How does the plugin handle Figma?</summary>
 <br>
 
-Two integrations:
+Through the bundled official Figma MCP:
 
-- **"Figma Plugin"** (official, recommended) – reads design data from Figma Dev Mode (tokens, spacing, colors, component structure), captures web pages and localhost into Figma, creates new Figma files, generates design system rules for your codebase, and can execute arbitrary Figma Plugin API operations.
-- **"Figma Console MCP"** (optional) – adds variable and token management, design linting, design-code parity checking, component documentation generation, design system extraction, comments, Figma Slides, FigJam boards, and granular node manipulation through dedicated tools.
+- **Read** – pulls design data from Figma Dev Mode (tokens, spacing, colors, component structure) so Claude implements from real specs, not screenshots.
+- **Write** – captures web pages and localhost into Figma, creates new Figma files, generates design system rules for your codebase, and executes Figma Plugin API operations (variables, tokens, components, styles, annotations) through its `use_figma` executor. This powers the advanced `ui-figma-handoff` structuring workflow.
 
-The plugin includes a routing guide that decides which integration to use for what. It also enforces structured design intake – Claude must get proper design data and ask clarifying questions about interactions and animations before implementing anything.
+The plugin enforces structured design intake – Claude must get proper design data and ask clarifying questions about interactions and animations before implementing anything.
 
-Neither is required. The plugin works without Figma, but the design-to-code workflow is significantly better with at least the "Figma Plugin" installed.
+The official Figma MCP is bundled and the only Figma integration the plugin needs. Power users who already run a separate community Figma MCP with dedicated linting or parity tools can keep using it alongside, but nothing in the plugin requires one.
+
+Figma is not required at all. The plugin works without it, but the design-to-code workflow is significantly better with the bundled Figma MCP connected.
 </details>
 
 <details>
 <summary>12. What's the knowledge base behind it?</summary>
 <br>
 
-~16,000 lines of reference material across 90+ files – structured frameworks adapted from the author's [technical articles and practical examples](https://volomydyr.com), along with established sources in psychology, behavioral economics, and design methodology.
+~17,000 lines of reference material across 100+ files – structured frameworks adapted from the author's [technical articles and practical examples](https://volomydyr.com), along with established sources in psychology, behavioral economics, and design methodology.
 
 What's covered:
 
@@ -295,15 +293,14 @@ When Claude reviews your work or makes suggestions, it draws from this knowledge
 <summary>13. How does the development workflow differ from regular Claude Code?</summary>
 <br>
 
-Five key differences:
+Four key differences:
 
-1. **Test-first** – the plugin enforces TDD. You can't write production code until failing tests exist. A hook enforces this, not just a suggestion. Prototype writes are exempt — prototypes are throwaway artifacts.
+1. **Test-first when you want it** – the `test-writer` agent writes failing tests before implementation, so you can keep test-driven development honest. It's a method the development pipeline follows, not a hard hook-block, and prototypes are exempt since they're throwaway artifacts.
 2. **Phased implementation** – plans are broken into phases with dependencies. Claude implements one phase at a time, shows you what it did and what to check, and waits for your approval before continuing. Background polling is forbidden during these waits — Claude won't enter `/loop` or schedule wake-ups while you're typing feedback.
-3. **Fidelity enforcement** – after every code write, the plugin checks that the implementation matches your plan. Unplanned files, scope creep, out-of-order phases, and duplicate components all get flagged automatically.
-4. **Explicit agent invocation** – the implementation phase uses explicit `Task(test-writer)`, `Task(frontend-implementer)`, `Task(backend-implementer)`, `Task(psych-scanner)`, and `Task(design-system-auditor)` calls instead of prose suggestions, so the model doesn't drift back to inlining everything in the main turn. You get the benefit of specialized agents without remembering to ask for them.
-5. **Tiered grounding overhead** – the plugin's design-grounding ritual scales by change size. A one-token color swap classifies as "Trivial" — output one line of WHY, no `/simplify` agent fan-out. A 30-line component refactor classifies as "Medium" — compact 3-field Pre-Flight + single `/simplify`. A new component file or 100-line refactor is "Large" — full 5-field Pre-Flight + the 3-agent `/simplify` fan-out. You don't pay the full ritual cost for small swaps.
+3. **Plan fidelity by method** – the development skills tell Claude to implement only the current phase, reuse existing components, and check each phase against the plan's checklist before presenting it, so scope creep, unplanned files, and duplicate components get caught without a deny-hook fighting your edits.
+4. **Specialized agents when they help** – the implementation phase reaches for `test-writer`, `frontend-implementer`, `backend-implementer`, `psych-scanner`, and `design-system-auditor` when the work would flood the main context, and iterates inline when it wouldn't. You get the benefit of specialized agents without remembering to ask for them, and without paying for a dispatch on every small change.
 
-The result: you stay in control of what gets built and when, the plugin's specialized helpers actually run, the cost scales with the work, and nothing ships that you haven't reviewed.
+The result: you stay in control of what gets built and when, the plugin's specialized helpers run when they earn their cost, and nothing ships that you haven't reviewed.
 </details>
 
 <details>
@@ -338,9 +335,9 @@ The gallery is **transparent infrastructure**: no menu, no permission ask, no "d
 <summary>16. What's the advisor and how does it work?</summary>
 <br>
 
-A dedicated Opus 4.7 sub-agent that other skills consult at strategic checkpoints – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. The strategy: a faster executor model consults a higher-intelligence advisor model at high-leverage moments instead of running everything at maximum capability.
+An optional sub-agent that skills can consult for a strategic second opinion – implements [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy) plugin-natively. The strategy: an executor consults a reviewer at high-leverage moments instead of running everything at maximum scrutiny.
 
-The advisor fires automatically at the moments the docs identify as most valuable:
+The advisor is available at the moments the docs identify as most valuable:
 
 - Before substantive work – before committing to an interpretation, before writing, before declaring an answer
 - Before declaring a phase complete – after deliverables are durable (files written, tests run)
@@ -350,7 +347,7 @@ The advisor fires automatically at the moments the docs identify as most valuabl
 
 The advisor returns short numbered course corrections (under 100 words, enumerated steps), and the calling skill applies the advice or uses the docs' "reconcile" pattern when the advice conflicts with empirical evidence ("I found X, you suggest Y, which constraint breaks the tie?").
 
-You don't invoke the advisor directly – it's wired into Plan Mode workflow, all five `/design-engineer:*` commands, the dev-github-workflow Mode 1 commit flow, and the meta-orchestrator's major phase transitions.
+The advisor is optional, not a required checkpoint – Claude consults it when a plan is large or the path forward is genuinely uncertain, and skips it otherwise. You don't invoke it directly.
 </details>
 
 <details>
@@ -369,7 +366,7 @@ This is honest about what the plugin does and what you do. The plugin documents 
 
 <br>
 
-## All 57 skills
+## All 53 skills
 
 <details>
 <summary>Show all</summary>
@@ -414,34 +411,33 @@ All skills run automatically through commands. If you want, you can also call an
 | `ux-ethics-review` | Ethical design review |
 | `ux-full-review` | Full product assessment checklist |
 
-**Psychology (14)**
+**Psychology (11)**
 
 | Skill | What it does |
 |-------|-------------|
 | `psych-full-scan` | Broad scan across 100+ principles, routes to deep-dives |
 | `psych-cognitive-load` | Cognitive load, progressive disclosure, recognition over recall |
 | `psych-visual-perception` | Gestalt principles, visual hierarchy, attention |
-| `psych-decision-fundamentals` | Loss aversion, anchoring, confirmation bias |
-| `psych-decision-persuasion` | Scarcity, social proof, decoy effect, framing |
+| `psych-decision-fundamentals` | Loss aversion, anchoring, scarcity, social proof, decoy effect, framing |
 | `psych-engagement-patterns` | Curiosity gap, variable reward, goal gradient |
-| `psych-delight-design` | Peak-end rule, delighters, labor illusion |
-| `psych-emotional-retention` | Endowment effect, storytelling, emotional design |
+| `psych-delight-design` | Peak-end rule, delighters, endowment effect, storytelling, emotional design |
 | `psych-simplification` | Serial position, picture superiority, chunking |
-| `psych-pricing-psychology` | Sunk cost, reciprocity, pricing perception |
-| `psych-habit-formation` | Commitment, consistency, reactance |
+| `psych-pricing-psychology` | Sunk cost, reciprocity, pricing perception, commitment, consistency, reactance |
 | `psych-social-influence` | Social proof, authority, liking |
 | `psych-cognitive-biases` | Availability heuristic, negativity bias |
 | `psych-time-perception` | Familiarity bias, shaping, aha moment |
 
-**UI design (9)**
+**UI design (11)**
 
 | Skill | What it does |
 |-------|-------------|
+| `frontend-design` | Distinctive, production-grade frontend interfaces that avoid generic AI aesthetics |
 | `ui-references-moodboard` | Design references and inspiration gathering |
 | `ui-aesthetic-review` | 4-lens craft critique with named design tests |
 | `ui-figma-guide` | Figma workflow for AI-assisted development |
-| `ui-figma-handoff` | Figma design structuring and dev handoff (advanced – uses figma-console MCP, optional install) |
+| `ui-figma-handoff` | Figma design structuring and dev handoff (advanced – uses the bundled Figma MCP) |
 | `ui-design-system` | Design system architecture and compliance |
+| `design-spec` | Per-screen design spec grounded in real tokens and components, built to verbatim and verified against |
 | `ui-design-to-code-qa` | Checks if the code matches the design |
 | `ui-accessibility` | Accessibility audit (WCAG) |
 | `ui-landing-page` | Single-file HTML landing page from StoryBrand narrative |
@@ -453,12 +449,18 @@ All skills run automatically through commands. If you want, you can also call an
 |-------|-------------|
 | `dev-claude-md` | CLAUDE.md generation and maintenance |
 | `dev-starter-prompts` | Starter prompts for new coding sessions |
-| `dev-agent-setup` | 4-agent development pipeline setup |
+| `dev-agent-setup` | 3-agent development pipeline setup |
 | `dev-status-tracking` | Context management for long-running projects |
 | `dev-mcp-setup` | MCP and plugin configuration |
 | `dev-github-workflow` | GitHub workflow for designers |
 | `dev-prototyping` | Single-file HTML prototype generation |
 | `dev-component-gallery` | Stack-agnostic single-page component gallery, kept in sync transparently as components change |
+
+**Iterate (1)**
+
+| Skill | What it does |
+|-------|-------------|
+| `feedback-to-todos` | Turns feedback from a video, notes, messages, or a transcript into one grounded, cited to-do list for the iterate flow's scoped-edit loop |
 
 </details>
 

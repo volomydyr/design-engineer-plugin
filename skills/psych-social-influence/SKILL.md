@@ -2,8 +2,8 @@
 name: psych-social-influence
 description: "Explores social influence psychology principles (Laws 71-80) for UX design. Covers how social dynamics affect product adoption, research validity, and user autonomy. Use when auditing social features, community mechanics, or research methodology for social bias. Do NOT use for individual motivation, flow states, or gamification; see psych-engagement-patterns instead."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 

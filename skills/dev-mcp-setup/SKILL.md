@@ -2,8 +2,8 @@
 name: dev-mcp-setup
 description: Guides setup of essential MCP integrations for AI-assisted development. Use when configuring a new development environment or choosing which MCP servers to install.
 disable-model-invocation: true
-model: sonnet
-effort: medium
+model: haiku
+effort: low
 license: MIT
 compatibility: "Requires Node.js v18+ for MCP server installation"
 ---
@@ -50,8 +50,6 @@ options:
     description: "Already have up-to-date documentation access"
   - label: "Figma plugin"
     description: "Already have Figma design data access (bidirectional – design→code and code→design)"
-  - label: "Figma Console MCP"
-    description: "Already have the Figma Console MCP for programmatic Figma actions"
   - label: "Playwright plugin"
     description: "Already have browser automation for testing"
   - label: "Other MCPs"
@@ -81,7 +79,7 @@ Recommend MCPs based on the user's workflow:
 
 **Playwright plugin** – Browser automation for testing and TDD. More advanced – install once you are comfortable with the basics.
 
-**Figma Console MCP** – Can perform actions in Figma programmatically: turn raw frames into components with tokens and styles, structure files for dev handoff. Trickier to set up but powerful for design system work. The `ui-figma-handoff` skill provides a guided workflow for using it. Recommended install: search GitHub for "figma-console MCP" or visit https://github.com/southleft/figma-console-mcp. Not bundled with this plugin – `ui-figma-handoff` prompts for install when needed.
+> Figma write actions – turning raw frames into components with tokens and styles, structuring files for dev handoff – run on the bundled Figma plugin's `use_figma` executor. The `ui-figma-handoff` skill drives this workflow with no extra install. If you already run a separate community Figma MCP with dedicated linting or parity tools, it can sit alongside the bundled one, but nothing here requires it.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: design-engineer:discovery
-description: Design workflow. For new products, runs the full pipeline. For existing projects, runs an abbreviated feature-focused flow. Argument `feature-spec` produces a truly minimal spec for established products with existing brand / design system.
+description: Design workflow. For new products, runs the design spine with opt-in depth. For existing projects, runs an abbreviated feature-focused flow. Argument `feature-spec` produces a truly minimal spec for established products with existing brand / design system.
 argument-hint: "[phase N | skill-name | feature-spec]"
 ---
 
@@ -33,7 +33,7 @@ Check `project_type` in the config:
 
 ### If `project_type: existing` → Feature flow (abbreviated)
 
-This project already exists. Do NOT run the full 4-phase from-scratch pipeline. The product has users, positioning, and an established codebase. Run an abbreviated feature-focused flow:
+This project already exists. Do NOT run the from-scratch spine. The product has users, positioning, and an established codebase. Run an abbreviated feature-focused flow:
 
 #### Step 2.1: Spec polish routing (BLOCKING — choose before any work begins)
 
@@ -43,7 +43,7 @@ Before drafting any spec or running any skill, ask the user how polished the spe
 - header: "Depth"
 - options:
   - label: "Minimal feature spec (Recommended for established products)"
-    description: "1-page spec — problem in your project's voice, affected pages, key interactions, success criteria. Saves to .design-engineer-plugin/design/features/<slug>/feature-spec.md. Ship-focused. No new folders, no full pipeline."
+    description: "1-page spec — problem in your project's voice, affected pages, key interactions, success criteria. Saves to .design-engineer-plugin/design/features/<slug>/feature-spec.md. Ship-focused. No new folders, no full spine."
   - label: "Full feature flow"
     description: "Walk through MVP requirements + information architecture before implementation. Creates .design-engineer-plugin/design/features/<slug>/ with multiple deliverables. Slower; useful when the feature is ambiguous or affects core navigation."
 - multiSelect: false
@@ -53,12 +53,6 @@ On "Minimal feature spec" → jump to Step F1 (Minimal feature spec — argument
 On "Full feature flow" → continue to Step 2.2 below.
 
 #### Step 2.2: Understand the feature
-
-At the start of this step, mark the active workflow so the process-recall hook fires through the rest of the abbreviated feature flow (this is "complex work" — multi-step design activity that benefits from step-list recall):
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "design:abbreviated-feature-flow" > .design-engineer-plugin/.active-workflow
-```
 
 Ask what the user wants to build. Use AskUserQuestion to clarify: what problem does it solve, who uses it, any constraints, how it fits into the existing product.
 
@@ -125,172 +119,120 @@ If Figma is not connected, skip this step entirely and go to Step 2.7.
 
 #### Step 2.7: Proceed to implementation
 
-Before handing off to `/design-engineer:development`, clear the abbreviated-feature-flow marker so the process-recall hook stops firing on subsequent casual chat (the dev command will write its own `dev:feature-implementation` marker when it begins implementation):
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
-
 Load `/design-engineer:development` with the feature plan.
 
-**Agents always run fully — in both modes.** The mode controls presentation cadence, not whether the agents fire. The abbreviated feature flow uses `ux-researcher` (for any research work the feature requires) and `deliverable-writer` (to produce structured deliverables from skill outputs). Both run regardless of mode.
+The abbreviated feature flow does its research and writes its deliverables inline by default. Dispatch `Task(ux-researcher, ...)` only for research work heavy enough to flood the main context (deep competitor analysis, user interviews); otherwise browse, synthesize, and format the deliverable inline.
 
-In Guided mode: each agent runs to completion; afterwards the main model parses the agent's output and presents it to the user step by step with `AskUserQuestion` between findings. Never dump raw agent output. Never skip a `Task(<agent>, ...)` dispatch in favor of doing the work inline — the agents exist for a reason.
+In Guided mode: present results to the user step by step with `AskUserQuestion` between findings. When a subagent ran, parse its output rather than dumping it raw.
 
-In Autopilot: each agent runs to completion; the main model presents the complete output as a structured summary, then proceeds.
+In Autopilot: present the complete output as a structured summary, then proceed.
 
-### If `project_type: new` → Full pipeline
+### If `project_type: new` → Default spine
 
-This is a new product from scratch. Run the full 4-phase pipeline.
+This is a new product from scratch. Run the default spine (Step 3 below): Problem → Audience → MVP → IA → Prototype → Dev, with opt-in depth offered along the way.
 
 If existing deliverables are found, present current state and recommend where to pick up. In Guided mode, ask to confirm. In Autopilot, show briefly and start.
 
 ## Step 3: Execute based on mode
 
-### Agents in this command (always run, in both modes)
+### Subagents in this command
 
-Three agents are dispatched during the discovery pipeline:
+Two kept agents support the new-product flow; dispatch them only when warranted:
 
-- **`ux-researcher`** — handles research-heavy work inside `ux-competitor-analysis`, `ux-user-interviews`, and any other skill that involves browsing / fetching / synthesising external sources. Dispatched via `Task(ux-researcher, ...)` from inside those skills.
-- **`deliverable-writer`** — produces the structured deliverable file (problem-statement.md, target-audience.md, etc.) from the conversation transcript. Dispatched at the end of every skill that writes a `.md` deliverable.
-- **`compound-documenter`** — invoked by `meta-document` during the Phase Recap protocol to flush state into agent memory. The structurally enforced layer (`memory: project`) lives here.
+- **`ux-researcher`** — handles research-heavy work (deep competitor analysis, user interviews, market scanning, anything that involves browsing / fetching / synthesizing many external sources). Dispatch `Task(ux-researcher, ...)` only when that research is heavy enough to flood the main context. Lighter research can be done inline.
+- **`compound-documenter`** — invoked by `meta-document` at phase boundaries to flush state into agent memory. The structurally enforced layer (`memory: project`) lives here.
 
-**These agents always run fully, regardless of mode.** Mode only changes how their output is presented to the user. Skipping `Task(<agent>, ...)` in favor of doing the work inline is forbidden — these agents encode specialised behavior the main model should not duplicate.
+Do all other work — drafting each spine step's deliverable, formatting it, asking the user questions — inline by default. There is no separate writer agent; format and save the deliverable yourself.
 
 ### Guided mode
 
-For each skill in the current phase:
+For each step in the spine:
 1. Announce what's next and why it matters
 2. Ask if the user wants to proceed, skip, or adjust
-3. Run the skill body interactively — ask the user 7–10 strategic questions, iterate back and forth until the substantive direction is clear
-4. **Dispatch the skill's required agents** (e.g. `Task(ux-researcher, ...)` for competitor analysis or user interviews; `Task(deliverable-writer, ...)` to produce the final structured deliverable). Wait for each agent to return.
-5. Parse the agent's output. Present it to the user step by step with `AskUserQuestion` between findings or sections — never dump raw agent output.
-6. Wait for the user's feedback on each presented section before moving on.
-7. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document` (which dispatches `compound-documenter`), runs the advisor consult, and gates the transition with `AskUserQuestion`.
+3. Run the step interactively — infer what you can from what the user has already said, and ask only what you genuinely can't resolve, batched, ≤4 questions per round, never re-asking anything already answered
+4. If the step is research-heavy and would flood the main context, dispatch `Task(ux-researcher, ...)` and wait for it to return; otherwise do the work inline
+5. Present results to the user step by step with `AskUserQuestion` between findings or sections — when a subagent ran, parse its output rather than dumping it raw
+6. Wait for the user's feedback on each presented section before moving on
+7. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document`, and gates the transition with `AskUserQuestion`.
 
 ### Autopilot
 
 1. Announce the phase plan briefly
-2. Run each skill end-to-end: dispatch the skill's required agents, wait for each to return
-3. Present each agent's complete output as a structured summary
+2. Run each step end-to-end, dispatching `ux-researcher` only when a step's research would flood the main context
+3. Present results as a structured summary
 4. After each phase: run the **Phase Recap protocol** (defined below). The recap is printed in chat AND persisted via `meta-document` even in autopilot — the user still wants to see what was produced before the next phase fires.
 
-### Active-workflow marker (full pipeline only)
+### The default spine (new products)
 
-The four phases below run only for the new-product full-pipeline branch (`project_type: new`). At the start of each phase, run a Bash command to mark the active workflow so the process-recall hook can fire context-appropriately. Replace `<N>` with the phase number (1, 2, 3, or 4):
+The lean default for a new product is a short spine, run in order. It takes the user from a problem to working code without forcing every research and strategy artifact on them:
 
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase<N>" > .design-engineer-plugin/.active-workflow
-```
+**Problem → Audience → MVP → IA → Prototype → Dev**
 
-When transitioning to the next phase, overwrite the marker with the new phase number using the same command. When the full pipeline hands off (post-pipeline AskUserQuestion below), clear the marker:
+| Step | Skill | Produces |
+|---|---|---|
+| Problem | `ux-problem-statement` | A structured problem definition |
+| Audience | `ux-target-audience` | The people this is for |
+| MVP | `ux-mvp-requirements` | What ships first, prioritized |
+| IA | `ux-information-architecture` | Page structure and navigation |
+| Prototype | `ui-references-moodboard` → `ui-design-system` → `dev-prototyping` | Design references, a grounded token set, then a clickable HTML prototype |
+| Dev | hand-off to `/design-engineer:development` | Implementation |
 
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
+**Print the spine overview once, before the first step.** Show the user the shape of the journey so they know what's ahead:
 
-The existing-project abbreviated Feature flow (Step 2 → "If `project_type: existing`") and the F1 minimal-spec branch do NOT write this marker.
-
-### Phase 1: Discovery (new products only)
-
-At the start of this phase, mark the active workflow:
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase1" > .design-engineer-plugin/.active-workflow
-```
-
-**Print the Pipeline overview (BLOCKING — runs once at the start of Phase 1).** Before announcing the first skill, show the user the full map of what's ahead so they know the shape of the journey. Use this exact structure:
-
-> ## Pipeline overview
+> ## What's ahead
 >
-> ▸ Phase 1: Discovery (starting now)
->   ○ Problem statement
->   ○ Target audience
->   ○ Assumptions
->   ○ Competitor analysis
->   ○ User interviews (optional)
+> ▸ Problem (starting now) — a clear problem statement
+> ○ Audience — who this is for
+> ○ MVP — what ships first
+> ○ Information architecture — pages and navigation
+> ○ Prototype — references, a design system, and a clickable HTML prototype
+> ○ Hand-off to /design-engineer:development
 >
-> Phase 2: Strategy — 4 skills (behavior mapping, StoryBrand, story panels, business plan)
->
-> Phase 3: Planning — 2 skills (MVP requirements, information architecture)
->
-> Phase 4: Design & validation — 9 skills (bias audit, journey mapping, ethics review, references & moodboard, design system, prototyping, Figma guide, motivation audit, product assessment)
->
-> Hand-off to /design-engineer:development
->
-> At the end of every phase you'll see a recap with what was produced, key decisions, and a Continue / Revise / Pause gate. You can pause anytime with /design-engineer:stop and resume later.
+> At the end of each step you'll see a recap with what was produced and a Continue / Revise / Pause gate. You can add deeper research or strategy work at any point, and pause anytime with /design-engineer:stop.
 
-This overview replaces vague "we'll go through some phases" framing — the user gets the full mental model up front and the per-phase recaps then anchor against it.
+Run each spine step, then run the **Phase Recap protocol** (defined below) before moving to the next.
 
-Skills in sequence:
-1. `ux-problem-statement` – structured problem definition
-2. `ux-target-audience` – persona development
-3. `ux-assumptions` – assumption tracking
-4. `ux-competitor-analysis` – competitive landscape analysis
-5. `ux-user-interviews` – interview design and analysis *(optional – ask user)*
+### Design exploration (Prototype step) – workflow candidate
 
-**At the end of Phase 1**, run the **Phase Recap protocol** (defined below). Do not write the Phase 2 active-workflow marker until the user answers the recap's AskUserQuestion gate.
+When you reach the Prototype step (`ui-references-moodboard` → `ui-design-system` → `dev-prototyping`), the design-exploration moment – generating and judging multiple concept directions before committing to one – is a premium-planning step worth fanning out. Offer it before running the moodboard inline: "I can explore several distinct design directions in parallel as a workflow – one Opus agent at xhigh effort per concept direction, then judge and synthesize the strongest – or explore inline. Use a workflow to explore design directions?"
 
-### Phase 2: Strategy (new products only)
+- **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the single-pass inline path below – nothing breaks.
+- **If the user opts in and workflows are available**: dispatch one agent per concept direction (Opus model, xhigh effort – this is premium planning), each exploring a distinct direction grounded in the upstream deliverables. Then judge the returned directions against each other and synthesize the strongest into the references and design-system deliverables. The workflow takes no mid-run input; present the synthesized result when it returns and let the user react.
+- **Inline fallback (always available, single pass)**: run the Prototype step as written – Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md`, then `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md`, then `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md`, following each inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`).
 
-At the start of this phase, mark the active workflow:
+After either path, run the **Phase Recap protocol** before moving on.
 
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase2" > .design-engineer-plugin/.active-workflow
-```
+### Add depth (opt-in)
 
-1. `ux-behavior-mapping` – behavior analysis
-2. `ux-storybrand` – messaging framework
-3. `ux-story-panels` – product narrative stories
-4. `ux-business-plan` – revenue model and market sizing
+The spine is the default, not the ceiling. At any point — before MVP, before the prototype, or after the spine completes — offer the user deeper work they can opt into. Surface this only when it would genuinely help (the problem is ambiguous, the market is crowded, the product has ethical or persuasion stakes); never march the user through all of it by default. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6), then call AskUserQuestion:
 
-**At the end of Phase 2**, run the **Phase Recap protocol** (defined below). Do not write the Phase 3 active-workflow marker until the user answers the recap's AskUserQuestion gate.
+- question: "Want to add any deeper work before moving on?"
+- header: "Add depth"
+- multiSelect: true
+- options:
+  - label: "Competitor analysis", description: "Map the competitive landscape with ux-competitor-analysis"
+  - label: "User interviews", description: "Design and analyze interviews with ux-user-interviews"
+  - label: "Messaging & narrative", description: "StoryBrand messaging (ux-storybrand) and product story panels (ux-story-panels)"
+  - label: "Business plan", description: "Revenue model and market sizing with ux-business-plan"
+  - label: "Audits", description: "Bias (ux-bias-audit), ethics (ux-ethics-review), and journey mapping (ux-journey-mapping)"
+  - label: "Full psychology scan", description: "Run the full psych scan (psych-full-scan) plus the motivation audit (ux-motivation-audit) across the product"
 
-### Phase 3: Planning (both new and existing)
+For each selected option, Read the matching `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). The assumptions tracker (`ux-assumptions`) and the Figma guide (`ux-figma-guide` / `ui-figma-guide`) are also available on request. After any depth work, run the **Phase Recap protocol** before continuing the spine.
 
-If running the new-product full pipeline, at the start of this phase mark the active workflow (skip this Bash if running the existing-project Feature flow):
+**Competitor analysis – workflow candidate.** When the user selects "Competitor analysis" and the competitive landscape is broad (several competitors, sources worth cross-checking against each other), offer to fan it out: "I can run competitor analysis as a workflow – one agent per competitor, run in parallel, with their findings cross-checked against each other – or delegate it to the bundled `/deep-research` harness, or run `ux-competitor-analysis` inline. Use a workflow for the competitor analysis?"
 
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase3" > .design-engineer-plugin/.active-workflow
-```
+- **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to one of the single-pass paths below – nothing breaks.
+- **If the user opts in and workflows are available**: dispatch one agent per competitor, each researching that competitor against the `ux-competitor-analysis` method, then cross-check the returned findings (claims confirmed across sources vs single-source claims). Workflows take no mid-run input; present the synthesized landscape when it returns. Respect the bot-block and auth-wall fallbacks (CLAUDE.md) for any gated competitor.
+- **Or delegate to `/deep-research`**: for research-shaped competitor work, the bundled `/deep-research` harness already fans out web searches, fetches sources, adversarially verifies claims, and synthesizes a cited report – use it instead of authoring a bespoke workflow when that shape fits.
+- **Inline fallback (always available, single pass)**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-competitor-analysis/SKILL.md` and follow it inline.
 
-1. `ux-mvp-requirements` – MVP prioritization
-2. `ux-information-architecture` – IA design
+## Phase Recap protocol (BLOCKING — runs at the end of every spine step)
 
-**At the end of Phase 3**, run the **Phase Recap protocol** (defined below). Do not write the Phase 4 active-workflow marker (or hand off to development for the existing-project flow) until the user answers the recap's AskUserQuestion gate.
+After completing a spine step (or any opt-in depth work), run this exact sequence before moving on. The user must see a recap of what just happened — without it, they're left wondering "did anything actually finish?" and the deliverables disappear into folders nobody re-opens.
 
-### Phase 4: Design & validation (both new and existing, optional for features)
+### 1. Glob the deliverables produced in THIS step
 
-If running the new-product full pipeline, at the start of this phase mark the active workflow (skip this Bash if running the existing-project Feature flow):
-
-```bash
-mkdir -p .design-engineer-plugin && printf '%s\n' "design:full-pipeline-phase4" > .design-engineer-plugin/.active-workflow
-```
-
-1. `ux-bias-audit` – bias audit
-2. `ux-journey-mapping` – journey mapping
-3. `ux-ethics-review` – ethical review *(optional)*
-4. `ui-references-moodboard` – reference gathering
-5. `ui-design-system` – code-first design system definition. Run after references are gathered and before prototyping consumes them. Ensures the prototype's CSS tokens are grounded in a defined system rather than improvised per-screen.
-6. `dev-prototyping` – prototyping and testing
-7. `ui-figma-guide` – Figma workflow
-8. `ux-motivation-audit` – screen-level psychology analysis
-9. `ux-full-review` – product assessment *(optional)*
-
-**At the end of Phase 4**, run the **Phase Recap protocol** (defined below). The full pipeline ends here; the recap's AskUserQuestion gate routes the user to development hand-off, review, or pause via the Post-pipeline section that follows.
-
-## Phase Recap protocol (BLOCKING — runs at end of every phase)
-
-After completing all skills in a phase, BEFORE writing the active-workflow marker for the next phase, run this exact sequence. The user must see a recap of what just happened — without it, they're left wondering "did anything actually finish?" and the deliverables disappear into folders nobody re-opens.
-
-### 1. Glob every deliverable produced this phase
-
-Run a Glob for the phase's canonical paths:
-
-- **Phase 1 (Discovery)**: `.design-engineer-plugin/design/foundation/*.md` and `.design-engineer-plugin/design/research/*.md`
-- **Phase 2 (Strategy)**: `.design-engineer-plugin/design/foundation/storybrand.md`, `.design-engineer-plugin/design/foundation/business-plan.md`, `.design-engineer-plugin/design/exploration/behavior-map.md`, `.design-engineer-plugin/design/exploration/story-panels/*.md` (if any)
-- **Phase 3 (Planning)**: `.design-engineer-plugin/design/planning/*.md`
-- **Phase 4 (Design & validation)**: `.design-engineer-plugin/design/exploration/bias-audit.md`, `.design-engineer-plugin/design/exploration/customer-journey-map.md`, `.design-engineer-plugin/design/exploration/ethics-review.md`, `.design-engineer-plugin/design/exploration/references.md`, `.design-engineer-plugin/design/dev/design-system.md`, `.design-engineer-plugin/prototype/prototype.html`, `.design-engineer-plugin/design/reviews/*.md`
+Glob only the files the just-finished step actually produced — not the whole `design/` tree. For example, after the Problem step glob `.design-engineer-plugin/design/foundation/problem-statement.md`; after the prototype step glob `.design-engineer-plugin/design/exploration/references.md`, `.design-engineer-plugin/design/dev/design-system.md`, and `.design-engineer-plugin/prototype/prototype.html`. If a depth skill ran, glob that skill's own deliverable path. Keep the recap scoped to what just changed.
 
 ### 2. Read every file the Glob returned
 
@@ -298,37 +240,15 @@ In full. Not from memory. The recap quotes from these files; if a file isn't Rea
 
 ### 3. Print the recap in chat
 
-Use this exact structure (no AI-slop preamble, no "let me summarize"). The recap leads with a **Pipeline progress** block so the user always knows where they are in the larger flow before reading the per-phase detail. This block applies only to the new-product full-pipeline branch — skip it for the abbreviated feature flow and the F1 minimal-spec branch (those flows have no phases to track).
+Use this exact structure (no AI-slop preamble, no "let me summarize"):
 
-#### Canonical pipeline (for the Pipeline progress block)
-
-The full pipeline always runs in this order. Use this exact list — do NOT improvise. Skill names should be shown as user-readable labels (e.g. "Problem statement", not `ux-problem-statement`).
-
-- **Phase 1: Discovery** — Problem statement / Target audience / Assumptions / Competitor analysis / User interviews (optional)
-- **Phase 2: Strategy** — Behavior mapping / StoryBrand / Story panels / Business plan
-- **Phase 3: Planning** — MVP requirements / Information architecture
-- **Phase 4: Design & validation** — Bias audit / Journey mapping / Ethics review (optional) / References & moodboard / Design system / Prototyping / Figma guide / Motivation audit / Product assessment (optional)
-
-After Phase 4 the pipeline ends and the user is offered hand-off to `/design-engineer:development`.
-
-#### Recap output schema
-
-> ## Pipeline progress
->
-> _For each phase in order:_
-> - **Completed phases** (every phase BEFORE the just-finished one): show `✓ Phase <N>: <name>` and indent the full skill list under it with `✓` for each skill that ran and `⊘` for each optional skill the user skipped. The user wants to see everything they've already accomplished.
-> - **Just-finished phase** (the phase this recap is for): show `▸ Phase <N>: <name> (just finished — recap below)` and the full skill list with `✓` / `⊘` markers — same depth as completed phases.
-> - **Next phase** (the immediate next one): show `→ Phase <N+1>: <name> (up next)` and the full skill list with `○` markers (planned, not started). This is the only upcoming phase that gets step details — the user wants to know what's about to happen.
-> - **Subsequent phases** (every phase AFTER the next one): show only `Phase <N+2>: <name>` and a one-line summary of the phase's role (e.g. "9 skills covering bias audit, references, design system, prototyping, Figma, motivation audit"). Do NOT expand step details for these — the user said overloading them defeats the purpose.
-> - **After Phase 4**: show `Hand-off to /design-engineer:development` instead of a phase entry.
->
-> ## Phase <N>: <phase name> — recap
+> ## <Step name> — recap
 >
 > **Deliverables produced** (each with a 1–2 sentence takeaway pulled from the file, not summarized from memory):
 > - `<relative path>` — <takeaway grounded in an exact phrase from the file>
 > - …
 >
-> **Key decisions this phase** (decisions downstream phases will build on — not every line, just the cross-cutting ones):
+> **Key decisions** (decisions downstream steps will build on — not every line, just the cross-cutting ones):
 > - <decision> — from `<file>`, quoting "<exact phrase>"
 > - …
 >
@@ -336,77 +256,37 @@ After Phase 4 the pipeline ends and the user is offered hand-off to `/design-eng
 > - <thread + which deliverable surfaced it>
 > - …
 >
-> **What's next**: Phase <N+1> (<next phase name>) covers <list of skills, comma separated>.
+> **What's next**: <the next spine step, or hand-off to /design-engineer:development if the spine is complete>.
 
 If a section has nothing to say, write "none." Do NOT pad with filler.
-
-#### Worked example (after finishing Phase 2)
-
-> ## Pipeline progress
->
-> ✓ Phase 1: Discovery
->   ✓ Problem statement
->   ✓ Target audience
->   ✓ Assumptions
->   ✓ Competitor analysis
->   ⊘ User interviews (skipped — optional)
->
-> ▸ Phase 2: Strategy (just finished — recap below)
->   ✓ Behavior mapping
->   ✓ StoryBrand
->   ✓ Story panels
->   ✓ Business plan
->
-> → Phase 3: Planning (up next)
->   ○ MVP requirements
->   ○ Information architecture
->
-> Phase 4: Design & validation — 9 skills covering bias audit, references, design system, prototyping, Figma, motivation audit
->
-> Hand-off to /design-engineer:development
->
-> ## Phase 2: Strategy — recap
->
-> **Deliverables produced**:
-> - …
 
 ### 4. Invoke meta-document inline
 
 Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`. This flushes the recap into the structurally enforced agent-memory layer (`~/.claude/agent-memory/design-engineer-compound-documenter/{pipeline-state.md, key-decisions.md, stale-dependents.md}`). Without this step the recap exists only in chat and is lost on `/compact`.
 
-### 5. Advisor checkpoint (pre-done strategic consult)
-
-Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills disable model invocation). Pass: phase name, the recap from Step 3, key decisions, anything that surprised you. Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence in the deliverables. This implements the docs' "before declaring done" call after deliverables are durable.
-
-Skip Step 5 only when the user explicitly chose to skip every optional skill in this phase AND the produced deliverable is a single trivial document.
-
-### 6. AskUserQuestion (BLOCKING — user drives the transition)
+### 5. AskUserQuestion (BLOCKING — user drives the transition)
 
 End the preceding chat message with the canonical 3-horizontal-rule spacer per CLAUDE.md rule #6, then call AskUserQuestion:
 
-- question: "Phase <N> is complete. What now?"
-- header: "Phase <N> done"
+- question: "<Step name> is complete. What now?"
+- header: "Next step"
 - options:
-  - "Continue to Phase <N+1>" — description: "Move forward with <next phase name>: <skill list>."
-  - "Revise this phase first" — description: "Pick a deliverable from this phase to update before moving on."
+  - "Continue" — description: "Move forward with <next spine step>."
+  - "Add depth" — description: "Run deeper research or strategy work before moving on (competitor analysis, interviews, messaging, business plan, audits, psych scan)."
+  - "Revise this step first" — description: "Pick a deliverable from this step to update before moving on."
   - "Pause and save" — description: "Save state and stop here; pick up next time with /design-engineer:launch."
 - multiSelect: false
 
-### 7. Apply the user's choice
+### 6. Apply the user's choice
 
-- "Continue" → write the next phase's active-workflow marker, proceed.
-- "Revise" → ask which deliverable, re-run that skill, then re-run the Phase Recap protocol.
-- "Pause" → clear the active-workflow marker, hand off to `/design-engineer:stop`.
+- "Continue" → proceed to the next spine step.
+- "Add depth" → run the Add-depth AskUserQuestion, do the selected work, then re-run this Phase Recap protocol.
+- "Revise" → ask which deliverable, re-run that step, then re-run this Phase Recap protocol.
+- "Pause" → hand off to `/design-engineer:stop`.
 
-NEVER auto-proceed past Step 6 without an explicit user answer. The recap is the user's signal that work happened; skipping the AskUserQuestion gate breaks the contract this protocol exists to enforce.
+NEVER auto-proceed past Step 5 without an explicit user answer. The recap is the user's signal that work happened; skipping the AskUserQuestion gate breaks the contract this protocol exists to enforce.
 
 ## Post-pipeline
-
-If the new-product full pipeline was running (a `design:full-pipeline-phase*` marker is currently set), clear the active-workflow marker at hand-off so the process-recall hook stops firing on subsequent casual chat:
-
-```bash
-rm -f .design-engineer-plugin/.active-workflow
-```
 
 After completing the current work:
 
@@ -414,8 +294,8 @@ After completing the current work:
 question: "What would you like to do next?"
 header: "Next step"
 options:
-  - label: "Continue to next phase"
-    description: "Continue to the next phase of the design pipeline"
+  - label: "Continue the spine"
+    description: "Move to the next step of the design spine"
   - label: "Review deliverables"
     description: "Review the deliverables for quality before moving on"
   - label: "Move to development"
@@ -495,9 +375,35 @@ After saving the spec, print a compact recap in chat — same structure as the P
 
 This is a chat-only recap — no `meta-document` invocation here because feature-spec is a single-document flow and the spec file itself IS the persistence layer.
 
-### F1.3.5: Advisor checkpoint (pre-handoff)
+### F1.3.45: Optional – decompose into per-screen design specs
 
-After the spec is drafted at `.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: the drafted spec, brand voice context (from `.design-engineer-plugin/design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. This mirrors the per-phase advisor checkpoint in the main pipeline – the feature-spec is substantive enough that a pre-handoff strategic check pays off.
+The one-page feature spec names WHAT ships; a per-screen design spec names exactly HOW each screen is built, grounded in the project's real tokens and existing components, so implementation reuses instead of reinventing. This is the premium-planning step that lets lean implementation work. It is OPTIONAL and graduated: worth doing for consequential UI (net-new components, primary or reused surfaces); skip it for trivial one-off tweaks. End the preceding chat message with the canonical 3-horizontal-rule spacer per CLAUDE.md rule #6, then call AskUserQuestion:
+
+- question: "Author per-screen design specs before implementation?"
+- header: "Design specs"
+- multiSelect: false
+- options:
+  - label: "Yes – author a spec per screen (Recommended for new or reworked UI)"
+    description: "For each affected screen, write a grounded design spec: per-component blocks referencing your real tokens and existing components, states, responsive, accessibility, and acceptance criteria. Implementation builds to these verbatim."
+  - label: "Skip"
+    description: "Go straight to implementation using the feature spec plus existing components."
+
+On "Skip" → continue to F1.3.5.
+
+On "Yes":
+
+1. Determine the screens to spec from the feature spec's "Affected pages" section.
+2. **Spec-authoring is a workflow candidate.** When several screens need specs and Claude Code workflows are available, you can fan the authoring out so each screen's spec is written by its own premium-planning agent. Offer it: "I can author these specs as a workflow – one Opus agent at xhigh effort per screen, run in parallel – or author them inline one at a time. Use a workflow to author each `<screen-slug>.spec.md`?"
+   - **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the single-pass inline path in step 3 below – nothing breaks.
+   - **If the user opts in and workflows are available**: dispatch one agent per screen (Opus model, xhigh effort – this is premium planning), each instructed to Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow it inline to author that screen's spec. The workflow takes no mid-run input; collect the authored specs when it returns and present them.
+3. **Inline fallback (always available, single pass)**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`), authoring each screen's spec one at a time.
+4. Specs are stored feature-scoped at `.design-engineer-plugin/design/features/<feature-slug>/screens/<screen-slug>.spec.md`. The `design-spec` skill reads `ui-design-system` output first so every referenced token and component name is real.
+
+After the specs are authored (by either path), continue to F1.3.5.
+
+### F1.3.5: Optional advisor consult (pre-handoff)
+
+After the spec is drafted at `.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md` and before asking the user what's next, you may consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: the drafted spec, brand voice context (from `.design-engineer-plugin/design/foundation/storybrand.md` if present, else from the user's declaration), affected pages, key interactions, and anything you're uncertain about (scope, naming, what was deliberately left out). Apply the advice or use the reconcile pattern if it conflicts with primary-source evidence. Worth doing when the spec is substantive or the scope is ambiguous; skip it for a small, unambiguous spec.
 
 ### F1.4: Hand off
 

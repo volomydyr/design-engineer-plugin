@@ -22,7 +22,7 @@
 #                                   psychology,reviews,dev,features}/
 #
 # .gitignore is curated with a single fenced block that ignores
-# `.design-engineer-plugin/temporary/` and the per-session active-workflow marker.
+# `.design-engineer-plugin/temporary/`.
 #
 # Usage: ./init-project-structure.sh [deliverables_path]
 # Default deliverables_path: .design-engineer-plugin/design
@@ -204,9 +204,6 @@ $GITIGNORE_BEGIN
 # tomorrow). Auto-purged at phase boundaries by /design-engineer:document, or
 # manually by /design-engineer:tidy. Never commit anything from temporary/.
 .design-engineer-plugin/temporary/
-
-# Per-session active-workflow marker (process-recall hook gate).
-.design-engineer-plugin/.active-workflow
 $GITIGNORE_END
 GITIGNORE
   if [ -f "$GITIGNORE_FILE" ]; then

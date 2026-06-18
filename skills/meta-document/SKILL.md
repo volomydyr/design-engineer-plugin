@@ -28,11 +28,12 @@ This is not for pet projects that you start and abandon. This is for actual comp
 <step number="1" required="true">
 ### Step 1: Detect Trigger
 
-**Auto-invoke after:**
+**Auto-invoke at milestones, not after every skill:**
 
-- Completion of any pipeline phase (pre-dev, dev, psychology audit)
-- User confirms a solution worked ("that fixed it", "looks good", "approved")
-- End of any complex multi-step task
+- End of the design steps (before the user-approval gate)
+- End of development
+- On stop, so the next session can resume cleanly
+- User confirms a non-obvious solution worked ("that fixed it", "looks good", "approved")
 
 **OR manual:** `/design-engineer:document` command
 
@@ -59,7 +60,7 @@ Extract from conversation history:
 **Required information:**
 
 - **Activity name**: Which skill or task was performed
-- **Phase**: Which pipeline phase this belongs to (Phase 1-4 pre-dev, Phase 5-7 dev)
+- **Stage**: Which stage this belongs to (design or development)
 - **Deliverable**: What was produced (document name, file path)
 - **Key decisions**: What decisions were made and why
 - **What worked**: Approaches that succeeded
@@ -113,7 +114,7 @@ Please provide corrected values.
 <step number="4" required="true" depends_on="3">
 ### Step 4: Create Documentation Entry
 
-**Agent delegation**: Use the **deliverable-writer** agent to format the final document. Use the Agent tool to spawn it with the content to format. The deliverable-writer has specialized instructions for producing polished, structured deliverable documents.
+Format the final document inline, following the structure below. There is no separate writer agent – produce the polished, structured document directly.
 
 **Generate filename:** `[activity-name]-[YYYYMMDD].md`
 
@@ -192,6 +193,8 @@ Live pipeline state is tracked by the `compound-documenter` agent's project-loca
 
 You do not write to `.claude/agent-memory/...` directly from this skill – the agent owns its memory directory. Just invoke it with the context.
 
+**Completion of the from-scratch pipeline (project_type: new only):** when this documentation flush is the one that follows the from-scratch product build finishing its last step (the caller passes "from-scratch pipeline complete – product shipped" in the context), record that the pipeline is complete in the context you hand compound-documenter, so pipeline-state.md reflects the shipped state rather than an in-progress phase. The durable routing signal itself is the top-level `status: complete` line in `.design-engineer-plugin/config.yaml`, written by the development command at its Post-execution step; this skill only mirrors that fact into pipeline-state. Do not write `status: complete` from here, and never set it for an existing project (`project_type: existing`). If the caller did not signal completion, document normally and leave the pipeline state as the current phase.
+
 **Why agent memory and not a status.md file at the project root?** The agent-memory directory is Anthropic's documented persistence primitive (`memory: project` frontmatter on the agent). It is project-local, version-controllable, and survives across sessions reliably. Writing to a project-root `status.md` from this skill was the old approach – it was advisory and depended on the model remembering to do it. The agent-memory mechanism is the correct platform path.
 </step>
 
@@ -233,9 +236,9 @@ bash -c 'find .design-engineer-plugin/temporary -mindepth 1 -delete 2>/dev/null;
 Cleared disposable working files from this phase.
 ```
 
-This step always runs — there is no condition under which the temporary bucket should persist across a phase boundary. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/design-engineer:document`. The path-validation hook (`de-deliverable-path-hook.js`) ensures only canonical filenames land at canonical paths.
+This step always runs – there is no condition under which the temporary bucket should persist across a phase boundary. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/design-engineer:document`. When you write any deliverable, place it at its canonical path under `.design-engineer-plugin/design/<subdir>/` with a canonical filename – never improvise a different subdir or name, so the working tree stays predictable and the dependency graph resolves.
 
-**Do not** purge anywhere else under `.design-engineer-plugin/` — only `temporary/`. The other subdirs (design/, prototype/, plans/, memory/) are durable.
+**Do not** purge anywhere else under `.design-engineer-plugin/` – only `temporary/`. The other subdirs (design/, prototype/, plans/, memory/) are durable.
 
 </step>
 
@@ -310,7 +313,7 @@ This skill implements context engineering best practices documented in [context-
 All documentation entries are validated against [compound-schema.yaml](./references/compound-schema.yaml), which defines:
 
 - **deliverable_type** – categorizes the type of work (research deliverable, design deliverable, development artifact, etc.)
-- **phase** – maps to the pipeline phases (pre-dev Phase 1-4, dev Phase 5-7)
+- **phase** – maps the activity to a stage of the pipeline (see the schema's phase enum)
 - **component** – which part of the product or workflow was affected
 - **status** – current state of the deliverable (draft, in-progress, complete, revised, superseded)
 - **severity** – impact level for decisions and issues

@@ -2,12 +2,14 @@
 name: ux-storybrand
 description: Creates a StoryBrand framework document for clear product messaging where the user is the hero and the product is the guide. Use when crafting landing pages, marketing copy, or UX writing that emotionally connects with users.
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
 # StoryBrand Framework
+
+> **Opt-in depth.** This skill is off the default discovery spine. The default flow runs problem statement, target audience, MVP requirements, information architecture, prototype, then development. Run StoryBrand only when the user adds depth, either by asking for it directly or by picking it from the optional depth menu.
 
 ## Existing-project skip-check
 
@@ -47,7 +49,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess your readiness and existing materials, 2) share my initial read on the StoryBrand narrative, 3) ask 7–10 strategic questions covering the 7-element framework, 4) draft the StoryBrand canvas together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) assess your readiness and existing materials, 2) share my initial read on the StoryBrand narrative, 3) ask only the questions I can't infer about the 7-element framework, 4) draft the StoryBrand canvas together, 5) iterate until you approve it, 6) save the final deliverable." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with the StoryBrand framework and why it matters. If yes, give a one-sentence refresher. If no, explain it in simple terms with a concrete example tied to their product idea. Use the "Why This Matters" section above as a starting point, but make it conversational and product-specific.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -95,15 +97,15 @@ Before asking questions, share your brief initial thoughts about the StoryBrand 
 
 ## Step 3: Ask Strategic Questions
 
-Ask 7-10 context-based strategic questions. Adapt your questions to what you already know about the project. Make sure your questions cover these key concepts:
+Ask only what you can't infer from what you already know about the project and any existing documents. Don't ask for what the user already gave you or what you can reasonably draw from context. When you do have gaps, batch the questions (no more than 4 at a time) rather than asking one by one. Draw from these key concepts only for the gaps that matter:
 
 - The 7-element StoryBrand framework: hero, 3-layer problem (external, internal, philosophical), guide with empathy and authority, plan, call to action, success, failure
 - The user is the hero, the product is the guide
 - Application to marketing, social posts, email, ad campaigns, product branding, website copy, UX microcopy
 
-Ask in small batches (2-3 at a time). Wait for answers before continuing.
+Ask in small batches (no more than 4 at a time). Wait for answers before continuing.
 
-**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. Do not generate the deliverable until at least 7 questions have been asked and answered.
+**BLOCKING REQUIREMENT**: Wait for the user's answers before proceeding. There is no minimum question count – once you have enough to draft a grounded deliverable, move on.
 
 ---
 

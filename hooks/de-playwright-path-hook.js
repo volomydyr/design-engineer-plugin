@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 // Design-Engineer Playwright-Path Hook (PreToolUse on mcp__playwright__browser_take_screenshot)
 // Stops Playwright screenshots from polluting the project root by enforcing
-// that every `filename` argument starts with one of the canonical paths
-// the plugin documents (.design-engineer-plugin/design/reviews/, .design-engineer-plugin/design/exploration/references/captures/,
-// .design-engineer-plugin/temporary/playwright/, or tests/).
+// that every `filename` argument lives under the plugin's umbrella directory
+// .design-engineer-plugin/.
 //
 // Without this hook, Playwright MCP defaults to writing to process.cwd()
 // when filename is omitted or relative without a directory prefix — so
@@ -17,38 +16,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const os = require('os');
 
-const LOG_PATH = path.join(os.homedir(), '.claude', 'cache', 'de-playwright-path.log');
+// Single allowed prefix: every Playwright capture must live under the
+// plugin's umbrella directory.
+const ALLOWED_PREFIX = '.design-engineer-plugin/';
 
 // Only active in projects that have run /design-engineer:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.yaml'))) {
   process.exit(0);
-}
-
-// Canonical paths where Playwright artifacts may be written.
-// - .design-engineer-plugin/design/reviews/ — page-by-page audit captures (review.md Step A1)
-// - .design-engineer-plugin/design/exploration/references/captures/ — moodboard reference captures
-//   (ui-references-moodboard Step 5b)
-// - .design-engineer-plugin/temporary/playwright/ — throwaway debug captures (visual
-//   verification, exploratory analysis, comparisons, anything you'd
-//   delete tomorrow without losing work)
-// - tests/ — Playwright test snapshot fixtures and visual regression
-//   baselines that live alongside the test scripts
-const ALLOWED_PREFIXES = [
-  '.design-engineer-plugin/design/reviews/',
-  '.design-engineer-plugin/design/exploration/references/captures/',
-  '.design-engineer-plugin/temporary/playwright/',
-  'tests/'
-];
-
-function appendLog(level, message) {
-  try {
-    const dir = path.dirname(LOG_PATH);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    const ts = new Date().toISOString();
-    fs.appendFileSync(LOG_PATH, '[' + ts + '] ' + level + ' | ' + message + '\n');
-  } catch (_) {}
 }
 
 function deny(reason) {
@@ -63,19 +38,14 @@ function deny(reason) {
 
 function buildHelpMessage(filename) {
   const prefix = filename
-    ? 'Playwright screenshot filename "' + filename + '" lands outside the canonical capture paths and would pollute the project. '
+    ? 'Playwright screenshot filename "' + filename + '" lands outside the plugin umbrella and would pollute the project. '
     : 'Playwright screenshot has no `filename` argument, so Playwright MCP would write it to the project root and pollute the working tree. ';
   return (
     prefix +
-    'Use a `filename` that starts with one of:\n' +
-    ALLOWED_PREFIXES.map(p => '  - ' + p).join('\n') +
-    '\n\nGuidance:\n' +
-    '  - Throwaway debug captures (visual verification, "let me check this URL", comparisons, exploratory analysis): ' +
-    '.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png. The temporary/ directory is git-ignored and auto-purged at every phase boundary by /design-engineer:document — clean up at any time without losing work.\n' +
-    '  - Persistent audit captures (page-by-page review): .design-engineer-plugin/design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png\n' +
-    '  - Moodboard reference captures: .design-engineer-plugin/design/exploration/references/captures/<reference-slug>/<NN>-<section>.png\n' +
-    '  - Playwright test fixtures and visual regression baselines: tests/<test-name>/<snapshot>.png\n' +
-    '\nEnsure the parent directory exists first via `mkdir -p`. Re-run the screenshot call with the corrected `filename`.'
+    'Use a `filename` that starts with ' + ALLOWED_PREFIX + ' (for example ' +
+    '.design-engineer-plugin/temporary/playwright/<descriptive-name>.png for throwaway captures, ' +
+    'or .design-engineer-plugin/design/reviews/<slug>/screenshot.png for audit captures). ' +
+    'Ensure the parent directory exists first via `mkdir -p`, then re-run the screenshot call with the corrected `filename`.'
   );
 }
 
@@ -93,41 +63,28 @@ function main() {
       const filename = typeof toolInput.filename === 'string' ? toolInput.filename : '';
 
       if (!filename) {
-        appendLog('DENIED', 'no filename argument');
         deny(buildHelpMessage(''));
         return process.exit(0);
       }
 
-      // Normalize: strip leading "./", convert backslashes to forward slashes,
-      // and resolve any `..` segments so we can't be tricked by relative paths.
+      // Normalize: strip leading "./", convert backslashes to forward slashes.
       const cleaned = filename.replace(/^\.\//, '').replace(/\\/g, '/');
 
-      // Reject absolute paths (they'd ignore the canonical-paths contract entirely).
-      if (path.isAbsolute(cleaned)) {
-        appendLog('DENIED', 'absolute path: ' + filename);
+      // Reject absolute paths and parent-directory traversal, then enforce the
+      // single allowed prefix.
+      const offPath =
+        path.isAbsolute(cleaned) ||
+        cleaned.split('/').includes('..') ||
+        !cleaned.startsWith(ALLOWED_PREFIX);
+
+      if (offPath) {
         deny(buildHelpMessage(filename));
         return process.exit(0);
       }
 
-      // Reject parent-directory traversal.
-      if (cleaned.split('/').includes('..')) {
-        appendLog('DENIED', 'parent traversal: ' + filename);
-        deny(buildHelpMessage(filename));
-        return process.exit(0);
-      }
-
-      const allowed = ALLOWED_PREFIXES.some(p => cleaned.startsWith(p));
-      if (!allowed) {
-        appendLog('DENIED', 'wrong prefix: ' + filename);
-        deny(buildHelpMessage(filename));
-        return process.exit(0);
-      }
-
-      appendLog('ALLOW', filename);
       process.exit(0);
     } catch (err) {
       // Fail-open on any parse/IO error
-      appendLog('ERROR', 'Failed: ' + (err.message || err));
       process.exit(0);
     }
   });

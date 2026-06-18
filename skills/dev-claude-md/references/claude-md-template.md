@@ -137,15 +137,15 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 - **NEVER invent new features** not documented in project knowledge documents
 - **ALWAYS use the designated tool for clarification** when uncertain
 
-## SPECIALIZED DEVELOPMENT AGENTS & MANDATORY PIPELINE
+## SPECIALIZED DEVELOPMENT AGENTS & PIPELINE
 
-**For ANY implementation task, follow this pipeline STRICTLY in order:**
+**For any implementation task, follow this pipeline in order:**
 
-### MANDATORY PIPELINE (Follow Exactly)
+### DEVELOPMENT PIPELINE
 
 ```
 PHASE 1: RESEARCH & ANALYSIS
-1. context-analyzer -> Understand patterns, raise questions
+1. Read the deliverables and project structure -> understand patterns, raise questions
 2. Fetch up-to-date documentation for decisions
 3. Ask user for designs + resolve questions
 4. Process responses, make informed decisions
@@ -154,22 +154,21 @@ PHASE 2: PLANNING (WAIT FOR APPROVAL)
 5. Enter Plan Mode -> Write structured plan -> ExitPlanMode for approval
 6. Wait for user approval -> Do NOT proceed without it
 
-PHASE 3: TDD + IMPLEMENTATION (Only After Approval)
-7. test-writer -> Write failing test scripts
-8. Run tests -> Verify Red (all fail)
-9. backend-implementer -> Verify/refine data layer (ALWAYS run)
-10. /simplify -> Review backend changes
-11. frontend-implementer -> Implement UI (after designs + approval)
-12. /simplify -> Review frontend changes
-13. Run tests -> Verify Green (all pass)
+PHASE 3: IMPLEMENTATION (Only After Approval)
+7. Optional TDD: test-writer -> Write failing test scripts -> verify Red (all fail). Use when you opt into test-first; skip otherwise.
+8. backend-implementer -> Verify/refine data layer (ALWAYS run)
+9. /simplify -> Review backend changes
+10. frontend-implementer -> Implement UI (after designs + approval)
+11. /simplify -> Review frontend changes
+12. If TDD was used: run tests -> verify Green (all pass)
 
 PHASE 4: QUALITY AUDIT
-14. /simplify -> Final pass on all code changes
-15. design-system-auditor -> Verify compliance
+13. /simplify -> Final pass on all code changes
+14. design-system-auditor -> Verify compliance
 
 PHASE 5: WRAP UP
-16. Archive tests -> Move tests/ to tests/archive/
-17. Integration testing -> Test full user flow
+15. If TDD was used: archive tests -> Move tests/ to tests/archive/
+16. Integration testing -> Test full user flow
 ```
 
 ### Pipeline Violations to Avoid
@@ -181,8 +180,7 @@ PHASE 5: WRAP UP
 - Making architectural decisions without checking documentation
 - Guessing or assuming – always ask for clarification
 - Skipping `/simplify` after implementation steps
-- Skipping test-writer before implementation
-- Writing implementation code without test scripts in tests/
+- When you opted into TDD: writing implementation code before the failing test scripts exist in tests/
 
 ## REQUIREMENT CONFLICT RESOLUTION
 
@@ -209,9 +207,9 @@ How should I proceed?"
 7. **Maintain pixel-perfect implementation** from designs
 8. **Update development status** when features are complete
 9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
-10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning – write structured plans to the plan file, never as plain text. After approval, save to `.design-engineer-plugin/.design-engineer-plugin/plans/` in the project. After completion, move to `.design-engineer-plugin/.design-engineer-plugin/plans/archive/`.
+10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning – write structured plans to the plan file, never as plain text. After approval, save to `.design-engineer-plugin/plans/` in the project. After completion, move to `.design-engineer-plugin/plans/archive/`.
 11. **Run `/simplify` after every code-producing step** – mandatory after backend-implementer, frontend-implementer, and before design-system-auditor. Also after prototype generation.
-12. **Write tests BEFORE implementation** – run test-writer agent to create Playwright CLI test scripts in `tests/` before backend-implementer or frontend-implementer. Verify Red (fail) before implementing, verify Green (pass) after. A TDD hook blocks source code writes when no tests exist.
+12. **If you opt into TDD, write tests BEFORE implementation** – run test-writer agent to create Playwright CLI test scripts in `tests/` before backend-implementer or frontend-implementer. Verify Red (fail) before implementing, verify Green (pass) after. TDD is a method you choose per feature, not a mandatory gate.
 ```
 
 ---

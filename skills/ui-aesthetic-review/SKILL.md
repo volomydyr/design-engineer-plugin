@@ -2,8 +2,8 @@
 name: ui-aesthetic-review
 description: "Critiques implemented UI for craft quality using a 4-lens framework and 4 named tests. Use after building to identify where defaults replaced intentional design decisions and close the gap between correct and crafted. Do NOT use for design-to-code fidelity or token compliance; see ui-design-to-code-qa instead."
 disable-model-invocation: true
-model: claude-opus-4-7
-effort: high
+model: sonnet
+effort: medium
 license: MIT
 ---
 
@@ -95,7 +95,7 @@ Move close. Pixel-close.
 
 **Interactive states** – Every button, link, and clickable region should respond to hover and press. Not dramatically – a subtle shift in background, a gentle darkening. Missing states make an interface feel like a photograph of software instead of software.
 
-For deeper domain knowledge, see [typography.md](./references/typography.md), [color-and-contrast.md](./references/color-and-contrast.md), and [motion-design.md](./references/motion-design.md).
+For deeper domain knowledge, see [typography.md](./references/typography.md), [color-and-contrast.md](./references/color-and-contrast.md), and [motion.md](./references/motion.md).
 
 ---
 
@@ -151,9 +151,7 @@ Read the design tokens or CSS variables out loud. Do they sound like they belong
 
 ### AI Slop Test
 
-Show this interface to a stranger and say "AI made this." If they believe you immediately – that is the problem.
-
-Check the implementation against every anti-pattern in [anti-patterns.md](./references/anti-patterns.md). The tells are specific: purple gradients, Inter font, cards inside cards, glassmorphism, identical card grids, bounce easing. Each one signals "no one decided this."
+Run the canonical AI Slop Test in [anti-patterns.md](./references/anti-patterns.md): show this interface to a stranger and say "AI made this." If they believe you immediately, that is the problem. Check the implementation against every anti-pattern in that catalog. The tells are specific: purple gradients, Inter font, cards inside cards, glassmorphism, identical card grids, bounce easing. Each one signals "no one decided this." Report Pass or Fail per the canonical test's criteria.
 
 The goal is not to avoid AI assistance – it is to avoid AI defaults.
 
@@ -219,12 +217,7 @@ After critique and rebuild, suggest running `ui-design-to-code-qa` to catch any 
 - [typography.md](./references/typography.md) – Type systems, font pairing, modular scales, OpenType features
 - [color-and-contrast.md](./references/color-and-contrast.md) – OKLCH color, tinted neutrals, dark mode, WCAG contrast
 - [spatial-design.md](./references/spatial-design.md) – Spacing systems, grids, visual hierarchy, container queries
-- [motion-design.md](./references/motion-design.md) – Animation decision framework, easing curves, duration rules, springs, stagger
-- [advanced-animations.md](./references/advanced-animations.md) – clip-path patterns, gesture/drag, WAAPI, debugging
-- [animation-by-emotion.md](./references/animation-by-emotion.md) – Emotion-to-animation mapping: timing, easing, and scale per emotional target
-- [animation-by-component.md](./references/animation-by-component.md) – Per-component timing specifications for 10 UI element types
-- [animation-by-context.md](./references/animation-by-context.md) – Industry-specific animation considerations (e-commerce, fintech, healthcare, etc.)
-- [animation-troubleshooting.md](./references/animation-troubleshooting.md) – Problem diagnosis: "feels robotic," "causes sickness," "emotionally wrong," etc.
+- [motion.md](./references/motion.md) – All motion guidance keyed by question: decision framework, emotion mapping, per-component timing, product-context considerations, advanced interactions (clip-path, gesture/drag, WAAPI), and symptom-to-fix troubleshooting
 - [interaction-design.md](./references/interaction-design.md) – Interactive states, focus rings, forms, keyboard navigation
 - [responsive-design.md](./references/responsive-design.md) – Mobile-first, fluid design, input detection, safe areas
 - [ux-writing.md](./references/ux-writing.md) – Button labels, error messages, empty states, voice and tone

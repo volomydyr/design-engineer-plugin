@@ -90,5 +90,5 @@ Then surface to the user:
 
 - This command is safe to run any number of times. Files in `temporary/` are by definition disposable.
 - The auto-purge at phase boundaries (via `/design-engineer:document` Step 7) does the same thing without asking. This command is for mid-session manual cleanup.
-- The path-validation hook (`de-deliverable-path-hook.js`) makes it impossible to accidentally write a deliverable to `temporary/` — only working artifacts land there.
-- If the user has work in `temporary/` they want to keep, the correct workflow is to promote it to a canonical path under `.design-engineer-plugin/design/<subdir>/` BEFORE running `/design-engineer:tidy`. The path-validation hook will accept the canonical path.
+- Deliverables are written only to their canonical paths under `.design-engineer-plugin/design/<subdir>/`; `temporary/` holds working artifacts only, so a tidy never removes real work.
+- If the user has work in `temporary/` they want to keep, promote it to a canonical path under `.design-engineer-plugin/design/<subdir>/` BEFORE running `/design-engineer:tidy`.

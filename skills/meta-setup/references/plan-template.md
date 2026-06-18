@@ -76,21 +76,15 @@ Never write "leverage existing components" – be specific about every component
 Follow these rules after the plan is approved. They are not optional.
 
 ### Plan storage
-After approval, the plan is automatically copied to `.design-engineer-plugin/.design-engineer-plugin/plans/` by a hook. Verify the file exists in `.design-engineer-plugin/.design-engineer-plugin/plans/` before writing any code. If it's not there, copy it manually.
+After approval, copy the plan to `.design-engineer-plugin/plans/`. Verify the file exists there before writing any code.
 
 ### Feature branch
 If on main or master, create a feature branch before writing code: `git checkout -b feat/[plan-slug]`.
 
-### TDD (mandatory)
-Before writing production code for each phase, invoke the **test-writer** agent to create failing tests. Use the Agent tool to spawn it. You cannot write source code until test scripts exist in `tests/`. A hook enforces this – if you try to write code without tests, it will be blocked.
-
 ### Cross-agent review (at handoff points)
 
-Before implementation starts:
-- Invoke the **test-writer** agent in review mode: "Review this plan. Flag any requirements that are untestable as written." Address any concerns before proceeding.
-
 After backend implementation and before frontend implementation:
-- Invoke the **frontend-implementer** agent in review mode: "Review the backend API shape. Flag anything that will make the frontend harder than it needs to be." Address any concerns before proceeding.
+- Brief the **frontend-implementer** agent in review mode: "Review the backend API shape. Flag anything that will make the frontend harder than it needs to be." Address any concerns before proceeding.
 
 After both backend and frontend implementation:
 - The **design-system-auditor** agent reviews both – ensure it runs and its findings are addressed before proceeding.
@@ -100,26 +94,18 @@ Implement phases in dependency order. Never implement multiple phases in a singl
 
 ### Per-phase checklist
 For each phase, follow this sequence:
-1. Invoke the **test-writer** agent to write failing tests for this phase's changes (Red). Do not write the tests yourself – delegate to the agent.
-2. Run test scripts to verify they fail correctly (fails because feature is missing, not because of typos)
-3. Invoke the **backend-implementer** agent for server-side code (if applicable). Do not write backend code yourself – delegate to the agent.
-4. MANDATORY: Run `/simplify` on backend changes. State what /simplify found and what was fixed. Do not proceed until /simplify has reviewed the code.
-5. Invoke the **frontend-implementer** agent for client-side code (if applicable). Do not write frontend code yourself – delegate to the agent.
-6. MANDATORY: Run `/simplify` on frontend changes. State what /simplify found and what was fixed. Do not proceed until /simplify has reviewed the code.
-7. Run tests to verify they pass (Green)
-8. Completeness review: read the phase's Checklist above, verify every item was implemented as specified – not differently, not partially. Check that no creative additions were made beyond the checklist.
-9. If UI was changed: use Playwright to navigate to the affected page, take a screenshot, and verify visual correctness before presenting to the user
-10. Present to user: what was done (brief), QA instructions from the plan. If the phase has no manual QA possible, state "No manual QA needed for this phase."
-11. **BLOCKING**: WAIT for user approval – do not proceed to the next phase until the user explicitly approves
-12. After approval: commit using dev-github-workflow (Conventional Commits format)
+1. Invoke the **backend-implementer** agent for server-side code when the work would otherwise flood the main context; iterate inline otherwise.
+2. Run `/simplify` on backend changes. State what /simplify found and what was fixed before proceeding.
+3. Invoke the **frontend-implementer** agent for client-side code when the work would otherwise flood the main context; iterate inline otherwise.
+4. Run `/simplify` on frontend changes. State what /simplify found and what was fixed before proceeding.
+5. Completeness review: read the phase's Checklist above, verify every item was implemented as specified – not differently, not partially. Check that no creative additions were made beyond the checklist, and that no important existing content was removed.
+6. If UI was changed: use Playwright to navigate to the affected page, take a screenshot, and verify visual correctness before presenting to the user.
+7. Build only what the plan's scope states. If a feature, behavior, or piece of copy was not in the plan or the user's request, do not add it – the only way to introduce something new is to ask the user first via AskUserQuestion.
+8. Present to user: what was done (brief), QA instructions from the plan. If the phase has no manual QA possible, state "No manual QA needed for this phase."
+9. **BLOCKING**: WAIT for user approval – do not proceed to the next phase until the user explicitly approves.
+10. After approval: commit using dev-github-workflow (Conventional Commits format).
 
 ### After all phases
 1. Invoke the **design-system-auditor** agent if any UI was changed. Do not skip this step.
-2. Invoke the **compound-documenter** agent via meta-document to record what was built and why
-3. Present post-implementation options via AskUserQuestion – never a plain text question
-
-### Quality checks that happen automatically (hooks)
-- Fidelity hook: checks every code write against the plan for scope drift, phase ordering, and content preservation
-- TDD hook: blocks source code writes if no test scripts exist in `tests/`
-- /simplify reminder: appears after every code write reminding you to run /simplify
-- Git branch check: warns if your branch doesn't match the plan name
+2. Invoke the **compound-documenter** agent via meta-document to record what was built and why.
+3. Present post-implementation options via AskUserQuestion – never a plain text question.

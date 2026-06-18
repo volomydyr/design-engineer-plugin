@@ -33,20 +33,14 @@ question: "How do you want to share Figma designs with your AI coding tool?"
 header: "Figma integration"
 options:
   - label: ""Figma Plugin" (Recommended, bundled)"
-    description: "Reads designs, captures web pages into Figma, generates design system rules. Covers most workflows. Bundled with this plugin – no separate install."
-  - label: "Both "Figma Plugin" + "Figma Console MCP" (advanced)"
-    description: ""Figma Plugin" for reading/capturing plus the third-party "Figma Console MCP" for variables, linting, batch operations, slides, FigJam. The Console MCP is NOT bundled – you'll need to install it separately. Best for design system automation."
+    description: "Reads designs, captures web pages into Figma, generates design system rules, and writes components, tokens, and styles back into Figma via use_figma. Covers every Figma workflow in this plugin. Bundled – no separate install."
   - label: "Manual screenshots"
     description: "Take screenshots of frames and share with AI. Simple but less accurate."
   - label: "Playwright or browser extension"
     description: "Use browser automation to capture live designs."
 ```
 
-If the user picks the "Both" option, surface the install pointer:
-
-> The Figma Console MCP is a separate community project, not bundled with this plugin. Install it from its repository (search GitHub for "figma-console MCP" or visit https://github.com/southleft/figma-console-mcp). Once installed alongside this plugin, the bundled Figma Plugin and the Console MCP run side-by-side. Confirm install before proceeding so this skill can route tool calls correctly.
-
-For detailed guidance on which MCP to use for what, see [figma-mcp-routing.md](./references/figma-mcp-routing.md).
+The bundled "Figma Plugin" handles both reading and writing, so design system automation (variables, tokens, components, structuring for handoff) runs through it without any extra install. For detailed guidance on which tool to use for what, see [figma-mcp-routing.md](./references/figma-mcp-routing.md).
 
 ---
 
@@ -102,9 +96,9 @@ Auto-layouts are essential. AI needs them to understand how to make code respons
 
 ### Components and Tokens
 
-**With "Figma Console MCP"**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. This takes minutes and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
+**If you want structured Figma files**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. It runs entirely on the bundled "Figma Plugin" (write operations go through `use_figma`), takes minutes, and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
 
-**Without "Figma Console MCP"**: There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
+**If you'd rather keep Figma loose**: There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
 
 ### Web capture and code-to-Figma import
 
@@ -160,7 +154,7 @@ Help the user create a Figma strategy document saved to `.design-engineer-plugin
 
 After Figma designs are created, suggest the logical next step:
 
-- **If "Figma Console MCP" is available**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff
+- **To structure designs for handoff**: suggest `ui-figma-handoff` to turn raw frames into components, tokens, and dev-ready annotations (runs on the bundled "Figma Plugin")
 - **For development**: suggest `dev-agent-setup` to implement designs using the agent pipeline
 - **For review**: suggest `ui-design-to-code-qa` to review implemented results against the designs
 
