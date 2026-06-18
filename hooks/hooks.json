@@ -60,8 +60,9 @@
         "matcher": "Write|Edit|MultiEdit"
       }
     ],
-    "PostCompact": [
+    "SessionStart": [
       {
+        "matcher": "compact",
         "hooks": [
           {
             "type": "command",
