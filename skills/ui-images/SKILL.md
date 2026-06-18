@@ -14,7 +14,7 @@ compatibility:
 
 Plan, brief, and source images for prototypes and landing pages without slop. Decides per image whether to use stock or AI generation, produces the right artefact (search query or detailed prompt), and organises outputs into the project's deliverables folder.
 
-> **Scope guard**: this skill produces images for the **project's own UI** — the hero shot on a landing page, avatars in a user list, a decorative background photo. It is NOT for generating "approximations" of design references gathered by `ui-references-moodboard`. References are real screenshots of real apps; that's the entire point of references. If you arrived here while running the moodboard skill thinking you should produce image prompts for the references, stop — that's a known autopilot conflation. The moodboard skill captures real UIs via Playwright; it does not generate AI images of them.
+> **Scope guard**: this skill produces images for the **project's own UI** — the hero shot on a landing page, avatars in a user list, a decorative background photo. It is NOT for generating "approximations" of design references gathered by `ui-references-moodboard`. References are real screenshots of real apps; that's the entire point of references. If you arrived here while running the moodboard skill thinking you should produce image prompts for the references, stop — that's a known failure mode when running without explicit scope guardrails. The moodboard skill captures real UIs via Playwright; it does not generate AI images of them.
 
 ## Why This Matters
 

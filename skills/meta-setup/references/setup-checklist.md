@@ -19,21 +19,7 @@ Determines where the user is in the product-building journey and controls skip l
 
 ---
 
-## 2. Mode Preference
-
-Controls the interaction pattern across all skills in the plugin.
-
-| Option | Behavior |
-|--------|----------|
-| **Guided mode** | AI shares brief suggestions from multiple perspectives first. Then asks only what it can't infer from prior deliverables and the conversation, batched (up to 4 per AskUserQuestion call). Then iterates back-and-forth until the user approves the deliverable. Every skill pauses for user review before finalizing. |
-| **Autopilot** | AI runs the full pipeline autonomously with minimal user input. Pauses only at major phase checkpoints (end of Phase 1, end of Phase 2, etc.) and the User Approval Checkpoint between Phase 4 and Phase 5. |
-| **Both / decide later** | The orchestrator asks which mode to use each time a command is invoked. Individual skills can be invoked in either mode. |
-
-**Interaction pattern for Guided mode**: AI shares suggestions from different perspectives (not just one suggestion), asks questions using AskUserQuestion (or numbered-list fallback), waits for answers, iterates, and only finalizes when the user explicitly approves. Nothing is done through one set of questions – iterative refinement until the user is satisfied.
-
----
-
-## 3. Team Size
+## 2. Team Size
 
 Affects context management strategy and compound documentation depth.
 
@@ -45,7 +31,7 @@ Affects context management strategy and compound documentation depth.
 
 ---
 
-## 4. Design Tool Integration
+## 3. Design Tool Integration
 
 Determines how design-related skills interact with the user's design workflow.
 
@@ -60,7 +46,7 @@ Determines how design-related skills interact with the user's design workflow.
 
 ---
 
-## 5. Deliverables Path
+## 4. Deliverables Path
 
 Where all skill outputs are saved. Default: `design/` in the project root.
 
@@ -123,7 +109,7 @@ All deliverables are living documents. They are never created once and forgotten
 
 ---
 
-## 6. Development Environment
+## 5. Development Environment
 
 Affects how development skills generate instructions and kickstart prompts.
 
@@ -136,7 +122,7 @@ Affects how development skills generate instructions and kickstart prompts.
 
 ---
 
-## 7. Experience Level
+## 6. Experience Level
 
 Controls the depth of inline teaching across all skills.
 

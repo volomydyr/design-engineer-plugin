@@ -1,6 +1,6 @@
 ---
 name: design-engineer:review
-description: Context-aware design review. Plans what to review based on your project, executes step by step in Guided mode or as a summary in Autopilot. Argument `audit` runs a multi-page commercial audit with designer-feedback capture per page.
+description: Context-aware design review. Plans what to review based on your project, then executes step by step with your input at each finding. Argument `audit` runs a multi-page commercial audit with designer-feedback capture per page.
 argument-hint: "[specific area to review | audit]"
 ---
 
@@ -28,7 +28,7 @@ If `$ARGUMENTS` is `audit`, jump to **Step A1: Page-by-page commercial audit** b
 
 Before asking anything or starting work:
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot) and goal
+1. Read `.design-engineer-plugin/config.yaml` for goal
 2. Check what tools are available (is Figma connected? is Playwright available?)
 3. Scan the project briefly: what tech stack, what files exist, are there components, is there a design system?
 
@@ -117,8 +117,6 @@ This reference material is what makes the plugin's review better than a generic 
 
 ## Step 4: Execute the review
 
-### Guided mode
-
 Agents CAN run for analysis. But after an agent completes, parse its output and present findings one at a time with AskUserQuestion interaction.
 
 1. Read the relevant code yourself or run the appropriate agent
@@ -165,12 +163,6 @@ Agents CAN run for analysis. But after an agent completes, parse its output and 
      If "Skip", drop the finding and continue. If "Explain", give the explanation, then loop back to the original question for this same finding
 6. After all findings: summary table grouped by severity, including which recommendation was chosen for each item that goes into the fix plan
 7. Ask what to do next (see post-review below)
-
-### Autopilot
-
-1. Run agents for speed (psych-scanner, design-system-auditor, etc.)
-2. Present complete results as a structured summary grouped by severity
-3. Ask what to fix or explore further
 
 ## Step 4.5: Optional advisor consult
 

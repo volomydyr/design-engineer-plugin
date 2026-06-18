@@ -1,6 +1,6 @@
 ---
 name: meta-orchestrator
-description: "Controls the design pipeline across discovery, planning, and validation. Runs a lean default spine (problem, audience, MVP, IA, prototype, dev) with opt-in depth, in guided or autopilot mode, while tracking project state. Use when running the end-to-end design workflow via /design-engineer:discovery."
+description: "Controls the design pipeline across discovery, planning, and validation. Runs a lean default spine (problem, audience, MVP, IA, prototype, dev) with opt-in depth, while tracking project state. Use when running the end-to-end design workflow via /design-engineer:discovery."
 disable-model-invocation: true
 model: sonnet
 effort: medium
@@ -30,20 +30,16 @@ When AI makes a claim based on research or documents, provide specific quotes. N
 
 The plugin ships one model and effort policy in each component's frontmatter – there is nothing for the orchestrator to switch at runtime. Sonnet at medium effort is the default for substantive design and development work; mechanical work runs on Haiku; the design-system audit runs on Opus, where its aesthetic critique earns the premium. Do not prompt the user to switch models between phases. If a user explicitly wants a different model for a stretch of work, they can set it themselves with `/model`; never block progress on model choice.
 
-## Two operating modes
+## Pipeline execution
 
-### 1. Autopilot (autonomous)
-
-Runs the spine end-to-end with minimal user input. Skills execute in order through the default spine; opt-in depth skills are skipped unless the user requested them at startup. The pipeline has two stages separated by a **user approval checkpoint**:
+The pipeline has two stages separated by a **user approval checkpoint**:
 
 - **Pre-development activities** – discovery, planning, design and validation
 - **Development activities** – setup and implementation
 
-Even in autopilot, pause at the approval checkpoint and wait for explicit user approval before proceeding to development.
+Pause at the approval checkpoint and wait for explicit user approval before proceeding to development.
 
 At milestone boundaries (end of discovery, end of design and validation), invoke `meta-document` to save progress and maintain context continuity. It is not run after every skill.
-
-### 2. Guided mode (interactive)
 
 Step-by-step execution with user input at every stage. Agents run for their specialized tasks (research, scanning, analysis) when work would otherwise flood the main context; iterate inline otherwise. After an agent completes, parse its output into individual findings or sections and present them one at a time with AskUserQuestion interaction. Never show the agent's raw output directly. Never dump all findings at once.
 
@@ -85,12 +81,12 @@ If a `resume:` section exists:
 <ask-user>
 How would you like to proceed?
 
-1. **Continue where I left off** – Resume with [next_skill] in the same mode
+1. **Continue where I left off** – Resume with [next_skill]
 2. **Start fresh** – Ignore previous state and choose a new starting point
 3. **Review stale deliverables first** – Update [stale_dependents] before continuing
 </ask-user>
 
-3. If the user continues, skip Steps 1–3 below – the mode, phase, and entry point all come from the resume data. Also read `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` for full context (written by the compound-documenter agent on prior phase completions).
+3. If the user continues, skip Steps 1–2 below – the phase and entry point all come from the resume data. Also read `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` for full context (written by the compound-documenter agent on prior phase completions).
 
 4. After resuming, clear the `resume:` section from `.design-engineer-plugin/config.yaml` to avoid stale resume data in the next session.
 
@@ -98,18 +94,7 @@ If no `resume:` section exists, proceed to Step 1.
 
 ---
 
-### Step 1: Determine Mode
-
-<ask-user>
-How would you like to work?
-
-1. **Guided mode** – We go step by step, I ask questions and you approve at every stage
-2. **Autopilot** – I run the spine autonomously, you review at checkpoints
-</ask-user>
-
-If the AskUserQuestion tool is unavailable, present these as a numbered list and ask the user to pick one.
-
-### Step 2: Determine Project State
+### Step 1: Determine Project State
 
 #### Progress Summary
 
@@ -126,7 +111,7 @@ Development → pending
 
 If any opt-in depth skills were run (competitor analysis, interviews, storybrand, story panels, business plan, bias/ethics/journey audits, psychology audits), list them under a short "Also done" line. Use the deliverable `status` field to compute which steps are complete.
 
-If the progress summary shows work already done, skip the project state question – the answer is already known. Proceed directly to Step 3 with the detected state.
+If the progress summary shows work already done, skip the project state question – the answer is already known. Proceed directly to Step 2 with the detected state.
 
 If no `.dependencies.yaml` exists, ask:
 
@@ -139,7 +124,7 @@ What is your project status?
 4. **Resume** – Continuing a previously started pipeline (I will check the project state file)
 </ask-user>
 
-### Step 3: Handle Existing Work
+### Step 2: Handle Existing Work
 
 If the user selected "Partially done" or "Existing product":
 
@@ -200,7 +185,7 @@ After the design steps and before development, suggest compaction using `skills/
 
 ### User approval checkpoint
 
-After the design steps (plus any chosen depth skills), present a summary of all pre-development work and wait for explicit user approval before proceeding to development. This is the boundary between design and build; even in autopilot, pause here.
+After the design steps (plus any chosen depth skills), present a summary of all pre-development work and wait for explicit user approval before proceeding to development. This is the boundary between design and build; pause here.
 
 ### Development
 
@@ -216,13 +201,6 @@ After development completes, present a personalized, dynamic conclusion – not 
 
 When invoking each skill in the sequence:
 
-### In Autopilot
-1. Invoke the skill
-2. Let it run to completion with minimal interaction
-3. Validate that the skill produced its expected deliverable
-4. Proceed to the next skill
-
-### In Guided Mode
 1. Announce which skill is next and briefly explain what it does and why it matters at this stage
 2. Ask the user if they want to proceed, skip, or adjust
 3. Invoke the skill
@@ -230,19 +208,13 @@ When invoking each skill in the sequence:
 5. Suggest the next skill and ask for confirmation
 
 ### Handling Opt-in Depth Skills
-For the opt-in depth skills (off the default spine):
-
-- **Autopilot**: Skip them by default unless the user explicitly requested them at startup
-- **Guided mode**: Present the depth skill, explain when it is most useful, and ask whether to include it
+For the opt-in depth skills (off the default spine), present the depth skill, explain when it is most useful, and ask whether to include it.
 
 ### Handling Parallel Groups
 
 Some skills within the same phase have no dependency on each other and can run simultaneously. These are marked as parallel groups in [pipeline-sequence.md](./references/pipeline-sequence.md).
 
-When the pipeline reaches a parallel group:
-
-- **Autopilot**: Launch all skills in the group simultaneously using the Agent tool. Each skill runs in its own fresh context. Wait for all to complete, then validate all deliverables were produced before proceeding to the next skill in the sequence.
-- **Guided mode**: Present the parallel group to the user: "The next [N] skills ([skill names]) can run independently. Running them in parallel is faster but less interactive. Running them one at a time lets you review each before moving on." Respect the user's preference.
+When the pipeline reaches a parallel group, present it to the user: "The next [N] skills ([skill names]) can run independently. Running them in parallel is faster but less interactive. Running them one at a time lets you review each before moving on." Respect the user's preference.
 
 ## Context Handoff Between Skills
 
@@ -277,9 +249,8 @@ Do NOT call Read on Claude Code's auto-memory `MEMORY.md` – it is auto-loaded 
 If a skill fails or produces an unsatisfactory result:
 
 1. Do not silently proceed – inform the user what went wrong
-2. Offer options: retry the skill, skip it, or adjust the approach
-3. In Autopilot, pause and switch to interactive mode for the problematic skill
-4. Record the issue in the project state file under learnings
+2. Ask the user how to proceed: retry the skill, skip it, or adjust the approach, and wait for their response
+3. Record the issue in the project state file under learnings
 
 ## Scope Discipline
 

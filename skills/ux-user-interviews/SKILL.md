@@ -19,7 +19,7 @@ Before doing the work below, read `.design-engineer-plugin/config.yaml` `project
 
 **Purpose:** Help you design effective user research instruments (surveys and interviews), prepare proper scripts, find and motivate participants, and analyze results using a dual-analysis methodology that prevents AI hallucination in research findings.
 
-This skill operates in guided mode only because interviews and surveys require human interaction with real users. AI cannot conduct the research for you, but it can prepare you thoroughly and help you make sense of what you learn.
+This skill requires your direct involvement because interviews and surveys require human interaction with real users. AI cannot conduct the research for you, but it can prepare you thoroughly and help you make sense of what you learn.
 
 ## Overview
 

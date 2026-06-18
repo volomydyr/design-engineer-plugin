@@ -5,7 +5,7 @@
       "id": 1,
       "skill_name": "meta-setup",
       "prompt": "I just installed the design-engineer plugin and I want to set it up for my new SaaS project. It's a project management tool for freelance designers called DesignFlow. I'm working solo, using Figma and Claude Code in the terminal.",
-      "expected_output": "Should run environment detection script, ask the configuration questions sequentially (project state, mode preference, team size, design tool integration, dev environment, experience level), scaffold the project folder structure with foundation/research/planning/exploration/psychology/reviews/dev subdirectories, create the config file, initialize dependency tracking, and display a setup summary with next steps.",
+      "expected_output": "Should run environment detection script, ask the configuration questions sequentially (project state, team size, design tool integration, dev environment, experience level), scaffold the project folder structure with foundation/research/planning/exploration/psychology/reviews/dev subdirectories, create the config file, initialize dependency tracking, and display a setup summary with next steps.",
       "files": [],
       "type": "functional"
     },
@@ -26,18 +26,10 @@
       "type": "functional"
     },
     {
-      "id": 4,
-      "skill_name": "meta-orchestrator",
-      "prompt": "I want to build a meal planning app for busy parents. Run the entire design pipeline for me autonomously -- I trust your judgment on the details, just check in with me at major milestones.",
-      "expected_output": "Should activate Autopilot, confirm project state (new from scratch), then sequence through Phase 1 (Discovery: problem-statement, target-audience, assumptions, competitor-analysis), Phase 2 (Strategy: behavior-mapping, storybrand, story-panels, business-plan), Phase 3 (Planning: mvp-requirements, information-architecture), Phase 4 (Design & Validation: bias-audit, journey-mapping, design-references, prototyping, figma-workflow, motivation-levels), running meta-document after each phase. Should pause at the user approval checkpoint before Phase 5 development.",
-      "files": [],
-      "type": "functional"
-    },
-    {
       "id": 5,
       "skill_name": "meta-orchestrator",
       "prompt": "We have an existing e-commerce platform that already has a problem statement and target audience defined in docs/design/. I want to work through the remaining design pipeline step by step with your guidance.",
-      "expected_output": "Should activate Guided mode, detect project state as partially done, check for existing deliverables in docs/design/, confirm which skills to skip (ux-problem-statement, ux-target-audience), and determine the correct entry point. Should proceed skill by skill with explanations, questions, and approval prompts at each step.",
+      "expected_output": "Should detect project state as partially done, check for existing deliverables in docs/design/, confirm which skills to skip (ux-problem-statement, ux-target-audience), and determine the correct entry point. Should proceed skill by skill with explanations, questions, and approval prompts at each step.",
       "files": [],
       "type": "functional"
     },
@@ -90,18 +82,10 @@
       "type": "functional"
     },
     {
-      "id": 12,
-      "skill_name": "command:de:design",
-      "prompt": "/design-engineer:discovery",
-      "expected_output": "Should verify /design-engineer:launch has been run, read the configured mode, and in autopilot run the full design pipeline autonomously: Phase 1 (Discovery), Phase 2 (Strategy), Phase 3 (Planning), Phase 4 (Design & Validation), running meta-document after each phase, pausing at the transition checkpoint before development.",
-      "files": [],
-      "type": "functional"
-    },
-    {
       "id": 13,
       "skill_name": "command:de:design",
       "prompt": "/design-engineer:discovery guided -- I'm building a language learning app for deaf children aged 5-12. Their parents are the buyers but the kids are the users.",
-      "expected_output": "Should activate Guided mode with the provided context, sequence through all phases with step-by-step questions and approval prompts at each skill, handle the dual-audience complexity (children as users, parents as buyers) throughout the pipeline, and allow the user to review and approve each deliverable before moving to the next skill.",
+      "expected_output": "Should work through the provided context, sequencing through all phases with step-by-step questions and approval prompts at each skill, handle the dual-audience complexity (children as users, parents as buyers) throughout the pipeline, and allow the user to review and approve each deliverable before moving to the next skill.",
       "files": [],
       "type": "functional"
     },
@@ -309,7 +293,7 @@
       "id": 39,
       "skill_name": "ux-user-interviews",
       "prompt": "I need to set up user interviews for my grocery delivery app. I've never done interviews before and I'm kind of nervous about it. Can you help me prepare a script and tell me what to avoid?",
-      "expected_output": "Should operate in guided mode, prepare an interview script using empathy questions and the 'Replacing X' technique, teach the user to ask about past behavior rather than hypothetical futures, provide tips for nervous first-time interviewers, discuss finding participants, and prepare the dual-analysis methodology for after the interviews.",
+      "expected_output": "Should prepare an interview script using empathy questions and the 'Replacing X' technique, teach the user to ask about past behavior rather than hypothetical futures, provide tips for nervous first-time interviewers, discuss finding participants, and prepare the dual-analysis methodology for after the interviews.",
       "files": [],
       "type": "functional"
     },
@@ -2636,12 +2620,6 @@
       "skill_name": "dev-component-gallery",
       "prompt": "I'm in the middle of building the dashboard view and just added three new components (StatCard, ChartLegend, FilterPill). I want to keep the component gallery in sync.",
       "expected_output": "Should detect framework via existing detect-environment infrastructure, query context7 MCP for the framework's idiomatic showcase pattern, scaffold or update the gallery file with all three new components plus their variants, real production styles only (no inline styles), source-path labels per entry. If gallery doesn't exist yet, scaffold it transparently and surface a one-line discovery mention."
-    },
-    {
-      "id": 344,
-      "skill_name": "meta-setup",
-      "prompt": "I want to change my plugin mode from guided to autopilot for this project.",
-      "expected_output": "Should detect the existing config, run the reconfigure flow, ask via AskUserQuestion which setting to update (mode, etc.), validate the new value, write back preserving other fields, confirm in plain language without exposing config-file paths."
     },
     {
       "id": 345,

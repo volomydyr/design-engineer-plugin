@@ -25,7 +25,7 @@ Read `.design-engineer-plugin/config.yaml`. Check the `project_type` field:
 - If `project_type: existing` → this is an existing project, NOT a returning pipeline project. The hook injects context for this case (it carries the onboarding sequence and capability prompts). Follow the hook's instructions, then run the existing-project setup in Path B below. Do NOT show pipeline state or resume information.
 - If `project_type: new` AND a `status: complete` line is present → the plugin-built product has shipped (state `returning_complete`). Do NOT show pipeline-resume information; route into the iterate flow via Path B below (the shipped product is now in iteration, not the from-scratch pipeline).
 - If `project_type: new` (no `status: complete`) → this is a returning pipeline project. Continue with Path A below.
-- If no config exists → first-time setup. For a new product idea, run Path A's new-project setup (Steps 2–5). For an existing project, follow the hook's onboarding sequence, then run Path B below.
+- If no config exists → first-time setup. For a new product idea, run Path A's new-project setup (Steps 2–4). For an existing project, follow the hook's onboarding sequence, then run Path B below.
 
 Do not mention config files, detection state, or project types to the user. No jargon.
 
@@ -85,13 +85,13 @@ If "Reconfigure": proceed to Step 2.
 For an existing project (no plugin setup yet, reached via the hook's onboarding sequence) and for a shipped plugin-built product (`returning_complete`), set the project up lightly so the user can start working, then enter the iterate flow. Do not march them through the full new-product flow.
 
 1. Run `detect-environment.sh` from this skill's scripts directory and show the results in plain language (Step 2 covers the exact wording – ✓ for available tools described by what they enable, ✗ for missing ones; offer help if an essential tool is missing).
-2. Write `.design-engineer-plugin/config.yaml` exactly as in Step 5, but with `type: "existing"` instead of `type: "new"`. (Skip for `returning_complete` – the config already exists; do not overwrite it.)
-3. Scaffold the `design/` structure with `init-project-structure.sh` (Step 4). (Skip for `returning_complete` – already scaffolded.)
+2. Write `.design-engineer-plugin/config.yaml` exactly as in Step 4, but with `type: "existing"` instead of `type: "new"`. (Skip for `returning_complete` – the config already exists; do not overwrite it.)
+3. Scaffold the `design/` structure with `init-project-structure.sh` (Step 3). (Skip for `returning_complete` – already scaffolded.)
 4. Show a brief summary of what was set up.
-5. Ask the status-line question (Step 5's status-line block) and apply the choice. (Skip for `returning_complete` – settled on the original onboarding run.)
+5. Ask the status-line question (Step 4's status-line block) and apply the choice. (Skip for `returning_complete` – settled on the original onboarding run.)
 6. **Enter the iterate flow with clarify-then-dispatch.** A task front-door is a conversational entry – picking one (or sending free-form text) makes you ASK THE USER FOR DETAIL in natural language first, read the project context already in `config.yaml` (`project.context`: `existing_design_system`, `shipped_ui`, `component_count`, `off_repo_references`), and only THEN dispatch the right plugin pieces. A front-door never auto-spawns agents or workflows on selection. Dispatch per the **Task→dispatch map** in `commands/launch.md` (the single source of truth) – `act on feedback`, `redesign a design`, `explore a concept`, `audit a design`, and the free-form scoped-edit loop are all defined there. Do NOT restate the map here.
 
-Each dispatched command reads mode from `.design-engineer-plugin/config.yaml` and follows the PLAN → EXECUTE → PRESENT → FEEDBACK workflow.
+Each dispatched command follows the PLAN → EXECUTE → PRESENT → FEEDBACK workflow.
 
 ---
 
@@ -126,23 +126,7 @@ If any existing configuration conflicts are detected, explain the conflict in pl
 
 ---
 
-## Step 3: Mode Selection
-
-The only question for new projects. Ask:
-
-```
-question: "How do you want to work?"
-header: "Mode"
-options:
-  - label: "Guided mode (Recommended)"
-    description: "Step by step – AI shares thoughts, asks questions adapted to your project, you review and approve every deliverable. Thorough process for building a quality product."
-  - label: "Autopilot"
-    description: "Rapid autonomous exploration – 99% automated, spends more tokens, produces the simplest working MVP as fast as possible. Best for quick validation: testing ideas, seeing if someone would pay. Not for building the final polished product."
-```
-
----
-
-## Step 4: Scaffold Project Structure
+## Step 3: Scaffold Project Structure
 
 Run `scripts/init-project-structure.sh` with the default deliverables path `design/`.
 
@@ -177,7 +161,7 @@ The `dependencies.yaml` file lives at `.design-engineer-plugin/dependencies.yaml
 
 ---
 
-## Step 5: Write Configuration and Finalize
+## Step 4: Write Configuration and Finalize
 
 Generate `.design-engineer-plugin/config.yaml` in the project root:
 
@@ -187,7 +171,6 @@ Generate `.design-engineer-plugin/config.yaml` in the project root:
 
 project:
   type: "new"
-  mode: "{answer_mode}"
 
 environment:
   plugins:
@@ -205,7 +188,7 @@ dependencies:
 The plugin uses two memory layers:
 
 - **Claude Code auto-memory** (`~/.claude/projects/<slug>/memory/MEMORY.md`) – owned and managed by Claude Code itself. Auto-loads first 200 lines every session. The plugin does NOT touch this file. Do not call Read on it; do not write skeletons to it.
-- **Plugin-local memory** (`.design-engineer-plugin/memory/`) – owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded automatically by `init-project-structure.sh` (the script Step 4 already ran), so by the time you reach this point the skeletons exist. No further action required during setup.
+- **Plugin-local memory** (`.design-engineer-plugin/memory/`) – owned by the plugin. Contains `project-map.md` (living file tree) and `debug-solutions.md` (known fixes log). Seeded automatically by `init-project-structure.sh` (the script Step 3 already ran), so by the time you reach this point the skeletons exist. No further action required during setup.
 
 **Note**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
 
@@ -336,7 +319,6 @@ Display a summary in plain language – no file names or config paths:
 ```
 You're all set.
 
-Mode: {Guided / Autopilot}
 Your design docs will live in design/
 {Figma connected / Figma not connected – offer help}
 Status line: {installed / skipped}

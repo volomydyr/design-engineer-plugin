@@ -14,7 +14,7 @@ This is an optional safety net for pausing mid-activity. If you've completed a f
 
 ## Step 1: Read current state
 
-1. Read `.design-engineer-plugin/config.yaml` for current phase, mode, and resume state
+1. Read `.design-engineer-plugin/config.yaml` for current phase and resume state
 2. Read `.design-engineer-plugin/dependencies.yaml` for deliverable status
 3. Check the current conversation for any in-progress work (partially drafted deliverables, unanswered questions, ongoing analysis)
 

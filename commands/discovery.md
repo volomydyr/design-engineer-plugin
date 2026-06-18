@@ -22,7 +22,7 @@ If `$ARGUMENTS` is `feature-spec`, jump to **Step F1: Minimal feature spec** bel
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot) and project type
+1. Read `.design-engineer-plugin/config.yaml` for project type
 2. Check for existing deliverables in `design/`
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:launch` first
 4. Scan the project: what tech stack, what components exist, what design patterns are used
@@ -123,17 +123,15 @@ Load `/design-engineer:development` with the feature plan.
 
 The abbreviated feature flow does its research and writes its deliverables inline by default. Dispatch `Task(ux-researcher, ...)` only for research work heavy enough to flood the main context (deep competitor analysis, user interviews); otherwise browse, synthesize, and format the deliverable inline.
 
-In Guided mode: present results to the user step by step with `AskUserQuestion` between findings. When a subagent ran, parse its output rather than dumping it raw.
-
-In Autopilot: present the complete output as a structured summary, then proceed.
+Present results to the user step by step with `AskUserQuestion` between findings. When a subagent ran, parse its output rather than dumping it raw.
 
 ### If `project_type: new` → Default spine
 
 This is a new product from scratch. Run the default spine (Step 3 below): Problem → Audience → MVP → IA → Prototype → Dev, with opt-in depth offered along the way.
 
-If existing deliverables are found, present current state and recommend where to pick up. In Guided mode, ask to confirm. In Autopilot, show briefly and start.
+If existing deliverables are found, present current state and recommend where to pick up, then ask the user to confirm.
 
-## Step 3: Execute based on mode
+## Step 3: Execute the spine
 
 ### Subagents in this command
 
@@ -144,8 +142,6 @@ Two kept agents support the new-product flow; dispatch them only when warranted:
 
 Do all other work — drafting each spine step's deliverable, formatting it, asking the user questions — inline by default. There is no separate writer agent; format and save the deliverable yourself.
 
-### Guided mode
-
 For each step in the spine:
 1. Announce what's next and why it matters
 2. Ask if the user wants to proceed, skip, or adjust
@@ -154,13 +150,6 @@ For each step in the spine:
 5. Present results to the user step by step with `AskUserQuestion` between findings or sections — when a subagent ran, parse its output rather than dumping it raw
 6. Wait for the user's feedback on each presented section before moving on
 7. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document`, and gates the transition with `AskUserQuestion`.
-
-### Autopilot
-
-1. Announce the phase plan briefly
-2. Run each step end-to-end, dispatching `ux-researcher` only when a step's research would flood the main context
-3. Present results as a structured summary
-4. After each phase: run the **Phase Recap protocol** (defined below). The recap is printed in chat AND persisted via `meta-document` even in autopilot — the user still wants to see what was produced before the next phase fires.
 
 ### The default spine (new products)
 

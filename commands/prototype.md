@@ -18,9 +18,8 @@ Generate a single-file HTML prototype using the `dev-prototyping` skill.
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot)
-2. Check what design deliverables exist (design/ – problem statement, IA, user flows, etc.)
-3. Check if Figma is connected
+1. Check what design deliverables exist (design/ – problem statement, IA, user flows, etc.)
+2. Check if Figma is connected
 
 ## Step 2: Plan
 
@@ -41,15 +40,13 @@ If an argument was provided:
 
 Confirm the selection: "Starting a prototype for {type} – correct?"
 
-In **Guided mode**: discuss scope and approach before building.
-In **Autopilot**: show plan briefly, then build.
+Discuss scope and approach before building.
 
 ## Step 3: Execute
 
 Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md` and follow its full 7-step flow. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
-In **Guided mode**: pause after the initial prototype for review, iterate based on feedback.
-In **Autopilot**: build the prototype, present it, ask for feedback.
+After the initial prototype, pause for review and iterate based on feedback.
 
 Note: do NOT run /simplify on prototype HTML. Prototypes are throwaway visual artifacts; code quality is irrelevant in this phase. /simplify applies only during /design-engineer:development implementation.
 

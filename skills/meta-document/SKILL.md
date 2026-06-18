@@ -285,7 +285,7 @@ What's next?
 
 **Invoked by:**
 - `/design-engineer:document` command (manual invocation)
-- `meta-orchestrator` after each major phase completion (auto-triggered in Autopilot)
+- `meta-orchestrator` after each major phase completion
 - Any skill can request compound documentation when significant decisions are made
 
 **Invokes:**

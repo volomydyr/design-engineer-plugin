@@ -119,7 +119,7 @@ Fill in EVERY anchor below. If the field has no upstream deliverable, STOP and a
 
 If any of these deliverables exist but you have not yet Read them, STOP – read them first. Before writing any HTML, walk every existing `.md` file under `.design-engineer-plugin/design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/` and Read it this session. The prototype must trace to what was decided upstream; generating from an unread deliverable throws that decision away.
 
-If a deliverable does NOT exist (e.g. the user is in autopilot and skipped bias-audit), that field is "n/a — not produced upstream" — but you MUST surface that gap to the user via AskUserQuestion before generating, asking whether to (a) run the missing skill first, (b) ask the user to provide that input directly in chat, or (c) proceed without it and accept the reduced quality.
+If a deliverable does NOT exist (e.g. the user skipped an earlier skill), that field is "n/a — not produced upstream" — but you MUST surface that gap to the user via AskUserQuestion before generating, asking whether to (a) run the missing skill first, (b) ask the user to provide that input directly in chat, or (c) proceed without it and accept the reduced quality.
 
 ---
 

@@ -19,7 +19,7 @@ The process: establish design intent → explore the product domain → collect 
 
 ## What this skill DOES NOT produce
 
-This skill is reference-gathering ONLY. It captures real UIs from real products. It is **not** an image-generation skill. In autopilot mode the model has been observed to conflate this skill with `ux-story-panels` (which produces image-generation prompts) and `ui-images` (which produces image-generation prompts for the project's own hero/avatar/decorative images). That conflation produces hallucinated files like `references-image-prompts.md` containing AI-generation prompts intended to "approximate" the references — which is strictly worse than the references themselves and defeats the entire point.
+This skill is reference-gathering ONLY. It captures real UIs from real products. It is **not** an image-generation skill. Without explicit scope guardrails, the model may conflate this skill with `ux-story-panels` (which produces image-generation prompts) and `ui-images` (which produces image-generation prompts for the project's own hero/avatar/decorative images). That conflation produces hallucinated files like `references-image-prompts.md` containing AI-generation prompts intended to "approximate" the references — which is strictly worse than the references themselves and defeats the entire point.
 
 **Forbidden outputs of this skill** (never write any of these):
 

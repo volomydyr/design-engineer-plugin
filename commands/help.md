@@ -1,6 +1,6 @@
 ---
 name: design-engineer:help
-description: Show all Design Engineer Plugin commands, current project status, and mode.
+description: Show all Design Engineer Plugin commands and current project status.
 argument-hint: ""
 ---
 
@@ -28,13 +28,6 @@ A plugin for Claude Code that walks you through building a product, start to fin
 
 You only need to remember `/design-engineer:launch`. It guides you to everything else.
 
-### Modes
-
-Most commands work in two ways:
-
-- **Guided mode** – step-by-step with approval at every stage. The AI explains its thinking, shows findings one at a time, and waits for your input at each step.
-- **Autopilot** – autonomous with minimal input. The AI plans and executes, then shows you the results. Faster but you review after, not during.
-
 ### What makes it different
 
 - **53 skills** that teach how to think about problems, users, and psychology before writing code
@@ -52,7 +45,6 @@ If `.design-engineer-plugin/config.yaml` exists, read it and show:
 
 ```
 Project type: {existing project / new product}
-Mode: {Guided mode / Autopilot}
 Goal: {if set}
 ```
 

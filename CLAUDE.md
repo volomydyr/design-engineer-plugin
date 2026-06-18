@@ -292,7 +292,7 @@ Every skill that opens with a Step 0 / Step 1 "Conditional teaching" instruction
 
 **Why this is a hard rule**: across long pipeline sessions, the user is fatigued and context-switched. A one-sentence refresher costs almost nothing and primes the user for the questions that follow. Skipping it because "they already know" is exactly the kind of polite-sounding shortcut that degrades the experience over time. The pattern was added in v5.5.4 after a user reported the model started skipping refreshers mid-pipeline ("I'll skip the explainer — you're a designer; you know competitor analysis") even though they wanted the refresh.
 
-The rule applies regardless of mode (guided OR autopilot). Every Step 0 "Conditional teaching" instruction in skills includes a `> Required: ALWAYS ask...` blockquote that the model must obey.
+Every Step 0 "Conditional teaching" instruction in skills includes a `> Required: ALWAYS ask...` blockquote that the model must obey.
 
 ## Living Documents
 
@@ -572,33 +572,24 @@ A `UserPromptSubmit` command hook runs on every message and checks for `.design-
 
 ## Command execution philosophy
 
-All commands – design, review, dev, prototype, document – must follow the same execution pattern. The mode (from `.design-engineer-plugin/config.yaml`) determines the level of user involvement, but both modes follow the same structure:
+All commands – design, review, dev, prototype, document – must follow the same execution pattern:
 
 ```
 PLAN → EXECUTE → PRESENT → FEEDBACK
 ```
 
-**Guided mode:**
 1. **Plan**: Present what you're about to do (scope, areas to check, approach). Ask for approval or adjustments.
 2. **Execute**: Work through the plan one step at a time. After each step, present the finding or result.
 3. **Present**: Show each finding individually with context and recommendation.
 4. **Feedback**: Ask the user what to do (fix it, skip, dive deeper). Wait for response before proceeding.
 5. **Summary**: After all steps, show a summary table.
 
-**Autopilot:**
-1. **Plan**: Briefly show the plan (no approval needed, just transparency).
-2. **Execute**: Run all steps autonomously.
-3. **Present**: Show complete results as a structured summary.
-4. **Feedback**: Ask what to fix or explore further.
-
-**Neither mode should ever:**
+**No flow should ever:**
 - Skip the planning phase
 - Dump raw output without structure
 - Proceed without explaining what's happening
 - Leave the user wondering "what just happened?"
 - Re-ask a question the user already answered earlier in the conversation – synthesize from previous answers instead. Re-asking wastes time and breaks trust, especially in long sessions.
-
-Read the mode from `.design-engineer-plugin/config.yaml` at the start of every command. If no config file exists, default to guided mode.
 
 ### Bot-block fallback (Playwright fails to load the requested page)
 
@@ -674,9 +665,9 @@ Forbidden during temp-email signup:
 
 This protocol is documented as user-consented, per-competitor automation. The plugin does not perform it autonomously.
 
-### Guided-mode contract for research-heavy steps
+### Research-heavy steps contract
 
-When a step does external research (competitor analysis, user interviews, references gathering, market scanning, anything that involves browsing or fetching URLs), guided mode imposes three additional rules on top of the general execution philosophy:
+When a step does external research (competitor analysis, user interviews, references gathering, market scanning, anything that involves browsing or fetching URLs), three additional rules apply on top of the general execution philosophy:
 
 1. **Each research phase is a separate turn ending in `AskUserQuestion`.** No "I did Phase 4a, then 4b, then 4c, then drafted the deliverable, here are highlights" mega-turns. The user wants to react between phases — what communities, what threads, which competitors deserve deeper review.
 
@@ -684,12 +675,11 @@ When a step does external research (competitor analysis, user interviews, refere
 
 3. **Every research deliverable ends with a "Sources consulted" appendix listing every URL visited.** And the chat message that announces the deliverable inlines that same list (not just hides it in the file). Format: flat bulleted list grouped by phase, one URL per line, with a 5–10 word note on what was extracted. The user wants to be able to scan the list and re-verify findings or read threads themselves — their pattern-matching on community discussions is usually stronger than the model's. The chat message after a research deliverable always includes an explicit invitation: "Want to do your own pass on any of these threads? Drop your notes back here and I'll fold them in."
 
-These three rules apply to every research-heavy step in every skill (ux-competitor-analysis, ux-user-interviews, ui-references-moodboard, etc.) when running in guided mode. Autopilot can compress all three into a final summary, but guided mode never can.
+These three rules apply to every research-heavy step in every skill (ux-competitor-analysis, ux-user-interviews, ui-references-moodboard, etc.).
 
 **Agent usage rule:**
-- Agents are available in both modes. Dispatch one when the work would genuinely flood the main context or fan out across many parallel reads; for quick, iterative work, doing it inline is fine.
-- In Guided mode: after an agent completes, the main model summarizes its output and presents it step by step with AskUserQuestion interaction between findings or deliverable sections, rather than dumping all findings at once.
-- In Autopilot: agents run and their complete output is presented as a structured summary.
+- Dispatch an agent when the work would genuinely flood the main context or fan out across many parallel reads; for quick, iterative work, doing it inline is fine.
+- After an agent completes, the main model summarizes its output and presents it step by step with AskUserQuestion interaction between findings or deliverable sections, rather than dumping all findings at once.
 
 **Plan copy rule:**
 - After ExitPlanMode approval, copy the plan to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[name].md`. This is what git branch matching and archival key off, and it keeps the approved plan with the project rather than only in `~/.claude/`.
@@ -705,7 +695,7 @@ When the user asks, generate a single self-contained compact message that preser
 
 The compact message must preserve:
 - Current project name, absolute path, and plugin version
-- Which `/design-engineer:` command is running and in which mode (guided / autopilot)
+- Which `/design-engineer:` command is running
 - Current phase and skill position (e.g., "Phase 3 Planning, after `ux-mvp-requirements`, next is `ux-information-architecture`")
 - Key decisions made this session — durable choices that affect downstream deliverables (B2B vs B2C focus, mobile-first vs desktop-first, the specific design feel chosen, etc.)
 - Deliverables completed this session and any stale dependents from `compound-documenter`'s memory
@@ -716,7 +706,7 @@ Format the response like this:
 
 > Here's a compact message you can paste into `/compact`:
 >
-> `Keep full context of <project name> at <absolute path>. Current state: v<X.Y.Z>, running /design-engineer:<command> in <mode> mode. Phase <N> (<phase name>): completed <skill list>, next is <skill name>. Key decisions: <bullet list of cross-cutting choices>. Deliverables updated: <list>. Stale dependents: <list or "none">. Next step: <literal next action>. <Any blockers or open questions, or "none">.`
+> `Keep full context of <project name> at <absolute path>. Current state: v<X.Y.Z>, running /design-engineer:<command>. Phase <N> (<phase name>): completed <skill list>, next is <skill name>. Key decisions: <bullet list of cross-cutting choices>. Deliverables updated: <list>. Stale dependents: <list or "none">. Next step: <literal next action>. <Any blockers or open questions, or "none">.`
 
 The angle-bracket fields above are placeholders for YOU to fill in from the session — they must NOT appear in the output. If a field genuinely doesn't apply (no stale dependents, no blockers), write "none" instead of leaving the bracket.
 

@@ -9,12 +9,7 @@ Skill reference for the design pipeline managed by `meta-orchestrator`. The defa
                         |
                  meta-orchestrator
                         |
-        +---------------+---------------+
-        |                               |
-   GUIDED MODE                     AUTOPILOT
-   (interactive)                  (autonomous)
-        |                               |
-        v                               v
+                        v
 ================= DEFAULT SPINE =================
         |
    ux-problem-statement        (Problem)
@@ -308,7 +303,7 @@ After the design steps (and any chosen depth) complete, invoke `meta-document` o
 
 ## User Approval Checkpoint
 
-This is the boundary between the design steps and development. Even in Autopilot, the orchestrator must pause here.
+This is the boundary between the design steps and development. The orchestrator must pause here.
 
 ### What to present:
 1. Summary of all completed steps and their key deliverables
@@ -459,6 +454,4 @@ Skills in the same parallel group have no dependency on each other's output and 
 
 ### How to Execute Parallel Groups
 
-**Autopilot**: Spawn Agent subprocesses for each skill in the group simultaneously. Wait for all to complete before proceeding to the next skill in the sequence.
-
-**Guided mode**: Inform the user: "These [N] skills can run independently. Would you like to run them in parallel (faster) or one at a time (more interactive)?" Respect the user's preference.
+Inform the user: "These [N] skills can run independently. Would you like to run them in parallel (faster) or one at a time (more interactive)?" Respect the user's preference.

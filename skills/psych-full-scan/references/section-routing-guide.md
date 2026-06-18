@@ -123,22 +123,3 @@ When routing to a section skill, pass the following context so the deep dive sta
 4. **Related findings from other sections** – if cross-section patterns were detected
 
 This ensures the section skill does not repeat the master scan work and can immediately dive deeper into the specific issues identified.
-
----
-
-## Autopilot Execution Order
-
-When running all sections autonomously (Autopilot), execute in this order for optimal flow:
-
-1. `psych-cognitive-load` (Section 1) – foundational layer, findings inform all others
-2. `psych-visual-perception` (Section 2) – visual layer analysis
-3. `psych-simplification` (Section 6) – interaction mechanics
-4. `psych-decision-fundamentals` (Section 3) – decision and persuasion patterns
-5. `psych-engagement-patterns` (Section 4) – engagement layer
-6. `psych-delight-design` (Section 5) – emotional foundations and advanced patterns
-7. `psych-pricing-psychology` (Section 7) – economic and habit patterns
-8. `psych-social-influence` (Section 8) – social layer
-9. `psych-cognitive-biases` (Section 9) – bias identification
-10. `psych-time-perception` (Section 10) – time and behavior polish
-
-This order ensures foundational findings (cognitive load, visual hierarchy, efficiency) are established before evaluating higher-level patterns (engagement, emotion, social influence) that depend on the foundations being sound.

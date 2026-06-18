@@ -5,7 +5,7 @@ When suggesting compaction at a pipeline breakpoint, generate a ready-to-use com
 ## Template
 
 ```
-Keep full context of [project name] at [project path]. Current state: running /design-engineer:[command] in [mode] mode. Phase [N] ([phase name]): completed [list of completed skills with deliverable status], next is [next skill]. Key decisions this session: [list of cross-cutting decisions that affect downstream work]. Deliverables updated: [list of files written or modified this session]. Stale dependents: [list from dependencies.yaml, or "none"]. Next step: [specific action to take after compaction]. Open questions: [any unresolved blockers or pending user decisions, or "none"].
+Keep full context of [project name] at [project path]. Current state: running /design-engineer:[command]. Phase [N] ([phase name]): completed [list of completed skills with deliverable status], next is [next skill]. Key decisions this session: [list of cross-cutting decisions that affect downstream work]. Deliverables updated: [list of files written or modified this session]. Stale dependents: [list from dependencies.yaml, or "none"]. Next step: [specific action to take after compaction]. Open questions: [any unresolved blockers or pending user decisions, or "none"].
 ```
 
 ## Rules
@@ -24,5 +24,5 @@ Keep full context of [project name] at [project path]. Current state: running /d
 ## Example
 
 ```
-Keep full context of Cowrite at ~/Cursor-projects/cowrite. Current state: running /design-engineer:discovery in Guided mode. Phase 3 (Product planning): completed ux-mvp-requirements, ux-information-architecture, next is ux-bias-audit (Phase 4). Key decisions this session: macOS-only overlay app, free/open-source, Space Mono font, annotation popup with two buttons (Save & close, Copy all). Deliverables updated: problem-statement.md, target-audience.md, assumptions.md, competitor-analysis.md, behavior-map.md, storybrand.md, story-panels/feedback-loop, business-plan.md, mvp-requirements.md, information-architecture.md. Stale dependents: none. Next step: start Phase 4 with bias audit. Open questions: none.
+Keep full context of Cowrite at ~/Cursor-projects/cowrite. Current state: running /design-engineer:discovery. Phase 3 (Product planning): completed ux-mvp-requirements, ux-information-architecture, next is ux-bias-audit (Phase 4). Key decisions this session: macOS-only overlay app, free/open-source, Space Mono font, annotation popup with two buttons (Save & close, Copy all). Deliverables updated: problem-statement.md, target-audience.md, assumptions.md, competitor-analysis.md, behavior-map.md, storybrand.md, story-panels/feedback-loop, business-plan.md, mvp-requirements.md, information-architecture.md. Stale dependents: none. Next step: start Phase 4 with bias audit. Open questions: none.
 ```

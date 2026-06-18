@@ -43,21 +43,22 @@ Once the input type is established, gather the design context:
 - **What is the product?** – type, audience, core value proposition
 - **What flow or screen(s)?** – specific scope of the audit
 - **Any known issues?** – areas the user already suspects need work
-- **Audit mode preference?** – see Step 2
+- **Whole design or specific sections?** – whether to scan across all 10 sections or focus on a few (see Step 2)
 
-### Step 2: Choose Audit Mode
+### Step 2: Scope the scan
+
+By default, run the master scan across all 10 sections first, then suggest targeted deep-dives based on what the findings surface. If the user already knows they only care about specific sections, let them focus the scan on those instead.
 
 <ask-user>
-How would you like to run the audit?
+Want me to scan the whole design, or focus on specific sections?
 
-1. **Guided mode** – I will run the master scan first, then suggest targeted deep-dives based on findings (recommended for most cases)
-2. **Autopilot** – I will run all 10 sections fully and autonomously, producing a comprehensive report
-3. **Targeted mode** – I will focus on specific sections you choose
+1. **Whole design** – I will run the master scan across all 10 sections, then suggest targeted deep-dives based on findings (recommended for most cases)
+2. **Specific sections** – I will focus on the sections you choose
 </ask-user>
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
-For **Targeted mode**, follow up:
+If the user chooses to focus on specific sections, follow up:
 
 <ask-user>
 Which sections should I focus on?
@@ -78,7 +79,7 @@ Which sections should I focus on?
 
 Use the criteria from [master-scan-criteria.md](./references/master-scan-criteria.md) to scan the design.
 
-For each of the 10 sections (or selected sections in targeted mode):
+For each of the 10 sections (or the specific sections the user chose to focus on):
 
 1. **Check the quick-scan principles** – the 3-5 most universally applicable laws per section
 2. **Look for positive patterns** (opportunities being leveraged well)
@@ -105,7 +106,7 @@ Organize findings into a structured report:
 ### Audit Scope
 - **Product**: [what was audited]
 - **Screens/Flows**: [specific scope]
-- **Mode**: [Guided / God / Targeted]
+- **Audit type**: [Master scan / Targeted]
 - **Date**: [audit date]
 
 ### Executive Summary
@@ -165,25 +166,19 @@ When routing to a section skill, pass along:
 - The severity classifications
 - Any user notes or known issues relevant to that section
 
-## Three Modes Explained
+## How the scan runs
 
-### Guided Mode (Default)
-1. Run master scan (Step 3)
-2. Present findings report (Step 4)
-3. User picks which sections to deep-dive (Step 5)
+1. Run the master scan (Step 3)
+2. Present the findings report (Step 4)
+3. The user picks which sections to deep-dive (Step 5)
 4. Invoke specific section skills one at a time
 
-### Autopilot
-1. Run master scan (Step 3)
-2. Automatically invoke ALL section skills sequentially
-3. Compile a unified comprehensive report from all section outputs
-4. Present the combined deliverable with executive summary
+When the user chooses to focus on specific sections (Step 2):
 
-### Targeted Mode
-1. User selects 1-3 sections
-2. Run master scan ONLY on those sections (Step 3)
+1. The user selects 1-3 sections
+2. Run the master scan ONLY on those sections (Step 3)
 3. Immediately invoke the corresponding section skills
-4. Present targeted findings
+4. Present the targeted findings
 
 ## Severity Classification Guide
 
@@ -217,7 +212,7 @@ When routing to a section skill, pass along:
 
 ## Output Format
 
-The primary deliverable is the **Psychology Master Audit Report** (Step 4 format). When running in Autopilot, the deliverable also includes full section-level reports appended as subsections.
+The primary deliverable is the **Psychology Master Audit Report** (Step 4 format).
 
 
 ---

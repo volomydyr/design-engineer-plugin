@@ -1,6 +1,6 @@
 ---
 name: design-engineer:development
-description: Development pipeline. Setup, implementation, and AI-assisted building. Mode determined by your config.
+description: Development pipeline. Setup, implementation, and AI-assisted building.
 argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]"
 ---
 
@@ -20,7 +20,7 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode (guided/autopilot), project type, and environment
+1. Read `.design-engineer-plugin/config.yaml` for project type and environment
 2. Scan the project: what tech stack, what build tools, does CLAUDE.md exist, are agents configured?
 3. If `.design-engineer-plugin/config.yaml` not found, tell the user to run `/design-engineer:launch` first
 
@@ -159,8 +159,7 @@ Based on what you found, present a plan. Only suggest what's relevant:
 
 If an argument was provided (`/design-engineer:development setup`, `/design-engineer:development pipeline`), skip planning and go directly to that activity.
 
-In **Guided mode**: ask the user to confirm or adjust the plan.
-In **Autopilot**: show the plan briefly, then execute.
+Ask the user to confirm or adjust the plan.
 
 ## Step 3: Execute
 
@@ -175,8 +174,7 @@ In **Autopilot**: show the plan briefly, then execute.
 | Context management | `dev-status-tracking` |
 | Kick-start prompts | `dev-starter-prompts` |
 
-In **Guided mode**: run one at a time, present results, ask for feedback.
-In **Autopilot**: run all planned activities, present summary.
+Run one at a time, present results, and ask for feedback after each activity.
 
 ### Feature implementation
 
@@ -339,15 +337,11 @@ After implementing changes to UI components or pages:
 
 Skip this step for data-only, type-only, or configuration changes.
 
-### Mode differences
+### Presenting results
 
 **When to dispatch a subagent**: do the work inline by default. Dispatch a subagent (`Task(<agent>, ...)`) only when the work would flood the main context or when independent work can genuinely run in parallel. The `design-system-auditor` pass is the one step that always warrants its own agent — its critique is heavy and specialized. For everything else, inline is the default and a dispatch is a deliberate choice, not a requirement.
 
-Mode does not change whether work happens; it changes how results are presented:
-
-In **Guided mode**: present results to the user step by step with `AskUserQuestion` between findings / sections. When a subagent ran, parse its output rather than dumping it raw.
-
-In **Autopilot**: present results as a structured summary, then proceed to the next step without waiting for user approval (the user already opted out of per-step review by choosing autopilot).
+Present results to the user step by step with `AskUserQuestion` between findings / sections. When a subagent ran, parse its output rather than dumping it raw.
 
 ## Post-execution
 

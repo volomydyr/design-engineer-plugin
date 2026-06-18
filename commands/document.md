@@ -18,7 +18,7 @@ Documents decisions, learnings, and project state. Ensures context survives acro
 
 ## Step 1: Read project context
 
-1. Read `.design-engineer-plugin/config.yaml` for mode and project state
+1. Read `.design-engineer-plugin/config.yaml` for project state
 2. Scan existing deliverables in `design/`
 3. Check what has changed recently (git status if available)
 
@@ -48,8 +48,7 @@ options:
 
 Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions for the selected path. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
-In **Guided mode**: present a draft, ask for review, then save.
-In **Autopilot**: execute and save, show summary.
+Present a draft, ask for review, then save.
 
 ## Step 3.5: Pre-finalize advisor checkpoint
 

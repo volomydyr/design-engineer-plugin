@@ -120,7 +120,7 @@ For a typical design + dev workflow:
 **Work directly when:**
 
 - The task is simple and quick (under 5 minutes)
-- User interaction is needed at every step (guided mode)
+- User interaction is needed at every step
 - The output needs to be displayed immediately for user review
 - The main conversation has plenty of token budget remaining
 

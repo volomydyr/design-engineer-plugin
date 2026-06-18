@@ -41,7 +41,6 @@ Schema:
 - **Current phase**: Phase 3 – Product planning
 - **Last completed skill**: ux-mvp-requirements
 - **Next skill**: ux-information-architecture
-- **Mode**: guided
 - **Project type**: new
 
 ## Recent deliverables (last 5)
@@ -165,5 +164,5 @@ Print a short confirmation:
 ## Integration
 
 - **Invoked by**: `/design-engineer:document` command (manual), `meta-document` skill (auto after phase completions), and other skills/commands at major milestones.
-- **Reads**: `.design-engineer-plugin/dependencies.yaml` (static graph), `.design-engineer-plugin/config.yaml` (mode + project type), the parent conversation history.
+- **Reads**: `.design-engineer-plugin/dependencies.yaml` (static graph), `.design-engineer-plugin/config.yaml` (project type), the parent conversation history.
 - **Writes**: only to `.claude/agent-memory/design-engineer-compound-documenter/` (the three files above). Nothing else.

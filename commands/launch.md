@@ -22,7 +22,7 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
    - **Config exists with `project_type: new` AND a `resume:` block** → returning user with active pipeline state. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
    - **Config exists with `project_type: new`, no `resume:` block, AND a `status: complete` line** → the plugin-built product has shipped its from-scratch pipeline and is now in iteration. Treat this as state `returning_complete`: route into the **Iterate flow** below (NOT the from-scratch returning path above). Acknowledge in one sentence what shipped (e.g. the product name / last goal from config), then enter the Iterate flow.
    - **Config exists with `project_type: new` but no `resume:` block** → returning user, no active pipeline (from-scratch pipeline still in progress). Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
-   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (mode, last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then enter the **Iterate flow** below.
+   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then enter the **Iterate flow** below.
 
 The `DESIGN_ENGINEER_PROJECT_STATE` injected value is now an HINT only. The disk read above is the source of truth.
 
@@ -117,15 +117,15 @@ Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its 
 
 Continue with Steps 2–4 below. Do not skip any.
 
-#### Step 2: Ask goal AND mode in ONE AskUserQuestion call
+#### Step 2: Ask the goal in ONE AskUserQuestion call
 
 **Required first output: a visible chat message acknowledging the user's project-type choice and previewing what's next.** Without this, the user sees only a spacer above the question panel — feels broken. Emit one short paragraph (1–2 sentences) like:
 
 > Got it – picking up on an existing project. Tell me what you want to work on, or pick a starting point.
 
-(Adapt the wording to be natural; don't render the blockquote literally — that's just an example.) Then end the chat message with the canonical 3-horizontal-rule spacer and call AskUserQuestion with both questions on the same screen.
+(Adapt the wording to be natural; don't render the blockquote literally — that's just an example.) Then end the chat message with the canonical 3-horizontal-rule spacer and call AskUserQuestion with this single question.
 
-Question 1 (these are the iterate-flow front-doors; the built-in free-form "Other" path is always available – the user can ignore the options and just type what they want):
+Question (these are the iterate-flow front-doors; the built-in free-form "Other" path is always available – the user can ignore the options and just type what they want):
 - question: "What do you want to work on?"
 - header: "Starting point"
 - options:
@@ -134,18 +134,11 @@ Question 1 (these are the iterate-flow front-doors; the built-in free-form "Othe
   - label: "Explore a concept", description: "Try directions for a new idea before committing to one"
   - label: "Audit a design", description: "Review a design for UX, accessibility, visual quality, or psychology issues"
 
-Question 2:
-- question: "How do you want to work?"
-- header: "Mode"
-- options:
-  - label: "Guided mode (Recommended)", description: "I explain my thinking, show findings one at a time, and wait for your input at each step"
-  - label: "Autopilot", description: "I plan and execute everything, then show you the results. Faster but you review after, not during."
-
 #### Step 3: Run setup silently, then ask status line
 
 a) Run `detect-environment.sh` from `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/scripts/detect-environment.sh`. Do NOT launch Explore agents or scan the project separately.
 
-b) Create `.design-engineer-plugin/` directory and write `config.yaml` inside it with `project_type`, selected mode, goal, and detected environment.
+b) Create `.design-engineer-plugin/` directory and write `config.yaml` inside it with `project_type`, goal, and detected environment.
 
 b.5) **Project context check** (Path B / Existing project only – skip on Path A). The `detect-environment.sh` output above contains a 'Project Context Detection' section with lines like `existing_design_system: <path>`, `existing_brand_docs: <file>`, `existing_specs: <dir>`, `shipped_ui: true|false`, `component_count: <n>`. Now:
 
