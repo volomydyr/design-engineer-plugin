@@ -47,7 +47,7 @@ There are two approaches depending on how much structure you want:
 
 Using the bundled "Figma Plugin", you can automate the creation of components, design tokens, variables, and styles directly in Figma – write operations run through its `use_figma` executor. This takes minutes instead of days and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations. No separate install is needed.
 
-After designing your key screens, run the `ui-figma-handoff` skill to:
+After designing your key screens, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-handoff/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`) to:
 1. Extract all unique tokens from your raw designs (colors, typography, spacing, radius, effects)
 2. Create variable collections (primitives + semantic aliases)
 3. Build components following the atomic design hierarchy (atoms → molecules → organisms)
@@ -82,8 +82,6 @@ This prevents blank-canvas paralysis and ensures your designs follow established
 "Figma Plugin" can capture any web page or localhost URL into editable Figma frames (`generate_figma_design`). This works for HTML prototypes from `dev-prototyping`, running web apps on localhost, or external reference pages.
 
 This enables a full round-trip workflow: generate prototype → capture into Figma → refine design → export back to code → iterate.
-
-"Figma Plugin" can also generate design system rules from your existing codebase (`create_design_system_rules`). This analyzes your components and tokens and creates a rules prompt that keeps Figma-to-code output consistent – useful when the code has evolved ahead of the Figma file.
 
 ---
 

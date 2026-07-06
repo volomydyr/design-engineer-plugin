@@ -1,7 +1,6 @@
 ---
-name: design-engineer:discovery
 description: Design workflow. For new products, runs the design spine with opt-in depth. For existing projects, runs an abbreviated feature-focused flow. Argument `feature-spec` produces a truly minimal spec for established products with existing brand / design system.
-argument-hint: "[phase N | skill-name | feature-spec]"
+argument-hint: "[feature-spec]"
 ---
 
 # Design Workflow
@@ -68,7 +67,7 @@ Go directly to `ux-mvp-requirements` – define scope, priorities, and what to r
 
 1. Glob `.design-engineer-plugin/design/features/<slug>/*.md` and Read every file.
 2. Print the recap with the same structure as the Phase Recap protocol below (Deliverables produced / Key decisions / Open threads / What's next), scoped to this feature folder.
-3. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow inline (do NOT use the `Skill` tool).
+3. Flush state with a lightweight dispatch: one `compound-documenter` agent call with a short brief (feature planning completed, the deliverable paths from step 1, any cross-cutting decisions). Do NOT run the full `meta-document` skill here – the full run (with the temporary/ purge) happens at development's Post-execution milestone.
 4. Then proceed to Step 2.5. The optional-depth question IS the AskUserQuestion gate — no separate one needed here.
 
 #### Step 2.5: Optional depth (multi-select)
@@ -81,20 +80,46 @@ Before proceeding to implementation, ask the user which optional depth steps the
   - label: "Brief problem statement"
     description: "Structured thinking — useful when the feature is ambiguous"
   - label: "Psychology audit"
-    description: "Apply psych-decision-fundamentals + psych-cognitive-load to the planned feature"
+    description: "Audit the planned feature for cognitive load and decision friction"
   - label: "Figma comparison"
-    description: "Pull structured Figma data with ui-figma-guide and compare to the plan"
+    description: "Pull structured data from your connected Figma project and compare it to the plan"
   - label: "Design-system check"
-    description: "Run ui-design-system audit against the project's existing tokens and components"
+    description: "Audit the plan against your project's existing tokens and components"
 - multiSelect: true
 
 For each selected option:
 - "Brief problem statement" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-problem-statement/SKILL.md` and follow it inline (do NOT use the Skill tool — plugin skills disable model invocation).
 - "Psychology audit" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-decision-fundamentals/SKILL.md` then `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-cognitive-load/SKILL.md` and follow each inline.
-- "Figma comparison" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow it inline (THIS IS WHERE ISSUE 15 IS RESOLVED — Figma is now reachable from the existing-project flow).
+- "Figma comparison" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow it inline.
 - "Design-system check" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` and follow it inline.
 
-Persist the selections to `.design-engineer-plugin/config.yaml` under `project.feature_options:` as a list of strings. dev.md will read this list to inform implementation grounding (Step 1.5).
+Persist the selections to `.design-engineer-plugin/config.yaml` under `project.feature_options:` as a list of strings. development.md reads this list to inform implementation grounding (its Step 1.5), then clears the key once the selections have been applied – selections are one-shot, and running this step again re-persists fresh ones.
+
+#### Step 2.55: Optional – per-screen design specs
+
+The feature deliverables name WHAT ships; a per-screen design spec names exactly HOW each screen is built, grounded in the project's real tokens and existing components, so implementation reuses instead of reinventing. This is the premium-planning step that lets lean implementation work. It is OPTIONAL and graduated: worth doing for consequential UI (net-new components, primary or reused surfaces); skip it for trivial one-off tweaks. End the preceding chat message with the canonical 3-horizontal-rule spacer per CLAUDE.md rule #6, then call AskUserQuestion:
+
+- question: "Author per-screen design specs before implementation?"
+- header: "Design specs"
+- multiSelect: false
+- options:
+  - label: "Yes – author a spec per screen (Recommended for new or reworked UI)"
+    description: "For each affected screen, write a grounded design spec: per-component blocks referencing your real tokens and existing components, states, responsive, accessibility, and acceptance criteria. Implementation builds to these verbatim."
+  - label: "Skip"
+    description: "Continue to implementation using the feature plan plus existing components."
+
+On "Skip" → continue to Step 2.6.
+
+On "Yes":
+
+1. Determine the screens to spec from the feature folder's `ux-information-architecture` deliverable – the page structure and navigation it defines for this feature.
+2. **Spec-authoring is a workflow candidate.** When several screens need specs and Claude Code workflows are available, you can fan the authoring out so each screen's spec is written by its own premium-planning agent. Offer it: "I can author these specs as a workflow – one Opus agent at xhigh effort per screen, run in parallel – or author them inline one at a time. Use a workflow to author each `<screen-slug>.spec.md`?"
+   - **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the single-pass inline path in step 3 below – nothing breaks.
+   - **If the user opts in and workflows are available**: dispatch one `spec-author` agent per screen (its frontmatter carries Opus at xhigh – this is premium planning), each instructed to Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow it inline to author that screen's spec. Each dispatch prompt must carry the screen brief, the output path, and the resolved plugin root (agents do not inherit this conversation). The workflow takes no mid-run input; collect the authored specs when it returns and present them.
+3. **Inline fallback (always available, single pass)**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`), authoring each screen's spec one at a time.
+4. Specs are stored feature-scoped at `.design-engineer-plugin/design/features/<feature-slug>/screens/<screen-slug>.spec.md`. The `design-spec` skill reads `ui-design-system` output first so every referenced token and component name is real.
+
+After the specs are authored (by either path), continue to Step 2.6.
 
 #### Step 2.6: Figma hand-off (conditional)
 
@@ -106,22 +131,37 @@ header: "Figma"
 multiSelect: false
 options:
   - label: "Yes – get Figma designs first"
-    description: "Read ui-figma-guide and pull structured Figma data for the affected screens. Recommended if designs exist for this feature."
+    description: "Pull structured design data for the affected screens. Recommended if designs exist for this feature."
   - label: "Skip"
     description: "Implement without Figma designs (rely on the spec + existing components)."
 ```
 
-On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true` and the Skill tool will reject them). Pass the affected pages from the spec / IA as the scope. After Figma data is captured, then hand off to `/design-engineer:development`.
+On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true` and the Skill tool will reject them). Pass the affected pages from the spec / IA as the scope. After Figma data is captured, continue to Step 2.7.
 
-On "Skip" → proceed directly to `/design-engineer:development`.
+On "Skip" → proceed directly to Step 2.7.
 
 If Figma is not connected, skip this step entirely and go to Step 2.7.
 
 #### Step 2.7: Proceed to implementation
 
-Load `/design-engineer:development` with the feature plan.
+Before handing off to development, offer a prototype. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6), then call AskUserQuestion:
 
-The abbreviated feature flow does its research and writes its deliverables inline by default. Dispatch `Task(ux-researcher, ...)` only for research work heavy enough to flood the main context (deep competitor analysis, user interviews); otherwise browse, synthesize, and format the deliverable inline.
+- question: "Build a clickable prototype before implementation?"
+- header: "Prototype"
+- multiSelect: false
+- options:
+  - label: "Yes – prototype this feature first"
+    description: "Generate a clickable HTML prototype scoped to this feature's IA and spec. Useful when the feature is visual or the layout is unsettled; development uses it as the visual baseline"
+  - label: "Skip"
+    description: "Go straight to implementation using the spec and existing components"
+
+On "Yes" → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`). Scope the prototype to the screens named in the feature folder's IA deliverable and save it to the canonical `.design-engineer-plugin/prototype/prototype.html` so `/design-engineer:development` Step 1.6 picks it up as the visual baseline. After prototype iteration, continue to development below.
+
+On "Skip" → continue to development below.
+
+Hand off to development: announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/development.md` and follow its instructions inline, carrying forward the feature plan (the feature folder's deliverables and, if one was built, the prototype path). Do NOT end the turn telling the user to run `/design-engineer:development` themselves.
+
+The abbreviated feature flow does its research and writes its deliverables inline by default. Dispatch `Task(ux-researcher, ...)` only for research work heavy enough to flood the main context (deep competitor analysis, user interviews); otherwise browse, synthesize, and format the deliverable inline. If a dispatched agent returns a `BLOCKED – needs user input` section, relay its question to the user via AskUserQuestion, then re-dispatch the agent with the answer and the agent's progress summary included in the prompt.
 
 Present results to the user step by step with `AskUserQuestion` between findings. When a subagent ran, parse its output rather than dumping it raw.
 
@@ -138,7 +178,7 @@ If existing deliverables are found, present current state and recommend where to
 Two kept agents support the new-product flow; dispatch them only when warranted:
 
 - **`ux-researcher`** — handles research-heavy work (deep competitor analysis, user interviews, market scanning, anything that involves browsing / fetching / synthesizing many external sources). Dispatch `Task(ux-researcher, ...)` only when that research is heavy enough to flood the main context. Lighter research can be done inline.
-- **`compound-documenter`** — invoked by `meta-document` at phase boundaries to flush state into agent memory. The structurally enforced layer (`memory: project`) lives here.
+- **`compound-documenter`** — dispatched directly for the lightweight per-step flush (Phase Recap step 4), and by the full `meta-document` at milestones. The structurally enforced layer (`memory: project`) lives here.
 
 Do all other work — drafting each spine step's deliverable, formatting it, asking the user questions — inline by default. There is no separate writer agent; format and save the deliverable yourself.
 
@@ -149,7 +189,7 @@ For each step in the spine:
 4. If the step is research-heavy and would flood the main context, dispatch `Task(ux-researcher, ...)` and wait for it to return; otherwise do the work inline
 5. Present results to the user step by step with `AskUserQuestion` between findings or sections — when a subagent ran, parse its output rather than dumping it raw
 6. Wait for the user's feedback on each presented section before moving on
-7. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via `meta-document`, and gates the transition with `AskUserQuestion`.
+7. After each phase: run the **Phase Recap protocol** (defined below). The protocol prints the recap in chat, persists state via a lightweight `compound-documenter` flush (the full `meta-document` runs once at the end of the spine), and gates the transition with `AskUserQuestion`.
 
 ### The default spine (new products)
 
@@ -186,33 +226,40 @@ Run each spine step, then run the **Phase Recap protocol** (defined below) befor
 When you reach the Prototype step (`ui-references-moodboard` → `ui-design-system` → `dev-prototyping`), the design-exploration moment – generating and judging multiple concept directions before committing to one – is a premium-planning step worth fanning out. Offer it before running the moodboard inline: "I can explore several distinct design directions in parallel as a workflow – one Opus agent at xhigh effort per concept direction, then judge and synthesize the strongest – or explore inline. Use a workflow to explore design directions?"
 
 - **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the single-pass inline path below – nothing breaks.
-- **If the user opts in and workflows are available**: dispatch one agent per concept direction (Opus model, xhigh effort – this is premium planning), each exploring a distinct direction grounded in the upstream deliverables. Then judge the returned directions against each other and synthesize the strongest into the references and design-system deliverables. The workflow takes no mid-run input; present the synthesized result when it returns and let the user react.
+- **If the user opts in and workflows are available**: dispatch one `design-explorer` agent per concept direction (its frontmatter carries Opus at xhigh – this is premium planning), each exploring a distinct direction grounded in the upstream deliverables. Each dispatch prompt must carry the full brief: the direction, the upstream deliverable content or paths, and the resolved plugin root (agents do not inherit this conversation). Then judge the returned directions against each other and synthesize the strongest into the references and design-system deliverables. The workflow takes no mid-run input; present the synthesized result when it returns and let the user react.
 - **Inline fallback (always available, single pass)**: run the Prototype step as written – Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-references-moodboard/SKILL.md`, then `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md`, then `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md`, following each inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`).
 
 After either path, run the **Phase Recap protocol** before moving on.
 
 ### Add depth (opt-in)
 
-The spine is the default, not the ceiling. At any point — before MVP, before the prototype, or after the spine completes — offer the user deeper work they can opt into. Surface this only when it would genuinely help (the problem is ambiguous, the market is crowded, the product has ethical or persuasion stakes); never march the user through all of it by default. End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6), then call AskUserQuestion:
+The spine is the default, not the ceiling. At any point — before MVP, before the prototype, or after the spine completes — offer the user deeper work they can opt into. Surface this only when it would genuinely help (the problem is ambiguous, the market is crowded, the product has ethical or persuasion stakes); never march the user through all of it by default. This is a pick-many list of 6 – too many for AskUserQuestion (4-option cap, per CLAUDE.md rule #5). Present it as a numbered list in chat and ask the user to reply with comma-separated numbers (e.g. "1, 5") or "none":
 
-- question: "Want to add any deeper work before moving on?"
-- header: "Add depth"
-- multiSelect: true
-- options:
-  - label: "Competitor analysis", description: "Map the competitive landscape with ux-competitor-analysis"
-  - label: "User interviews", description: "Design and analyze interviews with ux-user-interviews"
-  - label: "Messaging & narrative", description: "StoryBrand messaging (ux-storybrand) and product story panels (ux-story-panels)"
-  - label: "Business plan", description: "Revenue model and market sizing with ux-business-plan"
-  - label: "Audits", description: "Bias (ux-bias-audit), ethics (ux-ethics-review), and journey mapping (ux-journey-mapping)"
-  - label: "Full psychology scan", description: "Run the full psych scan (psych-full-scan) plus the motivation audit (ux-motivation-audit) across the product"
+Want to add any deeper work before moving on?
 
-For each selected option, Read the matching `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). The assumptions tracker (`ux-assumptions`) and the Figma guide (`ux-figma-guide` / `ui-figma-guide`) are also available on request. After any depth work, run the **Phase Recap protocol** before continuing the spine.
+1. **Competitor analysis** – map the competitive landscape and how rivals position themselves
+2. **User interviews** – design and analyze user interviews
+3. **Messaging & narrative** – shape the product's messaging and story
+4. **Business plan** – model the revenue and market size
+5. **Audits** – check for bias and ethical risks, and map the user journey
+6. **Full psychology scan** – scan the whole product for psychology and motivation gaps
 
-**Competitor analysis – workflow candidate.** When the user selects "Competitor analysis" and the competitive landscape is broad (several competitors, sources worth cross-checking against each other), offer to fan it out: "I can run competitor analysis as a workflow – one agent per competitor, run in parallel, with their findings cross-checked against each other – or delegate it to the bundled `/deep-research` harness, or run `ux-competitor-analysis` inline. Use a workflow for the competitor analysis?"
+For each selected option, Read the mapped SKILL.md file(s) at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` and follow the instructions inline, in the order listed (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`):
+
+- "Competitor analysis" → `ux-competitor-analysis`
+- "User interviews" → `ux-user-interviews`
+- "Messaging & narrative" → `ux-storybrand`, then `ux-story-panels`
+- "Business plan" → `ux-business-plan`
+- "Audits" → `ux-bias-audit`, `ux-ethics-review`, then `ux-journey-mapping`
+- "Full psychology scan" → `psych-full-scan`, then `ux-motivation-audit` and `ux-behavior-mapping`
+
+The assumptions tracker (`ux-assumptions`) and the Figma guide (`ui-figma-guide`) are also available on request. After any depth work, run the **Phase Recap protocol** before continuing the spine.
+
+**Competitor analysis – workflow candidate.** When the user selects "Competitor analysis" and the competitive landscape is broad (several competitors, sources worth cross-checking against each other), offer to fan it out: "I can run competitor analysis as a workflow – one agent per competitor, run in parallel, with their findings cross-checked against each other – or run `ux-competitor-analysis` inline. Use a workflow for the competitor analysis?"
 
 - **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to one of the single-pass paths below – nothing breaks.
 - **If the user opts in and workflows are available**: dispatch one agent per competitor, each researching that competitor against the `ux-competitor-analysis` method, then cross-check the returned findings (claims confirmed across sources vs single-source claims). Workflows take no mid-run input; present the synthesized landscape when it returns. Respect the bot-block and auth-wall fallbacks (CLAUDE.md) for any gated competitor.
-- **Or delegate to `/deep-research`**: for research-shaped competitor work, the bundled `/deep-research` harness already fans out web searches, fetches sources, adversarially verifies claims, and synthesizes a cited report – use it instead of authoring a bespoke workflow when that shape fits.
+- **Or delegate to a deep-research harness**: if a `/deep-research`-style research command is available in the session (it is not part of this plugin), it already fans out web searches, fetches sources, adversarially verifies claims, and synthesizes a cited report – offer it as a third path only when it is actually visible.
 - **Inline fallback (always available, single pass)**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-competitor-analysis/SKILL.md` and follow it inline.
 
 ## Phase Recap protocol (BLOCKING — runs at the end of every spine step)
@@ -221,7 +268,7 @@ After completing a spine step (or any opt-in depth work), run this exact sequenc
 
 ### 1. Glob the deliverables produced in THIS step
 
-Glob only the files the just-finished step actually produced — not the whole `design/` tree. For example, after the Problem step glob `.design-engineer-plugin/design/foundation/problem-statement.md`; after the prototype step glob `.design-engineer-plugin/design/exploration/references.md`, `.design-engineer-plugin/design/dev/design-system.md`, and `.design-engineer-plugin/prototype/prototype.html`. If a depth skill ran, glob that skill's own deliverable path. Keep the recap scoped to what just changed.
+Glob only the files the just-finished step actually produced — not the whole `design/` tree. For example, after the Problem step glob `.design-engineer-plugin/design/foundation/problem-statement.md`; after the prototype step glob `.design-engineer-plugin/design/exploration/references/references.md`, `.design-engineer-plugin/design/dev/design-system.md`, and `.design-engineer-plugin/prototype/prototype.html`. If a depth skill ran, glob that skill's own deliverable path. Keep the recap scoped to what just changed.
 
 ### 2. Read every file the Glob returned
 
@@ -249,9 +296,11 @@ Use this exact structure (no AI-slop preamble, no "let me summarize"):
 
 If a section has nothing to say, write "none." Do NOT pad with filler.
 
-### 4. Invoke meta-document inline
+### 4. Flush state to agent memory (lightweight)
 
-Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`. This flushes the recap into the structurally enforced agent-memory layer (`~/.claude/agent-memory/design-engineer-compound-documenter/{pipeline-state.md, key-decisions.md, stale-dependents.md}`). Without this step the recap exists only in chat and is lost on `/compact`.
+Dispatch the `compound-documenter` agent once with a short brief: the step just completed, the deliverable paths from step 1, and any cross-cutting decisions from the recap. This flushes the recap into the structurally enforced agent-memory layer (`.claude/agent-memory/design-engineer-compound-documenter/{pipeline-state.md, key-decisions.md, stale-dependents.md}`). Without this step the recap exists only in chat and is lost on `/compact`. Do NOT run the full `meta-document` skill here – no schema gate, no documentation-entry file, no temporary/ purge, no decision menu.
+
+**Exception – the last spine step (Prototype):** when the just-finished step completes the spine, run the full meta-document instead of the lightweight flush: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`). This is the milestone run before the dev hand-off; it includes the schema-validated documentation entry and the temporary/ purge. Skip its post-documentation decision menu – step 5 below provides the gate.
 
 ### 5. AskUserQuestion (BLOCKING — user drives the transition)
 
@@ -266,32 +315,23 @@ End the preceding chat message with the canonical 3-horizontal-rule spacer per C
   - "Pause and save" — description: "Save state and stop here; pick up next time with /design-engineer:launch."
 - multiSelect: false
 
+When the just-finished step is the last design step of the spine (Prototype), replace the option set with:
+
+- "Move to development" — description: "Hand off to /design-engineer:development – set up the code pipeline and implement."
+- "Review deliverables" — description: "Review the spine deliverables for quality before implementation."
+- "Add depth" — description: "Run deeper research or strategy work before moving on (competitor analysis, interviews, messaging, business plan, audits, psych scan)."
+- "Pause and save" — description: "Save state and stop here; pick up next time with /design-engineer:launch."
+
 ### 6. Apply the user's choice
 
 - "Continue" → proceed to the next spine step.
 - "Add depth" → run the Add-depth AskUserQuestion, do the selected work, then re-run this Phase Recap protocol.
 - "Revise" → ask which deliverable, re-run that step, then re-run this Phase Recap protocol.
 - "Pause" → hand off to `/design-engineer:stop`.
+- "Move to development" → announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/development.md` and follow its instructions inline, carrying forward the spine deliverables (IA, design system, prototype path).
+- "Review deliverables" → review the deliverables with the user, then re-run this Phase Recap protocol.
 
 NEVER auto-proceed past Step 5 without an explicit user answer. The recap is the user's signal that work happened; skipping the AskUserQuestion gate breaks the contract this protocol exists to enforce.
-
-## Post-pipeline
-
-After completing the current work:
-
-```
-question: "What would you like to do next?"
-header: "Next step"
-options:
-  - label: "Continue the spine"
-    description: "Move to the next step of the design spine"
-  - label: "Review deliverables"
-    description: "Review the deliverables for quality before moving on"
-  - label: "Move to development"
-    description: "Switch to development – set up code pipeline and implement"
-  - label: "Save progress and stop"
-    description: "Document progress so you can pick up next time"
-```
 
 ---
 
@@ -303,7 +343,7 @@ This branch is for adding a feature to an established product that already has a
 
 Read `.design-engineer-plugin/config.yaml` `project.context`:
 
-- `shipped_ui: true` is required. If false / missing, tell the user feature-spec is for established products only; offer to fall back to the standard Feature flow.
+- A shipped product is required. Treat the product as shipped when ANY of these signals holds: (a) `project.context.shipped_ui: true`; (b) `project_type: new` AND a top-level `status: complete` line – the completion marker development.md writes when the from-scratch pipeline finishes; (c) both fields are absent, but a quick filesystem check finds 1+ `.tsx`/`.jsx`/`.vue`/`.svelte` files in `src/components/`, `app/components/`, top-level `components/`, or an equivalent component directory. Only when all three signals indicate greenfield: tell the user feature-spec is for established products only; offer to fall back to the standard Feature flow (for a `project_type: new` product, the fallback is the iterate flow in launch.md rather than the from-scratch spine).
 - `existing_design_system: <truthy>` OR `existing_brand_docs: <truthy>` is required. If neither is set, ask the user once: "I don't see a design system or brand docs detected. Can you point me at one (Figma, Notion, Storybook, etc.) or do you want the standard Feature flow instead?" – capture the answer, persist to `off_repo_references`, and proceed only if they pointed somewhere.
 
 ### F1.2: Capture the feature
@@ -318,7 +358,7 @@ Read whatever brand voice / design-system context is available:
 2. Else if `existing_brand_docs` points at a local file, read that.
 3. Else if `off_repo_references` names an external source, mention you can't read it but ask the user for 1–2 sentences capturing the brand voice in their own words.
 
-Generate the spec at `.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md` (the `.design-engineer-plugin/design/features/[slug]/` convention is established in design.md's Feature flow section). The spec is short – under one page:
+Generate the spec at `.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md` (the `.design-engineer-plugin/design/features/[slug]/` convention is established in this command's Feature flow section). The spec is short – under one page:
 
 ```markdown
 # [Feature name] – Spec
@@ -384,7 +424,7 @@ On "Yes":
 1. Determine the screens to spec from the feature spec's "Affected pages" section.
 2. **Spec-authoring is a workflow candidate.** When several screens need specs and Claude Code workflows are available, you can fan the authoring out so each screen's spec is written by its own premium-planning agent. Offer it: "I can author these specs as a workflow – one Opus agent at xhigh effort per screen, run in parallel – or author them inline one at a time. Use a workflow to author each `<screen-slug>.spec.md`?"
    - **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the single-pass inline path in step 3 below – nothing breaks.
-   - **If the user opts in and workflows are available**: dispatch one agent per screen (Opus model, xhigh effort – this is premium planning), each instructed to Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow it inline to author that screen's spec. The workflow takes no mid-run input; collect the authored specs when it returns and present them.
+   - **If the user opts in and workflows are available**: dispatch one `spec-author` agent per screen (its frontmatter carries Opus at xhigh – this is premium planning), each instructed to Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow it inline to author that screen's spec. Each dispatch prompt must carry the screen brief, the output path, and the resolved plugin root (agents do not inherit this conversation). The workflow takes no mid-run input; collect the authored specs when it returns and present them.
 3. **Inline fallback (always available, single pass)**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/design-spec/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`), authoring each screen's spec one at a time.
 4. Specs are stored feature-scoped at `.design-engineer-plugin/design/features/<feature-slug>/screens/<screen-slug>.spec.md`. The `design-spec` skill reads `ui-design-system` output first so every referenced token and component name is real.
 
@@ -396,6 +436,6 @@ After the spec is drafted at `.design-engineer-plugin/design/features/[feature-s
 
 ### F1.4: Hand off
 
-Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement this feature", description: "Route to /design-engineer:development with the spec"}, {label: "Refine the spec further", description: "Iterate before development"}, {label: "Save and stop", description: "Spec is on disk; pick up later"}]`.
+Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement this feature", description: "Hand off to development with the spec"}, {label: "Refine the spec further", description: "Iterate before development"}, {label: "Save and stop", description: "Spec is on disk; pick up later"}]`.
 
-If "Implement", route to `/design-engineer:development` and pass the spec path so the dev command can read it and create an implementation plan respecting it.
+If "Implement": announce the hand-off in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/development.md` and follow its instructions inline, carrying forward the spec path (`.design-engineer-plugin/design/features/[feature-slug]/feature-spec.md`, plus any per-screen specs from F1.3.45) so the implementation plan respects it. Do NOT end the turn telling the user to run `/design-engineer:development` themselves.

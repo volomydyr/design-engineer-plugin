@@ -57,15 +57,16 @@ For pre-development work in browser-based AI tools (Claude.ai, ChatGPT, or simil
 
 When approaching the 200k token limit, Claude automatically compresses the earlier conversation. This auto-compaction is smart but loses details.
 
-**The better approach:** Configure AI to proactively suggest compacting **with a ready-to-use compact message** when context gets heavy. The message should include actual session values (project state, decisions made, current phase, next steps) so the user can immediately run `/compact` with it – no extra round-trip needed.
+**The better approach:** Suggest compacting **with a ready-to-use compact message** at defined session breakpoints. The message should include actual session values (project state, decisions made, current phase, next steps) so the user can immediately run `/compact` with it – no extra round-trip needed.
 
-**How to set it up:**
-- Add a context monitoring rule to CLAUDE.md
-- AI detects ~90% usage and generates the suggestion with the compact message included
-- The user can use it immediately, customize it, or dismiss it
-- If dismissed, AI does not raise it again in the same session
+**When the suggestion fires:** The AI cannot measure its own context usage, so a self-estimated percentage is never the trigger. Compaction is suggested only at defined breakpoints:
+- When a phase or major activity completes
+- When the user pauses with `/design-engineer:stop`
+- When the user explicitly asks for a compact message
 
-**Why proactive is better than reactive:** Waiting for the user to agree to a compact message, then generating it in a second step, wastes the very tokens that are running low. Including the message upfront saves a round-trip and ensures the user has a quality compact message before context degrades.
+The user can use the message immediately, customize it, or dismiss it. If dismissed, AI does not raise it again in the same session.
+
+**Why including the message upfront is better:** Waiting for the user to agree to a compact message, then generating it in a second step, wastes a round-trip. Including the message in the same response ensures the user has a quality compact message the moment they decide to compact.
 
 ## Strategy 5: Git as a Context Safety Net
 
@@ -143,4 +144,4 @@ When starting a new project, set up context management from the beginning:
 - [ ] Set up Git and make an initial commit
 - [ ] Configure the agent pipeline with separate agents for heavy work
 - [ ] Establish the one-activity-per-chat pattern for pre-development work
-- [ ] Add a token limit warning rule to CLAUDE.md
+- [ ] Add a compact-message-on-request rule to CLAUDE.md

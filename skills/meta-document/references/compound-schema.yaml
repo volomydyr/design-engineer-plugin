@@ -1,6 +1,6 @@
-# Design + Development Documentation Schema
-# Documentation schema for design and development workflows.
-# This schema MUST be validated before writing any documentation file.
+# Documentation entry frontmatter template
+# Every documentation entry written by the meta-document skill opens with this
+# YAML frontmatter. Four required fields, two optional ones.
 
 required_fields:
   activity:
@@ -18,122 +18,30 @@ required_fields:
     pattern: '^\d{4}-\d{2}-\d{2}$'
     description: "Date when this activity was completed (YYYY-MM-DD)"
 
-  phase:
+  category:
     type: enum
     values:
-      - phase_1_discovery       # Big Idea, Problem Statement, Target Audience, Assumptions, Competitor Analysis, User Interviews
-      - phase_2_strategy        # StoryBrand, Business Plan, Story Panels, Behavior Mapping, Motivation Framework
-      - phase_3_definition      # MVP Requirements, Information Architecture
-      - phase_4_evaluation      # Bias Audit, Journey Mapping, Communicating Decisions, Ethics Review, Product Assessment
-      - phase_5_dev_prep        # Prototyping, Design System, Development Planning
-      - phase_6_development     # Frontend Implementation, Backend Implementation, Integration
-      - phase_7_review          # Visual Review, Accessibility Audit, Psychology Audit, Status Tracking
-      - cross_phase             # Activities that span multiple phases (assumptions tracking, compound documentation)
-      - standalone              # One-off activities not tied to a specific phase
-    description: "Pipeline phase this activity belongs to"
-
-  deliverable_type:
-    type: enum
-    values:
-      # Research deliverables
-      - problem_statement       # Problem definition document
-      - target_audience         # User personas and audience analysis
-      - assumptions_doc         # Living assumptions tracker
-      - competitor_analysis     # Competitive research findings
-      - interview_findings      # User interview/survey results
-      - research_synthesis      # Combined research insights
-
-      # Strategy deliverables
-      - storybrand_canvas       # StoryBrand messaging framework
-      - business_plan           # Revenue model, market size, GTM
-      - story_panels            # Comic-style product story panels
-      - behavior_map            # Behavior Map analysis
-      - psych_variation         # Motivation Framework evaluation
-
-      # Design deliverables
-      - mvp_requirements        # Feature prioritization and acceptance criteria
-      - information_architecture # Screen inventory, navigation, user flows
-      - prototype               # Interactive prototype or wireframes
-      - design_system           # Design tokens, components, patterns
-      - visual_design           # UI designs, mockups, Figma frames
-
-      # Development deliverables
-      - development_plan        # Implementation plan with tasks and estimates
-      - code_implementation     # Implemented feature or component
-      - api_design              # API endpoints, data models
-      - test_suite              # Test coverage for a feature
-      - deployment_config       # CI/CD, environment configuration
-
-      # Evaluation deliverables
-      - bias_audit              # Bias audit evaluation
-      - journey_map             # Customer journey with improvements
-      - accessibility_audit     # WCAG compliance review
-      - ethics_review           # Ethical design assessment
-      - product_assessment      # Comprehensive product review
-      - visual_review           # Implementation vs design comparison
-      - psychology_audit        # Psychology principles compliance
-
-      # Meta deliverables
-      - status_update           # Project status checkpoint
-      - decision_log            # Key decision documentation
-      - context_recovery        # Context restoration after compaction or session break
-      - lessons_learned         # What worked and what did not
-    description: "Type of deliverable produced or documented"
-
-  component:
-    type: enum
-    values:
-      # UX components
-      - ux_research             # User research activities
-      - ux_strategy             # Product strategy and positioning
-      - ux_design               # UX design decisions and flows
-      - ux_writing              # Microcopy, content strategy
-
-      # UI components
-      - ui_visual               # Visual design, aesthetics
-      - ui_components           # Design system components
-      - ui_interaction          # Interaction patterns, animations
-      - ui_accessibility        # Accessibility compliance
-
-      # Psychology components
-      - psych_cognitive         # Cognitive biases application
-      - psych_behavioral        # Behavior design (Behavior Map, Motivation Framework)
-      - psych_persuasion        # Persuasion principles (bias audit)
-      - psych_ethics            # Ethical design review
-
-      # Development components
-      - dev_frontend            # Frontend implementation
-      - dev_backend             # Backend implementation
-      - dev_design_system       # Code-first design system
-      - dev_infrastructure      # CI/CD, deployment, environments
-      - dev_testing             # Test suite, QA
-
-      # Project components
-      - project_planning        # Plans, requirements, architecture
-      - project_status          # Status tracking and updates
-      - project_context         # Context engineering and documentation
-    description: "Which component area was affected"
+      - foundation
+      - research
+      - planning
+      - exploration
+      - psychology
+      - reviews
+      - dev
+      - features
+      - prototype
+      - plans
+    description: "Deliverable area this entry belongs to – determines the directory (see the category table below)"
 
   status:
     type: enum
     values:
       - draft                   # Initial version, needs review
-      - in_progress             # Currently being worked on
+      - in-progress             # Currently being worked on
       - complete                # Finished and approved
       - revised                 # Updated after initial completion
       - superseded              # Replaced by a newer version
-      - blocked                 # Cannot proceed, waiting on dependency
-      - deferred                # Postponed to a later phase
-    description: "Current state of the deliverable"
-
-  severity:
-    type: enum
-    values:
-      - critical                # Blocks the entire project or phase
-      - high                    # Significantly affects deliverable quality or timeline
-      - medium                  # Affects specific activity but workarounds exist
-      - low                     # Minor note or edge case
-    description: "Impact level of this documentation entry"
+    description: "Current state of the entry"
 
 optional_fields:
   tags:
@@ -146,179 +54,35 @@ optional_fields:
       - "design-tokens"
       - "accessibility"
       - "psychology"
-      - "context-engineering"
-
-  related_deliverables:
-    type: array[string]
-    description: "File paths or names of related deliverables"
-    examples:
-      - ".design-engineer-plugin/design/foundation/problem-statement-20260115.md"
-      - ".design-engineer-plugin/design/planning/mvp-requirements-20260120.md"
-
-  tools_used:
-    type: array[string]
-    description: "Tools and MCPs used during this activity"
-    examples:
-      - "claude-projects"
-      - "claude-code"
-      - "cursor"
-      - "figma-mcp"
-      - "playwright-mcp"
-
-  token_note:
-    type: string
-    description: "Notes about token usage, compaction events, or context concerns"
-
-  superseded_by:
-    type: string
-    description: "Path to the document that replaces this one (when status is 'superseded')"
-
-  blocked_by:
-    type: string
-    description: "Description of what is blocking progress (when status is 'blocked')"
-
-  decisions:
-    type: array[string]
-    description: "Key decisions made during this activity"
-    examples:
-      - "Chose behavior-based personas over demographic-based"
-      - "Deferred payment integration to Phase 2"
 
   failed_approaches:
     type: array[string]
-    description: "Approaches that were tried and did not work"
+    description: "Approaches that were tried and did not work, with the reason each failed"
     examples:
-      - "Attempted to generate IA before completing user research -- too speculative"
-      - "Used generic persona template -- lacked product-specific motivation data"
+      - "Attempted to generate IA before completing user research – too speculative"
+      - "Used generic persona template – lacked product-specific motivation data"
 
-validation_rules:
-  - "activity must describe the specific work performed"
-  - "date must be in YYYY-MM-DD format"
-  - "phase must match one of the enum values"
-  - "deliverable_type must match one of the enum values"
-  - "component must match one of the enum values"
-  - "status must match one of the enum values"
-  - "severity must match one of the enum values"
-  - "tags should be lowercase, hyphen-separated"
-  - "failed_approaches should explain WHY the approach failed, not just name it"
-  - "decisions should include rationale, not just the choice"
-
-# Category mapping: deliverable_type -> directory
-# Aligned with the canonical taxonomy in skills/meta-setup/assets/dependencies-default.yaml.
+# Category table: category -> directory
 # All deliverable directories live under .design-engineer-plugin/ so the project root stays clean.
-category_mapping:
-  # Foundation (Phase 1: Discovery)
-  problem_statement: ".design-engineer-plugin/design/foundation/"
-  target_audience: ".design-engineer-plugin/design/foundation/"
-  assumptions_doc: ".design-engineer-plugin/design/foundation/"
-  storybrand_canvas: ".design-engineer-plugin/design/foundation/"
-  business_plan: ".design-engineer-plugin/design/foundation/"
-
-  # Research (external evidence gathering)
-  competitor_analysis: ".design-engineer-plugin/design/research/"
-  interview_findings: ".design-engineer-plugin/design/research/"
-  research_synthesis: ".design-engineer-plugin/design/research/"
-
-  # Planning (Phase 2: scope decisions)
-  mvp_requirements: ".design-engineer-plugin/design/planning/"
-  information_architecture: ".design-engineer-plugin/design/planning/"
-
-  # Exploration (Phase 3: design exploration)
-  bias_audit: ".design-engineer-plugin/design/exploration/"
-  behavior_map: ".design-engineer-plugin/design/exploration/"
-  journey_map: ".design-engineer-plugin/design/exploration/"
-  ethics_review: ".design-engineer-plugin/design/exploration/"
-  story_panels: ".design-engineer-plugin/design/exploration/story-panels/"
-  references_moodboard: ".design-engineer-plugin/design/exploration/references/"
-
-  # Psychology (psych-* audits)
-  psych_full_scan: ".design-engineer-plugin/design/psychology/"
-  psych_pricing: ".design-engineer-plugin/design/psychology/"
-  psych_visual_perception: ".design-engineer-plugin/design/psychology/"
-  psych_time_perception: ".design-engineer-plugin/design/psychology/"
-  psych_emotional_retention: ".design-engineer-plugin/design/psychology/"
-  psych_social_influence: ".design-engineer-plugin/design/psychology/"
-  psych_cognitive_load: ".design-engineer-plugin/design/psychology/"
-  psych_cognitive_biases: ".design-engineer-plugin/design/psychology/"
-  psych_decision_fundamentals: ".design-engineer-plugin/design/psychology/"
-  psych_decision_persuasion: ".design-engineer-plugin/design/psychology/"
-  psych_delight_design: ".design-engineer-plugin/design/psychology/"
-  psych_engagement_patterns: ".design-engineer-plugin/design/psychology/"
-  psych_habit_formation: ".design-engineer-plugin/design/psychology/"
-  psych_simplification: ".design-engineer-plugin/design/psychology/"
-
-  # Reviews (post-implementation review deliverables)
-  aesthetic_review: ".design-engineer-plugin/design/reviews/"
-  design_to_code_qa: ".design-engineer-plugin/design/reviews/"
-  full_review: ".design-engineer-plugin/design/reviews/"
-  audit: ".design-engineer-plugin/design/reviews/"
-  accessibility_audit: ".design-engineer-plugin/design/reviews/"
-  product_assessment: ".design-engineer-plugin/design/reviews/"
-  visual_review: ".design-engineer-plugin/design/reviews/"
-
-  # Dev (development preparation deliverables)
-  claude_md_draft: ".design-engineer-plugin/design/dev/"
-  agent_setup: ".design-engineer-plugin/design/dev/"
-  mcp_setup: ".design-engineer-plugin/design/dev/"
-  github_workflow: ".design-engineer-plugin/design/dev/"
-  starter_prompts: ".design-engineer-plugin/design/dev/"
-  design_system: ".design-engineer-plugin/design/dev/"
-  status_tracking: ".design-engineer-plugin/design/dev/"
-
-  # Features (per-feature specs)
-  feature_spec: ".design-engineer-plugin/design/features/"
-
-  # Prototypes
+category_table:
+  foundation: ".design-engineer-plugin/design/foundation/"
+  research: ".design-engineer-plugin/design/research/"
+  planning: ".design-engineer-plugin/design/planning/"
+  exploration: ".design-engineer-plugin/design/exploration/"
+  psychology: ".design-engineer-plugin/design/psychology/"
+  reviews: ".design-engineer-plugin/design/reviews/"
+  dev: ".design-engineer-plugin/design/dev/"
+  features: ".design-engineer-plugin/design/features/"
   prototype: ".design-engineer-plugin/prototype/"
-  landing_page: ".design-engineer-plugin/prototype/"
-  storyboard: ".design-engineer-plugin/prototype/"
+  plans: ".design-engineer-plugin/plans/"
 
-  # Plans (implementation plans)
-  implementation_plan: ".design-engineer-plugin/plans/"
-
-  # Memory (managed by compound-documenter agent via Anthropic's memory: project mechanism)
-  pipeline_state: ".claude/agent-memory/design-engineer-compound-documenter/"
-  key_decisions: ".claude/agent-memory/design-engineer-compound-documenter/"
-  stale_dependents: ".claude/agent-memory/design-engineer-compound-documenter/"
-
-  # Meta (cross-cutting documentation)
-  status_update: ".claude/agent-memory/design-engineer-compound-documenter/"
-  decision_log: ".claude/agent-memory/design-engineer-compound-documenter/"
-  context_recovery: ".claude/agent-memory/design-engineer-compound-documenter/"
-  lessons_learned: ".design-engineer-plugin/design/dev/"
-
-# Example valid frontmatter:
+# Example frontmatter:
 # ---
 # activity: problem-statement
 # date: 2026-01-15
-# phase: phase_1_discovery
-# deliverable_type: problem_statement
-# component: ux_research
+# category: foundation
 # status: complete
-# severity: high
-# tags: [problem-definition, user-needs, foundation]
-# related_deliverables:
-#   - ".design-engineer-plugin/design/foundation/target-audience-20260116.md"
-# tools_used: [claude-projects]
-# decisions:
-#   - "Focused on three core problems instead of five -- narrower scope enables faster validation"
-#   - "Chose behavioral problem framing over feature-based framing"
+# tags: [problem-definition, user-needs]
 # failed_approaches:
-#   - "Initially tried to define problems without target audience research -- too abstract, revised after completing personas"
-# ---
-#
-# Example status update frontmatter:
-# ---
-# activity: phase-1-completion
-# date: 2026-01-20
-# phase: phase_1_discovery
-# deliverable_type: status_update
-# component: project_status
-# status: complete
-# severity: medium
-# tags: [status, phase-completion, milestone]
-# token_note: "Main conversation at ~150k tokens, recommended fresh chat for Phase 2"
-# decisions:
-#   - "All Phase 1 deliverables approved, proceeding to Phase 2 Strategy"
-#   - "Deferred second round of user interviews to after MVP prototype"
+#   - "Initially tried to define problems without target audience research – too abstract, revised after completing personas"
 # ---

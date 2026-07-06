@@ -12,9 +12,12 @@ The whole workflow looks like this:
 4. The main conversation creates a detailed implementation plan
 5. It pauses for your manual approval
 6. After approval, it runs the backend-implementer agent
-7. Then runs the frontend-implementer agent
-8. Finally runs the design-system-auditor agent
-9. Results from all agents flow back to the main conversation
+7. It runs `/simplify` to review the backend changes
+8. Then runs the frontend-implementer agent
+9. It runs `/simplify` to review the frontend changes
+10. It runs `/simplify` as a final pass on all code changes
+11. Finally runs the design-system-auditor agent
+12. Results from all agents flow back to the main conversation
 
 ## Why Sub-Agents Matter
 
@@ -64,6 +67,12 @@ This agent runs at the end of any implementation to check for violations. The mo
 - **Inconsistent patterns**: New code that does not follow established naming or architectural conventions
 
 **Output:** A violation report listing what was found and what was fixed.
+
+## Test Writer (optional, TDD)
+
+A fourth agent template ships alongside the three above. When you opt into test-first development for a feature, the test-writer agent runs at the start of implementation – before any code is written – and creates failing test scripts in `tests/`, then verifies they all fail (the Red phase). After implementation, the tests run again to verify Green (all pass), and at wrap-up the scripts move to `tests/archive/`. TDD is a method you choose per feature – when you skip it, implementation starts directly with the backend implementer.
+
+**Output:** Failing test scripts in `tests/` that define what "done" means for the feature.
 
 ## The Approval Checkpoint
 
@@ -122,6 +131,7 @@ These are the most common mistakes that break the pipeline:
 ### Step 1: Create Agent Files
 
 Save each customized agent template to `.claude/agents/` in your project root:
+- `.claude/agents/test-writer.md` (runs only when you opt into TDD, but copy it so it is ready)
 - `.claude/agents/backend-implementer.md`
 - `.claude/agents/frontend-implementer.md`
 - `.claude/agents/design-system-auditor.md`

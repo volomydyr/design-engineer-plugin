@@ -8,7 +8,7 @@ This plugin's skills all set `disable-model-invocation: true` (intentional — s
 
 ### The required pattern
 
-Every command file MUST start its body with this short note (placed just after the `# Title` heading and before any other section):
+Every command file that references `${DESIGN_ENGINEER_PLUGIN_ROOT}` MUST start its body with this short note (placed just after the `# Title` heading and before any other section). Commands that never reference the plugin root – help.md, stop.md, mute-unmute-sound.md – omit it:
 
 ```markdown
 ## Plugin paths
@@ -23,6 +23,8 @@ This relies on a single, permission-free mechanism: **the plugin's UserPromptSub
 - **Bash injection (`` !`...` ``)** — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context, but Claude Code's permission system blocks `!`-prefix patterns at command-load time in Auto mode and any restrictive permission preset, with: `Shell command permission check failed for pattern "!...". Permission for this action has been denied. Reason: Insufficient information about the Bash command to evaluate; action is unverifiable.` v4.8.5 tried this approach and crashed `/design-engineer:launch` for users in Auto mode. Do NOT use bash injection in command bodies.
 - **`${CLAUDE_PLUGIN_ROOT}`** — officially documented for `hooks/hooks.json` `command` fields ONLY. Does not auto-expand inside slash command markdown bodies. Hooks may use it; commands may not.
 - **`Skill` tool to invoke plugin skills** — every plugin skill sets `disable-model-invocation: true`, so the Skill tool will reject them with `Skill <name> cannot be used with Skill tool due to disable-model-invocation`. The only correct way to load a skill is `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md and follow its instructions inline`.
+
+When a command body instructs the model to run a fixed, known-in-advance Bash call (state detection, the sound-flag toggle, the tidy purge), `allowed-tools` frontmatter is the documented way to pre-permit exactly that call so default-permission sessions don't interrupt with a prompt – `commands/launch.md`, `commands/tidy.md`, and `commands/mute-unmute-sound.md` declare exact-string entries (no `:*` wildcards) for precisely their scripted calls and nothing broader.
 
 ### Skill references inside commands
 
@@ -47,6 +49,18 @@ The only correct phrasing is **"Read `<path>/SKILL.md` and follow its instructio
 ### Hooks vs commands
 
 `${CLAUDE_PLUGIN_ROOT}` IS officially documented for `hooks/hooks.json` `command` fields. Hooks may use it directly (and do, throughout `hooks/hooks.json`). This convention applies only to slash command bodies and skill markdown — not to hooks.
+
+## Command hand-offs (continuing the pipeline into another command)
+
+Commands cannot invoke other slash commands. The model has no reliable way to run `/design-engineer:X` mid-flow – the SlashCommand tool's availability varies by session, and "Load /design-engineer:X" fails the same way "Load the X skill" does (see the forbidden phrasings above). When a command or skill body needs to continue the pipeline into another plugin command – a junction the user just chose, like "Move to development" – write this canonical pattern:
+
+1. Announce the transition in one sentence.
+2. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/<name>.md` and follow its instructions inline.
+3. Carry forward the relevant context explicitly: the feature plan, the spec path, or the argument branch to follow (e.g. discovery's `feature-spec` branch). `$ARGUMENTS` is not substituted on an inline Read, so name the branch to jump to instead of passing an argument.
+
+Never end the turn telling the user to re-type a command they just chose to continue into.
+
+**Exemption – terminal and pause messages.** Text that ends a session or points at a later session correctly names commands for the user to run themselves: stop.md's resume pointer, help.md listings, tidy.md, "run /design-engineer:launch first" config-missing guards, and "Pause and save" option descriptions. Leave those as plain command names with no inline-Read mechanics. Display-only text (spine tables, overviews, recap templates) may also name commands as labels.
 
 ## Versioning Requirements
 
@@ -80,7 +94,6 @@ If you find yourself thinking "this is too small to bump for" — that's the bug
 ```
 design-engineer-plugin/           ← repo root = plugin root
 ├── .claude-plugin/plugin.json
-├── .mcp.json
 ├── CLAUDE.md
 ├── README.md
 ├── CHANGELOG.md
@@ -89,13 +102,13 @@ design-engineer-plugin/           ← repo root = plugin root
 │   ├── de-start-state.sh
 │   ├── de-statusline.js
 │   ├── de-playwright-path-hook.js
+│   ├── de-figma-intake-hook.sh
 │   ├── de-postcompact-hook.sh
 │   ├── de-play-sound.sh
-│   ├── check_deliverable_deps.py
-│   └── session_dep_summary.py
-├── agents/                         # 8 specialized agents
+│   └── check_deliverable_deps.py
+├── agents/                         # 10 specialized agents
 ├── commands/                       # 9 main commands + mute-unmute-sound utility
-└── skills/                         # 53 skills
+└── skills/                         # 51 skills
 ```
 
 ## Skill Compliance Checklist
@@ -107,7 +120,7 @@ When adding or modifying skills:
 - [ ] `name:` present and matches directory name
 - [ ] `description:` present, describes what it does AND when to use it
 - [ ] `disable-model-invocation: true` present on ALL skills
-- [ ] `model:` present – `sonnet` (default), `haiku` (mechanical tasks), or `opus` (design-system-auditor only)
+- [ ] `model:` present – `sonnet` (default) or `haiku` (mechanical tasks)
 - [ ] `license: MIT` present on ALL skills
 - [ ] `compatibility:` present when skill has external dependencies (MCP servers, Node.js, Python, Bash)
 
@@ -145,22 +158,23 @@ When adding or modifying skills:
 
 ### The verified mechanics (read this first)
 
-A skill's `model:`/`effort:` frontmatter is **inert when the skill is loaded inline** – which is how all 53 plugin skills load. Every plugin skill sets `disable-model-invocation: true` and is loaded by reading its SKILL.md and following the instructions inline, so it runs at the **main session's** model and effort, not at whatever its own frontmatter declares. Frontmatter only takes effect when a skill is invoked through the Skill tool (disabled here) or for **agents** dispatched via Task.
+A skill's `model:`/`effort:` frontmatter is **inert when the skill is loaded inline** – which is how all 51 plugin skills load. Every plugin skill sets `disable-model-invocation: true` and is loaded by reading its SKILL.md and following the instructions inline, so it runs at the **main session's** model and effort, not at whatever its own frontmatter declares. Frontmatter only takes effect when a skill is invoked through the Skill tool (disabled here) or for **agents** dispatched via Task.
 
 Two consequences:
 
-1. **The only runtime levers are the 8 agents' frontmatter and the user's session setting.** The plugin cannot change the session model or effort from inside a command or skill – no documented mechanism exists. So the agent frontmatter carries the real per-agent policy, and the inline planning phases (MVP, information architecture, Plan Mode, design exploration) run at whatever the user's session is set to.
+1. **The only runtime levers are the 10 agents' frontmatter and the user's session setting.** The plugin cannot change the session model or effort from inside a skill. Command frontmatter does have a documented `model:` field, but the plugin deliberately leaves it unset – the user's session model stays in control of the inline phases – and no command-level `effort:` field exists at all. So the agent frontmatter carries the real per-agent policy, and the inline planning phases (MVP, information architecture, Plan Mode, design exploration) run at whatever the user's session is set to.
 2. **Skill frontmatter stays for compliance, not runtime.** Keep an explicit `model:` and `effort:` on every skill so the schema stays valid and a future Skill-tool path works, but do not rely on it to change behavior. It is cosmetic at runtime today.
 
 **Recommendation surfaced to the user:** because the plugin cannot set the session, the docs and setup flow recommend running a **strong session model at high effort during the inline planning phases** (MVP, information architecture, Plan Mode). That is where premium reasoning pays off and where the plugin has no other lever. Lean implementation against a good plan or spec is fine on a smaller model.
 
 ### The agent policy (the real lever)
 
-One policy applies across the 8 agents. There is no cost-mode machinery and no per-mode rewriting – the values live directly in each agent's frontmatter.
+One policy applies across the 10 agents. There is no cost-mode machinery and no per-mode rewriting – the values live directly in each agent's frontmatter.
 
 | `model:` / `effort:` | Agent | Why |
 |---|---|---|
-| `opus` / `high` | `design-system-auditor` | The one Opus agent. Aesthetic critique plus the spec-conformance pass – the place Opus earns its premium |
+| `opus` / `xhigh` | `design-explorer`, `spec-author` | Workflow-only premium planning – dispatched by discovery's design-exploration and spec-authoring fan-outs |
+| `opus` / `high` | `design-system-auditor` | The inline-pipeline Opus agent. Aesthetic critique plus the spec-conformance pass – the place Opus earns its premium |
 | `sonnet` / `high` | `ux-researcher`, `psych-scanner` | Research synthesis and psychology critique warrant higher effort, but not Opus |
 | `sonnet` / `medium` | `frontend-implementer`, `backend-implementer`, `advisor`, `test-writer`, `compound-documenter` | Lean execution against good specs and plans; structured transforms |
 
@@ -210,8 +224,8 @@ For agents that need cross-session memory (like `compound-documenter`), add `mem
 ### When adding new agents/skills
 
 - New skills: default to `model: sonnet`, `effort: medium` (`haiku` / `low` for clearly mechanical work). Remember the values are inert at inline-load time – they are for compliance, not runtime.
-- New agents: place them in the policy table above. Default to `sonnet` / `medium`; reserve `sonnet` / `high` for research or critique that warrants it, and `opus` / `high` for `design-system-auditor` only. Adding a second Opus agent requires a deliberate decision, not a default.
-- `xhigh` is used only by the design-exploration and spec-authoring workflow agents. Never use `max`, pinned model IDs, or `model: inherit`.
+- New agents: place them in the policy table above. Default to `sonnet` / `medium`; reserve `sonnet` / `high` for research or critique that warrants it. Opus is carried by three agents only: `design-system-auditor` (`high`) in the inline pipeline, plus the workflow-only `design-explorer` and `spec-author` (`xhigh`). Adding a further Opus agent requires a deliberate decision, not a default.
+- `xhigh` is used only by the `design-explorer` and `spec-author` workflow agents. Never use `max`, pinned model IDs, or `model: inherit`.
 - Never include `disable-model-invocation:` on an agent (skills only).
 
 ## Workflows
@@ -224,13 +238,13 @@ Each wiring follows the same contract:
 2. **Availability gate** – workflows need Claude Code v2.1.154+ on a paid plan. The command checks availability before offering.
 3. **Single-pass inline fallback** – when workflows are unavailable or declined, the same work runs once inline. Nothing breaks when workflows are off.
 
-The five wirings:
+The four wirings:
 
 | Wiring | Where | Fan-out | Agents |
 |---|---|---|---|
 | **Design exploration** | `commands/discovery.md`, new-product prototype step | One agent per concept direction, then judge and synthesize | **Opus / xhigh** (premium planning) |
 | **Spec authoring** | `commands/discovery.md`, feature flow after the IA recap | One agent per screen, authoring `.spec.md` files | **Opus / xhigh** (premium planning) |
-| **Competitor analysis** | `commands/discovery.md`, "add depth" step | One agent per competitor (or delegate to the bundled `/deep-research`) | Default tier |
+| **Competitor analysis** | `commands/discovery.md`, "add depth" step | One agent per competitor (or delegate to a `/deep-research` harness if one is available in the session) | Default tier |
 | **Per-page audit** | `commands/review.md` audit step | One agent per page, results synthesized; designer-feedback capture stays after the run | Default tier |
 
 The design-exploration and spec-authoring workflows are the **premium-planning investment**: this is where the plugin concentrates Opus and xhigh, consistent with the model policy (premium reasoning on planning, lean execution after). The workflow agents are the only place `xhigh` is used.
@@ -260,17 +274,19 @@ At UI-build moments with a verifiable end state (a `.spec.md` exists, recreating
 
 A product that already exists – a commercial codebase the plugin didn't build, or a plugin-built product that has shipped and is now in iteration – opens the **iterate flow** rather than the from-scratch pipeline. The flow is fast and task-driven, and it is the existing-project path: no new mode, picker, or state name was added for it. Detection stays as-is – `.design-engineer-plugin/config.yaml` presence is the auto-detected plugin signature, `project_type` (a one-time first-run choice) plus `resume:` plus the compound-documenter `pipeline-state.md` track which step.
 
-**Where it lives.** The flow and its routing map are authored once in `commands/launch.md` (the `## The iterate flow` section and the `## Task→dispatch map (single source of truth)` section). `commands/launch.md` Step 4 (first-run hand-off) and `skills/meta-setup/SKILL.md` Path B **reference** that map rather than restating it – this is deliberate, to keep the routing from drifting into multiple copies. When the dispatch map changes, change it in `launch.md` only.
+**Where it lives.** The flow and its routing map are authored once in `commands/launch.md` (the `## The iterate flow` section and the `## Task→dispatch map (single source of truth)` section). `commands/launch.md` Step 4 (first-run hand-off) **references** that map rather than restating it – this is deliberate, to keep the routing from drifting into multiple copies. When the dispatch map changes, change it in `launch.md` only.
 
 **Clarify-then-dispatch (the core interaction model).** A starting point ("act on feedback", "redesign a design", "explore a concept", "audit a design") is a conversational entry, not a dispatch trigger. Selecting one makes the model **ask the user for detail** in natural language first; only after it understands the task does it read `project.context` from the config and dispatch the right pieces (a skill, a workflow, an agent, the spec layer, or `/goal`, or a combination). A starting point never auto-spawns an agent or a workflow on selection. The same applies to a free-form prompt: clarify what's needed, then dispatch the most capable fitting tool. Lean in process, powerful in capability – even a one-line request reaches for the right tool, but no forced pipeline.
 
 **The scoped-edit loop** is the workhorse (most iterate-flow work is a scoped edit to something that already exists): restate the exact element, file, and property → locate → edit in place → verify in the browser via Playwright → open a scoped PR, reaching for the spec-driven layer, a workflow, or an agent when the change genuinely warrants it.
 
-**Completion marker + routing.** When the from-scratch pipeline finishes its last step, `commands/development.md` writes a top-level `status: complete` line into `.design-engineer-plugin/config.yaml` (additive, idempotent, gated on `project_type: new`; `meta-document` mirrors the fact into the compound-documenter pipeline state but does not author the marker). Detection then routes a `project_type: new` project carrying `status: complete` to a new state, `returning_complete`, which opens the iterate flow instead of the from-scratch returning path. The branch is mirrored in the three places detection is duplicated today: `skills/meta-setup/scripts/detect-state.sh`, `hooks/de-start-state.sh`, and `commands/launch.md` Step 0. It is additive and fail-safe – absence of `status: complete` yields the prior behavior, and `project_type: existing` projects never reach it.
+**Completion marker + routing.** When the from-scratch pipeline finishes its last step, `commands/development.md` writes a top-level `status: complete` line into `.design-engineer-plugin/config.yaml` (additive, idempotent, gated on `project_type: new`; `meta-document` mirrors the fact into the compound-documenter pipeline state but does not author the marker). Detection then routes a `project_type: new` project carrying `status: complete` to a new state, `returning_complete`, which opens the iterate flow instead of the from-scratch returning path. The branch is mirrored in the two places detection is duplicated today: `hooks/de-start-state.sh` and `commands/launch.md` Step 0. It is additive and fail-safe – absence of `status: complete` yields the prior behavior, and `project_type: existing` projects never reach it.
 
 ## Command Naming Convention
 
-Commands use `product:` prefix to keep the namespace short, distinct, and free of "design" so typing `/design` in the command picker only surfaces `/design-engineer:discovery`:
+Commands live under the `design-engineer:` namespace (derived from the plugin name in `.claude-plugin/plugin.json`):
+
+Slash-command names derive from the filename plus the plugin prefix, so command frontmatter must not include a `name:` key.
 
 - `/design-engineer:launch` - Universal entry point (new projects, returning projects, existing projects)
 - `/design-engineer:discovery` - Full design workflow orchestrator
@@ -280,7 +296,7 @@ Commands use `product:` prefix to keep the namespace short, distinct, and free o
 - `/design-engineer:document` - Knowledge documentation and stakeholder communication
 - `/design-engineer:stop` - Save progress and pause mid-activity
 - `/design-engineer:tidy` - Wipe disposable working artifacts under `.design-engineer-plugin/temporary/`
-- `/design-engineer:help` - Shows all available commands, project status, and mode
+- `/design-engineer:help` - Shows all available commands and current project status
 
 ## Conditional teaching contract
 
@@ -303,7 +319,7 @@ Deliverables created by this plugin are documented in two layers:
 
 Run `/design-engineer:document` at milestones or after a significant decision so the compound-documenter agent flushes state into its memory. Downstream-review prompts also fire automatically via `hooks/check_deliverable_deps.py` when a deliverable file is edited.
 
-**Path note**: deliverable files always live at `design/...` – this is fixed in the current implementation.
+**Path note**: deliverable files always live at `.design-engineer-plugin/design/...` – this is fixed in the current implementation.
 
 ## Plan Mode
 
@@ -315,51 +331,7 @@ Use Plan Mode for any task that involves multiple files, phased implementation, 
 
 ### Structured plan format
 
-When in Plan Mode, write plans using this structure:
-
-```markdown
-# Implementation Plan: [Feature/Task Name]
-
-## Summary
-[1-2 sentence overview of what will be implemented]
-
-## Architectural Decisions
-- [Decision 1]: [Rationale]
-- [Decision 2]: [Rationale]
-
-## Phase 1: [Phase Name]
-**Objective**: [What this accomplishes]
-**Depends on**: none
-**Files**:
-- Create: [file paths]
-- Modify: [file paths]
-**Reuse**: [List every existing component you will reuse. For each, state: use as-is, extend with new variants/props, or explain why a new component is needed. Never write "leverage existing components" – be specific.]
-**Checklist:**
-- [ ] [Specific deliverable 1]
-- [ ] [Specific deliverable 2]
-- [ ] [Specific deliverable 3]
-**QA**: [What the user should check and how to verify – be specific]
-
-## Phase 2: [Phase Name]
-**Objective**: [What this accomplishes]
-**Depends on**: Phase 1
-**Files**:
-- Create: [file paths]
-- Modify: [file paths]
-**Reuse**: [List every existing component you will reuse. For each, state: use as-is, extend with new variants/props, or explain why a new component is needed. Never write "leverage existing components" – be specific.]
-**Checklist:**
-- [ ] [Specific deliverable 1]
-- [ ] [Specific deliverable 2]
-- [ ] [Specific deliverable 3]
-**QA**: [What the user should check and how to verify – be specific]
-
-## Risk Assessment
-- [Risk 1]: [Mitigation]
-- [Risk 2]: [Mitigation]
-
-## Questions for User
-- [Any decisions that need user input before proceeding]
-```
+When in Plan Mode, follow the canonical template at `skills/meta-setup/references/plan-template.md` – use the template structure above its "Execution rules" divider. It is the single source of truth for plan format, including the four-way Reuse taxonomy (use as-is / extend / replace / new). Do not restate or improvise the format.
 
 Every phase MUST have `**Depends on**`, `**Checklist**`, and `**QA**` fields. Dependencies determine implementation order. The checklist breaks the phase into discrete deliverables that can be checked off during implementation. QA instructions tell the user exactly what to review – not generic "check it works" but specific things to look at (files changed, behavior to test, edge cases to verify).
 
@@ -450,7 +422,7 @@ Every gallery file the skill scaffolds carries this contract at the top in langu
 
 ### Enforcement (no hooks)
 
-- **`agents/frontend-implementer.md`** – after creating or modifying any component, invokes `dev-component-gallery` to add or update its entry; never duplicates components in the gallery; never writes inline styles in the gallery file. Reads the existing gallery before adding new components (duplicate-detection step).
+- **`agents/frontend-implementer.md`** – after creating or modifying any component, reads `dev-component-gallery`'s SKILL.md (via the `PLUGIN_ROOT` line in its dispatch prompt) and follows it inline to add or update its entry; never duplicates components in the gallery; never writes inline styles in the gallery file. Reads the existing gallery before adding new components (duplicate-detection step).
 - **`agents/design-system-auditor.md`** – gallery audit pass at FAIL severity (every component has an entry, no inline styles, imports resolve to production paths, visually-identical entries flagged as duplicates, variants via API only).
 - **`skills/dev-claude-md/SKILL.md`** – generated project CLAUDE.md includes the Gallery Contract so the rule survives in the user's repo.
 - **`skills/dev-prototyping/SKILL.md`** – cross-references the lifecycle (prototype = design exploration before implementation; gallery = shipped components after).
@@ -461,9 +433,10 @@ There is no PreToolUse or Stop hook for the gallery contract. Enforcement is the
 
 Three rules that apply to everything Claude writes – chat messages, deliverables, code comments, UI copy, headings, labels, buttons, filenames, everything:
 
-1. **En dashes only** – use `–` (en dash). Never `–` (em dash), `--` (double hyphen), or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
+<!-- The em dash (U+2014) below is an intentional counter-example. Do not "fix" it in dash sweeps. -->
+1. **En dashes only** – use `–` (en dash). Never `—` (em dash), `--` (double hyphen), or ` - ` (hyphen as dash). Hyphens in compound words are fine (test-first, psychology-backed).
 2. **Sentence case only** – capitalize the first word and proper nouns. Never Title Case. This applies to headings, button labels, tab names, navigation items, placeholder text, menu items, toast messages, and any other text Claude generates.
-3. **No internal jargon in user-facing output** – never mention config file names (`.design-engineer-plugin/config.yaml`, `.dependencies.yaml`), internal skill names (`ux-problem-statement`, `meta-orchestrator`), hook names, script names, or detection logic in messages shown to the user. Describe what things DO, not what they're called internally. "Your progress was saved" not "Resume state written to `.design-engineer-plugin/config.yaml`". "You have Figma connected" not "Figma plugin: [FOUND]". This rule applies to all commands, skills, and agents.
+3. **No internal jargon in user-facing output** – never mention config file names (`.design-engineer-plugin/config.yaml`, `.dependencies.yaml`), internal skill names (`ux-problem-statement`, `meta-setup`), hook names, script names, or detection logic in messages shown to the user. Describe what things DO, not what they're called internally. "Your progress was saved" not "Resume state written to `.design-engineer-plugin/config.yaml`". "You have Figma connected" not "Figma plugin: [FOUND]". This rule applies to all commands, skills, and agents.
 
 Wrong: "User Settings – Account Details"
 Right: "User settings – account details"
@@ -477,7 +450,7 @@ Right: "Loading – please wait"
 Wrong: "Problem Statement", "Target Audience", "MVP Requirements"
 Right: "Problem statement", "Target audience", "MVP requirements"
 
-Wrong: "Data density – over marketing", "sovereignty -- wants"
+Wrong: "Data density — over marketing", "sovereignty -- wants"
 Right: "Data density – over marketing", "sovereignty – wants"
 
 This is especially important in UI copy – prototypes, components, and any generated product interface must follow all three rules.
@@ -491,6 +464,12 @@ This is especially important in UI copy – prototypes, components, and any gene
    - Generic positive conclusions ("The future looks bright", "Exciting times lie ahead")
    - Filler phrases ("In order to", "Due to the fact that", "It is important to note that")
 5. **AskUserQuestion must always have 2–4 options** – never send an AskUserQuestion with only 1 option. The minimum is 2. Always specify `multiSelect: true` or `multiSelect: false` explicitly. Use `multiSelect: true` when multiple answers are valid (failure modes, risk assessment, feature selection, review areas, psychology skills). Use `multiSelect: false` when the user must choose one direction (mode, approach, framework, scope).
+
+   **When a menu needs more than 4 choices**, never emit an AskUserQuestion with more than 4 options. Use one of these two patterns instead:
+   - **Group and narrow** (single-choice menus): fold the choices into at most 4 umbrella options, then run a follow-up AskUserQuestion round to narrow within the chosen group.
+   - **Numbered chat list** (multiSelect pick-many lists): fall back to a numbered list in chat and accept comma-separated numbers as the answer.
+
+   Never add an explicit "Other" / "Something else" option – AskUserQuestion has a built-in free-text Other, so an explicit one is a wasted slot.
 
 6. **Pad the chat before AskUserQuestion** – on most clients, the question panel overlays the bottom of the chat, hiding whatever you wrote just above it. Before EVERY AskUserQuestion call, end your preceding message with a vertical spacer so the overlay covers the spacer instead of substantive content. Use this exact spacer block (it renders as visible vertical space in markdown clients):
 
@@ -526,7 +505,7 @@ The signal that allows the next assistant action is the next user message — no
 
 ## Image handling
 
-Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, invoke the `ui-images` skill. It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `.design-engineer-plugin/design/exploration/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
+Before reaching for gradient placeholders, emoji-stamped SVGs, or random Pexels/Unsplash links in any prototype, landing page, or generated HTML, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-images/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). It decides per image whether to generate (hero / marketing / brand-specific) or stock-fetch (avatars / list rows / decorative many-of-a-kind), produces strong search queries or detailed AI-generation prompts, and lays out destination folders at `.design-engineer-plugin/design/exploration/images/`. This rule applies to every `<img>` tag the model emits – no exceptions, no "the user will replace it later" shortcuts.
 
 ## File hygiene (durability tiers)
 
@@ -534,7 +513,7 @@ Everything the plugin produces lives under `.design-engineer-plugin/` (one umbre
 
 | Tier | Where it lives | Goes in git? | Examples |
 |---|---|---|---|
-| **Durable deliverable** | `.design-engineer-plugin/design/<subdir>/` (foundation, research, planning, exploration, psychology, reviews, dev, features, specs), feature-scoped specs at `design/features/<slug>/screens/`, `.design-engineer-plugin/prototype/`, `.design-engineer-plugin/plans/`, `tests/` (project source code stays at the project root) | Yes — these ARE the work | `problem-statement.md`, `references.md`, captured reference images, `<screen-slug>.spec.md`, `prototype.html`, plan files, test scripts |
+| **Durable deliverable** | `.design-engineer-plugin/design/<subdir>/` (foundation, research, planning, exploration, psychology, reviews, dev, features, specs), feature-scoped specs at `design/features/<slug>/screens/`, `.design-engineer-plugin/prototype/`, `.design-engineer-plugin/plans/`, `tests/` (project source code stays at the project root) | Yes — these ARE the work | `problem-statement.md`, `references.md`, captured reference images, `<screen-slug>.spec.md`, `design/dev/decisions.md`, `prototype.html`, plan files, test scripts |
 | **Plugin runtime state** | `.design-engineer-plugin/{config.yaml, dependencies.yaml}` and `.design-engineer-plugin/memory/` | Yes | config, dependency graph, project-map.md, debug-solutions.md |
 | **Disposable working artifact** | `.design-engineer-plugin/temporary/<scratch\|playwright\|intermediate>/...` | No — gitignored | Playwright debug captures, intermediate analysis dumps, exploratory drafts, "let me check this URL" outputs |
 | **Agent memory (Anthropic-managed)** | `.claude/agent-memory/design-engineer-compound-documenter/` | Yes | pipeline-state.md, key-decisions.md, stale-dependents.md (auto-managed by `memory: project` mechanism) |
@@ -544,7 +523,7 @@ Everything the plugin produces lives under `.design-engineer-plugin/` (one umbre
 - Durable deliverables go to their canonical path under `.design-engineer-plugin/design/<subdir>/` (or `prototype/`, `plans/`). Every skill's SKILL.md names the exact path. Write deliverables only to those canonical subdirs and filenames; never invent a new subdir or filename for a deliverable.
 - Anything throwaway goes to `.design-engineer-plugin/temporary/<scratch|playwright|intermediate>/`. Pick the subdir that matches the artifact's purpose (Playwright captures → `playwright/`, design-pipeline drafts → `intermediate/`, anything else → `scratch/`). Never write disposable artifacts to the project root, to a deliverable subdir, or anywhere else.
 - The `init-project-structure.sh` script creates the umbrella + the `temporary/` subdirs and adds them to `.gitignore` automatically. The block is fenced with `# === BEGIN design-engineer-plugin ===` and `# === END design-engineer-plugin ===` so the script can re-run idempotently and replace legacy v5.4.x blocks.
-- `.design-engineer-plugin/temporary/` is **auto-purged at every phase boundary** by `meta-document` Step 7 (which runs whenever `/design-engineer:document` fires). The user can also run `/design-engineer:tidy` mid-session for the same effect. Don't write things to `temporary/` expecting them to persist across phases.
+- `.design-engineer-plugin/temporary/` is **purged at completion milestones** – whenever the full `meta-document` runs (end of the discovery spine, development Post-execution, an explicit `/design-engineer:document`) via its Step 7. The user can also run `/design-engineer:tidy` mid-session for the same effect. Lightweight per-step/per-phase flushes do not purge, and the purge never runs between visual-verification captures and QA presentation. Don't write things to `temporary/` expecting them to persist across milestones.
 - If you need a file outside both the canonical paths and `temporary/`, that's a bug — pick a tier and a path.
 
 **Why this matters:** without the tier discipline, a single feature implementation can leave a working tree dominated by debug artifacts that obscure the actual deliverables. The user loses the ability to tell which files are committable vs. which are throwaway, and the temptation to "commit everything and move on" pollutes the repository permanently. The tiers + `.gitignore` block + auto-purge let the user run `git add -A` without thinking and only ship what should ship.
@@ -553,11 +532,11 @@ Everything the plugin produces lives under `.design-engineer-plugin/` (one umbre
 
 ## Playwright filesystem hygiene
 
-Playwright captures (screenshots, snapshots, traces) MUST land in one of the canonical paths below. Without an explicit `filename` argument, Playwright MCP writes to the project root, which pollutes the working tree across long sessions. The plugin enforces this contract via the `de-playwright-path-hook.js` PreToolUse hook on `mcp__playwright__browser_take_screenshot` — non-conforming `filename` values are denied with a structured help message.
+Playwright captures (screenshots, snapshots, traces) MUST land in one of the canonical paths below. Without an explicit `filename` argument, Playwright MCP writes to the project root, which pollutes the working tree across long sessions. The plugin enforces this contract via the `de-playwright-path-hook.js` PreToolUse hook on `browser_take_screenshot`, matched for both the bundled Playwright server (`mcp__plugin_design-engineer_playwright__*`) and a user-installed standalone `mcp__playwright__*` server – `filename` values outside the allowed prefixes (`.design-engineer-plugin/` and `tests/`) are denied with a structured help message.
 
 | Capture purpose | Canonical path | Lifetime |
 |---|---|---|
-| Throwaway / debug (visual verification, "let me check this URL", exploratory analysis, design comparisons) | `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png` | Disposable. The `.scratch/` directory is git-ignored. Clean up at any time without losing work. |
+| Throwaway / debug (visual verification, "let me check this URL", exploratory analysis, design comparisons) | `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png` | Disposable. The `.design-engineer-plugin/temporary/` directory is git-ignored. Clean up at any time without losing work. |
 | Persistent audit captures (`/design-engineer:review audit` per-page screenshots) | `.design-engineer-plugin/design/reviews/<YYYY-MM-DD>-audit/<page-slug>/screenshot.png` | Committed alongside the audit deliverable. |
 | Moodboard reference captures (`ui-references-moodboard` Step 5b) | `.design-engineer-plugin/design/exploration/references/captures/<reference-slug>/<NN>-<section>.png` | Committed alongside the references deliverable. |
 | Playwright test fixtures / visual regression baselines | `tests/<test-name>/<snapshot>.png` | Committed alongside the test scripts. |
@@ -787,4 +766,4 @@ These are heuristics. Claude updates the files when it notices the trigger; noth
 | Skill or phase completed | invoke compound-documenter (it updates pipeline-state.md structurally) |
 | Hard bug solved (3+ attempts) | `.design-engineer-plugin/memory/debug-solutions.md` – error + failed attempts + fix |
 | Cross-cutting design decision made | compound-documenter records it in key-decisions.md structurally |
-| Session ending (Stop hook reminder) | run /design-engineer:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |
+| Session ending | run /design-engineer:document so compound-documenter flushes its memory; optionally update plugin-local memory files if relevant changes occurred |

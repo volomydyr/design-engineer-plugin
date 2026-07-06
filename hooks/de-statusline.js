@@ -8,8 +8,6 @@
 
 const path = require('path');
 
-const AUTO_COMPACT_BUFFER_PCT = 16.5;
-
 // ─── Main statusline ────────────────────────────────────────────────────────
 let input = '';
 const stdinTimeout = setTimeout(() => process.exit(0), 3000);
@@ -27,8 +25,7 @@ process.stdin.on('end', () => {
     segments.push(`\x1b[2m${model}  ${dir}\x1b[0m`);
 
     // Segment 2: Context bar
-    const remaining = data.context_window?.remaining_percentage;
-    const ctxSeg = buildContextSegment(remaining);
+    const ctxSeg = buildContextSegment(data.context_window);
     if (ctxSeg) segments.push(ctxSeg);
 
     // Segment 3: Usage limits (from stdin rate_limits)
@@ -110,14 +107,18 @@ function colorPct(pct, text) {
 }
 
 // ─── Context bar segment ────────────────────────────────────────────────────
-function buildContextSegment(remaining) {
-  if (remaining == null) return null;
+function buildContextSegment(ctx) {
+  if (!ctx) return null;
 
-  // Normalize for autocompact buffer
-  const usableRemaining = Math.max(0,
-    ((remaining - AUTO_COMPACT_BUFFER_PCT) / (100 - AUTO_COMPACT_BUFFER_PCT)) * 100
-  );
-  const used = Math.max(0, Math.min(100, Math.round(100 - usableRemaining)));
+  // Show the raw used_percentage Claude Code reports, falling back to
+  // 100 - remaining_percentage. No auto-compact rescale: it diverged badly
+  // from Claude Code's native indicator (see anthropics/claude-code #8792, #5601).
+  let used = ctx.used_percentage;
+  if (used == null) {
+    if (ctx.remaining_percentage == null) return null;
+    used = 100 - ctx.remaining_percentage;
+  }
+  used = Math.max(0, Math.min(100, Math.round(used)));
 
   // Build progress bar (5 segments – compact)
   const filled = Math.round(used / 20);

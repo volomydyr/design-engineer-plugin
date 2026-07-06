@@ -19,7 +19,7 @@ Keep full context of [project name] at [project path]. Current state: running /d
 
 1. After Phase 3 completes (design activities done, before prototyping) – context is heavy with conversation, deliverables are saved to files
 2. After Phase 4 completes (prototyping + Figma done, before development) – fresh context for the implementation phase
-3. At ~90% context usage regardless of pipeline position (existing rule in CLAUDE.md)
+3. When the user asks for a compact message or runs /design-engineer:stop
 
 ## Example
 

@@ -37,13 +37,18 @@ Engagement principles are powerful tools that can either empower users or exploi
 <ask-user>
 What aspect of engagement are you working on?
 
-1. **Onboarding** – I will focus on Flow State, Aha! Moment, and Curiosity Gap
+1. **Onboarding / task completion** – flow, first wins, progress, completion
 2. **Retention / habit formation** – I will focus on Triggers, Investment Loops, and Variable Reward
-3. **Task completion** – I will focus on Goal Gradient, Zeigarnik Effect, and Feedback Loop
-4. **Gamification system** – I will cover all principles through a gamification lens
-5. **Full engagement audit** – I will review all 10 principles across your design
-6. **Something else** – describe your specific need
+3. **Gamification system** – I will cover all principles through a gamification lens
+4. **Full engagement audit** – I will review all 10 principles across your design
 </ask-user>
+
+If the user picks **Onboarding / task completion**, narrow with a follow-up AskUserQuestion:
+
+1. **Onboarding** – I will focus on Flow State, Aha! Moment, and Curiosity Gap
+2. **Task completion** – I will focus on Goal Gradient, Zeigarnik Effect, and Feedback Loop
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 

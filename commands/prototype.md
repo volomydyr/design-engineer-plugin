@@ -1,5 +1,4 @@
 ---
-name: design-engineer:prototype
 description: HTML prototype generation. Create clickable prototypes from planning docs, existing designs, or just an idea.
 argument-hint: "[new | feature | redesign]"
 ---
@@ -18,7 +17,7 @@ Generate a single-file HTML prototype using the `dev-prototyping` skill.
 
 ## Step 1: Read project context
 
-1. Check what design deliverables exist (design/ – problem statement, IA, user flows, etc.)
+1. Check what design deliverables exist (.design-engineer-plugin/design/ – problem statement, IA, user flows, etc.)
 2. Check if Figma is connected
 
 ## Step 2: Plan
@@ -46,13 +45,9 @@ Discuss scope and approach before building.
 
 Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-prototyping/SKILL.md` and follow its full 7-step flow. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
-After the initial prototype, pause for review and iterate based on feedback.
+After the initial prototype, pause for review and iterate based on feedback. Before each review pause, click through the main flows in the browser (Playwright) to confirm links, states, and interactions work; save any captures under `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/`. For a prototype the user plans to keep long-term, offer the `test-writer` agent as an opt-in – never by default.
 
 Note: do NOT run /simplify on prototype HTML. Prototypes are throwaway visual artifacts; code quality is irrelevant in this phase. /simplify applies only during /design-engineer:development implementation.
-
-## Step 4: Test
-
-Use the `test-writer` agent to create test scripts that verify prototype behavior. Run tests to confirm they pass.
 
 ## Post-prototype
 
@@ -66,4 +61,14 @@ options:
     description: "Run a design review on the prototype (UX, accessibility, psychology)"
   - label: "Move to development"
     description: "Use this prototype as the reference and implement in production code"
+  - label: "Done for now"
+    description: "The prototype stays saved on disk – pick it up later with /design-engineer:launch"
+multiSelect: false
 ```
+
+On selection:
+
+- "Iterate on this" → ask what to adjust and keep iterating within this command.
+- "Review quality" → announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/review.md` and follow its instructions inline, scoped to the prototype.
+- "Move to development" → announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/development.md` and follow its instructions inline, carrying forward the prototype path (`.design-engineer-plugin/prototype/prototype.html`) as the visual reference. Do NOT end the turn telling the user to run `/design-engineer:development` themselves.
+- "Done for now" → confirm the prototype's saved path and end the session.

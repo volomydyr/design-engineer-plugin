@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""PostToolUse hook: print downstream dependents from the static graph after a deliverable edit.
+"""PostToolUse hook: surface downstream dependents from the static graph after a deliverable edit.
+
+Emits the reminder as PostToolUse `additionalContext` JSON so it actually
+reaches the model (plain stdout from a PostToolUse hook is transcript-only).
 
 The dependencies.yaml file is READ-ONLY documentation. We don't try to track
 "updated this session" since `last_updated` was never written by anything in
@@ -7,8 +10,8 @@ the plugin (it was advertised but never wired). We just look up the static
 relationship and remind the user what's downstream.
 
 Live progress lives in the compound-documenter agent's memory at
-.claude/agent-memory/compound-documenter/ – that's the documented Anthropic
-primitive for project-local persistent state.
+.claude/agent-memory/design-engineer-compound-documenter/ – that's the
+documented Anthropic primitive for project-local persistent state.
 """
 
 import json
@@ -16,7 +19,7 @@ import os
 import sys
 import re
 
-# Only active in projects that have run /design-engineer:start
+# Only active in projects that have run /design-engineer:launch
 if not os.path.isfile('.design-engineer-plugin/config.yaml'):
     sys.exit(0)
 
@@ -63,6 +66,10 @@ def find_deliverable_key(filepath, deliverables):
     normalized = basename.replace("_", "-")
     if normalized in deliverables:
         return normalized
+    # Per-screen specs are named <slug>.spec.md, so splitext leaves "<slug>.spec" –
+    # map them all to the design-spec entry.
+    if basename.endswith(".spec") and "design-spec" in deliverables:
+        return "design-spec"
     return None
 
 
@@ -110,8 +117,15 @@ def main():
         return
 
     items = ", ".join(downstream)
-    print(f"You edited '{key}'. Downstream deliverables that may need review: {items}")
-    print("(See the static dependency graph at .design-engineer-plugin/dependencies.yaml for the full map.)")
+    print(json.dumps({
+        "hookSpecificOutput": {
+            "hookEventName": "PostToolUse",
+            "additionalContext": (
+                f"You edited '{key}'. Downstream deliverables that may need review: {items}. "
+                "See the static dependency graph at .design-engineer-plugin/dependencies.yaml for the full map."
+            ),
+        }
+    }))
 
 
 if __name__ == "__main__":

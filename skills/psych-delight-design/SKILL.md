@@ -35,15 +35,18 @@ Users do not remember every moment of an experience. They remember the **peak** 
 <ask-user>
 What emotional design challenge are you working on?
 
-1. **Key moments audit** – I will map your experience's peaks and endings (Peak-End Rule)
-2. **Delight opportunities** – I will find places to add micro-delighters and sensory appeal
-3. **Loading / processing states** – I will apply Labor Illusion to make wait times feel valuable
-4. **Personalization / customization** – I will use IKEA Effect and Endowment Effect to increase ownership feeling
-5. **Retention / re-engagement / trial conversion** – I will focus on Endowment Effect, Fresh Start Effect, and ownership psychology
-6. **Onboarding narrative / learning flow** – I will focus on Storytelling Effect, Spacing Effect, and Feedforward
-7. **Full emotional audit** – I will review all 10 principles across your design
-8. **Something else** – describe your specific need
+1. **Moments and delight** – peaks, endings, micro-delighters, waiting states
+2. **Ownership and retention** – personalization, re-engagement, trial conversion
+3. **Onboarding narrative / learning flow** – I will focus on Storytelling Effect, Spacing Effect, and Feedforward
+4. **Full emotional audit** – I will review all 10 principles across your design
 </ask-user>
+
+If the user picks a group with more than one challenge, narrow with a follow-up AskUserQuestion:
+
+- **Moments and delight**: 1. **Key moments audit** – I will map your experience's peaks and endings (Peak-End Rule). 2. **Delight opportunities** – I will find places to add micro-delighters and sensory appeal. 3. **Loading / processing states** – I will apply Labor Illusion to make wait times feel valuable.
+- **Ownership and retention**: 1. **Personalization / customization** – I will use IKEA Effect and Endowment Effect to increase ownership feeling. 2. **Retention / re-engagement / trial conversion** – I will focus on Endowment Effect, Fresh Start Effect, and ownership psychology.
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 

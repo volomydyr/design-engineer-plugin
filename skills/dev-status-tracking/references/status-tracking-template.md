@@ -1,6 +1,6 @@
 # Development Status Tracking Template
 
-Use this template to create a development status file for your project. Place it in a predictable location (e.g., `dev-status/development-context.md` or `status.md` at the project root). AI reads this file at the start of every development task.
+Use this template to create a development status file for your project. The status file lives at `.design-engineer-plugin/design/dev/development-context.md` – the plugin's canonical dev deliverable path. Never place it at the project root. AI reads this file at the start of every development task.
 
 This file is separate from CLAUDE.md. CLAUDE.md contains rules and structure. The status file contains the current state of the project – what is built, what is in progress, what failed. Keeping them separate follows the principle of separation of concerns: smaller, dedicated files work better than one large file because AI may ignore parts of very long documents due to context limits.
 

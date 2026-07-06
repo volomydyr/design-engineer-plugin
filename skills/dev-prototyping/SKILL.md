@@ -107,8 +107,8 @@ Fill in EVERY anchor below. If the field has no upstream deliverable, STOP and a
 
 - **Who is this human**: ← from `.design-engineer-plugin/design/foundation/problem-statement.md` and/or `target-audience.md`. Quote the relevant sentence.
 - **What verb must they accomplish**: ← from `problem-statement.md` (the user's actual goal) and/or `mvp-requirements.md` (the priority feature this prototype demonstrates).
-- **How should this feel**: ← from `.design-engineer-plugin/design/exploration/references.md` (Design Feel section). Use the EXACT feeling words from references.md, not paraphrased.
-- **Bold aesthetic flavor**: ← from `references.md` Design Direction synthesis (the direction document built in `ui-references-moodboard` Step 7). If references.md doesn't name a flavor, ASK the user before picking one.
+- **How should this feel**: ← from `.design-engineer-plugin/design/exploration/references/references.md` (Design Feel section). Use the EXACT feeling words from references.md, not paraphrased.
+- **Bold aesthetic flavor**: ← from `references.md` Design Direction synthesis (the direction document built in `ui-references-moodboard` Step 8). If references.md doesn't name a flavor, ASK the user before picking one.
 - **Differentiation**: ← from `references.md` Signature element + the Domain Exploration outputs.
 - **Palette WHY**: ← from `references.md` Color World (5+ colors from the product's domain). Use those colors. Do NOT invent a palette.
 - **Typography WHY**: ← from `references.md` Typography section. Do NOT default to Inter / SF Pro / Roboto / Lato / Montserrat unless `references.md` names one with stated reasoning.
@@ -195,7 +195,7 @@ For every path the Glob returns, call `Read`. The full set typically includes (e
 - `design/research/research-findings.md` — user evidence
 - `design/planning/information-architecture.md` — the screen inventory the prototype MUST implement
 - `design/planning/mvp-requirements.md` — the priority features the prototype MUST cover
-- `design/exploration/references.md` — design intent, palette, typography, signature, named defaults
+- `design/exploration/references/references.md` — design intent, palette, typography, signature, named defaults
 - `design/exploration/bias-audit.md` — UI moves the prototype must apply
 - `design/exploration/customer-journey-map.md` — emotional arc to reflect in the design
 - `design/exploration/behavior-map.md` — interaction patterns to support
@@ -367,30 +367,36 @@ The MVP requirement says WHAT the user does on this screen. The implementation d
 
 Pick the 3–5 decisions that, if defaulted, would most damage the screen's distinctiveness given the chosen aesthetic flavor (Step 0.5). For a screen with a brutalist flavor, layout pattern and density matter more than copy direction. For an editorial flavor, hierarchy and copy direction dominate. Adjust the decision list per screen — do NOT mechanically pick the same 5 for every screen.
 
-#### Step 5.3 — For each open decision, ask the user via AskUserQuestion
+#### Step 5.3 — Ask the user about this screen's decisions via AskUserQuestion
 
-For each of the 3–5 decisions, run an AskUserQuestion with 2–4 named options. Each option's description must be a one-sentence trade-off summary, not a label. Reference concrete products / patterns when useful.
+Group this screen's 3–5 decisions into one or two AskUserQuestion calls (the tool accepts up to 4 questions per call). Each question gets 2–4 named options; each option's description must be a one-sentence trade-off summary, not a label. Reference concrete products / patterns when useful. Ask a decision separately, after the batch, only when its options genuinely depend on an earlier answer (e.g. the layout options differ by chosen input pattern).
 
-Format (canonical 3-line spacer per CLAUDE.md rule #6 before each call):
+Format (before each call, end the preceding chat message with the canonical spacer: three lines of ─ characters):
 
 ```
-question: "Decision N of M for <screen name> — <decision category>: <plain-language framing of the choice>"
-header: "<screen>: <decision>"
-options:
-  - label: "<option 1 short label>"
-    description: "<concrete pattern + 1-sentence trade-off — e.g. 'Calendar grid like Notion's date picker. Best when most users pick a specific day. Heavier on the screen.'>"
-  - label: "<option 2 short label>"
-    description: "<...>"
-  - label: "<option 3 short label, optional>"
-    description: "<...>"
-  - label: "Other (I'll describe in chat)"
-    description: "None of the above fits — I have a specific direction in mind."
-multiSelect: false
+questions:            # up to 4 entries per call
+  - question: "<decision category>: <plain-language framing of the choice>"
+    header: "<screen>: <decision>"
+    options:
+      - label: "<option 1 short label>"
+        description: "<concrete pattern + 1-sentence trade-off – e.g. 'Calendar grid like Notion's date picker. Best when most users pick a specific day. Heavier on the screen.'>"
+      - label: "<option 2 short label>"
+        description: "<...>"
+      - label: "<option 3 short label, optional>"
+        description: "<...>"
+      - label: "<option 4 short label, optional>"
+        description: "<...>"
+    multiSelect: false
+  - question: "<next decision category>: <plain-language framing>"
+    header: "<screen>: <decision>"
+    options:
+      - ...
+    multiSelect: false
 ```
 
-Include "Other (I'll describe in chat)" as the LAST option on EVERY decision question — the user must always have an escape hatch. Never present 4 options without an Other.
+Do NOT add an explicit "Other" option – AskUserQuestion has a built-in free-text Other, so the user always has an escape hatch. Use all 4 option slots for real choices.
 
-Wait for the user's answer on each decision before asking the next. Do NOT batch multiple decisions into one AskUserQuestion. Do NOT skip ahead and start generating HTML before all decisions for this screen are answered. The dialogue is the work; the HTML is the artifact of the dialogue.
+If a decision was deferred because it depends on an earlier answer, ask it in a follow-up call once that answer is in. Do NOT skip ahead and start generating HTML before all decisions for this screen are answered. The dialogue is the work; the HTML is the artifact of the dialogue.
 
 #### Step 5.4 — Persist the decisions to the decisions log
 
@@ -426,7 +432,7 @@ If during generation you discover a sub-decision the dialogue didn't cover (e.g.
    - **Responsive web**: layouts MUST fill the viewport at every breakpoint. NEVER wrap content in a centered phone-shaped container, NEVER apply `max-width: 414px` / `375px` / similar mobile-frame constraints to the page body, NEVER add a "fake-iphone" CSS chrome around the UI. Use grid/flex layouts that breathe across desktop, tablet, mobile.
    - **Desktop web**: full-bleed desktop layout (≥1024px primary viewport). No mobile adaptation required. Same prohibition as Responsive web on mobile-frame wrappers.
    - **Both mobile and web**: generate TWO separate sets of screens – one mobile-viewport set AND one full-width responsive set. NEVER mix them in one layout (no "mobile-mockup-floating-in-desktop-canvas" pattern). Save them to separate filenames if needed.
-5. **Image-slot rule**: BEFORE generating any `<img src="...">` tag, gradient placeholder, emoji-stamped SVG, or random Pexels/Unsplash link, invoke the `ui-images` skill. The skill builds an image manifest, decides per-image whether to generate or stock-fetch, produces strong search queries or detailed AI-generation prompts, and lays out destination folders. This is mandatory whenever the screen has a hero, illustration, photo background, product mockup, avatar, or any other image slot. Do not skip – this is what prevents the gray-gradient + emoji slop default.
+5. **Image-slot rule**: BEFORE generating any `<img src="...">` tag, gradient placeholder, emoji-stamped SVG, or random Pexels/Unsplash link, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-images/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). The skill builds an image manifest, decides per-image whether to generate or stock-fetch, produces strong search queries or detailed AI-generation prompts, and lays out destination folders. This is mandatory whenever the screen has a hero, illustration, photo background, product mockup, avatar, or any other image slot. Do not skip – this is what prevents the gray-gradient + emoji slop default.
 6. Add interactivity from the start: functional navigation between screens, buttons that do things, forms that respond, state transitions. The prototype is clickable on the first present, not a static mockup that becomes interactive later.
 7. Cover all key user flows from the brief – every screen, every navigation path. Handle main states: default, active, hover, selected. Skip loading/error/empty states unless specifically requested.
 8. Generate one screen at a time. Before presenting each screen, read [anti-patterns.md](../ui-aesthetic-review/references/anti-patterns.md) and self-review: does this screen have any of the 14+ listed anti-patterns? Pay special attention to "Mobile mockup floating in desktop frame" if the target is Responsive or Desktop web, and to the hard-banned typefaces (Inter / SF Pro / Roboto / Lato / Montserrat) and token names (`--gray-N`, `--surface-N`, `--primary`). If you find any, fix before presenting.
@@ -561,9 +567,9 @@ Before generating any text for the prototype (headings, body copy, button labels
 
 After prototyping, suggest the logical next step based on what exists:
 
-- **If landing page was requested** (Step 1): run the `ui-landing-page` skill now
+- **If landing page was requested** (Step 1): Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-landing-page/SKILL.md` and follow its instructions inline now (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`)
 - **If no Figma designs exist**: suggest `ui-figma-guide` to design key screens based on the validated prototype
-- **If Figma designs exist**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff (runs on the bundled Figma plugin)
+- **If Figma designs exist**: suggest `ui-figma-handoff` to structure designs and prepare for developer handoff (runs on the bundled Figma plugin; on yes, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-handoff/SKILL.md` and follow it inline — never the Skill tool)
 - **If designs exist but need review**: suggest `ui-aesthetic-review` or `ui-design-to-code-qa` to evaluate the prototype against design intent
 - **If the prototype needs production implementation**: suggest the development pipeline via `/design-engineer:development`
 

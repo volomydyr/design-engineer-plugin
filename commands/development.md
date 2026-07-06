@@ -1,5 +1,4 @@
 ---
-name: design-engineer:development
 description: Development pipeline. Setup, implementation, and AI-assisted building.
 argument-hint: "[setup | pipeline | claude-md | agents | context | github | mcp]"
 ---
@@ -18,6 +17,23 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 
 Sets up and runs the development workflow. Use after the design pipeline or standalone.
 
+## Step 0: Argument routing
+
+Route on `$ARGUMENTS` before anything else:
+
+- **`claude-md`, `agents`, `context`, `github`, or `mcp`** – run Step 1 (read project context) only, then skip Steps 1.5, 1.55, 1.6, and Step 2 entirely and jump straight to the matching Step 3 setup activity:
+
+  | Argument | Step 3 setup activity |
+  |---|---|
+  | `claude-md` | CLAUDE.md setup (`dev-claude-md`) |
+  | `agents` | Agent pipeline (`dev-agent-setup`) |
+  | `context` | Context management (`dev-status-tracking`) |
+  | `github` | GitHub workflow (`dev-github-workflow`) |
+  | `mcp` | MCP configuration (`dev-mcp-setup`) |
+
+- **`setup`** – run Step 1, skip Steps 1.5–1.6, and go to Step 2 with the plan restricted to the setup activities (no Feature implementation).
+- **`pipeline` or no argument** – proceed through the full path unchanged: Step 1 → 1.5 → 1.55 → 1.6 → 2.
+
 ## Step 1: Read project context
 
 1. Read `.design-engineer-plugin/config.yaml` for project type and environment
@@ -26,7 +42,7 @@ Sets up and runs the development workflow. Use after the design pipeline or stan
 
 ## Step 1.5: Apply UX/psych depth from feature options
 
-If the user came from `/design-engineer:discovery` (existing-project feature flow), they may have selected optional depth steps in design.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
+If the user came from `/design-engineer:discovery` (existing-project feature flow), they may have selected optional depth steps in discovery.md Step 2.5. Surface those insights HERE — before plan generation in Step 2 — so the implementation plan reflects them. Application is inline (Reads + analysis); do not produce separate deliverable files unless the underlying skill prescribes one.
 
 1. Read `.design-engineer-plugin/config.yaml`. Look for `project.feature_options:` (a list of strings).
 2. If the key is missing or the list is empty, skip this step entirely.
@@ -37,11 +53,12 @@ If the user came from `/design-engineer:discovery` (existing-project feature flo
 | `Psychology audit` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-decision-fundamentals/SKILL.md` and follow it inline against the planned feature, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-cognitive-load/SKILL.md` and follow it inline. |
 | `Figma comparison` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-guide/SKILL.md` and follow it inline to pull structured Figma data and compare to the plan. |
 | `Design-system check` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` and follow it inline against the project's existing tokens and components. |
-| `Brief problem statement` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-problem-statement/SKILL.md` and follow it inline. Rare in dev.md context but supported when the feature was ambiguous and the design step skipped it. |
+| `Brief problem statement` | Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-problem-statement/SKILL.md` and follow it inline. Rare in this command's context but supported when the feature was ambiguous and the design step skipped it. |
 
 4. After each option's skill is applied, surface the insights to the user in a short summary (1–3 bullets per option) BEFORE moving to Step 1.55 / Step 2. The point is to inform plan generation, not to gate it — proceed once the user has seen the surfaced findings.
+5. Once all selected options have been applied, remove the `project.feature_options` key (or set it to an empty list) in `.design-engineer-plugin/config.yaml`. Selections are one-shot – stale entries must not re-run the previous feature's audits on later `/design-engineer:development` invocations.
 
-If `project.feature_options` is absent (e.g., user invoked `/design-engineer:development` directly without going through design.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
+If `project.feature_options` is absent (e.g., user invoked `/design-engineer:development` directly without going through discovery.md, or the project is `project_type: new`), skip this step silently and proceed to Step 1.55.
 
 ## Step 1.55: Detect build targets
 
@@ -62,11 +79,7 @@ options:
     description: "[Tech stack and scope]"
   - label: "[Target 2]"
     description: "[Tech stack and scope]"
-allowMultiSelect: false
-```
-
-```
-multiSelect: false  # User must choose one target to start with
+multiSelect: false
 ```
 
 Each build target gets its own development setup: tech stack, repo/folder, CLAUDE.md, design system, development loop. After the first target is complete, ask if the user wants to proceed to the next target.
@@ -157,7 +170,7 @@ Based on what you found, present a plan. Only suggest what's relevant:
 - **Kick-start prompts** – helpful for teams, optional for solo
 - **Feature implementation** – if the user's goal was "Implement from Figma" or they have a specific feature to build
 
-If an argument was provided (`/design-engineer:development setup`, `/design-engineer:development pipeline`), skip planning and go directly to that activity.
+Argument routing already happened in Step 0 – single-activity arguments never reach this step, and the `setup` argument restricts this plan to the setup activities only.
 
 Ask the user to confirm or adjust the plan.
 
@@ -178,7 +191,7 @@ Run one at a time, present results, and ask for feedback after each activity.
 
 ### Feature implementation
 
-Announce this plan to the user before doing anything: "Here's what I'm going to do: 1) read the existing project patterns, 1a) read the prototype if one exists, 1b) walk you through 3–5 implementation decisions for this feature with options to choose from (the MVP requirements are intentionally high-level — the implementation choices are yours, not mine), 2) read the plan template, 3) enter Plan Mode and draft the plan with your decisions baked in, 4) get your approval, 5) copy the plan to plans/, 6) create a feature branch, 7) write the implementation plan's tests, 8) implement phase by phase, then run design-system-auditor at the end."
+Announce this plan to the user before doing anything: "Here's what I'm going to do: 1) read the existing project patterns and any per-screen design specs for this feature, 2) read the prototype if one exists, 3) walk you through 3–5 implementation decisions with options to choose from (the MVP requirements are intentionally high-level – the implementation choices are yours, not mine), 4) read the plan template, 5) enter Plan Mode and draft the plan with your decisions baked in, 6) get your approval and save the approved plan to the project, 7) create a feature branch, 8) write the plan's tests first, 9) if the build has a verifiable end state, suggest an optional /goal command you can run, 10) implement phase by phase – each phase gets a drift check against the decisions we agreed, is presented for your approval, and is committed once you approve it, 11) run the design-system audit at the end, and 12) tidy any stray working files before opening a PR."
 
 Before writing ANY code, follow these steps in order:
 
@@ -190,7 +203,7 @@ Before writing ANY code, follow these steps in order:
 
 **1b. Pre-plan MVP dialogue (REQUIRED before plan mode)**: MVP requirements are intentionally HIGH-LEVEL — they name what the user can do, not how the screen executes it. Without a per-decision dialogue, you will pick implementation defaults from your own interpretation and produce AI-slop UI that ignores the user's specific taste. The pre-plan dialogue is the design-discussion phase the dev pipeline lives or dies on.
 
-Do the dialogue first and persist its outcome to `.design-engineer-plugin/development/decisions.md` before drafting any plan. Do not call `ExitPlanMode` until that file exists. Drafting a plan without doing the dialogue first wastes work.
+Do the dialogue first and persist its outcome to `.design-engineer-plugin/design/dev/decisions.md` before drafting any plan. Do not call `ExitPlanMode` until that file exists. Drafting a plan without doing the dialogue first wastes work.
 
 Run this sequence BEFORE Step 2:
 
@@ -245,14 +258,14 @@ options:
     description: "<...>"
   - label: "<option 3 short label, optional>"
     description: "<...>"
-  - label: "Other (I'll describe in chat)"
-    description: "None of the above fits — I have a specific direction in mind."
+  - label: "<option 4 short label, optional>"
+    description: "<...>"
 multiSelect: false
 ```
 
-Include "Other (I'll describe in chat)" as the LAST option on EVERY decision question. The user must always have an escape hatch. Wait for the user's answer on each decision before asking the next. Do NOT batch multiple decisions into one AskUserQuestion. Do NOT skip ahead and start drafting the plan before all decisions are answered.
+Do NOT add an explicit "Other" option – AskUserQuestion has a built-in free-text Other, so the user always has an escape hatch. Wait for the user's answer on each decision before asking the next. Do NOT batch multiple decisions into one AskUserQuestion. Do NOT skip ahead and start drafting the plan before all decisions are answered.
 
-**1b.4 Persist the decisions** to `.design-engineer-plugin/development/decisions.md` (create the directory if it doesn't exist). Format:
+**1b.4 Persist the decisions** to `.design-engineer-plugin/design/dev/decisions.md` (create the directory if it doesn't exist: `mkdir -p .design-engineer-plugin/design/dev`). Format:
 
 ```markdown
 # Implementation decisions — <feature name>
@@ -270,9 +283,9 @@ Chose **<option>** over <alternatives>. Reason: <…>.
 
 This file is a durable deliverable, committed alongside the plan. It exists so a future session (or a new collaborator) can understand WHY the implementation looks the way it does — the decisions log is the "minutes" of the design dialogue.
 
-**1b.5 ONLY THEN proceed to Step 2.** The `ExitPlanMode` tool will remain denied until `.design-engineer-plugin/development/decisions.md` exists.
+**1b.5 ONLY THEN proceed to Step 2.** No hook enforces this for you – before calling `ExitPlanMode`, verify that `.design-engineer-plugin/design/dev/decisions.md` exists and contains every decision from 1b.3; if it does not, go back and complete 1b.4 first.
 
-**2. Read the plan template**: Read `skills/meta-setup/references/plan-template.md` – this is the exact format your plan must follow.
+**2. Read the plan template**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/references/plan-template.md` – this is the exact format your plan must follow.
 
 **3. Enter Plan Mode**: Use `EnterPlanMode` to write the implementation plan. Do NOT present the plan as chat text, a summary table, or TaskCreate items. The plan MUST follow the template format with all required fields: Summary, Phases (each with Objective, Depends on, Files, Reuse, Checklist, QA), Risk assessment, Questions for user.
 
@@ -283,6 +296,21 @@ This file is a durable deliverable, committed alongside the plan. It exists so a
 **6. Create feature branch**: If on main/master, run `git checkout -b feat/[plan-slug]`.
 
 **7. Tests first**: Before writing production code, write the plan's tests as failing Playwright CLI test scripts in `tests/`, then run them to verify the Red phase (they fail because the feature is missing). Write them inline by default. Dispatch `Task(test-writer, plan_path=<path>)` only when the test surface is large enough to flood the main context or when it can run in parallel with other work. Avoid the common test anti-patterns: testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, and tests written after the implementation.
+
+**7.1 Preflight first – playwright-cli must exist before any test script does.** The test scripts shell out to `playwright-cli`, which the plugin does not bundle. Before writing or dispatching any test scripts, run a single check: `command -v playwright-cli`. If it is on PATH, proceed exactly as above. If it is absent, do NOT write scripts yet – a missing harness makes every script exit non-zero and fake a "correctly failing" Red phase. Instead, end the preceding chat message with the canonical 3-line spacer (per the spacer rule at the top of this command), then ask via AskUserQuestion:
+
+```
+question: "Script-based TDD needs playwright-cli, which isn't installed. How do you want to verify this feature?"
+header: "Test harness"
+options:
+  - label: "I'll install playwright-cli – recheck and continue"
+    description: "Install it per its own docs, then I re-run the check once and proceed with script TDD"
+  - label: "Skip script TDD for this feature"
+    description: "I verify each phase with the bundled Playwright browser tools instead – navigate and snapshot per phase"
+multiSelect: false
+```
+
+If the user picks the first option, wait for them to confirm the install, re-run `command -v playwright-cli` once, and proceed with Step 7 normally. If it is still absent, fall back to the second option. If the user picks the second option, note in the plan that Red/Green is checked per phase by navigating and snapshotting via the bundled Playwright MCP tools, and skip writing `tests/` scripts for this feature. Do not invent an install command for the user – playwright-cli's own docs are the source of truth. This preflight runs BEFORE the rest of Step 7 – no script is written and no `Task(test-writer, ...)` is dispatched until it passes or the user chooses the fallback.
 
 **7.5 Suggest a `/goal` for the build (suggest-and-wait, only when a verifiable end state exists)**: At the point UI implementation begins – right before the first phase writes code – check whether this build has a verifiable end state: a per-screen `.spec.md` exists for the feature, OR you are recreating a Figma design, OR recreating a web frontend verified via Playwright, OR the user gave strict Playwright-verifiable rules. If none of those hold, skip this step and go to Step 8.
 
@@ -301,9 +329,9 @@ This file is a durable deliverable, committed alongside the plan. It exists so a
 4. **Wait for the user.** Do NOT invoke `/goal` yourself under any circumstance. If the user pastes it, the goal loop drives the build; if they say "go" or decline, proceed to Step 8 normally. Either way the per-phase flow below still applies.
 
 **8. Implement phase by phase**: Follow the plan's phases in order. For each phase:
-   a. Implement only this phase's changes. Do this inline by default. Dispatch a subagent (`Task(frontend-implementer, phase=<n>, plan=<path>)` for UI work, `Task(backend-implementer, phase=<n>, plan=<path>)` for backend work) only when the phase is large enough to flood the main context or when independent phases can genuinely run in parallel. Whether you implement inline or via an implementer, the same grounding applies: keep every component in the component gallery (imported from its production source, no inline styles), use design tokens rather than raw values, and match Figma designs pixel-for-pixel when they exist. When you dispatch, wait for the agent to return before continuing.
+   a. Implement only this phase's changes. Do this inline by default. Dispatch a subagent (`Task(frontend-implementer, phase=<n>, plan=<path>)` for UI work, `Task(backend-implementer, phase=<n>, plan=<path>)` for backend work) only when the phase is large enough to flood the main context or when independent phases can genuinely run in parallel. Every Task prompt that dispatches a plugin agent MUST include a line `PLUGIN_ROOT: <absolute path>` carrying the resolved DESIGN_ENGINEER_PLUGIN_ROOT from your context, so the agent can Read the plugin's reference files (agents do not inherit this conversation). Whether you implement inline or via an implementer, the same grounding applies: keep every component in the component gallery (imported from its production source, no inline styles), use design tokens rather than raw values, and match Figma designs pixel-for-pixel when they exist. When you dispatch, wait for the agent to return before continuing.
 
-   **a.1 Drift audit (runs immediately after the phase's code is written)**: output the structured "Drift audit" block in chat before any further work — before `/simplify`, before presenting the phase. The block traces every user-facing element (button, link, image, headline, label, placeholder, CTA, badge, icon, chip, modal title, error message, empty state, tooltip) to a specific source line in `decisions.md`, `mvp-requirements.md`, `information-architecture.md`, `references.md`, or `storybrand.md` — OR admits the element as drift. Drift items default to "remove now"; only borderline cases warrant `AskUserQuestion`. This catches the dev-pipeline failure mode where the model invents marketplace-pattern features (heart icons, "trusted seller" badges, shipping/returns copy, newsletter opt-ins, etc.) that nobody asked for. Without the visible audit, drift compounds across phases and "match the visual reference" silently overrides the spec.
+   **a.1 Drift audit (runs immediately after the phase's code is written)**: output the structured "Drift audit" block in chat before any further work — before `/simplify`, before presenting the phase. The block traces every user-facing element (button, link, image, headline, label, placeholder, CTA, badge, icon, chip, modal title, error message, empty state, tooltip) to a specific source line in `.design-engineer-plugin/design/dev/decisions.md` (dev dialogue), `.design-engineer-plugin/prototype/decisions.md` (prototype dialogue), `mvp-requirements.md`, `information-architecture.md`, `references.md`, or `storybrand.md` — OR admits the element as drift. Drift items default to "remove now"; only borderline cases warrant `AskUserQuestion`. This catches the dev-pipeline failure mode where the model invents marketplace-pattern features (heart icons, "trusted seller" badges, shipping/returns copy, newsletter opt-ins, etc.) that nobody asked for. Without the visible audit, drift compounds across phases and "match the visual reference" silently overrides the spec.
 
    Continue with `/simplify` only after the drift audit is output and any drift items have been addressed.
    b. Run `/simplify` on changed code, scaled to the change size (per CLAUDE.md "Code Quality: /simplify" tier table). Trivial single-property swaps: skip `/simplify`, inline self-review only. Medium changes (≤50 lines): single `/simplify` call. Large changes (>50 lines or new file): full `/simplify` (3-agent fan-out runs internally).
@@ -313,7 +341,7 @@ This file is a durable deliverable, committed alongside the plan. It exists so a
    f. Wait for approval before next phase
    g. **BLOCKING REQUIREMENT — commit and push BEFORE starting the next phase.** After the user approves this phase, commit its changes and push using `dev-github-workflow` Mode 1 (Conventional Commits format with phase context AND the plugin attribution footer — Mode 1 is plan-driven so the footer is included; Mode 2 manual user commits do NOT include the footer). Do NOT defer commits to the end of all phases. Do NOT batch multiple phases into a single end-of-implementation commit. Phase boundaries are commit boundaries — one phase, one commit, in the same turn the user approves it. The next phase does not start until this phase is committed and pushed. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-github-workflow/SKILL.md` and follow its Mode 1 instructions inline (do NOT use the `Skill` tool — plugin skills disable model invocation).
 
-**9. After all phases**: Run `Task(design-system-auditor, scope=<changed paths>)` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). This audit warrants a dedicated agent — it encodes the FAIL-severity gallery contract, design-token compliance rules, and the anti-slop catalog, and runs the heaviest reasoning in the pipeline. Wait for the agent to return; do not continue until its output is available. Review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional.
+**9. After all phases**: Run `Task(design-system-auditor, scope=<changed paths>)` to audit BOTH design system compliance AND aesthetic quality (4 lenses + 4 named tests + AI Slop Test). Include a `PLUGIN_ROOT: <absolute path>` line in the Task prompt, carrying the resolved DESIGN_ENGINEER_PLUGIN_ROOT from your context, so the agent can Read the plugin's critique and gallery-contract reference files. This audit warrants a dedicated agent — it encodes the FAIL-severity gallery contract, design-token compliance rules, and the anti-slop catalog, and runs the heaviest reasoning in the pipeline. Wait for the agent to return; do not continue until its output is available. Review aesthetic FAILs before presenting the implementation to the user — these are blocking advisories, not optional.
 
 **9.5 Tidy-up (BLOCKING — before PR creation)**: review the working tree for stray disposable artifacts that may have leaked outside `.design-engineer-plugin/temporary/scratch/` and the canonical deliverable paths. Run `git status --short` and inspect every untracked / modified file. Classify each per CLAUDE.md "File hygiene (durability tiers)":
 
@@ -323,14 +351,14 @@ This file is a durable deliverable, committed alongside the plan. It exists so a
 
 Surface findings to the user as a short list before any PR creation: "I found N files outside the canonical paths. Here's my proposed disposition for each — confirm or override before I move on." Do NOT silently move or delete files; the user must approve each disposition. Skip this step only if `git status --short` is empty or contains only modified files within tracked canonical paths.
 
-**meta-document timing rule** (canonical for this command): invoke `meta-document` at the **end of every phase**, immediately after the phase task is marked complete and before presenting QA to the user. This is the same cadence the design pipeline uses; it keeps the compound-documenter's pipeline-state.md in sync turn-by-turn. Do not invoke meta-document mid-phase; do not skip it at end-of-phase.
+**Documentation timing rule** (canonical for this command): a per-phase boundary uses a **lightweight flush** – one `compound-documenter` agent dispatch with a short brief (phase completed, files changed, deliverable paths, any cross-cutting decisions). Run it after the user approves the phase (alongside step g's commit), never before presenting QA. This is the same cadence the design pipeline uses; it keeps the compound-documenter's pipeline-state.md in sync without the full documentation ceremony. The full `meta-document` skill – including its temporary/ purge – runs only at Post-execution (below); never run it mid-pipeline, and never purge `temporary/` between visual-verification captures and presenting QA (the captures are the QA evidence).
 
 ### Visual verification (UI changes only)
 
 After implementing changes to UI components or pages:
 1. Start the dev server if not running (`npm run dev` or equivalent)
 2. Use Playwright to navigate to the affected page on localhost
-3. Take a screenshot. Per CLAUDE.md "Playwright filesystem hygiene", visual-verification captures are throwaway debug artifacts and MUST be saved under `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/visual-verification-<page-slug>.png`. Run `mkdir -p .design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>` first. Never call `mcp__playwright__browser_take_screenshot` without an explicit `filename` — the `de-playwright-path-hook` denies it.
+3. Take a screenshot. Per CLAUDE.md "Playwright filesystem hygiene", visual-verification captures are throwaway debug artifacts and MUST be saved under `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/visual-verification-<page-slug>.png`. Run `mkdir -p .design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>` first. Never call the Playwright `browser_take_screenshot` tool without an explicit `filename` — the `de-playwright-path-hook` denies it (the hook matches both the bundled and standalone Playwright servers). Playwright tool ids carry a server prefix – `mcp__plugin_design-engineer_playwright__<tool>` for the plugin's bundled server, or `mcp__playwright__<tool>` if the project has its own Playwright MCP; use whichever appears in your tool list.
 4. Analyze: does the result match expectations? Check layout, spacing, color, animation direction, element visibility
 5. If issues found: fix them before presenting to the user
 6. If clean: proceed to present the phase for review
@@ -339,7 +367,7 @@ Skip this step for data-only, type-only, or configuration changes.
 
 ### Presenting results
 
-**When to dispatch a subagent**: do the work inline by default. Dispatch a subagent (`Task(<agent>, ...)`) only when the work would flood the main context or when independent work can genuinely run in parallel. The `design-system-auditor` pass is the one step that always warrants its own agent — its critique is heavy and specialized. For everything else, inline is the default and a dispatch is a deliberate choice, not a requirement.
+**When to dispatch a subagent**: do the work inline by default. Dispatch a subagent (`Task(<agent>, ...)`) only when the work would flood the main context or when independent work can genuinely run in parallel. The `design-system-auditor` pass is the one step that always warrants its own agent — its critique is heavy and specialized. For everything else, inline is the default and a dispatch is a deliberate choice, not a requirement. If a dispatched agent returns a `BLOCKED – needs user input` section, relay its question to the user via AskUserQuestion, then re-dispatch the agent with the answer and the agent's progress summary included in the prompt.
 
 Present results to the user step by step with `AskUserQuestion` between findings / sections. When a subagent ran, parse its output rather than dumping it raw.
 
@@ -364,16 +392,39 @@ options:
     description: "End the session"
 ```
 
-For new products (project_type: new), auto-invoke meta-document after implementation cycles before presenting options.
+On selection:
+
+- "Next feature" → re-enter the Feature implementation flow (Step 3) from its start for the next MVP requirement in the build sequence, or ask which feature to build if no sequence exists.
+- "Review implementation" → announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/review.md` and follow its instructions inline, scoped to what was just built.
+- "Document what we changed" → announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/document.md` and follow its instructions inline.
+- "Done for now" → for `project_type: new`, run the Completion marker section below before ending; then end the session – the user can pick up later with `/design-engineer:launch`.
+
+For new products (project_type: new), run the full `meta-document` at this Post-execution milestone before presenting options: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline (never the `Skill` tool). This milestone run includes the schema-validated documentation entry and the temporary/ purge – the per-phase lightweight flushes above deliberately skip both. After the meta-document run, new products present the SAME four options above with the same handlers – the option set is shared across project types; only the meta-document auto-invoke and the Completion marker below are new-product-specific.
 
 ### Completion marker (project_type: new only)
 
-This Post-execution point is where the from-scratch pipeline finishes its last step. When the build that just completed was the from-scratch product build – i.e. `.design-engineer-plugin/config.yaml` has `project_type: new` AND no `resume:` block remains (no further pipeline step is queued) – write a completion marker so the next launch routes the now-shipped product into the iterate flow instead of the from-scratch returning path.
+This Post-execution point is where the from-scratch pipeline finishes its last step. When the build that just completed was part of the from-scratch product build (`.design-engineer-plugin/config.yaml` has `project_type: new`), confirm with the user that the product is actually complete before writing the completion marker – finishing one feature does not mean the whole MVP is built. Once written, the marker routes the now-shipped product into the iterate flow on the next launch instead of the from-scratch returning path.
 
 1. Read `.design-engineer-plugin/config.yaml`.
 2. Proceed only if it has `project_type: new`. If `project_type: existing`, skip this entirely – existing projects are already in the iterate flow and never carry a from-scratch completion marker.
 3. If the config already contains a top-level line `status: complete`, do nothing (idempotent – do not duplicate it).
-4. Otherwise append (or set) a single top-level line `status: complete` in `.design-engineer-plugin/config.yaml`. Keep it top-level (sibling of `project_type:` / `resume:`), so launch reads it as the `returning_complete` signal. Do not remove or rewrite any other field; this is additive.
-5. Note the completion in the documentation flush: when you auto-invoke meta-document above, include "from-scratch pipeline complete – product shipped, marked complete in config" in the context you pass to compound-documenter, so the pipeline-state reflects the shipped state.
+4. Otherwise confirm completion with the user before writing anything:
+   - If `.design-engineer-plugin/design/planning/mvp-requirements.md` exists, read it and list in chat any requirements not yet built. If the file is missing, skip the list.
+   - Ask one AskUserQuestion (canonical 3-line spacer before the call, per the spacer rule at the top of this command):
+
+   ```
+   question: "Is the product complete, or are there more MVP features to build?"
+   header: "Completion"
+   multiSelect: false
+   options:
+     - label: "Product complete"
+       description: "Mark the product shipped – next launch uses the iterate flow"
+     - label: "More to build"
+       description: "Keep the from-scratch pipeline open for the remaining features"
+   ```
+
+   - On "Product complete": append (or set) a single top-level line `status: complete` in `.design-engineer-plugin/config.yaml`. Keep it top-level (sibling of `project_type:` / `resume:`), so launch reads it as the `returning_complete` signal. Do not remove or rewrite any other field; this is additive.
+   - On "More to build": write nothing and proceed to the normal Post-execution options above.
+5. Note the completion in the documentation flush: when you run the full meta-document at Post-execution above (loaded inline — never the Skill tool), include "from-scratch pipeline complete – product shipped, marked complete in config" in the context you pass to compound-documenter, so the pipeline-state reflects the shipped state.
 
 This is fail-safe: if the marker is absent (e.g. the build was interrupted before reaching Post-execution), launch behaves exactly as it does today. The marker only ever flips a fully-finished from-scratch product into the iterate flow on its next launch.

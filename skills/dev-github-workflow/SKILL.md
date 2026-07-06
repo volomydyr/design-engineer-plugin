@@ -33,7 +33,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 4. **Challenge ideas**: After the user shares an idea or decision, challenge it – surface blind spots, edge cases, future implications. Then let the user decide with full perspective. This is not about being negative – it's about pressure-testing ideas so the user makes better decisions.
 
-**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding. (In automatic mode during plan execution, skip Step 0 – the plan workflow already established context.)
+**BLOCKING REQUIREMENT**: Wait for the user to acknowledge the plan before proceeding. (In automatic mode during plan execution, skip Step 0 – the plan workflow already established context.) In Mode 2 (manual commit/push), combine Step 0 into a single turn – state the brief execution plan and ask the Git-familiarity question in the same message ending in one AskUserQuestion; the user's answer counts as plan acknowledgment, so do not add a separate acknowledgment wait. Still ALWAYS ask the familiarity question and ALWAYS give the one-sentence refresher on yes, every run. Repo-creation and PR flows keep the full Step 0.
 
 ---
 
@@ -82,7 +82,7 @@ type(scope): brief description
 [optional body]
 ```
 
-Claude Code's default Co-Authored-By trailer is disabled at install via the `attribution` setting in `~/.claude/settings.json` (set during `/design-engineer:launch`), so neither mode includes it.
+Claude Code's default Co-Authored-By trailer is disabled only if the user opted in during `/design-engineer:launch` – do not assume it is off. If it matters for a Mode 2 commit, check the `attribution` field in `~/.claude/settings.json` (read-only) before drafting the message. In all cases Mode 2 never adds the plugin footer.
 
 ### Types
 
@@ -117,7 +117,7 @@ If you write a commit log, PR summary, or workflow-state file to `.design-engine
 
 2. **Stage phase files**: Stage only files changed in this phase. Use `git diff --name-only` to identify changed files, then `git add` each one specifically. Never use `git add .` or `git add -A`.
 
-3. **Divergence advisor checkpoint**: Before drafting the commit message, evaluate whether this phase's actual implementation diverged from the approved plan in any non-trivial way (added scope, dropped checklist items, changed approach mid-phase, replaced one technique with another). If yes, invoke the `advisor` skill (`skills/advisor/`) with: the divergence summary, the rationale, and "I'm about to commit this divergence – any course correction before it lands?" Apply the advice or use the reconcile pattern. Skip on phases where implementation matched the checklist exactly.
+3. **Divergence advisor checkpoint**: Before drafting the commit message, evaluate whether this phase's actual implementation diverged from the approved plan in any non-trivial way (added scope, dropped checklist items, changed approach mid-phase, replaced one technique with another). If yes, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`), briefing the consult with: the divergence summary, the rationale, and "I'm about to commit this divergence – any course correction before it lands?" Apply the advice or use the reconcile pattern. Skip on phases where implementation matched the checklist exactly.
 
 4. **Generate commit message**: Build from phase context:
    - Type: infer from what was done (new files → `feat`, bug fixes → `fix`, restructuring → `refactor`)

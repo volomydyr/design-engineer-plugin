@@ -1,6 +1,6 @@
 # Prototyping Workflow
 
-## The Principle: Functional First, Beautiful Later
+## The principle: functional and aesthetically intentional from the start
 
 Starting in Figma for the first iteration does not make sense unless you are working with an uncommon design idea or a non-typical layout. For regular web and mobile apps with standard patterns, you can generate prototypes with AI tools like Claude Code. With proper context and the right design process beforehand, AI produces great results.
 
@@ -49,13 +49,12 @@ The prototype should:
 - Handle main scenarios and edge cases
 - Feel like a real product when clicking through
 
-The prototype should NOT:
-- Look polished or production-ready
-- Include final brand styling
-- Cover every possible state (loading, error, empty)
-- Be responsive across all screen sizes
+The prototype must also execute the bold aesthetic direction, tokens, and typography chosen in the Step 0.5 pre-flight – development inherits the prototype as the binding visual baseline, and the frontend-implementer matches its layout, spacing, typography, and colors verbatim. Aesthetic intent is not deferred to a later phase.
 
-Functionality first. Visual polish comes later in Figma (for key screens) and during actual development.
+Legitimate scope cuts (what the prototype does NOT need):
+- Loading, error, and empty states, unless the user requests them
+- Responsive coverage beyond the chosen target platform
+- Production code quality – prototype code is throwaway, only the visual direction carries forward
 
 ### Step 4: Know When to Stop Iterating
 
@@ -93,12 +92,12 @@ After user testing, you move to analysis (see the testing-analysis-guide). Based
 
 - **Adjust the prototype** for another round of testing if significant issues were found
 - **Update planning documents** (requirements, architecture) based on what was validated or invalidated
-- **Move to high-fidelity design** in Figma for the key screens that passed validation
+- **Optionally design key screens in Figma** (via `ui-figma-guide`) for the screens that passed validation, or proceed straight to development with the prototype as the binding visual baseline
 - **Cut features** that tested poorly from the MVP scope
 
-## The Figma Phase (After Prototyping)
+## Optional: designing key screens in Figma
 
-Once the prototype is validated:
+This path is an alternative for teams that want Figma exploration – the default path goes straight from prototype to development with the prototype as the visual baseline. If you take the Figma route once the prototype is validated:
 
 1. **Collect design references** – if not already gathered upstream (via `ui-references-moodboard`), look at similar products on platforms like Mobbin to understand common patterns
 2. **Design key screens only** – not every screen, just the building blocks that set the visual style (typically 5-10 screens)

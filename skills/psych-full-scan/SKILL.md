@@ -32,8 +32,7 @@ What would you like me to audit for psychology principles?
 1. **Figma frames** – I will analyze your design frames (requires the Figma plugin)
 2. **Screenshots** – share screenshots of the design to review
 3. **Live URL** – I will browse a live site or prototype (requires browser MCP)
-4. **Text description** – describe the design, flow, or product concept
-5. **Existing deliverable** – I will review a deliverable from a previous skill run
+4. **Text description or existing deliverable** – describe the design, flow, or product concept, or point me at a deliverable from a previous skill run
 </ask-user>
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
@@ -58,10 +57,9 @@ Want me to scan the whole design, or focus on specific sections?
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
-If the user chooses to focus on specific sections, follow up:
+If the user chooses to focus on specific sections, this is a pick-many list of 10 – too many for AskUserQuestion (4-option cap). Present it as a numbered list in chat and ask the user to reply with comma-separated numbers:
 
-<ask-user>
-Which sections should I focus on?
+Which sections should I focus on? Reply with the numbers, comma-separated (e.g. "2, 5, 8").
 
 1. Cognitive Basics (Laws 1-10) – mental load, choices, memory
 2. Visual Perception (Laws 11-20) – attention, contrast, visual patterns
@@ -73,7 +71,6 @@ Which sections should I focus on?
 8. Social Influence (Laws 71-80) – crowd effects, reactance, observation
 9. Cognitive Biases (Laws 81-90) – knowledge curse, expectations, negativity
 10. Time & Behavior (Laws 91-100) – time perception, habits, familiarity
-</ask-user>
 
 ### Step 3: Run the Master Scan
 
@@ -155,30 +152,16 @@ Based on the scan, here are my recommended deep dives. What would you like to do
 1. **Deep dive into [highest-findings section]** – [count] findings, [severity] priority
 2. **Deep dive into [second-highest section]** – [count] findings, [severity] priority
 3. **Address high-priority findings across all sections** – I will provide detailed recommendations for each
-4. **Export the report** – save findings as a deliverable document
-5. **Run a different section** – choose a specific section to explore
-6. **Done** – the master scan is sufficient for now
+4. **Done** – the master scan is sufficient for now (the report is already saved to disk)
 </ask-user>
 
-When routing to a section skill, pass along:
+To deep dive into a section not listed above, the user can name it via the built-in Other free-text option.
+
+To run a deep dive, load each chosen section skill by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-<section>/SKILL.md` and following its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`). When routing to a section skill, pass along:
 - The specific findings from that section
 - The design context gathered in Step 1
 - The severity classifications
 - Any user notes or known issues relevant to that section
-
-## How the scan runs
-
-1. Run the master scan (Step 3)
-2. Present the findings report (Step 4)
-3. The user picks which sections to deep-dive (Step 5)
-4. Invoke specific section skills one at a time
-
-When the user chooses to focus on specific sections (Step 2):
-
-1. The user selects 1-3 sections
-2. Run the master scan ONLY on those sections (Step 3)
-3. Immediately invoke the corresponding section skills
-4. Present the targeted findings
 
 ## Severity Classification Guide
 
@@ -205,9 +188,9 @@ When the user chooses to focus on specific sections (Step 2):
 
 ## Cross-References
 
-- **This skill feeds into**: All 11 section-specific psychology skills (see [section-routing-guide.md](./references/section-routing-guide.md))
+- **This skill feeds into**: all 10 section-specific psychology skills (see [section-routing-guide.md](./references/section-routing-guide.md))
 - **Invoked by**: `/design-engineer:review` (psychology option)
-- **Uses agent**: `psych-scanner` for broad scan processing
+- **Shares its taxonomy with**: the `psych-scanner` agent, which applies the same 10 sections when the `/design-engineer:review` audit branch dispatches it
 - **Pairs with**: `ux-full-review` for comprehensive product review, `ui-design-to-code-qa` for implementation-level checks
 
 ## Output Format

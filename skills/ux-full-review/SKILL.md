@@ -62,8 +62,9 @@ What would you like to assess?
 2. **Specific area deep-dive** – I will focus on one of the 5 assessment areas
 3. **Pre-launch review** – I will run a targeted check focusing on the most critical items before launch
 4. **Post-launch audit** – I will assess an existing product to find the highest-impact improvements
-5. **Something else** – describe your specific need
 </ask-user>
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 ```
 multiSelect: false  # User must choose one assessment type
@@ -212,7 +213,7 @@ If stakeholder communication is a gap, suggest: "For a deeper dive, run `ux-comm
 
 ### Step 7: Area 5 – Create Ethical and Humane Products
 
-**Agent delegation**: For the psychology review area, invoke the **psych-scanner** agent. Use the Agent tool to spawn it with the deliverables to review. Present its findings step by step to the user – do not dump the agent's raw output.
+**Agent delegation**: For the psychology review area, invoke the **psych-scanner** agent. Use the Task tool to spawn it with the deliverables to review. Present its findings step by step to the user – do not dump the agent's raw output.
 
 Refer to the "Create Ethical and Humane Products" section of [product-assessment-checklist.md](./references/product-assessment-checklist.md).
 
@@ -322,6 +323,7 @@ Before generating any text for the deliverable, read [anti-slop-writing.md](../s
 
 ## Cross-References
 
+- **Invoked by**: `/design-engineer:review` (whole-app scope with multiple review areas – this skill is the assessment backbone)
 - **ux-bias-audit**: Detailed bias audit for Area 2 deep dives
 - **ux-journey-mapping**: Full journey mapping and improvement for Area 3
 - **ux-ethics-review**: Comprehensive ethical review for Area 5

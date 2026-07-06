@@ -1,5 +1,4 @@
 ---
-name: design-engineer:help
 description: Show all Design Engineer Plugin commands and current project status.
 argument-hint: ""
 ---
@@ -16,28 +15,29 @@ A plugin for Claude Code that walks you through building a product, start to fin
 
 | Command | What it does |
 |---------|-------------|
-| `/design-engineer:launch` | Detects your situation – new product setup, resume, or the task-driven iterate flow for a product that already exists |
-| `/design-engineer:discovery` | Runs the design workflow – discovery, strategy, planning, validation |
-| `/design-engineer:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs |
+| `/design-engineer:launch` | Detects your situation – new product setup, resume, or a product that already exists |
+| `/design-engineer:discovery` | Runs the design workflow – discovery, strategy, planning, validation – argument `feature-spec` produces a truly minimal spec for established products |
+| `/design-engineer:prototype` | Generates clickable HTML prototypes from an idea, planning docs, or existing designs – arguments `new \| feature \| redesign` |
 | `/design-engineer:development` | Development workflow – CLAUDE.md, agent pipeline, context management, implementation |
-| `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics |
-| `/design-engineer:document` | Saves decisions, learnings, and project state. Auto-purges disposable working files at every phase boundary. Helps communicate with stakeholders |
+| `/design-engineer:review` | Reviews your work – visual quality, accessibility, psychology (100+ principles), design system, ethics – argument `audit` runs a multi-page commercial audit with designer-feedback capture per page |
+| `/design-engineer:document` | Saves decisions, learnings, and project state. Purges disposable working files at completion milestones. Helps communicate with stakeholders – arguments `status \| stakeholder` |
 | `/design-engineer:stop` | Save progress and pause mid-activity – pick up later with `/design-engineer:launch` |
 | `/design-engineer:tidy` | Manual purge of disposable working files under `.design-engineer-plugin/temporary/` (Playwright debug captures, intermediate drafts, scratch). Use before commit, or anytime the working tree feels noisy |
+| `/design-engineer:mute-unmute-sound` | Toggle plugin sound notifications on or off – first call mutes, second unmutes |
 | `/design-engineer:help` | This help screen |
 
 You only need to remember `/design-engineer:launch`. It guides you to everything else.
 
 ### What makes it different
 
-- **53 skills** that teach how to think about problems, users, and psychology before writing code
-- **8 specialized agents** for research, implementation, testing, design system compliance, and cross-session memory
+- **51 skills** that teach how to think about problems, users, and psychology before writing code
+- **10 specialized agents** for research, implementation, testing, design system compliance, design exploration and spec authoring, and cross-session memory
 - **100+ psychology principles** the AI draws from when reviewing your work
 - **Grounded methodology** that keeps work traced to source, surfaces bot-block / auth-wall fallbacks for browser research instead of silently failing, and keeps deliverables at canonical paths
 
 ### Where files live
 
-Everything the plugin produces lives under `.design-engineer-plugin/` — one umbrella, clear mental model. Subdirs: `design/{foundation,research,planning,exploration,psychology,reviews,dev,features}/`, `prototype/`, `plans/`, `memory/`, `temporary/` (gitignored, auto-purged at phase boundaries). The project root holds only your actual product code.
+Everything the plugin produces lives under `.design-engineer-plugin/` — one umbrella, clear mental model. Subdirs: `design/{foundation,research,planning,exploration,psychology,reviews,dev,features,specs}/`, `prototype/`, `plans/`, `memory/`, `temporary/` (gitignored, purged at completion milestones). The project root holds only your actual product code.
 
 ### Your project
 

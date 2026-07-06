@@ -76,7 +76,7 @@ For each row, decide:
 
 Walk the user through the manifest one image at a time. For each, propose generate vs stock with one-sentence reasoning. User can override.
 
-Use `AskUserQuestion` (multiSelect: true if presenting many images at once, multiSelect: false for per-image confirmation). Always include the spacer block (CLAUDE.md rule 6) before the AskUserQuestion call.
+Use `AskUserQuestion` (multiSelect: true if presenting many images at once, multiSelect: false for per-image confirmation). Always end the preceding chat message with the canonical spacer: three lines of ─ characters before the AskUserQuestion call.
 
 Mark each row in the manifest with `Decision: generate` or `Decision: stock`.
 

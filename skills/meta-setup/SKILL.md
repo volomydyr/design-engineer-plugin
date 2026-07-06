@@ -1,6 +1,6 @@
 ---
 name: meta-setup
-description: "Smart entry point for the design-engineer plugin. Detects project state and routes to the right flow: new projects get full setup, returning projects resume where they left off, existing projects get a capability guide. Use as the first command for any project."
+description: "Setup and resume flow for the design-engineer plugin, loaded by /design-engineer:launch. New projects get environment detection, scaffolding, and configuration; returning pipeline projects resume where they left off. Existing projects and shipped products are routed by launch.md directly."
 disable-model-invocation: true
 model: sonnet
 effort: medium
@@ -20,18 +20,18 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Read Config
 
-Read `.design-engineer-plugin/config.yaml`. Check the `project_type` field:
+Read `.design-engineer-plugin/config.yaml`. Check the top-level `project_type` field:
 
-- If `project_type: existing` → this is an existing project, NOT a returning pipeline project. The hook injects context for this case (it carries the onboarding sequence and capability prompts). Follow the hook's instructions, then run the existing-project setup in Path B below. Do NOT show pipeline state or resume information.
-- If `project_type: new` AND a `status: complete` line is present → the plugin-built product has shipped (state `returning_complete`). Do NOT show pipeline-resume information; route into the iterate flow via Path B below (the shipped product is now in iteration, not the from-scratch pipeline).
-- If `project_type: new` (no `status: complete`) → this is a returning pipeline project. Continue with Path A below.
-- If no config exists → first-time setup. For a new product idea, run Path A's new-project setup (Steps 2–4). For an existing project, follow the hook's onboarding sequence, then run Path B below.
+- If `project_type: new` AND a `resume:` block is present → returning pipeline project with saved state. Continue with Path A below (resume state).
+- If `project_type: new` with no `resume:` block (and no `status: complete` line) → set up, but no active pipeline. Continue with Path A below (config summary).
+
+Every other state is routed by `commands/launch.md` directly and never reaches this step: existing projects (`project_type: existing`) and shipped plugin-built products (`project_type: new` with `status: complete`) enter its iterate flow, and first-time setup enters via its onboarding, which starts this skill at Step 2.
 
 Do not mention config files, detection state, or project types to the user. No jargon.
 
-### Path A: Returning Pipeline Project (project_type: new only)
+### Path A: returning pipeline project (project_type: new only)
 
-**If the state is `returning_with_resume`**, read the config file and show the current state in plain language:
+**If the config has a `resume:` block** (state `returning_with_resume`), show the current state in plain language:
 
 ```
 Welcome back. Here's where you are:
@@ -58,9 +58,9 @@ options:
     description: "Reset the plugin setup for this project"
 ```
 
-If "Continue" or "Jump": suggest running `/design-engineer:discovery` to resume the pipeline.
-If "Browse": show the full capability list inline (see below), then suggest relevant `/design-engineer:` commands.
-If "Reconfigure": proceed to Step 2.
+If "Pick up where I stopped" or "Work on a different phase": announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/discovery.md` and follow its instructions inline, carrying forward the resume state from the config (which step to pick up, or which phase the user chose to jump to). Do NOT end the turn telling the user to run `/design-engineer:discovery` themselves.
+If "See what else I can do": show the full capability list inline, then suggest relevant `/design-engineer:` commands.
+If "Start over": proceed to Step 2.
 
 **If the config has `project_type: new` but no resume state** (set up but no active pipeline), ask:
 
@@ -76,22 +76,9 @@ options:
     description: "Reset the plugin setup for this project"
 ```
 
-If "Start": suggest running `/design-engineer:discovery`.
-If "Browse": show the full capability list inline (see below), then suggest relevant `/design-engineer:` commands.
-If "Reconfigure": proceed to Step 2.
-
-### Path B: Existing Project Setup (the iterate flow)
-
-For an existing project (no plugin setup yet, reached via the hook's onboarding sequence) and for a shipped plugin-built product (`returning_complete`), set the project up lightly so the user can start working, then enter the iterate flow. Do not march them through the full new-product flow.
-
-1. Run `detect-environment.sh` from this skill's scripts directory and show the results in plain language (Step 2 covers the exact wording – ✓ for available tools described by what they enable, ✗ for missing ones; offer help if an essential tool is missing).
-2. Write `.design-engineer-plugin/config.yaml` exactly as in Step 4, but with `type: "existing"` instead of `type: "new"`. (Skip for `returning_complete` – the config already exists; do not overwrite it.)
-3. Scaffold the `design/` structure with `init-project-structure.sh` (Step 3). (Skip for `returning_complete` – already scaffolded.)
-4. Show a brief summary of what was set up.
-5. Ask the status-line question (Step 4's status-line block) and apply the choice. (Skip for `returning_complete` – settled on the original onboarding run.)
-6. **Enter the iterate flow with clarify-then-dispatch.** A task front-door is a conversational entry – picking one (or sending free-form text) makes you ASK THE USER FOR DETAIL in natural language first, read the project context already in `config.yaml` (`project.context`: `existing_design_system`, `shipped_ui`, `component_count`, `off_repo_references`), and only THEN dispatch the right plugin pieces. A front-door never auto-spawns agents or workflows on selection. Dispatch per the **Task→dispatch map** in `commands/launch.md` (the single source of truth) – `act on feedback`, `redesign a design`, `explore a concept`, `audit a design`, and the free-form scoped-edit loop are all defined there. Do NOT restate the map here.
-
-Each dispatched command follows the PLAN → EXECUTE → PRESENT → FEEDBACK workflow.
+If "Start designing": announce the transition in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/discovery.md` and follow its instructions inline. Do NOT end the turn telling the user to run `/design-engineer:discovery` themselves.
+If "See what I can do": show the full capability list inline, then suggest relevant `/design-engineer:` commands.
+If "Start over": proceed to Step 2.
 
 ---
 
@@ -128,36 +115,28 @@ If any existing configuration conflicts are detected, explain the conflict in pl
 
 ## Step 3: Scaffold Project Structure
 
-Run `scripts/init-project-structure.sh` with the default deliverables path `design/`.
+Run `scripts/init-project-structure.sh` from this skill's directory (its optional deliverables-path parameter is legacy and no longer used – the script always scaffolds the `.design-engineer-plugin/` umbrella).
 
-This creates the standardized folder structure. See [setup-checklist.md](./references/setup-checklist.md) for the full configuration reference.
+This creates the standardized folder structure. See [config-reference.md](./references/config-reference.md) for the config keys and folder tiers.
 
 The script creates:
 
 ```
-design/
-├── foundation/          # Core product definition deliverables
-├── research/            # Research findings and competitive analysis
-│   └── archive/         # Archived research versions
-├── planning/            # MVP requirements, information architecture
-├── craft/               # Design deliverables (bias audit, journey, references, story panels)
-│   ├── references/      # UI reference images
-│   └── story-panels/    # Story panel images and scripts
-├── psych/               # Psychology audit results
-├── reviews/             # Design reviews and assessments
-└── dev/                 # Development preparation deliverables
-
-prototype/               # HTML prototypes at project root, sibling of design/
-
 .design-engineer-plugin/
-├── dependencies.yaml    # Dependency graph tracking all deliverables
-└── memory/              # Plugin-local memory (project-map, debug-solutions)
-
-.design-engineer-plugin/plans/
-└── archive/             # Completed implementation plans
+├── memory/              # Plugin-local memory, seeded with project-map.md + debug-solutions.md
+├── plans/
+│   └── archive/         # Implementation plans + completed-plans archive
+├── prototype/           # HTML prototypes
+├── temporary/           # Gitignored (fenced .gitignore block) – purged at completion milestones
+│   ├── scratch/         # General throwaway
+│   ├── playwright/      # Playwright debug captures
+│   └── intermediate/    # Prep work and exploratory drafts
+└── dependencies.yaml    # Dependency graph, initialized from the default template
 ```
 
-The `dependencies.yaml` file lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `design/`) and is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
+Deliverable subdirs under `.design-engineer-plugin/design/` (`foundation`, `research`, `planning`, `exploration`, `psychology`, `reviews`, `dev`, `features`) are lazy – each is created by the skill that writes its first deliverable there, not by this script.
+
+The `dependencies.yaml` file lives at `.design-engineer-plugin/dependencies.yaml` (separate from the user-facing deliverables in `.design-engineer-plugin/design/`) and is initialized from the default template. See [dependencies-default.yaml](./assets/dependencies-default.yaml) for the full dependency graph.
 
 ---
 
@@ -169,8 +148,10 @@ Generate `.design-engineer-plugin/config.yaml` in the project root:
 # Design-Engineer Plugin Configuration
 # Generated by /design-engineer:launch on {current_date}
 
-project:
-  type: "new"
+# project_type and status must stay top-level and unquoted – detection greps in
+# hooks/de-start-state.sh are ^-anchored and launch/discovery/development
+# branch on the literal string
+project_type: new
 
 environment:
   plugins:
@@ -192,13 +173,9 @@ The plugin uses two memory layers:
 
 **Note**: writes to plugin-local memory files are advisory – Claude updates them when it notices a relevant trigger, but nothing structurally enforces the writes. The structurally enforced layer for pipeline state lives in the compound-documenter agent's project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` (Anthropic's documented `memory: project` mechanism). Plugin-local memory is the lighter on-demand reference layer; the compound-documenter agent is the durable pipeline-state layer.
 
-**For new projects (Path B, "New product idea"):**
+**For new projects:**
 
 The skeletons are already in place at `.design-engineer-plugin/memory/project-map.md` and `.design-engineer-plugin/memory/debug-solutions.md`. As work progresses, Claude updates them per the triggers in CLAUDE.md.
-
-**For existing projects (Path B, "Existing project"):**
-
-Same skeletons. project-map.md starts with only the design/ scaffold and `.design-engineer-plugin/config.yaml` – do NOT scan pre-existing project files. Track everything Claude creates or changes going forward.
 
 **For returning projects (Path A):**
 
@@ -258,26 +235,64 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 "Important: the monitor accesses your Anthropic credentials to check usage. Claude itself never sees your credentials – only the monitor does, and only in that separate terminal."
 
+If "Uninstall":
+
+Do NOT edit `~/.claude/settings.json` yourself – the same outside-CWD write restriction applies. Present the removal command to the user and have them run it in their next prompt.
+
+1. Output exactly this block to the chat:
+
+````
+To remove the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
+
+! node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};delete s.statusLine;fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line removed.")'
+````
+
+2. Confirm: "Once you paste that command, the status line disappears from the next prompt. The script file at `~/.claude/hooks/de-statusline.js` stays on disk – reinstalling later only rewrites the settings entry."
+
+If "Skip – already installed": make no changes and move on.
+
 ---
 
-Silently apply commit/PR attribution defaults (no question – this just runs):
+Ask about commit/PR attribution.
 
-1. Read `~/.claude/settings.json` (create the file with `{}` if missing).
-2. Check the `attribution` field:
-   - If absent → write `"attribution": { "commit": "", "pr": "" }`.
-   - If present and both `commit` and `pr` are already `""` → no-op.
-   - If present with the default Anthropic text (the `🤖 Generated with [Claude Code]…` string or `Co-Authored-By: Claude` trailer) → set both to `""`.
-   - If present with custom non-default text the user wrote themselves → leave alone, do not overwrite.
-3. Write back with 2-space indentation. Preserve all other fields.
-4. Confirm in plain language: "Disabled the default Co-Authored-By trailer on commits. The plugin only adds its own attribution when actively driving a commit (during a plan-execution phase). Manual commits in unrelated projects stay attribution-free."
+**First**, detect current state: read `~/.claude/settings.json` if it exists (reads outside the working directory are fine – only writes are blocked) and classify the `attribution` field:
+
+- If present and both `commit` and `pr` are already `""` → tell the user attribution is already off and skip the rest of this step.
+- If present with custom text the user wrote themselves (anything other than the default Anthropic `🤖 Generated with [Claude Code]…` string or `Co-Authored-By: Claude` trailer) → leave it alone and skip this step silently.
+- Otherwise (field absent, or carrying the default Anthropic text) → ask the question below (preceded by the canonical 3-line spacer):
+
+```
+question: "Turn off Claude Code's default commit attribution for your projects?"
+header: "Attribution"
+multiSelect: false
+options:
+  - label: "Yes, turn it off"
+    description: "Removes the Co-Authored-By trailer and the Generated-with footer from commits Claude Code makes globally"
+  - label: "No, keep the default"
+    description: "The safe default – pick this to skip"
+```
+
+If "Yes, turn it off":
+
+Do NOT write to `~/.claude/settings.json` yourself – Auto mode's permission classifier blocks writes outside the working directory. Present the command to the user and have them run it in their next prompt. Output exactly this block to the chat:
+
+````
+To turn off the default attribution, paste this into your next prompt (the leading `!` runs it as a shell command):
+
+! node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.attribution={commit:"",pr:""};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Attribution turned off.")'
+````
+
+The one-liner preserves every other field in the file – it only sets `attribution`. After the user runs it, confirm in plain language: "Disabled the default Co-Authored-By trailer on commits. The plugin only adds its own attribution when actively driving a commit (during a plan-execution phase). Manual commits in unrelated projects stay attribution-free."
+
+If "No, keep the default": skip – commits keep Claude Code's standard attribution.
 
 ---
 
 Ask about sound notifications.
 
-**Background**: sound hooks are bundled in the plugin's `hooks/hooks.json` (Stop event for completion sound, Notification event for attention sound). They fire automatically, but the playback shim plays a sound only when BOTH conditions are true: (a) the global opt-in flag `~/.claude/de-sound-enabled` exists, AND (b) the current working directory is a plugin project (has `.design-engineer-plugin/config.yaml`). A fresh install is silent by default until the user opts in here.
+**Background**: sound hooks are bundled in the plugin's `hooks/hooks.json` (Stop event for completion sound, Notification event for attention sound). They fire automatically, but the playback shim plays a sound only inside a plugin project (the CWD has `.design-engineer-plugin/config.yaml`) whose config carries a top-level `sound: enabled` key. Any other `sound:` value (e.g. `muted`) is silent; when the key is absent the shim falls back to the legacy global opt-in flag `~/.claude/de-sound-enabled` (pre-per-project releases). A fresh install is silent by default until the user opts in here.
 
-**First**, detect current state by checking whether `~/.claude/de-sound-enabled` exists (`test -f ~/.claude/de-sound-enabled`). If it DOES exist, sounds are currently on; ask the "keep them on?" question. If it does NOT exist, sounds are currently off; ask the "enable?" question.
+**First**, detect current state. The config.yaml this setup just created has no `sound:` key yet, so the effective state comes from the legacy flag: check whether `~/.claude/de-sound-enabled` exists (`test -f ~/.claude/de-sound-enabled`). If it DOES exist, sounds are currently on; ask the "keep them on?" question. If it does NOT exist, sounds are currently off; ask the "enable?" question.
 
 Sounds-currently-on (flag present) – ask:
 ```
@@ -287,7 +302,7 @@ options:
   - label: "Yes (Recommended)"
     description: "Plays a short bundled sound when Claude finishes (Stop hook) and when Claude waits for your input – permission requests, AskUserQuestion (Notification hook). Sounds fire only inside design-engineer plugin projects, never in unrelated repos. Works on macOS, Linux (with paplay/aplay/play), and native Windows shells. Silent on WSL. To silence temporarily later, run /design-engineer:mute-unmute-sound."
   - label: "No, mute them"
-    description: "Removes ~/.claude/de-sound-enabled so the playback shim exits silently. Toggle later with /design-engineer:mute-unmute-sound."
+    description: "Keeps this project silent. Toggle later with /design-engineer:mute-unmute-sound."
 ```
 
 Sounds-currently-off (flag absent) – ask:
@@ -296,15 +311,17 @@ question: "Sound notifications are currently off. Enable them?"
 header: "Sounds"
 options:
   - label: "Yes (Recommended)"
-    description: "Creates ~/.claude/de-sound-enabled so the bundled sound hooks (Stop + Notification) play their chimes – only inside design-engineer plugin projects."
+    description: "Turns on the bundled sound hooks (Stop + Notification) for this project – other repos stay silent."
   - label: "Keep muted"
     description: "Leave sounds off. Toggle later with /design-engineer:mute-unmute-sound."
 ```
 
-**Apply the choice** (no writes to `~/.claude/settings.json` – the hooks are already wired in the plugin's own `hooks/hooks.json`):
+**Apply the choice** by writing a top-level `sound:` key into the config.yaml this setup just created – a CWD write (no writes to `~/.claude/settings.json` – the hooks are already wired in the plugin's own `hooks/hooks.json`):
 
-- If user picks "Yes (Recommended)": run `mkdir -p ~/.claude && touch ~/.claude/de-sound-enabled` (idempotent). Confirm: "Sounds are on globally. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input – inside plugin projects only."
-- If user picks "No, mute them" or "Keep muted": run `rm -f ~/.claude/de-sound-enabled` (idempotent; no error if absent). Confirm: "Sounds muted. Toggle anytime with /design-engineer:mute-unmute-sound."
+- If user picks "Yes (Recommended)": append `sound: enabled`. Confirm: "Sounds are on for this project. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input."
+- If user picks "No, mute them" or "Keep muted": append `sound: muted` (explicit, so a leftover legacy opt-in flag can't re-enable sounds here). Confirm: "Sounds muted for this project. Toggle anytime with /design-engineer:mute-unmute-sound."
+
+Leave the legacy global flag `~/.claude/de-sound-enabled` in place – projects configured before the per-project key still read it, and the explicit `sound:` key written above takes precedence for this project.
 
 **Cleanup the retired legacy mute flag** (idempotent, harmless if absent): `rm -f ~/.claude/de-sound-muted`. Older plugin versions used a default-on mute flag at this path; v4.8.2 retired it in favor of the explicit opt-in flag above. Removing the legacy file keeps the user's `~/.claude/` directory clean and prevents confusion if anyone inspects it manually.
 
@@ -319,7 +336,7 @@ Display a summary in plain language – no file names or config paths:
 ```
 You're all set.
 
-Your design docs will live in design/
+Your design docs will live in .design-engineer-plugin/design/
 {Figma connected / Figma not connected – offer help}
 Status line: {installed / skipped}
 Sound notifications: {installed / skipped}
@@ -343,9 +360,8 @@ This skill enforces User > Docs > AI at every step:
 
 ## Resource Files
 
-- [setup-checklist.md](./references/setup-checklist.md) – Full reference of all configuration options and their effects
+- [config-reference.md](./references/config-reference.md) – config keys the plugin writes and the folder tier layout
 - [dependencies-default.yaml](./assets/dependencies-default.yaml) – Default dependency graph for all plugin deliverables
-- [detect-state.sh](./scripts/detect-state.sh) – Project state detection (new/returning/resume)
 - [detect-environment.sh](./scripts/detect-environment.sh) – Environment detection script
 - [init-project-structure.sh](./scripts/init-project-structure.sh) – Project structure scaffolding script
 

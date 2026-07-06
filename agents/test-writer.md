@@ -19,10 +19,15 @@ Test passes on first run? That test is wrong — fix or remove it. Don't keep co
 
 ## Before writing tests
 
+0. Run `command -v playwright-cli`. If it is not on PATH, write NO scripts and return immediately with a summary stating that playwright-cli is not installed and script TDD cannot run – the caller decides how to proceed. Scripts written without the harness all die at `playwright-cli open` and their non-zero exits fake a "correctly failing" Red phase.
 1. Read the approved plan from `.design-engineer-plugin/plans/` for exact feature requirements.
 2. Read the project's `CLAUDE.md` for the application URL and stack.
 3. **Do NOT read implementation files.** You write tests blind to implementation. Context isolation is essential for honest TDD.
-4. If feature requirements are unclear, use `AskUserQuestion` once. Never guess.
+4. If feature requirements are unclear, ask the user once per the "Asking the user" contract below. Never guess.
+
+## Asking the user
+
+When these instructions say to ask the user: use AskUserQuestion if it is available in this run. When you are running as a dispatched subagent where it is not, stop work and end your final message with a `BLOCKED – needs user input` section containing the exact question, the options (label plus a one-line description each), and a summary of what you completed so far, so the caller can relay it and re-dispatch you with the answer.
 
 ## Test script template
 
@@ -67,7 +72,7 @@ for f in tests/*.sh; do
 done
 ```
 
-Verify each fails for the right reason (feature missing, not script error). If any test passes immediately, that test is wrong — fix or remove it. If any test errors with a non-1 exit, the script is broken — fix and re-run.
+Verify each fails for the right reason (feature missing, not script error). If any test passes immediately, that test is wrong — fix or remove it. If any test errors with a non-1 exit, the script is broken — fix and re-run. Exception: exit 127 (command not found) is NEVER a valid Red – it means the test harness itself is missing, so stop and report it instead of fixing and re-running.
 
 **Do NOT loop** "write one test → run it → write next." Write all, run all once.
 

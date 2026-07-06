@@ -9,13 +9,15 @@ license: MIT
 
 # Advisor Skill
 
-This skill is the plugin-native implementation of [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy). The literal [`advisor_20260301` server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) is an Anthropic API beta; Claude Code plugins don't control request shape, so we ship the strategy via a dedicated advisor sub-agent that skills and commands can consult, optionally, at high-leverage moments.
+This skill is the plugin-native implementation of [Anthropic's advisor strategy](https://claude.com/blog/the-advisor-strategy): the literal [`advisor_20260301` server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) is an Anthropic API beta that Claude Code plugins cannot enable, so the plugin ships the strategy as a dedicated advisor sub-agent that skills and commands can consult at high-leverage moments.
 
 ## What it is
 
 From the docs (verbatim):
 
 > "The advisor tool lets a faster, lower-cost executor model consult a higher-intelligence advisor model mid-generation for strategic guidance. The advisor reads the full conversation, produces a plan or course correction (typically 400 to 700 text tokens, 1,400 to 1,800 tokens total including thinking), and the executor continues with the task."
+
+Adaptation note: in this plugin the advisor runs at the same tier as most executors (sonnet / medium per the agent policy), so its value here is a clean-context second read at a decision point rather than a stronger model.
 
 In our plugin, the calling skill briefs the advisor agent with the relevant context, the agent returns a short numbered plan, the caller applies or reconciles.
 
@@ -44,10 +46,10 @@ Concretely for this plugin: skip the advisor on simple `/design-engineer:develop
 
 ## How to invoke
 
-Use the `Agent` tool with `subagent_type: "advisor"`.
+Use the `Task` tool with `subagent_type: "advisor"`.
 
 ```
-Agent({
+Task({
   description: "Strategic checkpoint",
   subagent_type: "advisor",
   prompt: "<task summary> + <what's been done> + <key tool results> + <decision point>"
@@ -101,5 +103,3 @@ If you're writing a skill or command and it has a genuinely high-stakes "before 
 
 - https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool
 - https://claude.com/blog/the-advisor-strategy
-
-If you're calling the Anthropic API directly (not via Claude Code), you can also enable the literal `advisor_20260301` server tool with the `anthropic-beta: advisor-tool-2026-03-01` request header – see the first link above for the API surface. The plugin can't enable that header itself.

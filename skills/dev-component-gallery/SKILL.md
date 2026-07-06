@@ -51,7 +51,7 @@ Read the query templates from `references/context7-prompts.md` and use the bundl
 
 What context7 returns determines: file location, file extension, import syntax, variant-rendering pattern, comment syntax, access mechanism. Cite the doc paragraphs in your report to the user.
 
-If primary query returns generic/empty results, run the fallback query from the same reference. If still unclear, **consult the advisor** (`skills/advisor/`, shipped v4.5.0) – this is the docs' "before committing to an interpretation" moment. If the advisor also can't decide, ask the user once via AskUserQuestion:
+If primary query returns generic/empty results, run the fallback query from the same reference. If still unclear, **consult the advisor**: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`) – this is the docs' "before committing to an interpretation" moment. If the advisor also can't decide, ask the user once via AskUserQuestion:
 
 ```
 question: "Where should the component gallery live in this project?"

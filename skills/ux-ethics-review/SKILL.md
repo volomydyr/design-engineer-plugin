@@ -58,8 +58,9 @@ What would you like to review?
 2. **Review a specific feature** – I will focus on one feature's ethical implications
 3. **Check a persuasion pattern** – I will evaluate whether a specific nudge, notification, or pattern crosses the line
 4. **Humane design check** – I will evaluate how well your product respects time, attention, and human values
-5. **Something else** – describe your specific concern
 </ask-user>
+
+For anything else, the user can describe their specific concern via the built-in Other free-text option.
 
 ```
 multiSelect: false  # User must choose one review type

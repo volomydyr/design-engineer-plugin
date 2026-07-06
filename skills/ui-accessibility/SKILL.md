@@ -29,17 +29,15 @@ header: "Review Scope"
 options:
   - label: "Figma designs (pre-implementation)"
     description: "Check designs before code is written"
-  - label: "Implemented screens (code audit)"
-    description: "Audit existing code for accessibility issues"
+  - label: "Implemented code or HTML prototype"
+    description: "Audit existing code or an HTML prototype file for accessibility issues"
   - label: "Live application (URL or device)"
     description: "Test a running application"
   - label: "Specific component"
     description: "Focus on one component or interaction"
-  - label: "HTML prototype"
-    description: "Check an HTML prototype file for accessibility issues"
 ```
 
-When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `.design-engineer-plugin/prototype/prototype.html`). Run the full accessibility checklist with particular attention to contrast ratios, touch/click target sizes, keyboard navigation, screen reader support (semantic HTML, ARIA labels), and heading hierarchy.
+When the audit target is an HTML prototype, read the HTML file at the path the user provides (default: `.design-engineer-plugin/prototype/prototype.html`). Run the full accessibility checklist with particular attention to contrast ratios, touch/click target sizes, keyboard navigation, screen reader support (semantic HTML, ARIA labels), and heading hierarchy.
 
 ---
 
@@ -48,7 +46,7 @@ When "HTML prototype" is selected, read the HTML file at the path the user provi
 Use the comprehensive checklist from [accessibility-checklist.md](./references/accessibility-checklist.md) covering:
 
 ### Touch and Click Targets
-- Minimum tap target size: 56 points (based on Fitts's Law – smaller targets require more precision and slow users down)
+- Tap target sizing: 44 points (Apple HIG) / 48dp (Material) is the platform minimum and 24px is the WCAG 2.2 AA floor; this plugin recommends a generous 56-point target (Fitts's Law – larger targets are faster and easier to hit)
 - Adequate spacing between interactive elements to prevent accidental taps
 - Touch targets that extend beyond visible boundaries where needed for small icons
 

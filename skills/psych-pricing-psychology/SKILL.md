@@ -35,16 +35,19 @@ Users do not make rational economic decisions. They are swayed by **how options 
 <ask-user>
 What behavioral economics challenge are you working on?
 
-1. **Pricing page design** – I will apply Decoy Effect and value framing to your pricing tiers
-2. **Trial-to-paid conversion** – I will use Sunk Cost, Hyperbolic Discounting, Reciprocity, and Temptation Bundling to improve conversion
-3. **Feature prioritization** – I will apply Pareto Principle to focus on what matters most
-4. **Payment flow optimization** – I will analyze Cashless Effect dynamics and responsible spending design
-5. **Habit / engagement loops** – I will apply Commitment and Consistency, Reciprocity, and Pseudo-Set Framing to build genuine habits
-6. **Onboarding completion** – I will apply Commitment and Consistency + Pseudo-Set Framing to improve completion rates
-7. **Brand trust and loyalty** – I will use Noble Edge Effect and Reciprocity for long-term relationship building
-8. **Full behavioral economics audit** – I will review all 10 principles across your design
-9. **Something else** – describe your specific need
+1. **Pricing and payment** – pricing pages and payment flows
+2. **Conversion and habit** – trial-to-paid conversion, habit loops, onboarding completion
+3. **Prioritization and loyalty** – feature focus and long-term trust
+4. **Full behavioral economics audit** – I will review all 10 principles across your design
 </ask-user>
+
+If the user picks a group with more than one challenge, narrow with a follow-up AskUserQuestion:
+
+- **Pricing and payment**: 1. **Pricing page design** – I will apply Decoy Effect and value framing to your pricing tiers. 2. **Payment flow optimization** – I will analyze Cashless Effect dynamics and responsible spending design.
+- **Conversion and habit**: 1. **Trial-to-paid conversion** – I will use Sunk Cost, Hyperbolic Discounting, Reciprocity, and Temptation Bundling to improve conversion. 2. **Habit / engagement loops** – I will apply Commitment and Consistency, Reciprocity, and Pseudo-Set Framing to build genuine habits. 3. **Onboarding completion** – I will apply Commitment and Consistency + Pseudo-Set Framing to improve completion rates.
+- **Prioritization and loyalty**: 1. **Feature prioritization** – I will apply Pareto Principle to focus on what matters most. 2. **Brand trust and loyalty** – I will use Noble Edge Effect and Reciprocity for long-term relationship building.
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
@@ -87,8 +90,9 @@ Which behavioral economics improvements would you like to:
 2. **Explore variations** – I will show different approaches to the same challenge
 3. **Prioritize** – I will rank all suggestions by impact-to-effort ratio
 4. **Ethical review** – I will deep-dive into the ethical implications of specific recommendations
-5. **Skip** – move to the next principle or area
 </ask-user>
+
+To skip to the next principle or area, the user can say so via the built-in Other free-text option.
 
 ## Principles Covered
 

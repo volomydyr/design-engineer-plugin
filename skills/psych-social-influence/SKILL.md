@@ -39,16 +39,18 @@ The Group Attractiveness Effect bridges all three by showing how visual organiza
 <ask-user>
 What social influence challenge are you working on?
 
-1. **Social proof design** – I will apply Bandwagon Effect and personalization principles to your product
-2. **Notification/engagement review** – I will audit for Reactance, Spotlight Effect, and user autonomy
+1. **User behavior** – social proof, personalization, messaging, layout
+2. **User autonomy** – notifications, engagement, moderation, transparency
 3. **Research methodology** – I will review your testing approach for Hawthorne, Observer-Expectancy, and False Consensus biases
-4. **Content moderation/transparency** – I will apply Streisand Effect principles to your communication strategy
-5. **Error handling and messaging** – I will use Self-Serving Bias to improve your error and success messages
-6. **Personalization audit** – I will check your recommendation system against Barnum-Forer Effect
-7. **Information architecture** – I will apply Group Attractiveness Effect to your layout and organization
-8. **Full social influence audit** – I will review all 10 principles across your design
-9. **Something else** – describe your specific need
+4. **Full social influence audit** – I will review all 10 principles across your design
 </ask-user>
+
+If the user picks a group with more than one challenge, narrow with a follow-up AskUserQuestion:
+
+- **User behavior**: 1. **Social proof design** – I will apply Bandwagon Effect and personalization principles to your product. 2. **Error handling and messaging** – I will use Self-Serving Bias to improve your error and success messages. 3. **Personalization audit** – I will check your recommendation system against Barnum-Forer Effect. 4. **Information architecture** – I will apply Group Attractiveness Effect to your layout and organization.
+- **User autonomy**: 1. **Notification/engagement review** – I will audit for Reactance, Spotlight Effect, and user autonomy. 2. **Content moderation/transparency** – I will apply Streisand Effect principles to your communication strategy.
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
@@ -100,8 +102,9 @@ Which social influence improvements would you like to:
 2. **Explore variations** – I will show different approaches to the same challenge
 3. **Prioritize** – I will rank all suggestions by impact-to-effort ratio
 4. **Deep-dive into research methods** – I will design a bias-resistant research protocol
-5. **Skip** – move to the next principle or area
 </ask-user>
+
+To skip to the next principle or area, the user can say so via the built-in Other free-text option.
 
 ## Principles Covered
 

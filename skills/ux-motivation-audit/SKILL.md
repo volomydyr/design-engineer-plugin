@@ -261,7 +261,7 @@ Compile the complete analysis.
 [Starting Level] → [Key changes] → [End Level]
 ```
 
-**Final output:** Present the completed Motivation Analysis and ask the user to review.
+**Final output:** Before writing the deliverable to disk, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/psychology` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront. Save the analysis to `.design-engineer-plugin/design/psychology/psych-variation.md` (or a flow-specific name when multiple screens are analyzed). Then present the completed Motivation Analysis and ask the user to review.
 </step>
 
 </critical_sequence>

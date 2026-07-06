@@ -13,7 +13,7 @@ license: MIT
 
 ## Existing-project skip-check
 
-Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_story_panels`. If it indicates the project already has user-journey story panels (in repo, or via an off-repo reference such as Figma / Miro / Notion captured in `off_repo_references`), OR `project.context.shipped_ui: true` indicates an established product where regenerating from scratch isn't appropriate, AND the user did not explicitly request rerunning this skill, do not regenerate.
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. If `shipped_ui: true` (an established product where regenerating from scratch isn't appropriate), or `off_repo_references` names a source that plausibly already covers user-journey story panels (e.g. Figma / Miro / Notion docs), and the user did not explicitly request rerunning this skill, do not regenerate.
 
 Instead:
 1. In one line, summarize what already exists (and where – repo path or off-repo reference) OR explain that the established product itself documents the user journey through its shipped flows.

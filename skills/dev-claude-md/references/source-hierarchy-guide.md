@@ -21,7 +21,7 @@ Your own experience and explicit instructions always take priority. If you tell 
 
 ### Level 2: Development Status File
 
-The development context file (e.g., `dev-status/development-context.md` or `status.md`) contains the current state of the project: what is built, what is in progress, critical warnings, and established patterns.
+The development context file (`.design-engineer-plugin/design/dev/development-context.md`) contains the current state of the project: what is built, what is in progress, critical warnings, and established patterns.
 
 **Why second:** This file is the ground truth about what actually exists in the codebase. It prevents AI from suggesting features that are already built, using patterns that have been abandoned, or ignoring warnings about failed approaches.
 
@@ -54,9 +54,12 @@ Planning documents (MVP Requirements, Information Architecture, Business Plan, e
 
 ### Level 5: Reference Prototypes
 
-If you have a working prototype (e.g., from a prototype (e.g., an HTML prototype file)), it serves as a content and text reference when no formal designs exist.
+If you have a working prototype (e.g., an HTML prototype file), its status determines its authority:
 
-**Why fifth:** Prototypes may contain placeholder content or early-stage decisions that have since been refined. They are useful for reference but should not override more authoritative sources.
+- **User-approved prototype** – a prototype the user signed off during the prototyping phase is the binding visual baseline when no formal designs exist. Implement it at design-file authority (treat as Level 3): match its layout, spacing, typography, and color choices exactly, and do not reinvent it.
+- **Unapproved exploratory prototype** – an early draft that never got sign-off is reference-only. It may contain placeholder content or early-stage decisions that have since been refined, so it should not override more authoritative sources.
+
+**Why fifth:** the level reflects the default for exploratory prototypes; approval is what promotes a prototype to design-file authority.
 
 ### Level 6: Global Rules (Lowest in Hierarchy)
 
@@ -72,7 +75,7 @@ Include the hierarchy explicitly in your global rules file. List each level with
 
 ### In Agent Files
 
-Each agent should reference the hierarchy and know which sources to prioritize. For example, the context analyzer should read the status file before making any recommendations.
+Each agent should reference the hierarchy and know which sources to prioritize. For example, the main conversation should read the development status file during its pre-plan grounding, before making any recommendations.
 
 ### In Prompts
 

@@ -41,30 +41,17 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Gather Available Context
 
-```
-question: "Which planning documents do you have ready?"
-header: "Available Documents"
-options:
-  - label: "MVP Requirements"
-    description: "Prioritized feature list with acceptance criteria"
-  - label: "Information Architecture"
-    description: "Screen inventory, navigation, user flows"
-  - label: "Design references or Figma designs"
-    description: "Visual direction for the product"
-  - label: "Business Plan / StoryBrand"
-    description: "Messaging, positioning, or revenue model"
-  - label: "Target Audience / Personas"
-    description: "User profiles and pain points"
-  - label: "CLAUDE.md already created"
-    description: "Global rules file is ready"
-  - label: "None yet"
-    description: "Starting without planning documents"
-allowMultiSelect: true
-```
+This is a pick-many list of 7 – too many for AskUserQuestion (4-option cap). Present it as a numbered list in chat and ask the user to reply with comma-separated numbers (e.g. "1, 3, 6"):
 
-```
-multiSelect: true  # User can have multiple document types ready
-```
+Which planning documents do you have ready?
+
+1. **MVP Requirements** – prioritized feature list with acceptance criteria
+2. **Information Architecture** – screen inventory, navigation, user flows
+3. **Design references or Figma designs** – visual direction for the product
+4. **Business Plan / StoryBrand** – messaging, positioning, or revenue model
+5. **Target Audience / Personas** – user profiles and pain points
+6. **CLAUDE.md already created** – global rules file is ready
+7. **None yet** – starting without planning documents
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 2.
 
@@ -98,7 +85,7 @@ multiSelect: false  # User must choose one development tool
 
 If you save the generated prompts to a file under `.design-engineer-plugin/design/dev/` (e.g., `.design-engineer-plugin/design/dev/kickstart-prompts.md`), ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
-Using the template from [kickstart-template.md](./references/kickstart-template.md) and the methodology from [dev-prep-assistant.md](./references/dev-prep-assistant.md), generate a set of 3-5 focused prompts:
+Using the template from [kickstart-template.md](./references/kickstart-template.md), generate a set of 3-5 focused prompts:
 
 ### Prompt 1: Project Initialization
 - Create folder structure
@@ -165,4 +152,3 @@ After kick-start prompts are generated, the user begins development. Suggest `de
 ## Resource Files
 
 - [kickstart-template.md](./references/kickstart-template.md) – Template structure for IDE-agnostic kick-start prompts
-- [dev-prep-assistant.md](./references/dev-prep-assistant.md) – Complete Development Preparation Assistant methodology

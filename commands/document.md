@@ -1,5 +1,4 @@
 ---
-name: design-engineer:document
 description: Document decisions, learnings, project state, and stakeholder communication for cross-session continuity.
 argument-hint: "[status | stakeholder]"
 ---
@@ -19,7 +18,7 @@ Documents decisions, learnings, and project state. Ensures context survives acro
 ## Step 1: Read project context
 
 1. Read `.design-engineer-plugin/config.yaml` for project state
-2. Scan existing deliverables in `design/`
+2. Scan existing deliverables in `.design-engineer-plugin/design/`
 3. Check what has changed recently (git status if available)
 
 ## Step 2: Determine what to document
@@ -48,11 +47,13 @@ options:
 
 Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions for the selected path. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`.
 
+For the "Stakeholder summary" path, also Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-communicating-decisions/SKILL.md` and follow its instructions inline – it carries the stakeholder framing and communication structure (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`).
+
 Present a draft, ask for review, then save.
 
-## Step 3.5: Pre-finalize advisor checkpoint
+## Step 3.5: Optional advisor consult
 
-Before writing the deliverable to disk (or after a draft is staged but before the user-facing confirmation), consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool — plugin skills disable model invocation) with: what's being documented, the framing chosen, anything that felt uncertain or contested, and "I'm about to finalize this as the documented record – any course correction?" Apply the advice. Skip on routine status-only updates (`status` argument) where the document is a flat snapshot of project state.
+Before writing the deliverable to disk, an advisor consult is available when the record is consequential or contested – a decision with real trade-offs, a stakeholder summary framing sensitive choices, or anything that felt genuinely uncertain while drafting. This consult is an optional checkpoint. When it would help, consult the advisor by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/advisor/SKILL.md` and following its instructions (do NOT use the `Skill` tool – plugin skills disable model invocation) with: what's being documented, the framing chosen, anything that felt uncertain or contested, and "I'm about to finalize this as the documented record – any course correction?" Apply the advice or use the reconcile pattern. Skip it on routine session-progress saves, straightforward decision records, and status runs (`status` argument).
 
 ## Step 4: Confirm
 

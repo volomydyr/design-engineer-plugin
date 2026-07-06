@@ -68,7 +68,7 @@ multiSelect: false  # User must choose one project type
 Walk through the proven 3-agent + Plan Mode pipeline pattern:
 
 ### Phase 1: Research and Analysis
-1. **Context Analyzer** runs first – reads project status, audits existing code, checks available styles and components, fetches up-to-date documentation, and analyzes designs
+1. The main conversation grounds itself first (no separate agent) – reads the deliverables and project status, audits existing code, checks available styles and components, fetches up-to-date documentation, and analyzes designs
 2. Output: context summary + clarifying questions for the user
 3. User answers questions
 
@@ -90,6 +90,10 @@ Walk through the proven 3-agent + Plan Mode pipeline pattern:
 14. **Design System Auditor** checks all implemented code for violations: hardcoded values, monolithic views, duplicated logic, inconsistent patterns
 15. Output: violation report + fixes applied
 
+### Phase 5: Wrap Up
+16. If TDD was used: archive the test scripts – move `tests/` to `tests/archive/` so passing tests don't clutter the next feature's Red phase
+17. **Integration testing** – walk the full user flow end to end to confirm the feature works with everything built before it
+
 ---
 
 ## Step 3: Read Memory Before Setup
@@ -108,7 +112,7 @@ Copy the agent files from this plugin's `agents/` directory into the user's proj
 - `frontend-implementer.md`
 - `design-system-auditor.md`
 
-Customize each agent for the user's tech stack, project structure, and existing code. Planning is handled by Plan Mode (not an agent). See the structured plan template in the project's CLAUDE.md.
+Customize each agent for the user's tech stack, project structure, and existing code. When customizing `test-writer.md`, fold the gates from [testing-anti-patterns.md](./references/testing-anti-patterns.md) into the agent file so its tests verify real behavior instead of mocks. Planning is handled by Plan Mode (not an agent). See the structured plan template in the project's CLAUDE.md.
 
 See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work together in practice.
 
@@ -118,11 +122,12 @@ See [pipeline-guide.md](./references/pipeline-guide.md) for how agents work toge
 
 Add the pipeline sequence and agent descriptions to the project's CLAUDE.md file so the main conversation knows when and how to invoke each agent:
 
+<!-- Lockstep copy: this block mirrors the canonical pipeline in ../dev-claude-md/references/claude-md-template.md (the DEVELOPMENT PIPELINE section). Only deliberate difference: item 7 says "the user opts into" here vs "you opt into" there. Any change must be mirrored in both files. -->
 ```
 DEVELOPMENT PIPELINE:
 
 PHASE 1: RESEARCH & ANALYSIS
-1. Read the deliverables (MVP requirements, IA, designs) and project structure -> understand patterns, raise questions
+1. Read the deliverables and project structure -> understand patterns, raise questions
 2. Fetch up-to-date documentation for decisions
 3. Ask user for designs + resolve questions
 4. Process responses, make informed decisions
@@ -217,3 +222,4 @@ After the pipeline is set up, the user sends development prompts and the pipelin
 ## Resource Files
 
 - [pipeline-guide.md](./references/pipeline-guide.md) – How agents work together in practice with approval checkpoints
+- [testing-anti-patterns.md](./references/testing-anti-patterns.md) – anti-patterns to avoid when tests verify mocks instead of real behavior

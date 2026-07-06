@@ -272,6 +272,7 @@ These are the most frequent defaults to watch for across interface types:
 - **Squint test**: PASS / FAIL – [evidence]
 - **Signature test**: PASS / FAIL – [5 signature points or why they are missing]
 - **Token test**: PASS / FAIL – [evidence]
+- **AI Slop test**: PASS / FAIL – [evidence against the anti-pattern catalog]
 
 ## Priority Fixes
 1. [Most impactful fix]

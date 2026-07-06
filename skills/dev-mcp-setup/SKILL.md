@@ -52,10 +52,10 @@ options:
     description: "Already have Figma design data access (bidirectional – design→code and code→design)"
   - label: "Playwright plugin"
     description: "Already have browser automation for testing"
-  - label: "Other MCPs"
-    description: "I have other integrations installed"
 allowMultiSelect: true
 ```
+
+Users with other integrations installed can name them via the built-in Other free-text option.
 
 ```
 multiSelect: true  # User can have multiple MCPs already installed
@@ -66,6 +66,8 @@ multiSelect: true  # User can have multiple MCPs already installed
 ---
 
 ## Step 2: Recommend Based on Needs
+
+Read [essential-mcps.md](./references/essential-mcps.md) for the bundled MCPs' endpoints and tool prefixes before recommending.
 
 Recommend MCPs based on the user's workflow:
 
@@ -131,7 +133,7 @@ After MCPs are configured, suggest `dev-agent-setup` to set up agents that lever
 
 ## Resource Files
 
-
+- [essential-mcps.md](./references/essential-mcps.md) – bundled MCP endpoints, tool prefixes, and prerequisites for Context7, Figma, and Playwright
 
 ## Common Issues
 

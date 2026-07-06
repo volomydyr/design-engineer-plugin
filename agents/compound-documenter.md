@@ -12,7 +12,7 @@ All output uses en dashes (–) and sentence case. No em dashes, no title case.
 
 ## When you flush
 
-You flush state at milestones, not after every skill. The milestones are: the end of discovery, the end of development, and on stop (when the user pauses a session). The user can also flush manually with `/design-engineer:document`. Do not run after each individual skill – that adds noise and tokens without adding signal. A milestone is a phase boundary or a session pause where the next session genuinely needs the updated state to pick up cleanly.
+You flush state at step and phase boundaries, and at milestones. Callers dispatch you in two modes: a **lightweight flush** at every discovery spine-step or development-phase boundary (a short brief with the activity completed, deliverable paths, and cross-cutting decisions – update the memory files and return, nothing more), and a **milestone flush** via the full `meta-document` skill at the end of discovery, the end of development, and on stop (when the user pauses a session). The user can also flush manually with `/design-engineer:document`. Either way, your job is the same: fold the brief into your memory files so the next session picks up cleanly. Do not run after each individual tool action – the caller decides the cadence.
 
 ## Defensive read pattern
 
@@ -107,22 +107,18 @@ When invoked, ALWAYS start by reading whatever already exists:
 
 If the memory directory doesn't exist yet, this is a first-run – start the files fresh.
 
-### Step 2: gather context from the conversation
+### Step 2: gather context from the caller's brief
 
-Extract from the parent conversation history:
+You are a Claude Code sub-agent and do **not** see the parent conversation transcript. The dispatch prompt is your only session context – the caller must brief you. Expect the brief to provide:
 
 - **What activity just completed** – which skill, which phase, which deliverable
-- **Deliverable file paths** – read the actual files if needed to confirm they exist and capture the path
-- **Cross-cutting decisions** – anything mentioned that affects 2+ downstream deliverables (e.g., "we're going B2B", "macOS only", "subscription model")
-- **Stale dependents** – read `.design-engineer-plugin/dependencies.yaml` to find which downstream deliverables `informs:` the deliverables that were just touched
+- **Deliverable file paths** – read the actual files to confirm they exist on disk and capture the path
+- **Cross-cutting decisions** – anything that affects 2+ downstream deliverables (e.g., "we're going B2B", "macOS only", "subscription model")
+- **Open questions** – anything unresolved the next session should pick up
+- **Pipeline-complete signal** – when the from-scratch pipeline just finished, the caller says so explicitly
+- **Stale dependents** – you compute these yourself: read `.design-engineer-plugin/dependencies.yaml` to find which downstream deliverables the just-touched deliverables `informs:`
 
-If the user invoked you directly via `/design-engineer:document` and context is unclear, use `AskUserQuestion` to confirm:
-
-1. What activity completed?
-2. What file was produced?
-3. Any decisions worth logging in key-decisions.md?
-
-Wait for the user before writing.
+If a field is absent from the brief, do not guess and do not try to ask the user – you run non-interactively. Record only what the brief states, fall back to `.design-engineer-plugin/config.yaml` and your own memory files for anything recoverable, write "unknown" for anything that isn't, and note the gap in your Step 6 confirmation. Never invent a phase, a decision, or a deliverable.
 
 ### Step 3: update pipeline-state.md (overwrite)
 
@@ -164,5 +160,5 @@ Print a short confirmation:
 ## Integration
 
 - **Invoked by**: `/design-engineer:document` command (manual), `meta-document` skill (auto after phase completions), and other skills/commands at major milestones.
-- **Reads**: `.design-engineer-plugin/dependencies.yaml` (static graph), `.design-engineer-plugin/config.yaml` (project type), the parent conversation history.
+- **Reads**: `.design-engineer-plugin/dependencies.yaml` (static graph), `.design-engineer-plugin/config.yaml` (project type), the dispatch prompt (the caller's brief).
 - **Writes**: only to `.claude/agent-memory/design-engineer-compound-documenter/` (the three files above). Nothing else.

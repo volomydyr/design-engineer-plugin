@@ -18,6 +18,12 @@
 #                 to its canonical path with its canonical filename.
 #   - phase:      pipeline phase where this deliverable is primarily created
 #   - skill:      the skill that produces this deliverable
+#
+# Entry keys match the canonical FILENAME (without .md) that the producing
+# skill writes, so the check_deliverable_deps.py reminder hook can match an
+# edited file back to its entry. Entries marked "documentation-only" describe
+# work that produces no canonical file – they exist to keep the phase map and
+# depends_on chains complete, and the reminder hook never fires for them.
 
 deliverables:
 
@@ -44,11 +50,11 @@ deliverables:
     informs:
       - assumptions
       - competitor-analysis
-      - user-interviews
+      - research-findings
       - storybrand
       - business-plan
       - mvp-requirements
-      - journey-map
+      - customer-journey-map
       - bias-audit
     folder: foundation
     phase: 1
@@ -60,7 +66,7 @@ deliverables:
       - target-audience
     informs:
       - competitor-analysis
-      - user-interviews
+      - research-findings
       - business-plan
       - mvp-requirements
     folder: foundation
@@ -76,12 +82,12 @@ deliverables:
       - storybrand
       - business-plan
       - mvp-requirements
-      - design-references
+      - references
     folder: research
     phase: 1
     skill: ux-competitor-analysis
 
-  user-interviews:
+  research-findings:
     depends_on:
       - target-audience
       - assumptions
@@ -89,7 +95,7 @@ deliverables:
       - storybrand
       - business-plan
       - mvp-requirements
-      - journey-map
+      - customer-journey-map
       - bias-audit
     folder: research
     phase: 1
@@ -107,7 +113,7 @@ deliverables:
     informs:
       - business-plan
       - mvp-requirements
-      - journey-map
+      - customer-journey-map
     folder: foundation
     phase: 2
     skill: ux-storybrand
@@ -125,12 +131,13 @@ deliverables:
     phase: 2
     skill: ux-business-plan
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   story-panels:
     depends_on:
       - target-audience
       - storybrand
     informs:
-      - journey-map
+      - customer-journey-map
       - bias-audit
       - mvp-requirements
     folder: exploration
@@ -140,22 +147,23 @@ deliverables:
   behavior-map:
     depends_on:
       - target-audience
-      - user-interviews
+      - research-findings
     informs:
-      - journey-map
+      - customer-journey-map
       - bias-audit
       - mvp-requirements
     folder: exploration
     phase: 2
     skill: ux-behavior-mapping
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   psych-variation:
     depends_on:
       - target-audience
       - story-panels
       - behavior-map
     informs:
-      - journey-map
+      - customer-journey-map
       - bias-audit
     folder: psychology
     phase: 2
@@ -177,7 +185,7 @@ deliverables:
       - behavior-map
     informs:
       - information-architecture
-      - design-references
+      - references
       - prototype
       - kickstart-prompts
       - agent-pipeline
@@ -189,10 +197,10 @@ deliverables:
     depends_on:
       - mvp-requirements
     informs:
-      - design-references
+      - references
       - prototype
-      - figma-workflow
-      - journey-map
+      - figma-strategy
+      - customer-journey-map
       - kickstart-prompts
     folder: planning
     phase: 3
@@ -202,11 +210,19 @@ deliverables:
   # PHASE 3.5: SPEC-DRIVEN DESIGN (post-IA, pre-prototype)
   # ═══════════════════════════════════════════
 
+  design-system:
+    depends_on: []
+    informs:
+      - design-spec
+    folder: dev
+    phase: 3.5
+    skill: ui-design-system
+
   design-spec:
     depends_on:
       - information-architecture
       - mvp-requirements
-      - design-references
+      - references
     informs:
       - frontend-implementer
       - design-system-auditor
@@ -218,6 +234,7 @@ deliverables:
   # ITERATE FLOW (existing / shipped products)
   # ═══════════════════════════════════════════
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   feedback-todos:
     depends_on: []
     informs:
@@ -238,14 +255,14 @@ deliverables:
       - psych-variation
       - information-architecture
     informs:
-      - journey-map
+      - customer-journey-map
       - ethics-review
       - product-assessment
     folder: exploration
     phase: 4
     skill: ux-bias-audit
 
-  journey-map:
+  customer-journey-map:
     depends_on:
       - target-audience
       - story-panels
@@ -254,7 +271,7 @@ deliverables:
     informs:
       - ethics-review
       - product-assessment
-      - figma-workflow
+      - figma-strategy
     folder: exploration
     phase: 4
     skill: ux-journey-mapping
@@ -262,20 +279,20 @@ deliverables:
   ethics-review:
     depends_on:
       - bias-audit
-      - journey-map
+      - customer-journey-map
     informs:
       - product-assessment
     folder: exploration
     phase: 4
     skill: ux-ethics-review
 
-  design-references:
+  references:
     depends_on:
       - mvp-requirements
       - information-architecture
       - competitor-analysis
     informs:
-      - figma-workflow
+      - figma-strategy
       - prototype
     folder: exploration
     phase: 4
@@ -285,11 +302,11 @@ deliverables:
     depends_on:
       - mvp-requirements
       - information-architecture
-      - design-references
-      - journey-map
+      - references
+      - customer-journey-map
       - bias-audit
     informs:
-      - figma-workflow
+      - figma-strategy
       - product-assessment
     folder: prototype
     phase: 4
@@ -300,28 +317,29 @@ deliverables:
       - storybrand
       - mvp-requirements
     informs:
-      - figma-workflow
+      - figma-strategy
     folder: prototype
     phase: 4
     skill: ui-landing-page
 
-  figma-workflow:
+  figma-strategy:
     depends_on:
       - information-architecture
-      - design-references
-      - journey-map
+      - references
+      - customer-journey-map
       - prototype
     informs:
       - figma-handoff
       - claude-md-draft
       - kickstart-prompts
-    folder: dev
+    folder: exploration
     phase: 4
     skill: ui-figma-guide
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   figma-handoff:
     depends_on:
-      - figma-workflow
+      - figma-strategy
     informs:
       - product-assessment
       - claude-md-draft
@@ -333,7 +351,7 @@ deliverables:
   product-assessment:
     depends_on:
       - bias-audit
-      - journey-map
+      - customer-journey-map
       - ethics-review
     informs:
       - mvp-requirements
@@ -346,11 +364,12 @@ deliverables:
   # PHASE 5: DEVELOPMENT
   # ═══════════════════════════════════════════
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   claude-md-draft:
     depends_on:
       - mvp-requirements
       - information-architecture
-      - figma-workflow
+      - figma-strategy
       - product-assessment
     informs:
       - kickstart-prompts
@@ -370,6 +389,7 @@ deliverables:
     phase: 5
     skill: dev-starter-prompts
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   agent-pipeline:
     depends_on:
       - claude-md-draft
@@ -381,6 +401,7 @@ deliverables:
     phase: 5
     skill: dev-agent-setup
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   mcp-notes:
     depends_on:
       - agent-pipeline
@@ -389,6 +410,7 @@ deliverables:
     phase: 5
     skill: dev-mcp-setup
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   github-workflow:
     depends_on: []
     informs: []
@@ -400,21 +422,112 @@ deliverables:
   # PSYCHOLOGY AUDIT (standalone, any phase)
   # ═══════════════════════════════════════════
 
-  master-audit:
+  full-scan:
     depends_on:
       - information-architecture
     informs:
       - bias-audit
-      - journey-map
+      - customer-journey-map
       - product-assessment
     folder: psychology
     phase: any
     skill: psych-full-scan
 
+  cognitive-biases:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-cognitive-biases
+
+  cognitive-load:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-cognitive-load
+
+  decision-fundamentals:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-decision-fundamentals
+
+  delight-design:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-delight-design
+
+  engagement-patterns:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-engagement-patterns
+
+  pricing-psychology:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-pricing-psychology
+
+  simplification:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-simplification
+
+  social-influence:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-social-influence
+
+  time-perception:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-time-perception
+
+  visual-perception:
+    depends_on: []
+    informs:
+      - bias-audit
+      - product-assessment
+    folder: psychology
+    phase: any
+    skill: psych-visual-perception
+
   # ═══════════════════════════════════════════
   # COMPOUND DOCUMENTATION (ongoing)
   # ═══════════════════════════════════════════
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   project-status:
     depends_on: []
     informs: []
@@ -422,6 +535,7 @@ deliverables:
     phase: ongoing
     skill: meta-document
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   solved-problems:
     depends_on: []
     informs:
@@ -430,6 +544,7 @@ deliverables:
     phase: ongoing
     skill: meta-document
 
+  # documentation-only – no canonical file, reminder hook never fires for this entry
   learnings:
     depends_on: []
     informs:

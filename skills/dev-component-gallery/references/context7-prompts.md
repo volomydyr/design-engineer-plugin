@@ -59,11 +59,11 @@ for a developer to create a single page in their own project that:
 Cite where this pattern is documented or commonly demonstrated.
 ```
 
-If even the fallback returns nothing useful, the skill consults the advisor (per v4.5.0) with the framework name, the empty docs result, and a proposed path it would otherwise pick. If the advisor also can't decide, ask the user once via AskUserQuestion and persist the answer in `.design-engineer-plugin/config.yaml` under `gallery.path`.
+If even the fallback returns nothing useful, the skill consults the advisor with the framework name, the empty docs result, and a proposed path it would otherwise pick. If the advisor also can't decide, ask the user once via AskUserQuestion and persist the answer in `.design-engineer-plugin/config.yaml` under `gallery.path`.
 
 ## Anti-pattern queries (do NOT use)
 
-- Don't query "how do I install Storybook in {{FRAMEWORK}}" – Storybook was explicitly rejected by the user (v4.6.0 design). The plugin ships a native gallery, not a Storybook scaffold.
+- Don't query "how do I install Storybook in {{FRAMEWORK}}" – Storybook was explicitly rejected by the user. The plugin ships a native gallery, not a Storybook scaffold.
 - Don't query for "best component documentation tools" – that returns a tool comparison, not an idiomatic in-project pattern.
 - Don't query for live token editing or CSS variable manipulation – live editing was scoped out of v1; querying for it muddies the docs.
 
@@ -79,4 +79,4 @@ After the docs return:
 
 ## Source citation requirement
 
-When the skill scaffolds a gallery, the report to the user must include the context7 doc citations that justified the location/format choices. This makes the scaffold auditable: the user (or a future reviewer) can verify the choice against the same docs. This complements the v4.2.0 source-citation requirement applied to evaluation skills.
+When the skill scaffolds a gallery, the report to the user must include the context7 doc citations that justified the location/format choices. This makes the scaffold auditable: the user (or a future reviewer) can verify the choice against the same docs. This matches the source-citation requirement applied to evaluation skills.

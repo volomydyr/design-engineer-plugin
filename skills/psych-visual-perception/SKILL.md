@@ -20,17 +20,16 @@ How to effectively use attention, contrast, and visual cues to create emphasis i
 
 ### Step 1: Understand What to Analyze
 
-Ask the user what they want to evaluate against visual perception principles.
+<ask-user>
+What would you like me to analyze against visual perception and attention principles?
 
-**Ask the user:**
-> What would you like me to analyze against visual perception and attention principles?
->
-> 1. **Figma frames** – I will examine specific screens from your Figma file
-> 2. **Screenshots** – share screenshots of the interface to review
-> 3. **Design description** – describe the interface, flow, or feature in text
-> 4. **Live product** – provide a URL and I will review the current state
+1. **Figma frames** – I will examine specific screens from your Figma file
+2. **Screenshots** – share screenshots of the interface to review
+3. **Design description** – describe the interface, flow, or feature in text
+4. **Live product** – provide a URL and I will review the current state
+</ask-user>
 
-Wait for the user's response before proceeding.
+If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick. Wait for the user's response before proceeding.
 
 ### Step 2: Load Section Principles
 
@@ -164,13 +163,16 @@ For each critical or warning finding, find the most relevant case study and expl
 - What specific technique was used
 - How the user's design could apply the same approach
 
-**Ask the user:**
-> Would you like me to:
->
-> 1. **Deep-dive** into any specific principle finding
-> 2. **Generate implementation specs** for the priority actions
-> 3. **Run another section** of the psychology audit
-> 4. **Compare** your design against a specific case study pattern
+<ask-user>
+Would you like me to:
+
+1. **Deep-dive** into any specific principle finding
+2. **Generate implementation specs** for the priority actions
+3. **Run another section** of the psychology audit
+4. **Compare** your design against a specific case study pattern
+</ask-user>
+
+If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
 ## Key Relationships to Other Principles
 

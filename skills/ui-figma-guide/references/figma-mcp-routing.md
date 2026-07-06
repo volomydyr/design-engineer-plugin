@@ -14,7 +14,6 @@ A separate community server, the optional Figma Console MCP (`figma-console`), i
 - Converting a Figma design to code (design-to-code)
 - Capturing a web page or localhost into Figma
 - Creating a new Figma file from scratch
-- Generating design system rules for a codebase
 - Reading a design + screenshot in one call
 - Writing into Figma – variables, design tokens, components, styles, annotations, structuring for handoff – via the `use_figma` JS executor
 
@@ -53,7 +52,6 @@ None of these gate any plugin workflow. Where a capability has a `figma-console`
 | Design context (code + screenshot + metadata) | `get_design_context` | Primary design-to-code tool. Adapts output to your tech stack |
 | Web/localhost capture into Figma | `generate_figma_design` | Polling workflow with captureId |
 | Create new blank file | `create_new_file` | Requires planKey from `whoami` |
-| Design system rules for codebase | `create_design_system_rules` | Generates rules prompt for your repo |
 | Code Connect mappings | `get_code_connect_map`, `add_code_connect_map` | Links Figma components to code components |
 | Variables / design tokens | `use_figma` (`createVariable()` + `setValueForMode()`, batched) | Full token CRUD via the Plugin API; this is how `ui-figma-handoff` builds collections |
 | Components, styles, structuring | `use_figma` | Create components, bind variables, apply text/effect/paint styles, build the design system page |

@@ -1,12 +1,14 @@
 ---
-name: design-engineer:launch
 description: Universal entry point. Launches the plugin for any project state — new, in-progress, or already shipped.
-argument-hint: ""
+argument-hint: "[what you want to work on – optional free-form task]"
+allowed-tools: Bash(test -f .design-engineer-plugin/config.yaml && cat .design-engineer-plugin/config.yaml || echo "NO_CONFIG"), Bash(test -f ~/.claude/de-sound-enabled && echo present || echo absent)
 ---
 
 # Design Engineer – Launch
 
-<context> #$ARGUMENTS </context>
+Arguments: $ARGUMENTS
+
+When routing (Step 0 below) lands in the **iterate flow** and the arguments line above is non-empty, treat it as the user's free-form task: skip Step I1 entirely and go straight to Step I2 with that text as the task to clarify. When the arguments line is empty, run Step I1 as written.
 
 ## Plugin paths
 
@@ -19,12 +21,12 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 1. Run via Bash: `test -f .design-engineer-plugin/config.yaml && cat .design-engineer-plugin/config.yaml || echo "NO_CONFIG"`.
 2. Branch on what you read:
    - **`NO_CONFIG`** → user is genuinely new in this directory. Follow the **Onboarding sequence** below in this file. Do not skip any step.
-   - **Config exists with `project_type: new` AND a `resume:` block** → returning user with active pipeline state. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
-   - **Config exists with `project_type: new`, no `resume:` block, AND a `status: complete` line** → the plugin-built product has shipped its from-scratch pipeline and is now in iteration. Treat this as state `returning_complete`: route into the **Iterate flow** below (NOT the from-scratch returning path above). Acknowledge in one sentence what shipped (e.g. the product name / last goal from config), then enter the Iterate flow.
-   - **Config exists with `project_type: new` but no `resume:` block** → returning user, no active pipeline (from-scratch pipeline still in progress). Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
-   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then enter the **Iterate flow** below.
+   - **Config exists with `project_type: new` AND a `status: complete` line** → the plugin-built product has shipped its from-scratch pipeline and is now in iteration. Treat this as state `returning_complete`: route into the **Iterate flow** below (NOT the from-scratch returning paths). This check comes BEFORE the `resume:` check – the detection hook (`hooks/de-start-state.sh`) uses the same order, so a paused iterate task on a completed product stays in the iterate flow. Acknowledge in one sentence what shipped (e.g. the product name / last goal from config). If the config also carries a `resume:` block (a task paused with `/design-engineer:stop`), follow the **Paused-task pick-up** rule below before Step I1.
+   - **Config exists with `project_type: new`, no `status: complete` line, AND a `resume:` block** → returning user with active pipeline state. Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (resume state). Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
+   - **Config exists with `project_type: new`, no `status: complete` line, no `resume:` block** → returning user, no active pipeline (from-scratch pipeline still in progress). Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its instructions, Path A (config summary).
+   - **Config exists with `project_type: existing`** → existing-project user is returning. Acknowledge in one sentence what you found in their config (last goal, any in-progress feature folder under `.design-engineer-plugin/design/features/`), then enter the **Iterate flow** below. If the config carries a `resume:` block (a task paused with `/design-engineer:stop`), follow the **Paused-task pick-up** rule below before Step I1.
 
-The `DESIGN_ENGINEER_PROJECT_STATE` injected value is now an HINT only. The disk read above is the source of truth.
+The `DESIGN_ENGINEER_PROJECT_STATE` injected value is a hint only. The disk read above is the source of truth.
 
 Skip the **Onboarding sequence** entirely if the disk read found a config.
 
@@ -34,11 +36,28 @@ Both an existing project (`project_type: existing`) and a shipped plugin-built p
 
 **Core interaction model: clarify-then-dispatch.** A task front-door is a conversational entry. Picking one (or sending free-form text) makes you ASK THE USER FOR DETAIL in natural language first. Only AFTER you understand what they want do you dispatch the right plugin pieces (per the task→dispatch map below). A front-door NEVER auto-spawns agents or workflows on selection. Lean in process, powerful in capability: even a one-line free-form request should reach for the most capable fitting tool (a skill, a workflow, an agent, the spec-driven layer, or a `/goal`), but never a forced pipeline.
 
+### Paused-task pick-up (when the config carries a `resume:` block)
+
+`/design-engineer:stop` writes an iterate-flow `resume:` block with `task`, `files`, `next_action`, and `saved_at`. When the Step 0 routing landed here and such a block exists, run this rule before Step I1 (the front-door question caps at 4 options, so the pick-up offer is its own quick question first):
+
+1. Acknowledge the saved task in one plain-language sentence (e.g. "Last time you paused midway through the settings header redesign.").
+2. End the chat message with the canonical 3-horizontal-rule spacer and call `AskUserQuestion`:
+   - question: "Pick up where you left off?"
+   - header: "Paused task"
+   - options:
+     - label: "Pick up: <saved task>" (shorten the task to a few words), description: "Resume the paused task at its next step"
+     - label: "Start something else", description: "Leave the paused task saved and pick a new starting point"
+   - multiSelect: false
+3. On "Pick up" → delete the `resume:` block from `.design-engineer-plugin/config.yaml` (touch nothing else), skip Step I1, re-read the files the block names, and continue the saved task at its `next_action`. When the task completes, Step I3 runs as usual.
+4. On "Start something else" → leave the `resume:` block in place (the paused task stays available for a later session) and continue to Step I1.
+
+When `/design-engineer:launch` was invoked with explicit arguments, skip this question – the typed task wins and the `resume:` block stays saved for later.
+
 ### Step I1: nudge, then offer the front-doors
 
 **Required first output: a visible chat message** (not a blockquote, not a code block, not a tool result). Emit this as normal chat text so the screen is not blank before the question panel:
 
-Tell me what you want to work on, or pick a starting point.
+Tell me what you want to work on – a fix, a redesign, or a new feature – or pick a starting point.
 
 Then end the chat message with the canonical 3-horizontal-rule spacer and call `AskUserQuestion`:
 
@@ -63,17 +82,39 @@ When a front-door is picked OR free-form text arrives:
 
 There is NO discovery Step 2.1 spec-polish gate and NO forced discovery 2.2–2.7 pipeline in this flow.
 
+### Step I3: after a task completes
+
+When an iterate task finishes (edited, verified, presented), do not dead-end. First give a one-sentence confirmation of what changed. Then end the chat message with the canonical 3-horizontal-rule spacer and call `AskUserQuestion`:
+
+- question: "What's next?"
+- header: "What's next"
+- multiSelect: false
+- options:
+  - label: "Next task", description: "Start another task on this project"
+  - label: "Document this change", description: "Record the decision and update project state for future sessions"
+  - label: "Done for now", description: "Wrap up this session"
+
+Routing:
+- **"Next task"** → return to Step I2 (clarify, read context, dispatch).
+- **"Document this change"** → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool. When documentation completes, return to this step's question (minus the documentation option).
+- **"Done for now"** → one-sentence wrap-up of what shipped this session, then stop.
+
+This step runs once per completed task. For act-on-feedback checklists it runs once per batch, after the checklist has been worked through – never after each individual checklist item.
+
 ## Task→dispatch map (single source of truth)
 
-This is the ONE authoritative routing map for the iterate flow. The Step 4 hand-off table and `skills/meta-setup/SKILL.md` Path B reference this section – do not restate it elsewhere.
+This is the ONE authoritative routing map for the iterate flow. The onboarding Step 4 hand-off references this section – do not restate it elsewhere.
 
 - **Act on feedback** → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/feedback-to-todos/SKILL.md` and follow its instructions inline (it ingests the video, notes, messages, or transcript into one grounded checklist), then feed items one at a time into the free-form scoped-edit loop below. Do NOT use the `Skill` tool.
 - **Redesign a design** → audit what exists first (Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` for the real tokens and component paths, plus grep the files), then `design-spec` for consequential UI only (graduated, never a blanket gate), then `frontend-implementer` to build, then `design-system-auditor` to verify, then Playwright to confirm in the browser, then optionally compose a `/goal` (suggest-and-wait). All skills load via Read + follow inline, never the `Skill` tool.
 - **Explore a concept** → a lighter inline pass plus `/design-engineer:prototype` for quick concepts; escalate to the Opus/xhigh design-exploration workflow ONLY for substantive concepts. Ask the user which (quick vs substantive) during the clarify step.
 - **Audit a design** → a single-design inline audit by default; escalate to the `/design-engineer:review audit` workflow ONLY if, after clarifying, the user actually has many pages. Never auto-spawn the full multi-page sweep.
-- **Free-form scoped edit (the workhorse – ~57% of real work)** → restate the exact element, file, and property FIRST (the guardrail where the real friction lives), then locate → edit → Playwright-verify → scoped PR. Reach for the spec-driven layer, a workflow, or an agent when the change genuinely warrants it.
+- **Build or add a feature** → hand off to `/design-engineer:discovery` – its existing-project branch asks how polished the spec needs to be (minimal feature-spec vs full feature flow), then routes to `/design-engineer:development`. Use this when the user wants a new capability rather than an edit to something that already exists.
+- **Free-form scoped edit (the workhorse)** → restate the exact element, file, and property FIRST (the guardrail where the real friction lives), then locate → edit → Playwright-verify → scoped PR. Reach for the spec-driven layer, a workflow, or an agent when the change genuinely warrants it.
 
 Every front-door ends up feeding the same scoped-edit loop. Dispatch is decided AFTER the clarify step, matched to what the user described.
+
+**Agent dispatch note**: any Task prompt that dispatches a plugin agent (`frontend-implementer`, `design-system-auditor`, or any other) MUST include a line `PLUGIN_ROOT: <absolute path>` carrying the resolved DESIGN_ENGINEER_PLUGIN_ROOT from your context – agents do not inherit this conversation and cannot resolve the plugin root themselves.
 
 **Skill invocation note**: throughout this file, "load the X skill" or "load the meta-setup skill" means Read the file at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` using the Read tool, then follow its instructions inline. NEVER use the `Skill` tool to invoke these skills — they all set `disable-model-invocation: true` in their frontmatter and the Skill tool will reject them.
 
@@ -117,28 +158,13 @@ Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/SKILL.md` and follow its 
 
 Continue with Steps 2–4 below. Do not skip any.
 
-#### Step 2: Ask the goal in ONE AskUserQuestion call
+#### Step 2: Run setup
 
-**Required first output: a visible chat message acknowledging the user's project-type choice and previewing what's next.** Without this, the user sees only a spacer above the question panel — feels broken. Emit one short paragraph (1–2 sentences) like:
-
-> Got it – picking up on an existing project. Tell me what you want to work on, or pick a starting point.
-
-(Adapt the wording to be natural; don't render the blockquote literally — that's just an example.) Then end the chat message with the canonical 3-horizontal-rule spacer and call AskUserQuestion with this single question.
-
-Question (these are the iterate-flow front-doors; the built-in free-form "Other" path is always available – the user can ignore the options and just type what they want):
-- question: "What do you want to work on?"
-- header: "Starting point"
-- options:
-  - label: "Act on feedback", description: "Turn feedback into changes – a video walkthrough, notes, messages, or a transcript"
-  - label: "Redesign a design", description: "Rework an existing screen, page, or flow so it looks and works better"
-  - label: "Explore a concept", description: "Try directions for a new idea before committing to one"
-  - label: "Audit a design", description: "Review a design for UX, accessibility, visual quality, or psychology issues"
-
-#### Step 3: Run setup silently, then ask status line
+**Required first output: a visible chat message acknowledging the user's project-type choice** (1–2 sentences, e.g. "Got it – picking up on an existing project. Let me take a quick look at your setup first."). Then:
 
 a) Run `detect-environment.sh` from `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/scripts/detect-environment.sh`. Do NOT launch Explore agents or scan the project separately.
 
-b) Create `.design-engineer-plugin/` directory and write `config.yaml` inside it with `project_type`, goal, and detected environment.
+b) Create `.design-engineer-plugin/` directory and write `config.yaml` inside it with `project_type` and the detected environment. The `goal` field is appended later, in Step 4, once the user has picked a starting point – do not write a placeholder goal here.
 
 b.5) **Project context check** (Path B / Existing project only – skip on Path A). The `detect-environment.sh` output above contains a 'Project Context Detection' section with lines like `existing_design_system: <path>`, `existing_brand_docs: <file>`, `existing_specs: <dir>`, `shipped_ui: true|false`, `component_count: <n>`. Now:
 
@@ -150,26 +176,27 @@ b.5) **Project context check** (Path B / Existing project only – skip on Path 
   - multiSelect: true
   - options:
     - label: "Figma project", description: "Designs / design system live in a Figma file"
-    - label: "Notion / Confluence docs", description: "Specs or brand docs live there"
-    - label: "Linear / Jira tracker", description: "Active issues or feature requests live there"
+    - label: "Docs or tracker", description: "Notion / Confluence specs, or a Linear / Jira tracker"
     - label: "External design-system page", description: "Storybook, Zeroheight, or similar published reference"
     - label: "No, that's everything", description: "What I detected is the full picture"
 
-  The user can also pick "Other" to type a custom reference.
+  If "Docs or tracker" is selected, ask in chat which specific tools (Notion, Confluence, Linear, Jira) before writing the config. The user can also pick "Other" to type a custom reference.
 
-  iii) Append a `project:` section to the `config.yaml` you wrote in (b), with these fields under `project.context`: `existing_design_system` (true|false|`<path>`), `existing_brand_docs` (true|false|`<location>`), `existing_specs` (true|false|`<location>`), `shipped_ui` (true|false), `off_repo_references` (list of strings – one per Figma/Notion/Linear/etc. selection plus any "Other" custom text). This is the source of truth that biased `ux-*` skills will read to decide whether to skip-check or augment.
+  iii) Append a `project:` section to the `config.yaml` you wrote in (b), with these fields under `project.context`: `existing_design_system` (true|false|`<path>`), `existing_brand_docs` (true|false|`<location>`), `existing_specs` (true|false|`<location>`), `shipped_ui` (true|false), `component_count` (integer), `off_repo_references` (list of strings – one per Figma/Notion/Linear/etc. selection plus any "Other" custom text). This is the source of truth that biased `ux-*` skills will read to decide whether to skip-check or augment.
 
 c) Scaffold `design/` folder via `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/scripts/init-project-structure.sh`.
 
 d) Show brief environment results in plain language. Only show tech stack and tool connections. Do NOT show Git status, CLAUDE.md status, or developer internals.
 
-e) Explain: "The status line appears below your prompt and shows your model, how much context you have used, and your usage limits."
+#### Step 3: Notifications
 
-e.5) **Sound notifications**. First detect whether `~/.claude/de-sound-enabled` exists by running:
+a) **Sound notifications first.** The sound opt-in is a top-level `sound:` key (`enabled` or `muted`) in the project's `.design-engineer-plugin/config.yaml`. The config you wrote in Step 2 (b) has no `sound:` key yet, so the effective current state comes from the legacy global flag – detect it by running:
 
 ```bash
 test -f ~/.claude/de-sound-enabled && echo present || echo absent
 ```
+
+Present = sounds currently on (a pre-per-project opt-in); absent = sounds currently off.
 
 End the preceding chat message with the canonical 3-horizontal-rule spacer (per CLAUDE.md rule #6) before each AskUserQuestion below.
 
@@ -178,7 +205,7 @@ If absent (sounds currently off), ask via AskUserQuestion:
 - header: "Sounds"
 - options:
   - label: "Yes (Recommended)"
-    description: "I'll get a chime when Claude finishes a response and when Claude needs my input — only inside design-engineer plugin projects."
+    description: "I'll get a chime when Claude finishes a response and when Claude needs my input – in this project only."
   - label: "Keep muted"
     description: "Leave sounds off. Toggle later with /design-engineer:mute-unmute-sound."
 - multiSelect: false
@@ -187,35 +214,35 @@ If present (sounds currently on), ask:
 - question: "Sound notifications are currently on. Keep them?"
 - header: "Sounds"
 - options:
-  - label: "Yes (Recommended)", description: "Keep the chime on Stop and Notification."
-  - label: "No, mute them", description: "Remove the global opt-in flag."
+  - label: "Yes (Recommended)", description: "Keep the chime on Stop and Notification for this project."
+  - label: "No, mute them", description: "Keep this project silent."
 - multiSelect: false
 
-Apply the choice using the `! <command>` paste pattern (per the user's preference — the plugin should not write outside CWD directly):
+Apply the choice immediately – the `sound:` key is a CWD write into the config.yaml from Step 2 (b), so no paste command is needed for sounds:
 
-- On "Yes (Recommended)" with absent flag: tell the user to paste in their next prompt:
+- On "Yes (Recommended)": append a top-level `sound: enabled` line to `.design-engineer-plugin/config.yaml`. Confirm: "Sounds are on for this project. You'll hear a chime when Claude finishes a response and a different one when Claude needs your input."
+- On "Keep muted" or "No, mute them": append a top-level `sound: muted` line (explicit, so a leftover legacy flag can't re-enable sounds here). Confirm: "Sounds stay off for this project. Toggle anytime with /design-engineer:mute-unmute-sound."
 
-  ```
-  ! mkdir -p ~/.claude && touch ~/.claude/de-sound-enabled
-  ```
+Leave the legacy global flag `~/.claude/de-sound-enabled` untouched – other projects configured before the per-project key still read it, and the explicit `sound:` key written above takes precedence for this project.
 
-  Confirm: "Sounds will be on globally once you paste that — only inside plugin projects."
+b) **Status line.** Explain: "The status line appears below your prompt and shows your model, how much context you have used, and your usage limits."
 
-- On "Yes (Recommended)" with present flag: no action needed; confirm "Sounds stay on."
+Then immediately ask via `AskUserQuestion` (spacer above). Do NOT use the built-in `statusline-setup` agent, and do NOT write to `~/.claude/settings.json` or copy files to `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. The install runs via the paste block below.
 
-- On "Keep muted" with absent flag: no action needed; confirm "Sounds stay off."
+- question: "Install the status line?"
+- header: "Status line"
+- options:
+  - label: "Install it", description: "I'll run the install command you give me in my next prompt"
+  - label: "Skip", description: "Re-run /design-engineer:launch later if I change my mind"
+- multiSelect: false
 
-- On "No, mute them" with present flag: tell the user to paste:
+On "Install it", the status-line command for the paste block is (substituting the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):
 
-  ```
-  ! rm -f ~/.claude/de-sound-enabled
-  ```
+```
+mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
+```
 
-  Confirm: "Sounds muted once you paste that. Toggle anytime with /design-engineer:mute-unmute-sound."
-
-f) Ask status line question. Do NOT use the built-in `statusline-setup` agent, and do NOT write to `~/.claude/settings.json` or copy files to `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and ask them to run it themselves in their next prompt.
-
-Output exactly this block to the chat (substituting the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):
+c) **Paste block.** The sound choice was already applied in (a) as a CWD write – only the status-line install needs a paste command (it writes outside the working directory). If the user opted into the status line, emit ONE paste block with its command; if they skipped it, emit no paste block and move straight to Step 4:
 
 ````
 To install the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
@@ -223,18 +250,17 @@ To install the status line, paste this into your next prompt (the leading `!` ru
 ! mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
 ````
 
-Then `AskUserQuestion` (spacer above):
-- question: "Status line install"
-- header: "Status line"
-- options:
-  - label: "I'll paste the command above", description: "I'll run the install command in my next prompt"
-  - label: "Skip", description: "Re-run /design-engineer:launch later if I change my mind"
+**Resume rule**: if a later user message is that paste (or its shell output), acknowledge it in one line and resume the flow exactly where it left off. If the user never pastes it, resume anyway – never re-ask, never block on the paste.
 
-#### Step 4: Clarify, then dispatch the chosen front-door
+#### Step 4: Ask the starting point, then clarify and dispatch
 
 Say "You're all set. Let's get started." then show: "Tip: Run `/design-engineer:help` anytime to see all available commands and capabilities."
 
-The front-door the user picked in Step 2 (or any free-form text they typed via "Other") is a conversational entry, not a dispatch trigger. Now follow the **iterate flow** above starting at **Step I2: clarify, read context, then dispatch** – ask for the specifics, read `project.context` from the config you just wrote, then dispatch per the **Task→dispatch map** (the single source of truth above). Do NOT auto-spawn an agent or workflow on the front-door selection alone.
+Then run the front-door ask exactly as **Step I1** above defines it: the same lead-in sentence, the canonical 3-horizontal-rule spacer, and the same `AskUserQuestion` (question, header, options, multiSelect). Do not restate or vary the options here – Step I1 is the single source for the front-door question.
+
+After the user picks a front-door (or types free-form text via "Other"), append a `goal` field to the `config.yaml` written in Step 2: the chosen front-door label plus any free-form text the user typed.
+
+A front-door is a conversational entry, not a dispatch trigger. Now continue the **iterate flow** above at **Step I2: clarify, read context, then dispatch** – ask for the specifics, read `project.context` from the config you just wrote, then dispatch per the **Task→dispatch map** (the single source of truth above). Do NOT auto-spawn an agent or workflow on the front-door selection alone.
 
 ## Optional advisor consult for the loaded skill
 

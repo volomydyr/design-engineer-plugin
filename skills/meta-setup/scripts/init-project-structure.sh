@@ -9,8 +9,8 @@
 #   .design-engineer-plugin/
 #   ├── memory/                        seeded with project-map.md + debug-solutions.md
 #   ├── plans/archive/                 implementation plans + completed-plans archive
-#   ├── prototype/                     HTML prototypes (storyboard, prototype, landing-page)
-#   ├── temporary/                     gitignored; auto-purged at phase boundaries
+#   ├── prototype/                     HTML prototypes (prototype, landing-page)
+#   ├── temporary/                     gitignored; purged at completion milestones
 #   │   ├── scratch/                   general throwaway
 #   │   ├── playwright/                Playwright debug captures
 #   │   └── intermediate/              prep work and exploratory drafts
@@ -117,13 +117,13 @@ appear; remove entries if a folder is deleted.
 - features/ – per-feature spec dirs (post-launch features) | read when iterating
 
 ## .design-engineer-plugin/prototype/ (committed; HTML prototypes)
-- storyboard.html, prototype.html, landing-page.html, prototype-notes.md | read before dev
+- prototype.html, landing-page.html, prototype-notes.md | read before dev
 
 ## .design-engineer-plugin/plans/ (committed; implementation plans)
 - <YYYY-MM-DD>-<slug>.md – active implementation plan | read by hooks
 - archive/ – completed plans | reference history
 
-## .design-engineer-plugin/temporary/ (GITIGNORED; auto-purged at phase boundaries)
+## .design-engineer-plugin/temporary/ (GITIGNORED; purged at completion milestones)
 - scratch/ – general throwaway | safe to delete anytime
 - playwright/ – Playwright debug captures | safe to delete anytime
 - intermediate/ – prep work + exploratory drafts | safe to delete anytime
@@ -201,7 +201,7 @@ $GITIGNORE_BEGIN
 
 # All disposable working files (Playwright debug captures, intermediate
 # analysis dumps, exploratory drafts, anything the model would discard
-# tomorrow). Auto-purged at phase boundaries by /design-engineer:document, or
+# tomorrow). Purged at completion milestones by /design-engineer:document, or
 # manually by /design-engineer:tidy. Never commit anything from temporary/.
 .design-engineer-plugin/temporary/
 $GITIGNORE_END

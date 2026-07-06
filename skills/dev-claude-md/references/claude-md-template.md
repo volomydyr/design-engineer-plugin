@@ -39,7 +39,7 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 2. **Development status file** (current project status, guidelines, warnings)
 3. **Design files** (pixel-perfect UI implementation required)
 4. **Project knowledge documents** (complete feature specifications)
-5. **Reference prototypes** (content/text reference when no design exists)
+5. **Reference prototypes** (a user-approved prototype is the binding visual baseline when no formal designs exist – treat it at design-file authority; unapproved exploratory prototypes are reference only)
 6. **These rules** (implementation process guidelines)
 
 ### Documentation Files:
@@ -141,6 +141,7 @@ Use this template to generate a comprehensive CLAUDE.md file for any project. Re
 
 **For any implementation task, follow this pipeline in order:**
 
+<!-- Lockstep copy: this is the canonical pipeline block. skills/dev-agent-setup/SKILL.md Step 5 embeds the same block (only deliberate difference: item 7 says "the user opts into" there vs "you opt into" here). Any change here must be mirrored there. -->
 ### DEVELOPMENT PIPELINE
 
 ```
@@ -206,7 +207,7 @@ How should I proceed?"
 6. **Use only the specified tech stack** – ignore outdated or alternative technology references
 7. **Maintain pixel-perfect implementation** from designs
 8. **Update development status** when features are complete
-9. **WARN USER when approaching token limit** – proactively suggest compacting with a ready-to-use compact message (actual session values, not placeholders) so the user can immediately run `/compact` with no extra round-trip
+9. **Generate a ready-to-use compact message when the user asks for one or at phase boundaries** – fill in actual session values, never placeholders, so the user can immediately run `/compact` with no extra round-trip
 10. **Use Plan Mode** (`EnterPlanMode`) for any non-trivial implementation planning – write structured plans to the plan file, never as plain text. After approval, save to `.design-engineer-plugin/plans/` in the project. After completion, move to `.design-engineer-plugin/plans/archive/`.
 11. **Run `/simplify` after every code-producing step** – mandatory after backend-implementer, frontend-implementer, and before design-system-auditor. Also after prototype generation.
 12. **If you opt into TDD, write tests BEFORE implementation** – run test-writer agent to create Playwright CLI test scripts in `tests/` before backend-implementer or frontend-implementer. Verify Red (fail) before implementing, verify Green (pass) after. TDD is a method you choose per feature, not a mandatory gate.

@@ -1,20 +1,16 @@
 ---
-name: design-engineer:tidy
 description: Wipe disposable working artifacts under .design-engineer-plugin/temporary/. Use before commit, or anytime the working tree feels noisy.
 argument-hint: ""
+allowed-tools: Bash(test -f .design-engineer-plugin/config.yaml && echo "OK" || echo "NO_CONFIG"), Bash(bash -c 'TEMP_DIR=".design-engineer-plugin/temporary"; if [ ! -d "$TEMP_DIR" ]; then echo "EMPTY"; exit 0; fi; FILE_COUNT=$(find "$TEMP_DIR" -mindepth 1 -type f 2>/dev/null | wc -l | tr -d " "); DIR_COUNT=$(find "$TEMP_DIR" -mindepth 1 -type d 2>/dev/null | wc -l | tr -d " "); TOTAL_SIZE=$(du -sh "$TEMP_DIR" 2>/dev/null | cut -f1); echo "FILES=$FILE_COUNT DIRS=$DIR_COUNT SIZE=$TOTAL_SIZE"'), Bash(bash -c 'find .design-engineer-plugin/temporary -mindepth 1 -delete 2>/dev/null; mkdir -p .design-engineer-plugin/temporary/scratch .design-engineer-plugin/temporary/playwright .design-engineer-plugin/temporary/intermediate')
 ---
 
 # Tidy disposable working artifacts
 
 > **Spacer rule (per CLAUDE.md rule #6)**: Before every `AskUserQuestion` tool call this command makes, end the preceding chat message with the canonical 3-horizontal-rule spacer (three lines of `─` characters).
 
-## Plugin paths
-
-Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolute path>` injected by the plugin's UserPromptSubmit hook. Whenever this command references `${DESIGN_ENGINEER_PLUGIN_ROOT}/...`, substitute the absolute path from that context line. No shell commands are run from this command body.
-
 ## What this command does
 
-The plugin keeps disposable working artifacts (Playwright debug captures, intermediate analysis dumps, exploratory drafts) under `.design-engineer-plugin/temporary/`. That directory is git-ignored and auto-purged at every phase boundary by `/design-engineer:document`. This command does the same purge **on demand** — useful before a commit, or anytime the working tree feels noisy.
+The plugin keeps disposable working artifacts (Playwright debug captures, intermediate analysis dumps, exploratory drafts) under `.design-engineer-plugin/temporary/`. That directory is git-ignored and purged automatically at completion milestones (whenever the full `/design-engineer:document` documentation run happens – end of the discovery spine, end of development, or an explicit invocation). This command does the same purge **on demand** — useful before a commit, or anytime the working tree feels noisy.
 
 The command never touches durable deliverables (`design/`, `prototype/`, `plans/`, `memory/`). It only wipes `temporary/`.
 
@@ -35,18 +31,10 @@ If the output is `NO_CONFIG`, exit immediately with the message:
 Run via Bash:
 
 ```bash
-bash -c '
-TEMP_DIR=".design-engineer-plugin/temporary"
-if [ ! -d "$TEMP_DIR" ]; then
-  echo "EMPTY"
-  exit 0
-fi
-FILE_COUNT=$(find "$TEMP_DIR" -mindepth 1 -type f 2>/dev/null | wc -l | tr -d " ")
-DIR_COUNT=$(find "$TEMP_DIR" -mindepth 1 -type d 2>/dev/null | wc -l | tr -d " ")
-TOTAL_SIZE=$(du -sh "$TEMP_DIR" 2>/dev/null | cut -f1)
-echo "FILES=$FILE_COUNT DIRS=$DIR_COUNT SIZE=$TOTAL_SIZE"
-'
+bash -c 'TEMP_DIR=".design-engineer-plugin/temporary"; if [ ! -d "$TEMP_DIR" ]; then echo "EMPTY"; exit 0; fi; FILE_COUNT=$(find "$TEMP_DIR" -mindepth 1 -type f 2>/dev/null | wc -l | tr -d " "); DIR_COUNT=$(find "$TEMP_DIR" -mindepth 1 -type d 2>/dev/null | wc -l | tr -d " "); TOTAL_SIZE=$(du -sh "$TEMP_DIR" 2>/dev/null | cut -f1); echo "FILES=$FILE_COUNT DIRS=$DIR_COUNT SIZE=$TOTAL_SIZE"'
 ```
+
+Run it as a single line exactly as written above – the exact string is pre-permitted via this command's `allowed-tools` frontmatter, so any reformatting re-triggers a permission prompt.
 
 Parse the output. If `EMPTY` or `FILES=0`, surface to the user:
 
@@ -89,6 +77,6 @@ Then surface to the user:
 ## Behavior notes
 
 - This command is safe to run any number of times. Files in `temporary/` are by definition disposable.
-- The auto-purge at phase boundaries (via `/design-engineer:document` Step 7) does the same thing without asking. This command is for mid-session manual cleanup.
+- The automatic purge at completion milestones (via `/design-engineer:document` Step 7) does the same thing without asking. This command is for mid-session manual cleanup.
 - Deliverables are written only to their canonical paths under `.design-engineer-plugin/design/<subdir>/`; `temporary/` holds working artifacts only, so a tidy never removes real work.
 - If the user has work in `temporary/` they want to keep, promote it to a canonical path under `.design-engineer-plugin/design/<subdir>/` BEFORE running `/design-engineer:tidy`.

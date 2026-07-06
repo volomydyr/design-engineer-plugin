@@ -15,6 +15,8 @@ When you work on something complex with AI, it forgets things. Every conversatio
 
 The solution is simple: keep a status file for AI to read at the start of every development task. Sub-agents also help by running heavy work in separate chats with separate token limits, preserving the main conversation's budget.
 
+The status file holds day-to-day development-task context: what is built, what is in progress, failed approaches, and warnings. Pipeline state, key decisions, and stale dependents belong to `/design-engineer:document` and the compound-documenter memory – do not duplicate them here.
+
 ## Interaction Method
 
 If `AskUserQuestion` is available, use it for all prompts below.
@@ -41,7 +43,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 1: Set Up the Status File
 
-If the status file is being placed under `.design-engineer-plugin/design/dev/` (e.g., `.design-engineer-plugin/design/dev/status.md`), ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
+The status file lives at `.design-engineer-plugin/design/dev/development-context.md`. Ensure the parent directory exists first: run `mkdir -p .design-engineer-plugin/design/dev` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
 Create a development status file using the template from [status-tracking-template.md](./references/status-tracking-template.md). This file is separate from CLAUDE.md (separation of concerns) and should contain:
 
@@ -53,7 +55,7 @@ Create a development status file using the template from [status-tracking-templa
 - **Available assets** – icons, images, and other resources
 - **Architecture decisions** – key choices and their rationale
 
-Place this file in a predictable location (e.g., `dev-status/development-context.md` or `status.md` at the project root).
+The status file lives at `.design-engineer-plugin/design/dev/development-context.md` – the plugin's canonical dev deliverable path. Never place it at the project root.
 
 ---
 

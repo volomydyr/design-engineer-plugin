@@ -25,7 +25,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ## Step 0: Before starting
 
-1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check for any saved design decisions from a previous session, 2) determine the current state of your design system, 3) define the architecture – depth strategy, tokens, semantic aliases, components, 4) guide incremental extraction if code already exists, 5) run a compliance audit, 6) produce the deliverable, 7) save design decisions for future sessions." This is a commitment device – harder to skip steps you just announced.
+1. **Announce your execution plan**: Before doing anything, state what you will do in this activity: "Here's what I'm going to do: 1) check for any saved design decisions from a previous session, 2) determine the current state of your design system, 3) define the architecture – depth strategy, tokens, semantic aliases, components, 4) guide incremental extraction if code already exists, 5) run a compliance audit, 6) produce the deliverable, capturing design decisions for future sessions." This is a commitment device – harder to skip steps you just announced.
 
 2. **Conditional teaching**: Ask the user if they are familiar with code-first design systems and atomic design patterns. If yes, give a one-sentence refresher. If no, explain it in simple terms: instead of designing a system in Figma first, you build tokens and components in code as you develop – colors, spacing, and typography get extracted into reusable values, and components get refactored into reusable pieces, so everything stays consistent and actually used.
    > **Required: ALWAYS ask the question, ALWAYS give the refresher when the user says yes.** Never skip this step because the user "is a designer" or "already demonstrated familiarity earlier." Users want a memory refresh on every activity, including ones they know. Phrases like "I'll skip the explainer (you're a designer)" are forbidden — they signal the model has decided ON BEHALF OF the user that a refresher isn't needed. The user, not the model, decides what's redundant. The refresher takes one sentence; the cost is trivial; the value to a tired user mid-session is high.
@@ -39,9 +39,9 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 ---
 
-## Step 0: Check for Saved Design Decisions
+## Step 0.5: Check for saved design decisions
 
-Before starting, check if the project has a saved design system file at `.design-system/system.md`. If it exists, read it and apply the saved decisions – direction, depth strategy, spacing base unit, key patterns, component inventory. This prevents re-inventing decisions that were already made in a previous session.
+Before starting, check if the project has a saved design system deliverable at `.design-engineer-plugin/design/dev/design-system.md` – verify existence first (Bash `test -f` or Glob) per the defensive read pattern. If it exists, read it and apply the saved decisions from its "Design decisions" section – direction, depth strategy, spacing base unit, key patterns, component inventory. This prevents re-inventing decisions that were already made in a previous session.
 
 If the file exists, present the saved decisions to the user and ask if they are still current before proceeding.
 
@@ -200,32 +200,17 @@ Save the design system documentation to `.design-engineer-plugin/design/dev/desi
 - Component catalog (all reusable components)
 - Compliance score and any remaining violations
 - Guidelines for extending the system when new screens are added
+- Design decisions – direction and feel, depth strategy, spacing base unit, typography choices, color temperature, and key component patterns, so future sessions can reload them without re-deciding
 
 ---
 
-## Step 6: Save Design Decisions
+## Step 6: Design Decisions Live in the Deliverable
 
-After completing the design system, offer to save the key decisions for future sessions:
-
-```
-"Want me to save these design decisions for future sessions?"
-```
-
-If yes, write to `.design-system/system.md` in the project root:
-
-- **Direction and feel** – the stated design intent
-- **Depth strategy** – which approach was chosen (borders-only, shadows, layered, surface shifts)
-- **Spacing base unit** – the scale in use
-- **Typography choices** – typeface, scale, hierarchy levels
-- **Color temperature** – warm/cool neutrals, accent color, semantic colors
-- **Key component patterns** – established components and their usage rules
-- **Component inventory** – list of all reusable components created
-
-This compounds: each save makes future work faster and more consistent. On subsequent runs, Step 0 loads these decisions automatically.
+Design decisions are captured in the deliverable's "Design decisions" section as part of Step 5 – there is no separate save file. This compounds: on subsequent runs, Step 0.5 loads these decisions automatically from `.design-engineer-plugin/design/dev/design-system.md`, so each run builds on the last instead of re-deciding.
 
 **When to save:** Add patterns when a component is used 2+ times, is reusable across the project, or has specific measurements worth remembering. Do not save one-off components, temporary experiments, or variations better handled with props.
 
-**Consistency checks:** If `.design-system/system.md` exists, check against it: spacing on the defined grid, depth using the declared strategy, colors from the defined palette, documented patterns reused instead of reinvented.
+**Consistency checks:** If `.design-engineer-plugin/design/dev/design-system.md` exists, check against it: spacing on the defined grid, depth using the declared strategy, colors from the defined palette, documented patterns reused instead of reinvented.
 
 ---
 

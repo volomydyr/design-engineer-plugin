@@ -48,8 +48,10 @@ Each input type needs its own preparation so that every later item can point bac
 **Video** – run the processing script:
 
 ```bash
-~/.claude/skills/feedback-to-todos/scripts/process_video.sh "<video-path>" ["<work-dir>"]
+bash ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/feedback-to-todos/scripts/process_video.sh "<video-path>" ["<work-dir>"]
 ```
+
+Substitute `${DESIGN_ENGINEER_PLUGIN_ROOT}` with the absolute path from the `DESIGN_ENGINEER_PLUGIN_ROOT: <absolute path>` context line injected by the plugin's UserPromptSubmit hook.
 
 This probes the video, extracts **frames every 2s** at **near-native resolution and high JPEG quality** (granular and sharp by design – fine-grained, readable frames are what let you pair a sentence with the exact pixels, including tiny spreadsheet cells and dialog labels), transcribes with whisper, and builds `MAP.tsv` linking each transcript segment to its frame numbers. Work dir defaults to `~/Desktop/<name>-analysis/` (durable – never `/tmp`, macOS wipes it on reboot).
 

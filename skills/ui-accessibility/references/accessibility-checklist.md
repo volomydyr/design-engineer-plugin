@@ -13,10 +13,10 @@ Building accessible products creates better experiences for all users.
 ## 1. Touch and Click Targets
 
 ### Minimum Tap Target Size: 44 Points
-Based on Fitts's Law, smaller targets require more precision and slow users down. WCAG 2.2 recommends a minimum of 44x44 CSS pixels. Apple HIG also recommends 44 points; Material Design recommends 48dp. Use at least 44 points as the baseline – your project's design tokens may define a larger value.
+Based on Fitts's Law, smaller targets require more precision and slow users down. WCAG 2.2 requires at least 24x24 CSS pixels (AA) and 44x44 at AAA. Apple HIG recommends 44 points; Material Design recommends 48dp. Use at least 44 points as the baseline; this plugin recommends 56 points as a generous target – your project's design tokens may define the larger value.
 
-- [ ] All buttons meet minimum 56-point tap target size
-- [ ] All interactive icons have at least 56-point touchable area (even if the visual icon is smaller)
+- [ ] All buttons meet the 44-point platform minimum (56 points recommended)
+- [ ] All interactive icons have at least a 44-point touchable area, 56 recommended (even if the visual icon is smaller)
 - [ ] All list item rows that are tappable meet minimum height requirements
 - [ ] All form controls (checkboxes, radio buttons, toggles) meet minimum target size
 - [ ] Touch targets extend beyond visible boundaries where needed for small visual elements
@@ -191,13 +191,14 @@ When reporting accessibility issues, categorize by severity:
 - Missing form labels that make input impossible with screen readers
 
 ### Major (Significant Barrier)
-- Tap targets below 56-point minimum
+- Tap targets below the 44-point platform minimum (24px is the absolute WCAG 2.2 AA floor)
 - Text contrast below 4.5:1 for normal text
 - Missing focus indicators
 - Color used as the only means of conveying information
 - No support for dynamic type / text scaling
 
 ### Minor (Inconvenience)
+- Tap targets meeting 44 points but below the recommended 56-point generous target
 - Suboptimal heading structure (not blocking, but confusing)
 - Decorative images not hidden from screen readers
 - Focus order slightly illogical but navigable

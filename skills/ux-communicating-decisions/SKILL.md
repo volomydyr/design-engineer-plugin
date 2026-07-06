@@ -55,8 +55,9 @@ What communication challenge are you facing?
 2. **Responding to feedback** – I will help you navigate specific feedback situations
 3. **Justifying a design decision** – I will help you articulate the psychology behind your choice
 4. **Presenting research findings** – I will help frame your findings for stakeholder impact
-5. **Something else** – describe your specific situation
 </ask-user>
+
+For anything else, the user can describe their specific situation via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
@@ -127,6 +128,7 @@ Would you like to:
 
 ## Cross-References
 
+- **Invoked by**: `/design-engineer:document` (stakeholder summary path)
 - **ux-bias-audit**: Bias audit vocabulary and principles used in communication
 - **ux-ethics-review**: Ethics arguments strengthen decision justification
 - **ux-full-review**: Assessment findings provide evidence for decisions

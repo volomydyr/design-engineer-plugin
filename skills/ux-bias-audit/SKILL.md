@@ -85,8 +85,9 @@ What would you like to work on?
 2. **Design a new screen** – I will help you apply bias audit principles from scratch
 3. **Improve a specific step** – I will focus on one step (Identify, Analyze, Design, or Document)
 4. **Full flow review** – I will audit a multi-screen user flow through all 4 steps
-5. **Something else** – describe your specific need
 </ask-user>
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 ```
 multiSelect: false  # User must choose one mode

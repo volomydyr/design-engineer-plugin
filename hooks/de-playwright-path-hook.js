@@ -1,8 +1,12 @@
 #!/usr/bin/env node
-// Design-Engineer Playwright-Path Hook (PreToolUse on mcp__playwright__browser_take_screenshot)
+// Design-Engineer Playwright-Path Hook (PreToolUse on browser_take_screenshot,
+// matched for both the bundled server, mcp__plugin_design-engineer_playwright__*,
+// and a user-installed standalone mcp__playwright__* server).
 // Stops Playwright screenshots from polluting the project root by enforcing
-// that every `filename` argument lives under the plugin's umbrella directory
-// .design-engineer-plugin/.
+// that every `filename` argument lives under one of the canonical prefixes
+// from CLAUDE.md's Playwright filesystem hygiene table: the plugin's umbrella
+// directory .design-engineer-plugin/, or tests/ for test fixtures and visual
+// regression baselines.
 //
 // Without this hook, Playwright MCP defaults to writing to process.cwd()
 // when filename is omitted or relative without a directory prefix — so
@@ -17,9 +21,10 @@
 const fs = require('fs');
 const path = require('path');
 
-// Single allowed prefix: every Playwright capture must live under the
-// plugin's umbrella directory.
-const ALLOWED_PREFIX = '.design-engineer-plugin/';
+// Allowed prefixes: every Playwright capture must live under the plugin's
+// umbrella directory, or under tests/ for committed test fixtures and visual
+// regression baselines (per CLAUDE.md's canonical table).
+const ALLOWED_PREFIXES = ['.design-engineer-plugin/', 'tests/'];
 
 // Only active in projects that have run /design-engineer:launch
 if (!fs.existsSync(path.join(process.cwd(), '.design-engineer-plugin', 'config.yaml'))) {
@@ -38,13 +43,14 @@ function deny(reason) {
 
 function buildHelpMessage(filename) {
   const prefix = filename
-    ? 'Playwright screenshot filename "' + filename + '" lands outside the plugin umbrella and would pollute the project. '
+    ? 'Playwright screenshot filename "' + filename + '" lands outside the canonical capture paths and would pollute the project. '
     : 'Playwright screenshot has no `filename` argument, so Playwright MCP would write it to the project root and pollute the working tree. ';
   return (
     prefix +
-    'Use a `filename` that starts with ' + ALLOWED_PREFIX + ' (for example ' +
+    'Use a `filename` that starts with ' + ALLOWED_PREFIXES.join(' or ') + ' (for example ' +
     '.design-engineer-plugin/temporary/playwright/<descriptive-name>.png for throwaway captures, ' +
-    'or .design-engineer-plugin/design/reviews/<slug>/screenshot.png for audit captures). ' +
+    '.design-engineer-plugin/design/reviews/<slug>/screenshot.png for audit captures, ' +
+    'or tests/<test-name>/<snapshot>.png for test fixtures and visual regression baselines). ' +
     'Ensure the parent directory exists first via `mkdir -p`, then re-run the screenshot call with the corrected `filename`.'
   );
 }
@@ -71,11 +77,11 @@ function main() {
       const cleaned = filename.replace(/^\.\//, '').replace(/\\/g, '/');
 
       // Reject absolute paths and parent-directory traversal, then enforce the
-      // single allowed prefix.
+      // allowed prefixes.
       const offPath =
         path.isAbsolute(cleaned) ||
         cleaned.split('/').includes('..') ||
-        !cleaned.startsWith(ALLOWED_PREFIX);
+        !ALLOWED_PREFIXES.some(p => cleaned.startsWith(p));
 
       if (offPath) {
         deny(buildHelpMessage(filename));

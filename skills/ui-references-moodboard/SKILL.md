@@ -164,37 +164,49 @@ multiSelect: false  # User must choose one design feel
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to the bold-aesthetic-flavor question below.
 
-After the user picks a feel, ask them to commit to a **bold aesthetic flavor** — a named direction beyond the feeling word. Use the canonical 3-line spacer per CLAUDE.md rule 6 before the AskUserQuestion call.
+After the user picks a feel, ask them to commit to a **bold aesthetic flavor** — a named direction beyond the feeling word. There are 9 flavors, so run this as two AskUserQuestion rounds: first the flavor family, then the specific flavor within it. Before each round, end the preceding chat message with the canonical spacer: three lines of ─ characters.
+
+**Round 1 – flavor family:**
 
 ```
-question: "Pick a bold aesthetic flavor for this product. Bold maximalism and refined minimalism both work — the goal is intentionality, not intensity. Which direction fits?"
-header: "Aesthetic flavor"
+question: "Pick a bold aesthetic direction for this product. Bold maximalism and refined minimalism both work — the goal is intentionality, not intensity. Which family fits?"
+header: "Aesthetic family"
 options:
-  - label: "Brutally minimal"
-    description: "Stripped to essentials. Hard edges. No decoration. The product IS the content."
-  - label: "Maximalist chaos"
-    description: "Dense, layered, expressive. Multiple typefaces, overlapping elements, controlled-but-loud."
-  - label: "Editorial / magazine"
-    description: "Long-form layout language. Pull quotes, marginalia, asymmetric grids, art-directed compositions."
-  - label: "Brutalist / raw"
-    description: "Exposed structure. Default browser styles riffed on. Stark, unpolished, intentional roughness."
-  - label: "Luxury / refined"
-    description: "Generous whitespace. Subtle motion. Considered typography. Quiet confidence over loud claims."
-  - label: "Retro-futuristic"
-    description: "Period-specific aesthetic (90s web, 80s synthwave, 60s sci-fi, etc.). Pick the era explicitly."
-  - label: "Playful / toy-like"
-    description: "Soft shapes, candy colors, joyful motion. Personality forward, polish in service of charm."
-  - label: "Industrial / utilitarian"
-    description: "Machinery aesthetic. Monospace, gridded data, technical readouts. Precision over warmth."
-  - label: "Organic / natural"
-    description: "Hand-feel, paper-feel, irregular shapes, earth-tone palettes, materially honest surfaces."
-  - label: "Other (I'll describe in chat)"
-    description: "None of the above fits — I have a specific direction in mind."
+  - label: "Stripped and precise"
+    description: "Minimal, raw, or machine-like. The product IS the content."
+  - label: "Dense and expressive"
+    description: "Layered, loud, art-directed. Editorial or maximalist energy."
+  - label: "Refined and warm"
+    description: "Quiet confidence or material honesty. Whitespace, texture, earth tones."
+  - label: "Character and era"
+    description: "A named personality or period. Playful charm or retro-futuristic worlds."
 ```
 
 ```
 multiSelect: false
 ```
+
+**Round 2 – specific flavor** (present the options for the chosen family):
+
+- **Stripped and precise**:
+  - "Brutally minimal" – Stripped to essentials. Hard edges. No decoration. The product IS the content.
+  - "Brutalist / raw" – Exposed structure. Default browser styles riffed on. Stark, unpolished, intentional roughness.
+  - "Industrial / utilitarian" – Machinery aesthetic. Monospace, gridded data, technical readouts. Precision over warmth.
+- **Dense and expressive**:
+  - "Maximalist chaos" – Dense, layered, expressive. Multiple typefaces, overlapping elements, controlled-but-loud.
+  - "Editorial / magazine" – Long-form layout language. Pull quotes, marginalia, asymmetric grids, art-directed compositions.
+- **Refined and warm**:
+  - "Luxury / refined" – Generous whitespace. Subtle motion. Considered typography. Quiet confidence over loud claims.
+  - "Organic / natural" – Hand-feel, paper-feel, irregular shapes, earth-tone palettes, materially honest surfaces.
+- **Character and era**:
+  - "Retro-futuristic" – Period-specific aesthetic (90s web, 80s synthwave, 60s sci-fi, etc.). Pick the era explicitly.
+  - "Playful / toy-like" – Soft shapes, candy colors, joyful motion. Personality forward, polish in service of charm.
+
+```
+multiSelect: false
+```
+
+If none of the flavors fits, the user can describe their own direction via the built-in Other free-text option in either round.
 
 The chosen flavor MUST appear in the final `references.md` under a "Bold aesthetic flavor" section, alongside the design feel. Downstream skills (`dev-prototyping`, `ui-landing-page`) read this field as a binding constraint — every prototype / landing page screen must be a precise execution of the flavor.
 
@@ -251,30 +263,17 @@ Then ask about the product domain (e.g., healthcare, fintech, e-commerce, produc
 
 Based on the user's Information Architecture and MVP Requirements (if available from earlier skills), identify the 5–8 most important screens that need visual direction.
 
-```
-question: "Which screens are most critical for establishing your visual direction?"
-header: "Key Screens"
-options:
-  - label: "Onboarding / Welcome"
-    description: "First impression and sign-up flow"
-  - label: "Home / Dashboard"
-    description: "Main screen users see after login"
-  - label: "Primary action screen"
-    description: "The core feature users come for"
-  - label: "Detail / Content view"
-    description: "How individual items or records are displayed"
-  - label: "Navigation structure"
-    description: "Bottom tabs, sidebar, or drawer patterns"
-  - label: "Forms / Input screens"
-    description: "How users enter or edit data"
-  - label: "Settings / Profile"
-    description: "Account management and preferences"
-allowMultiSelect: true
-```
+This is a pick-many list of 7 – too many for AskUserQuestion (4-option cap). Present it as a numbered list in chat and ask the user to reply with comma-separated numbers (e.g. "1, 2, 5"):
 
-```
-multiSelect: true  # User can select multiple key screens
-```
+Which screens are most critical for establishing your visual direction?
+
+1. **Onboarding / Welcome** – first impression and sign-up flow
+2. **Home / Dashboard** – main screen users see after login
+3. **Primary action screen** – the core feature users come for
+4. **Detail / Content view** – how individual items or records are displayed
+5. **Navigation structure** – bottom tabs, sidebar, or drawer patterns
+6. **Forms / Input screens** – how users enter or edit data
+7. **Settings / Profile** – account management and preferences
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding to Step 5.
 
@@ -284,11 +283,11 @@ multiSelect: true  # User can select multiple key screens
 
 Now that you know the product type (Step 3) and key screens (Step 4), propose curated references that match. Read [curated-references.md](./references/curated-references.md) and filter to the matching product-type category (mobile fintech, web SaaS dashboard, mobile health, etc.). Pick 8–12 references with a one-sentence "watch for" note for each (the curated file already provides these notes).
 
-Then open each reference in a Playwright-controlled browser, sequentially in tabs, so the user can flip through them without losing the assistant's running state. Use the bundled Playwright MCP:
+Then open each reference in a Playwright-controlled browser, sequentially in tabs, so the user can flip through them without losing the assistant's running state. Use the Playwright `browser_tabs` tool. Playwright tool ids carry a server prefix – `mcp__plugin_design-engineer_playwright__<tool>` for the plugin's bundled server, or `mcp__playwright__<tool>` if the project has its own Playwright MCP; use whichever appears in your tool list.
 
 ```
-mcp__playwright__browser_tabs { action: "new", url: "https://example.com/reference-1" }
-mcp__playwright__browser_tabs { action: "new", url: "https://example.com/reference-2" }
+browser_tabs { action: "new", url: "https://example.com/reference-1" }
+browser_tabs { action: "new", url: "https://example.com/reference-2" }
 # ... repeat for each curated reference (8–12 total)
 ```
 
@@ -296,7 +295,7 @@ The Playwright browser opens visibly on the user's screen — they can switch to
 
 Tell the user: "I opened these 8 references in tabs — switch to the Playwright browser window and look at each. Tell me which ones resonate with the design feel you picked in Step 1 (you can pick multiple)."
 
-Then end the preceding chat message with the canonical 3-horizontal-rule spacer (CLAUDE.md rule #6) and call AskUserQuestion (multiSelect: true) listing the 8 references as options. Each option's description is the "watch for" note from the curated file.
+This is a pick-many list of 8 – too many for AskUserQuestion (4-option cap). Present the references as a numbered list in chat, each with the "watch for" note from the curated file as its description, and ask the user to reply with comma-separated numbers (e.g. "1, 4, 7").
 
 After the user picks, ask one more question (with spacer):
 
@@ -307,7 +306,7 @@ After the user picks, ask one more question (with spacer):
   - label: "Yes, I'll share URLs", description: "I'll paste URLs in my next message and you'll add them."
 - multiSelect: false
 
-If "Yes", wait for the user's URLs in plain text. For each URL the user provides, open another Playwright tab (`mcp__playwright__browser_tabs { action: "new", url: "<url>" }`) and add to the chosen list.
+If "Yes", wait for the user's URLs in plain text. For each URL the user provides, open another Playwright tab (`browser_tabs { action: "new", url: "<url>" }`) and add to the chosen list.
 
 **BLOCKING REQUIREMENT**: Wait for the user's full reference selection (curated picks + optional custom URLs) before proceeding to Step 5b.
 
@@ -317,11 +316,11 @@ If "Yes", wait for the user's URLs in plain text. For each URL the user provides
 
 For each chosen URL (curated picks + user-added URLs), capture sectional screenshots using the bundled Playwright MCP, following the per-URL recipe in [capture-recipe.md](./references/capture-recipe.md): resize the viewport to the product type, navigate, wait for animation settle, run the bot-block check, then capture a viewport-sized hero plus up to 5 scrolled sections and save a manifest per reference.
 
-**BLOCKING REQUIREMENT**: After all references are captured, present a brief summary to the user (count of references captured, total sections) before proceeding to Step 5 (analysis).
+**BLOCKING REQUIREMENT**: After all references are captured, present a brief summary to the user (count of references captured, total sections) before proceeding to Step 6 (analysis).
 
 ---
 
-## Step 5: Extract design principles from captured references
+## Step 6: Extract design principles from captured references
 
 For each captured reference (curated picks + user-added URLs from Step 5a):
 
@@ -334,7 +333,7 @@ Use the methodology from [reference-gathering-guide.md](./references/reference-g
 
 ---
 
-## Step 6: State Your WHY Checkpoint
+## Step 7: State your WHY checkpoint
 
 Before moving to the direction document, state the design intent explicitly:
 
@@ -351,7 +350,7 @@ For every choice, you must explain WHY. If the answer is "it is common" or "it i
 
 ---
 
-## Step 7: Organize References into a Direction Document
+## Step 8: Organize references into a direction document
 
 Help the user compile their references into a structured document. For each key screen:
 
@@ -364,7 +363,7 @@ Help the user compile their references into a structured document. For each key 
 
 ---
 
-## Step 8: Produce the Deliverable
+## Step 9: Produce the deliverable
 
 Before writing the deliverable, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/exploration/references` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 

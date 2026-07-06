@@ -33,14 +33,18 @@ Efficiency is not about removing features – it is about **redistributing compl
 <ask-user>
 What efficiency challenge are you working on?
 
-1. **Simplification audit** – I will focus on Tesler's Law, Occam's Razor, and Law of the Instrument
-2. **Navigation / wayfinding** – I will focus on Method of Loci, Signifiers, and Exit Points
+1. **Simplification and forms** – complexity audits, form and input optimization
+2. **Navigation and onboarding** – wayfinding, new user onboarding
 3. **Redesign / change management** – I will focus on Weber's Law and Second-Order Effect
-4. **Form / input optimization** – I will focus on Unit Bias, Occam's Razor, and Signifiers
-5. **New user onboarding** – I will focus on Skeuomorphism, Signifiers, and Method of Loci
-6. **Full efficiency audit** – I will review all 10 principles across your design
-7. **Something else** – describe your specific need
+4. **Full efficiency audit** – I will review all 10 principles across your design
 </ask-user>
+
+If the user picks a group with more than one challenge, narrow with a follow-up AskUserQuestion:
+
+- **Simplification and forms**: 1. **Simplification audit** – I will focus on Tesler's Law, Occam's Razor, and Law of the Instrument. 2. **Form / input optimization** – I will focus on Unit Bias, Occam's Razor, and Signifiers.
+- **Navigation and onboarding**: 1. **Navigation / wayfinding** – I will focus on Method of Loci, Signifiers, and Exit Points. 2. **New user onboarding** – I will focus on Skeuomorphism, Signifiers, and Method of Loci.
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
@@ -91,8 +95,9 @@ Which efficiency improvements would you like to:
 2. **Explore further** – I will show different approaches to the same problem
 3. **Prioritize** – I will rank all suggestions by impact and effort
 4. **Analyze trade-offs** – I will deep-dive into second-order effects of a specific change
-5. **Skip** – move to the next principle or area
 </ask-user>
+
+To skip to the next principle or area, the user can say so via the built-in Other free-text option.
 
 ## Principles Covered
 

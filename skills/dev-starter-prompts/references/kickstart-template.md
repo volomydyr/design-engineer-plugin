@@ -11,6 +11,7 @@ Kick-start prompts are the starting messages you send to your AI coding tool to 
 - **Behavioral expectations** – ask questions first, wait for approval before building
 - **Document references by file path** – AI should read the actual files, not work from memory
 - **No code snippets** – let the AI tool figure out implementation details based on your framework's official documentation
+- **Clarifying questions target gaps only** – ask about information not already covered by the planning documents, never re-ask what the docs answer
 
 ### What to Avoid
 
@@ -35,7 +36,7 @@ Set up the project foundation:
 - Create the folder structure based on the Information Architecture document
 - Install dependencies using official documentation (look up current installation steps, do not use cached commands)
 - Set up configuration files for [your framework]
-- Create the development status tracking file at [preferred location, e.g., dev-status/development-context.md]
+- Create the development status tracking file at [e.g., .design-engineer-plugin/design/dev/development-context.md]
 
 Before doing anything, share your understanding of the project and ask me 5-7 clarifying questions about the setup.
 ```
@@ -144,6 +145,16 @@ The 5-prompt structure is a starting point. Adapt based on complexity:
 - **Complex project (full-stack with AI, integrations):** 6-8 prompts
 
 The key is keeping each prompt focused on one objective. If a prompt tries to do too much, split it.
+
+---
+
+## Placeholder implementation for complex features
+
+Some MVP features are too complex to fully build in the kick-start phase but should still be visible in the product. For those, prompt the AI tool to:
+
+- **Build the full UI with placeholder functionality** – the feature looks complete and navigable even though the logic behind it is stubbed
+- **Write user-friendly placeholder messaging that keeps the product voice** – "We're putting the finishing touches on this" in your product's tone, never raw "TODO" or "Coming soon" filler
+- **Plan the complete feature while implementing in phases** – the prompt should describe the full intended behavior so the AI plans for it, then explicitly scope this pass to the placeholder layer
 
 ---
 

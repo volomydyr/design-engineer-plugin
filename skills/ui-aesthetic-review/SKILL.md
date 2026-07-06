@@ -1,6 +1,6 @@
 ---
 name: ui-aesthetic-review
-description: "Critiques implemented UI for craft quality using a 4-lens framework and 4 named tests. Use after building to identify where defaults replaced intentional design decisions and close the gap between correct and crafted. Do NOT use for design-to-code fidelity or token compliance; see ui-design-to-code-qa instead."
+description: "Critiques implemented UI for craft quality using a 4-lens framework, 4 named tests, and the AI Slop Test. Use after building to identify where defaults replaced intentional design decisions and close the gap between correct and crafted. Do NOT use for design-to-code fidelity or token compliance; see ui-design-to-code-qa instead."
 disable-model-invocation: true
 model: sonnet
 effort: medium
@@ -55,15 +55,13 @@ options:
     description: "Analyze provided screenshots of the implementation"
   - label: "Live URL (via browser)"
     description: "Navigate to a URL and take automated screenshots"
-  - label: "Code review"
-    description: "Read the frontend code and critique the design decisions in it"
+  - label: "Code or HTML prototype"
+    description: "Read the frontend code or an HTML prototype file and critique the design decisions in it"
   - label: "Figma comparison"
     description: "Compare implementation against the Figma design for craft gaps"
-  - label: "HTML prototype"
-    description: "Read and critique an HTML prototype file from prototype/"
 ```
 
-When "HTML prototype" is selected, read the HTML file at the path the user provides (default: `.design-engineer-plugin/prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
+When the input is an HTML prototype, read the HTML file at the path the user provides (default: `.design-engineer-plugin/prototype/prototype.html`). Apply the full 4-lens framework and all 4 named tests plus the AI Slop Test to the prototype. Focus on composition, craft decisions, content coherence, and structural quality of the generated code.
 
 ---
 
@@ -95,7 +93,7 @@ Move close. Pixel-close.
 
 **Interactive states** – Every button, link, and clickable region should respond to hover and press. Not dramatically – a subtle shift in background, a gentle darkening. Missing states make an interface feel like a photograph of software instead of software.
 
-For deeper domain knowledge, see [typography.md](./references/typography.md), [color-and-contrast.md](./references/color-and-contrast.md), and [motion.md](./references/motion.md).
+For deeper domain knowledge, see [typography.md](./references/typography.md), [color-and-contrast.md](./references/color-and-contrast.md), and [motion-decisions.md](./references/motion-decisions.md).
 
 ---
 
@@ -125,7 +123,7 @@ Open the code and find the lies – the places that look right but are held toge
 
 ---
 
-## Step 6: Run the 4 Named Tests
+## Step 6: Run the 4 named tests and the AI Slop Test
 
 These are concrete, repeatable checks that catch defaults.
 
@@ -172,7 +170,7 @@ Group findings by lens:
 3. **Content** – story coherence, data realism, content–design alignment
 4. **Structure** – layout hacks, overcomplicated solutions, inconsistent patterns
 
-For each of the 4 named tests, report: **Pass** or **Fail** with specific evidence.
+For each of the 4 named tests and the AI Slop Test, report: **Pass** or **Fail** with specific evidence.
 
 Before writing the report, ensure the parent directory exists: run `mkdir -p .design-engineer-plugin/design/reviews` (Bash). The plugin uses lazy folder scaffolding – folders are created by the skill that needs them, not upfront.
 
@@ -191,7 +189,7 @@ If the user approves, offer to fix the identified issues. Prioritize:
 3. **Craft gaps** – surfaces, typography, and states that need refinement
 4. **Structural hacks** – clean up the code to match the design quality
 
-After rebuilding, run the 4 named tests again. The goal is for every test to pass.
+After rebuilding, run the 4 named tests and the AI Slop Test again. The goal is for every test to pass.
 
 ---
 
@@ -217,7 +215,10 @@ After critique and rebuild, suggest running `ui-design-to-code-qa` to catch any 
 - [typography.md](./references/typography.md) – Type systems, font pairing, modular scales, OpenType features
 - [color-and-contrast.md](./references/color-and-contrast.md) – OKLCH color, tinted neutrals, dark mode, WCAG contrast
 - [spatial-design.md](./references/spatial-design.md) – Spacing systems, grids, visual hierarchy, container queries
-- [motion.md](./references/motion.md) – All motion guidance keyed by question: decision framework, emotion mapping, per-component timing, product-context considerations, advanced interactions (clip-path, gesture/drag, WAAPI), and symptom-to-fix troubleshooting
+- [motion-decisions.md](./references/motion-decisions.md) – should this animate and how: decision framework, durations, easing, reduced motion, performance
+- [motion-emotion.md](./references/motion-emotion.md) – emotional tone: mapping emotion to animation
+- [motion-components.md](./references/motion-components.md) – per-component and industry timing
+- [motion-advanced.md](./references/motion-advanced.md) – advanced interactions (clip-path, gesture/drag, WAAPI) and "it feels wrong" fixes
 - [interaction-design.md](./references/interaction-design.md) – Interactive states, focus rings, forms, keyboard navigation
 - [responsive-design.md](./references/responsive-design.md) – Mobile-first, fluid design, input detection, safe areas
 - [ux-writing.md](./references/ux-writing.md) – Button labels, error messages, empty states, voice and tone

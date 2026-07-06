@@ -13,17 +13,17 @@ license: MIT
 
 ## Overview
 
-After any significant work is completed (a design deliverable, a development phase, a psychology audit), this skill captures what was done, what worked, what did not work, and what comes next. It maintains a structured project status file that AI reads at the start of every task, reducing hallucinations and preventing repeated mistakes.
+After any significant work is completed (a design deliverable, a development phase, a psychology audit), this skill captures what was done, what worked, what did not work, and what comes next. It maintains structured pipeline state (the compound-documenter agent's memory) that AI reads at the start of every task, reducing hallucinations and preventing repeated mistakes.
 
 This is not for pet projects that you start and abandon. This is for actual complex projects planned to run for years, potentially becoming million-dollar products with multiple teams working on them.
 
-**Organization:** Each documentation entry is a markdown file with validated YAML frontmatter, stored in `.design-engineer-plugin/design/dev/[category]/`. Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` – Anthropic's documented persistence primitive for subagents.
+**Organization:** Each documentation entry is a markdown file with YAML frontmatter, stored in `.design-engineer-plugin/design/[category]/` (see the category table in Step 4; prototype and plan entries go to `.design-engineer-plugin/prototype/` and `.design-engineer-plugin/plans/`). Live progress (current phase, key decisions, stale dependents) is tracked separately by the `compound-documenter` agent in its project-local memory at `.claude/agent-memory/design-engineer-compound-documenter/` – Anthropic's documented persistence primitive for subagents.
 
 ---
 
 <critical_sequence name="compound-documentation" enforce_order="strict">
 
-## 6-Step Process
+## 7-step process
 
 <step number="1" required="true">
 ### Step 1: Detect Trigger
@@ -36,6 +36,8 @@ This is not for pet projects that you start and abandon. This is for actual comp
 - User confirms a non-obvious solution worked ("that fixed it", "looks good", "approved")
 
 **OR manual:** `/design-engineer:document` command
+
+**Lightweight flush at intermediate boundaries:** per-step and per-phase boundaries (a discovery spine step finishing, a development phase getting user approval) do NOT run this full skill. They use a lightweight flush instead – a single `compound-documenter` agent dispatch with a short brief: the activity completed, the deliverable paths, and any cross-cutting decisions. No documentation-entry file, no temporary/ purge, no decision menu. The full skill runs only at the genuine milestones listed above.
 
 **Document when:**
 
@@ -74,7 +76,7 @@ Extract from conversation history:
 - MCP servers involved (if any)
 - Token usage concerns (approaching limits, compaction occurred)
 
-**BLOCKING REQUIREMENT:** If the activity name or deliverable is unclear, ask user and WAIT:
+**BLOCKING REQUIREMENT:** If the activity name, category, or deliverable is unclear, ask user and WAIT:
 
 ```
 To document this properly, I need:
@@ -88,27 +90,22 @@ To document this properly, I need:
 </step>
 
 <step number="3" required="true" depends_on="2">
-### Step 3: Validate Against Schema
+### Step 3: Write the frontmatter
 
-Validate the documentation entry against [compound-schema.yaml](./references/compound-schema.yaml).
+Each documentation entry opens with a short YAML frontmatter block. The template (also kept in [compound-schema.yaml](./references/compound-schema.yaml)):
 
-**Required fields:**
-
-- `activity`, `date`, `phase`, `deliverable_type`, `component`, `status`, `severity`
-
-**BLOCK if validation fails:**
-
-```
-YAML validation failed:
-
-Errors:
-- deliverable_type: must be one of schema enums, got "[invalid value]"
-- phase: must match allowed values
-
-Please provide corrected values.
+```yaml
+---
+activity: [activity name, e.g. problem-statement]
+date: [YYYY-MM-DD]
+category: [foundation | research | planning | exploration | psychology | reviews | dev | features | prototype | plans]
+status: [draft | in-progress | complete | revised | superseded]
+tags: [optional – up to 8 lowercase, hyphen-separated keywords]
+failed_approaches: [optional – approaches that did not work, with the reason each failed]
+---
 ```
 
-**GATE ENFORCEMENT:** Do NOT proceed until YAML frontmatter passes all validation rules.
+`activity`, `date`, `category`, and `status` are required; `tags` and `failed_approaches` are optional. If the activity or category is unclear, that falls under Step 2's blocking ask – resolve it with the user before writing.
 </step>
 
 <step number="4" required="true" depends_on="3">
@@ -125,31 +122,36 @@ Format the final document inline, following the structure below. There is no sep
 - Remove special characters except hyphens
 - Truncate to reasonable length (< 80 chars)
 
-**Determine category from deliverable_type** using the category mapping in [compound-schema.yaml](./references/compound-schema.yaml).
+**Determine the directory from the frontmatter's `category`:**
+
+| Category | Directory |
+|---|---|
+| foundation, research, planning, exploration, psychology, reviews, dev, features | `.design-engineer-plugin/design/<category>/` |
+| prototype | `.design-engineer-plugin/prototype/` |
+| plans | `.design-engineer-plugin/plans/` |
 
 **Create documentation file:**
 
 ```bash
-CATEGORY="[mapped from deliverable_type]"
+CATEGORY="[category from frontmatter]"
 FILENAME="[generated-filename].md"
-DOC_PATH="$.design-engineer-plugin/design/dev/${CATEGORY}/${FILENAME}"
+DOC_PATH=".design-engineer-plugin/design/${CATEGORY}/${FILENAME}"
 
-mkdir -p "$.design-engineer-plugin/design/dev/${CATEGORY}"
+mkdir -p ".design-engineer-plugin/design/${CATEGORY}"
 ```
+
+For the `prototype` and `plans` categories, replace `design/${CATEGORY}` with `prototype` or `plans` per the table above.
 
 **File structure:**
 
 ```markdown
 ---
-# Validated YAML frontmatter
 activity: [activity name]
 date: [YYYY-MM-DD]
-phase: [phase]
-deliverable_type: [type]
-component: [component]
+category: [category]
 status: [status]
-severity: [severity]
-tags: [tags]
+tags: [optional tags]
+failed_approaches: [optional]
 ---
 
 # [Activity Name]
@@ -189,7 +191,15 @@ Live pipeline state is tracked by the `compound-documenter` agent's project-loca
 - **key-decisions.md** – append-only log of cross-cutting decisions affecting 2+ deliverables
 - **stale-dependents.md** – downstream deliverables that may need refreshing
 
-**Action**: Use the Agent tool to spawn `compound-documenter` with the context from this session (activity completed, deliverable file path, any cross-cutting decisions). The agent will read its existing memory, gather context, and overwrite/append the appropriate files.
+**Action**: Use the Task tool to spawn `compound-documenter`. The agent is a sub-agent and does not see this conversation – the dispatch prompt is its only context, so it MUST contain:
+
+- **Activity completed** – which skill and which phase
+- **Deliverable file paths** – every file produced or updated this session
+- **Cross-cutting decisions** – anything affecting 2+ downstream deliverables
+- **Open questions** – anything unresolved the next session should pick up
+- **From-scratch completion signal** – when this flush follows the pipeline's last step (see below)
+
+If you cannot determine a field, pass it as "unknown" rather than omitting it – the agent records gaps honestly instead of guessing. The agent will read its existing memory, fold in the brief, and overwrite/append the appropriate files.
 
 You do not write to `.claude/agent-memory/...` directly from this skill – the agent owns its memory directory. Just invoke it with the context.
 
@@ -199,12 +209,12 @@ You do not write to `.claude/agent-memory/...` directly from this skill – the 
 </step>
 
 <step number="6" required="false" depends_on="5">
-### Step 6: Cross-Reference and Pattern Detection
+### Step 6: Cross-Reference and Pattern Detection (optional)
 
 **Search existing docs** for related solutions:
 
 ```bash
-grep -r "[activity keywords]" ".design-engineer-plugin/design/dev/"
+grep -r "[activity keywords]" ".design-engineer-plugin/design/"
 ```
 
 **If related entry found:**
@@ -220,9 +230,9 @@ grep -r "[activity keywords]" ".design-engineer-plugin/design/dev/"
 </step>
 
 <step number="7" required="true" depends_on="5">
-### Step 7: Purge disposable working artifacts (phase boundary)
+### Step 7: Purge disposable working artifacts (milestones only)
 
-`/design-engineer:document` runs at every phase boundary, so this is the natural moment to clear the temporary/ bucket. Without this, Playwright debug captures, intermediate analysis dumps, and exploratory drafts accumulate across phases and pollute the working tree.
+Runs after Step 5 (Step 6 is optional and may be skipped). This purge runs only at genuine milestones – the end of the discovery spine, the end of development (Post-execution), and an explicit `/design-engineer:document` run. It never runs during mid-pipeline lightweight flushes, and never between visual-verification captures and presenting QA to the user (the captures are the QA evidence). The user can also purge on demand with `/design-engineer:tidy`. Without a periodic purge, Playwright debug captures, intermediate analysis dumps, and exploratory drafts accumulate across milestones and pollute the working tree.
 
 **Run via Bash:**
 
@@ -236,7 +246,7 @@ bash -c 'find .design-engineer-plugin/temporary -mindepth 1 -delete 2>/dev/null;
 Cleared disposable working files from this phase.
 ```
 
-This step always runs – there is no condition under which the temporary bucket should persist across a phase boundary. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/design-engineer:document`. When you write any deliverable, place it at its canonical path under `.design-engineer-plugin/design/<subdir>/` with a canonical filename – never improvise a different subdir or name, so the working tree stays predictable and the dependency graph resolves.
+At a genuine milestone this step always runs. If the user has work in `.design-engineer-plugin/temporary/` that they want to keep, the rule is: promote it to a canonical deliverable path (`.design-engineer-plugin/design/<subdir>/<filename>`) BEFORE running `/design-engineer:document`. When you write any deliverable, place it at its canonical path under `.design-engineer-plugin/design/<subdir>/` with a canonical filename – never improvise a different subdir or name, so the working tree stays predictable and the dependency graph resolves.
 
 **Do not** purge anywhere else under `.design-engineer-plugin/` – only `temporary/`. The other subdirs (design/, prototype/, plans/, memory/) are durable.
 
@@ -250,32 +260,50 @@ This step always runs – there is no condition under which the temporary bucket
 
 ## Decision Menu After Capture
 
-After successful documentation, present:
+**When the calling command provides its own next-step gate** (e.g. discovery's Phase Recap step 5 AskUserQuestion), skip this menu entirely and return to the caller – two back-to-back next-step menus is a bug, not thoroughness.
+
+After successful documentation, report what was created and end the message with the canonical 3-line spacer, so the question panel does not cover it:
 
 ```
 Documentation complete.
 
 File created:
-- .design-engineer-plugin/design/dev/[category]/[filename].md
+- .design-engineer-plugin/design/[category]/[filename].md
 - .claude/agent-memory/design-engineer-compound-documenter/ updated by the agent
 
+───────────────────
+───────────────────
+───────────────────
+```
+
+Then ask via AskUserQuestion:
+
+```
+question: "What's next?"
+header: "Next step"
+options:
+  - label: "Continue workflow (Recommended)"
+    description: "Return to the calling command or skill"
+  - label: "View documentation"
+    description: "Display the created documentation entry"
+  - label: "Link related entries"
+    description: "Pick an existing entry and cross-reference both"
+  - label: "Revise a deliverable from learnings"
+    description: "Open a deliverable for revision based on what was documented"
+multiSelect: false
+```
+
+Anything else goes through AskUserQuestion's built-in free-text Other – if the user types something different, do that instead.
+
+**Numbered-list fallback** (when AskUserQuestion is unavailable):
+
+```
 What's next?
 1. Continue workflow (recommended)
 2. View documentation
 3. Link related entries
-4. Update an existing deliverable based on learnings
-5. Other
+4. Revise a deliverable from learnings
 ```
-
-**Option 1:** Return to calling skill/workflow.
-
-**Option 2:** Display the created documentation entry.
-
-**Option 3:** Prompt for which entry to link, add cross-references to both.
-
-**Option 4:** Open the deliverable for revision based on documented learnings.
-
-**Option 5:** Ask what the user would like to do.
 
 </decision_gate>
 
@@ -285,7 +313,9 @@ What's next?
 
 **Invoked by:**
 - `/design-engineer:document` command (manual invocation)
-- `meta-orchestrator` after each major phase completion
+- `/design-engineer:discovery` at the end of the design spine (the Phase Recap milestone before the dev hand-off) – intermediate steps use the lightweight compound-documenter flush instead
+- `/design-engineer:development` at the Post-execution milestone (per-phase boundaries use the lightweight flush)
+- `/design-engineer:review` after a fix batch completes, and the `/design-engineer:launch` iterate flow's "Document this change" option
 - Any skill can request compound documentation when significant decisions are made
 
 **Invokes:**
@@ -301,7 +331,7 @@ All context needed for documentation should be present in conversation history b
 This skill implements context engineering best practices documented in [context-engineering-guide.md](./references/context-engineering-guide.md). Key principles:
 
 1. **One activity = one chat** – save deliverables to project knowledge, start fresh for the next activity
-2. **Manual compaction over auto-compaction** – warn the user when approaching token limits so they can manually compact with specific preservation instructions instead of losing context to automatic compression
+2. **Manual compaction over auto-compaction** – at session breakpoints (an activity completes, the user pauses, or the user asks) suggest compacting with a ready-to-use compact message so the user controls what survives instead of losing context to automatic compression. Never trigger the suggestion from a self-estimated context percentage – the model cannot measure its own context usage
 3. **Sub-agent token preservation** – heavy work happens in sub-agents with their own token budgets, keeping the main conversation lean
 4. **Agent memory as ground truth** – AI reads `.claude/agent-memory/design-engineer-compound-documenter/pipeline-state.md` at the start of every task to recover full project context. Persistence handled by Anthropic's documented `memory: project` mechanism.
 5. **Separation of concerns** – use small dedicated files instead of one large CLAUDE.md to prevent AI from ignoring parts due to context limits
@@ -310,13 +340,14 @@ This skill implements context engineering best practices documented in [context-
 
 ## Schema Reference
 
-All documentation entries are validated against [compound-schema.yaml](./references/compound-schema.yaml), which defines:
+The frontmatter template and the category table live in [compound-schema.yaml](./references/compound-schema.yaml):
 
-- **deliverable_type** – categorizes the type of work (research deliverable, design deliverable, development artifact, etc.)
-- **phase** – maps the activity to a stage of the pipeline (see the schema's phase enum)
-- **component** – which part of the product or workflow was affected
-- **status** – current state of the deliverable (draft, in-progress, complete, revised, superseded)
-- **severity** – impact level for decisions and issues
+- **activity** – the skill or task that was performed
+- **date** – completion date (YYYY-MM-DD)
+- **category** – which deliverable area the entry belongs to; determines the directory (see the table in Step 4)
+- **status** – current state of the entry (draft, in-progress, complete, revised, superseded)
+- **tags** (optional) – searchable keywords
+- **failed_approaches** (optional) – approaches that did not work, with the reason each failed
 
 ---
 
@@ -324,9 +355,9 @@ All documentation entries are validated against [compound-schema.yaml](./referen
 
 Documentation is successful when ALL of the following are true:
 
-- YAML frontmatter validated against compound-schema.yaml
+- Frontmatter includes activity, date, category, and status
 - File created in correct category directory
-- Status file updated with latest state
+- compound-documenter invoked so agent memory reflects the latest state
 - Key decisions and failed approaches recorded
 - Cross-references added if related entries exist
 - User presented with decision menu
@@ -340,35 +371,30 @@ Documentation is successful when ALL of the following are true:
 - Ask user for missing details
 - Do not proceed until activity name and deliverable are identified
 
-**YAML validation failure:**
-
-- Show specific field errors
-- Present retry with corrected values
-- Block until valid
-
-**Status file not found:**
+**Agent memory not found:**
 
 - Invoke compound-documenter to seed the agent-memory directory with an initial pipeline-state.md
-- Warn user that no previous status was found
+- Warn user that no previous state was found
 
-**Token limit warning:**
+**Session-boundary compaction:**
 
-- If conversation is approaching token limits, prioritize invoking compound-documenter to flush state to its agent memory
-- Proactively suggest compacting with a ready-to-use compact message included in the same response – do not wait for the user to agree before generating it
+- When an activity completes or the user asks to pause or compact, prioritize invoking compound-documenter to flush state to its agent memory
+- Suggest compacting with a ready-to-use compact message included in the same response – do not wait for the user to agree before generating it
 - The compact message must contain actual session values (project state, decisions, phase, next steps), not placeholders
+- Never trigger the suggestion from a self-estimated context percentage – the model cannot measure its own context usage
 
 ---
 
 ## Execution Guidelines
 
 **MUST do:**
-- Validate YAML frontmatter before writing (block if invalid)
+- Write frontmatter per the template (activity, date, category, status)
 - Record what did NOT work (prevents AI from repeating failed approaches)
 - Invoke compound-documenter every time so the agent memory stays current (this is the ground truth for future sessions)
 - Include file paths for all deliverables
 
 **MUST NOT do:**
-- Skip status file update
+- Skip the compound-documenter invocation
 - Use vague descriptions ("made some progress")
 - Overwrite previous status entries (append only)
 - Auto-compact the conversation (always let the user decide)

@@ -46,13 +46,18 @@ Decision-making principles are high-risk for dark patterns, and the persuasion p
 What decision-making challenge are you working on?
 
 1. **Pricing / plan selection** – I will focus on Anchoring Bias, Loss Aversion, Default Bias, and Framing
-2. **Form design / checkout** – I will focus on Decision Fatigue and Default Bias
-3. **Search / filter / recommendations** – I will focus on Confirmation Bias and Decision Fatigue
-4. **Settings / preferences** – I will focus on Default Bias and Decision Fatigue
-5. **Persuasion / urgency / social proof** – I will focus on Scarcity, Social Proof, Authority Bias, and Framing
-6. **Full decision audit** – I will review all 10 principles across your design
-7. **Something else** – describe your specific need
+2. **Forms, settings, and search** – checkout, preferences, filters, recommendations
+3. **Persuasion / urgency / social proof** – I will focus on Scarcity, Social Proof, Authority Bias, and Framing
+4. **Full decision audit** – I will review all 10 principles across your design
 </ask-user>
+
+If the user picks **Forms, settings, and search**, narrow with a follow-up AskUserQuestion:
+
+1. **Form design / checkout** – I will focus on Decision Fatigue and Default Bias
+2. **Search / filter / recommendations** – I will focus on Confirmation Bias and Decision Fatigue
+3. **Settings / preferences** – I will focus on Default Bias and Decision Fatigue
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 
@@ -96,8 +101,9 @@ Which decision-making improvements would you like to:
 2. **Explore variations** – I will show different approaches to the same decision point
 3. **Prioritize** – I will rank all suggestions by user benefit and effort
 4. **Test** – I will suggest an A/B test to measure impact
-5. **Skip** – move to the next principle or area
 </ask-user>
+
+To skip to the next principle or area, the user can say so via the built-in Other free-text option.
 
 ## Principles Covered
 

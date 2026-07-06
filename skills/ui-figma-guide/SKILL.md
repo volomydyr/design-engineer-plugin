@@ -32,7 +32,7 @@ Before starting any design work, establish how designs will be shared with AI to
 question: "How do you want to share Figma designs with your AI coding tool?"
 header: "Figma integration"
 options:
-  - label: ""Figma Plugin" (Recommended, bundled)"
+  - label: "Figma Plugin (recommended, bundled)"
     description: "Reads designs, captures web pages into Figma, generates design system rules, and writes components, tokens, and styles back into Figma via use_figma. Covers every Figma workflow in this plugin. Bundled – no separate install."
   - label: "Manual screenshots"
     description: "Take screenshots of frames and share with AI. Simple but less accurate."
@@ -96,7 +96,7 @@ Auto-layouts are essential. AI needs them to understand how to make code respons
 
 ### Components and Tokens
 
-**If you want structured Figma files**: After designing key screens, run `ui-figma-handoff` to automate the creation of components, design tokens, variables, and styles directly in Figma. It runs entirely on the bundled "Figma Plugin" (write operations go through `use_figma`), takes minutes, and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
+**If you want structured Figma files**: After designing key screens, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-handoff/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`) to automate the creation of components, design tokens, variables, and styles directly in Figma. It runs entirely on the bundled "Figma Plugin" (write operations go through `use_figma`), takes minutes, and produces better development handoff results – structured files with proper variable bindings, component instances, and dev-ready annotations.
 
 **If you'd rather keep Figma loose**: There is no need to name layers properly – Figma now has an AI feature that does it automatically. Do not manually create components, color tokens, or a separate design system in Figma. A single-page Figma file works fine. The design system should be built in code instead. AI handles this well: give it a design frame, develop the first iteration, then ask it to refactor.
 
@@ -109,10 +109,6 @@ Auto-layouts are essential. AI needs them to understand how to make code respons
 - External URLs – capture competitor or reference pages
 
 This enables a round-trip workflow: generate prototype → capture into Figma → refine design → export back to code.
-
-### Design system rules from code
-
-"Figma Plugin" can also generate design system rules directly from your codebase (`create_design_system_rules`). This analyzes your existing components and tokens and creates a rules prompt that ensures Figma-to-code consistency. Useful when the code is ahead of Figma.
 
 ### Design Corrections, Not Full Coverage
 After AI implements the first iteration, some screens will look good and others will have issues. Design corrections only for the frames where AI made mistakes, share them via the chosen integration method, and let AI adjust the code based on the new references.
@@ -154,7 +150,7 @@ Help the user create a Figma strategy document saved to `.design-engineer-plugin
 
 After Figma designs are created, suggest the logical next step:
 
-- **To structure designs for handoff**: suggest `ui-figma-handoff` to turn raw frames into components, tokens, and dev-ready annotations (runs on the bundled "Figma Plugin")
+- **To structure designs for handoff**: suggest `ui-figma-handoff` to turn raw frames into components, tokens, and dev-ready annotations (runs on the bundled "Figma Plugin"; on yes, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-figma-handoff/SKILL.md` and follow it inline — never the Skill tool)
 - **For development**: suggest `dev-agent-setup` to implement designs using the agent pipeline
 - **For review**: suggest `ui-design-to-code-qa` to review implemented results against the designs
 

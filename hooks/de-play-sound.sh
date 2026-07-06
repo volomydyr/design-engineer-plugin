@@ -6,24 +6,38 @@
 # (exit 0) if no player is available so a missing player never blocks
 # Claude Code. Backgrounded so playback doesn't delay the calling hook.
 #
-# Sounds play only when BOTH conditions are true:
-#   1. The user has globally opted in via ~/.claude/de-sound-enabled
-#      (toggled by /design-engineer:mute-unmute-sound; created during
-#      /design-engineer:launch onboarding when the user picks "Yes").
-#   2. The current working directory is a design-engineer plugin project,
-#      i.e. it contains .design-engineer-plugin/config.yaml.
+# Sound gate – per-project opt-in with a legacy global fallback:
+#   1. The current working directory must be a design-engineer plugin
+#      project, i.e. it contains .design-engineer-plugin/config.yaml.
+#   2. The config's top-level `sound:` key decides:
+#        sound: enabled → play
+#        sound: <any other value, e.g. muted> → silent
+#        key absent → legacy fallback: play only if the old global opt-in
+#        flag ~/.claude/de-sound-enabled exists (kept for one release so
+#        projects configured before the per-project key keep working).
+#   The key is set during /design-engineer:launch onboarding and toggled
+#   by /design-engineer:mute-unmute-sound.
 #
-# Either condition false → exit 0, silent. This keeps fresh installs quiet
+# Any gate failing → exit 0, silent. This keeps fresh installs quiet
 # until the user is asked, and prevents the plugin's chimes from firing in
 # unrelated repos.
 
 SOUND_FILE="${1:-}"
 
-# Global opt-in flag missing → silent
-[ -f "$HOME/.claude/de-sound-enabled" ] || exit 0
-
 # Not a plugin project (no .design-engineer-plugin/config.yaml in CWD) → silent
-[ -f "$PWD/.design-engineer-plugin/config.yaml" ] || exit 0
+CONFIG_FILE="$PWD/.design-engineer-plugin/config.yaml"
+[ -f "$CONFIG_FILE" ] || exit 0
+
+# Per-project sound key decides; the legacy global flag is the fallback
+if grep -qE '^sound:[[:space:]]*enabled[[:space:]]*$' "$CONFIG_FILE"; then
+  : # opted in for this project → play
+elif grep -qE '^sound:' "$CONFIG_FILE"; then
+  exit 0 # explicit non-enabled value (e.g. muted) → silent
+elif [ -f "$HOME/.claude/de-sound-enabled" ]; then
+  : # no per-project key; legacy global opt-in present → play
+else
+  exit 0 # no opt-in anywhere → silent
+fi
 
 # No file or file missing → exit silently
 [ -n "$SOUND_FILE" ] && [ -f "$SOUND_FILE" ] || exit 0

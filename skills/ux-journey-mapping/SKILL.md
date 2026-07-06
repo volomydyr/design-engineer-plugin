@@ -208,7 +208,7 @@ For each tactic, generate specific improvement ideas for the user's journey. Ref
 Ask:
 
 ```
-question: "Which improvement area should we focus on first?"
+question: "Which improvement areas should we focus on? Pick all four to walk through each one systematically."
 header: "Improvement Focus"
 options:
   - label: "Mark the Transition"
@@ -219,12 +219,10 @@ options:
     description: "Address the worst moment in the experience"
   - label: "Reorder Important Steps"
     description: "Rearrange the sequence for better psychology"
-  - label: "All of them"
-    description: "Walk me through each one systematically"
 ```
 
 ```
-multiSelect: false  # User must choose one focus area
+multiSelect: true  # User can pick one focus area or all of them
 ```
 
 **BLOCKING REQUIREMENT**: Wait for the user's answer before proceeding.

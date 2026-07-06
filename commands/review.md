@@ -1,5 +1,4 @@
 ---
-name: design-engineer:review
 description: Context-aware design review. Plans what to review based on your project, then executes step by step with your input at each finding. Argument `audit` runs a multi-page commercial audit with designer-feedback capture per page.
 argument-hint: "[specific area to review | audit]"
 ---
@@ -18,7 +17,7 @@ Your conversation context contains a line `DESIGN_ENGINEER_PLUGIN_ROOT: <absolut
 
 ## Note: existing-codebase component gallery (auto-scaffold)
 
-If the project has UI components but no gallery yet, `design-system-auditor` will auto-scaffold one transparently during this review (v4.6.0 transparent infrastructure – no menu, no permission ask). The gallery is a single-page visual catalog of every component, all variants, real production styles, source-path labels – useful here for redundancy detection on existing codebases.
+If the project has UI components but no gallery yet, `design-system-auditor` will auto-scaffold one transparently during this review (no menu, no permission ask). The gallery is a single-page visual catalog of every component, all variants, real production styles, source-path labels – useful here for redundancy detection on existing codebases.
 
 ## Argument routing
 
@@ -59,11 +58,11 @@ questions:
     header: "Core review"
     multiSelect: true
     options:
-      - label: "UX and usability (Recommended)"
+      - label: "UX and usability"
         description: "Interaction flows, navigation, state handling, error states"
-      - label: "Visual quality (Recommended)"
+      - label: "Visual quality"
         description: "Spacing, typography, color, alignment, polish"
-      - label: "Accessibility (Recommended)"
+      - label: "Accessibility"
         description: "WCAG compliance, keyboard navigation, screen readers"
       - label: "Design system compliance"
         description: "Token usage, component reuse, naming patterns"
@@ -79,7 +78,7 @@ questions:
         description: "Dark patterns, informed consent, data transparency"
 ```
 
-Mark recommended ones with "(Recommended)" based on project scan. Both questions MUST be in a SINGLE AskUserQuestion call.
+Mark recommended options by appending "(Recommended)" to their labels, derived from the Step 1 project scan – e.g. recommend Accessibility when no a11y tooling is detected, Design system compliance when the project has tokens or a component library, Visual quality when a prototype or Figma reference exists to compare against. Both questions MUST be in a SINGLE AskUserQuestion call.
 
 After user selects areas, ask a scoping question:
 
@@ -97,6 +96,8 @@ options:
 
 If "Specific page or flow": ask which one.
 
+When "Whole app" is selected together with multiple review areas, Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-full-review/SKILL.md` and follow its instructions inline as the assessment backbone for Step 4, layering the selected areas onto its structure (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`).
+
 ## Step 3: Read reference material
 
 Before starting the review, Read the relevant reference files from the plugin's knowledge base. Look for `DESIGN_ENGINEER_PLUGIN_ROOT` in your context – it contains the absolute path to the plugin directory. Use it to resolve file paths.
@@ -110,7 +111,7 @@ For each selected area, Read these reference files BEFORE analyzing code:
 | Accessibility | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-accessibility/references/` |
 | Design system compliance | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/references/` |
 | Figma comparison | If Figma plugin is connected, use `get_design_context` for structured design data; otherwise fall back to screenshots provided by the user |
-| Psychology scan | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-full-scan/references/principles-master.md` |
+| Psychology scan | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/psych-full-scan/references/master-scan-criteria.md` |
 | Ethics review | `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-ethics-review/references/` |
 
 This reference material is what makes the plugin's review better than a generic AI review. Do not skip reading it.
@@ -118,6 +119,8 @@ This reference material is what makes the plugin's review better than a generic 
 ## Step 4: Execute the review
 
 Agents CAN run for analysis. But after an agent completes, parse its output and present findings one at a time with AskUserQuestion interaction.
+
+**Capture the rendered UI before analyzing code.** When Playwright is available and the app runs locally (start the dev server if needed), navigate to the in-scope pages and save a screenshot of each: `mkdir -p .design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/` first, then capture with an explicit `filename` of `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/review-<page-slug>.png` (the plugin's Playwright hygiene hook denies unprefixed or absolute paths). Ground visual-quality, accessibility, and UX findings in the rendered UI plus the code – spacing, contrast, and keyboard behavior are exactly what code reading alone misses. If Playwright is unavailable or the app cannot run, proceed code-only and tell the user in one sentence that the findings are code-derived.
 
 1. Read the relevant code yourself or run the appropriate agent
 2. Announce: "I found N findings. Here's finding 1 of N..."
@@ -174,12 +177,18 @@ Collect every finding for which the user picked a recommendation (rec 1, rec 2, 
 
 If there are fixes to make:
 1. Present the list of selected fixes – each line names the finding AND the chosen recommendation, so the user can confirm at a glance
-2. Read the plan template at the plugin's `skills/meta-setup/references/plan-template.md`
+2. Read the plan template at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-setup/references/plan-template.md`
 3. Use `EnterPlanMode` to create ONE structured plan covering all fixes. The plan MUST implement the recommendation the user picked for each finding – never silently substitute the agent's recommended pick when the user chose an alternative or a custom "Other" approach
 4. `ExitPlanMode` for user approval
-5. IMMEDIATELY copy approved plan to `plans/[YYYY-MM-DD]-[name].md`
-6. Execute per the plan workflow (CLAUDE.md): phase by phase, QA per phase
-7. After all fixes: trigger `meta-document` to record what changed and why
+5. IMMEDIATELY copy approved plan to `.design-engineer-plugin/plans/[YYYY-MM-DD]-[name].md` (create the directory if it doesn't exist)
+6. Execute the fixes with this loop (spelled out here because the plugin's dev conventions are not loaded in user sessions):
+   - If the project is a git repo and the current branch is `main` or `master`, create a feature branch first (e.g. `fix/design-review-[YYYY-MM-DD]`)
+   - Implement one phase at a time – never batch multiple phases into a single turn
+   - For UI fixes, verify in the browser via Playwright: `mkdir -p` the directory, then save screenshots to `.design-engineer-plugin/temporary/playwright/<YYYY-MM-DD-HHMMSS>/<descriptive-name>.png`
+   - Present each phase with its QA instructions and WAIT for the user's approval before continuing
+   - After approval, commit and push that phase by Reading `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/dev-github-workflow/SKILL.md` and following its Mode 1 instructions inline (do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`)
+   - After all fixes: if any fix was Large-tier (new component or new file), dispatch the `design-system-auditor` agent scoped to the changed paths before item 7. Include a `PLUGIN_ROOT: <absolute path>` line (the resolved DESIGN_ENGINEER_PLUGIN_ROOT from your context) in the Task prompt so the agent can Read the plugin's reference files
+7. After all fixes: Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/meta-document/SKILL.md` and follow its instructions inline (do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true`) to record what changed and why
 
 ## Post-review
 
@@ -217,11 +226,16 @@ IMPORTANT: Every transition point in the review flow MUST use AskUserQuestion. N
 
 ## Step A1: Page-by-page commercial audit (`audit` argument)
 
-This branch is for designers hired to improve an existing commercial app. It walks every page (or a user-named subset), runs the standard review agents per page, captures the designer's professional feedback per page alongside the AI findings, and synthesizes a redesign brief at the end.
+This branch is for designers hired to improve an existing commercial app. It walks every page (or a user-named subset), runs the four review passes per page, captures the designer's professional feedback per page alongside the AI findings, and synthesizes a redesign brief at the end.
 
 ### A1.1: Verify project context
 
-1. Read `.design-engineer-plugin/config.yaml` `project.context.shipped_ui`. If `false` (or the field is missing), tell the user audit needs a shipped product to walk; offer to fall back to single-page review or route to the design pipeline. Do not proceed.
+1. Read `.design-engineer-plugin/config.yaml` and treat the product as shipped when ANY of these signals holds:
+   - `project.context.shipped_ui: true`
+   - `project_type: new` AND a top-level `status: complete` line – the completion marker development.md writes when the from-scratch pipeline finishes (the same `returning_complete` signal launch.md Step 0 and hooks/de-start-state.sh use)
+   - both fields are absent, but a quick filesystem check finds 1+ `.tsx`/`.jsx`/`.vue`/`.svelte` files in `src/components/`, `app/components/`, top-level `components/`, or an equivalent component directory (the same fallback development.md Step 1.6 uses)
+
+   Only when all three signals indicate greenfield: tell the user audit needs a shipped product to walk; offer to fall back to single-page review or route to the design pipeline. Do not proceed.
 2. Confirm Playwright is available (bundled MCP since v4.3.0 – should be).
 
 ### A1.2: Scope the audit
@@ -235,22 +249,26 @@ If the user picks "I'll list URLs / paths", collect them via a follow-up. If the
 
 ### A1.3: Per-page loop
 
-The per-page audit work – capturing each page and running the AI agents on it – is independent across pages and can be a workflow candidate. Before starting, decide how to run the per-page AI passes:
+The per-page audit work – capturing each page and running the four review passes on it – is independent across pages and can be a workflow candidate. Before starting, decide how to run the per-page passes:
 
 **Per-page audit – workflow candidate.** When the page set is large (the user picked a higher cap, e.g. up to 15 / 30 / no cap), offer to fan it out: "I can audit these pages as a workflow – one agent per page, run in parallel, with results synthesized into one bundle – or audit them inline one at a time. Use a workflow to run the per-page audits?"
 
 - **Availability gate**: workflows require Claude Code v2.1.154+ on a paid plan. If workflows are unavailable or the user declines, fall back to the inline single-pass loop below – nothing breaks.
-- **If the user opts in and workflows are available**: dispatch one agent per page (capped per the user's cap), each performing the Capture + Run-AI-agents steps (1–2 below) for its page and returning its findings bundle. When the workflow returns, synthesize the per-page bundles. **The designer-feedback capture (step 4 below) does NOT run inside the workflow** – workflows take no mid-run input – so it happens AFTER the workflow run, page by page, in the main conversation (see "After the AI passes" below).
+- **If the user opts in and workflows are available**: dispatch one agent per page (capped per the user's cap), each performing the Capture + review-pass steps (1–2 below) for its page and returning its findings bundle. Each page agent performs all four review passes ITSELF, as analysis lenses – it must NOT dispatch subagents (subagents cannot spawn subagents) and must NOT use the `Skill` tool. Before dispatching, resolve `${DESIGN_ENGINEER_PLUGIN_ROOT}` from your context and embed the four absolute reference paths directly in every page-agent prompt – `<root>/agents/psych-scanner.md`, `<root>/agents/design-system-auditor.md`, `<root>/skills/ui-aesthetic-review/SKILL.md`, `<root>/skills/ux-motivation-audit/SKILL.md` – so the agent can Read them as its lens material; subagents do not receive the plugin-root context line. When the workflow returns, synthesize the per-page bundles. **The designer-feedback capture (step 4 below) does NOT run inside the workflow** – workflows take no mid-run input – so it happens AFTER the workflow run, page by page, in the main conversation (see "After the AI passes" below).
 - **Inline fallback (always available, single pass)**: run steps 1–5 below as a loop, one page at a time, in the main conversation.
+
+If a dispatched agent returns a `BLOCKED – needs user input` section, relay its question to the user via AskUserQuestion (after the run, for workflow dispatches – workflows take no mid-run input), then re-dispatch that agent with the answer and the agent's progress summary included in the prompt.
 
 For each page (capped per the user's cap), the AI passes are:
 
 1. **Capture**: navigate via Playwright → take a screenshot → snapshot the DOM/structure. Save the screenshot to `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audit/[page-slug]/screenshot.png`.
-2. **Run AI agents** in this order, gathering findings into one in-memory bundle per page:
-   - `psych-scanner` (cognitive load, decision fatigue, dark patterns, motivation) – see `agents/psych-scanner.md`
-   - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) – see `skills/ui-aesthetic-review/`
-   - `design-system-auditor` (token usage, hardcoded styles, monolithic views, gallery audit if applicable) – see `agents/design-system-auditor.md`
-   - `ux-motivation-audit` (screen-level psychology) – see `skills/ux-motivation-audit/`
+2. **Run the four review passes** in this order, gathering findings into one in-memory bundle per page. On the inline path, two passes are agent dispatches and two are skills read inline:
+   - `psych-scanner` (cognitive load, decision fatigue, dark patterns, motivation) – dispatch the agent defined at `agents/psych-scanner.md`
+   - `ui-aesthetic-review` (4-lens critique, AI Slop Test, anti-patterns) – Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-aesthetic-review/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`.
+   - `design-system-auditor` (token usage, hardcoded styles, monolithic views, gallery audit if applicable) – dispatch the agent defined at `agents/design-system-auditor.md`
+   - `ux-motivation-audit` (screen-level psychology) – Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ux-motivation-audit/SKILL.md` and follow its instructions inline. Do NOT use the `Skill` tool – plugin skills set `disable-model-invocation: true`.
+
+   Any Task prompt that dispatches a plugin agent here – `design-system-auditor` in particular – MUST include a line `PLUGIN_ROOT: <absolute path>` carrying the resolved DESIGN_ENGINEER_PLUGIN_ROOT from your context, so the agent can Read the plugin's reference files (agents do not inherit this conversation).
 
 **After the AI passes** (inline per page, or page by page once the workflow returns – the designer-feedback capture is always a main-conversation step because workflows take no mid-run input):
 
@@ -267,16 +285,16 @@ For each page (capped per the user's cap), the AI passes are:
 
 ## AI findings
 
-### Psychology (psych-scanner)
+### Psychology
 [findings]
 
-### Visual / aesthetic (ui-aesthetic-review)
+### Visual / aesthetic
 [findings]
 
-### Design system compliance (design-system-auditor)
+### Design system compliance
 [findings]
 
-### Motivation / UX (ux-motivation-audit)
+### Motivation / UX
 [findings]
 
 ## Designer's feedback
@@ -297,8 +315,14 @@ After all pages: write `.design-engineer-plugin/design/reviews/[YYYY-MM-DD]-audi
 - Cross-page patterns (e.g., "same hardcoded color used on 8 of 14 pages")
 - Top redesign priorities ranked by combined AI + designer signal
 - Per-page links back to the individual audit files
-- Recommended next step (route to `/design-engineer:development` with this brief, or to `/design-engineer:discovery feature-spec` for specific feature redesigns)
+- Recommended next step (implement the brief via `/design-engineer:development`, or write minimal specs for selected pages via `/design-engineer:discovery feature-spec` – SUMMARY.md is read in later sessions, so plain command names are correct here)
 
 ### A1.5: Hand off
 
-Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement priority fixes", description: "Route to /design-engineer:development with the brief"}, {label: "Spec specific feature redesigns", description: "Route to /design-engineer:discovery feature-spec for selected pages"}, {label: "Document and stop", description: "Brief is saved; pick up later"}]`.
+Ask via AskUserQuestion: question="What's next?" options: `[{label: "Implement priority fixes", description: "Hand off to development with the brief"}, {label: "Spec specific feature redesigns", description: "Write a minimal feature spec for selected pages"}, {label: "Document and stop", description: "Brief is saved; pick up later"}]`.
+
+On "Implement priority fixes": announce the hand-off in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/development.md` and follow its instructions inline, carrying forward the brief (the SUMMARY.md path and its top redesign priorities) as the feature plan.
+
+On "Spec specific feature redesigns": ask which pages, announce the hand-off in one sentence, then Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/commands/discovery.md` and follow its Step F1 (`feature-spec`) branch inline for each selected page – `$ARGUMENTS` is not substituted on an inline Read, so jump to Step F1 directly, feeding that page's audit findings as the feature description.
+
+On "Document and stop": confirm the brief's saved path and end the session; the user can pick up later with `/design-engineer:launch`.

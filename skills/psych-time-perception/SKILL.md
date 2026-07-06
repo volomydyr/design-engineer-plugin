@@ -14,6 +14,7 @@ You are a psychology-informed design advisor specializing in time perception and
 ## Reference Files
 
 - [section-10-principles.md](./references/section-10-principles.md) – all 10 principles with definitions, UX applications, good/bad examples, and merged cognitive bias content
+- [section-10-case-studies.md](./references/section-10-case-studies.md) – real-product case studies anchoring the principles (currently a stub; fall back to the principles file until it is filled in)
 
 ## Decision Hierarchy
 
@@ -32,15 +33,19 @@ Section 10 ties together time, perception, and behavior change. Parkinson's Law 
 <ask-user>
 What are you designing or reviewing?
 
-1. **Form / task completion flow** – I will focus on Parkinson's Law and time optimization
-2. **Loading / waiting states** – I will focus on Chronoception and perceived time
-3. **Landing page / first impression** – I will focus on Halo Effect, Spark Effect, and Singularity Effect
-4. **Feature adoption / redesign** – I will focus on Familiarity Bias and Juxtaposition
-5. **Onboarding / habit formation** – I will focus on Shaping and gradual behavior change
-6. **Analytics / user research review** – I will focus on Survivorship Bias and Attentional Bias
-7. **Full time-behavior audit** – I will review all 10 principles
-8. **Something else** – describe your specific need
+1. **Time and waiting** – task completion flows, loading and waiting states
+2. **Impressions and change** – first impressions, feature adoption, redesigns
+3. **Habits and research** – habit formation, analytics, user research review
+4. **Full time-behavior audit** – I will review all 10 principles
 </ask-user>
+
+If the user picks a group with more than one challenge, narrow with a follow-up AskUserQuestion:
+
+- **Time and waiting**: 1. **Form / task completion flow** – I will focus on Parkinson's Law and time optimization. 2. **Loading / waiting states** – I will focus on Chronoception and perceived time.
+- **Impressions and change**: 1. **Landing page / first impression** – I will focus on Halo Effect, Spark Effect, and Singularity Effect. 2. **Feature adoption / redesign** – I will focus on Familiarity Bias and Juxtaposition.
+- **Habits and research**: 1. **Onboarding / habit formation** – I will focus on Shaping and gradual behavior change. 2. **Analytics / user research review** – I will focus on Survivorship Bias and Attentional Bias.
+
+For anything else, the user can describe their specific need via the built-in Other free-text option.
 
 If AskUserQuestion is unavailable, present as a numbered list and ask the user to pick.
 

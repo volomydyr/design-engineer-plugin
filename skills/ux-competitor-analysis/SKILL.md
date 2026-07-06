@@ -13,7 +13,7 @@ license: MIT
 
 ## Existing-project skip-check
 
-Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context.existing_competitor_analysis`. If it indicates the project already has a competitor analysis (in repo, or via an off-repo reference such as Notion / Confluence captured in `off_repo_references`), OR `project.context.shipped_ui: true` indicates an established product where regenerating from scratch isn't appropriate, AND the user did not explicitly request rerunning this skill, do not regenerate.
+Before doing the work below, read `.design-engineer-plugin/config.yaml` `project.context`. If `shipped_ui: true` (an established product where regenerating from scratch isn't appropriate), or `off_repo_references` names a source that plausibly already covers a competitor analysis (e.g. Notion / Confluence docs), and the user did not explicitly request rerunning this skill, do not regenerate.
 
 Instead:
 1. In one line, summarize what already exists (and where – repo path or off-repo reference) OR explain how the shipped product implies the competitive positioning.
@@ -49,7 +49,7 @@ If not, present each question as a numbered list and wait for a reply before pro
 
 3. **Create a research plan before executing any searches.** Define: what to research, what queries to run, what dimensions to compare, what gaps to look for.
 
-4. **Agent delegation**: Delegate the web research to the **ux-researcher** agent. Use the Agent tool to spawn it with a research plan that specifies: what to research, what queries to run, what dimensions to compare, what gaps to look for. Do not do the research yourself in the main conversation – the ux-researcher agent has specialized instructions for structured competitive analysis.
+4. **Agent delegation**: Delegate the web research to the **ux-researcher** agent. Use the Task tool to spawn it with a research plan that specifies: what to research, what queries to run, what dimensions to compare, what gaps to look for. Do not do the research yourself in the main conversation – the ux-researcher agent has specialized instructions for structured competitive analysis.
 
 5. **Output presentation rule**: Present output incrementally – one section at a time. After each section, discuss with the user, get their input, then move to the next. Never dump an entire deliverable at once.
 
@@ -127,7 +127,7 @@ Before doing per-competitor deep dives, sweep the communities your target audien
 
 **Tool routing — read this first to avoid the most common failure mode:**
 - **WebSearch** is for URL discovery only. Use queries like `site:reddit.com r/<community> <competitor or category>` or `site:reddit.com "<competitor>" review` to FIND relevant threads.
-- **Playwright** (`mcp__playwright__browser_navigate` + `browser_snapshot`) is what you actually use to READ those threads. Snippet results from WebSearch are NOT enough — you need to scroll through the actual discussion, follow links between threads, and read replies in context.
+- **Playwright** (the `browser_navigate` + `browser_snapshot` tools) is what you actually use to READ those threads. Playwright tool ids carry a server prefix – `mcp__plugin_design-engineer_playwright__<tool>` for the plugin's bundled server, or `mcp__playwright__<tool>` if the project has its own Playwright MCP; use whichever appears in your tool list. Snippet results from WebSearch are NOT enough — you need to scroll through the actual discussion, follow links between threads, and read replies in context.
 - **WebFetch** is fine for one-shot reads of marketing/blog/article pages but NOT for Reddit/HN/community pages. Those are dynamic and paginated; fetch returns a flat snapshot that misses most of the discussion.
 - **Default**: when the user says "look at Reddit" or "check what people discuss," reach for Playwright first, not WebSearch. WebSearch only to find the URL.
 
@@ -141,7 +141,7 @@ Steps:
 
 For each competitor (the user's known list + the new ones discovered in Phase 4a):
 1. **Marketing page** — `WebFetch` is fine here (one-shot read of structured copy). Capture pricing, value prop, target user.
-2. **Product UI** — `mcp__playwright__browser_navigate` + `browser_take_screenshot` to capture key screens for visual reference. UI quality is a research dimension.
+2. **Product UI** — the Playwright `browser_navigate` + `browser_take_screenshot` tools to capture key screens for visual reference. UI quality is a research dimension.
    - **Auth wall**: most products gate the actual UI behind login/signup. When Playwright redirects to `/login` or `/signup`, you have NOT seen the product — you have seen the auth wall. Never fabricate UX claims based on the marketing page alone. Surface an `AskUserQuestion` per the canonical "Auth wall fallback" protocol in CLAUDE.md: user provides test credentials, user signs up themselves and shares session, user explicitly approves temp-email throwaway-account signup (with ToS warning), or skip with `[AUTH-WALLED]` flag. Re-ask per competitor — consent doesn't transfer.
 3. **App Store / Play Store reviews** — Playwright (the listings are paginated; WebFetch misses most reviews).
 4. **Strategic gaps** — synthesize what's missing across competitors that this product could address.

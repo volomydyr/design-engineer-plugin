@@ -16,20 +16,6 @@ echo "--- Plugin & MCP Detection ---"
 PLUGINS_FOUND=()
 PLUGINS_MISSING=()
 
-# Read enabledPlugins from ~/.claude/settings.json
-ENABLED_PLUGINS=""
-if [ -f ~/.claude/settings.json ]; then
-  ENABLED_PLUGINS=$(python3 -c "
-import json, sys
-try:
-    with open('$HOME/.claude/settings.json') as f:
-        data = json.load(f)
-    plugins = data.get('enabledPlugins', [])
-    print(' '.join(plugins))
-except Exception:
-    pass
-" 2>/dev/null || true)
-fi
 
 # Context7, Figma, and Playwright are bundled with the design-engineer plugin (v4.3.0+).
 # We still detect their availability so we can surface accurate status – but the messaging
@@ -84,18 +70,23 @@ else
   echo "[MISSING] Plugin not yet configured"
 fi
 
-# Check for existing deliverables folder
-if [ -d "design" ]; then
-  echo "[FOUND] design/ folder exists"
-  FILE_COUNT=$(find design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
+# Check for existing deliverables folder (canonical: .design-engineer-plugin/design)
+if [ -d ".design-engineer-plugin/design" ]; then
+  echo "[FOUND] .design-engineer-plugin/design/ folder exists"
+  FILE_COUNT=$(find .design-engineer-plugin/design -type f -not -name ".gitkeep" -not -name ".dependencies.yaml" -not -name ".DS_Store" 2>/dev/null | wc -l | tr -d ' ')
   echo "        Contains $FILE_COUNT deliverable file(s)"
 else
   echo "[MISSING] No deliverables folder"
 fi
 
+# Legacy root-level design/ folder is informational only
+if [ -d "design" ]; then
+  echo "[INFO] legacy root-level design/ folder present"
+fi
+
 # Check for existing source code (indicators of development progress)
 HAS_CODE=false
-if [ -f "package.json" ] || [ -f "Gemfile" ] || [ -f "pyproject.toml" ] || [ -f "requirements.txt" ] || [ -f "tsconfig.json" ] || [ -f "Cargo.toml" ] || [ -f "go.mod" ] || [ -d "*.xcodeproj" ] || ls *.xcodeproj 1>/dev/null 2>&1; then
+if [ -f "package.json" ] || [ -f "Gemfile" ] || [ -f "pyproject.toml" ] || [ -f "requirements.txt" ] || [ -f "tsconfig.json" ] || [ -f "Cargo.toml" ] || [ -f "go.mod" ] || ls *.xcodeproj 1>/dev/null 2>&1; then
   HAS_CODE=true
   echo "[FOUND] Source code detected -- development appears to have started"
 else
@@ -209,7 +200,7 @@ echo "Plugins missing: ${PLUGINS_MISSING[*]:-none}"
 echo "Git:            $([ -d '.git' ] && echo 'yes' || echo 'no')"
 echo "CLAUDE.md:      $([ -f 'CLAUDE.md' ] && echo 'yes' || echo 'no')"
 echo "Config:         $([ -f '.design-engineer-plugin/config.yaml' ] && echo 'yes' || echo 'no')"
-echo "Deliverables:   $([ -d 'design' ] && echo 'yes' || echo 'no')"
+echo "Deliverables:   $([ -d '.design-engineer-plugin/design' ] && echo 'yes' || echo 'no')"
 echo "Source code:    $HAS_CODE"
 echo ""
 echo "=== Detection Complete ==="
