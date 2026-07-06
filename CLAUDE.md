@@ -532,6 +532,14 @@ Everything the plugin produces lives under `.design-engineer-plugin/` (one umbre
 
 **Stack-agnostic boundary:** the plugin's `.gitignore` block only ignores paths the plugin itself guarantees to write — `.design-engineer-plugin/temporary/`. Framework-specific outputs (test runner reports, build caches, native build artifacts, language ecosystem caches) are the user's responsibility to add to their own `.gitignore` outside the plugin's fenced block — since they vary by stack. The plugin doesn't presume Playwright, npm, Next.js, Xcode, Gradle, or any specific tool.
 
+## Browser automation
+
+Playwright is the plugin's one and only browser tool. Every browser action — navigate, screenshot, snapshot, click, fill, scroll, resize, visual verification, a `/design-engineer:review audit`, recreating a web frontend — runs through the bundled Playwright MCP (`mcp__plugin_design-engineer_playwright__*`, or a user-installed `mcp__playwright__*` if present).
+
+- **Never reach for any other browser tool.** Do not use the Claude-in-Chrome browser extension, the `agent-browser` skill, `playwright-cli`, or any other browser automation, even when it is available in the session. If you catch yourself about to, stop and use the Playwright MCP.
+- **Never claim Playwright is unavailable, locked, or "in use by another instance."** There is no such lock, and multiple Playwright sessions coexist without conflict. This is a false excuse the model invents to justify a fallback — do not. Launch Playwright and use it directly.
+- The ONLY legitimate browser blocker is a **remote** site's bot-wall or auth-wall (Cloudflare, captcha, login gate). Handle those with the bot-block / auth-wall fallback (stop and ask the user, per the sections below) — never by switching to a different browser tool. A local tooling problem is never a reason to skip browser verification or to switch tools.
+
 ## Playwright filesystem hygiene
 
 Playwright captures (screenshots, snapshots, traces) MUST land in one of the canonical paths below. Without an explicit `filename` argument, Playwright MCP writes to the project root, which pollutes the working tree across long sessions. The plugin enforces this contract via the `de-playwright-path-hook.js` PreToolUse hook on `browser_take_screenshot`, matched for both the bundled Playwright server (`mcp__plugin_design-engineer_playwright__*`) and a user-installed standalone `mcp__playwright__*` server – `filename` values outside the allowed prefixes (`.design-engineer-plugin/` and `tests/`) are denied with a structured help message.

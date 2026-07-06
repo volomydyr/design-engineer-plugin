@@ -236,7 +236,7 @@ This branch is for designers hired to improve an existing commercial app. It wal
    - both fields are absent, but a quick filesystem check finds 1+ `.tsx`/`.jsx`/`.vue`/`.svelte` files in `src/components/`, `app/components/`, top-level `components/`, or an equivalent component directory (the same fallback development.md Step 1.6 uses)
 
    Only when all three signals indicate greenfield: tell the user audit needs a shipped product to walk; offer to fall back to single-page review or route to the design pipeline. Do not proceed.
-2. Confirm Playwright is available (bundled MCP since v4.3.0 – should be).
+2. Use the bundled Playwright MCP for every browser step in this audit – navigate, screenshot, snapshot, real-click at each viewport. Never use the Claude-in-Chrome extension, the `agent-browser` skill, or any other browser tool, and never treat Playwright as "locked" or "in use by another instance" (it is not – see the Browser automation rule in CLAUDE.md). Launch it and use it directly.
 
 ### A1.2: Scope the audit
 
