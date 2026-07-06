@@ -463,7 +463,9 @@ This is especially important in UI copy – prototypes, components, and any gene
    - Signposting ("Let's dive in", "Let's explore", "Here's what you need to know")
    - Generic positive conclusions ("The future looks bright", "Exciting times lie ahead")
    - Filler phrases ("In order to", "Due to the fact that", "It is important to note that")
-5. **AskUserQuestion must always have 2–4 options** – never send an AskUserQuestion with only 1 option. The minimum is 2. Always specify `multiSelect: true` or `multiSelect: false` explicitly. Use `multiSelect: true` when multiple answers are valid (failure modes, risk assessment, feature selection, review areas, psychology skills). Use `multiSelect: false` when the user must choose one direction (mode, approach, framework, scope).
+5. **Every question to the user goes through the `AskUserQuestion` tool – never an inline prose question.** Any time you need the user to choose, confirm, or clarify — a direction, a default, a yes/no, "which of these", "should I also…" — you MUST ask it with the `AskUserQuestion` tool (with the numbered-list fallback only when the tool is unavailable). Do NOT write the question as a sentence in your message and wait for a typed reply. This applies everywhere: clarify steps, design decisions, confirmations mid-task, spec choices. If you catch yourself writing "do you want…", "should I…", "would you prefer…", or "let me know which" in prose, stop and issue an `AskUserQuestion` instead. Keeping it light means fewer questions or a single focused one — not dropping to prose.
+
+6. **AskUserQuestion must always have 2–4 options** – never send an AskUserQuestion with only 1 option. The minimum is 2. Always specify `multiSelect: true` or `multiSelect: false` explicitly. Use `multiSelect: true` when multiple answers are valid (failure modes, risk assessment, feature selection, review areas, psychology skills). Use `multiSelect: false` when the user must choose one direction (mode, approach, framework, scope).
 
    **When a menu needs more than 4 choices**, never emit an AskUserQuestion with more than 4 options. Use one of these two patterns instead:
    - **Group and narrow** (single-choice menus): fold the choices into at most 4 umbrella options, then run a follow-up AskUserQuestion round to narrow within the chosen group.
@@ -471,7 +473,7 @@ This is especially important in UI copy – prototypes, components, and any gene
 
    Never add an explicit "Other" / "Something else" option – AskUserQuestion has a built-in free-text Other, so an explicit one is a wasted slot.
 
-6. **Pad the chat before AskUserQuestion** – on most clients, the question panel overlays the bottom of the chat, hiding whatever you wrote just above it. Before EVERY AskUserQuestion call, end your preceding message with a vertical spacer so the overlay covers the spacer instead of substantive content. Use this exact spacer block (it renders as visible vertical space in markdown clients):
+7. **Pad the chat before AskUserQuestion** – on most clients, the question panel overlays the bottom of the chat, hiding whatever you wrote just above it. Before EVERY AskUserQuestion call, end your preceding message with a vertical spacer so the overlay covers the spacer instead of substantive content. Use this exact spacer block (it renders as visible vertical space in markdown clients):
 
    ```
    ───────────────────

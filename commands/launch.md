@@ -76,7 +76,7 @@ The built-in free-form "Other" path is always available: the user can ignore the
 
 When a front-door is picked OR free-form text arrives:
 
-1. **Ask for the specifics** in natural language. What design, what exactly should change, what does "better" mean here, what do they already have (a feedback video, a reference site, a Figma file). Keep it conversational – one or two focused questions, not a form.
+1. **Ask for the specifics** with the `AskUserQuestion` tool (2–4 options, the canonical spacer above it, numbered-list fallback). What design, what exactly should change, what does "better" mean here, what do they already have (a feedback video, a reference site, a Figma file). Keep it light – one focused question, or two at most – but always through `AskUserQuestion`, never as an inline prose question the user has to answer by typing.
 2. **Read the project context already in `config.yaml`** under `project.context`: `existing_design_system`, `shipped_ui`, `component_count`, `off_repo_references`. Use it to ground the dispatch (reuse-heavy when a design system and shipped UI exist; bind to real tokens and components, do not reinvent).
 3. **Dispatch per the task→dispatch map below**, matched to what the user actually described – the most capable tool that fits, not the heaviest by default.
 
@@ -252,7 +252,7 @@ The install needs to write to ~/.claude, which is blocked here. Paste this into 
 ! mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
 ````
 
-**Resume rule**: if the user runs the fallback paste (or its shell output appears), acknowledge in one line and resume the flow exactly where it left off. Never re-ask, never block on it.
+**If you used the fallback, STOP and wait.** Do not move on to Step 4 or any design work while a manual command is pending — that leaves the user mid-install while you barrel ahead. End your turn after presenting the command and wait. When the user runs it (or its output appears), or they explicitly say to skip the status line, acknowledge in one line and continue to Step 4. The automatic path in (c) does not need this — the approval prompt already pauses the turn.
 
 #### Step 4: Ask the starting point, then clarify and dispatch
 
