@@ -65,7 +65,7 @@ Then end the chat message with the canonical 3-horizontal-rule spacer and call `
 - header: "Starting point"
 - options:
   - label: "Act on feedback", description: "I have feedback to turn into changes – a video walkthrough, notes, messages, or a transcript"
-  - label: "Redesign a design", description: "Rework an existing screen, page, or flow so it looks and works better"
+  - label: "Improve an existing design", description: "Rework an existing screen, page, or flow so it looks and works better"
   - label: "Explore a concept", description: "Try directions for a new idea before committing to one"
   - label: "Audit a design", description: "Review a design for UX, accessibility, visual quality, or psychology issues"
 - multiSelect: false
@@ -106,7 +106,7 @@ This step runs once per completed task. For act-on-feedback checklists it runs o
 This is the ONE authoritative routing map for the iterate flow. The onboarding Step 4 hand-off references this section – do not restate it elsewhere.
 
 - **Act on feedback** → Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/feedback-to-todos/SKILL.md` and follow its instructions inline (it ingests the video, notes, messages, or transcript into one grounded checklist), then feed items one at a time into the free-form scoped-edit loop below. Do NOT use the `Skill` tool.
-- **Redesign a design** → audit what exists first (Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` for the real tokens and component paths, plus grep the files), then `design-spec` for consequential UI only (graduated, never a blanket gate), then `frontend-implementer` to build, then `design-system-auditor` to verify, then Playwright to confirm in the browser, then optionally compose a `/goal` (suggest-and-wait). All skills load via Read + follow inline, never the `Skill` tool.
+- **Improve an existing design** → audit what exists first (Read `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/ui-design-system/SKILL.md` for the real tokens and component paths, plus grep the files), then `design-spec` for consequential UI only (graduated, never a blanket gate), then `frontend-implementer` to build, then `design-system-auditor` to verify, then Playwright to confirm in the browser, then optionally compose a `/goal` (suggest-and-wait). All skills load via Read + follow inline, never the `Skill` tool.
 - **Explore a concept** → a lighter inline pass plus `/design-engineer:prototype` for quick concepts; escalate to the Opus/xhigh design-exploration workflow ONLY for substantive concepts. Ask the user which (quick vs substantive) during the clarify step.
 - **Audit a design** → a single-design inline audit by default; escalate to the `/design-engineer:review audit` workflow ONLY if, after clarifying, the user actually has many pages. Never auto-spawn the full multi-page sweep.
 - **Build or add a feature** → hand off to `/design-engineer:discovery` – its existing-project branch asks how polished the spec needs to be (minimal feature-spec vs full feature flow), then routes to `/design-engineer:development`. Use this when the user wants a new capability rather than an edit to something that already exists.
@@ -227,12 +227,12 @@ Leave the legacy global flag `~/.claude/de-sound-enabled` untouched – other pr
 
 b) **Status line.** Explain: "The status line appears below your prompt and shows your model, how much context you have used, and your usage limits."
 
-Then immediately ask via `AskUserQuestion` (spacer above). Do NOT use the built-in `statusline-setup` agent, and do NOT write to `~/.claude/settings.json` or copy files to `~/.claude/hooks/` yourself — Auto mode's permission classifier blocks writes outside the working directory. The install runs via the paste block below.
+Then immediately ask via `AskUserQuestion` (spacer above). Do NOT use the built-in `statusline-setup` agent. On approval, install it yourself by running the command below with your shell — it writes to `~/.claude`, so Claude Code will ask you to approve one command. Only if that write is blocked (Auto permission mode can deny writes outside the working directory) fall back to the paste block in (c).
 
 - question: "Install the status line?"
 - header: "Status line"
 - options:
-  - label: "Install it", description: "I'll run the install command you give me in my next prompt"
+  - label: "Install it", description: "I'll install it for you – you just approve one prompt"
   - label: "Skip", description: "Re-run /design-engineer:launch later if I change my mind"
 - multiSelect: false
 
@@ -242,15 +242,17 @@ On "Install it", the status-line command for the paste block is (substituting th
 mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
 ```
 
-c) **Paste block.** The sound choice was already applied in (a) as a CWD write – only the status-line install needs a paste command (it writes outside the working directory). If the user opted into the status line, emit ONE paste block with its command; if they skipped it, emit no paste block and move straight to Step 4:
+c) **Run the install.** If the user opted in, run the status-line command from (b) yourself with your shell (substitute the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`). It writes to `~/.claude`, so Claude Code will prompt you to approve one command — that is expected. On success, confirm: "Status line installed — it appears on your next prompt." If the user skipped, write nothing and move straight to Step 4.
+
+**Fallback (only if the write is blocked).** If Auto permission mode denies the write, present the command as a paste block for the user to run instead:
 
 ````
-To install the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
+The install needs to write to ~/.claude, which is blocked here. Paste this into your next prompt (the leading `!` runs it as a shell command):
 
 ! mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
 ````
 
-**Resume rule**: if a later user message is that paste (or its shell output), acknowledge it in one line and resume the flow exactly where it left off. If the user never pastes it, resume anyway – never re-ask, never block on the paste.
+**Resume rule**: if the user runs the fallback paste (or its shell output appears), acknowledge in one line and resume the flow exactly where it left off. Never re-ask, never block on it.
 
 #### Step 4: Ask the starting point, then clarify and dispatch
 

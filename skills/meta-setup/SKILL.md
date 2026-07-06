@@ -213,18 +213,16 @@ options:
 
 If "Yes" or "Reinstall":
 
-Do NOT write to `~/.claude/settings.json` or copy files into `~/.claude/hooks/` yourself – Auto mode's permission classifier blocks writes outside the working directory. Instead, present the install command to the user and have them run it in their next prompt.
+On approval, install it yourself by running the command below with your shell. It writes to `~/.claude`, so Claude Code will ask you to approve one command; that is expected. Only if the write is blocked (Auto permission mode can deny writes outside the working directory) fall back to presenting it as a `!` paste block for the user to run.
 
-1. If a status line is already configured (Reinstall branch), inform the user: "A status line is already configured. The command below will overwrite the `statusLine` entry. The previous script file is not deleted."
-2. Output exactly this block to the chat (substitute the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):
+1. If a status line is already configured (Reinstall branch), first tell the user: "A status line is already configured – this overwrites the `statusLine` entry. The previous script file is not deleted."
+2. Run this command yourself (substitute the resolved plugin root for `${DESIGN_ENGINEER_PLUGIN_ROOT}`):
 
-````
-To install the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
+```
+mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
+```
 
-! mkdir -p ~/.claude/hooks && cp ${DESIGN_ENGINEER_PLUGIN_ROOT}/hooks/de-statusline.js ~/.claude/hooks/de-statusline.js && node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};s.statusLine={type:"command",command:"node "+require("os").homedir()+"/.claude/hooks/de-statusline.js"};fs.mkdirSync(require("path").dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line installed.")'
-````
-
-3. Confirm: "Once you paste that command, the status line will appear on the next prompt."
+3. On success, confirm: "Status line installed – it appears on your next prompt." If the write was blocked, present the same command as a `!` paste block for the user to run instead.
 4. Explain the usage monitor: "The status line shows your model, context usage, and pipeline progress automatically. To also see your 5-hour and 7-day usage limits, you need to run a small monitor in a separate terminal window. Open a new terminal tab and run this command:"
 
 ```
@@ -237,17 +235,15 @@ node ~/.claude/hooks/de-statusline.js --watch
 
 If "Uninstall":
 
-Do NOT edit `~/.claude/settings.json` yourself – the same outside-CWD write restriction applies. Present the removal command to the user and have them run it in their next prompt.
+Run the removal command yourself with your shell – Claude Code will ask you to approve it. Only if the write is blocked fall back to presenting it as a `!` paste block for the user to run.
 
-1. Output exactly this block to the chat:
+1. Run this command yourself:
 
-````
-To remove the status line, paste this into your next prompt (the leading `!` runs it as a shell command):
+```
+node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};delete s.statusLine;fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line removed.")'
+```
 
-! node -e 'const f=require("os").homedir()+"/.claude/settings.json";const fs=require("fs");let s={};try{s=JSON.parse(fs.readFileSync(f,"utf8"))}catch{};delete s.statusLine;fs.writeFileSync(f,JSON.stringify(s,null,2));console.log("Status line removed.")'
-````
-
-2. Confirm: "Once you paste that command, the status line disappears from the next prompt. The script file at `~/.claude/hooks/de-statusline.js` stays on disk – reinstalling later only rewrites the settings entry."
+2. On success, confirm: "Status line removed – it disappears from your next prompt. The script file at `~/.claude/hooks/de-statusline.js` stays on disk, so reinstalling later only rewrites the settings entry." If the write was blocked, present the same command as a `!` paste block instead.
 
 If "Skip – already installed": make no changes and move on.
 
