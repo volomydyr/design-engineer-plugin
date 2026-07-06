@@ -30,10 +30,11 @@ You only need to remember `/design-engineer:launch`. It guides you to everything
 
 ### What makes it different
 
-- **51 skills** that teach how to think about problems, users, and psychology before writing code
-- **10 specialized agents** for research, implementation, testing, design system compliance, design exploration and spec authoring, and cross-session memory
-- **100+ psychology principles** the AI draws from when reviewing your work
-- **Grounded methodology** that keeps work traced to source, surfaces bot-block / auth-wall fallbacks for browser research instead of silently failing, and keeps deliverables at canonical paths
+- **51 skills** that teach you how to think about problems, users, psychology, and design before you write a single line of code
+- **Built-in discipline** that prevents common AI mistakes (scope creep, skipping tests, ignoring your requirements)
+- **10 specialized agents** that handle specific parts of the workflow
+- **A knowledge base** of 100+ psychology principles, design frameworks, and animation references that Claude draws from when reviewing your work
+- **Existing-project support** – for a product that already exists, you say what you want to work on, or pick a starting point, and the plugin runs the right skills for the task
 
 ### Where files live
 
