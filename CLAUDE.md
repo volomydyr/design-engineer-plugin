@@ -540,6 +540,15 @@ Playwright is the plugin's one and only browser tool. Every browser action — n
 - **Never claim Playwright is unavailable, locked, or "in use by another instance."** There is no such lock, and multiple Playwright sessions coexist without conflict. This is a false excuse the model invents to justify a fallback — do not. Launch Playwright and use it directly.
 - The ONLY legitimate browser blocker is a **remote** site's bot-wall or auth-wall (Cloudflare, captcha, login gate). Handle those with the bot-block / auth-wall fallback (stop and ask the user, per the sections below) — never by switching to a different browser tool. A local tooling problem is never a reason to skip browser verification or to switch tools.
 
+## Opening HTML for the user
+
+Whenever you write an HTML file for the user to look at — a prototype, a landing page, a design mockup, the component gallery, a per-screen redesign — open it for them automatically and say it is open. Never end with "open it directly", "open it in your browser", or just hand them a path to open themselves. Opening a file from a terminal is awkward, so the plugin does it.
+
+- Right after saving the file, run the OS open command on its path via a shell call: `open <file>` on macOS, `xdg-open <file>` on Linux, `start "" <file>` on Windows. If unsure of the platform, try `open` first.
+- Then confirm plainly, e.g. "Opened it in your browser — `<path>`." Keep the path in the message so the user can reopen it later.
+- Only if the open command genuinely fails (headless environment, no display) fall back to giving the path with one line: "I couldn't open it automatically here — open this: `<path>`."
+- This applies to every HTML artifact the plugin produces, in every flow.
+
 ## Playwright filesystem hygiene
 
 Playwright captures (screenshots, snapshots, traces) MUST land in one of the canonical paths below. Without an explicit `filename` argument, Playwright MCP writes to the project root, which pollutes the working tree across long sessions. The plugin enforces this contract via the `de-playwright-path-hook.js` PreToolUse hook on `browser_take_screenshot`, matched for both the bundled Playwright server (`mcp__plugin_design-engineer_playwright__*`) and a user-installed standalone `mcp__playwright__*` server – `filename` values outside the allowed prefixes (`.design-engineer-plugin/` and `tests/`) are denied with a structured help message.
