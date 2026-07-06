@@ -1,7 +1,6 @@
 ---
 name: ux-bias-audit
 description: "Applies a systematic bias audit process (Identify, Analyze, Design, Document) to audit or design user experiences. Use when reviewing existing products, designing new screens, or improving conversion flows. Do NOT use for full psychology compliance scanning; see psych-full-scan instead."
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

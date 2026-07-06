@@ -1,7 +1,6 @@
 ---
 name: dev-prototyping
 description: "Generates a single-file HTML prototype directly in Claude Code. One-pass approach: gather context, agree on a brief, generate the interactive prototype, iterate. Use for new products (after planning), new features for existing products, or redesigns. Pulls design context from planning documents or Figma designs."
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

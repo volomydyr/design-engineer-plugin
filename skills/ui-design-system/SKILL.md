@@ -1,7 +1,6 @@
 ---
 name: ui-design-system
 description: Guides creation of a code-first design system using atomic design patterns. Use when setting up design tokens, auditing design system compliance, or refactoring hardcoded styles into reusable tokens.
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

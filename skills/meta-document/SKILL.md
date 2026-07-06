@@ -1,7 +1,6 @@
 ---
 name: meta-document
 description: "Documents knowledge and engineers context for design projects. Stores project status, maintains living context files, and tracks cross-deliverable dependencies. Use when completing a major phase or when context needs to be preserved across sessions. Do NOT use for development context management; see dev-status-tracking instead."
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

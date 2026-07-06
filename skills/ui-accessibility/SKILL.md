@@ -1,7 +1,6 @@
 ---
 name: ui-accessibility
 description: Reviews designs and implementations for accessibility compliance including contrast, touch targets, and screen reader support. Use when auditing a product for accessibility or building features that must meet accessibility standards.
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

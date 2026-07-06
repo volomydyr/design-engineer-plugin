@@ -1,7 +1,6 @@
 ---
 name: design-spec
 description: Authors per-screen design specs that bind UI to a project's existing tokens and components, so implementation reuses what already exists instead of reinventing it. Use as a premium planning step before building consequential UI – net-new components or primary and reused surfaces of a feature – after the design system and references exist.
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

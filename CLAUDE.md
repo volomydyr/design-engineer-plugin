@@ -2,7 +2,7 @@
 
 ## Skill loading from commands (doc-compliant pattern)
 
-This plugin's skills all set `disable-model-invocation: true` (intentional — skills are libraries loaded by commands, not auto-discoverable workflows). The Skill tool will REJECT any attempt to invoke them programmatically with the error: `Skill <name> cannot be used with Skill tool due to disable-model-invocation`.
+MOST of this plugin's skills set `disable-model-invocation: true` (they are libraries loaded by commands, not auto-discoverable) — for those, the Skill tool REJECTS programmatic invocation (`Skill <name> cannot be used with Skill tool due to disable-model-invocation`) and you load them by reading the SKILL.md inline. A **curated auto-fire set** of iterate-flow skills deliberately leaves model-invocation ENABLED so Claude loads them on its own when the task is relevant (see "Auto-fire skills" below). Those may be invoked normally or read inline; everything else is read inline.
 
 **Therefore, never tell the model to "load the X skill" or "invoke the Y skill" in a command body.** The model interprets that as a Skill-tool call and the command crashes on the very first run.
 
@@ -22,7 +22,7 @@ This relies on a single, permission-free mechanism: **the plugin's UserPromptSub
 
 - **Bash injection (`` !`...` ``)** — documented at https://code.claude.com/docs/en/slash-commands.md#inject-dynamic-context, but Claude Code's permission system blocks `!`-prefix patterns at command-load time in Auto mode and any restrictive permission preset, with: `Shell command permission check failed for pattern "!...". Permission for this action has been denied. Reason: Insufficient information about the Bash command to evaluate; action is unverifiable.` v4.8.5 tried this approach and crashed `/design-engineer:launch` for users in Auto mode. Do NOT use bash injection in command bodies.
 - **`${CLAUDE_PLUGIN_ROOT}`** — officially documented for `hooks/hooks.json` `command` fields ONLY. Does not auto-expand inside slash command markdown bodies. Hooks may use it; commands may not.
-- **`Skill` tool to invoke plugin skills** — every plugin skill sets `disable-model-invocation: true`, so the Skill tool will reject them with `Skill <name> cannot be used with Skill tool due to disable-model-invocation`. The only correct way to load a skill is `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md and follow its instructions inline`.
+- **`Skill` tool on a disabled skill** — most plugin skills set `disable-model-invocation: true`, so the Skill tool rejects them (`Skill <name> cannot be used with Skill tool due to disable-model-invocation`); load those with `Read ${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<name>/SKILL.md and follow its instructions inline`. The curated auto-fire set (see "Auto-fire skills" below) is the exception — those are model-invocable, so Claude may load them on its own when relevant, and reading them inline still works too.
 
 When a command body instructs the model to run a fixed, known-in-advance Bash call (state detection, the sound-flag toggle, the tidy purge), `allowed-tools` frontmatter is the documented way to pre-permit exactly that call so default-permission sessions don't interrupt with a prompt – `commands/launch.md`, `commands/tidy.md`, and `commands/mute-unmute-sound.md` declare exact-string entries (no `:*` wildcards) for precisely their scripted calls and nothing broader.
 
@@ -31,7 +31,11 @@ When a command body instructs the model to run a fixed, known-in-advance Bash ca
 When a command needs to invoke skill instructions, write:
 
 ```markdown
-Read the SKILL.md at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` (substitute the resolved plugin root from the top of this file) and follow its instructions inline. Do NOT use the `Skill` tool — plugin skills set `disable-model-invocation: true` and the Skill tool will reject them.
+Read the SKILL.md at `${DESIGN_ENGINEER_PLUGIN_ROOT}/skills/<skill-name>/SKILL.md` (substitute the resolved plugin root from the top of this file) and follow its instructions inline. For the disabled majority, do NOT use the `Skill` tool (it rejects them). The auto-fire set may also be invoked normally, but reading inline always works and stays the default when a command orchestrates a specific skill.
+
+### Auto-fire skills (model-invocation enabled)
+
+These iterate-flow skills have `disable-model-invocation` REMOVED so Claude loads them automatically when the task is relevant, giving the existing-project flow its proactive, reach-for-the-right-tool behavior: `ui-design-system`, `ui-aesthetic-review`, `ui-accessibility`, `ui-design-to-code-qa`, `ui-references-moodboard`, `frontend-design`, `psych-full-scan`, `ux-full-review`, `ux-bias-audit`, `ux-ethics-review`, `ux-journey-mapping`, `feedback-to-todos`, `design-spec`, `dev-prototyping`, `meta-document`. Every OTHER skill stays `disable-model-invocation: true` (command-driven only). When Claude auto-loads one of these, let it — do not suppress it because of the "read inline" default above.
 ```
 
 The "do NOT use the Skill tool" guard is mandatory in every such instruction, as a backstop against the model defaulting to Skill-tool invocation.
@@ -119,7 +123,7 @@ When adding or modifying skills:
 
 - [ ] `name:` present and matches directory name
 - [ ] `description:` present, describes what it does AND when to use it
-- [ ] `disable-model-invocation: true` present on ALL skills
+- [ ] `disable-model-invocation: true` present on all skills EXCEPT the auto-fire set (the UI-craft, UX/psychology-review, task-entry, and documenting skills listed under "Auto-fire skills")
 - [ ] `model:` present – `sonnet` (default) or `haiku` (mechanical tasks)
 - [ ] `license: MIT` present on ALL skills
 - [ ] `compatibility:` present when skill has external dependencies (MCP servers, Node.js, Python, Bash)
@@ -158,7 +162,7 @@ When adding or modifying skills:
 
 ### The verified mechanics (read this first)
 
-A skill's `model:`/`effort:` frontmatter is **inert when the skill is loaded inline** – which is how all 51 plugin skills load. Every plugin skill sets `disable-model-invocation: true` and is loaded by reading its SKILL.md and following the instructions inline, so it runs at the **main session's** model and effort, not at whatever its own frontmatter declares. Frontmatter only takes effect when a skill is invoked through the Skill tool (disabled here) or for **agents** dispatched via Task.
+A skill's `model:`/`effort:` frontmatter is **inert when the skill is loaded inline** – which is how the command-driven majority load, so those run at the **main session's** model and effort. Two exceptions where frontmatter DOES apply: **agents** dispatched via Task, and the **auto-fire set** when Claude loads one through the Skill tool (model-invocation enabled). When an auto-fire skill is instead read inline by a command, it runs at the session model like the rest.
 
 Two consequences:
 

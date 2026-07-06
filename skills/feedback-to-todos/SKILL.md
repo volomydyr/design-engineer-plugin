@@ -1,7 +1,6 @@
 ---
 name: feedback-to-todos
 description: Turn feedback delivered in any form – a screen-recording walkthrough video, meeting notes or docs, Slack/text messages, or a transcript – into one faithful, literal FEEDBACK.md to-do list, grounded in the actual source (real transcript, real frames, real quotes), not guesses. Use whenever someone hands you feedback to act on – "here's a Loom from my manager", "go through this walkthrough", "I have notes from the design review", "act on this Slack thread", "here's the meeting transcript" – especially when the feedback drives code or design changes and getting the details exactly right matters. Sources are easy to misread, and skimming the audio or trusting a single glance leads to confident, wrong summaries; this merges multiple sources into one grounded list. Prefer this over ad-hoc "just read it" approaches.
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT

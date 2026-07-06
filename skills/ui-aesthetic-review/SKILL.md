@@ -1,7 +1,6 @@
 ---
 name: ui-aesthetic-review
 description: "Critiques implemented UI for craft quality using a 4-lens framework, 4 named tests, and the AI Slop Test. Use after building to identify where defaults replaced intentional design decisions and close the gap between correct and crafted. Do NOT use for design-to-code fidelity or token compliance; see ui-design-to-code-qa instead."
-disable-model-invocation: true
 model: sonnet
 effort: medium
 license: MIT
